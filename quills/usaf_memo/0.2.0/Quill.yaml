@@ -15,7 +15,6 @@ main:
         - ORG1/SYMBOL
         - ORG2/SYMBOL
       ui:
-        title: List of recipient organization(s)
         group: Addressing
       description: "Organization/office symbol in UPPERCASE. To address a specific person, add their rank and name in parentheses (e.g., 'ORG/SYMBOL (LT COL JANE DOE)'). For numerous recipients, use 'DISTRIBUTION'."
 
@@ -28,7 +27,6 @@ main:
         - 123 Street Ave
         - City ST 12345-6789
       ui:
-        title: "Sender information as array: [ORG/SYMBOL, 'Organization Name', 'Street Address', 'City State ZIP']"
         group: Addressing
       description: If recipients are on the same installation, use only the office symbol. For recipients on other installations, include the full mailing address to enable return correspondence.
 
@@ -37,7 +35,6 @@ main:
       required: true
       example: Subject of the Memorandum
       ui:
-        title: Subject of the memo
         group: Addressing
       description: Be brief and clear. Capitalize the first letter of each word except articles, prepositions, and conjunctions. Include suspense dates in parentheses if applicable.
 
@@ -48,7 +45,6 @@ main:
         - "FIRST M. LAST, Rank, USSF"
         - Duty Title
       ui:
-        title: Signature block lines
         group: Addressing
       description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Spell out 'Colonel' and general officer ranks."
 
@@ -56,7 +52,6 @@ main:
       type: string
       default: DEPARTMENT OF THE AIR FORCE
       ui:
-        title: Title in letterhead
         group: Letterhead
       description: Standard title. Only change for Joint Commands or DoW Agencies.
 
@@ -65,7 +60,6 @@ main:
       default:
         - HEADQUARTERS [UNIT NAME]
       ui:
-        title: Letterhead caption line(s)
         group: Letterhead
       description: The full organization name of your unit.
 
@@ -76,7 +70,6 @@ main:
         - dod
       default: dow
       ui:
-        title: Letterhead seal
         group: Letterhead
         compact: true
       description: Department of War (DoW) or Department of Defense (DoD) seal shown in the letterhead.
@@ -85,7 +78,6 @@ main:
       type: string
       default: ""
       ui:
-        title: Subtitle under letterhead seal
         group: Letterhead
         compact: true
       description: Optional line below the DoW seal (bold caps). Leave blank to omit.
@@ -94,7 +86,6 @@ main:
       type: string
       default: ""
       ui:
-        title: Tag line at bottom of memo
         group: Letterhead
       description: Organizational motto at the bottom of the page.
 
@@ -104,7 +95,6 @@ main:
       example:
         - "AFM 33-326, 31 July 2019, Preparing Official Communications"
       ui:
-        title: References for the memo
         group: Additional
       description: "Cite by organization, type, date, and title."
 
@@ -114,7 +104,6 @@ main:
       example:
         - Rank and Name, ORG/SYMBOL
       ui:
-        title: Carbon copy recipients
         group: Additional
       description: List office symbols of recipients to receive copies.
 
@@ -125,7 +114,6 @@ main:
         - ORG1/SYMBOL
         - ORG2/SYMBOL
       ui:
-        title: Distribution list. Used when "SEE DISTRIBUTION" is specified in `memo_for`.
         group: Additional
       description: Complete list of recipients if 'SEE DISTRIBUTION' is used in the 'Memo For' field.
 
@@ -135,7 +123,6 @@ main:
       example:
         - Attachment description, YYYY MMM DD
       ui:
-        title: List of attachments
         group: Additional
       description: List attachments in the order they are mentioned in the memo. Briefly describe each; do not use 'as stated' or abbreviations.
 
@@ -146,7 +133,6 @@ main:
         - daf
       default: usaf
       ui:
-        title: Memorandum style
         group: Additional
         compact: true
       description: "USAF memorandum (default) or DAF headquarters memorandum. DAF changes date formatting and body paragraph layout per AFH 33-337."
@@ -156,7 +142,6 @@ main:
       default: 12
       example: 12
       ui:
-        title: Font size for the memo text (pt)
         group: Additional
         compact: true
       description: Font size for the memo text (pt). Decimal values (e.g. 11.5) are supported.
@@ -165,7 +150,6 @@ main:
       type: date
       default: ""
       ui:
-        title: Date of memo (YYYY-MM-DD); defaults to today
         group: Additional
         compact: true
       description: YYYY-MM-DD. Leave blank to use today's date.
@@ -181,7 +165,6 @@ main:
         - TOP SECRET
       default: ""
       ui:
-        title: Classification level of the memo that displays in the banner
         group: Additional
         compact: true
       description: "Select the classification marking displayed in the header/footer banner. Banner colors follow DoD/CAPCO marking guidance (UNCLASSIFIED green, CUI/CONFIDENTIAL black, SECRET red, TOP SECRET orange). Follow AFI 31-401 and applicable DoD guidance. Leave blank to omit the banner."
@@ -190,7 +173,6 @@ main:
       type: string
       default: ""
       ui:
-        title: Dissemination control marking (portion after //)
         group: Additional
         compact: true
       description: "Optional marking appended after double slash (e.g. NF with classification CUI renders as CUI//NF). Leave blank to show only the classification with no //."
@@ -205,14 +187,12 @@ card_types:
         type: string
         default: ORG/SYMBOL
         ui:
-          title: From office/symbol
           group: Addressing
         description: "Office symbol or Rank Name of the endorsing official (e.g., 'ORG/SYMBOL')."
       for:
         type: string
         default: ORG/SYMBOL
         ui:
-          title: To office/symbol
           group: Addressing
         description: Office symbol or organization receiving the endorsed memo.
       signature_block:
@@ -225,7 +205,6 @@ card_types:
           - "FIRST M. LAST, Rank, USAF"
           - Duty Title
         ui:
-          title: Signature block lines
           group: Addressing
         description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
       format:
@@ -236,7 +215,6 @@ card_types:
           - separate_page
         default: standard
         ui:
-          title: Indorsement format
           group: Additional
         description: "Format style: 'standard' (formal on same page), 'informal' (less formal routing), or 'separate_page' (starts on new page)."
       action:
@@ -247,24 +225,20 @@ card_types:
           - approve
           - disapprove
         ui:
-          title: Action Decision
           group: Addressing
         description: "Action taken by the endorser. Use 'none' to hide the Approve/Disapprove line entirely, 'undecided' to display the line with neither option circled, 'approve' or 'disapprove' to circle the selected option."
       attachments:
         type: array
         ui:
-          title: Attachments for this endorsement
           group: Additional
         description: List of attachments specific to this endorsement.
       cc:
         type: array
         ui:
-          title: Carbon copy recipients
           group: Additional
         description: List of office symbols to receive copies of this endorsement.
       date:
         type: date
         ui:
-          title: Date of endorsement (YYYY-MM-DD); defaults to today
           group: Additional
         description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to use today's date."
