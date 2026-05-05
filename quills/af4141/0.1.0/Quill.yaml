@@ -13,27 +13,19 @@ main:
     name:
       type: string
       required: true
-      ui:
-        title: Name (Last, First, MI)
       description: Full name in Last, First, Middle Initial format.
 
     unit:
       type: string
       required: true
-      ui:
-        title: Unit of Assignment
       description: Unit or organization of assignment.
 
     grade:
       type: string
-      ui:
-        title: Grade/CCC Level
       description: Current grade or CCC level.
 
     commanders_auth:
       type: string
-      ui:
-        title: Commander's Record of Authentication
       description: Commander's authentication entry on page 1.
 
 card_types:
@@ -46,21 +38,18 @@ card_types:
       date:
         type: date
         ui:
-          title: Date
           group: Record
         description: Date of the action (column A).
 
       action:
         type: string
         ui:
-          title: Mandatory Actions to be Reported
           group: Record
         description: One type of action per line (column B).
 
       written_grade:
         type: string
         ui:
-          title: Written Grade
           group: Record
           compact: true
         description: Written grade, if applicable (column C).
@@ -69,7 +58,6 @@ card_types:
         type: date
         default: ""
         ui:
-          title: Written Grade Date
           group: Record
           compact: true
         description: Date of written grade (column D). Omit or leave blank when there is no written grade.
@@ -77,7 +65,6 @@ card_types:
       positional_grade:
         type: string
         ui:
-          title: Positional Grade
           group: Record
           compact: true
         description: Positional grade, if applicable (column E).
@@ -86,7 +73,6 @@ card_types:
         type: date
         default: ""
         ui:
-          title: Positional Grade Date
           group: Record
           compact: true
         description: Date of positional grade (column F). Omit or leave blank when there is no positional grade.
@@ -94,6 +80,5 @@ card_types:
       auth_or_remarks:
         type: string
         ui:
-          title: Record of Authentication or Remarks
           group: Record
         description: Authentication or remarks entry (column G).

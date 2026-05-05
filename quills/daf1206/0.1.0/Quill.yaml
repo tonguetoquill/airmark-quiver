@@ -12,44 +12,30 @@ main:
   fields:
     award:
       type: string
-      ui:
-        title: Award Program
     category_if_applicable:
       type: string
       ui:
-        title: Award Category
         compact: true
     award_period:
       type: string
       ui:
-        title: Award Period
         compact: true
     rankname_of_nominee:
       type: string
       ui:
-        title: Nominee Rank & Name
         compact: true
     majcom_fldcom_foa_or_dru:
       type: string
       ui:
-        title: Command (MAJCOM/FLDCOM/FOA/DRU)
         compact: true
     dafsc_duty_title:
       type: string
-      ui:
-        title: DAFSC & Duty Title
     nominees_telephone_dsn_commercial:
       type: string
-      ui:
-        title: Nominee Phone
     unit_office_symbol_street_address_base_state_zip:
       type: string
-      ui:
-        title: Unit Mailing Address
     unit_commander_rank_name_and_telephone:
       type: string
-      ui:
-        title: Unit Commander
 
 card_types:
   accomplishments_continued:

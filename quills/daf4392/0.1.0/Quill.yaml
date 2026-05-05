@@ -14,15 +14,12 @@ main:
       type: string
       enum: [pmv, airplane, bus, train, motorcycle, other]
       required: true
-      ui:
-        title: Mode of Transportation
       description: "Matches the check box."
 
     departure_date:
       type: date
       required: true
       ui:
-        title: Departure Date
         compact: true
       description: "Date of initial departure."
 
@@ -30,35 +27,29 @@ main:
       type: string
       required: true
       ui:
-        title: Final Destination
         compact: true
       description: "Final travel destination."
 
     dept_flight_num:
       type: string
       ui:
-        title: Departure Flight Number
         compact: true
       description: "Departure flight number. (tenative or confirmed)"
 
     arrival_flight_num:
       type: string
       ui:
-        title: Arrival Flight Number
         compact: true
       description: "Arrival flight number. (tenative or confirmed)"
 
     notes:
       type: string
-      ui:
-        title: Notes
       description: "Additional notes or remarks for the travel."
 
     organization:
       type: string
       required: true
       ui:
-        title: Organization
         compact: true
       description: "Unit / Organization."
 
@@ -66,7 +57,6 @@ main:
       type: date
       required: true
       ui:
-        title: Date Briefed
         compact: true
       description: "Put in today's date."
 
@@ -74,27 +64,21 @@ main:
       type: string
       required: true
       ui:
-        title: Individual Receiving Brief (Name)
         compact: true
       description: "Put in your Name (Last, First)."
 
     briefee_grade:
       type: string
       ui:
-        title: Individual Receiving Brief (Grade)
         compact: true
       description: "Put in your Grade."
 
     emergency_contact_name:
       type: string
-      ui:
-        title: Emergency Contact Name
       description: "Put in your Emergency Contact Name."
 
     emergency_contact_phone:
       type: string
-      ui:
-        title: Emergency Contact Phone
       description: "Put in your Emergency Contact's Phone Number."
 
 card_types:
@@ -107,35 +91,30 @@ card_types:
       date:
         type: date
         ui:
-          title: Date
           group: Itinerary Entry
           compact: true
         description: "Date for the itinerary row."
       departure_point:
         type: string
         ui:
-          title: Departure Point
           group: Itinerary Entry
           compact: true
         description: "Point of departure."
       arrival_point:
         type: string
         ui:
-          title: Arrival Point
           group: Itinerary Entry
           compact: true
         description: "Point of arrival."
       rest_length:
         type: string
         ui:
-          title: Length of Rest Period
           group: Itinerary Entry
           compact: true
         description: "Duration of stay at arrival point"
       mileage:
         type: string
         ui:
-          title: Approximate Mileage
           group: Itinerary Entry
           compact: true
         description: "Approximate mileage for this leg (leave blank if not applicable, e.g., flights)."
