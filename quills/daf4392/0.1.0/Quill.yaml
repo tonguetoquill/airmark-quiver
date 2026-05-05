@@ -103,7 +103,6 @@ card_types:
     ui:
       title: Proposed Travel Itinerary
       hide_body: true
-      default_title: Leg
     fields:
       date:
         type: date
