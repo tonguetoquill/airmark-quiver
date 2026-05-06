@@ -9,7 +9,6 @@ quill:
 main:
   body:
     enabled: false
-    description: Unused. This form is built from structured fields only.
   fields:
     transportation_mode:
       type: string
@@ -89,7 +88,6 @@ card_types:
       title: Proposed Travel Itinerary
     body:
       enabled: false
-      description: Unused. Each field maps to a column in the row.
     fields:
       date:
         type: date

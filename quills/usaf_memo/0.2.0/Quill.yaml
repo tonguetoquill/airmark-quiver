@@ -8,7 +8,7 @@ quill:
 
 main:
   body:
-    description: Memo body in Markdown. Numbered paragraphs are auto-formatted.
+    description: Top-level paragraphs are auto-numebered; do not add manual numbering.
   fields:
     memo_for:
       type: array
@@ -184,8 +184,6 @@ card_types:
     description: Chain of routing endorsements. Each endorsement block adds an official response or forwarding action to the original memo.
     ui:
       title: Routing indorsement
-    body:
-      description: Endorsement narrative in Markdown.
     fields:
       from:
         type: string
