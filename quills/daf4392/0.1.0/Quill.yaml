@@ -7,8 +7,9 @@ quill:
   description: "DAF Form 4392 - Pre-Departure Safety Briefing (Page 2)"
 
 main:
-  ui:
-    hide_body: true
+  body:
+    enabled: false
+    description: Unused. This form is built from structured fields only.
   fields:
     transportation_mode:
       type: string
@@ -86,7 +87,9 @@ card_types:
     description: "Each card represents one row in the travel itinerary table. Up to 10 rows are supported."
     ui:
       title: Proposed Travel Itinerary
-      hide_body: true
+    body:
+      enabled: false
+      description: Unused. Each field maps to a column in the row.
     fields:
       date:
         type: date

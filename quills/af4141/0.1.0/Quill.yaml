@@ -7,8 +7,9 @@ quill:
   description: "AF Form 4141 — Individual's Record of Duties and Experience, Ground Environment Personnel"
 
 main:
-  ui:
-    hide_body: true
+  body:
+    enabled: false
+    description: Unused. This form is built from structured fields only.
   fields:
     name:
       type: string
@@ -33,7 +34,9 @@ card_types:
     description: Each card represents one row in the Record of Experience table. Rows fill page 1 (up to 16 rows) then page 2 (up to 21 rows), for a maximum of 37 rows.
     ui:
       title: Record of Experience
-      hide_body: true
+    body:
+      enabled: false
+      description: Unused. Each field maps to a column in the row.
     fields:
       date:
         type: date
