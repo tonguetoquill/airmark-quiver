@@ -8,7 +8,10 @@ quill:
 
 main:
   body:
-    description: Top-level paragraphs are auto-numebered; do not add manual numbering.
+    example: |
+      The first paragraph. Top-level paragraphs are auto-numbered; do not add manual numbering.
+
+      - Nested bullets are automatically lettered.
   fields:
     memo_for:
       type: array

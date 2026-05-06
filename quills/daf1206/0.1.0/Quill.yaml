@@ -8,7 +8,9 @@ quill:
 
 main:
   body:
-    description: Specific accomplishments as Markdown bullets (Page 1).
+    example: |
+      - First accomplishment bullet.
+      - Second accomplishment bullet.
   fields:
     award:
       type: string
@@ -43,5 +45,6 @@ card_types:
     ui:
       title: Specific Accomplishments (Continued — Page 2)
     body:
-      description: Continued accomplishments as Markdown bullets (Page 2).
+      example: |
+        - Continued accomplishment bullet.
     fields: {}
