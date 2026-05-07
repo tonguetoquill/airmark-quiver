@@ -1,5 +1,13 @@
 // lib.typ
-// Classic Resume Template Logic
+// Public API for ttq-classic-resume.
 
-#import "layout.typ": config, resume
-#import "components.typ": project-entry, resume-header, section-header, table, timeline-entry
+#import "layout.typ": resume
+#import "components.typ": (
+  header,
+  section,
+  entry,
+  compact-entry,
+  summary,
+  skills,
+  monolink,
+)

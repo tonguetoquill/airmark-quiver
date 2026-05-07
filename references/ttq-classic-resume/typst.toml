@@ -1,6 +1,6 @@
 [package]
 name = "ttq-classic-resume"
-version = "0.1.0"
+version = "0.2.0"
 compiler = "0.14.0"
 entrypoint = "src/lib.typ"
 repository = "https://github.com/nibsbin/ttq-classic-resume"
@@ -23,4 +23,4 @@ disciplines = ["business", "computer-science", "engineering", "communication"]
 [template]
 path = "template"
 entrypoint = "resume.typ"
-thumbnail = "thumbnail.png"
+# thumbnail = "thumbnail.png"  # TODO: generate before Universe publish
