@@ -54,16 +54,16 @@
     } else {
       // Isolate seal column from document `font_size`: stack `em` spacing and subtitle
       // must not scale with body text (see frontmatter `set text(size: font_size)`).
-      block(width: 2in)[
+      // Subtitle is wrapped in `box` so it stays on one line and may extend past
+      // the seal's 2in column rather than wrapping.
+      block[
         #set text(9pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
-        #align(left)[
-          // Spacing applies between positional stack children only, not one `[…]` body.
-          #stack(
-            spacing: 0.5em,
-            fit-box(width: 2in, height: 1in)[#letterhead-seal],
-            upper(ensure-string(letterhead-seal-subtitle)),
-          )
-        ]
+        // Spacing applies between positional stack children only, not one `[…]` body.
+        #stack(
+          spacing: 0.5em,
+          fit-box(width: 2in, height: 1in)[#letterhead-seal],
+          box(upper(ensure-string(letterhead-seal-subtitle))),
+        )
       ]
     }
     place(
