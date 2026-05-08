@@ -1,0 +1,175 @@
+quill:
+  name: classic_resume
+  version: 0.1.0
+  backend: typst
+  plate_file: plate.typ
+  example_file: example.md
+  description: "Clean, dense single-page resume (TTQ Classic). Each section is its own composable card; cards render in document order."
+
+main:
+  body:
+    example: |
+      Backend engineer with 6+ years building distributed systems for
+      high-traffic consumer products. Strong in Go, Python, and
+      infrastructure-as-code; happiest reducing latency tail and on-call load.
+
+  fields:
+    name:
+      type: string
+      required: true
+      example: Jane Doe
+      description: Full name as it should appear at the top.
+
+    contacts:
+      type: array
+      required: true
+      example:
+        - "mailto:jane@example.com"
+        - "+1 (555) 555-5555"
+        - San Francisco, CA
+        - "https://janedoe.dev"
+      description: "Contact line items joined by ❖. Strings starting with `http://`, `https://`, or `mailto:` auto-link; everything else is plain text."
+
+card_types:
+  certifications:
+    description: Flat list of credentials rendered in a multi-column grid.
+    ui:
+      title: Active Certifications
+    body:
+      enabled: false
+    fields:
+      header:
+        type: string
+        description: "Section header to render above this card (e.g. 'Active Certifications'). Leave blank to omit."
+      columns:
+        type: integer
+        default: 2
+        ui:
+          compact: true
+      items:
+        type: array
+        required: true
+        example:
+          - Offensive Security Certified Professional (OSCP)
+          - GIAC Cyber Threat Intelligence (GCTI)
+
+  skills:
+    description: Categorized skills grid. Each item has a bold category header and a comma-separated text body.
+    ui:
+      title: Skills
+    body:
+      enabled: false
+    fields:
+      header:
+        type: string
+        description: Section header to render above this card. Leave blank to omit.
+      columns:
+        type: integer
+        default: 2
+        ui:
+          compact: true
+      items:
+        type: array
+        required: true
+        example:
+          - { category: Languages, text: "Go, Python, TypeScript, Rust" }
+          - { category: Frameworks, text: "FastAPI, Django, React, Next.js" }
+        description: "Each item has shape `{ category: string, text: string }`."
+
+  experience:
+    description: Work history. Each entry is one job with optional bullet accomplishments.
+    ui:
+      title: Work Experience
+    body:
+      enabled: false
+    fields:
+      header:
+        type: string
+        description: Section header above the entries (e.g. "Work Experience"). Leave blank to omit.
+      entries:
+        type: array
+        required: true
+        example:
+          - role: Senior Software Engineer
+            organization: Acme Corp.
+            location: Remote
+            dates: Jan 2023 — Present
+            bullets:
+              - Led migration of a 400 kLoC monolith to event-driven microservices.
+              - Designed a real-time pricing service handling 50 K req/s on a 6-node Kubernetes cluster.
+        description: "Each entry has shape `{ role, organization, location?, dates?, bullets?: array<string> }`. Bullets render as plain text."
+
+  education:
+    description: Degrees and academic credentials. Optional bullets for honors / coursework.
+    ui:
+      title: Education
+    body:
+      enabled: false
+    fields:
+      header:
+        type: string
+        description: Section header above the entries.
+      entries:
+        type: array
+        required: true
+        example:
+          - degree: B.S. Computer Science
+            school: State University
+            location: Anytown, USA
+            dates: 2015 — 2019
+        description: "Each entry has shape `{ degree, school, location?, dates?, bullets?: array<string> }`."
+
+  competition:
+    description: Competitions, hackathons, or similar achievements with bullets but no role/dates.
+    ui:
+      title: Cyber Competition
+    body:
+      enabled: false
+    fields:
+      header:
+        type: string
+      entries:
+        type: array
+        required: true
+        example:
+          - title: 1st in SANS Academy Cup 2024
+            bullets:
+              - Solved SQLi, API, and HTTP packet crafting problems.
+        description: "Each entry has shape `{ title, bullets?: array<string> }`."
+
+  project:
+    description: Projects with optional URLs (rendered top-right in monospace italic).
+    ui:
+      title: Projects
+    body:
+      enabled: false
+    fields:
+      header:
+        type: string
+      entries:
+        type: array
+        required: true
+        example:
+          - name: Quillmark
+            url: "https://quillmark.dev"
+            bullets:
+              - Open-source markdown-to-PDF engine powered by Typst.
+        description: "Each entry has shape `{ name, url?, bullets?: array<string> }`. URLs starting with http(s):// auto-link."
+
+  award:
+    description: One-line entries for awards, honors, or publications.
+    ui:
+      title: Awards
+    body:
+      enabled: false
+    fields:
+      header:
+        type: string
+      entries:
+        type: array
+        required: true
+        example:
+          - title: Engineering Excellence Award
+            issuer: Acme Corp.
+            date: "2024"
+        description: "Each entry has shape `{ title, issuer?, date? }`."

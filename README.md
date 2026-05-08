@@ -7,12 +7,13 @@ and aligned to the current Quillmark spec.
 
 ## Contents
 
-| Quill        | Version | Description                                                                       |
-|--------------|---------|-----------------------------------------------------------------------------------|
-| `usaf_memo`  | 0.2.0   | USAF / DAF Official Memorandum (AFH 33-337)                                       |
-| `af4141`     | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment)  |
-| `daf1206`    | 0.1.0   | DAF Form 1206 — Nomination for Award                                              |
-| `daf4392`    | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                            |
+| Quill            | Version | Description                                                                       |
+|------------------|---------|-----------------------------------------------------------------------------------|
+| `usaf_memo`      | 0.2.0   | USAF / DAF Official Memorandum (AFH 33-337)                                       |
+| `af4141`         | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment)  |
+| `daf1206`        | 0.1.0   | DAF Form 1206 — Nomination for Award                                              |
+| `daf4392`        | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                            |
+| `classic_resume` | 0.1.0   | Clean, dense single-page resume (TTQ Classic)                                     |
 
 ## Install
 
