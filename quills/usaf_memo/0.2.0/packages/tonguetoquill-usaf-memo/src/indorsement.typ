@@ -122,10 +122,7 @@
 
   if not body_empty {
     context {
-      let memo-style = {
-        let items = query(<usaf-memo-config>)
-        if items.len() > 0 { items.first().value.at("memo_style", default: "usaf") } else { "usaf" }
-      }
+      let memo-style = query(<usaf-memo-config>).first().value.at("memo_style", default: "usaf")
       render-body(content, memo-style: memo-style)
     }
   }

@@ -21,7 +21,7 @@
 /// - content (content): The body content to render
 /// -> content
 #let mainmatter(it) = context {
-  let config = query(metadata).last().value
+  let config = query(<usaf-memo-config>).first().value
   let memo-style = config.at("memo_style", default: "usaf")
   render-body(it, memo-style: memo-style)
 }
