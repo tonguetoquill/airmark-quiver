@@ -57,6 +57,12 @@
   // or whitespace-only; comparing against `[]` reliably detects that.
   let body_empty = content == []
 
+  let effective_action = if action == none or type(action) != str or action.trim() == "" {
+    none
+  } else {
+    action
+  }
+
   if format != "informal" {
     // Step the counter BEFORE the context block to avoid read-then-update loop
     counters.indorsement.step()
@@ -103,14 +109,14 @@
     }
     // Header→content gap. Skipped when there is neither an action line nor
     // body to follow — render-signature-block supplies its own 4-line gap.
-    if (action != none and action != "none") or not body_empty {
+    if effective_action != none or not body_empty {
       blank-line()
     }
   }
 
   // Show action line only when an action decision is set (not `none`)
-  if action != none and action != "none" {
-    render-action-line(action, trailing-blank-line: not body_empty)
+  if effective_action != none {
+    render-action-line(effective_action, trailing-blank-line: not body_empty)
   }
 
   if not body_empty {

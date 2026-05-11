@@ -196,16 +196,14 @@
 // ACTION LINE RENDERING
 // =============================================================================
 // Renders the Approve / Disapprove action line for indorsement memos.
-// action: "none" = no action line displayed (hidden), "undecided" = both options
-// rendered plain (no circle), "approve" = Approve circled,
-// "disapprove" = Disapprove circled. The action line is rendered when
-// action is "undecided", "approve", or "disapprove". "none" suppresses
-// the line entirely (handled by the caller).
+// action: "undecided" = both options rendered plain (no circle),
+// "approve" = Approve circled, "disapprove" = Disapprove circled.
+// Empty/none suppression is handled by the caller before this is invoked.
 
 #let render-action-line(action, trailing-blank-line: true) = {
   assert(
-    action in ("none", "undecided", "approve", "disapprove"),
-    message: "action must be \"none\", \"undecided\", \"approve\", or \"disapprove\"",
+    action in ("undecided", "approve", "disapprove"),
+    message: "action must be \"undecided\", \"approve\", or \"disapprove\"",
   )
   // No leading blank-line: the caller (indorsement.typ) already emits the
   // header→content gap once. The action line's `block(sticky: true)`

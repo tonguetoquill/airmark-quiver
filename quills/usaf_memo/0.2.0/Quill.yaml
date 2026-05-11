@@ -225,13 +225,14 @@ card_types:
       action:
         type: string
         enum:
-          - none
+          - ""
           - undecided
           - approve
           - disapprove
+        default: ""
         ui:
           group: Addressing
-        description: "Action taken by the endorser. Use 'none' to hide the Approve/Disapprove line entirely, 'undecided' to display the line with neither option circled, 'approve' or 'disapprove' to circle the selected option."
+        description: "Action taken by the endorser. Leave blank to hide the Approve/Disapprove line entirely, 'undecided' to display the line with neither option circled, 'approve' or 'disapprove' to circle the selected option."
       attachments:
         type: array
         ui:
