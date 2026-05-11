@@ -69,7 +69,7 @@
     counters.indorsement.step()
 
     context {
-      let config = query(metadata).last().value
+      let config = query(<usaf-memo-config>).first().value
       let memo-style = config.at("memo_style", default: "usaf")
       let original_subject = config.subject
       let original_date = config.original_date
@@ -123,8 +123,8 @@
   if not body_empty {
     context {
       let memo-style = {
-        let items = query(metadata)
-        if items.len() > 0 { items.last().value.at("memo_style", default: "usaf") } else { "usaf" }
+        let items = query(<usaf-memo-config>)
+        if items.len() > 0 { items.first().value.at("memo_style", default: "usaf") } else { "usaf" }
       }
       render-body(content, memo-style: memo-style)
     }
