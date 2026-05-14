@@ -46,7 +46,7 @@
   let ind_from = first-or-value(from)
   let ind_for = to
 
-  // An empty body (e.g. a CARD with only an action selected and no markdown
+  // An empty body (e.g. a KIND with only an action selected and no markdown
   // body) collapses to zero rendered layout via render-body's filter. To
   // make the "empty body takes no layout space" guarantee end-to-end, also
   // suppress the spacing the surrounding code reserves *for* the body:

@@ -69,9 +69,9 @@
   ..if "attachments" in data { (attachments: data.attachments) },
 )
 
-// Indorsements - iterate through CARDS array and filter by CARD type
-#for (i, card) in data.CARDS.enumerate() {
-  if card.CARD == "indorsement" {
+// Indorsements - iterate through LEAVES array and filter by KIND type
+#for (i, card) in data.LEAVES.enumerate() {
+  if card.KIND == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
     // Pass truly empty content (`[]`) in the empty case so indorsement can

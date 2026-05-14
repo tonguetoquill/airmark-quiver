@@ -28,7 +28,7 @@ main:
       type: string
       description: Commander's authentication entry on page 1.
 
-card_types:
+leaf_kinds:
   experience:
     description: Each card represents one row in the Record of Experience table. Rows fill page 1 (up to 16 rows) then page 2 (up to 21 rows), for a maximum of 37 rows.
     ui:

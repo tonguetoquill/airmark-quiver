@@ -38,8 +38,8 @@
 }
 
 #let continued-key = "SPECIFIC_ACCOMPLISHMENTS_Use_Performance_Statements_IAW_DAFMAN_362806_Continued"
-#for card in data.CARDS {
-  if card.CARD == "accomplishments_continued" and continued-key not in vals and "BODY" in card {
+#for card in data.LEAVES {
+  if card.KIND == "accomplishments_continued" and continued-key not in vals and "BODY" in card {
     vals.insert(continued-key, card.BODY)
   }
 }

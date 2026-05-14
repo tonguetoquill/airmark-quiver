@@ -16,7 +16,7 @@ Use this main body for page 1 accomplishments.
 - Replace all placeholder values.
 
 ---
-CARD: accomplishments_continued
+KIND: accomplishments_continued
 ---
 
 Use this card body only if page 2 overflow is needed.

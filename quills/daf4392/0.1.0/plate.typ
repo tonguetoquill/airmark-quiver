@@ -29,14 +29,14 @@
 #tf(40pt, 100pt)[#show-date(data.at("departure_date", default: none))]
 #tf(123pt, 100pt)[#data.at("final_destination", default: "")]
 
-// Itinerary Rows (via CARDS)
+// Itinerary Rows (via LEAVES)
 #{
   let row = 0
   let dy-start = 160pt
   let dy-step = 40pt
-  if "CARDS" in data {
-    for card in data.CARDS {
-      if card.CARD == "itinerary" and row < 10 {
+  if "LEAVES" in data {
+    for card in data.LEAVES {
+      if card.KIND == "itinerary" and row < 10 {
         let dy = dy-start + (row * dy-step)
         tf(80pt, dy)[#show-date(card.at("date", default: none))]
         tf(135pt, dy)[#card.at("departure_point", default: "")]

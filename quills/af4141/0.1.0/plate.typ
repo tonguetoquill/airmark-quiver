@@ -35,14 +35,14 @@
 #if "grade" in data { vals.insert("commonforms_text_p1_3", data.grade) }
 #if "commanders_auth" in data { vals.insert("commonforms_text_p1_116", data.commanders_auth) }
 
-// --- Experience table rows from cards ---
+// --- Experience table rows from LEAVES ---
 // The form supports 16 rows on page 1 and 21 rows on page 2 (37 total).
 // Overflow rows are silently ignored.
 #let max-rows = 37
 #{
   let row = 0
-  for card in data.CARDS {
-    if card.CARD == "experience" {
+  for card in data.LEAVES {
+    if card.KIND == "experience" {
       if row < max-rows {
         for (col, key) in col-keys.enumerate() {
           let value = form-cell(card.at(key, default: none))
