@@ -15,20 +15,20 @@ emergency_contact_name: "John Doe"
 emergency_contact_phone: "999-999-9999"
 ---
 
----
+```leaf
 KIND: itinerary
 date: 2026-03-26
 departure_point: "Biloxi, MS"
 arrival_point: "Fake City, MS"
 rest_length: "2 days"
 mileage: "250"
----
+```
 
----
+```leaf
 KIND: itinerary
 date: 2026-03-29
 departure_point: "Fake City, MS"
 arrival_point: "Biloxi, MS"
 rest_length: "0"
 mileage: "0"
----
+```
