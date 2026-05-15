@@ -14,7 +14,8 @@
 #place(image("assets/page1.png", width: 100%, height: 100%))
 
 #let tf(dx, dy, content) = place(dx: dx, dy: dy, content)
-#let check(dx, dy, is_checked) = if is_checked { place(dx: dx, dy: dy, text(weight: "bold", size: 12pt)[✓]) }
+#let check(dx, dy, is_checked) = if is_checked { place(dx: dx, dy: dy, text(weight: "bold", size: 12pt)[X]) }
+#let today = datetime.today()
 
 // Mode of Transportation
 #let mode = data.at("transportation_mode", default: "")
@@ -26,7 +27,7 @@
 #check(411pt, 67pt, mode == "other")
 
 // Fields
-#tf(40pt, 100pt)[#show-date(data.at("departure_date", default: none))]
+#tf(40pt, 100pt)[#show-date(data.at("departure_date", default: today))]
 #tf(123pt, 100pt)[#data.at("final_destination", default: "")]
 
 // Itinerary Rows (via LEAVES)
@@ -38,7 +39,7 @@
     for card in data.LEAVES {
       if card.KIND == "itinerary" and row < 10 {
         let dy = dy-start + (row * dy-step)
-        tf(80pt, dy)[#show-date(card.at("date", default: none))]
+        tf(80pt, dy)[#show-date(card.at("date", default: today))]
         tf(135pt, dy)[#card.at("departure_point", default: "")]
         tf(295pt, dy)[#card.at("arrival_point", default: "")]
         tf(450pt, dy)[#card.at("rest_length", default: "")]
@@ -63,7 +64,7 @@
 
 // Acknowledgements
 #tf(40pt, 620pt)[#data.at("organization", default: "")]
-#tf(500pt, 620pt)[#show-date(data.at("briefed_date", default: none))]
+#tf(500pt, 620pt)[#show-date(data.at("briefed_date", default: today))]
 
 #tf(40pt, 650pt)[#data.at("briefee_name", default: "")]
 #tf(270pt, 650pt)[#data.at("briefee_grade", default: "")]
