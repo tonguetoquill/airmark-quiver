@@ -25,6 +25,7 @@ main:
 
     memo_from:
       type: array
+      default: []
       example:
         - ORG/SYMBOL
         - Organization Name

@@ -146,7 +146,7 @@
 
   render-date-section(actual_date, memo-style: memo_style)
   render-for-section(memo_for, memo_for_cols)
-  if memo_from != none { render-from-section(memo_from) }
+  if not falsey(memo_from) { render-from-section(memo_from) }
   render-subject-section(subject)
   render-references-section(references)
 

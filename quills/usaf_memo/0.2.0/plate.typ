@@ -22,7 +22,7 @@
   memo_for: data.memo_for,
 
   // Sender information (omitted for Memorandum for Record)
-  ..if "memo_from" in data { (memo_from: data.memo_from) },
+  ..if data.at("memo_from", default: ()).len() > 0 { (memo_from: data.memo_from) },
 
   // Subject line
   subject: data.subject,
