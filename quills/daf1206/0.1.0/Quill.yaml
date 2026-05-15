@@ -39,7 +39,7 @@ main:
     unit_commander_rank_name_and_telephone:
       type: string
 
-card_types:
+leaf_kinds:
   accomplishments_continued:
     description: Optional. Add this card only when page 2 overflow is required. Use the card body for continued bullets. Rank/name on page 2 matches the main nominee line automatically.
     ui:
