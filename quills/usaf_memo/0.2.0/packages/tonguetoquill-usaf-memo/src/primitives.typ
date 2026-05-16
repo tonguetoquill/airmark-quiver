@@ -98,9 +98,9 @@
     "  ",
     align(left)[
       #if type(recipients) == array {
-        create-auto-grid(recipients, column-gutter: spacing.tab, cols: cols)
+        create-auto-grid(recipients.map(upper), column-gutter: spacing.tab, cols: cols)
       } else {
-        recipients
+        upper(recipients)
       }
     ],
   )
