@@ -22,6 +22,8 @@
   "scripts": {
     "test": "quiver test",
     "preview": "quiver preview",
+    "playground:setup": "node scripts/playground-setup.js",
+    "playground:dev": "node scripts/playground-dev.js",
     "release:patch": "npm version patch -m \"chore(release): %s\" && git push --follow-tags",
     "release:minor": "npm version minor -m \"chore(release): %s\" && git push --follow-tags"
   },
