@@ -1,0 +1,50 @@
+name: pr-preview
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    # Fork PRs get a read-only token and cannot deploy to Pages. They still
+    # receive a downloadable gallery via the artifact uploaded by ci.yml.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        if: github.event.action != 'closed'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install
+        if: github.event.action != 'closed'
+        run: npm ci
+
+      - name: Render preview gallery
+        if: github.event.action != 'closed'
+        run: npm run preview
+
+      - name: Drop source-repo .gitignore so the gallery can be committed
+        if: github.event.action != 'closed'
+        run: rm -f preview/.gitignore
+
+      - name: Deploy preview to GitHub Pages
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: preview/
+          preview-branch: gh-pages

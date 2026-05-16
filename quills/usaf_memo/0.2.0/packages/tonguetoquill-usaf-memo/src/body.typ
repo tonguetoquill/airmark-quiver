@@ -200,7 +200,7 @@
   context {
     let heading_buffer = none
     // Filter out zero-width paragraphs so that an empty body (e.g. empty
-    // string from a CARD with no text) emits nothing and collapses to zero
+    // string from a KIND with no text) emits nothing and collapses to zero
     // vertical space. Tables are always kept regardless of measured width.
     let items = PAR_BUFFER.get().filter(item =>
       item.kind == "table" or measure(item.content).width > 0pt

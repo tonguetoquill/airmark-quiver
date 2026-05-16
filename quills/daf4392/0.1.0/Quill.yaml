@@ -3,7 +3,6 @@ quill:
   version: 0.1.0
   backend: typst
   plate_file: plate.typ
-  example_file: example.md
   description: "DAF Form 4392 - Pre-Departure Safety Briefing (Page 2)"
 
 main:
@@ -81,7 +80,7 @@ main:
       type: string
       description: "Put in your Emergency Contact's Phone Number."
 
-card_types:
+card_kinds:
   itinerary:
     description: "Each card represents one row in the travel itinerary table. Up to 10 rows are supported."
     ui:

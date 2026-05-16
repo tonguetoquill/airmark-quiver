@@ -3,7 +3,6 @@ quill:
   version: 0.2.0
   backend: typst
   plate_file: plate.typ
-  example_file: example.md
   description: U.S. Air Force and Space Force Official Memorandum
 
 main:
@@ -182,7 +181,7 @@ main:
         compact: true
       description: "Optional marking appended after double slash (e.g. NF with classification CUI renders as CUI//NF). Leave blank to show only the classification with no //."
 
-card_types:
+card_kinds:
   indorsement:
     description: Chain of routing endorsements. Each endorsement block adds an official response or forwarding action to the original memo.
     ui:
@@ -225,13 +224,14 @@ card_types:
       action:
         type: string
         enum:
-          - none
+          - ""
           - undecided
           - approve
           - disapprove
+        default: ""
         ui:
           group: Addressing
-        description: "Action taken by the endorser. Use 'none' to hide the Approve/Disapprove line entirely, 'undecided' to display the line with neither option circled, 'approve' or 'disapprove' to circle the selected option."
+        description: "Action taken by the endorser. Leave blank to hide the Approve/Disapprove line entirely, 'undecided' to display the line with neither option circled, 'approve' or 'disapprove' to circle the selected option."
       attachments:
         type: array
         ui:

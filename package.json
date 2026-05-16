@@ -1,6 +1,6 @@
 {
   "name": "@airmark/quiver",
-  "version": "0.15.0",
+  "version": "0.18.0",
   "description": "Airmark Quiver — Air Force and DAF document Quills for Quillmark.",
   "type": "module",
   "exports": {
@@ -16,11 +16,12 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "^0.7.0",
-    "@quillmark/wasm": "0.75.0"
+    "@quillmark/quiver": "^0.11.0",
+    "@quillmark/wasm": "^0.80.0"
   },
   "scripts": {
-    "test": "node --test quiver.test.js",
+    "test": "quiver test",
+    "preview": "quiver preview",
     "release:patch": "npm version patch -m \"chore(release): %s\" && git push --follow-tags",
     "release:minor": "npm version minor -m \"chore(release): %s\" && git push --follow-tags"
   },
@@ -35,6 +36,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nibsbin/airmark-quiver"
+    "url": "https://github.com/tonguetoquill/airmark-quiver"
   }
 }

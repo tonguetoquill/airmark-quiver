@@ -35,7 +35,7 @@
 #if "grade" in data { vals.insert("commonforms_text_p1_3", data.grade) }
 #if "commanders_auth" in data { vals.insert("commonforms_text_p1_116", data.commanders_auth) }
 
-// --- Experience table rows from cards ---
+// --- Experience table rows from CARDS ---
 // The form supports 16 rows on page 1 and 21 rows on page 2 (37 total).
 // Overflow rows are silently ignored.
 #let max-rows = 37

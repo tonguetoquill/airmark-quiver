@@ -54,16 +54,16 @@
     } else {
       // Isolate seal column from document `font_size`: stack `em` spacing and subtitle
       // must not scale with body text (see frontmatter `set text(size: font_size)`).
-      block(width: 2in)[
+      // Subtitle is wrapped in `box` so it stays on one line and may extend past
+      // the seal's 2in column rather than wrapping.
+      block[
         #set text(9pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
-        #align(left)[
-          // Spacing applies between positional stack children only, not one `[…]` body.
-          #stack(
-            spacing: 0.5em,
-            fit-box(width: 2in, height: 1in)[#letterhead-seal],
-            upper(ensure-string(letterhead-seal-subtitle)),
-          )
-        ]
+        // Spacing applies between positional stack children only, not one `[…]` body.
+        #stack(
+          spacing: 0.5em,
+          fit-box(width: 2in, height: 1in)[#letterhead-seal],
+          box(upper(ensure-string(letterhead-seal-subtitle))),
+        )
       ]
     }
     place(
@@ -148,7 +148,7 @@
 // AFH 33-337 long-name example: "Signature block adjusted to the left" when a
 // long name would otherwise exceed the right margin.
 
-#let render-signature-block(signature-lines, signature-blank-lines: 4) = {
+#let render-signature-block(signature-lines, signature-blank-lines: 4, signing-field: none) = {
   signature-lines = ensure-array(signature-lines)
   // AFH 33-337: "fifth line below" = 4 blank lines between text and signature block.
   // breakable: false discourages orphaning the signature block onto a page by itself.
@@ -177,6 +177,20 @@
       default-pad
     }
     block(breakable: false)[
+      #if signing-field != none {
+        let stride = {
+          let s = LINE_STRIDE.get()
+          if s == none {
+            let one-line = measure(par(spacing: 0pt)[x]).height
+            measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
+          } else { s }
+        }
+        place(
+          dx: left-pad,
+          dy: -(stride * signature-blank-lines),
+          box(width: body-width - left-pad, height: stride * signature-blank-lines, signing-field),
+        )
+      }
       #align(left)[
         #pad(left: left-pad)[
           #text(hyphenate: false)[
@@ -196,16 +210,14 @@
 // ACTION LINE RENDERING
 // =============================================================================
 // Renders the Approve / Disapprove action line for indorsement memos.
-// action: "none" = no action line displayed (hidden), "undecided" = both options
-// rendered plain (no circle), "approve" = Approve circled,
-// "disapprove" = Disapprove circled. The action line is rendered when
-// action is "undecided", "approve", or "disapprove". "none" suppresses
-// the line entirely (handled by the caller).
+// action: "undecided" = both options rendered plain (no circle),
+// "approve" = Approve circled, "disapprove" = Disapprove circled.
+// Empty/none suppression is handled by the caller before this is invoked.
 
 #let render-action-line(action, trailing-blank-line: true) = {
   assert(
-    action in ("none", "undecided", "approve", "disapprove"),
-    message: "action must be \"none\", \"undecided\", \"approve\", or \"disapprove\"",
+    action in ("undecided", "approve", "disapprove"),
+    message: "action must be \"undecided\", \"approve\", or \"disapprove\"",
   )
   // No leading blank-line: the caller (indorsement.typ) already emits the
   // header→content gap once. The action line's `block(sticky: true)`
@@ -341,7 +353,9 @@
       (if attachment-count == 1 { "Attachment" } else { str(attachment-count) + " Attachments" })
         + " (listed on next page):"
     )
-    render-backmatter-section(attachments, section-label, numbering-style: "1.", continuation-label: continuation-label)
+    // AFH 33-337: a single attachment is not numbered; numbering applies to two or more.
+    let numbering-style = if attachment-count == 1 { none } else { "1." }
+    render-backmatter-section(attachments, section-label, numbering-style: numbering-style, continuation-label: continuation-label)
   }
 
   if cc != none and cc.len() > 0 {

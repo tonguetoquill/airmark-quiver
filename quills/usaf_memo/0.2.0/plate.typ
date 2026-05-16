@@ -1,4 +1,4 @@
-#import "@local/quillmark-helper:0.1.0": data
+#import "@local/quillmark-helper:0.1.0": data, signature-field
 #import "@local/tonguetoquill-usaf-memo:3.0.0": backmatter, frontmatter, indorsement, mainmatter
 
 // Frontmatter configuration
@@ -57,6 +57,7 @@
 #backmatter(
   // Signature block
   signature_block: data.signature_block,
+  signing_field: signature-field("Signature"),
 
   // Optional cc
   ..if "cc" in data { (cc: data.cc) },
@@ -68,8 +69,8 @@
   ..if "attachments" in data { (attachments: data.attachments) },
 )
 
-// Indorsements - iterate through CARDS array and filter by CARD type
-#for card in data.CARDS {
+// Indorsements - iterate through CARDS array and filter by CARD tag
+#for (i, card) in data.CARDS.enumerate() {
   if card.CARD == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
@@ -90,6 +91,7 @@
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
       signature_block: card.signature_block,
+      signing_field: signature-field("Ind_" + str(i) + "_Signature"),
       ..if "attachments" in card { (attachments: card.attachments) },
       ..if "cc" in card { (cc: card.cc) },
       format: card.at("format", default: "standard"),
