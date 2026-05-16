@@ -3,7 +3,6 @@ quill:
   version: 0.1.0
   backend: typst
   plate_file: plate.typ
-  example_file: example.md
   description: "DAF Form 1206 — Nomination for Award"
 
 main:
@@ -39,7 +38,7 @@ main:
     unit_commander_rank_name_and_telephone:
       type: string
 
-leaf_kinds:
+card_types:
   accomplishments_continued:
     description: Optional. Add this card only when page 2 overflow is required. Use the card body for continued bullets. Rank/name on page 2 matches the main nominee line automatically.
     ui:

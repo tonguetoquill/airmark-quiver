@@ -74,7 +74,6 @@ quills/
     <x.y.z>/
       Quill.yaml
       plate.typ
-      example.md
       assets/
       packages/
 ```
