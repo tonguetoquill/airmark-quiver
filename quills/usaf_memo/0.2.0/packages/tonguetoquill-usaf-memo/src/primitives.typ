@@ -40,6 +40,7 @@
           align(center)[
             #set text(12pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
             #title\
+            #v(1pt)
             #text(10.5pt)[#caption]
           ],
         )
