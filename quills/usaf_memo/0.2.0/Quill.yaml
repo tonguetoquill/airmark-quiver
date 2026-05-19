@@ -96,7 +96,6 @@ main:
 
     freedom250:
       type: boolean
-      default: true
       ui:
         group: Letterhead
         compact: true
