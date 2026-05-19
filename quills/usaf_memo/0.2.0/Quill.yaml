@@ -86,6 +86,14 @@ main:
         compact: true
       description: Optional line below the DoW seal (bold caps). Leave blank to omit.
 
+    tag_line:
+      type: string
+      default: ""
+      ui:
+        group: Letterhead
+        compact: true
+      description: Organizational motto at the bottom of the page.
+
     freedom250:
       type: boolean
       default: true
@@ -93,13 +101,6 @@ main:
         group: Letterhead
         compact: true
       description: Show the America 250 / Freedom 250 commemorative emblem in the letterhead, mirrored opposite the seal.
-
-    tag_line:
-      type: string
-      default: ""
-      ui:
-        group: Letterhead
-      description: Organizational motto at the bottom of the page.
 
     references:
       type: array
