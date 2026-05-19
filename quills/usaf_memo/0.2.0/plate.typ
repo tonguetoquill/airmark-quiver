@@ -15,6 +15,11 @@
     }
   ),
 
+  // Optional Freedom 250 emblem, placed opposite the seal
+  ..if data.at("freedom250", default: true) {
+    (letterhead_emblem: image("assets/freedom250.png"))
+  },
+
   // Date
   date: data.at("date", default: none),
 

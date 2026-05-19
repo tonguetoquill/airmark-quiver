@@ -20,6 +20,7 @@
   font,
   letterhead-seal: none,
   letterhead-seal-subtitle: none,
+  letterhead-emblem: none, // optional image placed opposite the seal (right side)
 ) = {
   font = ensure-array(font)
   title = ensure-string(title)
@@ -71,6 +72,17 @@
       dx: -0.5in,
       dy: -.5in,
       seal-body,
+    )
+  }
+
+  if letterhead-emblem != none {
+    place(
+      right + top,
+      dx: 0.5in,
+      dy: -.5in,
+      block[
+        #fit-box(width: 2in, height: 1in, alignment: right + horizon)[#letterhead-emblem]
+      ],
     )
   }
 }
