@@ -1,0 +1,177 @@
+quill:
+  name: personal_letter
+  version: 0.1.0
+  backend: typst
+  plate_file: plate.typ
+  description: U.S. Air Force Personal Letter (AFH 33-337, Chapter 15)
+
+main:
+  body:
+    example: |
+      The text of the letter. The first line of each major paragraph is indented 0.5 inches; subsequent lines are flush with the left margin. Keep the letter brief, preferably no longer than one page, and avoid acronyms.
+
+      A second paragraph, if needed.
+
+      - A sub-paragraph, automatically lettered (a., b., etc.).
+  fields:
+    return_address:
+      type: array
+      required: true
+      example:
+        - "Chief Master Sergeant David L. Jones"
+        - Duty Title
+        - Organization
+        - Street Address
+        - City ST 12345-6789
+      ui:
+        group: Addressing
+      description: "Sender's rank, full name, duty title, organization, and complete mailing address. Placed flush left on the second line below the date. Use USPS abbreviations; no punctuation in the last line except the ZIP+4 dash."
+
+    receiver_address:
+      type: array
+      required: true
+      example:
+        - "Lieutenant Colonel Getty A. Letter"
+        - Duty Title
+        - Organization
+        - Street Address
+        - City ST 12345-6789
+      ui:
+        group: Addressing
+      description: "Recipient's title or rank, full name, and complete mailing address. Placed on the third line below the return address. Spell out all military ranks; no punctuation in the last line except the ZIP+4 dash."
+
+    salutation:
+      type: string
+      required: true
+      example: "Dear Colonel Letter"
+      ui:
+        group: Addressing
+      description: "Begins with 'Dear' followed by the title (or rank) and last name of the receiver. Do not use punctuation after the salutation."
+
+    signature_block:
+      type: array
+      required: true
+      example:
+        - "DAVID L. JONES, CMSgt, USAF"
+        - Duty Title
+      ui:
+        group: Addressing
+      description: "Full signature block. Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Spell out 'Colonel' and general officer ranks."
+
+    addressee_type:
+      type: string
+      enum:
+        - military
+        - civilian
+      default: military
+      ui:
+        group: Addressing
+        compact: true
+      description: "Controls date format. Military addressees use 'Day Month Year' (15 October 2014); civilian addressees use 'Month Day, Year' (October 15, 2014)."
+
+    letterhead_title:
+      type: string
+      default: DEPARTMENT OF THE AIR FORCE
+      ui:
+        group: Letterhead
+      description: Standard title. Only change for Joint Commands or DoW Agencies.
+
+    letterhead_caption:
+      type: array
+      default:
+        - HEADQUARTERS [UNIT NAME]
+      ui:
+        group: Letterhead
+      description: The full organization name of your unit.
+
+    letterhead_seal:
+      type: string
+      enum:
+        - dow
+        - dod
+      default: dow
+      ui:
+        group: Letterhead
+        compact: true
+      description: Department of War (DoW) or Department of Defense (DoD) seal shown in the letterhead.
+
+    letterhead_seal_subtitle:
+      type: string
+      default: ""
+      ui:
+        group: Letterhead
+        compact: true
+      description: Optional line below the DoW seal (bold caps). Leave blank to omit.
+
+    tag_line:
+      type: string
+      default: ""
+      ui:
+        group: Letterhead
+        compact: true
+      description: Organizational motto at the bottom of the page.
+
+    freedom250:
+      type: boolean
+      ui:
+        group: Letterhead
+        compact: true
+      description: Show the America 250 / Freedom 250 commemorative emblem in the letterhead, mirrored opposite the seal.
+
+    attachments:
+      type: array
+      default: []
+      example:
+        - Attachment description
+      ui:
+        group: Additional
+      description: "List attachments in the order they are mentioned in the letter. 'Attachment:' for one; '# Attachments:' for two or more. Placed flush left on the third line below the signature element."
+
+    cc:
+      type: array
+      default: []
+      example:
+        - "Rank and Name, ORG/SYMBOL"
+      ui:
+        group: Additional
+      description: "Courtesy copy recipients. Placed on the second line below the attachment element, or the third line below the signature if no attachment is used."
+
+    font_size:
+      type: number
+      default: 12
+      example: 12
+      ui:
+        group: Additional
+        compact: true
+      description: Font size for the letter text (pt). Decimal values (e.g. 11.5) are supported.
+
+    date:
+      type: date
+      default: ""
+      ui:
+        group: Additional
+        compact: true
+      description: YYYY-MM-DD. Leave blank to use today's date.
+
+    classification:
+      type: string
+      enum:
+        - ""
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        group: Additional
+        compact: true
+      description: "Classification marking displayed in the header/footer banner. Banner colors follow DoD/CAPCO guidance. Leave blank to omit."
+
+    dissemination:
+      type: string
+      default: ""
+      ui:
+        group: Additional
+        compact: true
+      description: "Optional marking appended after double slash (e.g. NF with classification CUI renders as CUI//NF). Leave blank to show only the classification with no //."
