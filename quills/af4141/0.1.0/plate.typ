@@ -41,8 +41,8 @@
 #let max-rows = 37
 #{
   let row = 0
-  for card in data.CARDS {
-    if card.CARD == "experience" {
+  for card in data.at("$cards") {
+    if card.at("$kind") == "experience" {
       if row < max-rows {
         for (col, key) in col-keys.enumerate() {
           let value = form-cell(card.at(key, default: none))
