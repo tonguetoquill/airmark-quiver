@@ -13,30 +13,47 @@ main:
   fields:
     award:
       type: string
+      default: ""
+      example: Outstanding Performer of the Quarter
     category_if_applicable:
       type: string
+      default: ""
       ui:
         compact: true
     award_period:
       type: string
+      default: ""
+      example: 1 Jan 2026 – 31 Mar 2026
       ui:
         compact: true
     rankname_of_nominee:
       type: string
+      default: ""
+      example: "SSgt John A. Doe"
       ui:
         compact: true
     majcom_fldcom_foa_or_dru:
       type: string
+      default: ""
+      example: ACC
       ui:
         compact: true
     dafsc_duty_title:
       type: string
+      default: ""
+      example: "1C5X1, Aerospace Control and Warning Systems"
     nominees_telephone_dsn_commercial:
       type: string
+      default: ""
+      example: "DSN 555-1234 / (555) 555-1234"
     unit_office_symbol_street_address_base_state_zip:
       type: string
+      default: ""
+      example: "1st ACS, 123 Main St, Tyndall AFB FL 32403"
     unit_commander_rank_name_and_telephone:
       type: string
+      default: ""
+      example: "Lt Col Jane B. Smith, (555) 555-5678"
 
 card_kinds:
   accomplishments_continued:

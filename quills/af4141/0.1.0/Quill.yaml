@@ -11,20 +11,24 @@ main:
   fields:
     name:
       type: string
-      required: true
+      default: ""
+      example: "Doe, John A."
       description: Full name in Last, First, Middle Initial format.
 
     unit:
       type: string
-      required: true
+      default: ""
+      example: 1st Air Control Squadron
       description: Unit or organization of assignment.
 
     grade:
       type: string
+      default: ""
       description: Current grade or CCC level.
 
     commanders_auth:
       type: string
+      default: ""
       description: Commander's authentication entry on page 1.
 
 card_kinds:
@@ -37,18 +41,21 @@ card_kinds:
     fields:
       date:
         type: date
+        default: ""
         ui:
           group: Record
         description: Date of the action (column A).
 
       action:
         type: string
+        default: ""
         ui:
           group: Record
         description: One type of action per line (column B).
 
       written_grade:
         type: string
+        default: ""
         ui:
           group: Record
           compact: true
@@ -64,6 +71,7 @@ card_kinds:
 
       positional_grade:
         type: string
+        default: ""
         ui:
           group: Record
           compact: true
@@ -79,6 +87,7 @@ card_kinds:
 
       auth_or_remarks:
         type: string
+        default: ""
         ui:
           group: Record
         description: Authentication or remarks entry (column G).
