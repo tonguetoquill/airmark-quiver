@@ -55,7 +55,7 @@
 
 // Mainmatter configuration
 #mainmatter[
-  #data.BODY
+  #data.at("$body")
 ]
 
 // Backmatter
@@ -75,13 +75,13 @@
 )
 
 // Indorsements - iterate through CARDS array and filter by CARD tag
-#for (i, card) in data.CARDS.enumerate() {
-  if card.CARD == "indorsement" {
+#for (i, card) in data.at("$cards").enumerate() {
+  if card.at("$kind") == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
     // Pass truly empty content (`[]`) in the empty case so indorsement can
     // collapse the body's surrounding spacing.
-    let body = card.at("BODY", default: "")
+    let body = card.at("$body", default: "")
     let body_content = if type(body) == str { [] } else { body }
     // Per AFH 33-337 Ch. 14, an indorsement is dated when the endorser signs
     // it (distinct from the originating memo's date). Default to today when

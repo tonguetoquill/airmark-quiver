@@ -18,8 +18,8 @@
 #let itin-cols = ("date", "departure_point", "arrival_point", "rest_length", "mileage")
 #{
   let row = 0
-  for card in data.at("CARDS", default: ()) {
-    if card.CARD == "itinerary" and row < 10 {
+  for card in data.at("$cards", default: ()) {
+    if card.at("$kind") == "itinerary" and row < 10 {
       let n = str(row + 1)
       for col in itin-cols {
         let v = card.at(col, default: none)

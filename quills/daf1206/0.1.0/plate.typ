@@ -30,17 +30,17 @@
     data.unit_commander_rank_name_and_telephone,
   )
 }
-#if "BODY" in data {
+#if "$body" in data {
   vals.insert(
     "SPECIFIC_ACCOMPLISHMENTS_Use_Performance_Statements_IAW_DAFMAN_362806",
-    data.BODY,
+    data.at("$body"),
   )
 }
 
 #let continued-key = "SPECIFIC_ACCOMPLISHMENTS_Use_Performance_Statements_IAW_DAFMAN_362806_Continued"
-#for card in data.CARDS {
-  if card.CARD == "accomplishments_continued" and continued-key not in vals and "BODY" in card {
-    vals.insert(continued-key, card.BODY)
+#for card in data.at("$cards") {
+  if card.at("$kind") == "accomplishments_continued" and continued-key not in vals and "$body" in card {
+    vals.insert(continued-key, card.at("$body"))
   }
 }
 
