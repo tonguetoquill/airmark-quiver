@@ -188,7 +188,7 @@ main:
       ui:
         group: Additional
         compact: true
-      description: "CUI Designation Indicator (DoDM 5200.48): Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Required when classification is CUI. Leave blank to omit the designation indicator block."
+      description: "CUI Designation Indicator (DoDM 5200.48): Office or organization that designated this information as CUI (e.g., 'SAF/AA'). REQUIRED when classification is CUI — document will not compile without it."
 
     cui_category:
       type: string
@@ -204,7 +204,7 @@ main:
       ui:
         group: Additional
         compact: true
-      description: "CUI Designation Indicator (DoDM 5200.48): Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Required when classification is CUI."
+      description: "CUI Designation Indicator (DoDM 5200.48): Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). REQUIRED when classification is CUI — document will not compile without it."
 
 leaf_kinds:
   indorsement:

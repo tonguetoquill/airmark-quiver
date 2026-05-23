@@ -90,6 +90,22 @@
     none
   }
 
+  // DoDM 5200.48 §3: designation indicator block is mandatory for CUI documents.
+  if (
+    classification_level != none
+    and type(classification_level) == str
+    and classification_level.trim().starts-with("CUI")
+  ) {
+    assert(
+      cui_controlled_by != none and type(cui_controlled_by) == str and cui_controlled_by.trim() != "",
+      message: "cui_controlled_by is required when classification is CUI (DoDM 5200.48 §3)"
+    )
+    assert(
+      cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "",
+      message: "cui_poc is required when classification is CUI (DoDM 5200.48 §3)"
+    )
+  }
+
   // Document-wide typography settings (inlined from configure())
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
   set block(above: spacing.line, below: 0em, spacing: 0em)
