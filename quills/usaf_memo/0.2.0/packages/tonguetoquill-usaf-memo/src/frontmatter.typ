@@ -149,7 +149,12 @@
   render-date-section(actual_date, memo-style: memo_style)
   render-for-section(memo_for, memo_for_cols)
   if not falsey(memo_from) { render-from-section(memo_from) }
-  render-subject-section(subject)
+  let single-ref = if type(references) == array and references.len() == 1 {
+    references.at(0)
+  } else {
+    none
+  }
+  render-subject-section(subject, inline-reference: single-ref)
   render-references-section(references)
 
   // AFH 33-337: "Begin text on second line below subject/references".
