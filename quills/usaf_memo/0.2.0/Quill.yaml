@@ -106,10 +106,10 @@ main:
       type: array
       default: []
       example:
-        - "AFM 33-326, 31 July 2019, Preparing Official Communications"
+        - "AFMAN 33-326, 25 November 2011, *Preparing Official Communications*"
       ui:
         group: Additional
-      description: "Cite by organization, type, date, and title."
+      description: "Cite by organization, type, date, and title. Wrap publication or document titles in *asterisks* to italicize them per AFH 33-337."
 
     cc:
       type: array
