@@ -3,7 +3,6 @@ quill:
   version: 0.2.0
   backend: typst
   plate_file: plate.typ
-  example_file: example.md
   description: U.S. Air Force and Space Force Official Memorandum
 
 main:
@@ -206,7 +205,7 @@ main:
         compact: true
       description: "CUI Designation Indicator (DoDM 5200.48): Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). REQUIRED when classification is CUI — document will not compile without it."
 
-leaf_kinds:
+card_kinds:
   indorsement:
     description: Chain of routing endorsements. Each endorsement block adds an official response or forwarding action to the original memo.
     ui:
