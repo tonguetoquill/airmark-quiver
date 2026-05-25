@@ -14,7 +14,8 @@ main:
   fields:
     memo_for:
       type: array
-      required: true
+      default:
+        - ORG/SYMBOL
       example:
         - ORG1/SYMBOL
         - ORG2/SYMBOL
@@ -24,7 +25,8 @@ main:
 
     memo_from:
       type: array
-      required: true
+      default:
+        - ORG/SYMBOL
       example:
         - ORG/SYMBOL
         - Organization Name
@@ -36,7 +38,7 @@ main:
 
     subject:
       type: string
-      required: true
+      default: Subject of the Memorandum
       example: Subject of the Memorandum
       ui:
         group: Addressing
@@ -44,7 +46,9 @@ main:
 
     signature_block:
       type: array
-      required: true
+      default:
+        - "FIRST M. LAST, Rank, USSF"
+        - Duty Title
       example:
         - "FIRST M. LAST, Rank, USSF"
         - Duty Title
@@ -225,7 +229,6 @@ card_kinds:
         description: Office symbol or organization receiving the endorsed memo.
       signature_block:
         type: array
-        required: true
         default:
           - "FIRST M. LAST, Rank, USAF"
           - Duty Title

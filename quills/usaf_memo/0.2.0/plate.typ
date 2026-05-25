@@ -55,7 +55,7 @@
 
 // Mainmatter configuration
 #mainmatter[
-  #data.BODY
+  #data.at("BODY", default: [])
 ]
 
 // Backmatter
@@ -75,7 +75,7 @@
 )
 
 // Indorsements - iterate through LEAVES array and filter by KIND type
-#for (i, card) in data.LEAVES.enumerate() {
+#for (i, card) in data.at("LEAVES", default: ()).enumerate() {
   if card.KIND == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
