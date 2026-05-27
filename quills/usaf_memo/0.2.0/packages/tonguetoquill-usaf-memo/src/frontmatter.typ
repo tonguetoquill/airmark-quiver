@@ -138,10 +138,13 @@
 
       // DoDM 5200.48 §3: CUI designation indicator block — first page only,
       // bottom-right corner, above the classification banner.
+      // dy: -0.85in clears the tag line (at -0.625in) and the CUI banner (at -0.375in).
+      // dx: -0.5in pulls it away from the right margin edge for visual breathing room.
       context if counter(page).get().first() == 1 and cui_indicator != none {
         place(
           bottom + right,
-          dy: -0.625in,
+          dx: -0.5in,
+          dy: -0.85in,
           block(
             inset: 0pt,
             {
