@@ -81,7 +81,7 @@
     }
     let ldc = if cui_limited_dissemination != none and type(cui_limited_dissemination) == str { cui_limited_dissemination.trim() } else { "" }
     if ldc != "" {
-      lines.push([#strong[Limited Dissemination Control:] #upper(ldc)])
+      lines.push([#strong[LDC:] #upper(ldc)])
     }
     if cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "" {
       lines.push([#strong[POC:] #cui_poc.trim()])
