@@ -27,6 +27,7 @@
   dissemination: none,
   cui_controlled_by: none,
   cui_category: none,
+  cui_limited_dissemination: none,
   cui_poc: none,
   footer_tag_line: none,
   memo_style: "usaf",
@@ -78,9 +79,9 @@
     if cui_category != none and type(cui_category) == str and cui_category.trim() != "" {
       lines.push([#strong[CUI Category:] #cui_category.trim()])
     }
-    let disp_raw = if dissemination != none and type(dissemination) == str { dissemination.trim() } else { "" }
-    if disp_raw != "" {
-      lines.push([#strong[Limited Dissemination Control:] #upper(disp_raw)])
+    let ldc = if cui_limited_dissemination != none and type(cui_limited_dissemination) == str { cui_limited_dissemination.trim() } else { "" }
+    if ldc != "" {
+      lines.push([#strong[Limited Dissemination Control:] #upper(ldc)])
     }
     if cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "" {
       lines.push([#strong[POC:] #cui_poc.trim()])
@@ -88,22 +89,6 @@
     if lines.len() > 0 { lines.join(linebreak()) } else { none }
   } else {
     none
-  }
-
-  // DoDM 5200.48 §3: designation indicator block is mandatory for CUI documents.
-  if (
-    classification_level != none
-    and type(classification_level) == str
-    and classification_level.trim().starts-with("CUI")
-  ) {
-    assert(
-      cui_controlled_by != none and type(cui_controlled_by) == str and cui_controlled_by.trim() != "",
-      message: "cui_controlled_by is required when classification is CUI (DoDM 5200.48 §3)"
-    )
-    assert(
-      cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "",
-      message: "cui_poc is required when classification is CUI (DoDM 5200.48 §3)"
-    )
   }
 
   // Document-wide typography settings (inlined from configure())
@@ -160,8 +145,8 @@
           block(
             inset: 0pt,
             {
-              set text(font: DEFAULT_BODY_FONTS, size: 8pt)
-              set par(leading: 0.35em, spacing: 0pt)
+              set text(font: DEFAULT_BODY_FONTS, size: 10pt)
+              set par(leading: 0.4em, spacing: 0pt)
               cui_indicator
             }
           )
