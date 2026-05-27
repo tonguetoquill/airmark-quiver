@@ -15,14 +15,19 @@
     }
   ),
 
+  // Optional Freedom 250 emblem, placed opposite the seal
+  ..if data.at("freedom250", default: false) {
+    (letterhead_emblem: image("assets/freedom250.png"))
+  },
+
   // Date
   date: data.at("date", default: none),
 
   // Receiver information
   memo_for: data.memo_for,
 
-  // Sender information
-  memo_from: data.memo_from,
+  // Sender information (omitted for Memorandum for Record)
+  ..if data.at("memo_from", default: ()).len() > 0 { (memo_from: data.memo_from) },
 
   // Subject line
   subject: data.subject,
@@ -56,7 +61,7 @@
 
 // Mainmatter configuration
 #mainmatter[
-  #data.at("BODY", default: [])
+  #data.at("$body")
 ]
 
 // Backmatter
@@ -75,14 +80,14 @@
   ..if "attachments" in data { (attachments: data.attachments) },
 )
 
-// Indorsements - iterate through LEAVES array and filter by KIND type
-#for (i, card) in data.at("LEAVES", default: ()).enumerate() {
-  if card.KIND == "indorsement" {
+// Indorsements - iterate through CARDS array and filter by CARD tag
+#for (i, card) in data.at("$cards").enumerate() {
+  if card.at("$kind") == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
     // Pass truly empty content (`[]`) in the empty case so indorsement can
     // collapse the body's surrounding spacing.
-    let body = card.at("BODY", default: "")
+    let body = card.at("$body", default: "")
     let body_content = if type(body) == str { [] } else { body }
     // Per AFH 33-337 Ch. 14, an indorsement is dated when the endorser signs
     // it (distinct from the originating memo's date). Default to today when

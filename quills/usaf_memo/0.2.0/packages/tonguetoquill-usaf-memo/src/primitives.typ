@@ -20,6 +20,7 @@
   font,
   letterhead-seal: none,
   letterhead-seal-subtitle: none,
+  letterhead-emblem: none, // optional image placed opposite the seal (right side)
 ) = {
   font = ensure-array(font)
   title = ensure-string(title)
@@ -39,6 +40,7 @@
           align(center)[
             #set text(12pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
             #title\
+            #v(1pt)
             #text(10.5pt)[#caption]
           ],
         )
@@ -73,6 +75,17 @@
       seal-body,
     )
   }
+
+  if letterhead-emblem != none {
+    place(
+      right + top,
+      dx: 0.5in,
+      dy: -.5in,
+      block[
+        #fit-box(width: 2in, height: 1in, alignment: right + horizon)[#letterhead-emblem]
+      ],
+    )
+  }
 }
 
 // =============================================================================
@@ -98,9 +111,9 @@
     "  ",
     align(left)[
       #if type(recipients) == array {
-        create-auto-grid(recipients, column-gutter: spacing.tab, cols: cols)
+        create-auto-grid(recipients.map(upper), column-gutter: spacing.tab, cols: cols)
       } else {
-        recipients
+        upper(recipients)
       }
     ],
   )
@@ -353,7 +366,9 @@
       (if attachment-count == 1 { "Attachment" } else { str(attachment-count) + " Attachments" })
         + " (listed on next page):"
     )
-    render-backmatter-section(attachments, section-label, numbering-style: "1.", continuation-label: continuation-label)
+    // AFH 33-337: a single attachment is not numbered; numbering applies to two or more.
+    let numbering-style = if attachment-count == 1 { none } else { "1." }
+    render-backmatter-section(attachments, section-label, numbering-style: numbering-style, continuation-label: continuation-label)
   }
 
   if cc != none and cc.len() > 0 {

@@ -1,86 +1,63 @@
 #import "@local/quillmark-helper:0.1.0": data
+#import "@local/daf4392page2-pkg:0.1.0": form
 
-// `type: date` fields arrive as Typst `datetime`; overlay text must be plain strings.
-#let show-date(v) = {
-  if v == none { "" }
-  else if type(v) == datetime { v.display("[month padding:none]/[day padding:none]/[year]") }
-  else { str(v) }
-}
+#set text(font: "Arimo")
 
-#set page(width: 8.5in, height: 11in, margin: 0in)
-#set text(font: "Arimo", size: 10pt)
+// Map snake_case Quill `data` keys to generated `form.typ` parameter names.
+#let vals = (:)
 
-// Background
-#place(image("assets/page1.png", width: 100%, height: 100%))
-
-#let tf(dx, dy, content) = place(dx: dx, dy: dy, content)
-#let check(dx, dy, is_checked) = if is_checked { place(dx: dx, dy: dy, text(weight: "bold", size: 12pt)[✓]) }
-
-// Mode of Transportation
+// Mode of Transportation — enum string drives one of six checkboxes.
 #let mode = data.at("transportation_mode", default: "")
-#check(40pt, 67pt, mode == "pmv")
-#check(173pt, 67pt, mode == "airplane")
-#check(243pt, 67pt, mode == "bus")
-#check(286pt, 67pt, mode == "train")
-#check(336pt, 67pt, mode == "motorcycle")
-#check(411pt, 67pt, mode == "other")
+#if mode != "" { vals.insert("mode_" + mode, true) }
 
-// Fields
-#tf(40pt, 100pt)[#show-date(data.at("departure_date", default: none))]
-#tf(123pt, 100pt)[#data.at("final_destination", default: "")]
+// Header row
+#if "departure_date" in data { vals.insert("departure_date", data.departure_date) }
+#if "final_destination" in data { vals.insert("final_destination", data.final_destination) }
 
-// Itinerary Rows (via LEAVES)
+// Proposed Travel Itinerary — one card per row, up to 10 rows.
+#let itin-cols = ("date", "departure_point", "arrival_point", "rest_length", "mileage")
 #{
   let row = 0
-  let dy-start = 160pt
-  let dy-step = 40pt
-  if "LEAVES" in data {
-    for card in data.LEAVES {
-      if card.KIND == "itinerary" and row < 10 {
-        let dy = dy-start + (row * dy-step)
-        tf(80pt, dy)[#show-date(card.at("date", default: none))]
-        tf(135pt, dy)[#card.at("departure_point", default: "")]
-        tf(295pt, dy)[#card.at("arrival_point", default: "")]
-        tf(450pt, dy)[#card.at("rest_length", default: "")]
-        tf(515pt, dy)[#card.at("mileage", default: "")]
-        row = row + 1
+  for card in data.at("$cards", default: ()) {
+    if card.at("$kind") == "itinerary" and row < 10 {
+      let n = str(row + 1)
+      for col in itin-cols {
+        let v = card.at(col, default: none)
+        let display = if col == "date" { v } else if v == none { "" } else { str(v) }
+        if display != none and display != "" { vals.insert("itin_" + col + "_" + n, display) }
       }
+      row = row + 1
     }
   }
 }
 
-// Flight Info
+// Flight info — bold label prefixes a tentative/confirmed flight number.
 #{
-  let d-flight = str(data.at("dept_flight_num", default: ""))
-  if d-flight != "" { tf(350pt, 545pt)[#text(weight: "bold")[Dept Flight:] #d-flight] }
-  
-  let a-flight = str(data.at("arrival_flight_num", default: ""))
-  if a-flight != "" { tf(450pt, 545pt)[#text(weight: "bold")[Arr Flight:] #a-flight] }
+  let d = str(data.at("dept_flight_num", default: ""))
+  if d != "" { vals.insert("dept_flight", [#text(weight: "bold")[Dept Flight:] #d]) }
+  let a = str(data.at("arrival_flight_num", default: ""))
+  if a != "" { vals.insert("arrival_flight", [#text(weight: "bold")[Arr Flight:] #a]) }
 }
 
 // Notes
-#tf(40pt, 565pt)[#block(width: 530pt)[#data.at("notes", default: "")]]
+#if "notes" in data { vals.insert("notes", data.notes) }
 
 // Acknowledgements
-#tf(40pt, 620pt)[#data.at("organization", default: "")]
-#tf(500pt, 620pt)[#show-date(data.at("briefed_date", default: none))]
+#if "organization" in data { vals.insert("organization", data.organization) }
+#if "briefed_date" in data { vals.insert("briefed_date", data.briefed_date) }
+#if "briefee_name" in data { vals.insert("briefee_name", data.briefee_name) }
+#if "briefee_grade" in data { vals.insert("briefee_grade", data.briefee_grade) }
+#if "briefer_name" in data { vals.insert("briefer_name", data.briefer_name) }
+#if "briefer_grade" in data { vals.insert("briefer_grade", data.briefer_grade) }
 
-#tf(40pt, 650pt)[#data.at("briefee_name", default: "")]
-#tf(270pt, 650pt)[#data.at("briefee_grade", default: "")]
-
-#tf(40pt, 680pt)[#data.at("briefer_name", default: "")]
-#tf(270pt, 680pt)[#data.at("briefer_grade", default: "")]
-
-// Emergency Contact
+// Emergency contact — bold label prefixes a "name: phone" pair.
 #{
-  let emergency_name = str(data.at("emergency_contact_name", default: ""))
-  let emergency_phone = str(data.at("emergency_contact_phone", default: ""))
-  let emergency_contact = if emergency_name != "" and emergency_phone != "" {
-    emergency_name + ": " + emergency_phone
-  } else if emergency_name != "" {
-    emergency_name
-  } else {
-    emergency_phone
+  let en = str(data.at("emergency_contact_name", default: ""))
+  let ep = str(data.at("emergency_contact_phone", default: ""))
+  let contact = if en != "" and ep != "" { en + ": " + ep } else if en != "" { en } else { ep }
+  if contact != "" {
+    vals.insert("emergency_contact", [#text(weight: "bold")[EMERGENCY CONTACT:] #contact])
   }
-  tf(40pt, 700pt)[#text(size: 10pt, weight: "bold")[EMERGENCY CONTACT:] #text(size: 10pt)[#emergency_contact]]
 }
+
+#form(..vals)

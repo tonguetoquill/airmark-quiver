@@ -5,5 +5,822 @@
       "height": 792.0
     }
   ],
-  "fields": []
+  "fields": [
+    {
+      "name": "mode_pmv",
+      "type": "checkbox",
+      "bbox": [
+        37.0,
+        66.0,
+        51.0,
+        80.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "mode_airplane",
+      "type": "checkbox",
+      "bbox": [
+        170.0,
+        66.0,
+        184.0,
+        80.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "mode_bus",
+      "type": "checkbox",
+      "bbox": [
+        240.0,
+        66.0,
+        254.0,
+        80.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "mode_train",
+      "type": "checkbox",
+      "bbox": [
+        283.0,
+        66.0,
+        297.0,
+        80.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "mode_motorcycle",
+      "type": "checkbox",
+      "bbox": [
+        333.0,
+        66.0,
+        347.0,
+        80.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "mode_other",
+      "type": "checkbox",
+      "bbox": [
+        408.0,
+        66.0,
+        422.0,
+        80.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "departure_date",
+      "type": "text",
+      "bbox": [
+        40.0,
+        97.0,
+        118.0,
+        111.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "final_destination",
+      "type": "text",
+      "bbox": [
+        123.0,
+        97.0,
+        580.0,
+        111.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_1",
+      "type": "text",
+      "bbox": [
+        80.0,
+        159.0,
+        130.0,
+        173.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_1",
+      "type": "text",
+      "bbox": [
+        130.0,
+        159.0,
+        285.0,
+        173.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_1",
+      "type": "text",
+      "bbox": [
+        285.0,
+        159.0,
+        435.0,
+        173.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_1",
+      "type": "text",
+      "bbox": [
+        435.0,
+        159.0,
+        510.0,
+        173.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_1",
+      "type": "text",
+      "bbox": [
+        505.0,
+        159.0,
+        575.0,
+        173.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_2",
+      "type": "text",
+      "bbox": [
+        80.0,
+        199.0,
+        130.0,
+        213.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_2",
+      "type": "text",
+      "bbox": [
+        130.0,
+        199.0,
+        285.0,
+        213.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_2",
+      "type": "text",
+      "bbox": [
+        285.0,
+        199.0,
+        435.0,
+        213.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_2",
+      "type": "text",
+      "bbox": [
+        435.0,
+        199.0,
+        510.0,
+        213.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_2",
+      "type": "text",
+      "bbox": [
+        505.0,
+        199.0,
+        575.0,
+        213.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_3",
+      "type": "text",
+      "bbox": [
+        80.0,
+        239.0,
+        130.0,
+        253.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_3",
+      "type": "text",
+      "bbox": [
+        130.0,
+        239.0,
+        285.0,
+        253.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_3",
+      "type": "text",
+      "bbox": [
+        285.0,
+        239.0,
+        435.0,
+        253.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_3",
+      "type": "text",
+      "bbox": [
+        435.0,
+        239.0,
+        510.0,
+        253.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_3",
+      "type": "text",
+      "bbox": [
+        505.0,
+        239.0,
+        575.0,
+        253.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_4",
+      "type": "text",
+      "bbox": [
+        80.0,
+        279.0,
+        130.0,
+        293.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_4",
+      "type": "text",
+      "bbox": [
+        130.0,
+        279.0,
+        285.0,
+        293.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_4",
+      "type": "text",
+      "bbox": [
+        285.0,
+        279.0,
+        435.0,
+        293.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_4",
+      "type": "text",
+      "bbox": [
+        435.0,
+        279.0,
+        510.0,
+        293.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_4",
+      "type": "text",
+      "bbox": [
+        505.0,
+        279.0,
+        575.0,
+        293.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_5",
+      "type": "text",
+      "bbox": [
+        80.0,
+        319.0,
+        130.0,
+        333.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_5",
+      "type": "text",
+      "bbox": [
+        130.0,
+        319.0,
+        285.0,
+        333.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_5",
+      "type": "text",
+      "bbox": [
+        285.0,
+        319.0,
+        435.0,
+        333.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_5",
+      "type": "text",
+      "bbox": [
+        435.0,
+        319.0,
+        510.0,
+        333.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_5",
+      "type": "text",
+      "bbox": [
+        505.0,
+        319.0,
+        575.0,
+        333.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_6",
+      "type": "text",
+      "bbox": [
+        80.0,
+        359.0,
+        130.0,
+        373.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_6",
+      "type": "text",
+      "bbox": [
+        130.0,
+        359.0,
+        285.0,
+        373.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_6",
+      "type": "text",
+      "bbox": [
+        285.0,
+        359.0,
+        435.0,
+        373.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_6",
+      "type": "text",
+      "bbox": [
+        435.0,
+        359.0,
+        510.0,
+        373.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_6",
+      "type": "text",
+      "bbox": [
+        505.0,
+        359.0,
+        575.0,
+        373.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_7",
+      "type": "text",
+      "bbox": [
+        80.0,
+        399.0,
+        130.0,
+        413.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_7",
+      "type": "text",
+      "bbox": [
+        130.0,
+        399.0,
+        285.0,
+        413.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_7",
+      "type": "text",
+      "bbox": [
+        285.0,
+        399.0,
+        435.0,
+        413.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_7",
+      "type": "text",
+      "bbox": [
+        435.0,
+        399.0,
+        510.0,
+        413.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_7",
+      "type": "text",
+      "bbox": [
+        505.0,
+        399.0,
+        575.0,
+        413.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_8",
+      "type": "text",
+      "bbox": [
+        80.0,
+        439.0,
+        130.0,
+        453.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_8",
+      "type": "text",
+      "bbox": [
+        130.0,
+        439.0,
+        285.0,
+        453.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_8",
+      "type": "text",
+      "bbox": [
+        285.0,
+        439.0,
+        435.0,
+        453.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_8",
+      "type": "text",
+      "bbox": [
+        435.0,
+        439.0,
+        510.0,
+        453.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_8",
+      "type": "text",
+      "bbox": [
+        505.0,
+        439.0,
+        575.0,
+        453.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_9",
+      "type": "text",
+      "bbox": [
+        80.0,
+        479.0,
+        130.0,
+        493.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_9",
+      "type": "text",
+      "bbox": [
+        130.0,
+        479.0,
+        285.0,
+        493.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_9",
+      "type": "text",
+      "bbox": [
+        285.0,
+        479.0,
+        435.0,
+        493.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_9",
+      "type": "text",
+      "bbox": [
+        435.0,
+        479.0,
+        510.0,
+        493.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_9",
+      "type": "text",
+      "bbox": [
+        505.0,
+        479.0,
+        575.0,
+        493.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_date_10",
+      "type": "text",
+      "bbox": [
+        80.0,
+        519.0,
+        130.0,
+        533.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_departure_point_10",
+      "type": "text",
+      "bbox": [
+        130.0,
+        519.0,
+        285.0,
+        533.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_arrival_point_10",
+      "type": "text",
+      "bbox": [
+        285.0,
+        519.0,
+        435.0,
+        533.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_rest_length_10",
+      "type": "text",
+      "bbox": [
+        435.0,
+        519.0,
+        510.0,
+        533.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "itin_mileage_10",
+      "type": "text",
+      "bbox": [
+        505.0,
+        519.0,
+        575.0,
+        533.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "dept_flight",
+      "type": "text",
+      "bbox": [
+        350.0,
+        544.0,
+        448.0,
+        558.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "arrival_flight",
+      "type": "text",
+      "bbox": [
+        450.0,
+        544.0,
+        590.0,
+        558.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "bbox": [
+        40.0,
+        564.0,
+        570.0,
+        614.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "organization",
+      "type": "text",
+      "bbox": [
+        40.0,
+        619.0,
+        470.0,
+        633.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "briefed_date",
+      "type": "text",
+      "bbox": [
+        500.0,
+        617.0,
+        585.0,
+        631.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "briefee_name",
+      "type": "text",
+      "bbox": [
+        40.0,
+        649.0,
+        260.0,
+        663.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "briefee_grade",
+      "type": "text",
+      "bbox": [
+        255.0,
+        647.0,
+        455.0,
+        661.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "briefer_name",
+      "type": "text",
+      "bbox": [
+        40.0,
+        679.0,
+        260.0,
+        693.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "briefer_grade",
+      "type": "text",
+      "bbox": [
+        255.0,
+        677.0,
+        455.0,
+        691.0
+      ],
+      "page": 1,
+      "options": null
+    },
+    {
+      "name": "emergency_contact",
+      "type": "text",
+      "bbox": [
+        40.0,
+        699.0,
+        590.0,
+        713.0
+      ],
+      "page": 1,
+      "options": null
+    }
+  ]
 }

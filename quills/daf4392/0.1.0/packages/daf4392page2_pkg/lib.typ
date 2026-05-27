@@ -1,6 +1,115 @@
 // Formalizer Engine – rendering engine
 // Renders pixel-perfect PDF form replicas from a PyMuPDF-extracted schema.
 
+/// Global configuration for text rendering.
+/// Adjust these to change the overall form text appearance.
+#let FORM_MAX_TEXT_SIZE = 14pt
+#let FORM_MIN_TEXT_SIZE = 6pt
+#let FORM_MIN_CHARS_PER_LINE = 7
+
+/// Coerce any user-supplied scalar value to a plain string.
+/// Accepts the same types as Typst's built-in str(), plus content –
+/// content is extracted via repr() with its surrounding square brackets stripped.
+/// This lets callers write `[Hello]` (content) instead of `"Hello"` (string).
+#let to-str(value) = {
+  if type(value) == content {
+    let r = repr(value)
+    // repr([hello]) → "[hello]" — strip the outer square brackets
+    if r.starts-with("[") and r.ends-with("]") {
+      r.slice(1, r.len() - 1)
+    } else {
+      r
+    }
+  } else {
+    str(value)
+  }
+}
+
+/// True when a schema field name corresponds to a date overlay.
+#let is-date-field(name) = {
+  name.ends-with("_date") or name.starts-with("itin_date_")
+}
+
+/// Format a date value for display as `DD Mon YYYY`.
+#let format-date(value) = {
+  if value == none {
+    none
+  } else if type(value) == datetime {
+    value.display("[day padding:zero] [month repr:short] [year]")
+  } else if type(value) == str and value == "" {
+    ""
+  } else {
+    str(value)
+  }
+}
+
+/// Should this field shrink text to a single line rather than word-wrap?
+/// True for short/narrow fields with brief content (grades, ranks, dates).
+/// `display` may be a string or content; char-count is skipped for content.
+#let should-shrink-to-fit(display, width, height) = {
+  let aspect = width / height
+  // content has no .len(); treat as "long" so only the dimension conditions apply
+  let char-count = if type(display) == str { display.len() } else { 99 }
+  char-count <= 10 or height < 20pt or aspect > 4.0
+}
+
+/// Render a text-like field with shrink-to-fit and word-wrap fallback.
+#let render-text-field(display, width, height, x-inset, y-inset) = {
+  set par(leading: 0.25em)
+  context {
+    let avail-w = width - 2 * x-inset
+    let avail-h = height - 2 * y-inset
+    let shrink = should-shrink-to-fit(display, width, height)
+
+    let final-size = FORM_MIN_TEXT_SIZE
+    let current = FORM_MAX_TEXT_SIZE
+    let step = 0.5pt
+
+    while current >= FORM_MIN_TEXT_SIZE {
+      let m = if shrink {
+        // Measure as a single line (no width constraint → no wrapping)
+        measure(text(size: current, display))
+      } else {
+        // Measure with wrapping within the available width
+        measure(block(width: avail-w, text(size: current, display)))
+      }
+      let char-m = measure(text(size: current, "0" * FORM_MIN_CHARS_PER_LINE))
+
+      if m.width <= avail-w and m.height <= avail-h and char-m.width <= avail-w {
+        final-size = current
+        break
+      }
+      current = current - step
+    }
+
+    // Fallback: if shrink-to-fit hit min size and still overflows,
+    // re-try with word-wrap enabled as a last resort.
+    if shrink and current < FORM_MIN_TEXT_SIZE {
+      current = FORM_MAX_TEXT_SIZE
+      while current >= FORM_MIN_TEXT_SIZE {
+        let m = measure(block(width: avail-w, text(size: current, display)))
+        let char-m = measure(text(size: current, "0" * FORM_MIN_CHARS_PER_LINE))
+        if m.height <= avail-h and char-m.width <= avail-w {
+          final-size = current
+          break
+        }
+        current = current - step
+      }
+    }
+
+    // Default to vertically centered. Only top-align for tall "text areas".
+    let vert-align = if height >= 40pt { top } else { horizon }
+
+    box(
+      width: width,
+      height: height,
+      clip: true,
+      inset: (x: x-inset, y: y-inset),
+      align(left + vert-align, text(size: final-size, display)),
+    )
+  }
+}
+
 /// Render a single field's content overlay.
 ///
 /// - field-type (str): normalised lowercase type
@@ -10,29 +119,42 @@
 /// - field (dictionary): raw field entry from the schema
 #let render-field(field-type, value, width, height, field) = {
   if field-type == "text" {
-    if value != none and str(value) != "" {
-      context {
-        let default-size = height * 0.6
-        let min-size = 6pt
-        let x-inset = 1.5pt
-        let m = measure(text(size: default-size, str(value)))
-        let scale = calc.min(1.0, (width - 2 * x-inset) / m.width)
-        let final-size = calc.max(min-size, default-size * scale)
-        box(
-          width: width,
-          height: height,
-          clip: true,
-          inset: (x: x-inset),
-          align(left + horizon, text(size: final-size, str(value))),
-        )
+    if value != none {
+      let display = if is-date-field(field.name) { format-date(value) } else { value }
+      // Pass content through directly so styling (bold, italic, …) is preserved;
+      // for plain strings, skip empty values.
+      if type(display) == content {
+        render-text-field(display, width, height, 1.5pt, 1pt)
+      } else if str(display) != "" {
+        render-text-field(str(display), width, height, 1.5pt, 1pt)
       }
     }
   } else if field-type == "checkbox" {
     if value == true {
+      // Drawn as vector strokes rather than a glyph so the mark renders
+      // regardless of whether the active font carries U+2713.
+      let s = calc.min(width, height) * 0.78
+      let t = calc.max(s * 0.16, 1pt)
+      let mark-stroke = (paint: black, thickness: t, cap: "round", join: "round")
       box(
         width: width,
         height: height,
-        align(center + horizon, text(size: height * 0.8, "✓")),
+        align(center + horizon, box(
+          width: s,
+          height: s,
+          {
+            place(line(
+              start: (0.12 * s, 0.52 * s),
+              end: (0.40 * s, 0.80 * s),
+              stroke: mark-stroke,
+            ))
+            place(line(
+              start: (0.40 * s, 0.80 * s),
+              end: (0.88 * s, 0.16 * s),
+              stroke: mark-stroke,
+            ))
+          },
+        )),
       )
     }
   } else if field-type == "radio" {
@@ -47,31 +169,18 @@
       )
     }
   } else if field-type == "combobox" or field-type == "listbox" {
-    let display = if value != none { str(value) } else { "" }
-    // Resolve export value → display label when options are present
+    // Default: render the raw value, preserving content styling if present.
+    // Override with the schema's display label when the export value matches.
+    let display = value
     if field.at("options", default: none) != none and value != none {
       for opt in field.options {
-        if str(opt.at(0)) == str(value) {
+        if str(opt.at(0)) == to-str(value) {
           display = str(opt.at(1))
         }
       }
     }
-    if display != "" {
-      context {
-        let default-size = height * 0.6
-        let min-size = 6pt
-        let x-inset = 2pt
-        let m = measure(text(size: default-size, display))
-        let scale = calc.min(1.0, (width - 2 * x-inset) / m.width)
-        let final-size = calc.max(min-size, default-size * scale)
-        box(
-          width: width,
-          height: height,
-          clip: true,
-          inset: (x: x-inset),
-          align(left + horizon, text(size: final-size, display)),
-        )
-      }
+    if display != none and to-str(display) != "" {
+      render-text-field(display, width, height, 2pt, 1pt)
     }
   }
 }
@@ -86,10 +195,10 @@
   if group-value == none { return false }
   let ev = field.at("export_value", default: none)
   if ev != none {
-    return str(ev) == str(group-value)
+    return str(ev) == to-str(group-value)
   }
   // Fallback: match against the stringified index
-  str(index-in-group) == str(group-value)
+  str(index-in-group) == to-str(group-value)
 }
 
 /// Draw a debug overlay rectangle with a label for a field.

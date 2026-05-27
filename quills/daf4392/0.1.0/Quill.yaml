@@ -3,7 +3,6 @@ quill:
   version: 0.1.0
   backend: typst
   plate_file: plate.typ
-  example_file: example.md
   description: "DAF Form 4392 - Pre-Departure Safety Briefing (Page 2)"
 
 main:
@@ -13,75 +12,86 @@ main:
     transportation_mode:
       type: string
       enum: [pmv, airplane, bus, train, motorcycle, other]
-      required: true
+      default: pmv
       description: "Matches the check box."
 
     departure_date:
       type: date
-      required: true
+      default: ""
+      example: "2026-06-01"
       ui:
         compact: true
       description: "Date of initial departure."
 
     final_destination:
       type: string
-      required: true
+      default: ""
+      example: San Antonio, TX
       ui:
         compact: true
       description: "Final travel destination."
 
     dept_flight_num:
       type: string
+      default: ""
       ui:
         compact: true
       description: "Departure flight number. (tenative or confirmed)"
 
     arrival_flight_num:
       type: string
+      default: ""
       ui:
         compact: true
       description: "Arrival flight number. (tenative or confirmed)"
 
     notes:
       type: string
+      default: ""
       description: "Additional notes or remarks for the travel."
 
     organization:
       type: string
-      required: true
+      default: ""
+      example: 1st Air Control Squadron
       ui:
         compact: true
       description: "Unit / Organization."
 
     briefed_date:
       type: date
-      required: true
+      default: ""
+      example: "2026-05-22"
       ui:
         compact: true
       description: "Put in today's date."
 
     briefee_name:
       type: string
-      required: true
+      default: ""
+      example: "Doe, John"
       ui:
         compact: true
       description: "Put in your Name (Last, First)."
 
     briefee_grade:
       type: string
+      default: ""
       ui:
         compact: true
       description: "Put in your Grade."
 
     emergency_contact_name:
       type: string
+      default: ""
       description: "Put in your Emergency Contact Name."
 
     emergency_contact_phone:
       type: string
+      default: ""
       description: "Put in your Emergency Contact's Phone Number."
 
-leaf_kinds:
+card_kinds:
   itinerary:
     description: "Each card represents one row in the travel itinerary table. Up to 10 rows are supported."
     ui:
@@ -91,30 +101,35 @@ leaf_kinds:
     fields:
       date:
         type: date
+        default: ""
         ui:
           group: Itinerary Entry
           compact: true
         description: "Date for the itinerary row."
       departure_point:
         type: string
+        default: ""
         ui:
           group: Itinerary Entry
           compact: true
         description: "Point of departure."
       arrival_point:
         type: string
+        default: ""
         ui:
           group: Itinerary Entry
           compact: true
         description: "Point of arrival."
       rest_length:
         type: string
+        default: ""
         ui:
           group: Itinerary Entry
           compact: true
         description: "Duration of stay at arrival point"
       mileage:
         type: string
+        default: ""
         ui:
           group: Itinerary Entry
           compact: true

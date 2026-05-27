@@ -19,6 +19,7 @@
   letterhead_caption: "[YOUR SQUADRON/UNIT NAME]",
   letterhead_seal: none,
   letterhead_seal_subtitle: none, // optional line under seal (9pt bold caps); ignored if no seal
+  letterhead_emblem: none, // optional image placed opposite the seal (right side)
   letterhead_font: DEFAULT_LETTERHEAD_FONTS,
   body_font: DEFAULT_BODY_FONTS,
   font_size: 12pt,
@@ -35,7 +36,6 @@
 ) = {
   assert(subject != none, message: "subject is required")
   assert(memo_for != none, message: "memo_for is required")
-  assert(memo_from != none, message: "memo_from is required")
   assert(
     memo_style in ("usaf", "daf"),
     message: "memo_style must be \"usaf\" or \"daf\"",
@@ -171,6 +171,7 @@
     letterhead_font,
     letterhead-seal: letterhead_seal,
     letterhead-seal-subtitle: letterhead_seal_subtitle,
+    letterhead-emblem: letterhead_emblem,
   )
 
   // AFH 33-337 "Date": "Place the date 1 inch from the right edge, 1.75 inches from the top"
@@ -195,7 +196,7 @@
 
   render-date-section(actual_date, memo-style: memo_style)
   render-for-section(memo_for, memo_for_cols)
-  render-from-section(memo_from)
+  if not falsey(memo_from) { render-from-section(memo_from) }
   render-subject-section(subject)
   render-references-section(references)
 

@@ -17,7 +17,7 @@ and aligned to the current Quillmark spec.
 ## Install
 
 ```bash
-npm install @airmark/quiver @quillmark/quiver@^0.6.0 @quillmark/wasm
+npm install @airmark/quiver @quillmark/quiver @quillmark/wasm
 ```
 
 This package ships only the Source Quiver assets (`Quiver.yaml` + `quills/`)
@@ -42,13 +42,14 @@ const quiverYaml = fileURLToPath(import.meta.resolve('@airmark/quiver/Quiver.yam
 const quiver = await Quiver.fromDir(path.dirname(quiverYaml));
 
 const engine = new Quillmark();
-const doc = Document.fromMarkdown(`---
-QUILL: usaf_memo@0.2
+const doc = Document.fromMarkdown(`~~~card-yaml
+$quill: usaf_memo@0.2
+$kind: main
 memo_for: ["ORG/SYMBOL"]
 memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
 subject: Hello Quillmark
 signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
----
+~~~
 
 Body of the memo.`);
 
@@ -74,7 +75,6 @@ quills/
     <x.y.z>/
       Quill.yaml
       plate.typ
-      example.md
       assets/
       packages/
 ```
