@@ -143,7 +143,6 @@
       context if counter(page).get().first() == 1 and cui_indicator != none {
         place(
           bottom + right,
-          dx: -0.5in,
           dy: -0.85in,
           block(
             inset: 0pt,
