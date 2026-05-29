@@ -178,7 +178,7 @@ main:
         - TOP SECRET
       default: ""
       ui:
-        group: Additional
+        group: Classification
         compact: true
       description: "Select the classification marking displayed in the header/footer banner. Banner colors follow DoD/CAPCO marking guidance (UNCLASSIFIED green, CUI/CONFIDENTIAL black, SECRET red, TOP SECRET orange). Follow AFI 31-401 and applicable DoD guidance. Leave blank to omit the banner."
 
@@ -186,7 +186,7 @@ main:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: Classification
         compact: true
       description: "Banner dissemination suffix appended after double slash (e.g. 'NF' renders as CUI//NF in the header/footer). Leave blank for no suffix."
 
@@ -194,7 +194,7 @@ main:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: Classification
         compact: true
       description: "Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Required by DoDM 5200.48 when classification is CUI."
 
@@ -202,7 +202,7 @@ main:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: Classification
         compact: true
       description: "CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
 
@@ -210,7 +210,7 @@ main:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: Classification
         compact: true
       description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix above."
 
@@ -218,7 +218,7 @@ main:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: Classification
         compact: true
       description: "Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Required by DoDM 5200.48 when classification is CUI."
 
