@@ -180,7 +180,7 @@ main:
       ui:
         group: Additional
         compact: true
-      description: "Select the classification marking displayed in the header/footer banner. Banner colors follow DoD/CAPCO marking guidance (UNCLASSIFIED green, CUI/CONFIDENTIAL black, SECRET red, TOP SECRET orange). Follow AFI 31-401 and applicable DoD guidance. Leave blank to omit the banner."
+      description: "Select the classification marking displayed in the header/footer banner. Banner colors follow DoD/CAPCO marking guidance (UNCLASSIFIED green, CUI/CONFIDENTIAL black, SECRET red, TOP SECRET orange). Follow AFI 31-401 and applicable DoD guidance. If CUI is selected, fill in the CUI Markings fields below. Leave blank to omit the banner."
 
     dissemination:
       type: string
@@ -194,33 +194,33 @@ main:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: CUI Markings
         compact: true
-      description: "CUI Designation Indicator (DoDM 5200.48): Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Leave blank to omit the designation indicator block."
+      description: "Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Required by DoDM 5200.48 when classification is CUI."
 
     cui_category:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: CUI Markings
         compact: true
-      description: "CUI Designation Indicator (DoDM 5200.48): CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
+      description: "CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
 
     cui_limited_dissemination:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: CUI Markings
         compact: true
-      description: "CUI Designation Indicator (DoDM 5200.48): Limited dissemination control label shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Separate from the banner suffix above — leave blank to omit."
+      description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix above."
 
     cui_poc:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: CUI Markings
         compact: true
-      description: "CUI Designation Indicator (DoDM 5200.48): Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Leave blank to omit."
+      description: "Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Required by DoDM 5200.48 when classification is CUI."
 
 card_kinds:
   indorsement:
