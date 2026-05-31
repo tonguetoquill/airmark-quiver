@@ -19,7 +19,7 @@ main:
         - ORG2/SYMBOL
       ui:
         group: Addressing
-      description: "Organization/office symbol in UPPERCASE. To address a specific person, add their rank and name in parentheses (e.g., 'ORG/SYMBOL (LT COL JANE DOE)'). For numerous recipients, use 'DISTRIBUTION'."
+      description: "Organization/office symbol in UPPERCASE. To address a specific person, add their rank and name in parentheses (e.g., 'ORG/SYMBOL (LT COL JANE DOE)'). For many recipients, enter 'SEE DISTRIBUTION' and list them in the Distribution field."
 
     memo_from:
       type: array
@@ -54,7 +54,7 @@ main:
       default: DEPARTMENT OF THE AIR FORCE
       ui:
         group: Letterhead
-      description: Standard title. Only change for Joint Commands or DoW Agencies.
+      description: Change only for Joint Commands or DoW agencies.
 
     letterhead_caption:
       type: array
@@ -81,7 +81,7 @@ main:
       ui:
         group: Letterhead
         compact: true
-      description: Optional line below the DoW seal (bold caps). Leave blank to omit.
+      description: Bold-caps line below the seal; blank to omit.
 
     tag_line:
       type: string
@@ -145,7 +145,7 @@ main:
       ui:
         group: Additional
         compact: true
-      description: "USAF memorandum (default) or DAF headquarters memorandum. DAF changes date formatting and body paragraph layout per AFH 33-337."
+      description: "USAF memorandum or DAF headquarters memorandum; DAF changes date format and body paragraph layout per AFH 33-337."
 
     font_size:
       type: number
@@ -153,7 +153,7 @@ main:
       ui:
         group: Additional
         compact: true
-      description: Font size for the memo text (pt). Decimal values (e.g. 11.5) are supported.
+      description: Body text size in points; decimals allowed (e.g. 11.5).
 
     date:
       type: date
@@ -202,7 +202,7 @@ card_kinds:
         example: ORG/SYMBOL
         ui:
           group: Addressing
-        description: "Office symbol or Rank Name of the endorsing official (e.g., 'ORG/SYMBOL')."
+        description: Office symbol or Rank Name of the endorsing official.
       for:
         type: string
         example: ORG/SYMBOL
@@ -226,7 +226,7 @@ card_kinds:
         default: standard
         ui:
           group: Additional
-        description: "Format style: 'standard' (formal on same page), 'informal' (less formal routing), or 'separate_page' (starts on new page)."
+        description: "'standard' (formal, same page), 'informal' (less formal routing), or 'separate_page' (begins on a new page)."
       action:
         type: string
         enum:
