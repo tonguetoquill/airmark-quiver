@@ -43,7 +43,7 @@ main:
     signature_block:
       type: array
       example:
-        - "FIRST M. LAST, Rank, USSF"
+        - "FIRST M. LAST, Rank, USAF"
         - Duty Title
       ui:
         group: Addressing
@@ -216,7 +216,7 @@ card_kinds:
           - Duty Title
         ui:
           group: Addressing
-        description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
+        description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Spell out 'Colonel' and general officer ranks."
       format:
         type: string
         enum:
@@ -236,17 +236,21 @@ card_kinds:
           - disapprove
         default: ""
         ui:
-          group: Addressing
+          group: Additional
         description: "Action taken by the endorser. Leave blank to hide the Approve/Disapprove line entirely, 'undecided' to display the line with neither option circled, 'approve' or 'disapprove' to circle the selected option."
       attachments:
         type: array
         default: []
+        example:
+          - Attachment description, YYYY MMM DD
         ui:
           group: Additional
         description: List of attachments specific to this endorsement.
       cc:
         type: array
         default: []
+        example:
+          - Rank and Name, ORG/SYMBOL
         ui:
           group: Additional
         description: List of office symbols to receive copies of this endorsement.
