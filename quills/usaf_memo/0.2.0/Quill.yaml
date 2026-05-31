@@ -153,7 +153,6 @@ main:
     font_size:
       type: number
       default: 12
-      example: 12
       ui:
         group: Additional
         compact: true
@@ -198,21 +197,21 @@ card_kinds:
     fields:
       from:
         type: string
-        default: ORG/SYMBOL
+        default: ""
+        example: ORG/SYMBOL
         ui:
           group: Addressing
         description: "Office symbol or Rank Name of the endorsing official (e.g., 'ORG/SYMBOL')."
       for:
         type: string
-        default: ORG/SYMBOL
+        default: ""
+        example: ORG/SYMBOL
         ui:
           group: Addressing
         description: Office symbol or organization receiving the endorsed memo.
       signature_block:
         type: array
-        default:
-          - "FIRST M. LAST, Rank, USAF"
-          - Duty Title
+        default: []
         example:
           - "FIRST M. LAST, Rank, USAF"
           - Duty Title
