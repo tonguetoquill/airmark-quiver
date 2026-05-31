@@ -47,7 +47,7 @@ main:
         - Duty Title
       ui:
         group: Addressing
-      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Spell out 'Colonel' and general officer ranks."
+      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
 
     letterhead_title:
       type: string
@@ -216,7 +216,7 @@ card_kinds:
           - Duty Title
         ui:
           group: Addressing
-        description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Spell out 'Colonel' and general officer ranks."
+        description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
       format:
         type: string
         enum:
