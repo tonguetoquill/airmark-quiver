@@ -58,7 +58,7 @@ main:
 
     letterhead_caption:
       type: array
-      default:
+      example:
         - HEADQUARTERS [UNIT NAME]
       ui:
         group: Letterhead
