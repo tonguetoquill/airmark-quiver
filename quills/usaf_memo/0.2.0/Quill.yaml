@@ -176,7 +176,7 @@ main:
       ui:
         group: Additional
         compact: true
-      description: "Select the classification marking shown in the header and footer banner. UNCLASSIFIED renders green, SECRET red, and TOP SECRET orange (standard SF/CAPCO colors); CONFIDENTIAL and CUI render black per this template's style, not the standard blue. Mark per DAFI 16-1404 (DoDM 5200.48 for CUI) and applicable DoD guidance. Leave blank to omit the banner."
+      description: "Select the classification marking shown in the header and footer banner. UNCLASSIFIED renders green, SECRET red, TOP SECRET orange, and CONFIDENTIAL and CUI black. Mark per DAFI 16-1404 (DoDM 5200.48 for CUI) and applicable DoD guidance. Leave blank to omit the banner."
 
     dissemination:
       type: string
