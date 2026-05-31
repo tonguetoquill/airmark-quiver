@@ -191,6 +191,11 @@ card_kinds:
     description: Chain of routing endorsements. Each endorsement block adds an official response or forwarding action to the original memo.
     ui:
       title: Routing indorsement
+    body:
+      example: |
+        The first paragraph of the endorsement. Top-level paragraphs are auto-numbered; do not add manual numbering.
+
+        - Nested bullets are automatically lettered.
     fields:
       from:
         type: string
