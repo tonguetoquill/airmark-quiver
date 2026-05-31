@@ -100,13 +100,14 @@ main:
       description: Show the America 250 / Freedom 250 commemorative emblem in the letterhead, mirrored opposite the seal.
 
     references:
-      type: array
-      default: []
-      example:
-        - "AFMAN 33-326, 25 November 2011, *Preparing Official Communications*"
+      type: markdown
+      default: ""
+      example: |
+        1. AFMAN 33-326, 25 November 2011, *Preparing Official Communications*
+        2. AFI 33-360, *Publications and Forms Management*
       ui:
         group: Additional
-      description: "Cite by organization, type, date, and title. Wrap publication or document titles in *asterisks* to italicize them per AFH 33-337."
+      description: "Markdown ordered list of references; entries are auto-lettered (a), (b), (c) per AFH 33-337. Cite each by organization, type, date, and title, and italicize publication titles with *asterisks* (standard Markdown emphasis)."
 
     cc:
       type: array
