@@ -42,7 +42,7 @@ const quiverYaml = fileURLToPath(import.meta.resolve('@airmark/quiver/Quiver.yam
 const quiver = await Quiver.fromDir(path.dirname(quiverYaml));
 
 const engine = new Quillmark();
-const doc = Document.fromMarkdown(`~~~card-yaml
+const doc = Document.fromMarkdown(`~~~
 $quill: usaf_memo@0.2
 $kind: main
 memo_for: ["ORG/SYMBOL"]
