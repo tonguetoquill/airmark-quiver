@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.24.2 - 2026-06-01
+
+- usaf_memo: clarify that unclassified documents typically omit classification banner (#66)
+
+
 ## v0.24.1 - 2026-06-01
 
 - fix(usaf-memo): wrap inline-reference in box() to prevent closing paren falling on new line (#64)
