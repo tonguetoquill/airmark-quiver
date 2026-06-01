@@ -63,4 +63,3 @@ card_kinds:
     body:
       example: |
         - Continued accomplishment bullet.
-    fields: {}

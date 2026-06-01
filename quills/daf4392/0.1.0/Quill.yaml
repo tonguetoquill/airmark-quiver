@@ -16,7 +16,7 @@ main:
       description: "Matches the check box."
 
     departure_date:
-      type: date
+      type: datetime
       default: ""
       example: "2026-06-01"
       ui:
@@ -59,7 +59,7 @@ main:
       description: "Unit / Organization."
 
     briefed_date:
-      type: date
+      type: datetime
       default: ""
       example: "2026-05-22"
       ui:
@@ -100,7 +100,7 @@ card_kinds:
       enabled: false
     fields:
       date:
-        type: date
+        type: datetime
         default: ""
         ui:
           group: Itinerary Entry
