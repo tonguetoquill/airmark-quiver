@@ -146,7 +146,9 @@
     blank-line()
     grid(
       columns: (auto, auto, 1fr),
-      "References:", "  ", enum(..references.map(parse-inline-markup), numbering: "(a) ", body-indent: 0pt),
+      // Each entry is markdown-converted content; spread them as enum items
+      // lettered "(a) (b) (c)" per AFH 33-337.
+      "References:", "  ", enum(..references, numbering: "(a) ", body-indent: 0pt),
     )
   }
 }

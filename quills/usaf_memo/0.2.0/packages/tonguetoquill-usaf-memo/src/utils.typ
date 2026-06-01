@@ -200,33 +200,6 @@
 }
 
 // =============================================================================
-// INLINE MARKUP UTILITIES
-// =============================================================================
-
-/// Parses `*...*` italic markers in a plain string and returns formatted content.
-///
-/// Splits the string on `*` delimiters; odd-indexed segments (between asterisks)
-/// are wrapped in `emph()`. Even-indexed segments are emitted as-is. This lets
-/// reference strings like "AFMAN 33-326, 25 Nov 2011, *Preparing Official
-/// Communications*" satisfy the AFH 33-337 requirement that publication titles
-/// be italicized, without changing the simple string data model.
-///
-/// - text (str): The reference string, optionally containing *...*-delimited spans
-/// -> content
-#let parse-inline-markup(text) = {
-  let parts = text.split("*")
-  let result = ()
-  for (i, part) in parts.enumerate() {
-    if calc.rem(i, 2) == 0 {
-      result.push(part)
-    } else {
-      result.push(emph(part))
-    }
-  }
-  result.join()
-}
-
-// =============================================================================
 // TYPE NORMALIZATION UTILITIES
 // =============================================================================
 
