@@ -4,11 +4,6 @@
 
 - fix(usaf-memo): wrap inline-reference in box() to prevent closing paren falling on new line (#64)
 
-
-All notable changes to `@airmark/quiver` are documented here. Entries focus on
-what affects downstream authors and integrators: quill rendering behavior,
-input/schema changes, and `@quillmark` compatibility.
-
 ## v0.24.0 - 2026-06-01
 
 - **References are now a Markdown field** — `usaf_memo/0.2.0` `references`
