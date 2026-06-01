@@ -1,33 +1,84 @@
-name: release
+name: Release
 
 on:
-  push:
-    tags:
-      - 'v*'
-  workflow_dispatch:
-    inputs:
-      bump:
-        description: 'Version bump type'
-        required: true
-        type: choice
-        options:
-          - patch
-          - minor
+  pull_request:
+    types: [closed]
+    branches: [main]
 
 concurrency:
   group: release
   cancel-in-progress: false
 
 jobs:
-  release:
+  prepare:
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.version.outputs.next }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Read package version
+        id: version
+        run: |
+          NEXT=$(node -p "require('./package.json').version")
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "Releasing v${NEXT}"
+
+      - name: Tag and push
+        run: |
+          VERSION="${{ steps.version.outputs.next }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${VERSION}" -m "Release v${VERSION}"
+          git push origin "v${VERSION}"
+
+      - name: Extract release notes
+        run: |
+          VERSION="${{ steps.version.outputs.next }}"
+          awk -v v="## v${VERSION}" \
+            '$0 ~ "^"v {f=1; next} /^## / && f {exit} f {print}' \
+            CHANGELOG.md > notes.md || true
+          [ -s notes.md ] || echo "Release v${VERSION}" > notes.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.version.outputs.next }}"
+          if [[ "$VERSION" == *-* ]]; then
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --notes-file notes.md \
+              --prerelease
+          else
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --notes-file notes.md \
+              --latest
+          fi
+
+  publish-npm:
+    needs: [prepare]
     runs-on: ubuntu-latest
     environment: release
     permissions:
-      contents: write
       id-token: write
+      contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: v${{ needs.prepare.outputs.version }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -41,22 +92,14 @@ jobs:
       - name: Test
         run: npm test
 
-      - name: Bump version and tag
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          npm version ${{ inputs.bump }} -m "chore(release): %s"
-          git push --follow-tags
+      - name: Upgrade npm for Trusted Publishers
+        run: npm install -g npm@latest
 
-      - name: Verify tag matches package version
-        if: github.event_name == 'push'
+      - name: Publish @airmark/quiver (trusted publisher, with provenance)
         run: |
-          pkg_version="v$(node -p "require('./package.json').version")"
-          if [ "${GITHUB_REF_NAME}" != "${pkg_version}" ]; then
-            echo "Tag ${GITHUB_REF_NAME} does not match package.json version ${pkg_version}" >&2
-            exit 1
+          VERSION="${{ needs.prepare.outputs.version }}"
+          if [[ "$VERSION" == *-* ]]; then
+            npm publish --access public --provenance --tag next
+          else
+            npm publish --access public --provenance
           fi
-
-      - name: Publish to npm (trusted publisher, with provenance)
-        run: npm publish --provenance --access public
