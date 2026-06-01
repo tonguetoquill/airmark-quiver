@@ -6,12 +6,15 @@ input/schema changes, and `@quillmark` compatibility.
 
 ## v0.24.0 - 2026-06-01
 
-- **References support inline italics** — wrap publication titles in
-  `*asterisks*` inside reference strings to render them italicized per
-  AFH 33-337. Plain reference strings are unchanged. (#55)
-- **Single-reference compliance** — the USAF memo now formats a lone
-  reference per the AFH 33-337 single-reference rule (`frontmatter.typ`,
-  `primitives.typ`). (#54)
+- **References are now a Markdown field** — `usaf_memo/0.2.0` `references`
+  items changed from `string` to `markdown`. Entries accept standard Markdown
+  (e.g. `*Title*` for italic publication titles) and render as an
+  auto-lettered `(a) (b) (c)` list per AFH 33-337. Existing plain-string
+  references continue to work unchanged. (#55)
+- **Single-reference rule** — when exactly one reference is supplied it is now
+  rendered inline in parentheses after the SUBJECT line; the standalone
+  References block only renders for two or more references, per AFH 33-337
+  (`frontmatter.typ`, `primitives.typ`). (#54)
 - Tightened schema validation and expanded field documentation across all
   quills. (#60)
 - Compatibility: `@quillmark/wasm` 0.87.0, `@quillmark/quiver` ^0.12.0.
