@@ -136,7 +136,7 @@
 #let render-subject-section(subject-text, inline-reference: none) = {
   blank-line()
   let content = if inline-reference != none {
-    [#subject-text (#inline-reference)]
+    [#subject-text (#box(inline-reference))]
   } else {
     [#subject-text]
   }
