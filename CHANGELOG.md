@@ -15,8 +15,6 @@ input/schema changes, and `@quillmark` compatibility.
   rendered inline in parentheses after the SUBJECT line; the standalone
   References block only renders for two or more references, per AFH 33-337
   (`frontmatter.typ`, `primitives.typ`). (#54)
-- Tightened schema validation and expanded field documentation across all
-  quills. (#60)
 - Compatibility: `@quillmark/wasm` 0.87.0, `@quillmark/quiver` ^0.12.0.
   (#58, #59)
 - CI: adopt the two-stage release workflow mirrored from quillmark. (#61)
