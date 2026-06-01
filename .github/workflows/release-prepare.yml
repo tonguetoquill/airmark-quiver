@@ -1,0 +1,116 @@
+name: Prepare Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump type (ignored while iterating an existing RC)
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+      release_candidate:
+        description: Cut a release candidate (-rc.N) instead of a final release
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Compute next version
+        id: version
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+
+          RC="${{ inputs.release_candidate }}"
+
+          if [[ "$CURRENT" =~ ^([0-9]+\.[0-9]+\.[0-9]+)-rc\.([0-9]+)$ ]]; then
+            RC_BASE="${BASH_REMATCH[1]}"
+            RC_NUM="${BASH_REMATCH[2]}"
+            if [[ "$RC" == "true" ]]; then
+              NEXT="${RC_BASE}-rc.$((RC_NUM + 1))"
+            else
+              NEXT="${RC_BASE}"
+            fi
+          else
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+            case "${{ inputs.bump }}" in
+              minor) NEXT="${MAJOR}.$((MINOR + 1)).0" ;;
+              patch) NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
+            esac
+            if [[ "$RC" == "true" ]]; then
+              NEXT="${NEXT}-rc.1"
+            fi
+          fi
+
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "Bumping $CURRENT → $NEXT"
+
+      - name: Bump package version
+        run: npm version "${{ steps.version.outputs.next }}" --no-git-tag-version
+
+      - name: Seed changelog entry
+        run: |
+          VERSION="${{ steps.version.outputs.next }}"
+          DATE=$(date +%Y-%m-%d)
+
+          LAST=$(git tag -l --sort=-v:refname \
+            | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -n1 || true)
+
+          {
+            echo "## v${VERSION} - ${DATE}"
+            echo
+            if [ -n "$LAST" ]; then
+              git log --no-merges --pretty='- %s' "${LAST}..HEAD"
+            else
+              git log --no-merges --pretty='- %s'
+            fi
+            echo
+          } > entry.md
+
+          [ -f CHANGELOG.md ] || printf '# Changelog\n\n' > CHANGELOG.md
+          { head -n1 CHANGELOG.md; echo; cat entry.md; tail -n +2 CHANGELOG.md; } \
+            > CHANGELOG.new && mv CHANGELOG.new CHANGELOG.md
+          rm entry.md
+
+          echo "Seeded changelog entry for v${VERSION}:"
+          cat CHANGELOG.md
+
+      - name: Push branch and open PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.version.outputs.next }}"
+          BRANCH="release/v${VERSION}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "chore(release): v${VERSION}"
+          git push -u origin "$BRANCH"
+
+          gh pr create \
+            --title "chore(release): v${VERSION}" \
+            --body "Automated version bump to \`v${VERSION}\`.
+
+          **Before merging:** review and edit the \`v${VERSION}\` section at the top of \`CHANGELOG.md\` on this branch — it is seeded with the raw commit list. The final section becomes the GitHub Release notes.
+
+          Merging this PR will tag and publish the release." \
+            --base main \
+            --head "$BRANCH"
