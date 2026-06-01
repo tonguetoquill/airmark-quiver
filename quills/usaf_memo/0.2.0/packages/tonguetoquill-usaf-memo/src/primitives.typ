@@ -133,16 +133,23 @@
 
 // AFH 33-337 "SUBJECT:": "In all uppercase letters place 'SUBJECT:', flush with the
 // left margin, on the second line below the last line of the FROM element"
-#let render-subject-section(subject-text) = {
+#let render-subject-section(subject-text, inline-reference: none) = {
   blank-line()
+  let content = if inline-reference != none {
+    [#subject-text (#inline-reference)]
+  } else {
+    [#subject-text]
+  }
   grid(
     columns: (auto, auto, 1fr),
-    "SUBJECT:", "  ", [#subject-text],
+    "SUBJECT:", "  ", content,
   )
 }
 
+// AFH 33-337: only render References block for two or more references.
+// A single reference is rendered inline after the SUBJECT text instead.
 #let render-references-section(references) = {
-  if not falsey(references) {
+  if type(references) == array and references.len() >= 2 {
     blank-line()
     grid(
       columns: (auto, auto, 1fr),
