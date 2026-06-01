@@ -110,13 +110,14 @@ main:
     references:
       type: array
       items:
-        type: string
+        type: markdown
       default: []
       example:
-        - "AFM 33-326, 31 July 2019, Preparing Official Communications"
+        - "AFMAN 33-326, 25 November 2011, *Preparing Official Communications*"
+        - "AFI 33-360, *Publications and Forms Management*"
       ui:
         group: Additional
-      description: "Cite by organization, type, date, and title."
+      description: "References, auto-lettered (a), (b), (c) per AFH 33-337. Cite each by organization, type, date, and title; italicize publication titles with *asterisks* (standard Markdown emphasis)."
 
     cc:
       type: array
