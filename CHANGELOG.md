@@ -5,10 +5,6 @@
 - Fix CUI markings to comply with DoD CUI Registry (DoDM 5200.48) (#57)
 - Add Liberation Mono font and configure monospace text rendering (#69)
 - usaf_memo: make tag_line a Markdown field (#68)
-
-
-## Unreleased
-
 - **Tag line is now a Markdown field** — `usaf_memo/0.2.0` `tag_line` changed
   from `string` to `markdown`. The organizational motto accepts standard
   Markdown emphasis (e.g. `*italics*`, `**bold**`). Existing plain-string tag
