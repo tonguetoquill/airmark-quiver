@@ -21,6 +21,9 @@
 
 #let DEFAULT_LETTERHEAD_FONTS = ("Copperplate CC", "NimbusRomNo9L", "times new roman")
 #let DEFAULT_BODY_FONTS = ("NimbusRomNo9L", "times new roman")  // AFH 33-337 §5: Times New Roman required
+// Static monospace face for raw/code text. Liberation Mono is metric-compatible with
+// Courier New; only the regular weight is bundled (no bold or italic variants).
+#let DEFAULT_MONO_FONTS = ("Liberation Mono", "Courier New")
 #let LETTERHEAD_COLOR = rgb("#355e93")  // Faded USAF blue for letterhead
 
 // =============================================================================

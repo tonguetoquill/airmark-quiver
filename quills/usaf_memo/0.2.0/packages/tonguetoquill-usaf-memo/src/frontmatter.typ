@@ -64,6 +64,7 @@
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
   set block(above: spacing.line, below: 0em, spacing: 0em)
   set text(font: body_font, size: font_size, fallback: true)
+  show raw: set text(font: DEFAULT_MONO_FONTS)  // Static monospace face for inline code and code blocks
 
   set page(
     paper: "us-letter",
