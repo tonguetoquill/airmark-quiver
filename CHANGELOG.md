@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- **Tag line is now a Markdown field** — `usaf_memo/0.2.0` `tag_line` changed
+  from `string` to `markdown`. The organizational motto accepts standard
+  Markdown emphasis (e.g. `*italics*`, `**bold**`). Existing plain-string tag
+  lines continue to work unchanged.
+
 ## v0.24.2 - 2026-06-01
 
 - usaf_memo: clarify that unclassified documents typically omit classification banner (#66)

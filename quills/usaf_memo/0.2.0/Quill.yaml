@@ -92,12 +92,12 @@ main:
       description: Bold-caps line below the seal; blank to omit.
 
     tag_line:
-      type: string
+      type: markdown
       default: ""
       ui:
         group: Letterhead
         compact: true
-      description: Organizational motto at the bottom of the page.
+      description: "Organizational motto at the bottom of the page. Supports Markdown emphasis (e.g. *italics*, **bold**)."
 
     freedom250:
       type: boolean
