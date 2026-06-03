@@ -26,6 +26,10 @@
   memo_for_cols: 3,
   classification_level: none,
   dissemination: none,
+  cui_controlled_by: none,
+  cui_category: none,
+  cui_limited_dissemination: none,
+  cui_poc: none,
   footer_tag_line: none,
   memo_style: "usaf",
   it,
@@ -59,6 +63,33 @@
     }
   }
   let classification_color = get-classification-level-color(classification_level)
+
+  // Build the CUI designation indicator block (DoDM 5200.48, Table 1).
+  // Rendered in the footer of page 1 only when classification is CUI and at
+  // least one indicator field is provided.
+  let cui_indicator = if (
+    classification_level != none
+    and type(classification_level) == str
+    and classification_level.trim().starts-with("CUI")
+  ) {
+    let lines = ()
+    if cui_controlled_by != none and type(cui_controlled_by) == str and cui_controlled_by.trim() != "" {
+      lines.push([#strong[Controlled By:] #cui_controlled_by.trim()])
+    }
+    if cui_category != none and type(cui_category) == str and cui_category.trim() != "" {
+      lines.push([#strong[CUI Category:] #cui_category.trim()])
+    }
+    let ldc = if cui_limited_dissemination != none and type(cui_limited_dissemination) == str { cui_limited_dissemination.trim() } else { "" }
+    if ldc != "" {
+      lines.push([#strong[LDC:] #upper(ldc)])
+    }
+    if cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "" {
+      lines.push([#strong[POC:] #cui_poc.trim()])
+    }
+    if lines.len() > 0 { lines.join(linebreak()) } else { none }
+  } else {
+    none
+  }
 
   // Document-wide typography settings (inlined from configure())
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
@@ -103,6 +134,25 @@
           bottom + center,
           dy: -.375in,
           text(12pt, font: DEFAULT_BODY_FONTS, fill: classification_color)[#strong(classification_marking)],
+        )
+      }
+
+      // DoDM 5200.48 §3: CUI designation indicator block — first page only,
+      // bottom-right corner, above the classification banner.
+      // dy: -0.85in clears the tag line (at -0.625in) and the CUI banner (at -0.375in).
+      // dx: -0.5in pulls it away from the right margin edge for visual breathing room.
+      context if counter(page).get().first() == 1 and cui_indicator != none {
+        place(
+          bottom + right,
+          dy: -0.85in,
+          block(
+            inset: 0pt,
+            {
+              set text(font: DEFAULT_BODY_FONTS, size: 10pt)
+              set par(leading: 0.4em, spacing: 0pt)
+              cui_indicator
+            }
+          )
         )
       }
 

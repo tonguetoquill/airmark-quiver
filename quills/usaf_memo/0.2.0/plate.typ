@@ -43,6 +43,12 @@
 
   ..if "dissemination" in data { (dissemination: data.dissemination) },
 
+  // CUI designation indicator block fields (DoDM 5200.48)
+  ..if "cui_controlled_by" in data { (cui_controlled_by: data.cui_controlled_by) },
+  ..if "cui_category" in data { (cui_category: data.cui_category) },
+  ..if "cui_limited_dissemination" in data { (cui_limited_dissemination: data.cui_limited_dissemination) },
+  ..if "cui_poc" in data { (cui_poc: data.cui_poc) },
+
   // USAF vs DAF memorandum style (date format, body indentation)
   memo_style: data.at("memo_style", default: "usaf"),
 
