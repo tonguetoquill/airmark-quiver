@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.24.4 - 2026-06-04
+
+
+
 ## v0.24.3 - 2026-06-03
 
 - Fix CUI markings to comply with DoD CUI Registry (DoDM 5200.48) (#57)
