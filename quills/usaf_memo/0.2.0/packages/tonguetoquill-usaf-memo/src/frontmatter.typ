@@ -20,6 +20,7 @@
   letterhead_seal: none,
   letterhead_seal_subtitle: none, // optional line under seal (9pt bold caps); ignored if no seal
   letterhead_emblem: none, // optional image placed opposite the seal (right side)
+  letterhead_emblem_height: 1in, // emblem fit-box height; reduce for shorter emblems
   letterhead_font: DEFAULT_LETTERHEAD_FONTS,
   body_font: DEFAULT_BODY_FONTS,
   font_size: 12pt,
@@ -175,6 +176,7 @@
     letterhead-seal: letterhead_seal,
     letterhead-seal-subtitle: letterhead_seal_subtitle,
     letterhead-emblem: letterhead_emblem,
+    letterhead-emblem-height: letterhead_emblem_height,
   )
 
   // AFH 33-337 "Date": "Place the date 1 inch from the right edge, 1.75 inches from the top"
