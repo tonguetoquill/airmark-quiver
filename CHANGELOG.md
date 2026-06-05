@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.24.4 - 2026-06-05
+
+- chore: upgrade @quillmark/wasm to 0.88.0 and @quillmark/quiver to 0.13.0 (#72)
+
+
 ## v0.24.3 - 2026-06-03
 
 - Fix CUI markings to comply with DoD CUI Registry (DoDM 5200.48) (#57)
