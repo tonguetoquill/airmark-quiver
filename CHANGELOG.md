@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.24.6 - 2026-06-05
+
+
+
 ## v0.24.5 - 2026-06-05
 
 - Add adjustable letterhead emblem height for placement parity (#74)
