@@ -107,6 +107,61 @@ main:
         compact: true
       description: Show the America 250 / Freedom 250 commemorative emblem in the letterhead, mirrored opposite the seal.
 
+    classification:
+      type: string
+      enum:
+        - ""
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        group: Classification
+        compact: true
+      description: "Select the classification marking shown in the header and footer banner. Unclassified documents typically omit this banner entirely — leave blank unless the document is CUI or classified. Mark per DAFI 16-1404 (DoDM 5200.48 for CUI) and applicable DoD guidance."
+
+    dissemination:
+      type: string
+      default: ""
+      ui:
+        group: Classification
+        compact: true
+      description: "Banner dissemination suffix appended after double slash (e.g. 'NF' renders as CUI//NF in the header/footer). Leave blank for no suffix."
+
+    cui_controlled_by:
+      type: string
+      default: ""
+      ui:
+        group: Classification
+        compact: true
+      description: "Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Required by DoDM 5200.48 when classification is CUI."
+
+    cui_category:
+      type: string
+      default: ""
+      ui:
+        group: Classification
+        compact: true
+      description: "CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
+
+    cui_limited_dissemination:
+      type: string
+      default: ""
+      ui:
+        group: Classification
+        compact: true
+      description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix above."
+
+    cui_poc:
+      type: string
+      default: ""
+      ui:
+        group: Classification
+        compact: true
+      description: "Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Required by DoDM 5200.48 when classification is CUI."
+
     references:
       type: array
       items:
@@ -179,61 +234,6 @@ main:
         group: Additional
         compact: true
       description: YYYY-MM-DD. Leave blank to use today's date.
-
-    classification:
-      type: string
-      enum:
-        - ""
-        - UNCLASSIFIED
-        - CUI
-        - CONFIDENTIAL
-        - SECRET
-        - TOP SECRET
-      default: ""
-      ui:
-        group: Classification
-        compact: true
-      description: "Select the classification marking shown in the header and footer banner. Unclassified documents typically omit this banner entirely — leave blank unless the document is CUI or classified. Mark per DAFI 16-1404 (DoDM 5200.48 for CUI) and applicable DoD guidance."
-
-    dissemination:
-      type: string
-      default: ""
-      ui:
-        group: Classification
-        compact: true
-      description: "Banner dissemination suffix appended after double slash (e.g. 'NF' renders as CUI//NF in the header/footer). Leave blank for no suffix."
-
-    cui_controlled_by:
-      type: string
-      default: ""
-      ui:
-        group: Classification
-        compact: true
-      description: "Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Required by DoDM 5200.48 when classification is CUI."
-
-    cui_category:
-      type: string
-      default: ""
-      ui:
-        group: Classification
-        compact: true
-      description: "CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
-
-    cui_limited_dissemination:
-      type: string
-      default: ""
-      ui:
-        group: Classification
-        compact: true
-      description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix above."
-
-    cui_poc:
-      type: string
-      default: ""
-      ui:
-        group: Classification
-        compact: true
-      description: "Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Required by DoDM 5200.48 when classification is CUI."
 
 card_kinds:
   indorsement:
