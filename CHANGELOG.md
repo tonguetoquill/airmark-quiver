@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.24.5 - 2026-06-05
+
+- Add adjustable letterhead emblem height for placement parity (#74)
+
+
 ## v0.24.4 - 2026-06-05
 
 - chore: upgrade @quillmark/wasm to 0.88.0 and @quillmark/quiver to 0.13.0 (#72)
