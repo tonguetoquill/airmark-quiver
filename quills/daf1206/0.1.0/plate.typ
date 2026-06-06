@@ -1,7 +1,7 @@
 #import "@local/quillmark-helper:0.1.0": data
 #import "@local/typst-daf1206:0.1.0": form
 
-#set text(font: "Arimo")
+#set text(font: "NimbusRomNo9L")
 
 // Map snake_case Quill `data` keys to generated `form.typ` parameter names.
 #let vals = (:)
