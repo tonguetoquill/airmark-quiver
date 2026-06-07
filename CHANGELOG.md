@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.24.7 - 2026-06-07
+
+- Remove body example for indorsements (usaf_memo)
+- Replace Arimo font with Nimbus Roman No9 L (#77)
+
+
 ## v0.24.6 - 2026-06-05
 
 - usaf_memo: order the Classification field group above Additional in the editor UI
