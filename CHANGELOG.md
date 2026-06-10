@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.25.0 - 2026-06-10
+
+- Remove attachments and cc from usaf_memo indorsements (#79)
+- Bump to @quillmark/wasm@0.90.0 and @quillmark/quiver@0.15.0
+
+
 ## v0.24.8 - 2026-06-08
 
 - Remove attachments and cc from indorsements (usaf_memo) — AFH 33-337 does not define backmatter elements for indorsements
