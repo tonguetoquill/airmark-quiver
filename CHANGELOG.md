@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.25.1 - 2026-06-10
+
+- make fields in Additional section of Indorsement compact
+
+
 ## v0.25.0 - 2026-06-10
 
 - Remove attachments and cc from usaf_memo indorsements (#79)
