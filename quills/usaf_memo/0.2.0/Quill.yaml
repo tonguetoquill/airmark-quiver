@@ -284,26 +284,6 @@ card_kinds:
         ui:
           group: Additional
         description: "Action taken by the endorser. Leave blank to hide the Approve/Disapprove line entirely, 'undecided' to display the line with neither option circled, 'approve' or 'disapprove' to circle the selected option."
-      attachments:
-        type: array
-        items:
-          type: string
-        default: []
-        example:
-          - Attachment description, YYYY MMM DD
-        ui:
-          group: Additional
-        description: List of attachments specific to this endorsement.
-      cc:
-        type: array
-        items:
-          type: string
-        default: []
-        example:
-          - Rank and Name, ORG/SYMBOL
-        ui:
-          group: Additional
-        description: List of office symbols to receive copies of this endorsement.
       date:
         type: datetime
         default: ""

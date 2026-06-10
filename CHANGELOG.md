@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.24.8 - 2026-06-08
+
+- Remove attachments and cc from indorsements (usaf_memo) — AFH 33-337 does not define backmatter elements for indorsements
+
+
 ## v0.24.7 - 2026-06-07
 
 - Remove body example for indorsements (usaf_memo)

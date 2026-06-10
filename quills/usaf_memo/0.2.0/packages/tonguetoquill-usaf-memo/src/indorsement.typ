@@ -19,8 +19,6 @@
   signature_block: none,
   signature_blank_lines: 4,
   signing_field: none,
-  attachments: none,
-  cc: none,
   date: none,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
@@ -128,6 +126,4 @@
   }
 
   render-signature-block(signature_block, signature-blank-lines: signature_blank_lines, signing-field: signing_field)
-
-  render-backmatter-sections(attachments: attachments, cc: cc)
 }
