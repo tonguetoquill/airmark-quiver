@@ -10,6 +10,8 @@ main:
     example: |
       Thank you for your outstanding presentation to the Air Command and Staff College Class of 2026. Your briefing was right on target and expertly integrated many aspects of our curriculum into a focused leadership perspective.
 
+      - Paragraphs are never numbered; bullet items become indented, unnumbered subparagraphs per AFH 33-337.
+
       We appreciate your support and look forward to future visits.
   fields:
     recipient:
