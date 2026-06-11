@@ -65,10 +65,9 @@
   }
   let classification_color = get-classification-level-color(classification_level)
 
-  // Build the CUI designation indicator block (DoDM 5200.48, Table 1).
-  // Populated only when classification is CUI and at least one indicator field
-  // is provided. Keys are plain (un-emphasized) text per the reworked layout;
-  // the block is rendered bottom-left of the page-1 text area as a float below.
+  // Build the CUI designation indicator block (DoDM 5200.48, Table 1), shown
+  // only for CUI when at least one indicator field is set. Rendered as a
+  // bottom-right page-1 float (see placement below).
   let cui_indicator = if (
     classification_level != none
     and type(classification_level) == str
@@ -151,43 +150,42 @@
     },
   )
 
-  // DoDM 5200.48 §3: CUI designation indicator block — first page only,
-  // bottom-left of the page-1 text area.
-  //
-  // Emitted as a bottom float (not a footer placement) for three reasons:
-  //   1. Reserves height. A `place(float: true)` anchored to the bottom
-  //      subtracts its own height + `clearance` from the page's flow space,
-  //      so body text that would otherwise run into this region breaks to
-  //      page 2 earlier — i.e. it raises the *effective* bottom margin of
-  //      page 1 only. (The footer banner/tag line live in the bottom margin
-  //      and are untouched; pages 2+ keep the full text area.)
-  //   2. Never orphaned. Emitted here as the very first flow content while
-  //      page 1 is still empty, the float is inherently anchored to page 1
-  //      and can never be bumped to page 2.
-  //   3. Stays out of the flow. As a float it does not push the signature
-  //      block down line-by-line; the signature block remains an ordinary
-  //      flow element that, on a one-page memo, naturally sits above this
-  //      block. If body + signature won't fit above the reserved region the
-  //      existing keep-together rules send them to page 2 while this block
-  //      stays anchored on page 1.
-  //
-  // `clearance` is one body line of leading so flow content clears the block
-  // by a blank line; `bottom + left` provides the vertical component
-  // `float: true` requires while flushing the block to the left margin.
+  // DoDM 5200.48 §3: CUI designation indicator block — page 1 only, bottom-right
+  // corner, dropped into the 0.5in page-edge band. Emitted as a bottom float so
+  // it (1) reserves flow space, raising page 1's effective bottom margin so body
+  // text never overlaps it, and (2) stays pinned to page 1 — as the first flow
+  // content it can never be bumped to page 2.
   if cui_indicator != none {
-    place(
-      bottom + left,
-      float: true,
-      clearance: spacing.line + 1em,
-      block(
-        inset: 0pt,
-        {
-          set text(font: DEFAULT_BODY_FONTS, size: 10pt)
-          set par(leading: 0.4em, spacing: 0pt)
-          cui_indicator
-        }
-      ),
-    )
+    context {
+      // The box shrink-wraps to its widest line; `set align(left)` keeps the
+      // text flush-left within it, overriding the `align(right)` the placement
+      // below imposes.
+      let indicator_box = box({
+        set text(font: DEFAULT_BODY_FONTS, size: 10pt)
+        set par(leading: 0.4em, spacing: 0pt)
+        set align(left)
+        cui_indicator
+      })
+      // Reserve only the part of the block inside the text area (`reserved`):
+      // float a box of that height, then `place` the full block inside it pushed
+      // down by `overhang` so the surplus overflows into the edge band. (A bare
+      // `box(height: reserved, indicator_box)` overflows *upward* into the body
+      // instead.) The inner `place` adds no size, so the box stays `reserved`
+      // tall and the block's bottom lands 0.5in from the page edge.
+      let overhang = spacing.margin - 0.5in
+      let reserved = measure(indicator_box).height - overhang
+      place(
+        bottom + right,
+        float: true,
+        // Slide the right edge into the page-edge band, 0.5in from the border;
+        // the inner place right-aligns the block to that edge.
+        dx: spacing.margin - 0.5in,
+        // Minimum gap to the body's last line; the actual gap is larger when the
+        // next paragraph can't fit above the block and breaks to the next page.
+        clearance: spacing.line,
+        box(height: reserved, place(bottom + right, dy: overhang, indicator_box)),
+      )
+    }
   }
 
   render-letterhead(
