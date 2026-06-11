@@ -4,8 +4,6 @@
 // blank-line spacing, type normalization, content fitting, and the USAF
 // letter date format.
 
-#import "config.typ": spacing
-
 // Shared measured line-stride cache used by spacing and orphan heuristics.
 // Value is a `length` set once in `frontmatter`.
 #let LINE_STRIDE = state("LINE_STRIDE")
