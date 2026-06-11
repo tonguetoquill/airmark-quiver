@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.26.0 - 2026-06-11
+
+- Add `personal_letter` 0.1.0 — USAF Personal Letter per AFH 33-337 "The
+  Personal Letter" (cross-referenced to AFMAN 33-326 §4.1 for inch/line-space
+  anchors): letterhead stationery shared with `usaf_memo`; date flush right
+  1.75in from the top; optional sender's address element at the 2.5in anchor
+  with the receiver's address element below it; unpunctuated salutation and
+  complimentary close; unnumbered paragraphs with 0.5in first-line indent
+  (subparagraphs +0.5in per level); close and signature element anchored
+  4.5in from the left page edge (signature on the fifth line below the close,
+  long names shift the closing block left as a unit); attachments and cc:
+  flush left; continuation pages numbered from page 2.
+
+
 ## v0.25.1 - 2026-06-10
 
 - make fields in Additional section of Indorsement compact
