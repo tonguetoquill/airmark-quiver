@@ -66,8 +66,9 @@
   let classification_color = get-classification-level-color(classification_level)
 
   // Build the CUI designation indicator block (DoDM 5200.48, Table 1).
-  // Rendered in the footer of page 1 only when classification is CUI and at
-  // least one indicator field is provided.
+  // Populated only when classification is CUI and at least one indicator field
+  // is provided. Keys are plain (un-emphasized) text per the reworked layout;
+  // the block is rendered bottom-left of the page-1 text area as a float below.
   let cui_indicator = if (
     classification_level != none
     and type(classification_level) == str
@@ -75,17 +76,17 @@
   ) {
     let lines = ()
     if cui_controlled_by != none and type(cui_controlled_by) == str and cui_controlled_by.trim() != "" {
-      lines.push([#strong[Controlled By:] #cui_controlled_by.trim()])
+      lines.push([Controlled By: #cui_controlled_by.trim()])
     }
     if cui_category != none and type(cui_category) == str and cui_category.trim() != "" {
-      lines.push([#strong[CUI Category:] #cui_category.trim()])
+      lines.push([CUI Category: #cui_category.trim()])
     }
     let ldc = if cui_limited_dissemination != none and type(cui_limited_dissemination) == str { cui_limited_dissemination.trim() } else { "" }
     if ldc != "" {
-      lines.push([#strong[LDC:] #upper(ldc)])
+      lines.push([LDC: #upper(ldc)])
     }
     if cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "" {
-      lines.push([#strong[POC:] #cui_poc.trim()])
+      lines.push([POC: #cui_poc.trim()])
     }
     if lines.len() > 0 { lines.join(linebreak()) } else { none }
   } else {
@@ -138,25 +139,6 @@
         )
       }
 
-      // DoDM 5200.48 §3: CUI designation indicator block — first page only,
-      // bottom-right corner, above the classification banner.
-      // dy: -0.85in clears the tag line (at -0.625in) and the CUI banner (at -0.375in).
-      // dx: -0.5in pulls it away from the right margin edge for visual breathing room.
-      context if counter(page).get().first() == 1 and cui_indicator != none {
-        place(
-          bottom + right,
-          dy: -0.85in,
-          block(
-            inset: 0pt,
-            {
-              set text(font: DEFAULT_BODY_FONTS, size: 10pt)
-              set par(leading: 0.4em, spacing: 0pt)
-              cui_indicator
-            }
-          )
-        )
-      }
-
       if not falsey(footer_tag_line) {
         place(
           bottom + center,
@@ -168,6 +150,45 @@
       }
     },
   )
+
+  // DoDM 5200.48 §3: CUI designation indicator block — first page only,
+  // bottom-left of the page-1 text area.
+  //
+  // Emitted as a bottom float (not a footer placement) for three reasons:
+  //   1. Reserves height. A `place(float: true)` anchored to the bottom
+  //      subtracts its own height + `clearance` from the page's flow space,
+  //      so body text that would otherwise run into this region breaks to
+  //      page 2 earlier — i.e. it raises the *effective* bottom margin of
+  //      page 1 only. (The footer banner/tag line live in the bottom margin
+  //      and are untouched; pages 2+ keep the full text area.)
+  //   2. Never orphaned. Emitted here as the very first flow content while
+  //      page 1 is still empty, the float is inherently anchored to page 1
+  //      and can never be bumped to page 2.
+  //   3. Stays out of the flow. As a float it does not push the signature
+  //      block down line-by-line; the signature block remains an ordinary
+  //      flow element that, on a one-page memo, naturally sits above this
+  //      block. If body + signature won't fit above the reserved region the
+  //      existing keep-together rules send them to page 2 while this block
+  //      stays anchored on page 1.
+  //
+  // `clearance` is one body line of leading so flow content clears the block
+  // by a blank line; `bottom + left` provides the vertical component
+  // `float: true` requires while flushing the block to the left margin.
+  if cui_indicator != none {
+    place(
+      bottom + left,
+      float: true,
+      clearance: spacing.line + 1em,
+      block(
+        inset: 0pt,
+        {
+          set text(font: DEFAULT_BODY_FONTS, size: 10pt)
+          set par(leading: 0.4em, spacing: 0pt)
+          cui_indicator
+        }
+      ),
+    )
+  }
 
   render-letterhead(
     letterhead_title,
