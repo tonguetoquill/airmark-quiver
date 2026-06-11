@@ -1,0 +1,141 @@
+quill:
+  name: personal_letter
+  version: 0.1.0
+  backend: typst
+  plate_file: plate.typ
+  description: U.S. Air Force Personal Letter (AFH 33-337)
+
+main:
+  body:
+    example: |
+      Thank you for your outstanding presentation to the Air Command and Staff College Class of 2026. Your briefing was right on target and expertly integrated many aspects of our curriculum into a focused leadership perspective.
+
+      - Paragraphs are never numbered; bullet items become indented, unnumbered subparagraphs per AFH 33-337.
+
+      We appreciate your support and look forward to future visits.
+  fields:
+    recipient:
+      type: array
+      items:
+        type: string
+      example:
+        - Colonel William J. Nash
+        - Program Director
+        - 75 South Butler Avenue
+        - Patrick AFB FL 32925-6357
+      ui:
+        group: Addressing
+      description: "Receiver's address element: title or rank (spelled out, never abbreviated) with full name, then the complete mailing address. Use USPS state abbreviations and no punctuation except after 'Mr.', 'Ms.', 'Mrs.', and 'Dr.' (AFH 33-337)."
+
+    salutation:
+      type: string
+      example: Dear Colonel Nash
+      ui:
+        group: Addressing
+      description: "'Dear' followed by the receiver's title and last name, with no punctuation after it (e.g., 'Dear Colonel Nash'). Use first name only when warranted by personal familiarity."
+
+    signature_block:
+      type: array
+      items:
+        type: string
+      example:
+        - JACOB R. BRADLEY, Colonel, USAF
+      ui:
+        group: Addressing
+      description: "Name in UPPERCASE as signed, grade spelled out, and service (e.g., 'JACOB R. BRADLEY, Colonel, USAF'). Personal letters omit the duty title and never use an authority line (AFH 33-337; AFMAN 33-326)."
+
+    sender:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - Colonel Jacob R. Bradley
+        - Director of Plans and Programs
+        - 550 McDonald Street
+        - Maxwell AFB-Gunter Annex AL 36118-5643
+      ui:
+        group: Addressing
+      description: "Optional sender's address element typed flush left below the date: rank and full name, duty title, and complete mailing address. Include it to enable return correspondence; omit it when the letterhead identifies the sender."
+
+    letterhead_title:
+      type: string
+      default: DEPARTMENT OF THE AIR FORCE
+      ui:
+        group: Letterhead
+      description: Change only for Joint Commands or DoW agencies.
+
+    letterhead_caption:
+      type: array
+      items:
+        type: string
+      example:
+        - AIR UNIVERSITY (AETC)
+      ui:
+        group: Letterhead
+      description: The full organization name of your unit.
+
+    letterhead_seal:
+      type: string
+      enum:
+        - dow
+        - dod
+      default: dow
+      ui:
+        group: Letterhead
+        compact: true
+      description: Department of War (DoW) or Department of Defense (DoD) seal shown in the letterhead.
+
+    letterhead_seal_subtitle:
+      type: string
+      default: ""
+      ui:
+        group: Letterhead
+        compact: true
+      description: Bold-caps line below the seal; blank to omit.
+
+    close:
+      type: string
+      default: Sincerely
+      ui:
+        group: Additional
+        compact: true
+      description: "Complimentary close with no punctuation after it. 'Sincerely' is standard; use 'Respectfully yours' for the President (AFH 33-337 forms of address)."
+
+    attachments:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - Draft CAP Chaplain Handbook
+      ui:
+        group: Additional
+      description: List attachments in the order they are mentioned in the letter. Briefly describe each; do not use 'as stated' or abbreviations.
+
+    cc:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - Rank and Name, ORG/SYMBOL
+      ui:
+        group: Additional
+      description: List recipients of courtesy copies.
+
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: Additional
+        compact: true
+      description: Body text size in points; decimals allowed (e.g. 11.5). AFH 33-337 calls for 12-point Times New Roman.
+
+    date:
+      type: datetime
+      default: ""
+      ui:
+        group: Additional
+        compact: true
+      description: YYYY-MM-DD. Leave blank to use today's date. Rendered as 'D Month YYYY' per AFH 33-337.
