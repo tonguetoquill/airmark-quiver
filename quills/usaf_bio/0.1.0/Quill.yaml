@@ -1,0 +1,176 @@
+quill:
+  name: usaf_bio
+  version: 0.1.0
+  backend: typst
+  plate_file: plate.typ
+  description: U.S. Air Force Official Biography (AFH 33-337, Chapter 20)
+
+main:
+  body:
+    example: |
+      Brig. Gen. John Q. Public is the commander of the 99th Air Base Wing, Nellis Air Force Base, Nevada. He is responsible for the installation support mission and the welfare of military and civilian personnel supporting test and training operations on the Nevada Test and Training Range.
+
+      Public entered the Air Force in 1995 as a graduate of the United States Air Force Academy. He has served in a variety of flying and staff positions, including assignments at Air Combat Command, the Pentagon, and overseas in support of operations Iraqi Freedom and Enduring Freedom. He commanded at the squadron and group levels and served as a senior staff officer at Headquarters Air Force. Prior to his current assignment, he served as the Deputy Director of Operations, Air Combat Command, Joint Base Langley-Eustis, Virginia.
+
+      He is a command pilot with more than 3,500 flying hours in the F-15C and F-16C.
+  fields:
+    name:
+      type: string
+      example: Brigadier General John Q. Public
+      ui:
+        group: Identification
+      description: "Identification line: spell out the full rank (do not abbreviate) followed by first name, middle initial and last name. Omit the rank for civilian biographies. Rendered centered, bold, uppercase, per AFH 33-337."
+
+    service:
+      type: string
+      enum:
+        - UNITED STATES AIR FORCE
+        - UNITED STATES SPACE FORCE
+      default: UNITED STATES AIR FORCE
+      ui:
+        group: Identification
+        compact: true
+      description: Service line of the centered BIOGRAPHY banner at the top of the page.
+
+    show_photo:
+      type: boolean
+      default: true
+      ui:
+        group: Identification
+        compact: true
+      description: "Show the official photograph placeholder in the upper right corner (3.2 x 4 inches, flush with the right margin, aligned with the top of the first paragraph). Source photos should be high-resolution 8x10 or 5x7 portraits."
+
+    current_as_of:
+      type: string
+      example: June 2026
+      ui:
+        group: Identification
+        compact: true
+      description: "Month and year the biography was last updated; rendered as '(Current as of Month Year)' at the end. Spell out the month."
+
+    education:
+      type: array
+      items:
+        type: string
+      example:
+        - 1995 Bachelor of Science, Engineering, United States Air Force Academy, Colorado Springs, Colo.
+        - 2003 Squadron Officer School, Maxwell Air Force Base, Ala.
+        - 2010 Master of Arts, Military Operational Art and Science, Air University, Maxwell Air Force Base, Ala.
+        - 2015 Air War College, Maxwell Air Force Base, Ala.
+      ui:
+        group: Sections
+      description: "List degrees and professional military education chronologically (oldest first). Begin each entry with the year completed, then the degree or course, field of study, school and location."
+
+    assignments:
+      type: array
+      items:
+        type: string
+      example:
+        - June 1995 - June 1997, Student Pilot, Euro-NATO Joint Jet Pilot Training, Sheppard Air Force Base, Texas
+        - June 1997 - March 2001, F-15C Pilot, 27th Fighter Squadron, Langley Air Force Base, Va.
+        - March 2001 - March 2004, F-15C Flight Lead, 94th Fighter Squadron, Langley Air Force Base, Va. (September 2002 - March 2003, F-15C Pilot, 363rd Expeditionary Fighter Squadron, Prince Sultan Air Base, Saudi Arabia)
+        - July 2021 - present, Commander, 99th Air Base Wing, Nellis Air Force Base, Nev.
+      ui:
+        group: Sections
+      description: "List assignments chronologically; entries are automatically numbered. Format: Month Year - Month Year, Duty Title, Unit, Base, State. Spell out months in full and capitalize duty titles. Put deployments in parentheses on the same line as the assignment during which the member deployed."
+
+    joint_assignments:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - June 2012 - May 2015, Deputy Director, Current Operations, J-3, U.S. European Command, Stuttgart, Germany, as a colonel
+      ui:
+        group: Sections
+      description: "SUMMARY OF JOINT ASSIGNMENTS — officers with joint duty only; omit otherwise. Same format as assignments plus the rank held at the end of each entry (e.g., ', as a colonel')."
+
+    flight_information:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - "Rating: Command Pilot"
+        - "Flight hours: More than 3,500"
+        - "Aircraft flown: F-15C, F-16C and T-38"
+      ui:
+        group: Sections
+      description: "For flight-rated personnel only; omit otherwise. Typical lines are 'Rating:', 'Flight hours:' and 'Aircraft flown:'."
+
+    awards:
+      type: array
+      items:
+        type: string
+      example:
+        - Legion of Merit
+        - Defense Meritorious Service Medal
+        - Meritorious Service Medal with four oak leaf clusters
+        - Air Medal with two oak leaf clusters
+        - Air Force Commendation Medal with two oak leaf clusters
+      ui:
+        group: Sections
+      description: "MAJOR AWARDS AND DECORATIONS: list one per line in descending order of precedence. Capitalize award names; accoutrements (e.g., 'with two oak leaf clusters') are not capitalized."
+
+    other_achievements:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - 2009 Distinguished Graduate, Air Command and Staff College, Maxwell Air Force Base, Ala.
+      ui:
+        group: Sections
+      description: "Optional. List achievements chronologically, each beginning with the year (e.g., honorary awards, distinguished-graduate honors, community recognition)."
+
+    publications:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - '"Improving Theater Airlift Operations," Air and Space Power Journal, Spring 2012'
+      ui:
+        group: Sections
+      description: Optional. List published works chronologically with title and publication information.
+
+    professional_memberships:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - Air and Space Forces Association
+        - Order of Daedalians
+      ui:
+        group: Sections
+      description: "Optional. PROFESSIONAL MEMBERSHIPS AND ASSOCIATIONS: list current memberships and those held within the last five years, one per line."
+
+    promotions:
+      type: array
+      items:
+        type: object
+        properties:
+          rank:
+            type: string
+          date:
+            type: string
+      default: []
+      example:
+        - rank: Second Lieutenant
+          date: June 1, 1995
+        - rank: First Lieutenant
+          date: June 1, 1997
+        - rank: Captain
+          date: June 1, 1999
+        - rank: Major
+          date: March 1, 2006
+        - rank: Lieutenant Colonel
+          date: September 1, 2010
+        - rank: Colonel
+          date: October 1, 2014
+        - rank: Brigadier General
+          date: August 1, 2021
+      ui:
+        group: Sections
+      description: "EFFECTIVE DATES OF PROMOTION: list each rank (title case, spelled out) with its effective date in AP style (Month Day, Year), earliest first. Omit for civilian biographies."
