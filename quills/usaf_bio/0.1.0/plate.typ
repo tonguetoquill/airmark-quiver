@@ -3,11 +3,22 @@
 
 // ---------------------------------------------------------------------------
 // U.S. Air Force Official Biography — AFH 33-337 (Tongue and Quill), Ch. 20
-//   - Arial (Arimo) 9 pt body, 1.15 line spacing, bold ALL-CAPS headings
-//   - Banner: "BIOGRAPHY" / "UNITED STATES AIR FORCE", centered, bold
-//   - Identification line: Arial 13.5 pt bold, uppercase, centered
-//   - Official photo: 3.2 in x 4 in, upper right, flush with right margin,
-//     aligned with the top of the first paragraph; text wraps around it
+// Layout matched against the official Word template
+// (Official_Bio_Template_7oct2020.dotx, e-Publishing):
+//   - US letter, 1 in margins; body Arial (Arimo) 9 pt, justified,
+//     1.15 line spacing (Word w:line=276), blank line between paragraphs
+//   - First-page-only banner in the header area (0.5 in from the page top):
+//     "BIOGRAPHY" in Times New Roman (NimbusRomNo9L) 28 pt regular and the
+//     service line in Arial 14 pt italic with 3 pt letter tracking, centered
+//   - Identification line: Arial 13.5 pt bold caps, left-aligned
+//   - Official photo: 3.2 in x 4 in (Word table cell 4608 x 5760 twips),
+//     floated right with 0.125 in text gutter, top aligned with the first
+//     paragraph; text wraps around it
+//   - Section headings: Arial 9 pt bold ALL CAPS, no colon
+//   - ASSIGNMENTS / CAREER CHRONOLOGY and SUMMARY OF JOINT ASSIGNMENTS:
+//     auto-numbered entries with a 0.1875 in hanging indent
+//   - Trailing "(Current as of Month Year)" uses the Section Heading style
+//     (bold, ALL CAPS) per the template
 //   - Maximum two pages
 // ---------------------------------------------------------------------------
 
@@ -23,33 +34,64 @@
   margin: 1in,
 )
 #set text(font: "Arimo", size: body-size, fallback: false)
-#set par(leading: body-leading, spacing: par-spacing, justify: false)
+#set par(leading: body-leading, spacing: par-spacing, justify: true)
 
-// --- Banner ------------------------------------------------------------------
+// --- First-page banner (Word first-page header, 0.5 in from page top) -------
+// Replicates the template's header paragraph stack: two empty Arial 9 single-
+// spaced lines, BIOGRAPHY (28 pt, 1 pt space after), two empty lines, the
+// service line (14 pt), and two trailing empty lines that push the body down.
 #let service = upper(data.at("service", default: "UNITED STATES AIR FORCE"))
-#align(center)[
-  #text(size: 14pt, weight: "bold")[BIOGRAPHY]
-  #linebreak()
-  #text(size: 14pt, weight: "bold")[#service]
-]
+#let hline = 10.35pt // single-spaced Arial 9 header line
+#let banner-stack = stack(
+  block(height: 2 * hline),
+  block(
+    height: 33.2pt, // 28 pt single-spaced line + 1 pt space after
+    width: 100%,
+    align(center + horizon, text(font: "NimbusRomNo9L", size: 28pt)[BIOGRAPHY]),
+  ),
+  block(height: 2 * hline),
+  block(
+    height: 16.1pt,
+    width: 100%,
+    align(center + horizon, text(size: 14pt, style: "italic", tracking: 3pt, service)),
+  ),
+  block(height: 2 * hline),
+)
+#place(top + center, dy: -0.5in, banner-stack)
+// Body resumes below the header block (0.5 in + stack height), not at the
+// 1 in margin, exactly as Word pushes the first-page body down.
+#v(0.5in + 111.6pt - 1in)
 
-// --- Identification line -------------------------------------------------------
-#align(center, text(size: 13.5pt, weight: "bold", upper(data.name)))
+// --- Identification line (left-aligned per template's Normal-based style) ---
+#text(size: 13.5pt, weight: "bold", upper(data.name))
 
 // --- Section helpers -----------------------------------------------------------
 // Sections are emitted as flat inline sequences (heading + linebreak-separated
 // entries) rather than `par(..)` blocks so the photo text-wrap can split a
-// section between lines, the way Word's square wrap does.
-#let section(title, entries) = {
+// section between lines, the way Word's square wrap does. `hanging` applies
+// Word's List Paragraph geometry (0.1875 in hanging indent): the paragraph
+// indents every line after the first, and each entry's first line backs out
+// of the indent so only wrapped continuation lines are inset.
+#let section(title, entries, hanging: 0pt) = {
   parbreak()
-  text(weight: "bold", upper(title))
-  for it in entries {
-    linebreak()
-    it
+  {
+    set par(hanging-indent: hanging)
+    text(weight: "bold", upper(title))
+    for it in entries {
+      linebreak()
+      if hanging != 0pt { h(-hanging) }
+      it
+    }
   }
 }
 
-#let numbered(items) = items.enumerate().map(((i, a)) => [#(i + 1). #a])
+// Numbered section (ASSIGNMENTS, SUMMARY OF JOINT ASSIGNMENTS): decimal
+// numbering with the template's 0.1875 in hanging indent.
+#let numbered-section(title, items) = section(
+  title,
+  items.enumerate().map(((i, it)) => [#(i + 1). #it]),
+  hanging: 0.1875in,
+)
 
 // --- Document content (narrative + sections), wrapped around the photo --------
 #let contents = {
@@ -60,11 +102,12 @@
   }
 
   if data.at("assignments", default: ()).len() > 0 {
-    section("ASSIGNMENTS", numbered(data.assignments))
+    let heading = if data.at("civilian", default: false) { "CAREER CHRONOLOGY" } else { "ASSIGNMENTS" }
+    numbered-section(heading, data.assignments)
   }
 
   if data.at("joint_assignments", default: ()).len() > 0 {
-    section("SUMMARY OF JOINT ASSIGNMENTS", numbered(data.joint_assignments))
+    numbered-section("SUMMARY OF JOINT ASSIGNMENTS", data.joint_assignments)
   }
 
   if data.at("flight_information", default: ()).len() > 0 {
@@ -79,6 +122,10 @@
     section("OTHER ACHIEVEMENTS", data.other_achievements)
   }
 
+  if data.at("badges", default: ()).len() > 0 {
+    section("OCCUPATIONAL BADGES", data.badges)
+  }
+
   if data.at("publications", default: ()).len() > 0 {
     section("PUBLICATIONS", data.publications)
   }
@@ -91,9 +138,10 @@
     section("EFFECTIVE DATES OF PROMOTION", data.promotions.map(p => [#p.rank #p.date]))
   }
 
+  // The template styles this line as a Section Heading (bold, ALL CAPS).
   if "current_as_of" in data and data.current_as_of != "" {
     parbreak()
-    [(Current as of #data.current_as_of)]
+    text(weight: "bold", upper[(Current as of #data.current_as_of)])
   }
 }
 
@@ -106,7 +154,7 @@
     contents,
     align: top + right,
     columns: (1fr, 3.2in),
-    column-gutter: 0.25in,
+    column-gutter: 0.125in,
   )
 } else {
   contents

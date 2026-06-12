@@ -40,6 +40,14 @@ main:
         compact: true
       description: "Show the official photograph placeholder in the upper right corner (3.2 x 4 inches, flush with the right margin, aligned with the top of the first paragraph). Source photos should be high-resolution 8x10 or 5x7 portraits."
 
+    civilian:
+      type: boolean
+      default: false
+      ui:
+        group: Identification
+        compact: true
+      description: "Civilian biography: uses the CAREER CHRONOLOGY heading instead of ASSIGNMENTS, per the official template. Civilians also omit the rank in the name, and typically the joint-assignments, flight-information and promotions sections."
+
     current_as_of:
       type: string
       example: June 2026
@@ -122,6 +130,18 @@ main:
       ui:
         group: Sections
       description: "Optional. List achievements chronologically, each beginning with the year (e.g., honorary awards, distinguished-graduate honors, community recognition)."
+
+    badges:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - Command Pilot Badge
+        - Office of the Secretary of Defense Identification Badge
+      ui:
+        group: Sections
+      description: "Optional. OCCUPATIONAL BADGES: list all badges earned, one per line."
 
     publications:
       type: array
