@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.26.0 - 2026-06-16
+
+- Refactor CUI indicator block layout and styling (#82)
+
+
 ## v0.25.1 - 2026-06-10
 
 - make fields in Additional section of Indorsement compact
