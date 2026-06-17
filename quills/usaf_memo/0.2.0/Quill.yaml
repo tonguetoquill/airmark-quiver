@@ -99,14 +99,6 @@ main:
         compact: true
       description: "Organizational motto at the bottom of the page. Supports Markdown emphasis (e.g. *italics*, **bold**)."
 
-    freedom250:
-      type: boolean
-      default: false
-      ui:
-        group: Letterhead
-        compact: true
-      description: Show the America 250 / Freedom 250 commemorative emblem in the letterhead, mirrored opposite the seal.
-
     classification:
       type: string
       enum:

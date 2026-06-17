@@ -15,14 +15,6 @@
     }
   ),
 
-  // Optional Freedom 250 emblem, placed opposite the seal
-  ..if data.at("freedom250", default: false) {
-    (
-      letterhead_emblem: image("assets/Freedom250_USAF.png"),
-      letterhead_emblem_height: 0.58in,
-    )
-  },
-
   // Date
   date: data.at("date", default: none),
 
