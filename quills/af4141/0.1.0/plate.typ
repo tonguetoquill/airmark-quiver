@@ -1,7 +1,7 @@
 #import "@local/quillmark-helper:0.1.0": data
 #import "@local/typst-af4141:0.1.0": form
 
-#set text(font: ("NimbusRomNo9L", "Times New Roman", "serif"))
+#set text(font: "NimbusRomNo9L")
 
 // `type: date` fields arrive as Typst `datetime`; PDF overlay expects strings.
 // Missing / blank dates: helper uses `none`; empty strings may also appear from input.
