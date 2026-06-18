@@ -85,11 +85,13 @@
     let body = card.at("$body", default: "")
     let body_content = if type(body) == str { [] } else { body }
     // Per AFH 33-337 Ch. 14, an indorsement is dated when the endorser signs
-    // it (distinct from the originating memo's date). Default to today when
-    // the card omits or leaves the date blank.
+    // it (distinct from the originating memo's date). Endorsements are usually
+    // signed days or weeks after the memo is written, so a blank date is left
+    // blank (the renderer omits the date line entirely) to be filled in by
+    // hand at signing — rather than being stamped with the build date.
     let card_date = card.at("date", default: none)
     let resolved_date = if card_date == none or card_date == "" {
-      datetime.today()
+      none
     } else {
       card_date
     }

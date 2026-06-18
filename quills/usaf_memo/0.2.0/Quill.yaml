@@ -284,4 +284,4 @@ card_kinds:
         ui:
           group: Additional
           compact: true
-        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to use today's date."
+        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to omit the date so it can be hand-dated when the endorsement is actually signed."

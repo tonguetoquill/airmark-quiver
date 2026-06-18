@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.26.1 - 2026-06-18
+
+- usaf_memo: leave indorsement date blank when unset instead of stamping the build date, so endorsements can be hand-dated when signed
+
+
 ## v0.26.0 - 2026-06-16
 
 - Refactor CUI indicator block layout and styling (#82)
