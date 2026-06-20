@@ -112,6 +112,21 @@
   }
 }
 
+/// Renders a horizontal rule sized to fit a handwritten date.
+///
+/// Used for indorsements whose signing date is unknown at compile time: the
+/// endorser writes the date on the line by hand when signing. The rule sits on
+/// the text baseline (zero box height) so it does not grow the header row; the
+/// natural line leading above it gives room to write.
+///
+/// - width (length): Length of the fill-in rule; defaults to fit a long date
+///   such as "15 September 2026".
+/// -> content
+#let date-placeholder-line(width: 1.5in) = box(
+  width: width,
+  stroke: (bottom: 0.5pt + black),
+)
+
 /// Gets the banner color for a classification marking.
 ///
 /// Matches when `level` (trimmed) starts with a known prefix: TOP SECRET, SECRET,

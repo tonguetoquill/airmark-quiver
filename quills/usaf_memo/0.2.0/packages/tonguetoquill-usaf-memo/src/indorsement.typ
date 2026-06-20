@@ -84,7 +84,7 @@
         blank-line()
         grid(
           columns: (auto, 1fr),
-          ind_from, align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) }],
+          ind_from, align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-line() }],
         )
 
         blank-line()
@@ -96,7 +96,7 @@
         blank-line()
         grid(
           columns: (auto, 1fr),
-          [#indorsement_label, #ind_from], align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) }],
+          [#indorsement_label, #ind_from], align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-line() }],
         )
 
         blank-line()

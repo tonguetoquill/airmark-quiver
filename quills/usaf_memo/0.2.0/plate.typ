@@ -87,7 +87,7 @@
     // Per AFH 33-337 Ch. 14, an indorsement is dated when the endorser signs
     // it (distinct from the originating memo's date). The signing date is
     // generally unknown at compile time and filled in by hand, so a blank or
-    // omitted date renders no date rather than stamping the compile date.
+    // omitted date renders a fill-in line rather than stamping the compile date.
     let card_date = card.at("date", default: none)
     let resolved_date = if card_date == none or card_date == "" {
       none
