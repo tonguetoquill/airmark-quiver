@@ -1,9 +1,11 @@
 # Changelog
 
-## Unreleased
+## v0.27.0 - 2026-06-22
 
 - usaf_memo: a standard indorsement that gets pushed onto a new page now automatically renders the separate-page identifying header (`Nth Ind to ORIG, DATE, SUBJECT`), and the header is kept together with its body/signature so it is never stranded or orphaned across a page break.
-
+- Change indorsement date default from today to blank (#87)
+- Standardize fonts across quills to NimbusRomNo9L (#86)
+- Remove freedom250
 
 ## v0.26.0 - 2026-06-16
 
