@@ -122,7 +122,7 @@
 /// - width (length): Length of the fill-in rule; defaults to fit a long date
 ///   such as "15 September 2026".
 /// -> content
-#let date-placeholder-line(width: 1.24in) = box(
+#let date-placeholder-line(width: 1in) = box(
   width: width,
   height: 1em,
   // Keep the rule on the line's baseline so it aligns with where the printed
