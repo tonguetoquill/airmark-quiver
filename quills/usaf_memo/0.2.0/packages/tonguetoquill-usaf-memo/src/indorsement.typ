@@ -77,7 +77,7 @@
       let indorsement_number = counters.indorsement.get().at(0, default: 1)
       let indorsement_label = format-indorsement-number(indorsement_number)
 
-      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) }]
+      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-line() }]
 
       // Separate-page header body: restates the original memo's identity (FROM,
       // date, subject) on its own line, since the indorsement no longer shares a
