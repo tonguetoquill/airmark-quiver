@@ -125,7 +125,10 @@
 #let date-placeholder-line(width: 1.24in) = box(
   width: width,
   height: 1em,
-  baseline: 100%,
+  // Keep the rule on the line's baseline so it aligns with where the printed
+  // date would sit. The 1em box height reserves the writing space above it.
+  // (A positive baseline shift would drop the rule a full line too low.)
+  baseline: 0pt,
   stroke: (bottom: 0.5pt + black),
 )
 
