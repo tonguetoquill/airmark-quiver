@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- usaf_memo: a standard indorsement that gets pushed onto a new page now automatically renders the separate-page identifying header (`Nth Ind to ORIG, DATE, SUBJECT`), and the header is kept together with its body/signature so it is never stranded or orphaned across a page break.
+
+
 ## v0.26.0 - 2026-06-16
 
 - Refactor CUI indicator block layout and styling (#82)
