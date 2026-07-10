@@ -63,7 +63,7 @@
 #backmatter(
   // Signature block
   signature_block: data.signature_block,
-  signing_field: signature-field("Signature"),
+  signing_field: signature-field("Signature", field: "signature_block"),
 
   // Optional cc
   ..if "cc" in data { (cc: data.cc) },
@@ -98,7 +98,10 @@
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
       signature_block: card.signature_block,
-      signing_field: signature-field("Ind_" + str(i) + "_Signature"),
+      signing_field: signature-field(
+        "Ind_" + str(i) + "_Signature",
+        field: card.at("$path") + "signature_block",
+      ),
       format: card.at("format", default: "standard"),
       date: resolved_date,
       ..if "action" in card { (action: card.action) },

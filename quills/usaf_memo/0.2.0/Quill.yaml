@@ -2,8 +2,10 @@ quill:
   name: usaf_memo
   version: 0.2.0
   backend: typst
-  plate_file: plate.typ
   description: U.S. Air Force and Space Force Official Memorandum
+
+typst:
+  plate_file: plate.typ
 
 main:
   body:
@@ -38,7 +40,8 @@ main:
       description: "If recipients are on the same installation, use only the office symbol. For recipients on other installations, include the full mailing address to enable return correspondence. Omit entirely to produce a Memorandum for Record (no MEMO FROM line)."
 
     subject:
-      type: string
+      type: richtext
+      inline: true
       example: Subject of the Memorandum
       ui:
         group: Addressing
@@ -47,7 +50,8 @@ main:
     signature_block:
       type: array
       items:
-        type: string
+        type: richtext
+        inline: true
       example:
         - "FIRST M. LAST, Rank, USAF"
         - Duty Title
@@ -65,7 +69,8 @@ main:
     letterhead_caption:
       type: array
       items:
-        type: string
+        type: richtext
+        inline: true
       example:
         - HEADQUARTERS [UNIT NAME]
       ui:
@@ -92,7 +97,8 @@ main:
       description: Bold-caps line below the seal; blank to omit.
 
     tag_line:
-      type: markdown
+      type: richtext
+      inline: true
       default: ""
       ui:
         group: Letterhead
@@ -157,7 +163,8 @@ main:
     references:
       type: array
       items:
-        type: markdown
+        type: richtext
+        inline: true
       default: []
       example:
         - "AFMAN 33-326, 25 November 2011, *Preparing Official Communications*"
@@ -169,7 +176,8 @@ main:
     cc:
       type: array
       items:
-        type: string
+        type: richtext
+        inline: true
       default: []
       example:
         - Rank and Name, ORG/SYMBOL
@@ -180,7 +188,8 @@ main:
     distribution:
       type: array
       items:
-        type: string
+        type: richtext
+        inline: true
       default: []
       example:
         - ORG1/SYMBOL
@@ -192,7 +201,8 @@ main:
     attachments:
       type: array
       items:
-        type: string
+        type: richtext
+        inline: true
       default: []
       example:
         - Attachment description, YYYY MMM DD
@@ -248,7 +258,8 @@ card_kinds:
       signature_block:
         type: array
         items:
-          type: string
+          type: richtext
+          inline: true
         example:
           - "FIRST M. LAST, Rank, USAF"
           - Duty Title
