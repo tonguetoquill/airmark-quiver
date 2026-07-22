@@ -1,28 +1,25 @@
-// lib.typ: Public API for personal letter template (AFH 33-337 Ch. 15)
+// lib.typ — public API for the tonguetoquill-personal-letter package
 //
-// Provides a composable API for creating Air Force personal letters compliant
-// with Chapter 15 of The Tongue and Quill (AFH 33-337).
+// Implements AFH 33-337 "The Tongue and Quill" Chapter 15 — The Personal Letter.
 //
 // Basic usage:
 //
-// #import "@local/tonguetoquill-personal-letter:0.1.0": frontmatter, mainmatter, backmatter
+//   #import "@local/tonguetoquill-personal-letter:0.1.0": frontmatter, mainmatter, backmatter
 //
-// #show: frontmatter.with(
-//   return_address: ("Rank Name", "Duty Title", "Organization", "Address"),
-//   receiver_address: ("Rank Name", "Duty Title", "Organization", "Address"),
-//   salutation: "Dear Colonel Smith",
-//   addressee_type: "military",  // or "civilian"
-// )
+//   #show: frontmatter.with(
+//     return_address:   ("Rank Name", "Title", "Org", "Street", "City ST ZIP"),
+//     receiver_address: ("Rank Name", "Title", "Org", "Street", "City ST ZIP"),
+//     salutation:       "Dear Colonel Smith",
+//     addressee_type:   "military",  // or "civilian"
+//   )
 //
-// #show: mainmatter
+//   #show: mainmatter
 //
-// Letter body text here.
+//   Paragraph one — first line indented 0.5 in; sub-paragraphs use a., (1) …
 //
-// #backmatter(
-//   signature_block: ("FULL NAME, Rank, USAF", "Duty Title"),
-//   attachments: (...),
-//   cc: (...),
-// )
+//   #backmatter(
+//     signature_block: ("FULL NAME, Rank, USAF", "Duty Title"),
+//   )
 
 #import "frontmatter.typ": frontmatter
 #import "mainmatter.typ": mainmatter

@@ -3,16 +3,16 @@ quill:
   version: 0.1.0
   backend: typst
   plate_file: plate.typ
-  description: U.S. Air Force Personal Letter (AFH 33-337, Chapter 15)
+  description: U.S. Air Force Personal Letter (AFH 33-337, Chapter 15 — The Tongue and Quill)
 
 main:
   body:
     example: |
-      The text of the letter. The first line of each major paragraph is indented 0.5 inches; subsequent lines are flush with the left margin. Keep the letter brief, preferably no longer than one page, and avoid acronyms.
+      The text of the letter. The first line of each major paragraph is indented 0.5 inches. All second and subsequent lines are flush with the left margin. Keep the letter brief, preferably no longer than one page, and avoid acronyms.
 
       A second paragraph, if needed.
 
-      - A sub-paragraph, automatically lettered (a., b., etc.).
+      - A sub-paragraph, automatically lettered (a., b., c., etc.).
   fields:
     return_address:
       type: array
@@ -24,8 +24,8 @@ main:
         - Street Address
         - City ST 12345-6789
       ui:
-        group: Addressing
-      description: "Sender's rank, full name, duty title, organization, and complete mailing address. Placed flush left on the second line below the date. Use USPS abbreviations; no punctuation in the last line except the ZIP+4 dash."
+        group: Heading
+      description: "Sender's rank, full name, duty title, organization, and complete mailing address (single-spaced). Placed flush left on the second line below the date. Use periods after Mr., Ms., Mrs., Dr. No punctuation on the last line except the ZIP+4 dash."
 
     receiver_address:
       type: array
@@ -37,16 +37,16 @@ main:
         - Street Address
         - City ST 12345-6789
       ui:
-        group: Addressing
-      description: "Recipient's title or rank, full name, and complete mailing address. Placed on the third line below the return address. Spell out all military ranks; no punctuation in the last line except the ZIP+4 dash."
+        group: Heading
+      description: "Recipient's title or rank, full name, and complete mailing address (single-spaced). Placed on the third line below the return address. Spell out all military ranks in full."
 
     salutation:
       type: string
       required: true
       example: "Dear Colonel Letter"
       ui:
-        group: Addressing
-      description: "Begins with 'Dear' followed by the title (or rank) and last name of the receiver. Do not use punctuation after the salutation."
+        group: Heading
+      description: "Begins with 'Dear' followed by the title (or rank) and last name of the receiver. No punctuation after the salutation (open punctuation style)."
 
     signature_block:
       type: array
@@ -55,8 +55,8 @@ main:
         - "DAVID L. JONES, CMSgt, USAF"
         - Duty Title
       ui:
-        group: Addressing
-      description: "Full signature block. Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Spell out 'Colonel' and general officer ranks."
+        group: Closing
+      description: "Full signature block of the sender. Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
 
     addressee_type:
       type: string
@@ -65,24 +65,44 @@ main:
         - civilian
       default: military
       ui:
-        group: Addressing
+        group: Heading
         compact: true
-      description: "Controls date format. Military addressees use 'Day Month Year' (15 October 2014); civilian addressees use 'Month Day, Year' (October 15, 2014)."
+      description: "Controls the date format. Military/government addressees: 'Day Month Year' (15 October 2014). Civilian addressees: 'Month Day, Year' (October 15, 2014)."
+
+    attachments:
+      type: array
+      default: []
+      example:
+        - Attachment description
+      ui:
+        group: Closing
+      description: "'Attachment:' for a single attachment; '# Attachments:' for two or more. Placed flush left on the third line below the signature element."
+
+    cc:
+      type: array
+      default: []
+      example:
+        - "Rank and Name, ORG/SYMBOL"
+      ui:
+        group: Closing
+      description: "Courtesy copy recipients. Placed on the second line below the attachment element, or the third line below the signature if no attachment is used."
 
     letterhead_title:
       type: string
-      default: DEPARTMENT OF THE AIR FORCE
+      default: "DEPARTMENT OF THE AIR FORCE"
       ui:
-        group: Letterhead
-      description: Standard title. Only change for Joint Commands or DoW Agencies.
+        group: Heading
+        compact: true
+      description: "Official department title printed in the letterhead. Change only for joint commands or DoD agencies."
 
     letterhead_caption:
       type: array
-      default:
+      default: []
+      example:
         - HEADQUARTERS [UNIT NAME]
       ui:
-        group: Letterhead
-      description: The full organization name of your unit.
+        group: Heading
+      description: "Unit name printed below the department title in the letterhead. Leave blank to omit the letterhead entirely."
 
     letterhead_seal:
       type: string
@@ -91,57 +111,16 @@ main:
         - dod
       default: dow
       ui:
-        group: Letterhead
+        group: Heading
         compact: true
-      description: Department of War (DoW) or Department of Defense (DoD) seal shown in the letterhead.
-
-    letterhead_seal_subtitle:
-      type: string
-      default: ""
-      ui:
-        group: Letterhead
-        compact: true
-      description: Optional line below the DoW seal (bold caps). Leave blank to omit.
-
-    tag_line:
-      type: string
-      default: ""
-      ui:
-        group: Letterhead
-        compact: true
-      description: Organizational motto at the bottom of the page.
-
-    freedom250:
-      type: boolean
-      ui:
-        group: Letterhead
-        compact: true
-      description: Show the America 250 / Freedom 250 commemorative emblem in the letterhead, mirrored opposite the seal.
-
-    attachments:
-      type: array
-      default: []
-      example:
-        - Attachment description
-      ui:
-        group: Additional
-      description: "List attachments in the order they are mentioned in the letter. 'Attachment:' for one; '# Attachments:' for two or more. Placed flush left on the third line below the signature element."
-
-    cc:
-      type: array
-      default: []
-      example:
-        - "Rank and Name, ORG/SYMBOL"
-      ui:
-        group: Additional
-      description: "Courtesy copy recipients. Placed on the second line below the attachment element, or the third line below the signature if no attachment is used."
+      description: "Seal displayed in the letterhead. 'dow' for the Department of War seal (Air Force); 'dod' for the Department of Defense seal."
 
     font_size:
       type: number
       default: 12
       example: 12
       ui:
-        group: Additional
+        group: Format
         compact: true
       description: Font size for the letter text (pt). Decimal values (e.g. 11.5) are supported.
 
@@ -149,7 +128,7 @@ main:
       type: date
       default: ""
       ui:
-        group: Additional
+        group: Format
         compact: true
       description: YYYY-MM-DD. Leave blank to use today's date.
 
@@ -164,14 +143,14 @@ main:
         - TOP SECRET
       default: ""
       ui:
-        group: Additional
+        group: Format
         compact: true
-      description: "Classification marking displayed in the header/footer banner. Banner colors follow DoD/CAPCO guidance. Leave blank to omit."
+      description: "Classification marking in the header/footer banner. Follows DoD/CAPCO color guidance. Leave blank to omit."
 
     dissemination:
       type: string
       default: ""
       ui:
-        group: Additional
+        group: Format
         compact: true
-      description: "Optional marking appended after double slash (e.g. NF with classification CUI renders as CUI//NF). Leave blank to show only the classification with no //."
+      description: "Marking appended after double slash (e.g. NF with CUI renders as CUI//NF). Leave blank for classification only."

@@ -1,142 +1,193 @@
-// utils.typ: Utility functions for personal letter template
+// utils.typ — shared helpers for the personal letter package
 
-#import "config.typ": CLASSIFICATION_COLORS, paragraph-config, spacing
+#import "config.typ": CLASSIFICATION_COLORS, DEFAULT_LETTERHEAD_FONTS, LETTERHEAD_COLOR, spacing
 
-// Shared measured line-stride cache set once in frontmatter.
-#let LINE_STRIDE = state("LINE_STRIDE")
+// Line-stride cache (set once in frontmatter; read by blank-lines and body).
+#let LINE_STRIDE = state("PL_LINE_STRIDE")
 
-/// Creates vertical spacing equivalent to `count` blank lines.
+// ---------------------------------------------------------------------------
+// Spacing helpers
+// ---------------------------------------------------------------------------
+
+/// Emit `count` blank line strides of vertical space.
 #let blank-lines(count) = {
   if count <= 0 { return }
   context {
-    let stride = LINE_STRIDE.get()
-    if stride == none {
-      let one-line = measure(par(spacing: 0pt)[x]).height
-      stride = measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
+    let s = LINE_STRIDE.get()
+    if s == none {
+      let h = measure(par(spacing: 0pt)[x]).height
+      s = measure(par(spacing: 0pt)[x#linebreak()x]).height - h
     }
-    v(stride * count)
+    v(s * count)
   }
 }
 
-/// Creates vertical spacing equivalent to one blank line.
+/// Emit one blank line of vertical space.
 #let blank-line() = blank-lines(1)
 
-// =============================================================================
-// GENERAL UTILITIES
-// =============================================================================
+// ---------------------------------------------------------------------------
+// General helpers
+// ---------------------------------------------------------------------------
 
-/// Returns true for none, false, empty array, or empty string.
-#let falsey(value) = {
-  value == none or value == false or (type(value) == array and value.len() == 0) or (type(value) == str and value == "")
+/// True when value is none / false / "" / [].
+#let falsey(v) = (
+  v == none or v == false
+    or (type(v) == array and v.len() == 0)
+    or (type(v) == str   and v == "")
+)
+
+/// Wrap a non-array value in a tuple; pass arrays through.
+#let ensure-array(v) = {
+  if v == none { () }
+  else if type(v) == array { v }
+  else { (v,) }
 }
 
-/// Scales content to fit within a box while maintaining aspect ratio.
-#let fit-box(width: 2in, height: 1in, alignment: left + horizon, body) = context {
-  let s = measure(body)
-  let f = calc.min(width / s.width, height / s.height) * 100%
-  box(width: width, height: height, clip: true)[
-    #align(alignment)[
-      #scale(f, reflow: true)[#body]
-    ]
-  ]
+/// Join an array with newlines; pass strings through.
+#let ensure-string(v, sep: "\n") = {
+  if v == none { "" }
+  else if type(v) == array { v.join(sep) }
+  else { str(v) }
 }
 
-/// Formats a date for the personal letter heading.
-///
-/// - date (str|datetime): Date to format
-/// - addressee-type (str): "military" → "Day Month Year"; "civilian" → "Month Day, Year"
-#let display-date(date, addressee-type: "military") = {
-  if type(date) == str {
-    date
-  } else {
-    let pattern = if addressee-type == "civilian" {
+// ---------------------------------------------------------------------------
+// Date formatting
+// ---------------------------------------------------------------------------
+
+/// Format the date per addressee type.
+/// military → "15 October 2014"   civilian → "October 15, 2014"
+#let format-date(date, addressee-type: "military") = {
+  if type(date) == str { date }
+  else {
+    let pat = if addressee-type == "civilian" {
       "[month repr:long] [day padding:none], [year]"
     } else {
       "[day padding:none] [month repr:long] [year]"
     }
-    date.display(pattern)
+    date.display(pat)
   }
 }
 
-/// Returns the banner color for a classification level.
-#let get-classification-level-color(level) = {
+// ---------------------------------------------------------------------------
+// Classification
+// ---------------------------------------------------------------------------
+
+#let classification-color(level) = {
   if level == none or type(level) != str { return rgb(0, 0, 0) }
   let s = level.trim()
-  let level-order = ("TOP SECRET", "SECRET", "CONFIDENTIAL", "CUI", "UNCLASSIFIED")
-  for base-level in level-order {
-    if s.starts-with(base-level) { return CLASSIFICATION_COLORS.at(base-level) }
+  for k in ("TOP SECRET", "SECRET", "CONFIDENTIAL", "CUI", "UNCLASSIFIED") {
+    if s.starts-with(k) { return CLASSIFICATION_COLORS.at(k) }
   }
   rgb(0, 0, 0)
 }
 
-// =============================================================================
-// TYPE NORMALIZATION
-// =============================================================================
-
-#let ensure-array(value) = {
-  if value == none { () }
-  else if type(value) == array { value }
-  else { (value,) }
+/// Build the full classification banner string (e.g. "CUI//NF").
+#let classification-marking(level, dissemination) = {
+  if level == none or type(level) != str { return none }
+  let base = level.trim()
+  if base == "" { return none }
+  let disp = if dissemination == none or type(dissemination) != str { "" }
+             else { dissemination.trim() }
+  if disp != "" { base + "//" + upper(disp) } else { base }
 }
 
-#let ensure-string(value, separator: "\n") = {
-  if value == none { "" }
-  else if type(value) == array { value.join(separator) }
-  else { str(value) }
-}
+// ---------------------------------------------------------------------------
+// Sub-paragraph numbering  (for nested bullets inside the personal letter body)
+// ---------------------------------------------------------------------------
 
-#let first-or-value(value) = {
-  if value == none { none }
-  else if type(value) == array { if value.len() > 0 { value.at(0) } else { none } }
-  else { value }
-}
+#import "config.typ": SUBPAR_FORMATS
 
-// =============================================================================
-// PARAGRAPH NUMBERING (SUB-PARAGRAPHS)
-// =============================================================================
+#let subpar-format(level) = SUBPAR_FORMATS.at(level, default: "i.")
 
-/// Returns the numbering format for a paragraph level (0-indexed).
-/// Level 0 is unused for personal letter top-level paragraphs.
-/// Level 1 = "a.", Level 2 = "(1)", Level 3 = "(a)", etc.
-#let get-paragraph-numbering-format(level) = {
-  paragraph-config.numbering-formats.at(level, default: "i.")
-}
-
-/// Calculates indent for a sub-paragraph in a personal letter.
-///
-/// Level 0: 0pt (handled by the 0.5in first-line h() spacer in body.typ)
-/// Level 1 (a.): 0.5in — aligns the label with where main paragraph text starts
-/// Level 2+: 0.5in + accumulated label widths
-#let calculate-personal-letter-indent(level, level-counts) = {
+/// Indentation for a sub-paragraph at `level` (1-based; level 0 = top-level).
+/// Level 1 ("a.") aligns at PARA_INDENT; deeper levels accumulate label widths.
+/// NOTE: must be called from within a `context` block (uses measure).
+#let subpar-indent(level, counts) = {
   if level <= 0 { return 0pt }
-  let total-indent = 0.5in
-  for ancestor-level in range(1, level) {
-    let ancestor-value = level-counts.at(str(ancestor-level), default: 1)
-    let ancestor-format = get-paragraph-numbering-format(ancestor-level)
-    let ancestor-number = numbering(ancestor-format, ancestor-value)
-    total-indent += measure([#ancestor-number#"  "]).width
+  // Base: start from where the top-level paragraph text begins (0.5 in).
+  import "config.typ": PARA_INDENT
+  let total = PARA_INDENT
+  // Add each intermediate label's width beyond level 1.
+  for anc in range(1, level) {
+    let val = counts.at(str(anc), default: 1)
+    let lbl = numbering(subpar-format(anc), val)
+    total += measure([#lbl#"  "]).width
   }
-  total-indent
+  total
 }
 
-/// Resets counter entries from `start` upward to 1.
-#let reset-levels-from(level-counts, start, max-levels) = {
-  for child in range(start, max-levels) {
-    level-counts.insert(str(child), 1)
+/// Reset level-counts from `start` upward.
+#let reset-counts-from(counts, start, max) = {
+  for i in range(start, max) {
+    counts.insert(str(i), 1)
   }
-  level-counts
+  counts
 }
 
-/// Formats a sub-paragraph with label and indent.
-#let format-par(body, level, level-counts, indent-fn, continuation: false) = {
-  let indent-width = indent-fn(level, level-counts)
+/// Render one sub-paragraph line (label + body or continuation indented body).
+#let render-subpar(body, level, counts, continuation: false) = {
+  let indent = subpar-indent(level, counts)
   if continuation {
-    let current-value = level-counts.at(str(level), default: 1)
-    let number-text = numbering(get-paragraph-numbering-format(level), current-value)
-    [#h(indent-width + measure([#number-text#"  "]).width)#body]
+    let lbl = numbering(subpar-format(level), counts.at(str(level), default: 1))
+    [#h(indent + measure([#lbl#"  "]).width)#body]
   } else {
-    let current-value = level-counts.at(str(level), default: 1)
-    let number-text = numbering(get-paragraph-numbering-format(level), current-value)
-    [#h(indent-width)#number-text#"  "#body]
+    let lbl = numbering(subpar-format(level), counts.at(str(level), default: 1))
+    [#h(indent)#lbl#"  "#body]
+  }
+}
+
+// ---------------------------------------------------------------------------
+// fit-box
+// ---------------------------------------------------------------------------
+
+#let fit-box(width: 2in, height: 1in, alignment: left + horizon, body) = context {
+  let s = measure(body)
+  let f = calc.min(width / s.width, height / s.height) * 100%
+  box(width: width, height: height, clip: true)[#align(alignment)[#scale(f, reflow: true)[#body]]]
+}
+
+// ---------------------------------------------------------------------------
+// Letterhead
+// ---------------------------------------------------------------------------
+
+#let render-letterhead(
+  title,
+  caption,
+  font,
+  letterhead-seal: none,
+  letterhead-seal-subtitle: none,
+) = {
+  font    = ensure-array(font)
+  title   = upper(ensure-string(title))
+  caption = upper(ensure-string(caption))
+
+  // Title + caption centred at ~0.625in from top of page.
+  place(
+    dy: 0.625in - spacing.margin,
+    box(width: 100%, fill: none, stroke: none)[
+      #place(center + top, align(center)[
+        #set text(12pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
+        #title\
+        #v(1pt)
+        #text(10.5pt)[#caption]
+      ])
+    ],
+  )
+
+  // DoW / DoD seal in upper-left, sized 2in × 1in.
+  if letterhead-seal != none {
+    let seal-body = if letterhead-seal-subtitle == none or letterhead-seal-subtitle == "" {
+      block[#fit-box(width: 2in, height: 1in)[#letterhead-seal]]
+    } else {
+      block[
+        #set text(9pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
+        #stack(
+          spacing: 0.5em,
+          fit-box(width: 2in, height: 1in)[#letterhead-seal],
+          box(upper(ensure-string(letterhead-seal-subtitle))),
+        )
+      ]
+    }
+    place(left + top, dx: -0.5in, dy: -.5in, seal-body)
   }
 }

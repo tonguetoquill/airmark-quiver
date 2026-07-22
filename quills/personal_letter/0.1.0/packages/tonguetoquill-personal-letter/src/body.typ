@@ -1,58 +1,62 @@
-// body.typ: Paragraph body rendering for personal letter (AFH 33-337 Ch. 15)
+// body.typ — paragraph body rendering for AFH 33-337 Ch. 15 personal letter
 //
-// Per Ch. 15 "The Text of the Personal Letter":
-//   - "Do not number the paragraphs."
-//   - "Indent the first line of text for all major paragraphs 0.5 inches."
-//   - "if there are sub-paragraphs, follow the same guidance for sub-paragraph
-//     numbering and indentation as in the official memorandum."
-//   - "All second and subsequent lines of text for all paragraphs are flush
-//     with the left margin."
+// Rules (Ch. 15 "The Text of the Personal Letter"):
+//   • Do not number paragraphs.
+//   • Indent the first line of each major paragraph 0.5 inches.
+//   • All second and subsequent lines are flush with the left margin.
+//   • Sub-paragraphs follow the same numbering/indentation as the memo
+//     (a., (1), (a) … starting at 0.5 in from the left).
 
-#import "config.typ": *
+#import "config.typ": PARA_INDENT, SUBPAR_FORMATS, spacing
 #import "utils.typ": *
-#import "primitives.typ": render-memo-table
 
+// ---------------------------------------------------------------------------
+// Table styling (inherited from memo conventions — no specific Ch.15 rule)
+// ---------------------------------------------------------------------------
+#let render-table(it) = {
+  show table.cell.where(y: 0): set text(weight: "bold")
+  set table(stroke: 0.5pt + black, inset: (x: 0.5em, y: 0.4em))
+  it
+}
+
+// ---------------------------------------------------------------------------
+// render-body
+// ---------------------------------------------------------------------------
 #let render-body(content) = {
-  let PAR_BUFFER = state("PL_PAR_BUFFER")
-  PAR_BUFFER.update(())
-  let NEST_DOWN = counter("PL_NEST_DOWN")
+  // ── State / counters ──────────────────────────────────────────────────────
+  let BUF          = state("PL_BUF")
+  let NEST_DOWN    = counter("PL_ND")
+  let NEST_UP      = counter("PL_NU")
+  let IS_HEADING   = state("PL_HEADING")
+  let FIRST_IN_ITEM= state("PL_FIRST")
+  BUF.update(())
   NEST_DOWN.update(0)
-  let NEST_UP = counter("PL_NEST_UP")
   NEST_UP.update(0)
-  let IS_HEADING = state("PL_IS_HEADING")
   IS_HEADING.update(false)
-  let ITEM_FIRST_PAR = state("PL_ITEM_FIRST_PAR")
-  ITEM_FIRST_PAR.update(false)
+  FIRST_IN_ITEM.update(false)
 
-  // First pass: collect paragraphs with nesting metadata
+  // ── First pass: collect paragraphs into BUF ───────────────────────────────
   let first_pass = {
     show par: p => context {
-      let nest_level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
-      let is_heading = IS_HEADING.get()
-      let is_first_par = ITEM_FIRST_PAR.get()
-      let is_continuation = nest_level > 0 and not is_first_par
+      let level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
+      let heading = IS_HEADING.get()
+      let first   = FIRST_IN_ITEM.get()
+      let cont    = level > 0 and not first
 
-      PAR_BUFFER.update(pars => {
-        pars.push((
-          content: text([#p.body]),
-          nest_level: nest_level,
-          kind: if is_heading { "heading" } else if is_continuation { "continuation" } else { "par" },
+      BUF.update(buf => {
+        buf.push((
+          content:   text([#p.body]),
+          level:     level,
+          kind:      if heading { "heading" } else if cont { "cont" } else { "par" },
         ))
-        pars
+        buf
       })
-
-      if nest_level > 0 and is_first_par {
-        ITEM_FIRST_PAR.update(false)
-      }
-
+      if level > 0 and first { FIRST_IN_ITEM.update(false) }
       p
     }
 
     show table: t => context {
-      PAR_BUFFER.update(pars => {
-        pars.push((content: t, nest_level: -1, kind: "table"))
-        pars
-      })
+      BUF.update(buf => { buf.push((content: t, level: -1, kind: "table")); buf })
       t
     }
 
@@ -62,121 +66,119 @@
         [#parbreak()#h.body#parbreak()]
         IS_HEADING.update(false)
       }
-
-      show enum.item: it => {
-        NEST_DOWN.step()
-        ITEM_FIRST_PAR.update(true)
-        [#parbreak()#it.body#parbreak()]
-        NEST_UP.step()
-      }
       show list.item: it => {
         NEST_DOWN.step()
-        ITEM_FIRST_PAR.update(true)
+        FIRST_IN_ITEM.update(true)
         [#parbreak()#it.body#parbreak()]
         NEST_UP.step()
       }
-
+      show enum.item: it => {
+        NEST_DOWN.step()
+        FIRST_IN_ITEM.update(true)
+        [#parbreak()#it.body#parbreak()]
+        NEST_UP.step()
+      }
       {
-        show strong: it => { [#it#sym.zws] }
-        show emph: it => { [#it#sym.zws] }
-        show underline: it => { [#it#sym.zws] }
-        show raw: it => { [#it#sym.zws] }
+        // Ensure show-par fires even for inline-only content (Typst quirk).
+        show strong:    it => [#it#sym.zws]
+        show emph:      it => [#it#sym.zws]
+        show underline: it => [#it#sym.zws]
+        show raw:       it => [#it#sym.zws]
         [#content#parbreak()]
       }
     }
   }
   place(hide(first_pass))
 
-  // Second pass: render collected paragraphs with personal letter formatting
+  // ── Second pass: render collected items ───────────────────────────────────
   context {
-    let heading_buffer = none
-    let items = PAR_BUFFER.get().filter(item =>
-      item.kind == "table" or measure(item.content).width > 0pt
+    let items = BUF.get().filter(it =>
+      it.kind == "table" or measure(it.content).width > 0pt
     )
     if items.len() == 0 { return }
 
-    let max-levels = paragraph-config.numbering-formats.len()
-    let level-counts = (:)
-    for lvl in range(max-levels) {
-      level-counts.insert(str(lvl), 1)
-    }
+    let max-lvl = SUBPAR_FORMATS.len()
+    let counts  = (:)
+    for i in range(max-lvl) { counts.insert(str(i), 1) }
 
-    let indent-fn = (level, counts) => calculate-personal-letter-indent(level, counts)
-
-    let i = 0
-    let any_emitted = false
-    let total_count = items.len()
+    let heading-buf = none
+    let emitted     = false
+    let total       = items.len()
+    let idx         = 0
 
     for item in items {
-      i += 1
-      let kind = item.kind
-      let item_content = item.content
+      idx += 1
+      let kind    = item.kind
+      let body    = item.content
+      let level   = item.level
 
+      // Buffer headings to prepend to the next non-heading element.
       if kind == "heading" {
-        heading_buffer = item_content
+        heading-buf = body
         continue
       }
 
-      if heading_buffer != none {
+      // Prepend any buffered heading as bold text.
+      if heading-buf != none {
         if kind == "table" {
           blank-line()
-          strong[#heading_buffer.]
-          heading_buffer = none
+          strong[#heading-buf.]
+          heading-buf = none
         } else {
-          item_content = [#strong[#heading_buffer.] #item_content]
-          heading_buffer = none
+          body = [#strong[#heading-buf.] #body]
+          heading-buf = none
         }
       }
 
-      let nest_level = item.nest_level
-      let final_par = {
+      let final = {
         if kind == "table" {
-          render-memo-table(item_content)
-        } else if kind == "continuation" {
-          if nest_level <= 0 {
-            // Continuation of a top-level paragraph: flush left
-            item_content
+          render-table(body)
+
+        } else if kind == "cont" {
+          // Continuation line within a multi-block list item.
+          if level <= 0 {
+            body  // top-level continuation: flush left
           } else {
-            format-par(item_content, nest_level, level-counts, indent-fn, continuation: true)
+            render-subpar(body, level, counts, continuation: true)
           }
-        } else if nest_level <= 0 {
-          // Top-level paragraph: unnumbered, first-line indent 0.5in
-          // Reset sub-paragraph counters for each new top-level paragraph
-          level-counts = reset-levels-from(level-counts, 1, max-levels)
-          [#h(PARA_FIRST_LINE_INDENT)#item_content]
+
+        } else if level <= 0 {
+          // Top-level paragraph: unnumbered, first-line indent.
+          // Reset nested counters so each new main paragraph restarts sub-numbering.
+          counts = reset-counts-from(counts, 1, max-lvl)
+          [#h(PARA_INDENT)#body]
+
         } else {
-          // Sub-paragraph: numbered per USAF memo rules (a., (1), etc.)
-          let par = format-par(item_content, nest_level, level-counts, indent-fn)
-          level-counts.insert(str(nest_level), level-counts.at(str(nest_level), default: 1) + 1)
-          level-counts = reset-levels-from(level-counts, nest_level + 1, max-levels)
+          // Sub-paragraph: numbered per memo rules (a., (1), …)
+          let par = render-subpar(body, level, counts)
+          counts.insert(str(level), counts.at(str(level), default: 1) + 1)
+          counts = reset-counts-from(counts, level + 1, max-lvl)
           par
         }
       }
 
-      // AFH 33-337 Ch. 15 orphan prevention: keep short last paragraphs
-      // with the signature block (same rule as the official memo).
-      if any_emitted { blank-line() }
-      any_emitted = true
-      if i == total_count {
-        let available_width = page.width - spacing.margin * 2
-        let line_height = {
-          let cached = LINE_STRIDE.get()
-          if cached != none { cached }
-          else {
-            let one-line = measure(par(spacing: 0pt)[x]).height
-            measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
+      // ── Orphan prevention (same rule as the memo) ──────────────────────
+      if emitted { blank-line() }
+      emitted = true
+
+      if idx == total {
+        // Last paragraph: keep short ones sticky with the signature block.
+        let avail = page.width - spacing.margin * 2
+        let lh = {
+          let s = LINE_STRIDE.get()
+          if s != none { s } else {
+            let h = measure(par(spacing: 0pt)[x]).height
+            measure(par(spacing: 0pt)[x#linebreak()x]).height - h
           }
         }
-        let par_height = measure(final_par, width: available_width).height
-        let estimated_lines = calc.ceil(par_height / line_height)
-
-        if estimated_lines < 4 {
-          block(sticky: true)[#final_par]
+        let lines = calc.ceil(measure(final, width: avail).height / lh)
+        if lines < 4 {
+          block(sticky: true)[#final]
         } else {
-          block(breakable: true)[#final_par]
+          block(breakable: true)[#final]
         }
       } else {
-        block[#final_par]
+        block[#final]
       }
     }
   }

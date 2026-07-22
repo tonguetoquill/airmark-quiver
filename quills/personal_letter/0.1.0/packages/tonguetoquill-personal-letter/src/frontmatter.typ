@@ -1,150 +1,126 @@
-// frontmatter.typ: Heading section for personal letter (AFH 33-337 Ch. 15)
+// frontmatter.typ — heading section for AFH 33-337 Ch. 15 personal letter
 //
-// Layout per Ch. 15 "The Heading Section":
-//   Date         — 1 inch from right, 1.75 inches from top
-//   [blank line]
-//   Return addr  — 2nd line below date, flush left
+// Layout (all measurements from top of page):
+//   1.75 in  — date, right-aligned at 1 inch from the right edge
+//   [1 blank line]
+//   Return address (flush left, single-spaced)
 //   [2 blank lines]
-//   Receiver addr — 3rd line below return address (last line)
-//   [blank line]
-//   Salutation   — 2nd line below receiver address (last line)
-//   [blank line]  ← "Start text on second line below salutation"
-//   [body text]
+//   Receiver's address (flush left, single-spaced)
+//   [1 blank line]
+//   Salutation ("Dear …" — no punctuation after)
+//   [1 blank line]
+//   ← body text begins here
 
-#import "primitives.typ": *
+#import "config.typ": DEFAULT_BODY_FONTS, DEFAULT_LETTERHEAD_FONTS, spacing
+#import "utils.typ": *
 
 #let frontmatter(
-  return_address: none,
+  // Required heading fields
+  return_address:   none,
   receiver_address: none,
-  salutation: none,
-  date: none,
-  addressee_type: "military",
-  letterhead_title: "DEPARTMENT OF THE AIR FORCE",
-  letterhead_caption: "[YOUR SQUADRON/UNIT NAME]",
-  letterhead_seal: none,
-  letterhead_seal_subtitle: none,
-  letterhead_emblem: none,
-  letterhead_font: DEFAULT_LETTERHEAD_FONTS,
-  body_font: DEFAULT_BODY_FONTS,
-  font_size: 12pt,
+  salutation:       none,
+  // Date
+  date:             none,
+  addressee_type:   "military",
+  // Letterhead
+  letterhead_title:    "DEPARTMENT OF THE AIR FORCE",
+  letterhead_caption:  none,
+  letterhead_seal:     none,
+  letterhead_font:     DEFAULT_LETTERHEAD_FONTS,
+  // Typography
+  body_font:        DEFAULT_BODY_FONTS,
+  font_size:        12pt,
+  // Optional classification banner
   classification_level: none,
-  dissemination: none,
-  footer_tag_line: none,
+  dissemination:        none,
+  // body (passed by show rule)
   it,
 ) = {
-  assert(return_address != none, message: "return_address is required")
+  assert(return_address   != none, message: "return_address is required")
   assert(receiver_address != none, message: "receiver_address is required")
-  assert(salutation != none, message: "salutation is required")
+  assert(salutation       != none, message: "salutation is required")
 
   let actual_date = if date == none { datetime.today() } else { date }
+  let marking = classification-marking(classification_level, dissemination)
+  let mark-color = classification-color(classification_level)
 
-  let classification_marking = if classification_level == none or type(classification_level) != str {
-    none
-  } else {
-    let base = classification_level.trim()
-    if base == "" {
-      none
-    } else {
-      let disp = if dissemination == none or type(dissemination) != str {
-        ""
-      } else {
-        dissemination.trim()
-      }
-      if disp != "" { base + "//" + upper(disp) } else { base }
-    }
-  }
-  let classification_color = get-classification-level-color(classification_level)
-
+  // ── Document-wide typography ─────────────────────────────────────────────
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
   set block(above: spacing.line, below: 0em, spacing: 0em)
   set text(font: body_font, size: font_size, fallback: true)
 
+  // ── Page geometry ────────────────────────────────────────────────────────
   set page(
     paper: "us-letter",
-    margin: (
-      left: spacing.margin,
-      right: spacing.margin,
-      top: spacing.margin,
-      bottom: spacing.margin,
-    ),
+    margin: (top: spacing.margin, bottom: spacing.margin,
+             left: spacing.margin, right: spacing.margin),
     header: {
-      // AFH 33-337 Ch. 15: same page-numbering rules as memo (first page not numbered)
+      // Ch. 15 inherits memo page-numbering rules: first page not numbered;
+      // subsequent pages numbered 0.5 in from top, flush with right margin.
       context if counter(page).get().first() > 1 {
-        place(
-          dy: +.5in,
-          block(
-            width: 100%,
-            align(right, text(12pt)[#counter(page).display()]),
-          ),
-        )
+        place(dy: +.5in,
+          block(width: 100%, align(right, text(12pt)[#counter(page).display()])))
       }
-
-      if classification_marking != none {
-        place(
-          top + center,
-          dy: 0.375in,
-          text(12pt, font: DEFAULT_BODY_FONTS, fill: classification_color)[#strong(classification_marking)],
-        )
+      if marking != none {
+        place(top + center, dy: 0.375in,
+          text(12pt, font: DEFAULT_BODY_FONTS, fill: mark-color)[#strong(marking)])
       }
     },
     footer: {
-      if classification_marking != none {
-        place(
-          bottom + center,
-          dy: -.375in,
-          text(12pt, font: DEFAULT_BODY_FONTS, fill: classification_color)[#strong(classification_marking)],
-        )
-      }
-
-      if not falsey(footer_tag_line) {
-        place(
-          bottom + center,
-          dy: -0.625in,
-          align(center)[
-            #text(fill: LETTERHEAD_COLOR, font: "cinzel", size: 15pt)[#footer_tag_line]
-          ],
-        )
+      if marking != none {
+        place(bottom + center, dy: -.375in,
+          text(12pt, font: DEFAULT_BODY_FONTS, fill: mark-color)[#strong(marking)])
       }
     },
   )
 
-  render-letterhead(
-    letterhead_title,
-    letterhead_caption,
-    letterhead_font,
-    letterhead-seal: letterhead_seal,
-    letterhead-seal-subtitle: letterhead_seal_subtitle,
-    letterhead-emblem: letterhead_emblem,
-  )
-
-  // AFH 33-337 Ch. 15 "Date": 1.75 inches from top, 1 inch from right edge
-  v(1.75in - spacing.margin)
-
-  // Cache line stride for spacing calculations throughout the document
+  // ── Cache line stride ────────────────────────────────────────────────────
   context {
-    let one-line = measure(par(spacing: 0pt)[x]).height
-    let line-stride = measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
-    LINE_STRIDE.update(line-stride)
+    let h1 = measure(par(spacing: 0pt)[x]).height
+    LINE_STRIDE.update(measure(par(spacing: 0pt)[x#linebreak()x]).height - h1)
   }
 
-  // Store addressee_type for use in backmatter / mainmatter if needed
-  [#metadata((addressee_type: addressee_type)) <personal-letter-config>]
+  // ── Letterhead ───────────────────────────────────────────────────────────
+  if letterhead_caption != none {
+    render-letterhead(
+      letterhead_title,
+      letterhead_caption,
+      letterhead_font,
+      letterhead-seal: letterhead_seal,
+    )
+  }
 
-  render-date-section(actual_date, addressee-type: addressee_type)
+  // ── Date ─────────────────────────────────────────────────────────────────
+  // Ch. 15: "Place the date 1 inch from the right edge, 1.75 inches from
+  // the top of the page."
+  v(1.75in - spacing.margin)
+  align(right)[#format-date(actual_date, addressee-type: addressee_type)]
 
-  // 2nd line below date → 1 blank line before return address
+  // ── Return address ───────────────────────────────────────────────────────
+  // "Place the sender's return address flush with the left margin on the
+  // second line below the date."
   blank-line()
-  render-return-address(return_address)
+  for (i, line) in ensure-array(return_address).enumerate() {
+    [#line]
+    if i < ensure-array(return_address).len() - 1 { linebreak() }
+  }
 
-  // 3rd line below return address (last line) → 2 blank lines
+  // ── Receiver's address ───────────────────────────────────────────────────
+  // "Place the address of the individual the letter is being sent to on the
+  // third line below the return address."
   blank-lines(2)
-  render-receiver-address(receiver_address)
+  for (i, line) in ensure-array(receiver_address).enumerate() {
+    [#line]
+    if i < ensure-array(receiver_address).len() - 1 { linebreak() }
+  }
 
-  // 2nd line below receiver address (last line) → 1 blank line before salutation
+  // ── Salutation ───────────────────────────────────────────────────────────
+  // "Place the salutation on the second line below the receiver's address."
   blank-line()
-  render-salutation(salutation)
+  [#salutation]
 
-  // "Start the text of a letter on the second line below the salutation" → 1 blank line
+  // ── Gap before body ──────────────────────────────────────────────────────
+  // Ch. 15: "Start the text of a letter on the second line below the salutation."
   blank-line()
   it
 }

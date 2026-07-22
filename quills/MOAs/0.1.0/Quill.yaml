@@ -1,0 +1,202 @@
+quill:
+  name: moa
+  version: 0.1.0
+  backend: typst
+  plate_file: plate.typ
+  description: DoD Memorandum of Agreement (DoDI 4000.19)
+
+main:
+  body:
+    example: |
+      BACKGROUND: The Parties have historically shared access to environmental test facilities on an ad hoc basis; this MOA formalizes that arrangement going forward.
+
+      AUTHORITIES: This MOA is entered into under the authority of the Economy Act, 31 U.S.C. Section 1535, as amended.
+
+      PURPOSE AND SCOPE: To establish reciprocal access to environmental test facilities between the Parties in support of joint developmental test programs.
+
+      RESPONSIBILITIES OF THE PARTIES:
+
+      - The Air Force Materiel Command (AFMC) will—
+        - Provide test facility scheduling priority to the Second Party's programs upon 30 days' notice.
+        - Designate a facility manager as the primary point of contact for test scheduling.
+      - The National Aeronautics and Space Administration (NASA) will—
+        - Reimburse the First Party for consumables used during test execution per Attachment A.
+
+      PERSONNEL: Each Party is responsible for all costs of its personnel, including pay and benefits, support, and travel.
+
+      GENERAL PROVISIONS:
+
+      - POINTS OF CONTACT (POCS). The following POCs will be used by the Parties to communicate matters concerning this MOA.
+        - For the AFMC—
+          - Name, position, office identification, phone number and email of primary POC: Jane A. Smith, Test Facility Manager, AFMC/XYZ, 555-0100, jane.smith@us.af.mil
+      - TERMINATION OF AGREEMENT. This MOA may be terminated by either Party by giving at least 30 days' written notice to the other Party.
+      - EXPIRATION DATE. This MOA expires on 22 July 2031.
+
+      LIST OF ATTACHMENTS:
+
+      - Attachment A, Financial Details
+  fields:
+    first_party_name:
+      type: string
+      required: true
+      example: Air Force Materiel Command (AFMC)
+      ui:
+        group: Parties
+      description: "Full organization name and acronym of the first party (the MOA's proponent). Printed as 'THE [FIRST PARTY]' in the title block and referenced throughout as '[the First Party]'."
+
+    second_party_name:
+      type: string
+      required: true
+      example: National Aeronautics and Space Administration (NASA)
+      ui:
+        group: Parties
+      description: "Full organization name and acronym of the second party. Printed as 'THE [SECOND PARTY]' in the title block."
+
+    second_party_is_non_government:
+      type: boolean
+      default: false
+      ui:
+        group: Parties
+        compact: true
+      description: "If the second party is a non-governmental entity, its mailing address is included in the intro paragraph identifying the Parties."
+
+    subject:
+      type: string
+      required: true
+      example: Reciprocal Use of Test Facilities
+      ui:
+        group: Parties
+      description: "Subject of the agreement, printed in the title block ('FOR [SUBJECT]') and on the Attachment A cover if reimbursable."
+
+    agreement_number:
+      type: string
+      required: true
+      example: AFMC-2026-0142
+      ui:
+        group: Parties
+      description: Unique agreement identification number, printed in the title block.
+
+    second_party_mailing_address:
+      type: array
+      required: true
+      example:
+        - NASA/ABC
+        - 300 E Street SW
+        - Washington DC 20546
+      ui:
+        group: Correspondence
+      description: "Second Party's mailing address for MOA correspondence and notices. Also shown in the intro paragraph if second_party_is_non_government is true."
+
+    reimbursable:
+      type: boolean
+      required: true
+      default: false
+      ui:
+        group: Terms
+        compact: true
+      description: "Whether this MOA provides for reimbursement between the Parties. When true, adds the Attachment A financial details page after the signature blocks."
+
+    reimbursable_support:
+      type: string
+      default: ""
+      ui:
+        group: Financial Details
+      description: "Attachment A, item 1: description of the reimbursable support. Only used when reimbursable is true."
+
+    estimated_amount:
+      type: string
+      default: ""
+      example: "$50,000"
+      ui:
+        group: Financial Details
+        compact: true
+      description: "Attachment A, item 2: estimated amount of funds to be reimbursed. Only used when reimbursable is true."
+
+    appropriation_fy:
+      type: string
+      default: ""
+      example: "2026"
+      ui:
+        group: Financial Details
+        compact: true
+      description: "Attachment A, item 2: appropriation fiscal year. Only used when reimbursable is true."
+
+    cost_center_provider:
+      type: string
+      default: ""
+      ui:
+        group: Financial Details
+        compact: true
+      description: "Attachment A, item 3: provider's cost center number, if required. Only used when reimbursable is true."
+
+    cost_center_receiver:
+      type: string
+      default: ""
+      ui:
+        group: Financial Details
+        compact: true
+      description: "Attachment A, item 3: receiver's cost center number, if required. Only used when reimbursable is true."
+
+    financial_poc_provider:
+      type: string
+      default: ""
+      ui:
+        group: Financial Details
+      description: "Attachment A, item 4: provider's financial point of contact. Only used when reimbursable is true."
+
+    financial_poc_receiver:
+      type: string
+      default: ""
+      ui:
+        group: Financial Details
+      description: "Attachment A, item 4: receiver's financial point of contact. Only used when reimbursable is true."
+
+    financial_additional_info:
+      type: string
+      default: ""
+      ui:
+        group: Financial Details
+      description: "Attachment A, item 5: any other financial information required by DoD 7000.14-R or desired in the agreement. Only used when reimbursable is true."
+
+    first_party_signatory:
+      type: string
+      required: true
+      example: "JANE A. DOE, Director"
+      ui:
+        group: Signatures
+      description: "Name and title of the First Party's approval authority, printed under the signature line."
+
+    second_party_signatory:
+      type: string
+      required: true
+      example: "ROBERT T. LEE, Program Manager"
+      ui:
+        group: Signatures
+      description: "Name and title of the Second Party's approval authority, printed under the signature line."
+
+    mid_point_review_due_date:
+      type: date
+      required: true
+      ui:
+        group: Signatures
+        compact: true
+      description: "Due date for the mid-point review of the agreement, printed below the signature blocks."
+
+card_kinds:
+  attachment:
+    description: "A lettered attachment to the MOA, starting at Attachment B (Attachment A is reserved for the reimbursable financial-details page and is generated automatically when 'reimbursable' is true). Each card starts on its own page."
+    ui:
+      title: Attachment
+    body:
+      example: |
+        All personnel entering the thermal-vacuum chamber area will complete the First Party's facility safety orientation prior to first access.
+
+        The Second Party will notify the First Party's facility manager at least 24 hours before any test event involving hazardous materials.
+    fields:
+      title:
+        type: string
+        required: true
+        example: Facility Safety Requirements
+        ui:
+          group: Attachment
+        description: "Subject of the attachment, printed on the cover line ('to [subject], [agreement_number] [title]')."
