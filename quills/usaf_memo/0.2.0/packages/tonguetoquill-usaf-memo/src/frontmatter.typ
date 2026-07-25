@@ -18,7 +18,8 @@
   letterhead_title: "DEPARTMENT OF THE AIR FORCE",
   letterhead_caption: "[YOUR SQUADRON/UNIT NAME]",
   letterhead_seal: none,
-  letterhead_seal_subtitle: none, // optional line under seal (9pt bold caps); ignored if no seal
+  letterhead_seal_subtitle: none, // optional line under seal (bold caps); ignored if no seal
+  letterhead_seal_subtitle_size: 9pt, // subtitle font size; reduce so a long designation fits beside the seal
   letterhead_emblem: none, // optional image placed opposite the seal (right side)
   letterhead_emblem_height: 1in, // emblem fit-box height; reduce for shorter emblems
   letterhead_font: DEFAULT_LETTERHEAD_FONTS,
@@ -194,6 +195,7 @@
     letterhead_font,
     letterhead-seal: letterhead_seal,
     letterhead-seal-subtitle: letterhead_seal_subtitle,
+    letterhead-seal-subtitle-size: letterhead_seal_subtitle_size,
     letterhead-emblem: letterhead_emblem,
     letterhead-emblem-height: letterhead_emblem_height,
   )

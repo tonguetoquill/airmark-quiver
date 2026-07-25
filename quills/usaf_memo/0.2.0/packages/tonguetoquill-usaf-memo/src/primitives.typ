@@ -20,6 +20,7 @@
   font,
   letterhead-seal: none,
   letterhead-seal-subtitle: none,
+  letterhead-seal-subtitle-size: 9pt, // subtitle font size; reduce so a long designation fits beside the seal
   letterhead-emblem: none, // optional image placed opposite the seal (right side)
   letterhead-emblem-height: 1in, // emblem fit-box height; reduce for shorter emblems
 ) = {
@@ -67,10 +68,12 @@
     } else {
       // Isolate seal column from document `font_size`: stack `em` spacing and subtitle
       // must not scale with body text (see frontmatter `set text(size: font_size)`).
-      // Subtitle is wrapped in `box` so it stays on one line and may extend past
-      // the seal's 2in column rather than wrapping.
+      // Subtitle size is author-controlled (`letterhead-seal-subtitle-size`): a
+      // long designation that would run past the seal's 2in column is fitted by
+      // reducing this size rather than by auto-scaling. Subtitle is wrapped in
+      // `box` so it stays on one line at the chosen size.
       block[
-        #set text(9pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
+        #set text(letterhead-seal-subtitle-size, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
         // Spacing applies between positional stack children only, not one `[…]` body.
         #stack(
           spacing: 0.5em,

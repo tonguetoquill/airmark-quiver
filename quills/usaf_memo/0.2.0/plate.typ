@@ -7,6 +7,7 @@
   letterhead_title: data.letterhead_title,
   letterhead_caption: data.letterhead_caption,
   letterhead_seal_subtitle: data.at("letterhead_seal_subtitle", default: none),
+  letterhead_seal_subtitle_size: data.at("letterhead_seal_subtitle_size", default: 9) * 1pt,
   letterhead_seal: image(
     if data.at("letterhead_seal", default: "dow") == "dod" {
       "assets/dod_seal.png"

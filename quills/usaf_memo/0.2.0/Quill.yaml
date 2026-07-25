@@ -91,6 +91,14 @@ main:
         compact: true
       description: Bold-caps line below the seal; blank to omit.
 
+    letterhead_seal_subtitle_size:
+      type: number
+      default: 9
+      ui:
+        group: Letterhead
+        compact: true
+      description: Font size in points for the line below the seal; decimals allowed. Reduce it so a long unit designation fits beside the seal instead of running past it.
+
     tag_line:
       type: markdown
       default: ""
