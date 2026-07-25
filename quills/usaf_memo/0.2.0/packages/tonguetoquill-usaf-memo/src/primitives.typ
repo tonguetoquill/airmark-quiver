@@ -307,6 +307,11 @@
   // AFH 33-337 does not specify table formatting, so we follow the general
   // aesthetic principles of the standard: bold headers for clarity.
   show table.cell.where(y: 0): set text(weight: "bold")
+  // In-cell line breaks. GFM pipe-table cells cannot contain a literal newline,
+  // and Quillmark's Markdown renderer drops raw HTML (so `<br>` produces no
+  // output). The editor therefore emits a private-use sentinel (U+E000) for a
+  // hard break inside a cell; convert it back to a real Typst line break here.
+  show TABLE_LINEBREAK_SENTINEL: linebreak()
   set table(
     stroke: 0.5pt + black,
     inset: (x: 0.5em, y: 0.4em),

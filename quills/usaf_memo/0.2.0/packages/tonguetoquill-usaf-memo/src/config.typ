@@ -27,6 +27,18 @@
 #let LETTERHEAD_COLOR = rgb("#355e93")  // Faded USAF blue for letterhead
 
 // =============================================================================
+// MARKDOWN SENTINELS
+// =============================================================================
+// Private-use character (U+E000) the editor emits to mark a hard line break
+// inside a table cell. GFM pipe-table cells cannot hold a literal newline, and
+// Quillmark's Markdown renderer drops raw HTML (so `<br>` renders to nothing);
+// the sentinel is a content-safe stand-in that `render-memo-table` converts to
+// a real line break. U+E000 has no assigned meaning, so it never collides with
+// authored text.
+
+#let TABLE_LINEBREAK_SENTINEL = "\u{E000}"
+
+// =============================================================================
 // PARAGRAPH CONFIGURATION
 // =============================================================================
 // AFH 33-337 "The Text of the Official Memorandum" §2:
