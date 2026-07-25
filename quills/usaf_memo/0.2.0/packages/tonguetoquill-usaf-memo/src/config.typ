@@ -14,6 +14,12 @@
   margin: 1in, // AFH 33-337 §4: "Use 1-inch margins on the left, right and bottom"
 )
 
+// Width cap for the CUI designation indicator block (DoDM 5200.48). The block
+// is right-anchored, so without a cap a long field value grows leftward across
+// the page instead of wrapping. Half the 6.5in text width keeps the block in
+// the right-hand lane and lets long values wrap into a compact paragraph.
+#let CUI_INDICATOR_MAX_WIDTH = 3.25in
+
 // =============================================================================
 // TYPOGRAPHY DEFAULTS
 // =============================================================================

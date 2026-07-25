@@ -84,13 +84,26 @@
     if ldc != "" {
       lines.push([LDC: #upper(ldc)])
     }
-    if cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "" {
-      lines.push([POC: #cui_poc.trim()])
+    // POC accepts a single string or a list of strings. A list renders one
+    // entry per line under the "POC:" label, letting an author split a long
+    // contact (name / office / phone / email) at deliberate points instead of
+    // relying on the automatic wrap.
+    let poc_lines = ensure-array(cui_poc)
+      .filter(line => type(line) == str and line.trim() != "")
+      .map(line => line.trim())
+    if poc_lines.len() > 0 {
+      lines.push([POC: #poc_lines.join(linebreak())])
     }
     if lines.len() > 0 { lines.join(linebreak()) } else { none }
   } else {
     none
   }
+
+  // Tag line content and its offset above the page edge, hoisted out of the
+  // footer so the CUI indicator block below can measure the space it occupies
+  // and stay clear of it.
+  let tag_line_offset = 0.625in
+  let tag_line_body = text(fill: LETTERHEAD_COLOR, font: "cinzel", size: 15pt)[#footer_tag_line]
 
   // Document-wide typography settings (inlined from configure())
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
@@ -141,10 +154,8 @@
       if not falsey(footer_tag_line) {
         place(
           bottom + center,
-          dy: -0.625in,
-          align(center)[
-            #text(fill: LETTERHEAD_COLOR, font: "cinzel", size: 15pt)[#footer_tag_line]
-          ],
+          dy: -tag_line_offset,
+          align(center)[#tag_line_body],
         )
       }
     },
@@ -157,22 +168,40 @@
   // content it can never be bumped to page 2.
   if cui_indicator != none {
     context {
-      // The box shrink-wraps to its widest line; `set align(left)` keeps the
-      // text flush-left within it, overriding the `align(right)` the placement
-      // below imposes.
-      let indicator_box = box({
+      // `set align(left)` keeps the text flush-left within the box, overriding
+      // the `align(right)` the placement below imposes.
+      let indicator_content = {
         set text(font: DEFAULT_BODY_FONTS, size: 10pt)
         set par(leading: 0.4em, spacing: 0pt)
         set align(left)
         cui_indicator
-      })
+      }
+      // Shrink-wrap to the widest line as before, but never past the cap. The
+      // block is right-anchored, so an uncapped long value (typically the POC)
+      // grows leftward across the page and collides with the centered tag line;
+      // capping makes it wrap into the right-hand lane instead. Short blocks are
+      // under the cap and keep hugging the right margin exactly as before.
+      let indicator_box = box(
+        width: calc.min(measure(indicator_content).width, CUI_INDICATOR_MAX_WIDTH),
+        indicator_content,
+      )
+      // How far above the page edge the block's bottom lands. It normally drops
+      // into the 0.5in edge band, but a tag line owns the band from
+      // `tag_line_offset` up through its own height — so when one is present the
+      // block is raised clear of it and the two stack instead of overprinting,
+      // whatever the block's height or the tag line's width.
+      let floor = if not falsey(footer_tag_line) {
+        tag_line_offset + measure(tag_line_body).height + spacing.line
+      } else {
+        0.5in
+      }
       // Reserve only the part of the block inside the text area (`reserved`):
       // float a box of that height, then `place` the full block inside it pushed
       // down by `overhang` so the surplus overflows into the edge band. (A bare
       // `box(height: reserved, indicator_box)` overflows *upward* into the body
       // instead.) The inner `place` adds no size, so the box stays `reserved`
-      // tall and the block's bottom lands 0.5in from the page edge.
-      let overhang = spacing.margin - 0.5in
+      // tall and the block's bottom lands `floor` from the page edge.
+      let overhang = spacing.margin - floor
       let reserved = measure(indicator_box).height - overhang
       place(
         bottom + right,

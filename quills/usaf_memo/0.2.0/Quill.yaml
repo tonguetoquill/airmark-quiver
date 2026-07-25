@@ -147,12 +147,17 @@ main:
       description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix above."
 
     cui_poc:
-      type: string
-      default: ""
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - Capt J. Smith, 60 AMW/SE
+        - DSN 555-1234
+        - john.smith@us.af.mil
       ui:
         group: Classification
-        compact: true
-      description: "Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Required by DoDM 5200.48 when classification is CUI."
+      description: "Point of contact for CUI questions. Required by DoDM 5200.48 when classification is CUI. Add a line per entry to split a long contact across several lines; a single long line wraps on its own."
 
     references:
       type: array
