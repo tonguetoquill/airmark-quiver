@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- usaf_memo: indorsements can now record a **Concur / Nonconcur** decision in addition to Approve / Disapprove, so coordinating officials concur on a routing chain and the final approval authority approves or disapproves. Set the indorsement's `action` field to `concur` or `nonconcur` to circle that option, or `undecided_concur` to print `Concur / Nonconcur` unmarked for the endorser to circle by hand.
+
+
 ## v0.27.0 - 2026-06-22
 
 - usaf_memo: a standard indorsement that gets pushed onto a new page now automatically renders the separate-page identifying header (`Nth Ind to ORIG, DATE, SUBJECT`), and the header is kept together with its body/signature so it is never stranded or orphaned across a page break.
