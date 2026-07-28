@@ -87,6 +87,30 @@
   ]
 }
 
+/// Shrinks content to fit within a maximum width, never enlarging it.
+///
+/// Measures `body` at its current font size and scales it down uniformly only
+/// when it is wider than `width`; content that already fits keeps its set size
+/// (the scale is capped at 100%). Unlike `fit-box`, height flows naturally and
+/// small content is never scaled up. Used for the letterhead caption (unit
+/// designation): a long name is shrunk to the width that clears the seal rather
+/// than running underneath it. Pass a non-wrapping `box` as `body` so the
+/// measured width is the single-line width and the result stays on one line.
+///
+/// - width (length): Maximum width the content may occupy
+/// - alignment (alignment): Horizontal placement within the reserved width
+/// - body (content): Content to fit (typically a non-wrapping `box`)
+/// -> content
+#let fit-to-width(width, alignment: left, body) = context {
+  let s = measure(body)
+  let f = calc.min(1, width / s.width) * 100% // ratio, capped so it only shrinks
+  box(width: width)[
+    #align(alignment)[
+      #scale(f, reflow: true)[#body]
+    ]
+  ]
+}
+
 /// Formats a date for the memo heading.
 ///
 /// - String: shown as-is (use for fixed text like placeholders).

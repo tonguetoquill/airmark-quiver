@@ -39,23 +39,36 @@
   let band-top = -band-height / 2 // puts the band center at dy 0
   let band-center = band-top + band-height / 2
 
+  // The centered title/caption is placed content (not width-constrained), so a
+  // long caption would otherwise render on one line and run underneath the seal.
+  // Bound the caption to the width that stays clear of the seal on both sides
+  // and auto-shrink it to fit: the seal reaches `band-height - corner-overhang`
+  // into the text area, so reserving that plus a gutter on each side keeps the
+  // centered caption from touching the seal. `layout` resolves the text-area
+  // width so the bound tracks the page/margins.
+  let caption-gutter = 0.25in
+  let caption-clear = (band-height - corner-overhang) + caption-gutter
   place(
     dy: 0.625in - spacing.margin,
     box(
       width: 100%,
       fill: none,
       stroke: none,
-      [
-        #place(
-          center + top,
-          align(center)[
-            #set text(12pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
-            #title\
-            #v(1pt)
-            #text(10.5pt)[#caption]
-          ],
-        )
-      ],
+      layout(size => place(
+        center + top,
+        align(center)[
+          #set text(12pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
+          #title\
+          #v(1pt)
+          #if not falsey(caption) {
+            fit-to-width(
+              size.width - 2 * caption-clear,
+              alignment: center,
+              box(text(10.5pt)[#caption]),
+            )
+          }
+        ],
+      )),
     ),
   )
 
