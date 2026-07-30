@@ -3,13 +3,18 @@
 
 #set text(font: "NimbusRomNo9L")
 
-// `type: date` fields arrive as Typst `datetime`; PDF overlay expects strings.
+// Since Quillmark 0.95 a `type: date` field arrives as a value-object
+// `(value: datetime, display: fn)` — the `display` closure paints click-to-edit
+// content, but this PDF overlay needs plain strings, so format `.value` instead.
 // Missing / blank dates: helper uses `none`; empty strings may also appear from input.
+#let date-format = "[month padding:none]/[day padding:none]/[year]"
 #let form-cell(v) = {
   if v == none { "" }
   else if type(v) == str and v == "" { "" }
-  else if type(v) == datetime {
-    v.display("[month padding:none]/[day padding:none]/[year]")
+  else if type(v) == dictionary and "value" in v {
+    v.value.display(date-format)
+  } else if type(v) == datetime {
+    v.display(date-format)
   } else {
     str(v)
   }

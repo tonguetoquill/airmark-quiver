@@ -2,8 +2,10 @@ quill:
   name: daf1206
   version: 0.1.0
   backend: typst
-  plate_file: plate.typ
   description: "DAF Form 1206 — Nomination for Award"
+
+typst:
+  plate_file: plate.typ
 
 main:
   body:

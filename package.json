@@ -16,8 +16,8 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "0.15.0",
-    "@quillmark/wasm": "^0.91.0"
+    "@quillmark/quiver": "0.16.0",
+    "@quillmark/wasm": "^0.98.0"
   },
   "scripts": {
     "test": "quiver test",

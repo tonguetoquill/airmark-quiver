@@ -1,6 +1,15 @@
 #import "@local/quillmark-helper:0.1.0": data, signature-field
 #import "@local/tonguetoquill-usaf-memo:3.0.0": backmatter, frontmatter, indorsement, mainmatter
 
+// Since Quillmark 0.95 a `type: date` field arrives as a value-object
+// `(value: datetime, display: fn)`. The memo package applies its own AFH 33-337
+// date patterns via `display-date`, which expects a native `datetime`, so unwrap
+// to `.value` here and leave blank/absent dates (`""` / `none`) untouched — the
+// callers below rely on those to fall back to today's date or a fill-in line.
+#let as-datetime(v) = {
+  if type(v) == dictionary and "value" in v { v.value } else { v }
+}
+
 // Frontmatter configuration
 #show: frontmatter.with(
   // Letterhead configuration
@@ -16,7 +25,7 @@
   ),
 
   // Date
-  date: data.at("date", default: none),
+  date: as-datetime(data.at("date", default: none)),
 
   // Receiver information
   memo_for: data.memo_for,
@@ -88,7 +97,7 @@
     // it (distinct from the originating memo's date). The signing date is
     // generally unknown at compile time and filled in by hand, so a blank or
     // omitted date renders a fill-in line rather than stamping the compile date.
-    let card_date = card.at("date", default: none)
+    let card_date = as-datetime(card.at("date", default: none))
     let resolved_date = if card_date == none or card_date == "" {
       none
     } else {

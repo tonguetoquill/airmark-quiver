@@ -6,12 +6,28 @@
 // Map snake_case Quill `data` keys to generated `form.typ` parameter names.
 #let vals = (:)
 
+// Since Quillmark 0.95 a `type: date` field arrives as a value-object
+// `(value: datetime, display: fn)`. `form.typ` stringifies what it is handed, so
+// unwrap to `.value` and format it here rather than using the `display` closure,
+// which paints click-to-edit content instead of a string. The pattern reproduces
+// the DD Mon YYYY form these fields rendered as before the value-object change.
+#let date-format = "[day] [month repr:short] [year]"
+#let form-date(v) = {
+  if type(v) == dictionary and "value" in v {
+    v.value.display(date-format)
+  } else if type(v) == datetime {
+    v.display(date-format)
+  } else {
+    v
+  }
+}
+
 // Mode of Transportation — enum string drives one of six checkboxes.
 #let mode = data.at("transportation_mode", default: "")
 #if mode != "" { vals.insert("mode_" + mode, true) }
 
 // Header row
-#if "departure_date" in data { vals.insert("departure_date", data.departure_date) }
+#if "departure_date" in data { vals.insert("departure_date", form-date(data.departure_date)) }
 #if "final_destination" in data { vals.insert("final_destination", data.final_destination) }
 
 // Proposed Travel Itinerary — one card per row, up to 10 rows.
@@ -23,7 +39,7 @@
       let n = str(row + 1)
       for col in itin-cols {
         let v = card.at(col, default: none)
-        let display = if col == "date" { v } else if v == none { "" } else { str(v) }
+        let display = if col == "date" { form-date(v) } else if v == none { "" } else { str(v) }
         if display != none and display != "" { vals.insert("itin_" + col + "_" + n, display) }
       }
       row = row + 1
@@ -44,7 +60,7 @@
 
 // Acknowledgements
 #if "organization" in data { vals.insert("organization", data.organization) }
-#if "briefed_date" in data { vals.insert("briefed_date", data.briefed_date) }
+#if "briefed_date" in data { vals.insert("briefed_date", form-date(data.briefed_date)) }
 #if "briefee_name" in data { vals.insert("briefee_name", data.briefee_name) }
 #if "briefee_grade" in data { vals.insert("briefee_grade", data.briefee_grade) }
 #if "briefer_name" in data { vals.insert("briefer_name", data.briefer_name) }
