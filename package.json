@@ -16,7 +16,7 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "0.16.0",
+    "@quillmark/quiver": "git+https://github.com/borb-sh/quiver.git#claude/quillmark-wasm-upgrade-12dftj",
     "@quillmark/wasm": "^0.98.0"
   },
   "scripts": {
