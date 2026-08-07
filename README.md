@@ -98,7 +98,7 @@ quills/
 
 Two verbs, and they answer different questions.
 
-**Does it work?** `quiver test` loads the collection with `fromDir`, compiles
+**Does it work?** `quillmark-quiver test` loads the collection with `fromDir`, compiles
 every quill, and renders each one's example document — the blueprint seeded from
 the `example:` values in `Quill.yaml`. It is the gate CI runs, so a validation
 failure surfaces here rather than on a consumer's build:
