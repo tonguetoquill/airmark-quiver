@@ -1,7 +1,7 @@
 # @airmark/quiver
 
-A [Quillmark](https://github.com/nibsbin/quillmark) Source Quiver of Air Force
-and DAF official-document Quills, sourced from
+A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force
+and DAF official-document quills, sourced from
 [tonguetoquill-collection](https://github.com/nibsbin/tonguetoquill-collection)
 and aligned to the current Quillmark spec.
 
@@ -20,28 +20,31 @@ and aligned to the current Quillmark spec.
 npm install @airmark/quiver @quillmark/quiver @quillmark/wasm
 ```
 
-This package ships only the Source Quiver assets (`Quiver.yaml` + `quills/`)
-and exposes no JavaScript API. All loading is performed by `@quillmark/quiver`,
-either from the on-disk package directory or from a packed archive fetched
-over HTTP.
+This package ships only the source-quiver assets (`Quiver.yaml` + `quills/`) and
+exposes no JavaScript API. Loading is `@quillmark/quiver`'s, rendering is
+`@quillmark/wasm`'s.
 
 ## Usage
 
-### Load from the exported directory
+### Load from the installed directory (Node)
 
-Resolve the package's `Quiver.yaml` via `import.meta.resolve` and hand it to
-`@quillmark/quiver`:
+Resolve this package's `Quiver.yaml` from your own module — your dependencies are
+reachable from you, not from the loader's install location — and hand its
+directory to `fromDir`:
 
 ```ts
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
-import { Quillmark, Document } from '@quillmark/wasm';
-import { Quiver } from '@quillmark/quiver/node';
+import { createRequire } from 'node:module';
+import { dirname } from 'node:path';
+import { Document, Engine, init } from '@quillmark/wasm';
+import { fromDir } from '@quillmark/quiver/node';
 
-const quiverYaml = fileURLToPath(import.meta.resolve('@airmark/quiver/Quiver.yaml'));
-const quiver = await Quiver.fromDir(path.dirname(quiverYaml));
+// Every `@quillmark/wasm` export throws `runtime::not_initialized` until this resolves.
+await init();
 
-const engine = new Quillmark();
+const root = dirname(createRequire(import.meta.url).resolve('@airmark/quiver/Quiver.yaml'));
+const quiver = await fromDir(root);
+const engine = new Engine();
+
 const doc = Document.fromMarkdown(`~~~
 $quill: usaf_memo@0.2
 $kind: main
@@ -53,19 +56,31 @@ signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
 
 Body of the memo.`);
 
-const quill = await quiver.getQuill(doc.quillRef, { engine });
-const { artifacts } = quill.render(doc, { format: 'pdf' });
+const quill = await quiver.getQuill(doc.quillRef);
+const { artifacts } = await engine.render(quill, doc, { format: 'pdf' });
 ```
 
-### Load a packed Quiver via HTTP
+A quill from `getQuill` is borrowed: every caller asking for that ref gets the
+same instance, so it is not yours to `free()`.
 
-Publish a packed Quiver archive (e.g. as a CDN or GitHub release asset) and
-load it in the browser or any fetch-capable runtime through `@quillmark/quiver`.
-See the upstream `@quillmark/quiver` docs for the packed-format and HTTP API.
+### Load over HTTP (browser)
+
+A browser cannot read the source layout, so pack it at deploy time and serve the
+output as static files:
+
+```ts
+import { build } from '@quillmark/quiver/node'; // build step
+await build(root, './public/quivers/airmark');
+```
+
+```ts
+import { Quiver } from '@quillmark/quiver'; // browser runtime
+const quiver = await Quiver.fromBuiltUrl('/quivers/airmark/');
+```
 
 ## Layout
 
-This package is a [Source Quiver](https://www.npmjs.com/package/@quillmark/quiver)
+This package is a [source quiver](https://www.npmjs.com/package/@quillmark/quiver)
 conforming to the canonical layout:
 
 ```
@@ -79,20 +94,34 @@ quills/
       packages/
 ```
 
-## Testing
+## Working on a quill
 
-`quiver.test.js` at the repo root runs the
-[`@quillmark/quiver/testing`](https://www.npmjs.com/package/@quillmark/quiver)
-suite under the built-in [`node:test`](https://nodejs.org/api/test.html) runner,
-validating each `(quill, version)` pair through the full load +
-`engine.quill(tree)` compile pipeline:
+Two verbs, and they answer different questions.
+
+**Does it work?** `quiver test` loads the collection with `fromDir`, compiles
+every quill, and renders each one's example document — the blueprint seeded from
+the `example:` values in `Quill.yaml`. It is the gate CI runs, so a validation
+failure surfaces here rather than on a consumer's build:
 
 ```bash
 npm install
 npm test
 ```
 
+The gate renders nothing the schema did not write, so the coverage is the
+`example:` block: a field with no example is a field no render exercises.
+
+**What is it like to use?** `npm run preview` lays out
+[`@quillmark/studio`](https://www.npmjs.com/package/@quillmark/studio) over a
+packed copy of this quiver and serves it at `http://localhost:4173/` — pick a
+quill, edit the seeded document, watch it paint, read the diagnostics. The pack
+is taken at build time, so re-run it to pick up an edit to a quill.
+
+`npm run site` builds that same tree into `site/` without serving it. It is what
+CI uploads as an artifact and what each pull request is deployed from, so what a
+reviewer opens is what you looked at.
+
 ## License
 
-Apache-2.0. Individual Quills carry their own licensing terms; see the
-`packages/` directory inside each Quill for upstream font and template licenses.
+Apache-2.0. Individual quills carry their own licensing terms; see the
+`packages/` directory inside each quill for upstream font and template licenses.
