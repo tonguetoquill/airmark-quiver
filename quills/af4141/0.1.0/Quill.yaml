@@ -2,8 +2,10 @@ quill:
   name: af4141
   version: 0.1.0
   backend: typst
-  plate_file: plate.typ
   description: "AF Form 4141 — Individual's Record of Duties and Experience, Ground Environment Personnel"
+
+typst:
+  plate_file: plate.typ
 
 main:
   body:
@@ -36,36 +38,37 @@ card_kinds:
     description: Each card represents one row in the Record of Experience table. Rows fill page 1 (up to 16 rows) then page 2 (up to 21 rows), for a maximum of 37 rows.
     ui:
       title: Record of Experience
+      groups: [record]
     body:
       enabled: false
     fields:
       date:
-        type: datetime
+        type: date
         default: ""
         ui:
-          group: Record
+          group: record
         description: Date of the action (column A).
 
       action:
         type: string
         default: ""
         ui:
-          group: Record
+          group: record
         description: One type of action per line (column B).
 
       written_grade:
         type: string
         default: ""
         ui:
-          group: Record
+          group: record
           compact: true
         description: Written grade, if applicable (column C).
 
       written_grade_date:
-        type: datetime
+        type: date
         default: ""
         ui:
-          group: Record
+          group: record
           compact: true
         description: Date of written grade (column D). Omit or leave blank when there is no written grade.
 
@@ -73,15 +76,15 @@ card_kinds:
         type: string
         default: ""
         ui:
-          group: Record
+          group: record
           compact: true
         description: Positional grade, if applicable (column E).
 
       positional_grade_date:
-        type: datetime
+        type: date
         default: ""
         ui:
-          group: Record
+          group: record
           compact: true
         description: Date of positional grade (column F). Omit or leave blank when there is no positional grade.
 
@@ -89,5 +92,5 @@ card_kinds:
         type: string
         default: ""
         ui:
-          group: Record
+          group: record
         description: Authentication or remarks entry (column G).

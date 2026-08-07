@@ -3,13 +3,20 @@
 
 #set text(font: "NimbusRomNo9L")
 
-// `type: date` fields arrive as Typst `datetime`; PDF overlay expects strings.
-// Missing / blank dates: helper uses `none`; empty strings may also appear from input.
+// A `type: date` field lowers to a click-to-edit value object
+// `(value: datetime, display: closure)`; `display` is a stored closure on a dict
+// rather than a method, so it is called through parentheses, and the content it
+// returns carries the region that makes the glyphs clickable. A native datetime
+// is still accepted. Missing / blank dates arrive as `none`; empty strings may
+// also appear from input.
 #let form-cell(v) = {
+  let pattern = "[month padding:none]/[day padding:none]/[year]"
   if v == none { "" }
   else if type(v) == str and v == "" { "" }
-  else if type(v) == datetime {
-    v.display("[month padding:none]/[day padding:none]/[year]")
+  else if type(v) == dictionary {
+    (v.display)(pattern)
+  } else if type(v) == datetime {
+    v.display(pattern)
   } else {
     str(v)
   }

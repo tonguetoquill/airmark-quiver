@@ -31,11 +31,22 @@
 }
 
 /// Format a date value for display as `DD Mon YYYY`.
+///
+/// Dispatches on the shape a date can arrive in:
+/// - dict: a Quillmark `date` field lowers to a click-to-edit value object
+///   `(value: datetime, display: closure)`. `display` is a stored closure on a
+///   dict rather than a method, so it is called through parentheses, and the
+///   content it returns carries the region that makes the glyphs clickable.
+/// - datetime: a native Typst datetime, from a plate building its own value.
+/// - str: shown as-is.
 #let format-date(value) = {
+  let pattern = "[day padding:zero] [month repr:short] [year]"
   if value == none {
     none
+  } else if type(value) == dictionary {
+    (value.display)(pattern)
   } else if type(value) == datetime {
-    value.display("[day padding:zero] [month repr:short] [year]")
+    value.display(pattern)
   } else if type(value) == str and value == "" {
     ""
   } else {
