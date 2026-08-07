@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "name": "airmark",
+  "quills": [
+    {
+      "name": "af4141",
+      "version": "0.1.0",
+      "bundle": "af4141@0.1.0.a244febcb938.zip",
+      "fonts": {
+        "packages/typst-af4141/fonts/NimbusRomNo9L-Med.otf": "0f753a86f01b567d0f6e45f1e158596d33d136e507d7fbc5d644b43d01aa9098",
+        "packages/typst-af4141/fonts/NimbusRomNo9L-MedIta.otf": "e24239ac7fb0ef1576b21544077433bd4f46c1b6c0a643b446dea9d7b943818c",
+        "packages/typst-af4141/fonts/NimbusRomNo9L-Reg.otf": "3baff91fbc9bef94b556132a1d352aa6c399d3151a64d22db7ab33aa7c12aab9",
+        "packages/typst-af4141/fonts/NimbusRomNo9L-RegIta.otf": "d568eee7d8b407c9ac48a9bc6b1def9833034f5422fd1c36612a3e07f890e42d"
+      }
+    },
+    {
+      "name": "daf1206",
+      "version": "0.1.0",
+      "bundle": "daf1206@0.1.0.bad1b113d921.zip",
+      "fonts": {
+        "packages/typst-daf1206/fonts/NimbusRomNo9L-Med.otf": "0f753a86f01b567d0f6e45f1e158596d33d136e507d7fbc5d644b43d01aa9098",
+        "packages/typst-daf1206/fonts/NimbusRomNo9L-MedIta.otf": "e24239ac7fb0ef1576b21544077433bd4f46c1b6c0a643b446dea9d7b943818c",
+        "packages/typst-daf1206/fonts/NimbusRomNo9L-Reg.otf": "3baff91fbc9bef94b556132a1d352aa6c399d3151a64d22db7ab33aa7c12aab9",
+        "packages/typst-daf1206/fonts/NimbusRomNo9L-RegIta.otf": "d568eee7d8b407c9ac48a9bc6b1def9833034f5422fd1c36612a3e07f890e42d"
+      }
+    },
+    {
+      "name": "daf4392",
+      "version": "0.1.0",
+      "bundle": "daf4392@0.1.0.8e11fbcd5be4.zip",
+      "fonts": {
+        "packages/daf4392page2_pkg/fonts/NimbusRomNo9L-Med.otf": "0f753a86f01b567d0f6e45f1e158596d33d136e507d7fbc5d644b43d01aa9098",
+        "packages/daf4392page2_pkg/fonts/NimbusRomNo9L-MedIta.otf": "e24239ac7fb0ef1576b21544077433bd4f46c1b6c0a643b446dea9d7b943818c",
+        "packages/daf4392page2_pkg/fonts/NimbusRomNo9L-Reg.otf": "3baff91fbc9bef94b556132a1d352aa6c399d3151a64d22db7ab33aa7c12aab9",
+        "packages/daf4392page2_pkg/fonts/NimbusRomNo9L-RegIta.otf": "d568eee7d8b407c9ac48a9bc6b1def9833034f5422fd1c36612a3e07f890e42d"
+      }
+    },
+    {
+      "name": "usaf_memo",
+      "version": "0.2.0",
+      "bundle": "usaf_memo@0.2.0.05ef549263b5.zip",
+      "fonts": {
+        "packages/tonguetoquill-usaf-memo/fonts/Cinzel/Cinzel[wght].ttf": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34",
+        "packages/tonguetoquill-usaf-memo/fonts/CopperplateCC/CopperplateCC-Bold.otf": "4c5af761f3ecdfd60a762a8843db945f5c4ebfd9c60ea4d67183ae01c72c6cb8",
+        "packages/tonguetoquill-usaf-memo/fonts/CopperplateCC/CopperplateCC-Heavy.otf": "d929567e38255a458a6a150a0082f7640cca2bc00aa87197c66e3bfeb6f2de8e",
+        "packages/tonguetoquill-usaf-memo/fonts/LiberationMono/LiberationMono-Regular.ttf": "395fa5ab8d40c8eba390ced528744ea75a7f69aabf3e68b6f925ca0e39a27370",
+        "packages/tonguetoquill-usaf-memo/fonts/NimbusRomanNo9L/NimbusRomNo9L-Med.otf": "0f753a86f01b567d0f6e45f1e158596d33d136e507d7fbc5d644b43d01aa9098",
+        "packages/tonguetoquill-usaf-memo/fonts/NimbusRomanNo9L/NimbusRomNo9L-MedIta.otf": "e24239ac7fb0ef1576b21544077433bd4f46c1b6c0a643b446dea9d7b943818c",
+        "packages/tonguetoquill-usaf-memo/fonts/NimbusRomanNo9L/NimbusRomNo9L-Reg.otf": "3baff91fbc9bef94b556132a1d352aa6c399d3151a64d22db7ab33aa7c12aab9",
+        "packages/tonguetoquill-usaf-memo/fonts/NimbusRomanNo9L/NimbusRomNo9L-RegIta.otf": "d568eee7d8b407c9ac48a9bc6b1def9833034f5422fd1c36612a3e07f890e42d"
+      }
+    }
+  ]
+}
