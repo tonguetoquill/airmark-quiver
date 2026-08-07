@@ -21,7 +21,28 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # `quiver build` packs files and opens none of them — it stats each `Quill.yaml`
+  # as a sentinel and never parses it — so a quill that does not compile packs
+  # cleanly and reports itself in the client. That is what the author's loop wants
+  # and what a deploy does not, and nothing makes this workflow wait on `ci.yml`.
+  # So the gate runs here, and the deploy is downstream of it.
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
   build:
+    needs: gate
     uses: borb-sh/quillmark-js/.github/workflows/studio-pages.yml@main
 
   deploy:
