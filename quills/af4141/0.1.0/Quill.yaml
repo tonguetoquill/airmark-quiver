@@ -45,6 +45,7 @@ card_kinds:
       date:
         type: date
         default: ""
+        example: "2026-03-14"
         ui:
           group: record
         description: Date of the action (column A).
@@ -52,6 +53,7 @@ card_kinds:
       action:
         type: string
         default: ""
+        example: Upgraded to 5-level; assumed ADO duties
         ui:
           group: record
         description: One type of action per line (column B).
@@ -59,6 +61,7 @@ card_kinds:
       written_grade:
         type: string
         default: ""
+        example: "3"
         ui:
           group: record
           compact: true
@@ -67,6 +70,7 @@ card_kinds:
       written_grade_date:
         type: date
         default: ""
+        example: "2026-02-28"
         ui:
           group: record
           compact: true
@@ -75,6 +79,7 @@ card_kinds:
       positional_grade:
         type: string
         default: ""
+        example: "2"
         ui:
           group: record
           compact: true
@@ -83,6 +88,7 @@ card_kinds:
       positional_grade_date:
         type: date
         default: ""
+        example: "2026-03-14"
         ui:
           group: record
           compact: true
@@ -91,6 +97,7 @@ card_kinds:
       auth_or_remarks:
         type: string
         default: ""
+        example: "J.A.D."
         ui:
           group: record
         description: Authentication or remarks entry (column G).

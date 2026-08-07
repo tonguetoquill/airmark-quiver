@@ -56,11 +56,17 @@
 
 /// Should this field shrink text to a single line rather than word-wrap?
 /// True for short/narrow fields with brief content (grades, ranks, dates).
-/// `display` may be a string or content; char-count is skipped for content.
 #let should-shrink-to-fit(display, width, height) = {
   let aspect = width / height
-  // content has no .len(); treat as "long" so only the dimension conditions apply
-  let char-count = if type(display) == str { display.len() } else { 99 }
+  // A date field's content is a single `text` element, and the string inside it
+  // is what decides the shrink, as a plain value's own does. Any other content
+  // (a styled label, a sequence) has no such string and counts as long, so only
+  // the dimension conditions apply.
+  let char-count = if type(display) == str {
+    display.len()
+  } else {
+    display.at("text", default: "0" * 99).len()
+  }
   char-count <= 10 or height < 20pt or aspect > 4.0
 }
 
