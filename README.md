@@ -111,11 +111,17 @@ npm test
 The gate renders nothing the schema did not write, so the coverage is the
 `example:` block: a field with no example is a field no render exercises.
 
-**What is it like to use?** `npm run preview` lays out
+**What is it like to use?** `npm run dev` lays out
 [`@quillmark/studio`](https://www.npmjs.com/package/@quillmark/studio) over a
-packed copy of this quiver and serves it at `http://localhost:4173/` — pick a
-quill, edit the seeded document, watch it paint, read the diagnostics. The pack
-is taken at build time, so re-run it to pick up an edit to a quill.
+packed copy of this quiver, serves it at `http://localhost:4173/`, and repacks on
+every save — pick a quill, edit the seeded document, watch it paint, read the
+diagnostics.
+
+**Reload is the refresh verb.** A repack moves the quiver's pointer and the
+client fetches that `no-cache`, so F5 lands the edit; the published client
+carries no live-reload channel, so nothing pushes it to the page. Editing a quill
+into an invalid state is not a failure of the loop: it packs, and the client says
+what is wrong with that quill and where, while the others stay usable.
 
 `npm run site` builds that same tree into `site/` without serving it. CI uploads
 it as an artifact on every run, so a pull request — a fork's included — is

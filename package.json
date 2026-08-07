@@ -23,7 +23,7 @@
   "scripts": {
     "test": "quiver test",
     "site": "node scripts/site.mjs",
-    "preview": "npm run site && node scripts/serve.mjs"
+    "dev": "node scripts/dev.mjs"
   },
   "keywords": [
     "quillmark",
