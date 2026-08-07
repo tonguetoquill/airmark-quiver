@@ -1,0 +1,38 @@
+# Deploy the quiver's studio to Pages on every push to main. The build half is
+# quillmark-js's reusable workflow — it packs this collection, lays the client
+# over it, and asserts the layout — so the deploy stays here and nothing outside
+# this repository holds `pages: write`.
+name: studio
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Pages takes one deploy at a time, and a superseded run waits rather than being
+# cancelled: cancelling mid-deploy leaves the site on whichever generation landed
+# last, which is not necessarily the newest commit's.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    uses: borb-sh/quillmark-js/.github/workflows/studio-pages.yml@main
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

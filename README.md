@@ -117,9 +117,13 @@ packed copy of this quiver and serves it at `http://localhost:4173/` — pick a
 quill, edit the seeded document, watch it paint, read the diagnostics. The pack
 is taken at build time, so re-run it to pick up an edit to a quill.
 
-`npm run site` builds that same tree into `site/` without serving it. It is what
-CI uploads as an artifact and what each pull request is deployed from, so what a
-reviewer opens is what you looked at.
+`npm run site` builds that same tree into `site/` without serving it. CI uploads
+it as an artifact on every run, so a pull request — a fork's included — is
+reviewed by downloading that and serving the directory.
+
+`main` is deployed to GitHub Pages by `.github/workflows/studio.yml`, which calls
+quillmark-js's reusable build and keeps the deploy here: nothing outside this
+repository holds `pages: write`.
 
 ## License
 
