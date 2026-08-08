@@ -54,7 +54,10 @@
   memo_for_cols: 1,
 )
 
-// Mainmatter configuration
+// Mainmatter. The body's region needs no recovery step here: the package's
+// render-body rebuilds paragraphs through a state buffer (AFH 33-337
+// auto-numbering), but the rebuilt glyphs keep their spans, which is what
+// the backend reads regions from.
 #mainmatter[
   #data.at("$body")
 ]
@@ -63,7 +66,7 @@
 #backmatter(
   // Signature block
   signature_block: data.signature_block,
-  signing_field: signature-field("Signature"),
+  signing_field: signature-field("Signature", field: "signature_block"),
 
   // Optional cc
   ..if "cc" in data { (cc: data.cc) },
@@ -94,11 +97,20 @@
     } else {
       card_date
     }
+    // The card's `$path` prefix composes its canonical schema addresses
+    // (`$cards.indorsement.<n>.…`, per-kind ordinal) — the absolute loop
+    // index `i` is NOT that ordinal once kinds interleave, so it stays a
+    // widget-name suffix only. The card body's region rides its own glyph
+    // spans through the package rebuild, per-card because each card's body
+    // has its own backend-generated eval site.
     indorsement(
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
       signature_block: card.signature_block,
-      signing_field: signature-field("Ind_" + str(i) + "_Signature"),
+      signing_field: signature-field(
+        "Ind_" + str(i) + "_Signature",
+        field: card.at("$path") + "signature_block",
+      ),
       format: card.at("format", default: "standard"),
       date: resolved_date,
       ..if "action" in card { (action: card.action) },

@@ -11,7 +11,15 @@
 /// True for short/narrow fields with brief content (grades, ranks, dates).
 #let should-shrink-to-fit(display, width, height) = {
   let aspect = width / height
-  let char-count = display.len()
+  // A date field's content is a single `text` element, and the string inside it
+  // is what decides the shrink, as a plain value's own does. Any other content
+  // (a styled label, a sequence) has no such string and counts as long, so only
+  // the dimension conditions apply.
+  let char-count = if type(display) == str {
+    display.len()
+  } else {
+    display.at("text", default: "0" * 99).len()
+  }
   char-count <= 10 or height < 20pt or aspect > 4.0
 }
 
@@ -81,8 +89,14 @@
 /// - field (dictionary): raw field entry from the schema
 #let render-field(field-type, value, width, height, field) = {
   if field-type == "text" {
-    if value != none and str(value) != "" {
-      render-text-field(str(value), width, height, 1.5pt, 1pt)
+    if value != none {
+      // A date field arrives as content carrying its click-to-edit region, so it
+      // is placed as it stands; a plain string is placed only when non-empty.
+      if type(value) == content {
+        render-text-field(value, width, height, 1.5pt, 1pt)
+      } else if str(value) != "" {
+        render-text-field(str(value), width, height, 1.5pt, 1pt)
+      }
     }
   } else if field-type == "checkbox" {
     if value == true {

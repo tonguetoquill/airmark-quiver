@@ -2,8 +2,10 @@ quill:
   name: daf4392
   version: 0.1.0
   backend: typst
-  plate_file: plate.typ
   description: "DAF Form 4392 - Pre-Departure Safety Briefing (Page 2)"
+
+typst:
+  plate_file: plate.typ
 
 main:
   body:
@@ -16,7 +18,7 @@ main:
       description: "Matches the check box."
 
     departure_date:
-      type: datetime
+      type: date
       default: ""
       example: "2026-06-01"
       ui:
@@ -59,7 +61,7 @@ main:
       description: "Unit / Organization."
 
     briefed_date:
-      type: datetime
+      type: date
       default: ""
       example: "2026-05-22"
       ui:
@@ -96,41 +98,42 @@ card_kinds:
     description: "Each card represents one row in the travel itinerary table. Up to 10 rows are supported."
     ui:
       title: Proposed Travel Itinerary
+      groups: [itinerary_entry]
     body:
       enabled: false
     fields:
       date:
-        type: datetime
+        type: date
         default: ""
         ui:
-          group: Itinerary Entry
+          group: itinerary_entry
           compact: true
         description: "Date for the itinerary row."
       departure_point:
         type: string
         default: ""
         ui:
-          group: Itinerary Entry
+          group: itinerary_entry
           compact: true
         description: "Point of departure."
       arrival_point:
         type: string
         default: ""
         ui:
-          group: Itinerary Entry
+          group: itinerary_entry
           compact: true
         description: "Point of arrival."
       rest_length:
         type: string
         default: ""
         ui:
-          group: Itinerary Entry
+          group: itinerary_entry
           compact: true
         description: "Duration of stay at arrival point"
       mileage:
         type: string
         default: ""
         ui:
-          group: Itinerary Entry
+          group: itinerary_entry
           compact: true
         description: "Approximate mileage for this leg (leave blank if not applicable, e.g., flights)."

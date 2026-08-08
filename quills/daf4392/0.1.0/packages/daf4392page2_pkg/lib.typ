@@ -31,11 +31,22 @@
 }
 
 /// Format a date value for display as `DD Mon YYYY`.
+///
+/// Dispatches on the shape a date can arrive in:
+/// - dict: a Quillmark `date` field lowers to a click-to-edit value object
+///   `(value: datetime, display: closure)`. `display` is a stored closure on a
+///   dict rather than a method, so it is called through parentheses, and the
+///   content it returns carries the region that makes the glyphs clickable.
+/// - datetime: a native Typst datetime, from a plate building its own value.
+/// - str: shown as-is.
 #let format-date(value) = {
+  let pattern = "[day padding:zero] [month repr:short] [year]"
   if value == none {
     none
+  } else if type(value) == dictionary {
+    (value.display)(pattern)
   } else if type(value) == datetime {
-    value.display("[day padding:zero] [month repr:short] [year]")
+    value.display(pattern)
   } else if type(value) == str and value == "" {
     ""
   } else {
@@ -45,11 +56,17 @@
 
 /// Should this field shrink text to a single line rather than word-wrap?
 /// True for short/narrow fields with brief content (grades, ranks, dates).
-/// `display` may be a string or content; char-count is skipped for content.
 #let should-shrink-to-fit(display, width, height) = {
   let aspect = width / height
-  // content has no .len(); treat as "long" so only the dimension conditions apply
-  let char-count = if type(display) == str { display.len() } else { 99 }
+  // A date field's content is a single `text` element, and the string inside it
+  // is what decides the shrink, as a plain value's own does. Any other content
+  // (a styled label, a sequence) has no such string and counts as long, so only
+  // the dimension conditions apply.
+  let char-count = if type(display) == str {
+    display.len()
+  } else {
+    display.at("text", default: "0" * 99).len()
+  }
   char-count <= 10 or height < 20pt or aspect > 4.0
 }
 
