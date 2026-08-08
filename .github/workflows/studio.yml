@@ -1,7 +1,7 @@
-# Deploy the quiver's studio to Pages on every push to main. The build half is
-# quillmark-js's reusable workflow — it packs this collection, lays the client
-# over it, and asserts the layout — so the deploy stays here and nothing outside
-# this repository holds `pages: write`.
+# Deploy the quiver's studio to Pages on every push to main. `quillkit site`
+# writes the arrangement a deploy serves — the client at a root, a built quiver
+# at `quiver/` beneath it — and asserts both halves, so the build is one command
+# and the deploy stays here: nothing outside this repository holds `pages: write`.
 name: studio
 
 on:
@@ -21,12 +21,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # `quiver build` packs files and opens none of them — it stats each `Quill.yaml`
-  # as a sentinel and never parses it — so a quill that does not compile packs
-  # cleanly and reports itself in the client. That is what the author's loop wants
-  # and what a deploy does not, and nothing makes this workflow wait on `ci.yml`.
-  # So the gate runs here, and the deploy is downstream of it.
-  gate:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,12 +33,20 @@ jobs:
       - name: Install
         run: npm ci
 
+      # `quillkit site` packs files and opens none of them — it stats each
+      # `Quill.yaml` as a sentinel and never parses it — so a quill that does not
+      # compile packs cleanly and reports itself in the client. That is what the
+      # author's loop wants and what a deploy does not, and nothing makes this
+      # workflow wait on `ci.yml`. So the gate runs here, ahead of the pack.
       - name: Test
         run: npm test
 
-  build:
-    needs: gate
-    uses: borb-sh/quillmark-js/.github/workflows/studio-pages.yml@main
+      - name: Build the studio site
+        run: npm run site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
 
   deploy:
     needs: build

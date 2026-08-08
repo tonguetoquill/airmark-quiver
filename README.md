@@ -98,7 +98,12 @@ quills/
 
 Two verbs, and they answer different questions.
 
-**Does it work?** `quillmark-quiver test` loads the collection with `fromDir`, compiles
+Both verbs are [`quillkit`](https://www.npmjs.com/package/quillkit)'s, the quill
+author's toolchain. It resolves `@quillmark/quiver` and `@quillmark/wasm` out of
+this collection's own `node_modules`, so the versions pinned here are the format
+the quiver is packed in and the wasm the gate renders through.
+
+**Does it work?** `quillkit test` loads the collection with `fromDir`, compiles
 every quill, and renders each one's example document — the blueprint seeded from
 the `example:` values in `Quill.yaml`. It is the gate CI runs, so a validation
 failure surfaces here rather than on a consumer's build:
@@ -111,25 +116,29 @@ npm test
 The gate renders nothing the schema did not write, so the coverage is the
 `example:` block: a field with no example is a field no render exercises.
 
-**What is it like to use?** `npm run dev` lays out
-[`@quillmark/studio`](https://www.npmjs.com/package/@quillmark/studio) over a
-packed copy of this quiver, serves it at `http://localhost:4173/`, and repacks on
-every save — pick a quill, edit the seeded document, watch it paint, read the
-diagnostics.
+**What is it like to use?** `npm run dev` is `quillkit studio`: it packs this
+quiver, serves the studio client over it, and repacks on every save — pick a
+quill, edit the seeded document, watch it paint, read the diagnostics. The
+client is quillkit's own, so there is nothing to install for it and nothing to
+keep in step.
 
-**Reload is the refresh verb.** A repack moves the quiver's pointer and the
-client fetches that `no-cache`, so F5 lands the edit; the published client
-carries no live-reload channel, so nothing pushes it to the page. Editing a quill
-into an invalid state is not a failure of the loop: it packs, and the client says
-what is wrong with that quill and where, while the others stay usable.
+Reload to pick up a repack. Editing a quill into an invalid state is not a
+failure of the loop: it packs, and the client says what is wrong with that quill
+and where, while the others stay usable.
 
-`npm run site` builds that same tree into `site/` without serving it. CI uploads
-it as an artifact on every run, so a pull request — a fork's included — is
-reviewed by downloading that and serving the directory.
+The two verbs answer to different authorities. `quillkit test` renders through
+the wasm pinned here and is what CI blocks on; the client renders through the
+wasm it was built against, and nothing at runtime reconciles the two. The gate
+is authoritative, studio is advisory.
 
-`main` is deployed to GitHub Pages by `.github/workflows/studio.yml`, which calls
-quillmark-js's reusable build and keeps the deploy here: nothing outside this
-repository holds `pages: write`.
+`npm run site` writes the arrangement a deploy serves into `site/` — the client
+at the root, a built quiver at `quiver/` beneath it — without serving it. CI
+uploads that on every run, so a pull request — a fork's included — is reviewed
+by downloading the artifact and serving the directory.
+
+`main` is deployed to GitHub Pages by `.github/workflows/studio.yml`, which runs
+that same command and keeps the deploy here: nothing outside this repository
+holds `pages: write`.
 
 ## License
 

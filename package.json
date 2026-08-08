@@ -16,14 +16,14 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "0.18.1",
-    "@quillmark/studio": "0.1.0",
-    "@quillmark/wasm": "^0.102.0"
+    "@quillmark/quiver": "0.19.0",
+    "@quillmark/wasm": "^0.102.0",
+    "quillkit": "0.1.0"
   },
   "scripts": {
-    "test": "quillmark-quiver test",
-    "site": "node scripts/site.mjs",
-    "dev": "node scripts/dev.mjs"
+    "test": "quillkit test",
+    "site": "quillkit site --out site",
+    "dev": "quillkit studio"
   },
   "keywords": [
     "quillmark",
