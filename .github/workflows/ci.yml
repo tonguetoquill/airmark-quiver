@@ -1,14 +1,12 @@
 name: ci
 
+# Pull requests only. A push to main runs the same `npm test` inside `studio.yml`
+# ahead of the pack, so main keeps its gate without building the site twice.
 on:
   pull_request:
-  push:
-    branches:
-      - main
 
 permissions:
   contents: read
-  actions: write
 
 jobs:
   verify:
