@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.28.0 - 2026-08-11
+
+- Upgrade to @quillmark/wasm 0.103, quiver 0.21, and quillkit 0.2 (#101)
+- Bump quillkit to 0.1.1 (#98)
+- Retire what the quillkit migration left behind (#97)
+- Migrate to @quillmark/wasm 0.102 and quiver 0.19, and move the author's loop onto quillkit (#96)
+
+
 ## v0.27.0 - 2026-06-22
 
 - usaf_memo: a standard indorsement that gets pushed onto a new page now automatically renders the separate-page identifying header (`Nth Ind to ORIG, DATE, SUBJECT`), and the header is kept together with its body/signature so it is never stranded or orphaned across a page break.
