@@ -39,7 +39,7 @@
 
 // ── Mainmatter: freeform body text, auto-numbered per DoDI 4000.19 ─────────
 #mainmatter[
-  #data.BODY
+  #data.at("$body")
 ]
 
 // ── Backmatter: AGREED signature blocks + mid-point review ─────────────────
@@ -57,11 +57,11 @@
 #if resolved.reimbursable { attachment(resolved) }
 
 // ── Attachments B, C, ...: iterate through CARDS array and filter by CARD tag
-#for (i, card) in data.CARDS.enumerate() {
-  if card.CARD == "attachment" {
+#for (i, card) in data.at("$cards").enumerate() {
+  if card.at("$kind") == "attachment" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
-    let body = card.at("BODY", default: "")
+    let body = card.at("$body", default: "")
     let body_content = if type(body) == str { [] } else { body }
     attachment-card(numbering("A", i + 2), resolved, card.title, body_content)
   }

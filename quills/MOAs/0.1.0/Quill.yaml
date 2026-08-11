@@ -2,8 +2,10 @@ quill:
   name: moa
   version: 0.1.0
   backend: typst
-  plate_file: plate.typ
   description: DoD Memorandum of Agreement (DoDI 4000.19)
+
+typst:
+  plate_file: plate.typ
 
 main:
   body:
@@ -38,7 +40,6 @@ main:
   fields:
     first_party_name:
       type: string
-      required: true
       example: Air Force Materiel Command (AFMC)
       ui:
         group: Parties
@@ -46,7 +47,6 @@ main:
 
     second_party_name:
       type: string
-      required: true
       example: National Aeronautics and Space Administration (NASA)
       ui:
         group: Parties
@@ -62,7 +62,6 @@ main:
 
     subject:
       type: string
-      required: true
       example: Reciprocal Use of Test Facilities
       ui:
         group: Parties
@@ -70,7 +69,6 @@ main:
 
     agreement_number:
       type: string
-      required: true
       example: AFMC-2026-0142
       ui:
         group: Parties
@@ -78,7 +76,8 @@ main:
 
     second_party_mailing_address:
       type: array
-      required: true
+      items:
+        type: string
       example:
         - NASA/ABC
         - 300 E Street SW
@@ -89,7 +88,6 @@ main:
 
     reimbursable:
       type: boolean
-      required: true
       default: false
       ui:
         group: Terms
@@ -160,7 +158,6 @@ main:
 
     first_party_signatory:
       type: string
-      required: true
       example: "JANE A. DOE, Director"
       ui:
         group: Signatures
@@ -168,7 +165,6 @@ main:
 
     second_party_signatory:
       type: string
-      required: true
       example: "ROBERT T. LEE, Program Manager"
       ui:
         group: Signatures
@@ -176,7 +172,6 @@ main:
 
     mid_point_review_due_date:
       type: date
-      required: true
       ui:
         group: Signatures
         compact: true
@@ -195,7 +190,6 @@ card_kinds:
     fields:
       title:
         type: string
-        required: true
         example: Facility Safety Requirements
         ui:
           group: Attachment
