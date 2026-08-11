@@ -145,11 +145,32 @@
   )
 }
 
+/// Whether a `references` entry carries no citation text.
+///
+/// Blank entries reach the template routinely: a template author leaves a
+/// stub `- ` under `references:` for the user to fill in, and the quillmark
+/// helper hands back `""` for an unset or whitespace-only markdown field.
+/// Such an entry must not count as a reference — otherwise a lone blank one
+/// satisfies the "exactly one reference" test below and renders as an empty
+/// `()` after the subject.
+///
+/// - entry (any): A single `references` element
+/// -> bool
+#let blank-reference(entry) = falsey(entry) or entry == []
+
+/// Drops `references` entries that carry no citation text and normalizes the
+/// result to an array, so blank placeholder entries neither render on their
+/// own nor affect the inline-vs-block decision.
+///
+/// - references (array | none): Raw reference entries
+/// -> array
+#let compact-references(references) = ensure-array(references).filter(entry => not blank-reference(entry))
+
 // AFH 33-337 "SUBJECT:": "In all uppercase letters place 'SUBJECT:', flush with the
 // left margin, on the second line below the last line of the FROM element"
 #let render-subject-section(subject-text, inline-reference: none) = {
   blank-line()
-  let content = if inline-reference != none {
+  let content = if not blank-reference(inline-reference) {
     [#subject-text (#box(inline-reference))]
   } else {
     [#subject-text]
@@ -163,7 +184,8 @@
 // AFH 33-337: only render References block for two or more references.
 // A single reference is rendered inline after the SUBJECT text instead.
 #let render-references-section(references) = {
-  if type(references) == array and references.len() >= 2 {
+  let references = compact-references(references)
+  if references.len() >= 2 {
     blank-line()
     grid(
       columns: (auto, auto, 1fr),
