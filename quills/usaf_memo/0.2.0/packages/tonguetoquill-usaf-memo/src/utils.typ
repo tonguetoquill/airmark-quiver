@@ -87,6 +87,36 @@
   ]
 }
 
+/// Shrinks content to fit within a maximum width, never enlarging it.
+///
+/// Measures `body` at its current font size and scales it down uniformly only
+/// when it is wider than `width`; content that already fits keeps its set size
+/// (the scale is capped at 100%). Unlike `fit-box`, height flows naturally and
+/// small content is never scaled up. Used for the letterhead caption (unit
+/// designation): a long name is shrunk to the width that clears the seal rather
+/// than running underneath it. Pass a non-wrapping `box` as `body` so the
+/// measured width is the single-line width and the result stays on one line.
+///
+/// Empty content measures 0pt wide and has no scale to compute, so it is returned
+/// as-is rather than divided by; a non-positive `width` likewise admits no scale
+/// that fits, so the body is left at its set size instead of being flipped or
+/// collapsed.
+///
+/// - width (length): Maximum width the content may occupy
+/// - alignment (alignment): Horizontal placement within the reserved width
+/// - body (content): Content to fit (typically a non-wrapping `box`)
+/// -> content
+#let fit-to-width(width, alignment: left, body) = context {
+  let s = measure(body)
+  if s.width <= 0pt or width <= 0pt { return body }
+  let f = calc.min(1, width / s.width) * 100% // ratio, capped so it only shrinks
+  box(width: width)[
+    #align(alignment)[
+      #scale(f, reflow: true)[#body]
+    ]
+  ]
+}
+
 /// Formats a date for the memo heading.
 ///
 /// Dispatches on the shape a date field can arrive in:
@@ -275,7 +305,10 @@
   if value == none {
     ""
   } else if type(value) == array {
-    value.join(separator)
+    // `().join(sep)` is `none`, not `""` — coerce so an empty array keeps the
+    // documented contract and stays `falsey` for callers that test the result.
+    let joined = value.join(separator)
+    if joined == none { "" } else { joined }
   } else {
     str(value)
   }

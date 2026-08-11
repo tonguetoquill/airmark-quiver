@@ -39,23 +39,36 @@
   let band-top = -band-height / 2 // puts the band center at dy 0
   let band-center = band-top + band-height / 2
 
+  // The centered title/caption is placed content (not width-constrained), so a
+  // long caption would otherwise render on one line and run underneath the seal.
+  // Bound the caption to the width that stays clear of the seal on both sides
+  // and auto-shrink it to fit: the seal reaches `band-height - corner-overhang`
+  // into the text area, so reserving that plus a gutter on each side keeps the
+  // centered caption from touching the seal. `layout` resolves the text-area
+  // width so the bound tracks the page/margins.
+  let caption-gutter = 0.25in
+  let caption-clear = (band-height - corner-overhang) + caption-gutter
   place(
     dy: 0.625in - spacing.margin,
     box(
       width: 100%,
       fill: none,
       stroke: none,
-      [
-        #place(
-          center + top,
-          align(center)[
-            #set text(12pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
-            #title\
-            #v(1pt)
-            #text(10.5pt)[#caption]
-          ],
-        )
-      ],
+      layout(size => place(
+        center + top,
+        align(center)[
+          #set text(12pt, font: font, fill: LETTERHEAD_COLOR, weight: "bold")
+          #title\
+          #v(1pt)
+          #if not falsey(caption) {
+            fit-to-width(
+              size.width - 2 * caption-clear,
+              alignment: center,
+              box(text(10.5pt)[#caption]),
+            )
+          }
+        ],
+      )),
     ),
   )
 
@@ -145,11 +158,32 @@
   )
 }
 
+/// Whether a `references` entry carries no citation text.
+///
+/// Blank entries reach the template routinely: a template author leaves a
+/// stub `- ` under `references:` for the user to fill in, and the quillmark
+/// helper hands back `""` for an unset or whitespace-only markdown field.
+/// Such an entry must not count as a reference — otherwise a lone blank one
+/// satisfies the "exactly one reference" test below and renders as an empty
+/// `()` after the subject.
+///
+/// - entry (any): A single `references` element
+/// -> bool
+#let blank-reference(entry) = falsey(entry) or entry == []
+
+/// Drops `references` entries that carry no citation text and normalizes the
+/// result to an array, so blank placeholder entries neither render on their
+/// own nor affect the inline-vs-block decision.
+///
+/// - references (array | none): Raw reference entries
+/// -> array
+#let compact-references(references) = ensure-array(references).filter(entry => not blank-reference(entry))
+
 // AFH 33-337 "SUBJECT:": "In all uppercase letters place 'SUBJECT:', flush with the
 // left margin, on the second line below the last line of the FROM element"
 #let render-subject-section(subject-text, inline-reference: none) = {
   blank-line()
-  let content = if inline-reference != none {
+  let content = if not blank-reference(inline-reference) {
     [#subject-text (#box(inline-reference))]
   } else {
     [#subject-text]
@@ -163,7 +197,8 @@
 // AFH 33-337: only render References block for two or more references.
 // A single reference is rendered inline after the SUBJECT text instead.
 #let render-references-section(references) = {
-  if type(references) == array and references.len() >= 2 {
+  let references = compact-references(references)
+  if references.len() >= 2 {
     blank-line()
     grid(
       columns: (auto, auto, 1fr),
@@ -245,40 +280,57 @@
 // =============================================================================
 // ACTION LINE RENDERING
 // =============================================================================
-// Renders the Approve / Disapprove action line for indorsement memos.
-// action: "undecided" = both options rendered plain (no circle),
-// "approve" = Approve circled, "disapprove" = Disapprove circled.
+// Renders the decision line for indorsement memos — an "either / or" pair
+// where the endorser's choice is circled and the rejected option struck out.
+//
+// Two option pairs are supported, reflecting the two roles an indorsement
+// plays in a coordination chain: coordinating officials Concur / Nonconcur,
+// while the final approval authority Approves / Disapproves.
+//
+// Each pair also has an "undecided" form that renders both options plain, for
+// printing a memo the endorser circles by hand when signing.
+//
 // Empty/none suppression is handled by the caller before this is invoked.
+
+// Maps each `action` value to the option pair it renders and the index of the
+// selected option within that pair (`none` selects neither).
+#let ACTION_FORMS = (
+  "undecided": (("Approve", "Disapprove"), none),
+  "approve": (("Approve", "Disapprove"), 0),
+  "disapprove": (("Approve", "Disapprove"), 1),
+  "undecided_concur": (("Concur", "Nonconcur"), none),
+  "concur": (("Concur", "Nonconcur"), 0),
+  "nonconcur": (("Concur", "Nonconcur"), 1),
+)
 
 #let render-action-line(action, trailing-blank-line: true) = {
   assert(
-    action in ("undecided", "approve", "disapprove"),
-    message: "action must be \"undecided\", \"approve\", or \"disapprove\"",
+    action in ACTION_FORMS,
+    message: "action must be one of " + ACTION_FORMS.keys().map(k => "\"" + k + "\"").join(", "),
   )
+  let (options, selected) = ACTION_FORMS.at(action)
+  // Circle the selected option using a box with rounded corners; strike the
+  // one it was chosen over. When neither is selected both render plain.
+  // Use baseline parameter to maintain vertical text alignment.
+  let render-option(index) = {
+    let option = options.at(index)
+    if selected == none {
+      option
+    } else if selected == index {
+      box(stroke: 0.5pt + black, radius: 2pt, inset: 2pt, baseline: 2pt)[#option]
+    } else {
+      strike(option)
+    }
+  }
   // No leading blank-line: the caller (indorsement.typ) already emits the
   // header→content gap once. The action line's `block(sticky: true)`
   // additionally inherits `block.above: spacing.line` so the visual gap
   // above matches the gap above a body's first paragraph.
-  // Circle the selected option using a box with rounded corners
-  // Use baseline parameter to maintain vertical text alignment
-  let approve-text = if action == "approve" {
-    box(stroke: 0.5pt + black, radius: 2pt, inset: 2pt, baseline: 2pt)[Approve]
-  } else if action == "disapprove" {
-    strike[Approve]
-  } else {
-    [Approve]
-  }
-  let disapprove-text = if action == "disapprove" {
-    box(stroke: 0.5pt + black, radius: 2pt, inset: 2pt, baseline: 2pt)[Disapprove]
-  } else if action == "approve" {
-    strike[Disapprove]
-  } else {
-    [Disapprove]
-  }
+  //
   // Keep the action line with the following content (body or signature block)
   // using the same sticky-block pattern that body.typ applies to the last
   // paragraph, per AFH 33-337 §11 orphan-prevention rules.
-  block(sticky: true)[#approve-text / #disapprove-text]
+  block(sticky: true)[#render-option(0) / #render-option(1)]
   // Trailing blank-line places the body's first paragraph one line below
   // the action, mirroring the gap above it. Suppressed when the body is
   // empty so the signature block's own 4-line gap lands on AFH 33-337's

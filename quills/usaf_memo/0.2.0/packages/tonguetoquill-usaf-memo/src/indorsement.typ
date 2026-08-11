@@ -22,9 +22,11 @@
   date: none,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
-  // Approval action: none (default, no action line displayed), "undecided", "approve", or "disapprove".
-  // When set to "undecided", the action line is displayed with neither option circled.
-  // When set to "approve" or "disapprove", the action line is displayed with the selected option circled.
+  // Decision action. `none` (default) displays no action line at all.
+  // Approval authority pair: "approve" or "disapprove" circles the selected
+  // option; "undecided" displays the pair with neither circled.
+  // Coordination pair: "concur" or "nonconcur" circles the selected option;
+  // "undecided_concur" displays the pair with neither circled.
   action: none,
   content,
 ) = {
