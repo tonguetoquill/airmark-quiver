@@ -35,11 +35,11 @@ directory to `fromDir`:
 ```ts
 import { createRequire } from 'node:module';
 import { dirname } from 'node:path';
-import { Document, Engine, init } from '@quillmark/wasm';
+import { Engine, init } from '@quillmark/wasm';
 import { fromDir } from '@quillmark/quiver/node';
 
-// Every `@quillmark/wasm` export throws `runtime::not_initialized` until this resolves.
-await init();
+// `init` is the only door to `Document`: there is no static export to reach early.
+const { Document } = await init();
 
 const root = dirname(createRequire(import.meta.url).resolve('@airmark/quiver/Quiver.yaml'));
 const quiver = await fromDir(root);
