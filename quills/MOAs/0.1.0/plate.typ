@@ -37,8 +37,20 @@
   agreement_number: resolved.agreement_number,
 )
 
+// Background is authored as its own card but rendered inline as the body's
+// first numbered paragraph(s), chained into the same DoDI 4000.19 decimal
+// numbering as the rest of the body (no page break, no numbering restart).
+// Only the first "background" card found is used.
+#let background-bodies = ()
+#for card in data.at("$cards") {
+  if card.at("$kind") == "background" and "$body" in card {
+    background-bodies.push(card.at("$body"))
+  }
+}
+
 // ── Mainmatter: freeform body text, auto-numbered per DoDI 4000.19 ─────────
 #mainmatter[
+  #if background-bodies.len() > 0 [#background-bodies.at(0)]
   #data.at("$body")
 ]
 

@@ -10,8 +10,6 @@ typst:
 main:
   body:
     example: |
-      BACKGROUND: The Parties have historically shared access to environmental test facilities on an ad hoc basis; this MOA formalizes that arrangement going forward.
-
       AUTHORITIES: This MOA is entered into under the authority of the Economy Act, 31 U.S.C. Section 1535, as amended.
 
       PURPOSE AND SCOPE: To establish reciprocal access to environmental test facilities between the Parties in support of joint developmental test programs.
@@ -178,6 +176,14 @@ main:
       description: "Due date for the mid-point review of the agreement, printed below the signature blocks."
 
 card_kinds:
+  background:
+    description: "Background section (DoDI 4000.19 paragraph 1) explaining the circumstances leading to this MOA. Authored as its own card, but rendered inline as the body's first numbered paragraph(s) — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used."
+    ui:
+      title: Background
+    body:
+      example: |
+        BACKGROUND: The Parties have historically shared access to environmental test facilities on an ad hoc basis; this MOA formalizes that arrangement going forward.
+
   attachment:
     description: "A lettered attachment to the MOA, starting at Attachment B (Attachment A is reserved for the reimbursable financial-details page and is generated automatically when 'reimbursable' is true). Each card starts on its own page."
     ui:

@@ -23,8 +23,6 @@ second_party_signatory: "ROBERT T. LEE, Program Manager"
 mid_point_review_due_date: "2028-07-22"
 ---
 
-BACKGROUND: The Parties have historically shared access to environmental test facilities on an ad hoc basis; this MOA formalizes that arrangement going forward.
-
 AUTHORITIES: This MOA is entered into under the authority of the Economy Act, 31 U.S.C. Section 1535, as amended.
 
 PURPOSE AND SCOPE: To establish reciprocal access to environmental test facilities between the Parties in support of joint developmental test programs.
@@ -78,6 +76,10 @@ LIST OF ATTACHMENTS:
 
 - Attachment A, Financial Details
 - Attachment B, Facility Safety Requirements
+
+```card background
+```
+BACKGROUND: The Parties have historically shared access to environmental test facilities on an ad hoc basis; this MOA formalizes that arrangement going forward.
 
 ```card attachment
 title: "Facility Safety Requirements"
