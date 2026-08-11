@@ -9,32 +9,7 @@ typst:
 
 main:
   body:
-    example: |
-      AUTHORITIES: This MOA is entered into under the authority of the Economy Act, 31 U.S.C. Section 1535, as amended.
-
-      PURPOSE AND SCOPE: To establish reciprocal access to environmental test facilities between the Parties in support of joint developmental test programs.
-
-      RESPONSIBILITIES OF THE PARTIES:
-
-      - The Air Force Materiel Command (AFMC) will—
-        - Provide test facility scheduling priority to the Second Party's programs upon 30 days' notice.
-        - Designate a facility manager as the primary point of contact for test scheduling.
-      - The National Aeronautics and Space Administration (NASA) will—
-        - Reimburse the First Party for consumables used during test execution per Attachment A.
-
-      PERSONNEL: Each Party is responsible for all costs of its personnel, including pay and benefits, support, and travel.
-
-      GENERAL PROVISIONS:
-
-      - POINTS OF CONTACT (POCS). The following POCs will be used by the Parties to communicate matters concerning this MOA.
-        - For the AFMC—
-          - Name, position, office identification, phone number and email of primary POC: Jane A. Smith, Test Facility Manager, AFMC/XYZ, 555-0100, jane.smith@us.af.mil
-      - TERMINATION OF AGREEMENT. This MOA may be terminated by either Party by giving at least 30 days' written notice to the other Party.
-      - EXPIRATION DATE. This MOA expires on 22 July 2031.
-
-      LIST OF ATTACHMENTS:
-
-      - Attachment A, Financial Details
+    example: ""
   fields:
     first_party_name:
       type: string
@@ -177,12 +152,74 @@ main:
 
 card_kinds:
   background:
-    description: "Background section (DoDI 4000.19 paragraph 1) explaining the circumstances leading to this MOA. Authored as its own card, but rendered inline as the body's first numbered paragraph(s) — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used."
+    description: "Background section (DoDI 4000.19 paragraph 1) explaining the circumstances leading to this MOA. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders before authorities."
     ui:
       title: Background
     body:
       example: |
         BACKGROUND: The Parties have historically shared access to environmental test facilities on an ad hoc basis; this MOA formalizes that arrangement going forward.
+
+  authorities:
+    description: "Authorities section citing the legal basis for this MOA. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after background, before purpose_and_scope."
+    ui:
+      title: Authorities
+    body:
+      example: |
+        AUTHORITIES: This MOA is entered into under the authority of the Economy Act, 31 U.S.C. Section 1535, as amended.
+
+  purpose_and_scope:
+    description: "Purpose and Scope section describing what this MOA establishes. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after authorities, before responsibilities_of_the_parties."
+    ui:
+      title: Purpose and Scope
+    body:
+      example: |
+        PURPOSE AND SCOPE: To establish reciprocal access to environmental test facilities between the Parties in support of joint developmental test programs.
+
+  responsibilities_of_the_parties:
+    description: "Responsibilities of the Parties section listing each party's obligations under this MOA. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after purpose_and_scope, before personnel."
+    ui:
+      title: Responsibilities of the Parties
+    body:
+      example: |
+        RESPONSIBILITIES OF THE PARTIES:
+
+        - The Air Force Materiel Command (AFMC) will—
+          - Provide test facility scheduling priority to the Second Party's programs upon 30 days' notice.
+          - Designate a facility manager as the primary point of contact for test scheduling.
+        - The National Aeronautics and Space Administration (NASA) will—
+          - Reimburse the First Party for consumables used during test execution per Attachment A.
+
+  personnel:
+    description: "Personnel section describing each party's responsibility for its own personnel costs. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after responsibilities_of_the_parties, before general_provisions."
+    ui:
+      title: Personnel
+    body:
+      example: |
+        PERSONNEL: Each Party is responsible for all costs of its personnel, including pay and benefits, support, and travel.
+
+  general_provisions:
+    description: "General Provisions section covering points of contact, termination, expiration, and other standard MOA terms. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after personnel, before any remaining freeform body text (e.g. Financial Details)."
+    ui:
+      title: General Provisions
+    body:
+      example: |
+        GENERAL PROVISIONS:
+
+        - POINTS OF CONTACT (POCS). The following POCs will be used by the Parties to communicate matters concerning this MOA.
+          - For the AFMC—
+            - Name, position, office identification, phone number and email of primary POC: Jane A. Smith, Test Facility Manager, AFMC/XYZ, 555-0100, jane.smith@us.af.mil
+        - TERMINATION OF AGREEMENT. This MOA may be terminated by either Party by giving at least 30 days' written notice to the other Party.
+        - EXPIRATION DATE. This MOA expires on 22 July 2031.
+
+  list_of_attachments:
+    description: "List of Attachments section enumerating this MOA's attachments. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders last, after any remaining freeform body text, immediately before the signature blocks."
+    ui:
+      title: List of Attachments
+    body:
+      example: |
+        LIST OF ATTACHMENTS:
+
+        - Attachment A, Financial Details
 
   attachment:
     description: "A lettered attachment to the MOA, starting at Attachment B (Attachment A is reserved for the reimbursable financial-details page and is generated automatically when 'reimbursable' is true). Each card starts on its own page."

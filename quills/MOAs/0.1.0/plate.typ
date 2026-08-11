@@ -37,21 +37,41 @@
   agreement_number: resolved.agreement_number,
 )
 
-// Background is authored as its own card but rendered inline as the body's
-// first numbered paragraph(s), chained into the same DoDI 4000.19 decimal
-// numbering as the rest of the body (no page break, no numbering restart).
-// Only the first "background" card found is used.
-#let background-bodies = ()
-#for card in data.at("$cards") {
-  if card.at("$kind") == "background" and "$body" in card {
-    background-bodies.push(card.at("$body"))
+// The MOA's standard sections (Background, Authorities, ...) are authored
+// as their own cards but rendered inline as the body's numbered paragraphs,
+// chained into the same DoDI 4000.19 decimal numbering as the rest of the
+// body (no page break, no numbering restart). Only the first card found of
+// each kind is used.
+#let card-body(kind) = {
+  let bodies = ()
+  for card in data.at("$cards") {
+    if card.at("$kind") == kind and "$body" in card {
+      bodies.push(card.at("$body"))
+    }
   }
+  if bodies.len() > 0 { bodies.at(0) } else { none }
 }
+#let background = card-body("background")
+#let authorities = card-body("authorities")
+#let purpose_and_scope = card-body("purpose_and_scope")
+#let responsibilities_of_the_parties = card-body("responsibilities_of_the_parties")
+#let personnel = card-body("personnel")
+#let general_provisions = card-body("general_provisions")
+#let list_of_attachments = card-body("list_of_attachments")
 
 // ── Mainmatter: freeform body text, auto-numbered per DoDI 4000.19 ─────────
+// Section cards render in document order around any remaining freeform body
+// text (e.g. Financial Details), which itself renders after
+// general_provisions and before list_of_attachments.
 #mainmatter[
-  #if background-bodies.len() > 0 [#background-bodies.at(0)]
+  #if background != none [#background]
+  #if authorities != none [#authorities]
+  #if purpose_and_scope != none [#purpose_and_scope]
+  #if responsibilities_of_the_parties != none [#responsibilities_of_the_parties]
+  #if personnel != none [#personnel]
+  #if general_provisions != none [#general_provisions]
   #data.at("$body")
+  #if list_of_attachments != none [#list_of_attachments]
 ]
 
 // ── Backmatter: AGREED signature blocks + mid-point review ─────────────────
