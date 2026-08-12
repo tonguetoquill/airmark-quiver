@@ -1,5 +1,34 @@
 # Changelog
 
+## Unreleased
+
+- **New quill version: `usaf_memo@0.3.0`.** Every prose field is now a content
+  field (`plaintext`, or `richtext` where AFH 33-337 calls for emphasis), so its
+  rendered glyphs carry schema-addressed regions and a preview can cross-navigate
+  to the editor field a click landed on. A `string` field lowers into the data
+  literal and places glyphs no region is keyed to; a content field lowers to a
+  markup block whose spans the backend reads geometry from. Converted:
+  `memo_for`, `memo_from`, `subject`, `signature_block`, `letterhead_title`,
+  `letterhead_caption`, `letterhead_seal_subtitle`, `dissemination`,
+  `cui_controlled_by`, `cui_category`, `cui_limited_dissemination`, `cui_poc`,
+  `cc`, `distribution`, `attachments`, and the indorsement card's `from`, `for`,
+  and `signature_block`. On the seeded example this takes the rendered document
+  from 5 addressable fields to 24; on a document that fills the optional fields,
+  from 10 to 35.
+- The fields that stay non-content are the ones with nothing to navigate *to*:
+  the controlled vocabularies (`classification`, `letterhead_seal`,
+  `memo_style`, `format`, `action`), `font_size`, and the `date` fields, which
+  already lower to click-to-edit value objects. `tag_line` and `references` were
+  already `richtext` and are unchanged.
+- `usaf_memo@0.2.0` is retained unchanged, so documents pinned to `@0.2` keep
+  resolving and rendering exactly as before.
+- Rendering is unchanged: across the seeded example and hand-built documents
+  covering CUI markings, a Memorandum for Record, blank optionals, DAF style,
+  inline and block references, and all three indorsement formats, output is
+  pixel-identical apart from ±1 antialiasing where a value now sits in its own
+  shaped run.
+
+
 ## v0.28.0 - 2026-08-11
 
 - Upgrade to @quillmark/wasm 0.103, quiver 0.21, and quillkit 0.2 (#101)

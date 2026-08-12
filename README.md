@@ -9,7 +9,8 @@ and aligned to the current Quillmark spec.
 
 | Quill        | Version | Description                                                                       |
 |--------------|---------|-----------------------------------------------------------------------------------|
-| `usaf_memo`  | 0.2.0   | USAF / DAF Official Memorandum (AFH 33-337)                                       |
+| `usaf_memo`  | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                       |
+| `usaf_memo`  | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving           |
 | `af4141`     | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment)  |
 | `daf1206`    | 0.1.0   | DAF Form 1206 — Nomination for Award                                              |
 | `daf4392`    | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                            |
@@ -46,7 +47,7 @@ const quiver = await fromDir(root);
 const engine = new Engine();
 
 const doc = Document.fromMarkdown(`~~~
-$quill: usaf_memo@0.2
+$quill: usaf_memo@0.3
 $kind: main
 memo_for: ["ORG/SYMBOL"]
 memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
