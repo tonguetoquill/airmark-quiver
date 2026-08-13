@@ -15,6 +15,39 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` no longer strands an indorsement signature on a page of
+  its own.** AFH 33-337 is explicit — "do not place the signature element on a
+  continuation page by itself" — but the only thing holding a signature block to
+  its text was a rule in the body renderer that made the closing element sticky
+  when it measured under four lines. A body ending in anything longer, or in a
+  table, had no anchor at all: when its last line fell within about five lines of
+  the page foot, the four blank lines were consumed at the bottom of that page
+  and the signature block opened the next one alone. Reproduced across a sweep of
+  127 generated documents, which found it in fourteen: standard, `separate_page`
+  and action-line indorsements, indorsement chains, and bodies closing on a
+  table. The rule now keys on how much space relocating the element would cost
+  rather than on a line count, so the closing element is sticky up to a third of
+  the text block — long enough to cover the paragraphs and tables a memorandum
+  actually ends on, short enough that a half-page block is still divided by the
+  break as before (which leaves its own tail on the continuation page for the
+  signature to sit under). Same sweep after the change: fourteen fixed, none
+  regressed, and the seeded example plus the CUI, DAF and backmatter documents
+  render pixel-identically.
+- **The signing field no longer lands off the page with it.** The field is drawn
+  over the blank lines above the printed name, and was positioned by reaching
+  upward out of the signature block — into space belonging to the previous page
+  whenever the block started at a top margin. It was painted over the page number
+  and the classification banner in all eighteen documents where that happened.
+  The four blank lines now sit inside the block, which is what the field is
+  measured against, so it travels with the block onto whatever page that lands
+  on. The gap above the signature is unchanged, and so is every one of the 771
+  signature regions across the sweep.
+- Known limitation, unchanged: an `informal` indorsement with no body and no
+  action renders nothing but a signature block, and a section with no text of its
+  own cannot be tied to the text above it — Typst has no keep-with-previous, and
+  the alternatives all risk stranding the *main* memorandum's signature instead.
+  Such an indorsement can still open a page alone; its signing field is now at
+  least on the page with it.
 - **`usaf_memo@0.3.0` takes the letterhead as one array.** `letterhead_caption`
   is folded into `letterhead_title`, which is now an ordered list of lines: the
   first is the department title, set larger, and the rest are the unit's
