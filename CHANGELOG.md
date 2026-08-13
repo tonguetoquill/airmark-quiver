@@ -42,12 +42,26 @@
   measured against, so it travels with the block onto whatever page that lands
   on. The gap above the signature is unchanged, and so is every one of the 771
   signature regions across the sweep.
-- Known limitation, unchanged: an `informal` indorsement with no body and no
-  action renders nothing but a signature block, and a section with no text of its
-  own cannot be tied to the text above it — Typst has no keep-with-previous, and
-  the alternatives all risk stranding the *main* memorandum's signature instead.
-  Such an indorsement can still open a page alone; its signing field is now at
-  least on the page with it.
+- **Two cases stay the author's to structure around**, deliberately: each needs a
+  Typst primitive that does not exist, and engineering around either costs more
+  than it buys. Typst has no way to emit an author-facing warning (`warn` is not
+  a binding), so the guidance lives in the schema and here rather than in a
+  diagnostic.
+  - A closing paragraph or table longer than a third of the text block — about
+    fifteen lines at 12pt — is left to be divided by the page break, so if it
+    happens to end within a few lines of the page foot its signature can still
+    open a page alone. Keeping it sticky instead would relocate forty-odd lines
+    and gut the page it left. The remedy is the one AFH 33-337 itself implies:
+    split the closing paragraph. The budget is a fixed length, so smaller body
+    type buys proportionally more lines.
+  - An `informal` indorsement with no body and no action renders nothing but a
+    signature block. A section with no text of its own cannot be tied to the text
+    above it — Typst has no keep-with-previous, and the only mechanism that
+    reaches backward risks stranding the *main* memorandum's signature, trading a
+    degenerate case for a common one. Give such an indorsement a body or an
+    action, or use `standard`, which prints a header that anchors it. The
+    `format` field says so at the point the choice is made. Its signing field is
+    now on the page with it either way.
 - **`usaf_memo@0.3.0` takes the letterhead as one array.** `letterhead_caption`
   is folded into `letterhead_title`, which is now an ordered list of lines: the
   first is the department title, set larger, and the rest are the unit's
