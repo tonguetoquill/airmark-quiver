@@ -10,6 +10,14 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` takes the letterhead as one array.** `letterhead_caption`
+  is folded into `letterhead_title`, which is now an ordered list of lines: the
+  first is the department title, set larger, and the rest are the unit's
+  organization lines beneath it. A one-line list renders the title alone; an
+  empty list renders no letterhead text and raises nothing. This replaces a
+  split whose two halves were always authored together and whose names gave no
+  hint which line landed where. Breaking for documents pinned to `@0.3`, which
+  0.3.0 shipped too recently to have many of; `@0.2` is untouched.
 - **New quill version: `usaf_memo@0.3.0`.** Every prose field is now a content
   field (`plaintext`, or `richtext` where AFH 33-337 calls for emphasis), so its
   rendered glyphs carry schema-addressed regions and a preview can cross-navigate
@@ -17,7 +25,7 @@
   literal and places glyphs no region is keyed to; a content field lowers to a
   markup block whose spans the backend reads geometry from. Converted:
   `memo_for`, `memo_from`, `subject`, `signature_block`, `letterhead_title`,
-  `letterhead_caption`, `letterhead_seal_subtitle`, `dissemination`,
+  `letterhead_seal_subtitle`, `dissemination`,
   `cui_controlled_by`, `cui_category`, `cui_limited_dissemination`, `cui_poc`,
   `cc`, `distribution`, `attachments`, and the indorsement card's `from`, `for`,
   and `signature_block`. On the seeded example this takes the rendered document
