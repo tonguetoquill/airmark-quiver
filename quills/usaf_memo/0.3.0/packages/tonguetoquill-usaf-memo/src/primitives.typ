@@ -224,9 +224,6 @@
 
 #let render-signature-block(signature-lines, signature-blank-lines: 4, signing-field: none) = {
   signature-lines = ensure-array(signature-lines)
-  // AFH 33-337: "fifth line below" = 4 blank lines between text and signature block.
-  // breakable: false discourages orphaning the signature block onto a page by itself.
-  blank-lines(signature-blank-lines)
   // AFH 33-337 allows two equivalent anchors: 4.5in from the left edge, or three
   // spaces right of page center. On 8.5in stock these coincide (page center =
   // 4.25in; three TNR-12pt spaces ≈ 0.25in), so we use 4.5in as the canonical
@@ -240,6 +237,13 @@
       let w = measure(text(hyphenate: false, line)).width
       if w > widest { widest = w }
     }
+    let stride = {
+      let s = LINE_STRIDE.get()
+      if s == none {
+        let one-line = measure(par(spacing: 0pt)[x]).height
+        measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
+      } else { s }
+    }
     // If the widest line would overflow the right margin at the standard
     // anchor, shift the block left just enough to fit. Clamp at 0 so the
     // block never crosses the left margin.
@@ -251,18 +255,30 @@
       default-pad
     }
     block(breakable: false)[
+      #let gap = stride * signature-blank-lines
+      // AFH 33-337: "fifth line below the last line of text" = four blank lines
+      // between the text and the signature block. Carried INSIDE the
+      // unbreakable block rather than emitted ahead of it, which keeps the gap
+      // and the block one indivisible unit. The total space above the block is
+      // identical either way — `block.above` still contributes the same 0.5em —
+      // but a gap left outside can be consumed at the foot of one page while
+      // the block starts at the top margin of the next, which is also what put
+      // the signing field off the page (see below).
+      #v(gap)
       #if signing-field != none {
-        let stride = {
-          let s = LINE_STRIDE.get()
-          if s == none {
-            let one-line = measure(par(spacing: 0pt)[x]).height
-            measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
-          } else { s }
-        }
+        // The signing field covers those blank lines — where a signature is
+        // actually written — so it is placed over the gap. With the gap inside
+        // the block that is a downward offset from the block's own origin, and
+        // the field therefore travels with the block onto whatever page it
+        // lands on. The superseded form placed it at a NEGATIVE dy, reaching
+        // above the block into space that belongs to the previous page: when
+        // the block started at the top margin, the field was painted into the
+        // header band over the page number and the classification banner, or
+        // off the sheet entirely.
         place(
           dx: left-pad,
-          dy: -(stride * signature-blank-lines),
-          box(width: body-width - left-pad, height: stride * signature-blank-lines, signing-field),
+          dy: 0pt,
+          box(width: body-width - left-pad, height: gap, signing-field),
         )
       }
       #align(left)[

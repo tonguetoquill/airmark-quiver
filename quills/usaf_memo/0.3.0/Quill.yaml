@@ -291,7 +291,7 @@ card_kinds:
         ui:
           group: additional
           compact: true
-        description: "'standard' (formal, same page), 'informal' (less formal routing), or 'separate_page' (begins on a new page)."
+        description: "'standard' (formal, same page), 'informal' (less formal routing), or 'separate_page' (begins on a new page). 'informal' prints no header, so an informal indorsement with an empty body is nothing but a signature block — it has no text of its own to hold it to the page, and can open a page alone. Give it a body or an action, or use 'standard'."
       action:
         type: enum
         values:
