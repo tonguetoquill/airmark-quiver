@@ -67,23 +67,18 @@ main:
       description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
 
     letterhead_title:
-      type: plaintext
-      inline: true
-      default: DEPARTMENT OF THE AIR FORCE
-      ui:
-        group: letterhead
-      description: Change only for Joint Commands or DoW agencies.
-
-    letterhead_caption:
       type: array
       items:
         type: plaintext
         inline: true
+      default:
+        - DEPARTMENT OF THE AIR FORCE
       example:
+        - DEPARTMENT OF THE AIR FORCE
         - HEADQUARTERS [UNIT NAME]
       ui:
         group: letterhead
-      description: The full organization name of your unit.
+      description: "Letterhead lines, top to bottom. The first is the department title, set larger than the rest; change it only for Joint Commands or DoW agencies. The lines below it are your unit's full organization name."
 
     letterhead_seal:
       type: enum

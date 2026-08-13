@@ -1,11 +1,18 @@
 #import "@local/quillmark-helper:0.1.0": data, signature-field
 #import "@local/tonguetoquill-usaf-memo:4.0.0": backmatter, frontmatter, indorsement, mainmatter
 
+// The letterhead arrives as one ordered array of lines. Element 0 is the title,
+// set larger; the rest are caption lines beneath it. A single element renders
+// the title alone — the package skips a falsey caption. An empty array renders
+// no letterhead text at all, silently: the block is `place`d, so an empty title
+// leaves no glyphs and takes no space from the flow, and the seal stands alone.
+#let letterhead_lines = data.letterhead_title
+
 // Frontmatter configuration
 #show: frontmatter.with(
   // Letterhead configuration
-  letterhead_title: data.letterhead_title,
-  letterhead_caption: data.letterhead_caption,
+  letterhead_title: letterhead_lines.at(0, default: ""),
+  letterhead_caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
   letterhead_seal_subtitle: data.at("letterhead_seal_subtitle", default: none),
   letterhead_seal: image(
     if data.at("letterhead_seal", default: "dow") == "dod" {
