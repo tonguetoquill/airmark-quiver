@@ -20,6 +20,10 @@
   signature_blank_lines: 4,
   signing_field: none,
   date: none,
+  // Fill-in widget for an omitted `date`, anchored in the date slot of the
+  // indorsement header (see `date-placeholder-slot`). `none` leaves the slot
+  // blank.
+  date_field: none,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
   // Decision action. `none` (default) displays no action line at all.
@@ -79,7 +83,7 @@
       let indorsement_number = counters.indorsement.get().at(0, default: 1)
       let indorsement_label = format-indorsement-number(indorsement_number)
 
-      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-line() }]
+      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-slot(date_field) }]
 
       // Separate-page header body: restates the original memo's identity (FROM,
       // date, subject) on its own line, since the indorsement no longer shares a
