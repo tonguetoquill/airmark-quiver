@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.29.0 - 2026-08-13
+
+- Update enum field syntax in Quill schemas (#106)
+- usaf_memo: port #91, #92, #93 onto @quillmark/wasm 0.103 (#103)
+- Ignore build output and refresh lockfile
+
+
 ## v0.28.0 - 2026-08-11
 
 - Upgrade to @quillmark/wasm 0.103, quiver 0.21, and quillkit 0.2 (#101)
