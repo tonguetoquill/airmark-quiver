@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.30.0 - 2026-08-13
+
+- feat(usaf_memo): merge letterhead_caption into letterhead_title (#109)
+
+
 ## v0.29.0 - 2026-08-13
 
 - usaf_memo: mint 0.3.0, moving every prose field onto plaintext for region cross-navigation (#105)
