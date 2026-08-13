@@ -12,8 +12,8 @@ main:
     enabled: false
   fields:
     transportation_mode:
-      type: string
-      enum: [pmv, airplane, bus, train, motorcycle, other]
+      type: enum
+      values: [pmv, airplane, bus, train, motorcycle, other]
       default: pmv
       description: "Matches the check box."
 
