@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.29.0 - 2026-08-13
+
+- usaf_memo: mint 0.3.0, moving every prose field onto plaintext for region cross-navigation (#105)
+- Update enum field syntax in Quill schemas (#106)
+- usaf_memo: port #91, #92, #93 onto @quillmark/wasm 0.103 (#103)
+- Ignore build output and refresh lockfile
+
+
 ## Unreleased
 
 - **New quill version: `usaf_memo@0.3.0`.** Every prose field is now a content
