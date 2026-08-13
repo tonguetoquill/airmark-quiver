@@ -163,24 +163,32 @@
   }
 }
 
-/// Renders a horizontal rule sized to fit a handwritten date.
+/// Reserves the space a date occupies, for a date unknown at compile time.
 ///
-/// Used for indorsements whose signing date is unknown at compile time: the
-/// endorser writes the date on the line by hand when signing. The rule sits at
-/// the baseline with one line of height above it so handwritten text can be
-/// written on the line without colliding with surrounding header text.
+/// Used for indorsements whose signing date is not known when the memo is
+/// rendered: the endorser supplies it after the fact. The reserved box is one
+/// line tall and sits on the baseline, so the slot lines up with where a
+/// printed date would sit and takes exactly the space one would take.
 ///
-/// - width (length): Length of the fill-in rule; defaults to fit a long date
-///   such as "15 September 2026".
+/// `field` is the caller's fill-in widget — the Quillmark helper's
+/// `form-field(.., type: "text")`, which lowers to a fillable AcroForm text box
+/// in PDF output. It is anchored at the slot's top-left corner, the corner the
+/// widget's own rectangle grows right and down from, so a widget declared at
+/// this slot's dimensions covers it exactly. `none` (a caller with no widget to
+/// give, e.g. the package used outside Quillmark) leaves the slot blank.
+///
+/// - field (content | none): Fill-in widget to anchor in the slot
+/// - width (length): Width of the slot; defaults to fit a long date such as
+///   "15 September 2026".
 /// -> content
-#let date-placeholder-line(width: 1in) = box(
+#let date-placeholder-slot(field, width: 1in) = box(
   width: width,
   height: 1em,
-  // Keep the rule on the line's baseline so it aligns with where the printed
-  // date would sit. The 1em box height reserves the writing space above it.
-  // (A positive baseline shift would drop the rule a full line too low.)
+  // Keep the slot's bottom edge on the line's baseline, where the printed date
+  // would sit; the 1em height then reserves the line above it.
+  // (A positive baseline shift would drop the box a full line too low.)
   baseline: 0pt,
-  stroke: (bottom: 0.5pt + black),
+  if field != none { place(top + left, field) },
 )
 
 /// Gets the banner color for a classification marking.

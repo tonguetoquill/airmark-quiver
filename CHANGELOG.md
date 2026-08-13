@@ -15,6 +15,18 @@
 
 ## Unreleased
 
+- **An undated indorsement now renders a fillable PDF field, not a rule.** The
+  blank date slot in an indorsement header (`$cards.indorsement.<n>.date` left
+  empty, the usual case since the endorser dates the memo when signing) is an
+  empty AcroForm text box the endorser types into, replacing the 1in rule they
+  had to write on by hand. It occupies exactly the rule's box — 1in wide, one
+  line tall, sitting on the date's baseline — so surrounding layout is
+  unchanged, and it is emitted only where a header prints a date slot: an
+  indorsement carrying a date still prints that date, and an `informal`
+  indorsement still has no header to date. The widget also carries the region
+  the blank slot never had, so a click on it in a preview routes to the card's
+  `date` field. Non-PDF output (SVG/PNG) renders the slot as blank space,
+  where it previously drew the rule.
 - **`usaf_memo@0.3.0` takes the letterhead as one array.** `letterhead_caption`
   is folded into `letterhead_title`, which is now an ordered list of lines: the
   first is the department title, set larger, and the rest are the unit's

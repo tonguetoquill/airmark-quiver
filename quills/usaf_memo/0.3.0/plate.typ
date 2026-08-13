@@ -1,4 +1,4 @@
-#import "@local/quillmark-helper:0.1.0": data, signature-field
+#import "@local/quillmark-helper:0.1.0": data, form-field, signature-field
 #import "@local/tonguetoquill-usaf-memo:4.0.0": backmatter, frontmatter, indorsement, mainmatter
 
 // The letterhead arrives as one ordered array of lines. Element 0 is the title,
@@ -7,6 +7,11 @@
 // no letterhead text at all, silently: the block is `place`d, so an empty title
 // leaves no glyphs and takes no space from the flow, and the seal stands alone.
 #let letterhead_lines = data.letterhead_title
+
+// Body text size, in points. Also the height of one line of the indorsement
+// header, which is what an omitted indorsement date reserves for its fill-in
+// widget (`date-placeholder-slot`, whose slot is `1em` tall and 1in wide).
+#let body_font_size = data.at("font_size", default: 12) * 1pt
 
 // Frontmatter configuration
 #show: frontmatter.with(
@@ -55,7 +60,7 @@
   memo_style: data.at("memo_style", default: "usaf"),
 
   // Font size
-  font_size: data.at("font_size", default: 12) * 1pt,
+  font_size: body_font_size,
 
   // List recipients in vertical list
   memo_for_cols: 1,
@@ -96,8 +101,8 @@
     let body_content = if type(body) == str { [] } else { body }
     // Per AFH 33-337 Ch. 14, an indorsement is dated when the endorser signs
     // it (distinct from the originating memo's date). The signing date is
-    // generally unknown at compile time and filled in by hand, so a blank or
-    // omitted date renders a fill-in line rather than stamping the compile date.
+    // generally unknown at compile time, so a blank or omitted date leaves the
+    // date slot fillable rather than stamping the compile date into it.
     let card_date = card.at("date", default: none)
     let resolved_date = if card_date == none or card_date == "" {
       none
@@ -120,6 +125,19 @@
       ),
       format: card.at("format", default: "standard"),
       date: resolved_date,
+      // An omitted date becomes an empty AcroForm text box the endorser types
+      // the signing date into, sized to the slot the package reserves for it.
+      // Built only when there is no date to print: a widget over a printed date
+      // would offer an edit that the rendered document does not carry back.
+      ..if resolved_date == none {
+        (date_field: form-field(
+          "Ind_" + str(i) + "_Date",
+          type: "text",
+          width: 1in,
+          height: body_font_size,
+          field: card.at("$path") + "date",
+        ))
+      },
       ..if "action" in card { (action: card.action) },
       body_content,
     )
