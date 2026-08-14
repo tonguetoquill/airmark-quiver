@@ -1,6 +1,6 @@
 quill:
   name: usaf_memo
-  version: 0.2.0
+  version: 0.3.0
   backend: typst
   description: U.S. Air Force and Space Force Official Memorandum
 
@@ -19,7 +19,8 @@ main:
     memo_for:
       type: array
       items:
-        type: string
+        type: plaintext
+        inline: true
       example:
         - ORG1/SYMBOL
         - ORG2/SYMBOL
@@ -31,7 +32,8 @@ main:
     memo_from:
       type: array
       items:
-        type: string
+        type: plaintext
+        inline: true
       default: []
       example:
         - ORG/SYMBOL
@@ -44,7 +46,8 @@ main:
       description: "If recipients are on the same installation, use only the office symbol. For recipients on other installations, include the full mailing address to enable return correspondence. Omit entirely to produce a Memorandum for Record (no MEMO FROM line)."
 
     subject:
-      type: string
+      type: plaintext
+      inline: true
       example: Subject of the Memorandum
       ui:
         group: addressing
@@ -53,7 +56,8 @@ main:
     signature_block:
       type: array
       items:
-        type: string
+        type: plaintext
+        inline: true
       example:
         - "FIRST M. LAST, Rank, USAF"
         - Duty Title
@@ -63,21 +67,18 @@ main:
       description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
 
     letterhead_title:
-      type: string
-      default: DEPARTMENT OF THE AIR FORCE
-      ui:
-        group: letterhead
-      description: Change only for Joint Commands or DoW agencies.
-
-    letterhead_caption:
       type: array
       items:
-        type: string
+        type: plaintext
+        inline: true
+      default:
+        - DEPARTMENT OF THE AIR FORCE
       example:
+        - DEPARTMENT OF THE AIR FORCE
         - HEADQUARTERS [UNIT NAME]
       ui:
         group: letterhead
-      description: The full organization name of your unit.
+      description: "Letterhead lines, top to bottom. The first is the department title, set larger than the rest; change it only for Joint Commands or DoW agencies. The lines below it are your unit's full organization name."
 
     letterhead_seal:
       type: enum
@@ -91,7 +92,8 @@ main:
       description: Department of War (DoW) or Department of Defense (DoD) seal shown in the letterhead.
 
     letterhead_seal_subtitle:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       ui:
         group: letterhead
@@ -123,7 +125,8 @@ main:
       description: "Select the classification marking shown in the header and footer banner. Unclassified documents typically omit this banner entirely — leave blank unless the document is CUI or classified. Mark per DAFI 16-1404 (DoDM 5200.48 for CUI) and applicable DoD guidance."
 
     dissemination:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       ui:
         group: classification
@@ -131,7 +134,8 @@ main:
       description: "Banner dissemination suffix appended after double slash (e.g. 'NF' renders as CUI//NF in the header/footer). Leave blank for no suffix."
 
     cui_controlled_by:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       ui:
         group: classification
@@ -139,7 +143,8 @@ main:
       description: "Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Required by DoDM 5200.48 when classification is CUI."
 
     cui_category:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       ui:
         group: classification
@@ -147,7 +152,8 @@ main:
       description: "CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
 
     cui_limited_dissemination:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       ui:
         group: classification
@@ -155,7 +161,8 @@ main:
       description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix above."
 
     cui_poc:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       ui:
         group: classification
@@ -178,7 +185,8 @@ main:
     cc:
       type: array
       items:
-        type: string
+        type: plaintext
+        inline: true
       default: []
       example:
         - Rank and Name, ORG/SYMBOL
@@ -189,7 +197,8 @@ main:
     distribution:
       type: array
       items:
-        type: string
+        type: plaintext
+        inline: true
       default: []
       example:
         - ORG1/SYMBOL
@@ -201,7 +210,8 @@ main:
     attachments:
       type: array
       items:
-        type: string
+        type: plaintext
+        inline: true
       default: []
       example:
         - Attachment description, YYYY MMM DD
@@ -244,14 +254,16 @@ card_kinds:
       groups: [addressing, additional]
     fields:
       from:
-        type: string
+        type: plaintext
+        inline: true
         example: ORG/SYMBOL
         ui:
           group: addressing
           compact: true
         description: Office symbol or Rank Name of the endorsing official.
       for:
-        type: string
+        type: plaintext
+        inline: true
         example: ORG/SYMBOL
         ui:
           group: addressing
@@ -260,7 +272,8 @@ card_kinds:
       signature_block:
         type: array
         items:
-          type: string
+          type: plaintext
+          inline: true
         example:
           - "FIRST M. LAST, Rank, USAF"
           - Duty Title
@@ -278,7 +291,7 @@ card_kinds:
         ui:
           group: additional
           compact: true
-        description: "'standard' (formal, same page), 'informal' (less formal routing), or 'separate_page' (begins on a new page)."
+        description: "'standard' (formal, same page), 'informal' (less formal routing), or 'separate_page' (begins on a new page). 'informal' prints no header, so an informal indorsement with an empty body is nothing but a signature block — it has no text of its own to hold it to the page, and can open a page alone. Give it a body or an action, or use 'standard'."
       action:
         type: enum
         values:
@@ -300,4 +313,4 @@ card_kinds:
         ui:
           group: additional
           compact: true
-        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fill-in line for the endorser to date by hand when signing."
+        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fillable PDF text field for the endorser to type the date into when signing."

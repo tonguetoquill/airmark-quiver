@@ -308,35 +308,40 @@
       // `context { for … }` block, where it does not combine with the
       // preceding header section's block-spacing the same way as a
       // top-level blank-line() call.
-      // AFH 33-337 §11 rule applied below: "Avoid dividing a paragraph of
-      // less than four lines between two pages"
       if any_emitted { blank-line() }
       any_emitted = true
       if i == total_count {
+        // AFH 33-337 "Signature Block": "Do not place the signature element on a
+        // continuation page by itself." The signature block that follows has no
+        // keep-with-previous of its own — Typst has no such property — so the
+        // anchor comes from this side: a sticky last element is carried onto the
+        // next page along with the signature instead of breaking away from it.
+        //
+        // Bounded, because a sticky block does not *split* at a page boundary,
+        // it relocates whole; applied to a half-page block that turns an
+        // ordinary mid-paragraph break into a wholesale jump. A third of the
+        // text block covers what a memorandum actually ends on — a closing
+        // paragraph, a short table — while leaving the long block to be divided
+        // by the break as before, which leaves its own tail on the continuation
+        // page for the signature to sit under.
+        //
+        // The budget is a fixed fraction rather than the space actually left
+        // below this element, which is the question one would rather ask. A
+        // position-dependent test cannot be answered honestly here: on the first
+        // layout pass `here()` resolves against an empty introspector and reports
+        // the top of the page, so every element measures as fitting and
+        // relocates — and from the top of its new page the same test agrees, so
+        // the wrong answer is a fixed point that later passes never revisit.
+        //
+        // (The superseded rule was sticky under four lines, reading §11 — "avoid
+        // dividing a paragraph of less than four lines between two pages" — as
+        // if it governed the signature. It does not; it governs how a paragraph
+        // may be divided. All the four-line gate did was leave every body ending
+        // in a longer paragraph, or in a table, free to strand its signature.)
         let available_width = page.width - spacing.margin * 2
-
-        // Use the shared measured line stride used by blank-line spacing.
-        let line_height = {
-          let cached = LINE_STRIDE.get()
-          if cached != none {
-            cached
-          } else {
-            let one-line = measure(par(spacing: 0pt)[x]).height
-            measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
-          }
-        }
-        // Calculate last item's height
-        let par_height = measure(final_par, width: available_width).height
-
-        let estimated_lines = calc.ceil(par_height / line_height)
-
-        if estimated_lines < 4 {
-          // Short content (< 4 lines): make sticky to keep with signature
-          block(sticky: true)[#final_par]
-        } else {
-          // Longer content (≥ 4 lines): use default breaking behavior
-          block(breakable: true)[#final_par]
-        }
+        let relocation_budget = (page.height - spacing.margin * 2) / 3
+        let element_height = measure(final_par, width: available_width).height
+        block(sticky: element_height <= relocation_budget)[#final_par]
       } else {
         // Wrap every non-last emission in a plain block so the document-wide
         // `set block(above: spacing.line)` rule contributes the same 0.5em

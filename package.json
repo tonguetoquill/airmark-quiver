@@ -1,6 +1,6 @@
 {
   "name": "@airmark/quiver",
-  "version": "0.28.0",
+  "version": "0.30.0",
   "description": "Airmark Quiver — Air Force and DAF document Quills for Quillmark.",
   "type": "module",
   "exports": {
@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@quillmark/quiver": "0.21.0",
-    "@quillmark/wasm": "^0.103.0",
-    "quillkit": "0.2.0"
+    "@quillmark/wasm": "^0.104.0",
+    "quillkit": "0.2.2"
   },
   "scripts": {
     "test": "quillkit test",

@@ -50,15 +50,27 @@
 // GENERAL UTILITY FUNCTIONS
 // =============================================================================
 
-/// Checks if a value is "falsey" (none, false, empty array, or empty string).
+/// Checks if a value is "falsey" (none, false, empty array, empty string, or
+/// empty content).
 ///
 /// Provides a consistent way to test for empty or missing values across
 /// the template system. Used for conditional rendering of optional sections.
 ///
+/// Content fields (`plaintext` / `richtext`) reach the template in one of two
+/// shapes: a blank one as the empty string `""`, a filled one as a markup
+/// block. Empty content (`[]`) is covered too, since that is what an emptied
+/// block and `join()`-over-nothing produce.
+///
 /// - value (any): The value to check for "falsey" status
 /// -> bool
 #let falsey(value) = {
-  value == none or value == false or (type(value) == array and value.len() == 0) or (type(value) == str and value == "")
+  (
+    value == none
+      or value == false
+      or (type(value) == array and value.len() == 0)
+      or (type(value) == str and value == "")
+      or value == []
+  )
 }
 
 /// Scales content to fit within a specified box while maintaining aspect ratio.
@@ -151,24 +163,32 @@
   }
 }
 
-/// Renders a horizontal rule sized to fit a handwritten date.
+/// Reserves the space a date occupies, for a date unknown at compile time.
 ///
-/// Used for indorsements whose signing date is unknown at compile time: the
-/// endorser writes the date on the line by hand when signing. The rule sits at
-/// the baseline with one line of height above it so handwritten text can be
-/// written on the line without colliding with surrounding header text.
+/// Used for indorsements whose signing date is not known when the memo is
+/// rendered: the endorser supplies it after the fact. The reserved box is one
+/// line tall and sits on the baseline, so the slot lines up with where a
+/// printed date would sit and takes exactly the space one would take.
 ///
-/// - width (length): Length of the fill-in rule; defaults to fit a long date
-///   such as "15 September 2026".
+/// `field` is the caller's fill-in widget — the Quillmark helper's
+/// `form-field(.., type: "text")`, which lowers to a fillable AcroForm text box
+/// in PDF output. It is anchored at the slot's top-left corner, the corner the
+/// widget's own rectangle grows right and down from, so a widget declared at
+/// this slot's dimensions covers it exactly. `none` (a caller with no widget to
+/// give, e.g. the package used outside Quillmark) leaves the slot blank.
+///
+/// - field (content | none): Fill-in widget to anchor in the slot
+/// - width (length): Width of the slot; defaults to fit a long date such as
+///   "15 September 2026".
 /// -> content
-#let date-placeholder-line(width: 1in) = box(
+#let date-placeholder-slot(field, width: 1in) = box(
   width: width,
   height: 1em,
-  // Keep the rule on the line's baseline so it aligns with where the printed
-  // date would sit. The 1em box height reserves the writing space above it.
-  // (A positive baseline shift would drop the rule a full line too low.)
+  // Keep the slot's bottom edge on the line's baseline, where the printed date
+  // would sit; the 1em height then reserves the line above it.
+  // (A positive baseline shift would drop the box a full line too low.)
   baseline: 0pt,
-  stroke: (bottom: 0.5pt + black),
+  if field != none { place(top + left, field) },
 )
 
 /// Gets the banner color for a classification marking.
@@ -197,7 +217,7 @@
 // GRID LAYOUT UTILITIES
 // =============================================================================
 
-/// Creates an automatic grid layout from string or array content.
+/// Creates an automatic grid layout from a cell value or array of them.
 ///
 /// Converts 1D content into a multi-column grid layout with proper spacing.
 /// Used primarily for formatting recipient lists in the "MEMORANDUM FOR" section
@@ -206,25 +226,22 @@
 /// Features:
 /// - Automatic column distribution and row filling
 /// - Configurable column spacing and count
-/// - Handles both single strings and arrays of strings
+/// - Handles a single cell or an array of them, as `str` or as content
 /// - Adds padding cells to maintain consistent column alignment
 ///
-/// - content (str | array): Content to arrange in grid (strings only)
+/// Cells may be content, not just `str`: a `plaintext` recipient list lowers
+/// each element to a markup block, which is what makes the rendered glyphs
+/// carry their own spans and so become click-navigable.
+///
+/// - content (str | content | array): Cell(s) to arrange in grid
 /// - column-gutter (length): Space between columns (default: 0.5em)
 /// - cols (int): Number of columns for the grid (default: 3)
 /// -> grid
 #let create-auto-grid(content, column-gutter: .5em, cols: 3) = {
   let content_type = type(content)
 
-  assert(content_type == str or content_type == array, message: "Content must be a string or an array of strings.")
-  if content_type == array {
-    for item in content {
-      assert(type(item) == str, message: "All items in content array must be strings.")
-    }
-  }
-
-  // Normalize to 1d array
-  if content_type == str {
+  // Normalize to 1d array. A lone cell — `str` or content — is a one-cell grid.
+  if content_type != array {
     content = (content,)
   }
 
@@ -285,33 +302,34 @@
   }
 }
 
-/// Ensures the input is a string. If already a string, returns as-is.
-/// If an array, joins elements with the specified separator.
+/// Normalizes a scalar-or-array field to a single stacked-lines **content**
+/// value, one array element per line.
 ///
-/// This utility eliminates repetitive `if type(x) == array { x.join(...) }`
-/// checks throughout the codebase by providing a canonical "normalize to string"
-/// function.
+/// This is the content-safe successor to the former `ensure-string`: every
+/// prose field the quill declares is now a `plaintext` / `richtext` field, so
+/// it arrives as Typst *content* (a markup block), and `str(..)` on content is
+/// an error. Joining with `linebreak()` rather than `"\n"` renders the same
+/// stacked lines while accepting either shape.
 ///
-/// - value: Any value to normalize to string form
-/// - separator: String to use when joining array elements (default: "\n")
-/// - Returns: String representation of the value
+/// A blank content field arrives as `""` and lands as empty content, which
+/// stays `falsey` for callers that test the result.
+///
+/// - value (any): Scalar or array of scalars/content to stack
+/// -> content
 ///
 /// Examples:
-/// - ensure-string("foo") → "foo"
-/// - ensure-string(("a", "b")) → "a\nb"
-/// - ensure-string(("a", "b"), ", ") → "a, b"
-/// - ensure-string(none) → ""
-#let ensure-string(value, separator: "\n") = {
-  if value == none {
-    ""
-  } else if type(value) == array {
-    // `().join(sep)` is `none`, not `""` — coerce so an empty array keeps the
-    // documented contract and stays `falsey` for callers that test the result.
-    let joined = value.join(separator)
-    if joined == none { "" } else { joined }
-  } else {
-    str(value)
-  }
+/// - join-lines("foo") → [foo]
+/// - join-lines(([a], [b])) → [a] + linebreak() + [b]
+/// - join-lines(()) → []
+/// - join-lines(none) → []
+#let join-lines(value) = {
+  if value == none { return [] }
+  let items = if type(value) == array { value } else { (value,) }
+  // A `str` element is wrapped so the join is content-to-content throughout;
+  // mixing `str` and content under `+` is not a legal Typst addition.
+  let joined = items.map(item => [#item]).join(linebreak())
+  // `().join(..)` is `none`, not `[]` — coerce so an empty array stays `falsey`.
+  if joined == none { [] } else { joined }
 }
 
 /// Extracts the first element from an array, or returns the value if not an array.

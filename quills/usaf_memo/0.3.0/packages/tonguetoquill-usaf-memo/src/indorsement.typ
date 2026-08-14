@@ -20,6 +20,10 @@
   signature_blank_lines: 4,
   signing_field: none,
   date: none,
+  // Fill-in widget for an omitted `date`, anchored in the date slot of the
+  // indorsement header (see `date-placeholder-slot`). `none` leaves the slot
+  // blank.
+  date_field: none,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
   // Decision action. `none` (default) displays no action line at all.
@@ -79,15 +83,21 @@
       let indorsement_number = counters.indorsement.get().at(0, default: 1)
       let indorsement_label = format-indorsement-number(indorsement_number)
 
-      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-line() }]
+      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-slot(date_field) }]
 
       // Separate-page header body: restates the original memo's identity (FROM,
       // date, subject) on its own line, since the indorsement no longer shares a
       // page with the action document. Rendered as a non-breakable, sticky unit
       // so it travels to the next page *with* the content it heads rather than
       // being stranded at the bottom of a page.
+      // `original_from` / `original_subject` are content fields, and a content
+      // field lowers to a markup block whose newlines read as spaces in the
+      // enclosing paragraph — mid-sentence that lands a stray space before the
+      // following comma. `box` gives each its own paragraph context, where
+      // Typst trims the edge spaces (the same treatment the inline reference
+      // gets in `render-subject-section`), and keeps the phrase unbroken.
       let separate-page-body = block(breakable: false, sticky: true)[
-        #[#indorsement_label to #original_from, #display-date(original_date, memo-style: memo-style), #original_subject]
+        #[#indorsement_label to #box(original_from), #display-date(original_date, memo-style: memo-style), #box(original_subject)]
         #blank-line()
         #grid(columns: (auto, 1fr), ind_from, ind_date)
         #blank-line()
@@ -100,7 +110,7 @@
       // across a page boundary and never detach from the body/signature below.
       let standard-header = block(breakable: false, sticky: true)[
         #blank-line()
-        #grid(columns: (auto, 1fr), [#indorsement_label, #ind_from], ind_date)
+        #grid(columns: (auto, 1fr), [#indorsement_label, #box(ind_from)], ind_date)
         #blank-line()
         #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", "  ", ind_for)
       ]

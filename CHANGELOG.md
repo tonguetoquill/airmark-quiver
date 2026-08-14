@@ -1,5 +1,114 @@
 # Changelog
 
+## v0.30.0 - 2026-08-13
+
+- feat(usaf_memo): merge letterhead_caption into letterhead_title (#109)
+
+
+## v0.29.0 - 2026-08-13
+
+- usaf_memo: mint 0.3.0, moving every prose field onto plaintext for region cross-navigation (#105)
+- Update enum field syntax in Quill schemas (#106)
+- usaf_memo: port #91, #92, #93 onto @quillmark/wasm 0.103 (#103)
+- Ignore build output and refresh lockfile
+
+
+## Unreleased
+
+- **An undated indorsement now renders a fillable PDF field, not a rule.** The
+  blank date slot in an indorsement header (`$cards.indorsement.<n>.date` left
+  empty, the usual case since the endorser dates the memo when signing) is an
+  empty AcroForm text box the endorser types into, replacing the 1in rule they
+  had to write on by hand. It occupies exactly the rule's box — 1in wide, one
+  line tall, sitting on the date's baseline — so surrounding layout is
+  unchanged, and it is emitted only where a header prints a date slot: an
+  indorsement carrying a date still prints that date, and an `informal`
+  indorsement still has no header to date. The widget also carries the region
+  the blank slot never had, so a click on it in a preview routes to the card's
+  `date` field. Non-PDF output (SVG/PNG) renders the slot as blank space,
+  where it previously drew the rule.
+- **`usaf_memo@0.3.0` no longer strands an indorsement signature on a page of
+  its own.** AFH 33-337 is explicit — "do not place the signature element on a
+  continuation page by itself" — but the only thing holding a signature block to
+  its text was a rule in the body renderer that made the closing element sticky
+  when it measured under four lines. A body ending in anything longer, or in a
+  table, had no anchor at all: when its last line fell within about five lines of
+  the page foot, the four blank lines were consumed at the bottom of that page
+  and the signature block opened the next one alone. Reproduced across a sweep of
+  127 generated documents, which found it in fourteen: standard, `separate_page`
+  and action-line indorsements, indorsement chains, and bodies closing on a
+  table. The rule now keys on how much space relocating the element would cost
+  rather than on a line count, so the closing element is sticky up to a third of
+  the text block — long enough to cover the paragraphs and tables a memorandum
+  actually ends on, short enough that a half-page block is still divided by the
+  break as before (which leaves its own tail on the continuation page for the
+  signature to sit under). Same sweep after the change: fourteen fixed, none
+  regressed, and the seeded example plus the CUI, DAF and backmatter documents
+  render pixel-identically.
+- **The signing field no longer lands off the page with it.** The field is drawn
+  over the blank lines above the printed name, and was positioned by reaching
+  upward out of the signature block — into space belonging to the previous page
+  whenever the block started at a top margin. It was painted over the page number
+  and the classification banner in all eighteen documents where that happened.
+  The four blank lines now sit inside the block, which is what the field is
+  measured against, so it travels with the block onto whatever page that lands
+  on. The gap above the signature is unchanged, and so is every one of the 771
+  signature regions across the sweep.
+- **Two cases stay the author's to structure around**, deliberately: each needs a
+  Typst primitive that does not exist, and engineering around either costs more
+  than it buys. Typst has no way to emit an author-facing warning (`warn` is not
+  a binding), so the guidance lives in the schema and here rather than in a
+  diagnostic.
+  - A closing paragraph or table longer than a third of the text block — about
+    fifteen lines at 12pt — is left to be divided by the page break, so if it
+    happens to end within a few lines of the page foot its signature can still
+    open a page alone. Keeping it sticky instead would relocate forty-odd lines
+    and gut the page it left. The remedy is the one AFH 33-337 itself implies:
+    split the closing paragraph. The budget is a fixed length, so smaller body
+    type buys proportionally more lines.
+  - An `informal` indorsement with no body and no action renders nothing but a
+    signature block. A section with no text of its own cannot be tied to the text
+    above it — Typst has no keep-with-previous, and the only mechanism that
+    reaches backward risks stranding the *main* memorandum's signature, trading a
+    degenerate case for a common one. Give such an indorsement a body or an
+    action, or use `standard`, which prints a header that anchors it. The
+    `format` field says so at the point the choice is made. Its signing field is
+    now on the page with it either way.
+- **`usaf_memo@0.3.0` takes the letterhead as one array.** `letterhead_caption`
+  is folded into `letterhead_title`, which is now an ordered list of lines: the
+  first is the department title, set larger, and the rest are the unit's
+  organization lines beneath it. A one-line list renders the title alone; an
+  empty list renders no letterhead text and raises nothing. This replaces a
+  split whose two halves were always authored together and whose names gave no
+  hint which line landed where. Breaking for documents pinned to `@0.3`, which
+  0.3.0 shipped too recently to have many of; `@0.2` is untouched.
+- **New quill version: `usaf_memo@0.3.0`.** Every prose field is now a content
+  field (`plaintext`, or `richtext` where AFH 33-337 calls for emphasis), so its
+  rendered glyphs carry schema-addressed regions and a preview can cross-navigate
+  to the editor field a click landed on. A `string` field lowers into the data
+  literal and places glyphs no region is keyed to; a content field lowers to a
+  markup block whose spans the backend reads geometry from. Converted:
+  `memo_for`, `memo_from`, `subject`, `signature_block`, `letterhead_title`,
+  `letterhead_seal_subtitle`, `dissemination`,
+  `cui_controlled_by`, `cui_category`, `cui_limited_dissemination`, `cui_poc`,
+  `cc`, `distribution`, `attachments`, and the indorsement card's `from`, `for`,
+  and `signature_block`. On the seeded example this takes the rendered document
+  from 5 addressable fields to 24; on a document that fills the optional fields,
+  from 10 to 35.
+- The fields that stay non-content are the ones with nothing to navigate *to*:
+  the controlled vocabularies (`classification`, `letterhead_seal`,
+  `memo_style`, `format`, `action`), `font_size`, and the `date` fields, which
+  already lower to click-to-edit value objects. `tag_line` and `references` were
+  already `richtext` and are unchanged.
+- `usaf_memo@0.2.0` is retained unchanged, so documents pinned to `@0.2` keep
+  resolving and rendering exactly as before.
+- Rendering is unchanged: across the seeded example and hand-built documents
+  covering CUI markings, a Memorandum for Record, blank optionals, DAF style,
+  inline and block references, and all three indorsement formats, output is
+  pixel-identical apart from ±1 antialiasing where a value now sits in its own
+  shaped run.
+
+
 ## v0.28.0 - 2026-08-11
 
 - Upgrade to @quillmark/wasm 0.103, quiver 0.21, and quillkit 0.2 (#101)

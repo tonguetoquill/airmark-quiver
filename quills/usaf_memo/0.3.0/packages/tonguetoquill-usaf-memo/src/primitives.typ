@@ -24,10 +24,10 @@
   letterhead-emblem-height: 1in, // emblem fit-box height; reduce for shorter emblems
 ) = {
   font = ensure-array(font)
-  title = ensure-string(title)
-  caption = ensure-string(caption)
-  title = upper(title)
-  caption = upper(caption)
+  // `upper` lowers content as readily as `str`, so the letterhead's uppercasing
+  // survives the title/caption arriving as `plaintext` markup blocks.
+  title = upper(join-lines(title))
+  caption = upper(join-lines(caption))
 
   // Letterhead corner geometry. The seal (left) and emblem (right) share one
   // reference band so the corners stay in parity: both bleed `corner-overhang`
@@ -88,7 +88,7 @@
         #stack(
           spacing: 0.5em,
           fit-box(width: corner-width, height: band-height)[#letterhead-seal],
-          box(upper(ensure-string(letterhead-seal-subtitle))),
+          box(upper(join-lines(letterhead-seal-subtitle))),
         )
       ]
     }
@@ -150,7 +150,7 @@
 // on the second line below the last line of the MEMORANDUM FOR element"
 #let render-from-section(from-info) = {
   blank-line()
-  from-info = ensure-string(from-info)
+  from-info = join-lines(from-info)
 
   grid(
     columns: (auto, auto, 1fr),
@@ -184,7 +184,10 @@
 #let render-subject-section(subject-text, inline-reference: none) = {
   blank-line()
   let content = if not blank-reference(inline-reference) {
-    [#subject-text (#box(inline-reference))]
+    // `subject-text` is a content field, so it is boxed for the same reason the
+    // inline reference is: a markup block's edge newlines would otherwise read
+    // as a space, doubling the one before the parenthesis.
+    [#box(subject-text) (#box(inline-reference))]
   } else {
     [#subject-text]
   }
@@ -221,9 +224,6 @@
 
 #let render-signature-block(signature-lines, signature-blank-lines: 4, signing-field: none) = {
   signature-lines = ensure-array(signature-lines)
-  // AFH 33-337: "fifth line below" = 4 blank lines between text and signature block.
-  // breakable: false discourages orphaning the signature block onto a page by itself.
-  blank-lines(signature-blank-lines)
   // AFH 33-337 allows two equivalent anchors: 4.5in from the left edge, or three
   // spaces right of page center. On 8.5in stock these coincide (page center =
   // 4.25in; three TNR-12pt spaces ≈ 0.25in), so we use 4.5in as the canonical
@@ -237,6 +237,13 @@
       let w = measure(text(hyphenate: false, line)).width
       if w > widest { widest = w }
     }
+    let stride = {
+      let s = LINE_STRIDE.get()
+      if s == none {
+        let one-line = measure(par(spacing: 0pt)[x]).height
+        measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
+      } else { s }
+    }
     // If the widest line would overflow the right margin at the standard
     // anchor, shift the block left just enough to fit. Clamp at 0 so the
     // block never crosses the left margin.
@@ -248,18 +255,30 @@
       default-pad
     }
     block(breakable: false)[
+      #let gap = stride * signature-blank-lines
+      // AFH 33-337: "fifth line below the last line of text" = four blank lines
+      // between the text and the signature block. Carried INSIDE the
+      // unbreakable block rather than emitted ahead of it, which keeps the gap
+      // and the block one indivisible unit. The total space above the block is
+      // identical either way — `block.above` still contributes the same 0.5em —
+      // but a gap left outside can be consumed at the foot of one page while
+      // the block starts at the top margin of the next, which is also what put
+      // the signing field off the page (see below).
+      #v(gap)
       #if signing-field != none {
-        let stride = {
-          let s = LINE_STRIDE.get()
-          if s == none {
-            let one-line = measure(par(spacing: 0pt)[x]).height
-            measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
-          } else { s }
-        }
+        // The signing field covers those blank lines — where a signature is
+        // actually written — so it is placed over the gap. With the gap inside
+        // the block that is a downward offset from the block's own origin, and
+        // the field therefore travels with the block onto whatever page it
+        // lands on. The superseded form placed it at a NEGATIVE dy, reaching
+        // above the block into space that belongs to the previous page: when
+        // the block started at the top margin, the field was painted into the
+        // header band over the page number and the classification banner, or
+        // off the sheet entirely.
         place(
           dx: left-pad,
-          dy: -(stride * signature-blank-lines),
-          box(width: body-width - left-pad, height: stride * signature-blank-lines, signing-field),
+          dy: 0pt,
+          box(width: body-width - left-pad, height: gap, signing-field),
         )
       }
       #align(left)[
@@ -389,7 +408,7 @@
       let items = ensure-array(content)
       enum(..items, numbering: numbering-style)
     } else {
-      ensure-string(content)
+      join-lines(content)
     }
   }
 

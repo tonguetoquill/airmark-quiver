@@ -44,23 +44,26 @@
 
   let actual_date = if date == none { datetime.today() } else { date }
 
+  // The banner is `LEVEL` or `LEVEL//SUFFIX`. `classification_level` is an enum
+  // (a `str`), but `dissemination` is a `plaintext` field and so arrives as
+  // content, which `str + str` cannot absorb — the marking is assembled as
+  // content instead, keeping the suffix's glyphs click-navigable on every page
+  // the banner repeats on.
   let classification_marking = if classification_level == none or type(classification_level) != str {
     none
   } else {
     let base = classification_level.trim()
     if base == "" {
       none
+    } else if falsey(dissemination) {
+      [#base]
     } else {
-      let disp = if dissemination == none or type(dissemination) != str {
-        ""
-      } else {
-        dissemination.trim()
-      }
-      if disp != "" {
-        base + "//" + upper(disp)
-      } else {
-        base
-      }
+      // `//` is a line comment in Typst markup, so the separator is
+      // interpolated as a string rather than written literally. The suffix is
+      // boxed so the markup block's edge newlines do not read as a space and
+      // split the banner into `CUI// NF`.
+      let separator = "//"
+      [#base#separator#box(upper(dissemination))]
     }
   }
   let classification_color = get-classification-level-color(classification_level)
@@ -73,19 +76,21 @@
     and type(classification_level) == str
     and classification_level.trim().starts-with("CUI")
   ) {
+    // Each indicator is a `plaintext` field, so it arrives as content when set
+    // and as `""` when blank — `falsey` is the shape-agnostic presence test
+    // that the former `type(..) == str and ..trim() != ""` guard replaces.
     let lines = ()
-    if cui_controlled_by != none and type(cui_controlled_by) == str and cui_controlled_by.trim() != "" {
-      lines.push([Controlled By: #cui_controlled_by.trim()])
+    if not falsey(cui_controlled_by) {
+      lines.push([Controlled By: #cui_controlled_by])
     }
-    if cui_category != none and type(cui_category) == str and cui_category.trim() != "" {
-      lines.push([CUI Category: #cui_category.trim()])
+    if not falsey(cui_category) {
+      lines.push([CUI Category: #cui_category])
     }
-    let ldc = if cui_limited_dissemination != none and type(cui_limited_dissemination) == str { cui_limited_dissemination.trim() } else { "" }
-    if ldc != "" {
-      lines.push([LDC: #upper(ldc)])
+    if not falsey(cui_limited_dissemination) {
+      lines.push([LDC: #upper(cui_limited_dissemination)])
     }
-    if cui_poc != none and type(cui_poc) == str and cui_poc.trim() != "" {
-      lines.push([POC: #cui_poc.trim()])
+    if not falsey(cui_poc) {
+      lines.push([POC: #cui_poc])
     }
     if lines.len() > 0 { lines.join(linebreak()) } else { none }
   } else {
