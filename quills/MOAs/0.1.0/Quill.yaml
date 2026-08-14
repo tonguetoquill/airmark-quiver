@@ -9,14 +9,7 @@ typst:
 
 main:
   body:
-    example: |
-      FINANCIAL DETAILS [include Attachment A in all reimbursable MOAs; if the MOA is not reimbursable add, "This MOA does not provide for reimbursement between the Parties"]:
-
-      - AVAILABILITY OF FUNDS. This MOA does not document the obligation of funds between the Parties. The obligation of funds by the Parties, resulting from this MOA, is subject to the availability of funds pursuant to the DoD Financial Management Regulation. No provision in this MOA will be interpreted to require obligation or payment of funds in violation of the Anti-Deficiency Act, Section 1341 of Title 31, United States Code.
-      - BILLING. The [First Party] will bill the [Second Party] on a monthly basis in accordance with the procedures of the Billing Party. A record of the transaction will be sent to the [Second Party] within 30 calendar days after the month in which the transaction occurred.
-      - PAYMENT OF BILLS. The [Second Party] paying office will forward payments, along with a copy of billed invoices, to the [First Party] within 30 calendar days of the date of invoice. Bills rendered will not be subject to audit in advance of payment.
-      - FINANCIAL SPECIFICS. See Attachment A for all other details and information on the reimbursable support identified in this MOA. [This section must also include any allowance or advance payments to be made.]
-      - ECONOMY ACT DETERMINATION AND FINDINGS (D&F). If the MOA is being entered into in accordance with Section 1535 of Title 31, United States Code (the Economy Act), both Parties agree that the requirements listed in Paragraph (a) of the Economy Act have been met. [Add the following sentence if the provider is an OSD or DoD Component] The provider has determined that the capabilities exist to render the requested support without jeopardizing its assigned missions. [Add the following sentence only if a separate, written Economy Act D&F is required.] Any required Economy Act D&F has been completed.
+    enabled: false
   fields:
     first_party_name:
       type: string
@@ -210,7 +203,7 @@ card_kinds:
         PERSONNEL: [Explain each Party's responsibility for all costs of its personnel, including pay and benefits, support, and travel, if applicable to the agreement. Each Party is responsible for supervision and management of its personnel. For shared supervision or management, explain the process to accomplish that.]
 
   general_provisions:
-    description: "General Provisions section covering points of contact, termination, expiration, and other standard MOA terms. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after personnel, before any remaining freeform body text (e.g. Financial Details)."
+    description: "General Provisions section covering points of contact, termination, expiration, and other standard MOA terms. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after personnel, before financial_details."
     ui:
       title: General Provisions
     body:
@@ -238,8 +231,22 @@ card_kinds:
         - SEVERABILITY. If any term, provision, or condition of this MOA is held to be invalid, void, or unenforceable by a governmental authority and such holding is not or cannot be appealed further, then such invalid, void, or unenforceable term, provision, or condition shall be deemed severed from this MOA and all remaining terms, provisions, and conditions of this MOA shall continue in full force and effect. The Parties shall endeavor in good faith to replace such invalid, void, or unenforceable term, provision, or condition with valid and enforceable terms, provisions, or conditions which achieve the purpose intended by the Parties to the greatest extent permitted by law.
         - OTHER FEDERAL AGENCIES. This MOA does not bind any federal agency, other than the Parties, nor waive required compliance with any law or regulation.
 
+  financial_details:
+    description: "Financial Details section (DoDI 4000.19 paragraph 7) covering availability of funds, billing, payment, and Economy Act determination. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after general_provisions, before list_of_attachments."
+    ui:
+      title: Financial Details
+    body:
+      example: |
+        FINANCIAL DETAILS [include Attachment A in all reimbursable MOAs; if the MOA is not reimbursable add, "This MOA does not provide for reimbursement between the Parties"]:
+
+        - AVAILABILITY OF FUNDS. This MOA does not document the obligation of funds between the Parties. The obligation of funds by the Parties, resulting from this MOA, is subject to the availability of funds pursuant to the DoD Financial Management Regulation. No provision in this MOA will be interpreted to require obligation or payment of funds in violation of the Anti-Deficiency Act, Section 1341 of Title 31, United States Code.
+        - BILLING. The [First Party] will bill the [Second Party] on a monthly basis in accordance with the procedures of the Billing Party. A record of the transaction will be sent to the [Second Party] within 30 calendar days after the month in which the transaction occurred.
+        - PAYMENT OF BILLS. The [Second Party] paying office will forward payments, along with a copy of billed invoices, to the [First Party] within 30 calendar days of the date of invoice. Bills rendered will not be subject to audit in advance of payment.
+        - FINANCIAL SPECIFICS. See Attachment A for all other details and information on the reimbursable support identified in this MOA. [This section must also include any allowance or advance payments to be made.]
+        - ECONOMY ACT DETERMINATION AND FINDINGS (D&F). If the MOA is being entered into in accordance with Section 1535 of Title 31, United States Code (the Economy Act), both Parties agree that the requirements listed in Paragraph (a) of the Economy Act have been met. [Add the following sentence if the provider is an OSD or DoD Component] The provider has determined that the capabilities exist to render the requested support without jeopardizing its assigned missions. [Add the following sentence only if a separate, written Economy Act D&F is required.] Any required Economy Act D&F has been completed.
+
   list_of_attachments:
-    description: "List of Attachments section enumerating this MOA's attachments. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders last, after any remaining freeform body text, immediately before the signature blocks."
+    description: "List of Attachments section enumerating this MOA's attachments. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders last, after financial_details, immediately before the signature blocks."
     ui:
       title: List of Attachments
     body:

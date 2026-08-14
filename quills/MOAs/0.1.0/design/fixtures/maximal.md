@@ -23,14 +23,6 @@ second_party_signatory: "ROBERT T. LEE, Program Manager"
 mid_point_review_due_date: "2028-07-22"
 ---
 
-FINANCIAL DETAILS:
-
-- AVAILABILITY OF FUNDS. This MOA does not document the obligation of funds between the Parties. The obligation of funds by the Parties, resulting from this MOA, is subject to the availability of funds pursuant to the DoD Financial Management Regulation. No provision in this MOA will be interpreted to require obligation or payment of funds in violation of the Anti-Deficiency Act, Section 1341 of Title 31, United States Code.
-- BILLING. The Air Force Materiel Command (AFMC) will bill the National Aeronautics and Space Administration (NASA) on a monthly basis in accordance with the procedures of the Billing Party. A record of the transaction will be sent to the National Aeronautics and Space Administration (NASA) within 30 calendar days after the month in which the transaction occurred.
-- PAYMENT OF BILLS. The National Aeronautics and Space Administration (NASA) paying office will forward payments, along with a copy of billed invoices, to the Air Force Materiel Command (AFMC) within 30 calendar days of the date of invoice. Bills rendered will not be subject to audit in advance of payment.
-- FINANCIAL SPECIFICS. See Attachment A for all other details and information on the reimbursable support identified in this MOA.
-- ECONOMY ACT DETERMINATION AND FINDINGS (D&F). If the MOA is being entered into in accordance with Section 1535 of Title 31, United States Code (the Economy Act), both Parties agree that the requirements listed in Paragraph (a) of the Economy Act have been met. The provider has determined that the capabilities exist to render the requested support without jeopardizing its assigned missions. Any required Economy Act D&F has been completed.
-
 ```card background
 
 ```
@@ -91,6 +83,17 @@ GENERAL PROVISIONS:
 - NO THIRD PARTY BENEFICIARIES. Nothing in this MOA, express or implied, is intended to give to, or will be construed to confer upon, any person or entity not a party any remedy or claim under or by reason of this MOA and this MOA will be for the sole and exclusive benefit of the Parties.
 - SEVERABILITY. If any term, provision, or condition of this MOA is held to be invalid, void, or unenforceable by a governmental authority and such holding is not or cannot be appealed further, then such invalid, void, or unenforceable term, provision, or condition shall be deemed severed from this MOA and all remaining terms, provisions, and conditions of this MOA shall continue in full force and effect. The Parties shall endeavor in good faith to replace such invalid, void, or unenforceable term, provision, or condition with valid and enforceable terms, provisions, or conditions which achieve the purpose intended by the Parties to the greatest extent permitted by law.
 - OTHER FEDERAL AGENCIES. This MOA does not bind any federal agency, other than the Parties, nor waive required compliance with any law or regulation.
+
+```card financial_details
+
+```
+FINANCIAL DETAILS:
+
+- AVAILABILITY OF FUNDS. This MOA does not document the obligation of funds between the Parties. The obligation of funds by the Parties, resulting from this MOA, is subject to the availability of funds pursuant to the DoD Financial Management Regulation. No provision in this MOA will be interpreted to require obligation or payment of funds in violation of the Anti-Deficiency Act, Section 1341 of Title 31, United States Code.
+- BILLING. The Air Force Materiel Command (AFMC) will bill the National Aeronautics and Space Administration (NASA) on a monthly basis in accordance with the procedures of the Billing Party. A record of the transaction will be sent to the National Aeronautics and Space Administration (NASA) within 30 calendar days after the month in which the transaction occurred.
+- PAYMENT OF BILLS. The National Aeronautics and Space Administration (NASA) paying office will forward payments, along with a copy of billed invoices, to the Air Force Materiel Command (AFMC) within 30 calendar days of the date of invoice. Bills rendered will not be subject to audit in advance of payment.
+- FINANCIAL SPECIFICS. See Attachment A for all other details and information on the reimbursable support identified in this MOA.
+- ECONOMY ACT DETERMINATION AND FINDINGS (D&F). If the MOA is being entered into in accordance with Section 1535 of Title 31, United States Code (the Economy Act), both Parties agree that the requirements listed in Paragraph (a) of the Economy Act have been met. The provider has determined that the capabilities exist to render the requested support without jeopardizing its assigned missions. Any required Economy Act D&F has been completed.
 
 ```card list_of_attachments
 

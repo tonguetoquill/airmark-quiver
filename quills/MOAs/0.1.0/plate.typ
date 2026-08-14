@@ -57,12 +57,11 @@
 #let responsibilities_of_the_parties = card-body("responsibilities_of_the_parties")
 #let personnel = card-body("personnel")
 #let general_provisions = card-body("general_provisions")
+#let financial_details = card-body("financial_details")
 #let list_of_attachments = card-body("list_of_attachments")
 
-// ── Mainmatter: freeform body text, auto-numbered per DoDI 4000.19 ─────────
-// Section cards render in document order around any remaining freeform body
-// text (e.g. Financial Details), which itself renders after
-// general_provisions and before list_of_attachments.
+// ── Mainmatter: every standard section is its own card, spliced together
+// here in DoDI 4000.19 document order ─────────────────────────────────────
 #mainmatter[
   #if background != none [#background]
   #if authorities != none [#authorities]
@@ -70,7 +69,7 @@
   #if responsibilities_of_the_parties != none [#responsibilities_of_the_parties]
   #if personnel != none [#personnel]
   #if general_provisions != none [#general_provisions]
-  #data.at("$body")
+  #if financial_details != none [#financial_details]
   #if list_of_attachments != none [#list_of_attachments]
 ]
 
