@@ -297,14 +297,11 @@ card_kinds:
           - undecided
           - approve
           - disapprove
-          - undecided_concur
-          - concur
-          - nonconcur
         default: ""
         ui:
           group: additional
           compact: true
-        description: "Decision taken by the endorser, shown as an either/or line with the choice circled. Leave blank to hide the line entirely. Approval authority: 'approve' or 'disapprove' (use 'undecided' to print Approve/Disapprove for the endorser to circle by hand). Coordinating official: 'concur' or 'nonconcur' (use 'undecided_concur' to print Concur/Nonconcur unmarked)."
+        description: "Decision taken by the endorser, shown as an either/or line with the choice underlined and the rejected option struck out. Leave blank to hide the line entirely. The wording is automatic: the last indorsement is the approval authority and reads Approve/Disapprove, while every earlier one is a coordinating official and reads Concur/Nonconcur. Use 'undecided' to print the pair unmarked for the endorser to mark by hand."
       date:
         type: date
         default: ""

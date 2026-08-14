@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+- **An indorsement's action line now words itself, and marks the choice with an
+  underline.** `$cards.indorsement.<n>.action` no longer asks which pair of
+  options to print — it carries only the decision (`approve`, `disapprove`, or
+  `undecided`), and `usaf_memo@0.3.0` derives the wording from the
+  indorsement's place in the chain: the last indorsement is the approval
+  authority and reads Approve / Disapprove, every one before it is a
+  coordinating official and reads Concur / Nonconcur. The `concur`,
+  `nonconcur`, and `undecided_concur` values are gone; a card carrying one now
+  fails validation and should be re-pointed at the matching decision
+  (`concur` → `approve`, `nonconcur` → `disapprove`, `undecided_concur` →
+  `undecided`). Blank still hides the line entirely. The selected option is
+  also underlined rather than enclosed in a rounded box, which in a rendered
+  PDF read as a fillable form widget sitting among the real ones; the rejected
+  option is still struck out.
+
+
 ## v0.31.0 - 2026-08-14
 
 - chore: migrate to @quillmark/wasm 0.105 and quiver 0.23
