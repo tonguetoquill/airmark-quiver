@@ -1,0 +1,19 @@
+[package]
+name = "typst-afmc-moa"
+version = "0.1.0"
+compiler = "0.14.0"
+entrypoint = "src/lib.typ"
+authors = ["Airmark"]
+license = "Apache-2.0"
+description = "Typeset DoD Memoranda of Agreement compliant with DoDI 4000.19."
+keywords = [
+    "MOA",
+    "Memorandum of Agreement",
+    "DoDI 4000.19",
+    "DoD",
+    "support agreement",
+    "official",
+    "correspondence",
+]
+categories = ["office", "report"]
+disciplines = ["law", "business", "politics"]

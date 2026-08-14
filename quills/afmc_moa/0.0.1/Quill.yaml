@@ -1,0 +1,289 @@
+quill:
+  name: afmc_moa
+  version: 0.0.1
+  backend: typst
+  description: DoD Memorandum of Agreement (DoDI 4000.19)
+
+typst:
+  plate_file: plate.typ
+
+main:
+  ui:
+    groups: [parties, correspondence, terms, financial_details, signatures]
+  body:
+    enabled: false
+  fields:
+    first_party_name:
+      type: plaintext
+      inline: true
+      example: "[First Party Name and Acronym]"
+      ui:
+        group: parties
+      description: "Full organization name and acronym of the first party (the MOA's proponent). Printed as 'THE [FIRST PARTY]' in the title block and referenced throughout as '[the First Party]'."
+
+    second_party_name:
+      type: plaintext
+      inline: true
+      example: "[Second Party Name and Acronym]"
+      ui:
+        group: parties
+      description: "Full organization name and acronym of the second party. Printed as 'THE [SECOND PARTY]' in the title block."
+
+    second_party_is_non_government:
+      type: boolean
+      default: false
+      ui:
+        group: parties
+        compact: true
+      description: "If the second party is a non-governmental entity, its mailing address is included in the intro paragraph identifying the Parties."
+
+    subject:
+      type: plaintext
+      inline: true
+      example: "[Insert Subject]"
+      ui:
+        group: parties
+      description: "Subject of the agreement, printed in the title block ('FOR [SUBJECT]') and on the Attachment A cover if reimbursable."
+
+    agreement_number:
+      type: plaintext
+      inline: true
+      example: "[Insert Agreement Number]"
+      ui:
+        group: parties
+      description: Unique agreement identification number, printed in the title block.
+
+    second_party_mailing_address:
+      type: array
+      items:
+        type: plaintext
+      default: []
+      example:
+        - "[Insert Second Party Mailing Address]"
+      ui:
+        group: correspondence
+      description: "Second Party's mailing address for MOA correspondence and notices. Also shown in the intro paragraph if second_party_is_non_government is true."
+
+    reimbursable:
+      type: boolean
+      default: false
+      ui:
+        group: terms
+        compact: true
+      description: "Whether this MOA provides for reimbursement between the Parties. When true, adds the Attachment A financial details page after the signature blocks."
+
+    reimbursable_support:
+      type: richtext
+      inline: true
+      default: ""
+      example: "[Insert Reimbursable Support]"
+      ui:
+        group: financial_details
+      description: "Attachment A, item 1: description of the reimbursable support. Only used when reimbursable is true."
+
+    estimated_amount:
+      type: plaintext
+      inline: true
+      default: ""
+      example: "$[Insert Estimated Amount]"
+      ui:
+        group: financial_details
+        compact: true
+      description: "Attachment A, item 2: estimated amount of funds to be reimbursed. Only used when reimbursable is true."
+
+    appropriation_fy:
+      type: plaintext
+      inline: true
+      default: ""
+      example: "[Insert Appropriation FY]"
+      ui:
+        group: financial_details
+        compact: true
+      description: "Attachment A, item 2: appropriation fiscal year. Only used when reimbursable is true."
+
+    cost_center_provider:
+      type: plaintext
+      inline: true
+      default: ""
+      example: "[Insert Provider Cost Center Number]"
+      ui:
+        group: financial_details
+        compact: true
+      description: "Attachment A, item 3: provider's cost center number, if required. Only used when reimbursable is true."
+
+    cost_center_receiver:
+      type: plaintext
+      inline: true
+      default: ""
+      example: "[Insert Receiver Cost Center Number]"
+      ui:
+        group: financial_details
+        compact: true
+      description: "Attachment A, item 3: receiver's cost center number, if required. Only used when reimbursable is true."
+
+    financial_poc_provider:
+      type: plaintext
+      inline: true
+      default: ""
+      example: "[Insert Provider Financial POC]"
+      ui:
+        group: financial_details
+      description: "Attachment A, item 4: provider's financial point of contact. Only used when reimbursable is true."
+
+    financial_poc_receiver:
+      type: plaintext
+      inline: true
+      default: ""
+      example: "[Insert Receiver Financial POC]"
+      ui:
+        group: financial_details
+      description: "Attachment A, item 4: receiver's financial point of contact. Only used when reimbursable is true."
+
+    financial_additional_info:
+      type: richtext
+      inline: true
+      default: ""
+      example: "[Insert Any Additional Financial Information]"
+      ui:
+        group: financial_details
+      description: "Attachment A, item 5: any other financial information required by DoD 7000.14-R or desired in the agreement. Only used when reimbursable is true."
+
+    first_party_signatory:
+      type: plaintext
+      inline: true
+      example: "[First Party Signatory Name and Title]"
+      ui:
+        group: signatures
+      description: "Name and title of the First Party's approval authority, printed under the signature line."
+
+    second_party_signatory:
+      type: plaintext
+      inline: true
+      example: "[Second Party Signatory Name and Title]"
+      ui:
+        group: signatures
+      description: "Name and title of the Second Party's approval authority, printed under the signature line."
+
+    mid_point_review_due_date:
+      type: date
+      ui:
+        group: signatures
+        compact: true
+      description: "Due date for the mid-point review of the agreement, printed below the signature blocks."
+
+card_kinds:
+  background:
+    description: "Background section (DoDI 4000.19 paragraph 1) explaining the circumstances leading to this MOA. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders before authorities."
+    ui:
+      title: Background
+    body:
+      example: |
+        BACKGROUND: [If there is a need to discuss background, do so here. Normally, there is no need to discuss the background or provide justification for the MOA, particularly if between OSD or DoD Components. Occasionally, however, there is a desire to explain the need for the MOA; particularly where it is not self-evident from the purpose or it is with another federal agency.]
+
+  authorities:
+    description: "Authorities section citing the legal basis for this MOA. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after background, before purpose_and_scope."
+    ui:
+      title: Authorities
+    body:
+      example: |
+        AUTHORITIES: [State the legal authority upon which the reimbursable MOA is based, such as the Economy Act, or any other legal or significant authority that authorizes any such actions associated with this MOA. Discuss the authorities of the Parties here. If the other Party is another federal agency and insists on stating what it believes to be its own authority, preface that assertion with "The [Party] asserts the following authority:" The DoD has no obligation to agree with such assertions of authority by other federal agencies.]
+
+  purpose_and_scope:
+    description: "Purpose and Scope section describing what this MOA establishes. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after authorities, before responsibilities_of_the_parties."
+    ui:
+      title: Purpose and Scope
+    body:
+      example: |
+        PURPOSE AND SCOPE: [State the purpose and the scope of the MOA here. Always use this paragraph.]
+
+  responsibilities_of_the_parties:
+    description: "Responsibilities of the Parties section listing each party's obligations under this MOA. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after purpose_and_scope, before personnel."
+    ui:
+      title: Responsibilities of the Parties
+    body:
+      example: |
+        RESPONSIBILITIES OF THE PARTIES:
+
+        - The [First Party] will—
+          - [insert as many responsibilities as necessary but ensure all the specific requirements of the Party are listed]
+        - The [Second Party] will—
+          - [insert as many responsibilities as necessary but ensure all the specific obligations of the Party are listed]
+        - Both Parties will—
+          - [insert as many responsibilities as necessary but ensure that they apply to both Parties]
+
+  personnel:
+    description: "Personnel section describing each party's responsibility for its own personnel costs. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after responsibilities_of_the_parties, before general_provisions."
+    ui:
+      title: Personnel
+    body:
+      example: |
+        PERSONNEL: [Explain each Party's responsibility for all costs of its personnel, including pay and benefits, support, and travel, if applicable to the agreement. Each Party is responsible for supervision and management of its personnel. For shared supervision or management, explain the process to accomplish that.]
+
+  general_provisions:
+    description: "General Provisions section covering points of contact, termination, expiration, and other standard MOA terms. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after personnel, before financial_details."
+    ui:
+      title: General Provisions
+    body:
+      example: |
+        GENERAL PROVISIONS:
+
+        - POINTS OF CONTACT (POCS). The following POCs will be used by the Parties to communicate matters concerning this MOA. Each Party may change its POC upon reasonable notice to the other Party.
+          - For the [First Party]—
+            - Name, position, office identification, phone number and email of primary POC:
+            - Position, office identification, phone number and email of alternate POC:
+          - For the [Second Party]—
+            - Position, office identification, phone number and email of primary POC:
+            - Position, office identification, phone number and email of alternate POC:
+        - CORRESPONDENCE. All correspondence to be sent and notices to be given pursuant to this MOA will be addressed, if to the [First Party], to [insert mailing address], and, if to the [Second Party], to [insert mailing address], or as may from time to time otherwise be directed by the Parties.
+        - REVIEW OF AGREEMENT. If non-reimbursable, this MOA will be reviewed no less often than mid-point on or around the anniversary of its effective date in its entirety. If reimbursable, this MOA will be reviewed on or around the anniversary of its effective date annually for financial impacts; if there are substantial changes in resource requirements, the agreement will be reviewed in its entirety.
+        - MODIFICATION OF AGREEMENT. This MOA may only be modified by the written agreement of the Parties, duly signed by their authorized representatives.
+        - DISPUTES. Any disputes relating to this MOA will, subject to any applicable law, Executive Order, or DoD issuance, be resolved by consultation between the Parties.
+        - TERMINATION OF AGREEMENT. This MOA may be terminated by either Party by giving at least __ days' written notice to the other Party. The MOA may also be terminated at any time upon the mutual written consent of the Parties.
+        - TRANSFERABILITY. This MOA is not transferable except with the written consent of the Parties.
+        - ENTIRE AGREEMENT. It is expressly understood and agreed that this MOA embodies the entire agreement between the Parties regarding the MOA's subject matter, thereby merging and superseding all prior agreements and representations by the Parties with respect to such subject matter.
+        - EFFECTIVE DATE. This MOA takes effect beginning on the day after the last Party signs.
+        - EXPIRATION DATE. This MOA expires on ________. [insert a date]
+        - CANCELLATION OR MODIFICATION OF PREVIOUS AGREEMENT. This MOA modifies or cancels and supersedes the previously signed agreement between the same Parties with the subject ______, Agreement # _______ and effective date of _______. [Use this paragraph only when needed to cancel or modify a previous agreement]
+        - NO THIRD PARTY BENEFICIARIES. Nothing in this MOA, express or implied, is intended to give to, or will be construed to confer upon, any person or entity not a party any remedy or claim under or by reason of this MOA and this MOA will be for the sole and exclusive benefit of the Parties.
+        - SEVERABILITY. If any term, provision, or condition of this MOA is held to be invalid, void, or unenforceable by a governmental authority and such holding is not or cannot be appealed further, then such invalid, void, or unenforceable term, provision, or condition shall be deemed severed from this MOA and all remaining terms, provisions, and conditions of this MOA shall continue in full force and effect. The Parties shall endeavor in good faith to replace such invalid, void, or unenforceable term, provision, or condition with valid and enforceable terms, provisions, or conditions which achieve the purpose intended by the Parties to the greatest extent permitted by law.
+        - OTHER FEDERAL AGENCIES. This MOA does not bind any federal agency, other than the Parties, nor waive required compliance with any law or regulation.
+
+  financial_details:
+    description: "Financial Details section (DoDI 4000.19 paragraph 7) covering availability of funds, billing, payment, and Economy Act determination. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after general_provisions, before list_of_attachments."
+    ui:
+      title: Financial Details
+    body:
+      example: |
+        FINANCIAL DETAILS [include Attachment A in all reimbursable MOAs; if the MOA is not reimbursable add, "This MOA does not provide for reimbursement between the Parties"]:
+
+        - AVAILABILITY OF FUNDS. This MOA does not document the obligation of funds between the Parties. The obligation of funds by the Parties, resulting from this MOA, is subject to the availability of funds pursuant to the DoD Financial Management Regulation. No provision in this MOA will be interpreted to require obligation or payment of funds in violation of the Anti-Deficiency Act, Section 1341 of Title 31, United States Code.
+        - BILLING. The [First Party] will bill the [Second Party] on a monthly basis in accordance with the procedures of the Billing Party. A record of the transaction will be sent to the [Second Party] within 30 calendar days after the month in which the transaction occurred.
+        - PAYMENT OF BILLS. The [Second Party] paying office will forward payments, along with a copy of billed invoices, to the [First Party] within 30 calendar days of the date of invoice. Bills rendered will not be subject to audit in advance of payment.
+        - FINANCIAL SPECIFICS. See Attachment A for all other details and information on the reimbursable support identified in this MOA. [This section must also include any allowance or advance payments to be made.]
+        - ECONOMY ACT DETERMINATION AND FINDINGS (D&F). If the MOA is being entered into in accordance with Section 1535 of Title 31, United States Code (the Economy Act), both Parties agree that the requirements listed in Paragraph (a) of the Economy Act have been met. [Add the following sentence if the provider is an OSD or DoD Component] The provider has determined that the capabilities exist to render the requested support without jeopardizing its assigned missions. [Add the following sentence only if a separate, written Economy Act D&F is required.] Any required Economy Act D&F has been completed.
+
+  list_of_attachments:
+    description: "List of Attachments section enumerating this MOA's attachments. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders last, after financial_details, immediately before the signature blocks."
+    ui:
+      title: List of Attachments
+    body:
+      example: |
+        LIST OF ATTACHMENTS:
+
+        - [List each attachment here, e.g. "Attachment A, Financial Details".]
+
+  attachment:
+    description: "A lettered attachment to the MOA, starting at Attachment B (Attachment A is reserved for the reimbursable financial-details page and is generated automatically when 'reimbursable' is true). Each card starts on its own page."
+    ui:
+      title: Attachment
+    body:
+      example: |
+        [Describe the attachment's content here.]
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        example: "[Insert Attachment Title]"
+        ui:
+          group: attachment
+        description: "Subject of the attachment, printed on the cover line ('to [subject], [agreement_number] [title]')."
