@@ -1,5 +1,5 @@
 ~~~
-$quill: afmc_moa@0.1.0
+$quill: afmc_moa@0.0.1
 $kind: main
 first_party_name: Air Force Materiel Command (AFMC)
 second_party_name: National Aeronautics and Space Administration (NASA)

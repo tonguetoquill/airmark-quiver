@@ -1,6 +1,6 @@
 quill:
   name: afmc_moa
-  version: 0.1.0
+  version: 0.0.1
   backend: typst
   description: DoD Memorandum of Agreement (DoDI 4000.19)
 

@@ -14,7 +14,7 @@ and aligned to the current Quillmark spec.
 | `af4141`     | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment)  |
 | `daf1206`    | 0.1.0   | DAF Form 1206 — Nomination for Award                                              |
 | `daf4392`    | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                            |
-| `afmc_moa`   | 0.1.0   | DoD Memorandum of Agreement (DoDI 4000.19)                                        |
+| `afmc_moa`   | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                        |
 
 ## Install
 
