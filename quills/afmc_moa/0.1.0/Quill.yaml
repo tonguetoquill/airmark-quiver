@@ -1,5 +1,5 @@
 quill:
-  name: moa
+  name: afmc_moa
   version: 0.1.0
   backend: typst
   description: DoD Memorandum of Agreement (DoDI 4000.19)
@@ -8,6 +8,8 @@ typst:
   plate_file: plate.typ
 
 main:
+  ui:
+    groups: [parties, correspondence, terms, financial_details, signatures]
   body:
     enabled: false
   fields:
@@ -15,21 +17,21 @@ main:
       type: string
       example: "[First Party Name and Acronym]"
       ui:
-        group: Parties
+        group: parties
       description: "Full organization name and acronym of the first party (the MOA's proponent). Printed as 'THE [FIRST PARTY]' in the title block and referenced throughout as '[the First Party]'."
 
     second_party_name:
       type: string
       example: "[Second Party Name and Acronym]"
       ui:
-        group: Parties
+        group: parties
       description: "Full organization name and acronym of the second party. Printed as 'THE [SECOND PARTY]' in the title block."
 
     second_party_is_non_government:
       type: boolean
       default: false
       ui:
-        group: Parties
+        group: parties
         compact: true
       description: "If the second party is a non-governmental entity, its mailing address is included in the intro paragraph identifying the Parties."
 
@@ -37,31 +39,32 @@ main:
       type: string
       example: "[Insert Subject]"
       ui:
-        group: Parties
+        group: parties
       description: "Subject of the agreement, printed in the title block ('FOR [SUBJECT]') and on the Attachment A cover if reimbursable."
 
     agreement_number:
       type: string
       example: "[Insert Agreement Number]"
       ui:
-        group: Parties
+        group: parties
       description: Unique agreement identification number, printed in the title block.
 
     second_party_mailing_address:
       type: array
       items:
         type: string
+      default: []
       example:
         - "[Insert Second Party Mailing Address]"
       ui:
-        group: Correspondence
+        group: correspondence
       description: "Second Party's mailing address for MOA correspondence and notices. Also shown in the intro paragraph if second_party_is_non_government is true."
 
     reimbursable:
       type: boolean
       default: false
       ui:
-        group: Terms
+        group: terms
         compact: true
       description: "Whether this MOA provides for reimbursement between the Parties. When true, adds the Attachment A financial details page after the signature blocks."
 
@@ -70,7 +73,7 @@ main:
       default: ""
       example: "[Insert Reimbursable Support]"
       ui:
-        group: Financial Details
+        group: financial_details
       description: "Attachment A, item 1: description of the reimbursable support. Only used when reimbursable is true."
 
     estimated_amount:
@@ -78,7 +81,7 @@ main:
       default: ""
       example: "$[Insert Estimated Amount]"
       ui:
-        group: Financial Details
+        group: financial_details
         compact: true
       description: "Attachment A, item 2: estimated amount of funds to be reimbursed. Only used when reimbursable is true."
 
@@ -87,7 +90,7 @@ main:
       default: ""
       example: "[Insert Appropriation FY]"
       ui:
-        group: Financial Details
+        group: financial_details
         compact: true
       description: "Attachment A, item 2: appropriation fiscal year. Only used when reimbursable is true."
 
@@ -96,7 +99,7 @@ main:
       default: ""
       example: "[Insert Provider Cost Center Number]"
       ui:
-        group: Financial Details
+        group: financial_details
         compact: true
       description: "Attachment A, item 3: provider's cost center number, if required. Only used when reimbursable is true."
 
@@ -105,7 +108,7 @@ main:
       default: ""
       example: "[Insert Receiver Cost Center Number]"
       ui:
-        group: Financial Details
+        group: financial_details
         compact: true
       description: "Attachment A, item 3: receiver's cost center number, if required. Only used when reimbursable is true."
 
@@ -114,7 +117,7 @@ main:
       default: ""
       example: "[Insert Provider Financial POC]"
       ui:
-        group: Financial Details
+        group: financial_details
       description: "Attachment A, item 4: provider's financial point of contact. Only used when reimbursable is true."
 
     financial_poc_receiver:
@@ -122,7 +125,7 @@ main:
       default: ""
       example: "[Insert Receiver Financial POC]"
       ui:
-        group: Financial Details
+        group: financial_details
       description: "Attachment A, item 4: receiver's financial point of contact. Only used when reimbursable is true."
 
     financial_additional_info:
@@ -130,27 +133,27 @@ main:
       default: ""
       example: "[Insert Any Additional Financial Information]"
       ui:
-        group: Financial Details
+        group: financial_details
       description: "Attachment A, item 5: any other financial information required by DoD 7000.14-R or desired in the agreement. Only used when reimbursable is true."
 
     first_party_signatory:
       type: string
       example: "[First Party Signatory Name and Title]"
       ui:
-        group: Signatures
+        group: signatures
       description: "Name and title of the First Party's approval authority, printed under the signature line."
 
     second_party_signatory:
       type: string
       example: "[Second Party Signatory Name and Title]"
       ui:
-        group: Signatures
+        group: signatures
       description: "Name and title of the Second Party's approval authority, printed under the signature line."
 
     mid_point_review_due_date:
       type: date
       ui:
-        group: Signatures
+        group: signatures
         compact: true
       description: "Due date for the mid-point review of the agreement, printed below the signature blocks."
 
@@ -267,5 +270,5 @@ card_kinds:
         type: string
         example: "[Insert Attachment Title]"
         ui:
-          group: Attachment
+          group: attachment
         description: "Subject of the attachment, printed on the cover line ('to [subject], [agreement_number] [title]')."

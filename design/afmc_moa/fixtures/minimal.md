@@ -1,5 +1,6 @@
----
-QUILL: moa@0.1.0
+~~~
+$quill: afmc_moa@0.1.0
+$kind: main
 first_party_name: Air Force Materiel Command (AFMC)
 second_party_name: National Aeronautics and Space Administration (NASA)
 subject: Reciprocal Use of Test Facilities
@@ -12,16 +13,16 @@ reimbursable: false
 first_party_signatory: "JANE A. DOE, Director"
 second_party_signatory: "ROBERT T. LEE, Program Manager"
 mid_point_review_due_date: "2028-07-22"
----
+~~~
 
-```card purpose_and_scope
-
-```
+~~~
+$kind: purpose_and_scope
+~~~
 PURPOSE AND SCOPE: To establish reciprocal access to environmental test facilities between the Parties in support of joint developmental test programs.
 
-```card responsibilities_of_the_parties
-
-```
+~~~
+$kind: responsibilities_of_the_parties
+~~~
 RESPONSIBILITIES OF THE PARTIES:
 
 - The Air Force Materiel Command (AFMC) will—
@@ -29,22 +30,22 @@ RESPONSIBILITIES OF THE PARTIES:
 - The National Aeronautics and Space Administration (NASA) will—
   - Provide 30 days' advance notice of scheduling requests.
 
-```card personnel
-
-```
+~~~
+$kind: personnel
+~~~
 PERSONNEL: Each Party is responsible for all costs of its personnel, including pay and benefits, support, and travel. Each Party is responsible for supervision and management of its personnel.
 
-```card general_provisions
-
-```
+~~~
+$kind: general_provisions
+~~~
 GENERAL PROVISIONS:
 
 - TERMINATION OF AGREEMENT. This MOA may be terminated by either Party by giving at least 30 days' written notice to the other Party.
 - EXPIRATION DATE. This MOA expires on 22 July 2031.
 
-```card list_of_attachments
-
-```
+~~~
+$kind: list_of_attachments
+~~~
 LIST OF ATTACHMENTS:
 
 - None.

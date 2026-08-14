@@ -24,29 +24,38 @@ import re
 import sys
 from collections import defaultdict
 
-import fitz
+import pymupdf as fitz
 import yaml
 
-CARD_FENCE_RE = re.compile(r"^```card (\S+)\n(.*?)\n```\n?", re.MULTILINE | re.DOTALL)
+# A Quillmark document is a sequence of `~~~`-fenced card-yaml blocks, each
+# followed by that card's markdown body. The first block is the root card
+# (`$quill` + `$kind: main`); the rest are `$kind: <kind>` section cards.
+CARD_FENCE_RE = re.compile(r"^~~~\n(.*?)\n~~~\n?", re.MULTILINE | re.DOTALL)
 
 
 def load_fixture(fixture_path):
     text = open(fixture_path, encoding="utf-8").read()
-    _, frontmatter, rest = text.split("---", 2)
-    data = yaml.safe_load(frontmatter)
 
-    cards = []
-    body_end = len(rest)
-    for m in CARD_FENCE_RE.finditer(rest):
-        if body_end == len(rest):
-            body_end = m.start()
-        card_fields = yaml.safe_load(m.group(2)) or {}
-        card_body_start = m.end()
-        next_m = CARD_FENCE_RE.search(rest, card_body_start)
-        card_body = rest[card_body_start : next_m.start() if next_m else len(rest)]
-        cards.append((m.group(1), card_fields, card_body.strip()))
+    blocks = []
+    for m in CARD_FENCE_RE.finditer(text):
+        fields = yaml.safe_load(m.group(1)) or {}
+        body_start = m.end()
+        next_m = CARD_FENCE_RE.search(text, body_start)
+        body = text[body_start : next_m.start() if next_m else len(text)]
+        blocks.append((fields, body.strip()))
 
-    body = rest[:body_end].strip()
+    if not blocks:
+        raise SystemExit(f"{fixture_path}: no `~~~` card blocks found")
+
+    root_fields, body = blocks[0]
+    if root_fields.get("$kind") != "main":
+        raise SystemExit(f"{fixture_path}: first card must be `$kind: main`")
+
+    data = {k: v for k, v in root_fields.items() if not k.startswith("$")}
+    cards = [
+        (fields.get("$kind"), {k: v for k, v in fields.items() if not k.startswith("$")}, card_body)
+        for fields, card_body in blocks[1:]
+    ]
     return data, body, cards
 
 
@@ -112,8 +121,19 @@ def validate(fixture_path, pdf_path):
     # on "ATTACHMENT <letter>" markers before checking chain contiguity —
     # otherwise attachments' restarted "1." would look like a numbering gap
     # in the main body's sequence.
-    snippet = first_snippet(body)
-    check(f"main body content present (fixture's first line: {snippet!r})", present(snippet), failures)
+    # The quill sets `main.body.enabled: false` — every standard section is its
+    # own card, spliced into the body by the plate. So check each section
+    # card's text made it into the render, rather than the (always empty)
+    # root-card body.
+    if body:
+        snippet = first_snippet(body)
+        check(f"main body content present (fixture's first line: {snippet!r})", present(snippet), failures)
+    for tag, _fields, card_body in cards:
+        if tag == "attachment":
+            continue  # attachments are checked separately, below
+        snippet = first_snippet(card_body)
+        if snippet:
+            check(f"section '{tag}' content present", present(snippet), failures)
     parts = re.split(r"\nATTACHMENT ([A-Z])\n", full_text)
     check_chain_numbering(parts[0], "main body", failures)
     for letter, scope in zip(parts[1::2], parts[2::2]):

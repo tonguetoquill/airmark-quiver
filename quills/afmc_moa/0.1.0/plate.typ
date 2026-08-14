@@ -1,5 +1,5 @@
 #import "@local/quillmark-helper:0.1.0": data, signature-field
-#import "@local/typst-moa:0.1.0": attachment, attachment-card, backmatter, frontmatter, mainmatter
+#import "@local/typst-afmc-moa:0.1.0": attachment, attachment-card, backmatter, frontmatter, mainmatter
 
 // Resolve optional fields with defaults; required fields are read directly
 // since Quill.yaml enforces their presence.
@@ -10,7 +10,7 @@
   subject: data.subject,
   agreement_number: data.agreement_number,
 
-  second_party_mailing_address: data.second_party_mailing_address,
+  second_party_mailing_address: data.at("second_party_mailing_address", default: ()),
 
   reimbursable: data.at("reimbursable", default: false),
   reimbursable_support: data.at("reimbursable_support", default: ""),
@@ -87,13 +87,15 @@
 // ── Attachment A: only for reimbursable MOAs ────────────────────────────────
 #if resolved.reimbursable { attachment(resolved) }
 
-// ── Attachments B, C, ...: iterate through CARDS array and filter by CARD tag
-#for (i, card) in data.at("$cards").enumerate() {
-  if card.at("$kind") == "attachment" {
-    // The quillmark helper leaves an unset/whitespace-only markdown body as
-    // the empty string `""`; only non-empty bodies are eval'd into content.
-    let body = card.at("$body", default: "")
-    let body_content = if type(body) == str { [] } else { body }
-    attachment-card(numbering("A", i + 2), resolved, card.title, body_content)
-  }
+// ── Attachments B, C, ...: filter to attachment cards first, then letter them
+// by their position among *attachments*. The standard sections above are also
+// cards in the same `$cards` array, so enumerating the array as a whole would
+// letter the first attachment by its global index (J, not B).
+#let attachment_cards = data.at("$cards").filter(card => card.at("$kind") == "attachment")
+#for (i, card) in attachment_cards.enumerate() {
+  // The quillmark helper leaves an unset/whitespace-only markdown body as
+  // the empty string `""`; only non-empty bodies are eval'd into content.
+  let body = card.at("$body", default: "")
+  let body_content = if type(body) == str { [] } else { body }
+  attachment-card(numbering("A", i + 2), resolved, card.title, body_content)
 }

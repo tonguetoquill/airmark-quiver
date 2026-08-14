@@ -1,10 +1,10 @@
-// lib.typ — public API for the typst-moa package
+// lib.typ — public API for the typst-afmc-moa package
 //
 // Implements a DoDI 4000.19 Memorandum of Agreement (Figure 1).
 //
 // Basic usage:
 //
-//   #import "@local/typst-moa:0.1.0": frontmatter, mainmatter, attachment, attachment-card, backmatter
+//   #import "@local/typst-afmc-moa:0.1.0": frontmatter, mainmatter, attachment, attachment-card, backmatter
 //
 //   #show: frontmatter.with(
 //     first_party_name:  "Air Force Materiel Command (AFMC)",

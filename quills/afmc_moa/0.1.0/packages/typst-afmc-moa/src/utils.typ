@@ -44,10 +44,23 @@
   if v == none { "" } else if type(v) == array { v.join(sep) } else { str(v) }
 }
 
-/// Format a date value for inline display ("22 July 2026"); pass strings through.
+/// Format a date value for inline display ("22 July 2026").
+///
+/// Dispatches on the shape a date field can arrive in:
+/// - str: shown as-is (fixed text like a placeholder).
+/// - datetime: a native Typst datetime (e.g. `datetime.today()`).
+/// - dict: a Quillmark `date`/`datetime` field lowers to a click-to-edit value
+///   object `{ value: datetime, display: closure }`; `display` is a stored
+///   closure, so it must be called through parentheses — a dict has no
+///   `.display` method.
 #let format-date(d) = {
-  if d == none { "" } else if type(d) == str { d } else {
-    d.display("[day padding:none] [month repr:long] [year]")
+  if d == none {
+    ""
+  } else if type(d) == str {
+    d
+  } else {
+    let pattern = "[day padding:none] [month repr:long] [year]"
+    if type(d) == datetime { d.display(pattern) } else { (d.display)(pattern) }
   }
 }
 

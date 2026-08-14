@@ -1,5 +1,6 @@
----
-QUILL: moa@0.1.0
+~~~
+$quill: afmc_moa@0.1.0
+$kind: main
 first_party_name: Air Force Materiel Command (AFMC)
 second_party_name: National Aeronautics and Space Administration (NASA)
 second_party_is_non_government: true
@@ -21,26 +22,26 @@ financial_additional_info: Payment is due in accordance with the Prompt Payment 
 first_party_signatory: "JANE A. DOE, Director"
 second_party_signatory: "ROBERT T. LEE, Program Manager"
 mid_point_review_due_date: "2028-07-22"
----
+~~~
 
-```card background
-
-```
+~~~
+$kind: background
+~~~
 BACKGROUND: The Parties have historically shared access to environmental test facilities on an ad hoc basis; this MOA formalizes that arrangement going forward.
 
-```card authorities
-
-```
+~~~
+$kind: authorities
+~~~
 AUTHORITIES: This MOA is entered into under the authority of the Economy Act, 31 U.S.C. Section 1535, as amended.
 
-```card purpose_and_scope
-
-```
+~~~
+$kind: purpose_and_scope
+~~~
 PURPOSE AND SCOPE: To establish reciprocal access to environmental test facilities between the Parties in support of joint developmental test programs.
 
-```card responsibilities_of_the_parties
-
-```
+~~~
+$kind: responsibilities_of_the_parties
+~~~
 RESPONSIBILITIES OF THE PARTIES:
 
 - The Air Force Materiel Command (AFMC) will—
@@ -53,14 +54,14 @@ RESPONSIBILITIES OF THE PARTIES:
   - Coordinate safety reviews prior to any joint test event.
   - Exchange test data relevant to shared facility usage within 10 business days of test completion.
 
-```card personnel
-
-```
+~~~
+$kind: personnel
+~~~
 PERSONNEL: Each Party is responsible for all costs of its personnel, including pay and benefits, support, and travel. Each Party is responsible for supervision and management of its personnel.
 
-```card general_provisions
-
-```
+~~~
+$kind: general_provisions
+~~~
 GENERAL PROVISIONS:
 
 - POINTS OF CONTACT (POCS). The following POCs will be used by the Parties to communicate matters concerning this MOA. Each Party may change its POC upon reasonable notice to the other Party.
@@ -84,9 +85,9 @@ GENERAL PROVISIONS:
 - SEVERABILITY. If any term, provision, or condition of this MOA is held to be invalid, void, or unenforceable by a governmental authority and such holding is not or cannot be appealed further, then such invalid, void, or unenforceable term, provision, or condition shall be deemed severed from this MOA and all remaining terms, provisions, and conditions of this MOA shall continue in full force and effect. The Parties shall endeavor in good faith to replace such invalid, void, or unenforceable term, provision, or condition with valid and enforceable terms, provisions, or conditions which achieve the purpose intended by the Parties to the greatest extent permitted by law.
 - OTHER FEDERAL AGENCIES. This MOA does not bind any federal agency, other than the Parties, nor waive required compliance with any law or regulation.
 
-```card financial_details
-
-```
+~~~
+$kind: financial_details
+~~~
 FINANCIAL DETAILS:
 
 - AVAILABILITY OF FUNDS. This MOA does not document the obligation of funds between the Parties. The obligation of funds by the Parties, resulting from this MOA, is subject to the availability of funds pursuant to the DoD Financial Management Regulation. No provision in this MOA will be interpreted to require obligation or payment of funds in violation of the Anti-Deficiency Act, Section 1341 of Title 31, United States Code.
@@ -95,17 +96,25 @@ FINANCIAL DETAILS:
 - FINANCIAL SPECIFICS. See Attachment A for all other details and information on the reimbursable support identified in this MOA.
 - ECONOMY ACT DETERMINATION AND FINDINGS (D&F). If the MOA is being entered into in accordance with Section 1535 of Title 31, United States Code (the Economy Act), both Parties agree that the requirements listed in Paragraph (a) of the Economy Act have been met. The provider has determined that the capabilities exist to render the requested support without jeopardizing its assigned missions. Any required Economy Act D&F has been completed.
 
-```card list_of_attachments
-
-```
+~~~
+$kind: list_of_attachments
+~~~
 LIST OF ATTACHMENTS:
 
 - Attachment A, Financial Details
 - Attachment B, Facility Safety Requirements
+- Attachment C, Test Data Exchange Formats
 
-```card attachment
+~~~
+$kind: attachment
 title: "Facility Safety Requirements"
-```
+~~~
 All personnel entering the thermal-vacuum chamber area will complete the First Party's facility safety orientation prior to first access.
 
 The Second Party will notify the First Party's facility manager at least 24 hours before any test event involving hazardous materials.
+
+~~~
+$kind: attachment
+title: "Test Data Exchange Formats"
+~~~
+Test data exchanged under this MOA will be delivered in a non-proprietary format agreed to by both facility managers prior to the test event.
