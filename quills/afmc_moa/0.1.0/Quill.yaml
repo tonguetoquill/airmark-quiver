@@ -14,14 +14,16 @@ main:
     enabled: false
   fields:
     first_party_name:
-      type: string
+      type: plaintext
+      inline: true
       example: "[First Party Name and Acronym]"
       ui:
         group: parties
       description: "Full organization name and acronym of the first party (the MOA's proponent). Printed as 'THE [FIRST PARTY]' in the title block and referenced throughout as '[the First Party]'."
 
     second_party_name:
-      type: string
+      type: plaintext
+      inline: true
       example: "[Second Party Name and Acronym]"
       ui:
         group: parties
@@ -36,14 +38,16 @@ main:
       description: "If the second party is a non-governmental entity, its mailing address is included in the intro paragraph identifying the Parties."
 
     subject:
-      type: string
+      type: plaintext
+      inline: true
       example: "[Insert Subject]"
       ui:
         group: parties
       description: "Subject of the agreement, printed in the title block ('FOR [SUBJECT]') and on the Attachment A cover if reimbursable."
 
     agreement_number:
-      type: string
+      type: plaintext
+      inline: true
       example: "[Insert Agreement Number]"
       ui:
         group: parties
@@ -52,7 +56,7 @@ main:
     second_party_mailing_address:
       type: array
       items:
-        type: string
+        type: plaintext
       default: []
       example:
         - "[Insert Second Party Mailing Address]"
@@ -69,7 +73,8 @@ main:
       description: "Whether this MOA provides for reimbursement between the Parties. When true, adds the Attachment A financial details page after the signature blocks."
 
     reimbursable_support:
-      type: string
+      type: richtext
+      inline: true
       default: ""
       example: "[Insert Reimbursable Support]"
       ui:
@@ -77,7 +82,8 @@ main:
       description: "Attachment A, item 1: description of the reimbursable support. Only used when reimbursable is true."
 
     estimated_amount:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       example: "$[Insert Estimated Amount]"
       ui:
@@ -86,7 +92,8 @@ main:
       description: "Attachment A, item 2: estimated amount of funds to be reimbursed. Only used when reimbursable is true."
 
     appropriation_fy:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       example: "[Insert Appropriation FY]"
       ui:
@@ -95,7 +102,8 @@ main:
       description: "Attachment A, item 2: appropriation fiscal year. Only used when reimbursable is true."
 
     cost_center_provider:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       example: "[Insert Provider Cost Center Number]"
       ui:
@@ -104,7 +112,8 @@ main:
       description: "Attachment A, item 3: provider's cost center number, if required. Only used when reimbursable is true."
 
     cost_center_receiver:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       example: "[Insert Receiver Cost Center Number]"
       ui:
@@ -113,7 +122,8 @@ main:
       description: "Attachment A, item 3: receiver's cost center number, if required. Only used when reimbursable is true."
 
     financial_poc_provider:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       example: "[Insert Provider Financial POC]"
       ui:
@@ -121,7 +131,8 @@ main:
       description: "Attachment A, item 4: provider's financial point of contact. Only used when reimbursable is true."
 
     financial_poc_receiver:
-      type: string
+      type: plaintext
+      inline: true
       default: ""
       example: "[Insert Receiver Financial POC]"
       ui:
@@ -129,7 +140,8 @@ main:
       description: "Attachment A, item 4: receiver's financial point of contact. Only used when reimbursable is true."
 
     financial_additional_info:
-      type: string
+      type: richtext
+      inline: true
       default: ""
       example: "[Insert Any Additional Financial Information]"
       ui:
@@ -137,14 +149,16 @@ main:
       description: "Attachment A, item 5: any other financial information required by DoD 7000.14-R or desired in the agreement. Only used when reimbursable is true."
 
     first_party_signatory:
-      type: string
+      type: plaintext
+      inline: true
       example: "[First Party Signatory Name and Title]"
       ui:
         group: signatures
       description: "Name and title of the First Party's approval authority, printed under the signature line."
 
     second_party_signatory:
-      type: string
+      type: plaintext
+      inline: true
       example: "[Second Party Signatory Name and Title]"
       ui:
         group: signatures
@@ -267,7 +281,8 @@ card_kinds:
         [Describe the attachment's content here.]
     fields:
       title:
-        type: string
+        type: plaintext
+        inline: true
         example: "[Insert Attachment Title]"
         ui:
           group: attachment

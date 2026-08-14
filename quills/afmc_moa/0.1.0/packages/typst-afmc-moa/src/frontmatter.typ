@@ -2,7 +2,7 @@
 // DoDI 4000.19 Memorandum of Agreement (Figure 1)
 
 #import "config.typ": DEFAULT_BODY_FONTS, TITLE_TOP_GAP, spacing
-#import "utils.typ": LINE_STRIDE, blank-line, blank-lines, ensure-string, falsey
+#import "utils.typ": LINE_STRIDE, blank-line, blank-lines, falsey, join-inline
 
 #let frontmatter(
   first_party_name: none,
@@ -61,7 +61,7 @@
   // entity, include its address]. When referred to collectively, the [First
   // Party] and the [Second Party] are referred to as the 'Parties.'"
   let second-party-clause = if second_party_is_non_government {
-    second_party_name + " (" + ensure-string(second_party_mailing_address, sep: ", ") + ")"
+    [#second_party_name (#join-inline(second_party_mailing_address))]
   } else {
     second_party_name
   }

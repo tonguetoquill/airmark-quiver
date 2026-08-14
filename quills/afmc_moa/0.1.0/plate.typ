@@ -1,29 +1,39 @@
 #import "@local/quillmark-helper:0.1.0": data, signature-field
-#import "@local/typst-afmc-moa:0.1.0": attachment, attachment-card, backmatter, frontmatter, mainmatter
+#import "@local/typst-afmc-moa:0.1.0": (
+  attachment, attachment-card, backmatter, frontmatter, mainmatter, trim-inline,
+)
+
+// Every text field is `plaintext`/`richtext`, so it arrives as content carrying
+// a space element on each side. `trim-inline` strips those once, here, so the
+// package can interpolate a field straight into prose without it printing as
+// "the Foo  and" or "(NASA) ." — and without boxing, which would stop a long
+// party name from wrapping.
+#let text-field(key, default: "") = trim-inline(data.at(key, default: default))
 
 // Resolve optional fields with defaults; required fields are read directly
 // since Quill.yaml enforces their presence.
 #let resolved = (
-  first_party_name: data.first_party_name,
-  second_party_name: data.second_party_name,
+  first_party_name: text-field("first_party_name"),
+  second_party_name: text-field("second_party_name"),
   second_party_is_non_government: data.at("second_party_is_non_government", default: false),
-  subject: data.subject,
-  agreement_number: data.agreement_number,
+  subject: text-field("subject"),
+  agreement_number: text-field("agreement_number"),
 
+  // Joined inline by the package, which trims each line itself.
   second_party_mailing_address: data.at("second_party_mailing_address", default: ()),
 
   reimbursable: data.at("reimbursable", default: false),
-  reimbursable_support: data.at("reimbursable_support", default: ""),
-  estimated_amount: data.at("estimated_amount", default: ""),
-  appropriation_fy: data.at("appropriation_fy", default: ""),
-  cost_center_provider: data.at("cost_center_provider", default: ""),
-  cost_center_receiver: data.at("cost_center_receiver", default: ""),
-  financial_poc_provider: data.at("financial_poc_provider", default: ""),
-  financial_poc_receiver: data.at("financial_poc_receiver", default: ""),
-  financial_additional_info: data.at("financial_additional_info", default: ""),
+  reimbursable_support: text-field("reimbursable_support"),
+  estimated_amount: text-field("estimated_amount"),
+  appropriation_fy: text-field("appropriation_fy"),
+  cost_center_provider: text-field("cost_center_provider"),
+  cost_center_receiver: text-field("cost_center_receiver"),
+  financial_poc_provider: text-field("financial_poc_provider"),
+  financial_poc_receiver: text-field("financial_poc_receiver"),
+  financial_additional_info: text-field("financial_additional_info"),
 
-  first_party_signatory: data.first_party_signatory,
-  second_party_signatory: data.second_party_signatory,
+  first_party_signatory: text-field("first_party_signatory"),
+  second_party_signatory: text-field("second_party_signatory"),
   mid_point_review_due_date: data.mid_point_review_due_date,
 )
 
@@ -97,5 +107,5 @@
   // the empty string `""`; only non-empty bodies are eval'd into content.
   let body = card.at("$body", default: "")
   let body_content = if type(body) == str { [] } else { body }
-  attachment-card(numbering("A", i + 2), resolved, card.title, body_content)
+  attachment-card(numbering("A", i + 2), resolved, trim-inline(card.title), body_content)
 }

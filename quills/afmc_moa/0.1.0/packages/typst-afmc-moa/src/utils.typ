@@ -27,11 +27,15 @@
 // General helpers
 // ---------------------------------------------------------------------------
 
-/// True when value is none / false / "" / [].
+/// True when value is none / false / "" / empty content / empty array.
+///
+/// A `plaintext`/`richtext` field lowers to content when it holds text, but an
+/// unset one arrives as the empty `str` — so both shapes have to be checked.
 #let falsey(v) = (
   v == none or v == false
     or (type(v) == array and v.len() == 0)
     or (type(v) == str and v == "")
+    or (type(v) == content and v == [])
 )
 
 /// Wrap a non-array value in a tuple; pass arrays through.
@@ -39,9 +43,43 @@
   if v == none { () } else if type(v) == array { v } else { (v,) }
 }
 
-/// Join an array with a separator; pass strings through.
-#let ensure-string(v, sep: "\n") = {
-  if v == none { "" } else if type(v) == array { v.join(sep) } else { str(v) }
+/// Strips the padding a `plaintext`/`richtext` field carries, so the value can
+/// be interpolated straight into prose.
+///
+/// Such a field lowers to a sequence padded with space elements —
+/// `[ ], [Air Force Materiel Command], [ ], [(AFMC)], [ ]` — and, as an array
+/// item, a trailing `parbreak()`:  `[ ], [NASA/ABC], parbreak()`. Left alone
+/// those print as "the Foo  and", "(NASA) .", or push each array element onto
+/// its own line. Boxing the value hides them but makes it unbreakable, which
+/// forces a long party name onto a line of its own; trimming keeps it
+/// breakable and tight.
+///
+/// Non-content values (an unset field arrives as the empty `str`) pass through.
+#let trim-inline(v) = {
+  if type(v) != content { return v }
+  let kids = v.at("children", default: none)
+  if kids == none { return v }
+  let padding(c) = c == [ ] or c.func() == parbreak
+  while kids.len() > 0 and padding(kids.first()) { kids = kids.slice(1) }
+  while kids.len() > 0 and padding(kids.last()) { kids = kids.slice(0, -1) }
+  kids.sum(default: [])
+}
+
+/// Join a value (or array of values) into one inline run, separated by `sep`.
+///
+/// `plaintext`/`richtext` fields lower to content, and `str + content` is not a
+/// legal Typst addition, so every element is wrapped as content before joining.
+///
+/// - join-inline("foo") → [foo]
+/// - join-inline(([a], [b]), sep: ", ") → [a, b]
+/// - join-inline(()) → []
+/// - join-inline(none) → []
+#let join-inline(value, sep: ", ") = {
+  if value == none { return [] }
+  let items = if type(value) == array { value } else { (value,) }
+  // `().join(..)` is `none`, not `[]` — coerce so an empty array stays falsey.
+  let joined = items.map(item => [#trim-inline(item)]).join(sep)
+  if joined == none { [] } else { joined }
 }
 
 /// Format a date value for inline display ("22 July 2026").
