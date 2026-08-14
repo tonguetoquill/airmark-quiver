@@ -6,49 +6,54 @@
   // Letterhead configuration
   letterhead_title: data.letterhead_title,
   letterhead_caption: data.letterhead_caption,
-  letterhead_seal_subtitle: data.at("letterhead_seal_subtitle", default: none),
-  letterhead_seal: image(
-    if data.at("letterhead_seal", default: "dow") == "dod" {
-      "assets/dod_seal.png"
-    } else {
-      "assets/dow_seal.png"
-    }
-  ),
+  letterhead_seal_subtitle: data.letterhead_seal_subtitle,
+  // Enum blank is `""`, not a seal. Omit so the package renders none rather
+  // than treating the blank as DoW.
+  ..if data.letterhead_seal != "" {
+    (letterhead_seal: image(
+      if data.letterhead_seal == "dod" {
+        "assets/dod_seal.png"
+      } else {
+        "assets/dow_seal.png"
+      }
+    ))
+  },
 
   // Date
-  date: data.at("date", default: none),
+  date: data.date,
 
   // Receiver information
   memo_for: data.memo_for,
 
   // Sender information (omitted for Memorandum for Record)
-  ..if data.at("memo_from", default: ()).len() > 0 { (memo_from: data.memo_from) },
+  ..if data.memo_from.len() > 0 { (memo_from: data.memo_from) },
 
   // Subject line
   subject: data.subject,
 
   // Optional references
-  ..if "references" in data { (references: data.references) },
+  ..if data.references.len() > 0 { (references: data.references) },
 
   // Optional footer tag line
-  ..if "tag_line" in data { (footer_tag_line: data.tag_line) },
+  footer_tag_line: data.tag_line,
 
   // Optional classification level
-  ..if "classification" in data { (classification_level: data.classification) },
+  ..if data.classification != "" { (classification_level: data.classification) },
 
-  ..if "dissemination" in data { (dissemination: data.dissemination) },
+  ..if data.dissemination != "" { (dissemination: data.dissemination) },
 
   // CUI designation indicator block fields (DoDM 5200.48)
-  ..if "cui_controlled_by" in data { (cui_controlled_by: data.cui_controlled_by) },
-  ..if "cui_category" in data { (cui_category: data.cui_category) },
-  ..if "cui_limited_dissemination" in data { (cui_limited_dissemination: data.cui_limited_dissemination) },
-  ..if "cui_poc" in data { (cui_poc: data.cui_poc) },
+  ..if data.cui_controlled_by != "" { (cui_controlled_by: data.cui_controlled_by) },
+  ..if data.cui_category != "" { (cui_category: data.cui_category) },
+  ..if data.cui_limited_dissemination != "" { (cui_limited_dissemination: data.cui_limited_dissemination) },
+  ..if data.cui_poc != "" { (cui_poc: data.cui_poc) },
 
-  // USAF vs DAF memorandum style (date format, body indentation)
-  memo_style: data.at("memo_style", default: "usaf"),
+  // USAF vs DAF memorandum style (date format, body indentation). Blank
+  // falls through to the package's `"usaf"` default.
+  ..if data.memo_style != "" { (memo_style: data.memo_style) },
 
   // Font size
-  font_size: data.at("font_size", default: 12) * 1pt,
+  font_size: data.font_size * 1pt,
 
   // List recipients in vertical list
   memo_for_cols: 1,
@@ -69,18 +74,18 @@
   signing_field: signature-field("Signature", field: "signature_block"),
 
   // Optional cc
-  ..if "cc" in data { (cc: data.cc) },
+  ..if data.cc.len() > 0 { (cc: data.cc) },
 
   // Optional distribution
-  ..if "distribution" in data { (distribution: data.distribution) },
+  ..if data.distribution.len() > 0 { (distribution: data.distribution) },
 
   // Optional attachments
-  ..if "attachments" in data { (attachments: data.attachments) },
+  ..if data.attachments.len() > 0 { (attachments: data.attachments) },
 )
 
 // Indorsements - iterate through CARDS array and filter by CARD tag
 #for (i, card) in data.at("$cards").enumerate() {
-  if card.at("$kind") == "indorsement" {
+  if card.at("$kind", default: none) == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
     // Pass truly empty content (`[]`) in the empty case so indorsement can
@@ -91,7 +96,7 @@
     // it (distinct from the originating memo's date). The signing date is
     // generally unknown at compile time and filled in by hand, so a blank or
     // omitted date renders a fill-in line rather than stamping the compile date.
-    let card_date = card.at("date", default: none)
+    let card_date = card.date
     let resolved_date = if card_date == none or card_date == "" {
       none
     } else {
@@ -111,9 +116,9 @@
         "Ind_" + str(i) + "_Signature",
         field: card.at("$path") + "signature_block",
       ),
-      format: card.at("format", default: "standard"),
+      ..if card.format != "" { (format: card.format) },
       date: resolved_date,
-      ..if "action" in card { (action: card.action) },
+      ..if card.action != "" { (action: card.action) },
       body_content,
     )
   }

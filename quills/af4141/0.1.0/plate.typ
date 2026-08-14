@@ -37,10 +37,10 @@
 #let vals = (:)
 
 // --- Admin fields (page 1 header) ---
-#if "name" in data { vals.insert("commonforms_text_p1_1", data.name) }
-#if "unit" in data { vals.insert("commonforms_text_p1_2", data.unit) }
-#if "grade" in data { vals.insert("commonforms_text_p1_3", data.grade) }
-#if "commanders_auth" in data { vals.insert("commonforms_text_p1_116", data.commanders_auth) }
+#if data.name != "" { vals.insert("commonforms_text_p1_1", data.name) }
+#if data.unit != "" { vals.insert("commonforms_text_p1_2", data.unit) }
+#if data.grade != "" { vals.insert("commonforms_text_p1_3", data.grade) }
+#if data.commanders_auth != "" { vals.insert("commonforms_text_p1_116", data.commanders_auth) }
 
 // --- Experience table rows from CARDS ---
 // The form supports 16 rows on page 1 and 21 rows on page 2 (37 total).
@@ -49,7 +49,7 @@
 #{
   let row = 0
   for card in data.at("$cards") {
-    if card.at("$kind") == "experience" {
+    if card.at("$kind", default: none) == "experience" {
       if row < max-rows {
         for (col, key) in col-keys.enumerate() {
           let value = form-cell(card.at(key, default: none))

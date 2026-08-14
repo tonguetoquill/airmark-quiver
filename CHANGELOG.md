@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Migrate to `@quillmark/wasm` 0.105 and `@quillmark/quiver` 0.23. Enum blanks
+  are engine-supplied (`""` is no longer a `values:` member), so
+  `classification` and `action` drop the empty member and keep `default: ""`;
+  plates branch over `values ∪ blank` instead of treating an unanswered enum as
+  the first variant.
+
+
 ## v0.30.0 - 2026-08-13
 
 - feat(usaf_memo): merge letterhead_caption into letterhead_title (#109)
