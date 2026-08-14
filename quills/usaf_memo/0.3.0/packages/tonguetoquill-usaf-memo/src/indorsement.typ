@@ -27,11 +27,15 @@
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
   // Decision action. `none` (default) displays no action line at all.
-  // Approval authority pair: "approve" or "disapprove" circles the selected
-  // option; "undecided" displays the pair with neither circled.
-  // Coordination pair: "concur" or "nonconcur" circles the selected option;
-  // "undecided_concur" displays the pair with neither circled.
+  // "approve" or "disapprove" underlines the selected option and strikes the
+  // other; "undecided" displays the pair with neither marked.
   action: none,
+  // Role this indorsement plays in the coordination chain, which selects the
+  // wording of the action line: the approval authority (the last indorsement
+  // in the chain) Approves / Disapproves, every coordinating official before
+  // it Concurs / Nonconcurs. The caller owns this because only it can see
+  // whether further indorsements follow.
+  approval_authority: false,
   content,
 ) = {
   // Validate format parameter
@@ -160,7 +164,11 @@
 
   // Show action line only when an action decision is set (not `none`)
   if effective_action != none {
-    render-action-line(effective_action, trailing-blank-line: not body_empty)
+    render-action-line(
+      effective_action,
+      approval-authority: approval_authority,
+      trailing-blank-line: not body_empty,
+    )
   }
 
   if not body_empty {

@@ -95,6 +95,26 @@
   ..if data.attachments.len() > 0 { (attachments: data.attachments) },
 )
 
+// The action line's wording follows the indorsement's place in the chain, not
+// an endorser's choice: the last indorsement is the approval authority and
+// reads Approve / Disapprove, every one before it is a coordinating official
+// and reads Concur / Nonconcur. Only this loop can see whether an indorsement
+// is the last one, so the position is resolved here and passed down. Cards of
+// other kinds may interleave, so the last indorsement is the last card *of
+// this kind*, not the last card. `-1` never matches a real index, which is the
+// wanted result when there are no indorsements at all.
+// Parenthesized so the method chain can span lines: in markup, a `#let` whose
+// expression ends at a line break stops there, and the next line's leading
+// `.at(…)` would be read as text.
+#let last_indorsement_index = (
+  data
+    .at("$cards")
+    .enumerate()
+    .filter(entry => entry.at(1).at("$kind", default: none) == "indorsement")
+    .map(entry => entry.at(0))
+    .at(-1, default: -1)
+)
+
 // Indorsements - iterate through CARDS array and filter by CARD tag
 #for (i, card) in data.at("$cards").enumerate() {
   if card.at("$kind", default: none) == "indorsement" {
@@ -144,6 +164,7 @@
         ))
       },
       ..if card.action != "" { (action: card.action) },
+      approval_authority: i == last_indorsement_index,
       body_content,
     )
   }

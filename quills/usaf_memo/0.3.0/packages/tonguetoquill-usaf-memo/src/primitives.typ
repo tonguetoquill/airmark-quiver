@@ -306,37 +306,46 @@
 // plays in a coordination chain: coordinating officials Concur / Nonconcur,
 // while the final approval authority Approves / Disapproves.
 //
-// Each pair also has an "undecided" form that renders both options plain, for
-// printing a memo the endorser circles by hand when signing.
+// Which pair prints is not the endorser's to choose — it follows from the
+// role, so the caller supplies the role via `approval-authority` and the same
+// three `action` values (affirm, reject, or leave open) carry over both pairs.
+//
+// The "undecided" form renders both options plain, for printing a memo the
+// endorser marks by hand when signing.
 //
 // Empty/none suppression is handled by the caller before this is invoked.
 
-// Maps each `action` value to the option pair it renders and the index of the
-// selected option within that pair (`none` selects neither).
-#let ACTION_FORMS = (
-  "undecided": (("Approve", "Disapprove"), none),
-  "approve": (("Approve", "Disapprove"), 0),
-  "disapprove": (("Approve", "Disapprove"), 1),
-  "undecided_concur": (("Concur", "Nonconcur"), none),
-  "concur": (("Concur", "Nonconcur"), 0),
-  "nonconcur": (("Concur", "Nonconcur"), 1),
+// The option pair for each role, ordered (affirmative, negative).
+#let APPROVAL_OPTIONS = ("Approve", "Disapprove")
+#let COORDINATION_OPTIONS = ("Concur", "Nonconcur")
+
+// Maps each `action` value to the index of the option it selects within
+// whichever pair is rendered (`none` selects neither).
+#let ACTION_SELECTIONS = (
+  "undecided": none,
+  "approve": 0,
+  "disapprove": 1,
 )
 
-#let render-action-line(action, trailing-blank-line: true) = {
+#let render-action-line(action, approval-authority: false, trailing-blank-line: true) = {
   assert(
-    action in ACTION_FORMS,
-    message: "action must be one of " + ACTION_FORMS.keys().map(k => "\"" + k + "\"").join(", "),
+    action in ACTION_SELECTIONS,
+    message: "action must be one of " + ACTION_SELECTIONS.keys().map(k => "\"" + k + "\"").join(", "),
   )
-  let (options, selected) = ACTION_FORMS.at(action)
-  // Circle the selected option using a box with rounded corners; strike the
-  // one it was chosen over. When neither is selected both render plain.
-  // Use baseline parameter to maintain vertical text alignment.
+  let options = if approval-authority { APPROVAL_OPTIONS } else { COORDINATION_OPTIONS }
+  let selected = ACTION_SELECTIONS.at(action)
+  // Underline the selected option; strike the one it was chosen over. When
+  // neither is selected both render plain. An underline keeps the option on
+  // the line's own baseline — the box it replaces had to be nudged with
+  // `baseline` to sit straight — and reads as a mark made on the page, where a
+  // ruled rectangle in a PDF carrying real AcroForm widgets reads as one more
+  // fillable field.
   let render-option(index) = {
     let option = options.at(index)
     if selected == none {
       option
     } else if selected == index {
-      box(stroke: 0.5pt + black, radius: 2pt, inset: 2pt, baseline: 2pt)[#option]
+      underline(option)
     } else {
       strike(option)
     }
