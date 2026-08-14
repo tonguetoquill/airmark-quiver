@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.31.0 - 2026-08-14
+
+- chore: migrate to @quillmark/wasm 0.105 and quiver 0.23
+- chore(afmc_moa): version the quill 0.0.1
+- refactor(afmc_moa): use plaintext/richtext for text fields instead of string
+- fix(afmc_moa): correct attachment lettering, date formatting, and naming
+- fix(MOAs): tighten nested indent taper further
+- fix(MOAs): stop over-indenting nested body paragraphs
+- feat(MOAs): make Financial Details its own card, in document order
+- feat(MOAs): model every example on DoDI 4000.19 Figure 1
+- fix(usaf_memo): stop indorsement signatures orphaning onto their own page (#113)
+- usaf_memo: make an undated indorsement's date a fillable PDF field (#111)
+- feat(MOAs): split remaining standard sections into their own cards
+- feat(MOAs): move background into its own card
+- fix(MOAs): correct Quill.yaml schema and plate.typ data keys
+- fix(MOAs): move mouDesign.md into version dir
+- feat(MOAs): add MOA quill 0.1.0
+
+
 ## Unreleased
 
 - Migrate to `@quillmark/wasm` 0.105 and `@quillmark/quiver` 0.23. Enum blanks
