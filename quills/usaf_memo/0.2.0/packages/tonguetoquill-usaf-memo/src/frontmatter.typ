@@ -143,6 +143,9 @@
           bottom + center,
           dy: -0.625in,
           align(center)[
+            // Cinzel bundles a weight axis and no italic face, so an emphasized run
+            // renders upright. The skew slants it.
+            #show emph: it => box(skew(ax: -12deg, it.body))
             #text(fill: LETTERHEAD_COLOR, font: "cinzel", size: 15pt)[#footer_tag_line]
           ],
         )

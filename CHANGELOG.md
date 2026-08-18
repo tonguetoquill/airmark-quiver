@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **An italic tag line now renders slanted.** The letterhead motto is set in
+  Cinzel, which carries a weight axis and no italic face, so `*italics*` came
+  out upright while `**bold**` took; the emphasized run is now skewed to the
+  slant the face lacks. `usaf_memo@0.3.0` and `@0.2.0`.
+
 - **An indorsement's action line now words itself, and marks the choice with an
   underline.** `$cards.indorsement.<n>.action` no longer asks which pair of
   options to print — it carries only the decision (`approve`, `disapprove`, or
