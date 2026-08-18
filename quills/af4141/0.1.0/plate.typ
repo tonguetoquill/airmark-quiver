@@ -3,23 +3,15 @@
 
 #set text(font: "NimbusRomNo9L")
 
-// A `type: date` field lowers to a click-to-edit value object
-// `(value: datetime, display: closure)`; `display` is a stored closure on a dict
-// rather than a method, so it is called through parentheses, and the content it
-// returns carries the region that makes the glyphs clickable. A native datetime
-// is still accepted. Missing / blank dates arrive as `none`; empty strings may
-// also appear from input.
+// A `type: date` field arrives as a native `datetime`, blank as `none`. The
+// form's cells are strings, so a date is formatted here rather than placed as
+// ink: `display` would give the glyphs a schema address, but the form draws
+// each cell into a fixed box it builds itself, which takes a `str`.
 #let form-cell(v) = {
   let pattern = "[month padding:none]/[day padding:none]/[year]"
   if v == none { "" }
-  else if type(v) == str and v == "" { "" }
-  else if type(v) == dictionary {
-    (v.display)(pattern)
-  } else if type(v) == datetime {
-    v.display(pattern)
-  } else {
-    str(v)
-  }
+  else if type(v) == datetime { v.display(pattern) }
+  else { str(v) }
 }
 
 // Column order within each 7-field row group

@@ -38,4 +38,4 @@
 #import "mainmatter.typ": mainmatter
 #import "attachment.typ": render-attachment-a as attachment, render-attachment-card as attachment-card
 #import "backmatter.typ": backmatter
-#import "utils.typ": trim-inline
+#import "utils.typ": date-pattern, trim-inline

@@ -129,17 +129,24 @@
   ]
 }
 
+/// The date pattern a memo style prints, per AFH 33-337. Exported so a caller
+/// that pre-formats the date matches this package instead of restating it.
+///
+/// - memo-style (str): `"usaf"` or `"daf"`
+/// -> str
+#let date-pattern(memo-style: "usaf") = if memo-style == "daf" {
+  "[month repr:long] [day padding:none], [year]"
+} else {
+  "[day padding:none] [month repr:long] [year]"
+}
+
 /// Formats a date for the memo heading.
 ///
-/// Dispatches on the shape a date field can arrive in:
-/// - str: shown as-is (fixed text like a placeholder).
-/// - datetime: a native Typst datetime (e.g. `datetime.today()`) — USAF style
-///   `DD Month YYYY`, DAF style `Month DD, YYYY`.
-/// - dict: a Quillmark `date`/`datetime` field lowers to a click-to-edit value
-///   object `{ value: datetime, display: closure }`; `display` is a stored closure
-///   over `.display`, so call it through parentheses — a dict has no `.display` method.
+/// - str, content: shown as-is (a fixed placeholder, or ink the caller already
+///   formatted through [`date-pattern`]).
+/// - datetime: USAF style `DD Month YYYY`; DAF style `Month DD, YYYY`.
 ///
-/// - date (str | datetime | dict): Date to format for display
+/// - date (str | content | datetime): Date to format for display
 /// - memo-style (str): `"usaf"` or `"daf"`
 /// -> content
 #let display-date(date, memo-style: "usaf") = {
@@ -147,19 +154,12 @@
     memo-style in ("usaf", "daf"),
     message: "memo-style for display-date must be \"usaf\" or \"daf\"",
   )
-  if type(date) == str {
+  // A caller that pre-formatted — to keep a click-to-edit region the package
+  // cannot mint itself — passes the finished ink through untouched.
+  if type(date) in (str, content) {
     date
   } else {
-    let pattern = if memo-style == "daf" {
-      "[month repr:long] [day padding:none], [year]"
-    } else {
-      "[day padding:none] [month repr:long] [year]"
-    }
-    if type(date) == datetime {
-      date.display(pattern)
-    } else {
-      (date.display)(pattern)
-    }
+    date.display(date-pattern(memo-style: memo-style))
   }
 }
 
