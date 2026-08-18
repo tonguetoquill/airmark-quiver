@@ -1,6 +1,6 @@
-#import "@local/quillmark-helper:0.1.0": data, signature-field
+#import "@local/quillmark-helper:0.1.0": data, display, signature-field
 #import "@local/typst-afmc-moa:0.1.0": (
-  attachment, attachment-card, backmatter, frontmatter, mainmatter, trim-inline,
+  attachment, attachment-card, backmatter, date-pattern, frontmatter, mainmatter, trim-inline,
 )
 
 // Every text field is `plaintext`/`richtext`, so it arrives as content carrying
@@ -34,7 +34,12 @@
 
   first_party_signatory: text-field("first_party_signatory"),
   second_party_signatory: text-field("second_party_signatory"),
-  mid_point_review_due_date: data.mid_point_review_due_date,
+  // `data.mid_point_review_due_date` is the native `datetime` and would render
+  // identically, but its ink would be born inside the package and carry no
+  // schema address. `display` places the field's content projection instead, so
+  // the printed date stays click-to-edit; a blank one yields `none`, which
+  // `format-date` renders as nothing.
+  mid_point_review_due_date: display("mid_point_review_due_date", date-pattern),
 )
 
 // ── Frontmatter: page setup, title block, intro paragraph ──────────────────

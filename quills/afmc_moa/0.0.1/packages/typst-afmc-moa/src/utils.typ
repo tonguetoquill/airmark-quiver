@@ -82,23 +82,22 @@
   if joined == none { [] } else { joined }
 }
 
+/// The date pattern this package prints ("22 July 2026"). Exported so a caller
+/// that pre-formats a date matches it instead of restating it.
+#let date-pattern = "[day padding:none] [month repr:long] [year]"
+
 /// Format a date value for inline display ("22 July 2026").
 ///
-/// Dispatches on the shape a date field can arrive in:
-/// - str: shown as-is (fixed text like a placeholder).
-/// - datetime: a native Typst datetime (e.g. `datetime.today()`).
-/// - dict: a Quillmark `date`/`datetime` field lowers to a click-to-edit value
-///   object `{ value: datetime, display: closure }`; `display` is a stored
-///   closure, so it must be called through parentheses — a dict has no
-///   `.display` method.
+/// - str, content: shown as-is (a fixed placeholder, or ink the caller already
+///   formatted through [`date-pattern`]).
+/// - datetime: formatted to [`date-pattern`].
 #let format-date(d) = {
   if d == none {
     ""
-  } else if type(d) == str {
+  } else if type(d) in (str, content) {
     d
   } else {
-    let pattern = "[day padding:none] [month repr:long] [year]"
-    if type(d) == datetime { d.display(pattern) } else { (d.display)(pattern) }
+    d.display(date-pattern)
   }
 }
 

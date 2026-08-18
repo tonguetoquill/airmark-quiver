@@ -1,5 +1,11 @@
-#import "@local/quillmark-helper:0.1.0": data, form-field, signature-field
-#import "@local/tonguetoquill-usaf-memo:4.0.0": backmatter, frontmatter, indorsement, mainmatter
+#import "@local/quillmark-helper:0.1.0": data, display, form-field, signature-field
+#import "@local/tonguetoquill-usaf-memo:4.0.0": (
+  backmatter, date-pattern, frontmatter, indorsement, mainmatter,
+)
+
+// A memo has no "no style" state, so the blank takes the package's default.
+// Resolved once here: `frontmatter` and the date's pattern must agree.
+#let memo_style = if data.memo_style != "" { data.memo_style } else { "usaf" }
 
 // The letterhead arrives as one ordered array of lines. Element 0 is the title,
 // set larger; the rest are caption lines beneath it. A single element renders
@@ -31,8 +37,13 @@
     ))
   },
 
-  // Date
-  date: data.date,
+  // Date. `data.date` is the native `datetime` and would render identically,
+  // but its ink would be born inside the package and carry no schema address.
+  // `display` places the field's *content* projection instead: the glyphs are
+  // born in the generated helper, so the memo date stays click-to-edit however
+  // deep the package formats it. A blank date yields `none`, which is what
+  // `frontmatter`'s `datetime.today()` fallback keys on.
+  date: display("date", date-pattern(memo-style: memo_style)),
 
   // Receiver information
   memo_for: data.memo_for,
@@ -49,20 +60,28 @@
   // Optional footer tag line
   footer_tag_line: data.tag_line,
 
-  // Optional classification level
-  ..if data.classification != "" { (classification_level: data.classification) },
+  // The blank reads as no banner, which is what the package's own
+  // `classification_level: none` default means.
+  classification_level: data.classification.value,
 
   dissemination: data.dissemination,
 
-  // CUI designation indicator block fields (DoDM 5200.48)
-  cui_controlled_by: data.cui_controlled_by,
-  cui_category: data.cui_category,
-  cui_limited_dissemination: data.cui_limited_dissemination,
-  cui_poc: data.cui_poc,
+  // CUI designation indicator block fields (DoDM 5200.48). `classification`
+  // declares a `CUI` variant, so these four exist only where the discriminant
+  // reads CUI, and the branch is what makes reading them total: inside it every
+  // declared field of that world is present, outside it none is. The package's
+  // own `cui_*: none` defaults cover the worlds that omit them.
+  ..if data.classification.value == "CUI" {
+    (
+      cui_controlled_by: data.classification.controlled_by,
+      cui_category: data.classification.category,
+      cui_limited_dissemination: data.classification.limited_dissemination,
+      cui_poc: data.classification.poc,
+    )
+  },
 
-  // USAF vs DAF memorandum style (date format, body indentation). Blank
-  // falls through to the package's `"usaf"` default.
-  ..if data.memo_style != "" { (memo_style: data.memo_style) },
+  // USAF vs DAF memorandum style (date format, body indentation).
+  memo_style: memo_style,
 
   // Font size
   font_size: body_font_size,
@@ -128,12 +147,13 @@
     // it (distinct from the originating memo's date). The signing date is
     // generally unknown at compile time, so a blank or omitted date leaves the
     // date slot fillable rather than stamping the compile date into it.
-    let card_date = card.date
-    let resolved_date = if card_date == none or card_date == "" {
-      none
-    } else {
-      card_date
-    }
+    // `display` takes an address, so a per-card call yields a per-card region
+    // even though every iteration shares one `card` loop variable, and it
+    // returns `none` for a blank date — the fill-in case below.
+    let resolved_date = display(
+      card.at("$path") + "date",
+      date-pattern(memo-style: memo_style),
+    )
     // The card's `$path` prefix composes its canonical schema addresses
     // (`$cards.indorsement.<n>.…`, per-kind ordinal) — the absolute loop
     // index `i` is NOT that ordinal once kinds interleave, so it stays a

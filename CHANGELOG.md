@@ -2,6 +2,48 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0`'s CUI block is a variant of `classification`, not four
+  fields beside it.** `classification` declares a `CUI` variant, so it rests as
+  a container: the marking is `classification.value`, and the four cells that
+  exist only in the CUI world sit under it with their `cui_` prefix dropped.
+  A document selecting CUI moves its four keys in:
+
+  ```yaml
+  # Before
+  classification: CUI
+  cui_controlled_by: SAF/AA
+  cui_poc: Capt J. Smith, DSN 555-1234
+  cui_category: PRVCY
+  cui_limited_dissemination: FEDONLY
+
+  # After
+  classification:
+    value: CUI
+    controlled_by: SAF/AA
+    poc: Capt J. Smith, DSN 555-1234
+    category: PRVCY
+    limited_dissemination: FEDONLY
+  ```
+
+  A stale key reaches nothing and draws no diagnostic — the plate reads the
+  container — so sweep with `quill.validate(doc)` rather than a render diff:
+  `controlled_by` and `poc` carry no `default:` and are therefore obliged in
+  the CUI world, which is what DoDM 5200.48 requires and what the flat spelling
+  could state only in prose. Every other world is unchanged, and the bare
+  `classification: CUI` spelling stays valid for a memo carrying no CUI answers.
+  `dissemination` keeps its place beside the container: it is the banner's
+  suffix on a classified memo as much as on a CUI one.
+
+- **Migrate to `@quillmark/wasm` 0.108, `@quillmark/quiver` 0.24 and `quillkit`
+  0.4.** A `date` field now reaches a plate as a native Typst `datetime`, so
+  the `(value:, display:)` wrapper every quill dispatched on is gone. Where a
+  package inks the date, the plate hands it `display("<field>", pattern)` — the
+  field's content projection, whose glyphs keep their schema address however
+  deep the package formats it — so the memo date, each indorsement's signing
+  date, and the MOA's mid-point review date stay click-to-edit. Both memo
+  packages export the pattern they print (`date-pattern`) rather than have the
+  plate restate it.
+
 - **An indorsement's action line now words itself, and marks the choice with an
   underline.** `$cards.indorsement.<n>.action` no longer asks which pair of
   options to print — it carries only the decision (`approve`, `disapprove`, or
