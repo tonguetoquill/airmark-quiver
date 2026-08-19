@@ -140,6 +140,18 @@
   "[day padding:none] [month repr:long] [year]"
 }
 
+/// The gap a memo style sets between `MEMORANDUM FOR` and the recipient it
+/// addresses.
+///
+/// AFH 33-337 sets two spaces. The Tongue and Quill is not applicable to
+/// Headquarters Air Force correspondence (HOI 33-3 §7.1.1), which sets a
+/// single space between the label and the recipient's organization
+/// (HOI 33-3, p. 34).
+///
+/// - memo-style (str): `"usaf"` or `"daf"`
+/// -> str
+#let memo-for-gap(memo-style: "usaf") = if memo-style == "daf" { " " } else { "  " }
+
 /// Formats a date for the memo heading.
 ///
 /// - str, content: shown as-is (a fixed placeholder, or ink the caller already

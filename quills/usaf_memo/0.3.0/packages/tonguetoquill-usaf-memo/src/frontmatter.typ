@@ -224,7 +224,7 @@
   )) <usaf-memo-config>]
 
   render-date-section(actual_date, memo-style: memo_style)
-  render-for-section(memo_for, memo_for_cols)
+  render-for-section(memo_for, memo_for_cols, memo-style: memo_style)
   if not falsey(memo_from) { render-from-section(memo_from) }
   // Blank entries are dropped first so a stub `- ` left under `references:`
   // cannot pass as the lone reference and render an empty `()` after the subject.

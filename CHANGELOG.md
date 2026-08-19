@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **A DAF-style memo sets one space after `MEMORANDUM FOR`, not two.** The two
+  spaces AFH 33-337 prints are the Tongue and Quill's, and the Tongue and Quill
+  does not reach Headquarters Air Force correspondence (HOI 33-3 §7.1.1), which
+  sets a single space between the label and the recipient's organization
+  (HOI 33-3, p. 34). `memo_style: daf` now prints that single space wherever the
+  label appears — the heading and every indorsement header, whether it rides the
+  action document's page or its own. `memo_style: usaf` is untouched at two.
+
 - **`usaf_memo@0.3.0`'s CUI block is a variant of `classification`, not four
   fields beside it.** `classification` declares a `CUI` variant, so it rests as
   a container: the marking is `classification.value`, and the four cells that

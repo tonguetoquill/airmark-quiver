@@ -130,12 +130,12 @@
 }
 
 // AFH 33-337 "MEMORANDUM FOR": "Place 'MEMORANDUM FOR' on the second line below the date"
-#let render-for-section(recipients, cols) = {
+#let render-for-section(recipients, cols, memo-style: "usaf") = {
   blank-line()
   grid(
     columns: (auto, auto, 1fr),
     "MEMORANDUM FOR",
-    "  ",
+    memo-for-gap(memo-style: memo-style),
     align(left)[
       #if type(recipients) == array {
         create-auto-grid(recipients.map(upper), column-gutter: spacing.tab, cols: cols)

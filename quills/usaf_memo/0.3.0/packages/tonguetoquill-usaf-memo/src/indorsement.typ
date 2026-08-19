@@ -105,7 +105,7 @@
         #blank-line()
         #grid(columns: (auto, 1fr), ind_from, ind_date)
         #blank-line()
-        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", "  ", ind_for)
+        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", memo-for-gap(memo-style: memo-style), ind_for)
       ]
 
       // Standard header: terse "Nth Ind, FROM    date" line, used when the
@@ -116,7 +116,7 @@
         #blank-line()
         #grid(columns: (auto, 1fr), [#indorsement_label, #box(ind_from)], ind_date)
         #blank-line()
-        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", "  ", ind_for)
+        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", memo-for-gap(memo-style: memo-style), ind_for)
       ]
 
       if format == "separate_page" {

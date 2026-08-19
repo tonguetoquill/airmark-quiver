@@ -213,7 +213,7 @@ main:
       ui:
         group: additional
         compact: true
-      description: "USAF memorandum or DAF headquarters memorandum; DAF changes date format and body paragraph layout per AFH 33-337."
+      description: "USAF memorandum or DAF headquarters memorandum; DAF changes date format and body paragraph layout per AFH 33-337, and sets a single space after MEMORANDUM FOR per HOI 33-3."
 
     font_size:
       type: number
