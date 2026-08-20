@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.32.0 - 2026-08-20
+
+- Take quillkit 0.5.1, on wasm 0.108.1 (#119)
+- Take quillkit 0.5.0 for the studio
+- feat(usaf_memo): make classification a variant container, on quillmark 0.108
+- feat(usaf_memo): derive indorsement action wording, underline the choice
+
+
 ## Unreleased
 
 - **`usaf_memo@0.3.0`'s CUI block is a variant of `classification`, not four
