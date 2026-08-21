@@ -16,9 +16,9 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "0.24.0",
-    "@quillmark/wasm": "^0.108.1",
-    "quillkit": "0.5.1"
+    "@quillmark/quiver": "0.25.0",
+    "@quillmark/wasm": "^0.108.3",
+    "quillkit": "0.5.2"
   },
   "scripts": {
     "test": "quillkit test",
