@@ -46,12 +46,12 @@ main:
       description: "If recipients are on the same installation, use only the office symbol. For recipients on other installations, include the full mailing address to enable return correspondence. Omit entirely to produce a Memorandum for Record (no MEMO FROM line)."
 
     subject:
-      type: plaintext
+      type: richtext
       inline: true
       example: Subject of the Memorandum
       ui:
         group: addressing
-      description: Be brief and clear. Capitalize the first letter of each word except articles, prepositions, and conjunctions. Include suspense dates in parentheses if applicable.
+      description: "Be brief and clear. Capitalize the first letter of each word except articles, prepositions, and conjunctions. Include suspense dates in parentheses if applicable. Italicize publication titles with *asterisks* (standard Markdown emphasis), as in the References field."
 
     signature_block:
       type: array
@@ -195,14 +195,14 @@ main:
     attachments:
       type: array
       items:
-        type: plaintext
+        type: richtext
         inline: true
       default: []
       example:
         - Attachment description, YYYY MMM DD
       ui:
         group: additional
-      description: List attachments in the order they are mentioned in the memo. Briefly describe each; do not use 'as stated' or abbreviations.
+      description: "List attachments in the order they are mentioned in the memo. Briefly describe each; do not use 'as stated' or abbreviations. Italicize publication titles with *asterisks* (standard Markdown emphasis), as in the References field."
 
     memo_style:
       type: enum

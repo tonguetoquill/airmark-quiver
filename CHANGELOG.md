@@ -10,6 +10,28 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` takes `subject` and `attachments` as `richtext`.** Both
+  fields carry citations, and AFH 33-337 italicizes publication titles wherever
+  they appear. `references` has accepted emphasis since 0.2.0, so until now an
+  author could italicize a title in the references block and not in the
+  attachment entry naming the same publication — nor in the subject line, which
+  is where a lone reference prints, in parentheses and in italics, immediately
+  beside a subject that could not match it. Both fields now take standard
+  Markdown emphasis, and their descriptions say so in the wording `references`
+  uses. A Markdown link lowers to a real PDF link annotation, drawn unstyled, so
+  a linked attachment is clickable in the PDF and unchanged on paper.
+  - Rendering of text that carries no marks is byte-identical: the seeded
+    example and a filled memo both pixel-match their `plaintext` renders, and
+    `main.subject` and `main.attachments[i]` keep their regions, so the
+    cross-navigation 0.3.0 was minted for is unaffected.
+  - One shape changes. A content field rests at its codec's canonical form, so
+    `attachments` now serializes as a content object (`text:` beside a `marks:`
+    list) in the seeded blueprint and in any document re-serialized after
+    `quill.parse` — the shape `references` has always rested at. `subject` stays
+    a scalar in the blueprint, since its `!must_fill` marker skips the codec,
+    and rests as an object once filled and written back. Documents need no
+    migration: an authored `subject:` or `attachments:` string still parses.
+
 - **`usaf_memo@0.3.0`'s CUI block is a variant of `classification`, not four
   fields beside it.** `classification` declares a `CUI` variant, so it rests as
   a container: the marking is `classification.value`, and the four cells that
