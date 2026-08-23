@@ -60,6 +60,21 @@
   level-counts
 }
 
+/// The offset at which a level's paragraph *text* begins: the level's own
+/// indent plus the width of the number label that precedes it. A numbered
+/// paragraph starts its label at the indent and reaches this; anything set to
+/// align with that text — a continuation block, a quoted block — starts here.
+///
+/// - level (int): Nesting level (0-based)
+/// - level-counts (dictionary): Current counter values per level
+/// - indent-fn (function): `(level, level-counts) -> length`
+/// -> length
+#let text-offset(level, level-counts, indent-fn) = {
+  let current-value = level-counts.at(str(level), default: 1)
+  let number-text = numbering(get-paragraph-numbering-format(level), current-value)
+  indent-fn(level, level-counts) + measure([#number-text#"  "]).width
+}
+
 /// Formats a paragraph (or continuation) with a given indent strategy.
 ///
 /// - body (content): Paragraph content
@@ -69,17 +84,33 @@
 /// - continuation (bool): If true, adds number-label width to alignment
 /// -> content
 #let format-par(body, level, level-counts, indent-fn, continuation: false) = {
-  let indent-width = indent-fn(level, level-counts)
   if continuation {
-    let current-value = level-counts.at(str(level), default: 1)
-    let number-text = numbering(get-paragraph-numbering-format(level), current-value)
-    [#h(indent-width + measure([#number-text#"  "]).width)#body]
+    [#h(text-offset(level, level-counts, indent-fn))#body]
   } else {
     let current-value = level-counts.at(str(level), default: 1)
     let number-text = numbering(get-paragraph-numbering-format(level), current-value)
-    [#h(indent-width)#number-text#"  "#body]
+    [#h(indent-fn(level, level-counts))#number-text#"  "#body]
   }
 }
+
+/// Formats a quoted block: no number, and the indent held by *every* line
+/// rather than the first.
+///
+/// This is what separates a quote from a continuation. A continuation is body
+/// prose, so its wrapped lines return to the left margin like any numbered
+/// paragraph's. A quoted block is matter set beside the prose — a roster of
+/// names, an address, quoted text — and a second line of it belongs under the
+/// first, not under the margin.
+///
+/// - body (content): Block content
+/// - level (int): Nesting level (0-based)
+/// - level-counts (dictionary): Current counter values per level
+/// - indent-fn (function): `(level, level-counts) -> length`
+/// -> content
+#let format-quote(body, level, level-counts, indent-fn) = pad(
+  left: text-offset(level, level-counts, indent-fn),
+  body,
+)
 
 // =============================================================================
 // PARAGRAPH BODY RENDERING
@@ -104,6 +135,11 @@
   // paragraphs within the same item are continuations (no new number).
   let ITEM_FIRST_PAR = state("ITEM_FIRST_PAR")
   ITEM_FIRST_PAR.update(false)
+  // Tracks whether the paragraph being captured sits inside a block quote —
+  // the body's escape hatch from AFH 33-337 §2 numbering. Set by the `show
+  // quote` rule below, read by `show par` one level down.
+  let IN_QUOTE = state("IN_QUOTE")
+  IN_QUOTE.update(false)
 
   // The first pass parses paragraphs, list items, etc. into standardized arrays
   let first_pass = {
@@ -112,22 +148,40 @@
       let nest_level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
       let is_heading = IS_HEADING.get()
       let is_first_par = ITEM_FIRST_PAR.get()
+      let in_quote = IN_QUOTE.get()
 
       // Determine if this is a continuation block within a multi-block list item.
       // A continuation is a non-first paragraph inside a list item (nest_level > 0).
       let is_continuation = nest_level > 0 and not is_first_par
 
+      // A paragraph inside a block quote is the body's escape from numbering,
+      // and the only one available at top level: it is how an author sets a
+      // block that is not a paragraph of the memo — a roster of names, an
+      // address, quoted matter — beside the numbered flow instead of inside it.
+      // Level is not part of that test, the whole point being to escape
+      // numbering at whatever level the quote was written at.
       PAR_BUFFER.update(pars => {
         pars.push((
           content: text([#p.body]),
           nest_level: nest_level,
-          kind: if is_heading { "heading" } else if is_continuation { "continuation" } else { "par" },
+          kind: if is_heading {
+            "heading"
+          } else if in_quote {
+            "quote"
+          } else if is_continuation {
+            "continuation"
+          } else {
+            "par"
+          },
         ))
         pars
       })
 
-      // After the first paragraph of a list item, mark subsequent ones as continuations
-      if nest_level > 0 and is_first_par {
+      // After the first paragraph of a list item, mark subsequent ones as continuations.
+      // A quoted block never spends the flag: it carries no number, so an item
+      // that opens with one still has its letter to give to the first paragraph
+      // that follows.
+      if nest_level > 0 and is_first_par and not in_quote {
         ITEM_FIRST_PAR.update(false)
       }
 
@@ -150,6 +204,19 @@
         IS_HEADING.update(true)
         [#parbreak()#h.body#parbreak()]
         IS_HEADING.update(false)
+      }
+
+      // A block quote suppresses numbering for everything inside it. The body
+      // is re-emitted between parbreaks so its paragraphs reach the `show par`
+      // above as ordinary paragraphs — the flag, not the element, is what tells
+      // them apart, and the quote element itself is dropped: AFH 33-337 sets
+      // quoted matter in the body face, with no rule, mark or indent of Typst's
+      // own. An inline quote is left alone; breaking a paragraph around it would
+      // split the sentence holding it.
+      show quote.where(block: true): q => {
+        IN_QUOTE.update(true)
+        [#parbreak()#q.body#parbreak()]
+        IN_QUOTE.update(false)
       }
 
       // Convert list/enum items to pars
@@ -196,7 +263,7 @@
   // PAR_BUFFER item dictionary layout:
   //   item.content    — the paragraph body or table element
   //   item.nest_level — nesting depth (−1 for tables)
-  //   item.kind       — "par", "heading", "table", or "continuation"
+  //   item.kind       — "par", "heading", "table", "continuation", or "quote"
   context {
     let heading_buffer = none
     let heading_level = 0
@@ -230,13 +297,16 @@
       // A buffered heading runs into this element only when the two belong to
       // the same item: a later block of this list item ("continuation"), or,
       // at top level, the next paragraph. The first block of the *next* item,
-      // a table (nest_level −1, so the level test alone excludes it), and
-      // another heading all fail the test, and each would otherwise carry the
-      // heading's text somewhere it was not authored. Those emit the heading
-      // on its own line, the treatment a heading before a table takes.
+      // a table (nest_level −1, so the level test alone excludes it), a quoted
+      // block (which is set apart from the prose, so a heading run into it
+      // would be quoted matter the author did not quote), and another heading
+      // all fail the test, and each would otherwise carry the heading's text
+      // somewhere it was not authored. Those emit the heading on its own line,
+      // the treatment a heading before a table takes.
       if heading_buffer != none {
         let runs_in = (
           kind != "heading"
+            and kind != "quote"
             and item.nest_level == heading_level
             and (heading_level == 0 or kind == "continuation")
         )
@@ -277,6 +347,20 @@
             item_content
           } else {
             format-par(item_content, nest_level, level-counts, indent-fn, continuation: true)
+          }
+        } else if kind == "quote" {
+          // Block quote: no number, set to align with the text of the paragraph
+          // it sits under. level-counts still holds that paragraph's value, so
+          // the alignment is measured against the label actually printed there.
+          //
+          // Where that text starts at the margin, so does this. A DAF top-level
+          // paragraph is unnumbered, and so is a USAF body of a single paragraph
+          // (AFH 33-337 §2) — indenting either would align the block under a
+          // number that is never printed.
+          if nest_level == 0 and (memo-style == "daf" or par_count <= 1) {
+            item_content
+          } else {
+            format-quote(item_content, nest_level, level-counts, indent-fn)
           }
         } else if memo-style == "daf" {
           if nest_level > 0 {
