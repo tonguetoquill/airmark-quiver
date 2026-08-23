@@ -10,6 +10,30 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` declines the block quote instead of mis-numbering it**
+  (#123). `main.body` and the `indorsement` card body both declare
+  `unsupported: [quote]`, and `render-body` drops `quote.where(block: true)`
+  in its capture pass, so the declaration is true rather than nominal. A body
+  holding a `>` now draws the non-fatal `plate::unsupported_construct` before
+  the render — `this quill does not typeset a block quote` — where it used to
+  render as an ordinary numbered paragraph with the quote marking silently
+  dropped. Documents that hold no block quote render byte-identically.
+  - The root cause is upstream and structural, and this is a containment, not
+    a fix. Against `@quillmark/wasm` 0.108.3 the Markdown lowering does not
+    nest a quote inside a list item: it closes the `item(..)` at the quote,
+    emits the `quote(..)` as a sibling, and leaves every later block of that
+    item at top level, so the next item restarts its lettering. A heading, a
+    fenced block, and a nested list in the same position all stay inside
+    `item(body: ..)`, which acquits `render-body`'s capture shape — the
+    nesting is gone before this package sees the tree, and no show rule here
+    can recover it. That damage to the *surrounding* blocks remains; what
+    changes is that the construct responsible is now named out loud, and
+    removing the `>` restores a correct render.
+  - So a block quote is not the unlabeled-block escape hatch. A fenced block
+    is (#124): it nests correctly inside a list item today, and it preserves
+    line structure, which a quote cannot — the lowering collapses a quote's
+    soft breaks to spaces before any plate is reached.
+
 - **`usaf_memo@0.3.0` takes `subject` and `attachments` as `richtext`.** Both
   fields carry citations, and AFH 33-337 italicizes publication titles wherever
   they appear. `references` has accepted emphasis since 0.2.0, so until now an

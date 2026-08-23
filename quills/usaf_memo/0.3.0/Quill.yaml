@@ -11,6 +11,7 @@ main:
   ui:
     groups: [addressing, letterhead, classification, additional]
   body:
+    unsupported: [quote]
     example: |
       The first paragraph. Top-level paragraphs are auto-numbered; do not add manual numbering.
 
@@ -237,6 +238,8 @@ card_kinds:
     ui:
       title: Routing indorsement
       groups: [addressing, additional]
+    body:
+      unsupported: [quote]
     fields:
       from:
         type: plaintext

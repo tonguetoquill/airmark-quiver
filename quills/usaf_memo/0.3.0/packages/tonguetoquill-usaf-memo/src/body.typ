@@ -146,6 +146,44 @@
       t
     }
     {
+      // A block quote is declined, not typeset (`unsupported: [quote]` in
+      // Quill.yaml), and dropping it here is what makes that declaration true.
+      //
+      // The reason is upstream and structural: the Markdown lowering does not
+      // nest a quote inside a list item. Against @quillmark/wasm 0.108.3, the
+      // body
+      //
+      //     - Item one first block
+      //
+      //       > quoted in item one
+      //
+      //       Item one third block
+      //
+      //     - Item two
+      //
+      // lowers to `item(body: [Item one first block])`, then a *sibling*
+      // `quote(..)`, then a bare `[Item one third block]`, then a fresh
+      // `item(body: [Item two])`. The item closes at the quote. A heading, a
+      // fenced block, and a nested list in the same position all stay inside
+      // `item(body: ..)`, so the shape of the capture below is not the cause
+      // and no show rule here can recover the nesting — the tree that reaches
+      // this package has already lost it.
+      //
+      // Left to the generic `show par`, the quote's paragraph is captured at
+      // nest_level 0 and consumes a top-level AFH 33-337 number, and every
+      // block the author wrote after it in that item pops to top level too.
+      // That is a plausible-looking page that misstates the author's
+      // structure. Dropping the quote is the loud failure instead: the warning
+      // `plate::unsupported_construct` names it before the render, and nothing
+      // misnumbered reaches the page. Returning `none` also keeps the quote's
+      // body from ever being laid out, which is what stops `show par` from
+      // seeing it.
+      //
+      // Revisit when the lowering nests a quote (tracked in #123). Until then
+      // the escape hatch for unlabeled lines is a fenced block (#124), which
+      // nests correctly today.
+      show quote.where(block: true): _ => none
+
       show heading: h => {
         IS_HEADING.update(true)
         [#parbreak()#h.body#parbreak()]
