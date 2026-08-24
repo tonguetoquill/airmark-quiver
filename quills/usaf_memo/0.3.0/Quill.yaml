@@ -11,11 +11,15 @@ main:
   ui:
     groups: [addressing, letterhead, classification, additional]
   body:
-    unsupported: [quote]
     example: |
       The first paragraph. Top-level paragraphs are auto-numbered; do not add manual numbering.
 
       - Nested bullets are automatically lettered.
+
+      Lines that take no number, letter, or bullet — a roster of names, an address — go in a block quote, typeset as written. End a line with a backslash to break it.
+
+      > FIRST M. LAST, Maj, USAF\
+      > SECOND N. LAST, Capt, USAF
   fields:
     memo_for:
       type: array
@@ -238,8 +242,6 @@ card_kinds:
     ui:
       title: Routing indorsement
       groups: [addressing, additional]
-    body:
-      unsupported: [quote]
     fields:
       from:
         type: plaintext
