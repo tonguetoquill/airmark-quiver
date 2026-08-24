@@ -10,6 +10,14 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` files the date under Addressing.** The memo's `date` and
+  the `indorsement` card's `date` both move from the `additional` group to the
+  end of `addressing`, where they sit below the signature block. A date is part
+  of who-to-whom-and-when, not a formatting knob, and both editors now read in
+  the order AFH 33-337 lays the page out: recipients, sender, subject, signer,
+  date. Field order is declaration order, so the move is the declaration's
+  position; nothing about either field's type, default, or render changes.
+
 - **`usaf_memo@0.3.0` declines the block quote instead of mis-numbering it**
   (#123). `main.body` and the `indorsement` card body both declare
   `unsupported: [quote]`, and `render-body` drops `quote.where(block: true)`
