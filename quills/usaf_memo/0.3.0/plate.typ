@@ -52,18 +52,13 @@
   //
   // The stamp is markup, not the bare `str` `.display()` returns: a `str` off a
   // function call carries no source position, and ink with none is unclaimable.
-  // The `box` is load-bearing too. Each of the helper's two markers trails a
-  // space into the inline flow, and a box trims the leading and trailing
-  // whitespace of its content; without it the indorsement header, which re-inks
-  // this same content through `original_date`, gains 5.43pt. It also holds the
-  // date to one line, which the heading wants regardless.
   date: {
     let pattern = date-pattern(memo-style: memo_style)
     let authored = display("date", pattern)
     if authored != none {
       authored
     } else {
-      box(field-region("date", [#datetime.today().display(pattern)]))
+      field-region("date", [#datetime.today().display(pattern)])
     }
   },
 

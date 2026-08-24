@@ -10,6 +10,14 @@
 
 ## Unreleased
 
+- **Take `@quillmark/wasm` 0.109.1.** The release carries
+  [borb-sh/quillmark#1375](https://github.com/borb-sh/quillmark/pull/1375), which
+  makes a `field-region` claim around inline content layout-neutral: each of the
+  helper's two markers had trailed a space into the inline flow, 5.43pt across
+  the pair at 12pt. `usaf_memo@0.3.0`'s date claim needed a `box` to absorb that,
+  and the box is now redundant, so it goes: the claim renders pixel-identical
+  without it, and drops the one-line constraint a box imposes.
+
 - **`usaf_memo@0.3.0` gives the automatic date a preview region.** A blank
   `date` means today's, and until now the plate let `frontmatter` fill it from
   its own `datetime.today()`. Package-born ink carries no schema address, so the
@@ -20,12 +28,9 @@
   indorsement header that re-inks it through `original_date`. The render is
   unchanged: against an authored same-day date, page 1 is pixel-identical and
   page 2 differs by four pixels of one gray level.
-  - Two shapes are load-bearing and neither is obvious. The stamp is markup
-    rather than the `str` `.display()` returns, because a `str` off a function
-    call carries no source position and unpositioned ink is unclaimable. And it
-    is boxed, because each of the helper's two markers trails a space into the
-    inline flow (5.43pt across the pair at 12pt) and a box trims its content's
-    leading and trailing whitespace; unboxed, the indorsement header line moved.
+  - The stamp is markup rather than the `str` `.display()` returns, because a
+    `str` off a function call carries no source position and unpositioned ink
+    is unclaimable.
 
 - **`usaf_memo@0.3.0` files the date under Addressing.** The memo's `date` and
   the `indorsement` card's `date` both move from the `additional` group to the
