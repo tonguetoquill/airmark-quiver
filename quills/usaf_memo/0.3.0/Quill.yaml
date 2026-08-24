@@ -71,6 +71,14 @@ main:
         compact: true
       description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
 
+    date:
+      type: date
+      default: ""
+      ui:
+        group: addressing
+        compact: true
+      description: YYYY-MM-DD. Leave blank to use today's date.
+
     letterhead_title:
       type: array
       items:
@@ -228,14 +236,6 @@ main:
         compact: true
       description: Body text size in points; decimals allowed (e.g. 11.5).
 
-    date:
-      type: date
-      default: ""
-      ui:
-        group: additional
-        compact: true
-      description: YYYY-MM-DD. Leave blank to use today's date.
-
 card_kinds:
   indorsement:
     description: Chain of routing endorsements. Each endorsement block adds an official response or forwarding action to the original memo.
@@ -271,6 +271,13 @@ card_kinds:
           group: addressing
           compact: true
         description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
+      date:
+        type: date
+        default: ""
+        ui:
+          group: addressing
+          compact: true
+        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fillable PDF text field for the endorser to type the date into when signing."
       format:
         type: enum
         values:
@@ -293,10 +300,3 @@ card_kinds:
           group: additional
           compact: true
         description: "Decision taken by the endorser, shown as an either/or line with the choice underlined and the rejected option struck out. Leave blank to hide the line entirely. The wording is automatic: the last indorsement is the approval authority and reads Approve/Disapprove, while every earlier one is a coordinating official and reads Concur/Nonconcur. Use 'undecided' to print the pair unmarked for the endorser to mark by hand."
-      date:
-        type: date
-        default: ""
-        ui:
-          group: additional
-          compact: true
-        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fillable PDF text field for the endorser to type the date into when signing."

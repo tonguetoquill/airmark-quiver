@@ -1,4 +1,6 @@
-#import "@local/quillmark-helper:0.1.0": data, display, form-field, signature-field
+#import "@local/quillmark-helper:0.1.0": (
+  data, display, field-region, form-field, signature-field,
+)
 #import "@local/tonguetoquill-usaf-memo:4.0.0": (
   backmatter, date-pattern, frontmatter, indorsement, mainmatter,
 )
@@ -41,9 +43,24 @@
   // but its ink would be born inside the package and carry no schema address.
   // `display` places the field's *content* projection instead: the glyphs are
   // born in the generated helper, so the memo date stays click-to-edit however
-  // deep the package formats it. A blank date yields `none`, which is what
-  // `frontmatter`'s `datetime.today()` fallback keys on.
-  date: display("date", date-pattern(memo-style: memo_style)),
+  // deep the package formats it.
+  //
+  // A blank date means today's, and the plate stamps it rather than falling
+  // through to `frontmatter`'s own `datetime.today()`: package-born ink carries
+  // no address, so the one date a memo never types would be the one date a
+  // preview cannot click. `field-region` claims that ink for the field instead.
+  //
+  // The stamp is markup, not the bare `str` `.display()` returns: a `str` off a
+  // function call carries no source position, and ink with none is unclaimable.
+  date: {
+    let pattern = date-pattern(memo-style: memo_style)
+    let authored = display("date", pattern)
+    if authored != none {
+      authored
+    } else {
+      field-region("date", [#datetime.today().display(pattern)])
+    }
+  },
 
   // Receiver information
   memo_for: data.memo_for,

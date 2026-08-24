@@ -10,6 +10,36 @@
 
 ## Unreleased
 
+- **Take `@quillmark/wasm` 0.109.1.** The release carries
+  [borb-sh/quillmark#1375](https://github.com/borb-sh/quillmark/pull/1375), which
+  makes a `field-region` claim around inline content layout-neutral: each of the
+  helper's two markers had trailed a space into the inline flow, 5.43pt across
+  the pair at 12pt. `usaf_memo@0.3.0`'s date claim needed a `box` to absorb that,
+  and the box is now redundant, so it goes: the claim renders pixel-identical
+  without it, and drops the one-line constraint a box imposes.
+
+- **`usaf_memo@0.3.0` gives the automatic date a preview region.** A blank
+  `date` means today's, and until now the plate let `frontmatter` fill it from
+  its own `datetime.today()`. Package-born ink carries no schema address, so the
+  one date a memo never types was the one date a preview could not click: an
+  editor could route to every other field and not to that one. The plate stamps
+  today itself and wraps the stamp in the helper's `field-region("date", ..)`,
+  which claims the ink for the field on both placements — the heading and the
+  indorsement header that re-inks it through `original_date`. The render is
+  unchanged: against an authored same-day date, page 1 is pixel-identical and
+  page 2 differs by four pixels of one gray level.
+  - The stamp is markup rather than the `str` `.display()` returns, because a
+    `str` off a function call carries no source position and unpositioned ink
+    is unclaimable.
+
+- **`usaf_memo@0.3.0` files the date under Addressing.** The memo's `date` and
+  the `indorsement` card's `date` both move from the `additional` group to the
+  end of `addressing`, where they sit below the signature block. A date is part
+  of who-to-whom-and-when, not a formatting knob, and both editors now read in
+  the order AFH 33-337 lays the page out: recipients, sender, subject, signer,
+  date. Field order is declaration order, so the move is the declaration's
+  position; nothing about either field's type, default, or render changes.
+
 - **`usaf_memo@0.3.0` typesets the block quote as the body's unlabeled block**
   (#123). AFH 33-337 numbers every paragraph and letters every subparagraph, and
   a memorandum sometimes has to hold lines that are neither — a roster of names,
@@ -46,7 +76,6 @@
     so no rule in `render-body`'s capture pass buffers it and the hidden first
     pass swallows it whole — the same silent drop the quote used to take. That
     is untouched here and still open.
-
 - **`usaf_memo@0.3.0` takes `subject` and `attachments` as `richtext`.** Both
   fields carry citations, and AFH 33-337 italicizes publication titles wherever
   they appear. `references` has accepted emphasis since 0.2.0, so until now an
