@@ -60,6 +60,25 @@
   level-counts
 }
 
+/// The horizontal offset at which a paragraph's *text* sits: its indent plus
+/// the width of the number label that precedes it.
+///
+/// This is where a later block of the same paragraph — a continuation, a block
+/// quote — lines up, so the two callers share one measurement rather than each
+/// spelling it. A top-level paragraph carries no indent and its label is the
+/// left margin itself, so the offset is zero.
+///
+/// - level (int): Nesting level (0-based)
+/// - level-counts (dictionary): Current counter values per level
+/// - indent-fn (function): `(level, level-counts) -> length`
+/// -> length
+#let paragraph-text-offset(level, level-counts, indent-fn) = {
+  if level <= 0 { return 0pt }
+  let current-value = level-counts.at(str(level), default: 1)
+  let number-text = numbering(get-paragraph-numbering-format(level), current-value)
+  indent-fn(level, level-counts) + measure([#number-text#"  "]).width
+}
+
 /// Formats a paragraph (or continuation) with a given indent strategy.
 ///
 /// - body (content): Paragraph content
@@ -69,12 +88,13 @@
 /// - continuation (bool): If true, adds number-label width to alignment
 /// -> content
 #let format-par(body, level, level-counts, indent-fn, continuation: false) = {
-  let indent-width = indent-fn(level, level-counts)
   if continuation {
-    let current-value = level-counts.at(str(level), default: 1)
-    let number-text = numbering(get-paragraph-numbering-format(level), current-value)
-    [#h(indent-width + measure([#number-text#"  "]).width)#body]
+    // Offset the first line only, which is how the numbered paragraph this
+    // block continues is set: its own wrapped lines return to the left margin
+    // too, so the two read as one paragraph.
+    [#h(paragraph-text-offset(level, level-counts, indent-fn))#body]
   } else {
+    let indent-width = indent-fn(level, level-counts)
     let current-value = level-counts.at(str(level), default: 1)
     let number-text = numbering(get-paragraph-numbering-format(level), current-value)
     [#h(indent-width)#number-text#"  "#body]
@@ -145,45 +165,39 @@
       })
       t
     }
+    // Collect block quotes — captured as-is, with paragraph processing kept
+    // out of them. AFH 33-337 numbers paragraphs and letters subparagraphs, and
+    // a body sometimes has to hold lines that are neither: a roster of names, a
+    // quoted passage, an address. The block quote is where an author says so —
+    // its content is emitted verbatim, so nothing inside it takes a number, a
+    // letter, or a bullet.
+    //
+    // Returning `none` rather than the quote is what makes that true: the
+    // quote's own paragraphs are never laid out here, so the `show par` above
+    // never sees them and cannot number them. The buffered body is emitted in
+    // the second pass, where these show rules are out of scope. Typst's own
+    // block-quote framing (padding, attribution) is dropped with the element;
+    // what reaches the page is the author's lines and nothing else.
+    //
+    // The nesting level rides along so a quote inside a list item lines up with
+    // that item's text (see the emission below). @quillmark/wasm 0.109.0 is
+    // what makes that level trustworthy: before it, a container inside a list
+    // item opened at column 0 and terminated the list, so a quote's siblings
+    // came back as top-level paragraphs (#123). It now nests, and this quill
+    // stopped declining the construct with it.
+    show quote.where(block: true): q => context {
+      let nest_level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
+      PAR_BUFFER.update(pars => {
+        pars.push((
+          content: q.body,
+          nest_level: nest_level,
+          kind: "quote",
+        ))
+        pars
+      })
+      none
+    }
     {
-      // A block quote is declined, not typeset (`unsupported: [quote]` in
-      // Quill.yaml), and dropping it here is what makes that declaration true.
-      //
-      // The reason is upstream and structural: the Markdown lowering does not
-      // nest a quote inside a list item. Against @quillmark/wasm 0.108.3, the
-      // body
-      //
-      //     - Item one first block
-      //
-      //       > quoted in item one
-      //
-      //       Item one third block
-      //
-      //     - Item two
-      //
-      // lowers to `item(body: [Item one first block])`, then a *sibling*
-      // `quote(..)`, then a bare `[Item one third block]`, then a fresh
-      // `item(body: [Item two])`. The item closes at the quote. A heading, a
-      // fenced block, and a nested list in the same position all stay inside
-      // `item(body: ..)`, so the shape of the capture below is not the cause
-      // and no show rule here can recover the nesting — the tree that reaches
-      // this package has already lost it.
-      //
-      // Left to the generic `show par`, the quote's paragraph is captured at
-      // nest_level 0 and consumes a top-level AFH 33-337 number, and every
-      // block the author wrote after it in that item pops to top level too.
-      // That is a plausible-looking page that misstates the author's
-      // structure. Dropping the quote is the loud failure instead: the warning
-      // `plate::unsupported_construct` names it before the render, and nothing
-      // misnumbered reaches the page. Returning `none` also keeps the quote's
-      // body from ever being laid out, which is what stops `show par` from
-      // seeing it.
-      //
-      // Revisit when the lowering nests a quote (tracked in #123). Until then
-      // the escape hatch for unlabeled lines is a fenced block (#124), which
-      // nests correctly today.
-      show quote.where(block: true): _ => none
-
       show heading: h => {
         IS_HEADING.update(true)
         [#parbreak()#h.body#parbreak()]
@@ -232,9 +246,9 @@
   // Second pass: consume par buffer
   //
   // PAR_BUFFER item dictionary layout:
-  //   item.content    — the paragraph body or table element
+  //   item.content    — the paragraph body, table element, or block-quote body
   //   item.nest_level — nesting depth (−1 for tables)
-  //   item.kind       — "par", "heading", "table", or "continuation"
+  //   item.kind       — "par", "heading", "table", "continuation", or "quote"
   context {
     let heading_buffer = none
     let heading_level = 0
@@ -268,13 +282,15 @@
       // A buffered heading runs into this element only when the two belong to
       // the same item: a later block of this list item ("continuation"), or,
       // at top level, the next paragraph. The first block of the *next* item,
-      // a table (nest_level −1, so the level test alone excludes it), and
-      // another heading all fail the test, and each would otherwise carry the
-      // heading's text somewhere it was not authored. Those emit the heading
-      // on its own line, the treatment a heading before a table takes.
+      // a table (nest_level −1, so the level test alone excludes it), a block
+      // quote (verbatim: a heading prepended to it would be ink the author did
+      // not put inside the quote), and another heading all fail the test, and
+      // each would otherwise carry the heading's text somewhere it was not
+      // authored. Those emit the heading on its own line, the treatment a
+      // heading before a table takes.
       if heading_buffer != none {
         let runs_in = (
-          kind != "heading"
+          kind not in ("heading", "quote")
             and item.nest_level == heading_level
             and (heading_level == 0 or kind == "continuation")
         )
@@ -307,6 +323,35 @@
       let final_par = {
         if kind == "table" {
           render-memo-table(item_content)
+        } else if kind == "quote" {
+          // A block quote is the body's unlabeled block: no number, no letter,
+          // no bullet — the author's lines as written. It is placed, not
+          // processed, which is what lets a memorandum carry a roster of names,
+          // an address, or a quoted passage without AFH 33-337 numbering
+          // claiming the first line of it.
+          //
+          // Two things are imposed, and both serve that reading.
+          //
+          // Where the block starts: at the offset where the text of the
+          // paragraph it sits in starts, so a quote inside a subparagraph hangs
+          // under that subparagraph's text instead of falling back to the left
+          // margin. `pad` shifts the whole block, where a continuation takes a
+          // first-line `h(..)`: a quote is kept for its line structure, and
+          // lines that wrapped back to the margin would read as a block other
+          // than the one authored. Top level offsets by 0pt — flush at the
+          // margin, where an unnumbered line belongs.
+          //
+          // How its own paragraphs are spaced: `par.leading` and `par.spacing`
+          // are both half an em in a memorandum, so a paragraph break inside
+          // the quote would land on the page as an ordinary line break and read
+          // as one block where the author wrote two. A blank line — what the
+          // body puts between its own paragraphs — keeps that break visible.
+          let quoted = {
+            set par(spacing: spacing.line + line-stride())
+            item_content
+          }
+          let offset = paragraph-text-offset(nest_level, level-counts, indent-fn)
+          if offset == 0pt { quoted } else { pad(left: offset, quoted) }
         } else if kind == "continuation" {
           // Continuation block within a multi-block list item:
           // indent to align with preceding numbered paragraph's text, no new number.

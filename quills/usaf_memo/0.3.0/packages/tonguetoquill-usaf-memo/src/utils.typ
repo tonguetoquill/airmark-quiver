@@ -18,26 +18,33 @@
 // Value is a `length` set once in `frontmatter`.
 #let LINE_STRIDE = state("LINE_STRIDE")
 
+/// The height one wrapped line of body text occupies.
+///
+/// Read from `LINE_STRIDE` (cached in `frontmatter`), falling back to an inline
+/// measurement when the cache is unset. Reads state, so callers must already be
+/// in a `context`.
+///
+/// -> length
+#let line-stride() = {
+  let stride = LINE_STRIDE.get()
+  if stride == none {
+    let one-line = measure(par(spacing: 0pt)[x]).height
+    stride = measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
+  }
+  stride
+}
+
 /// Creates vertical spacing equivalent to multiple blank lines.
 ///
 /// Adds `count` wrapped-line strides on top of the natural inter-paragraph
 /// gap, so a blank line occupies exactly the same vertical space as a line
-/// produced by natural paragraph wrapping. The stride is measured from
-/// `LINE_STRIDE` (cached in `frontmatter`) and falls back to an inline
-/// measurement when the cache is unset.
+/// produced by natural paragraph wrapping.
 ///
 /// - count (int): Number of blank lines to create
 /// -> content
 #let blank-lines(count) = {
   if count <= 0 { return }
-  context {
-    let stride = LINE_STRIDE.get()
-    if stride == none {
-      let one-line = measure(par(spacing: 0pt)[x]).height
-      stride = measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
-    }
-    v(stride * count)
-  }
+  context { v(line-stride() * count) }
 }
 
 /// Creates vertical spacing equivalent to one blank line.
