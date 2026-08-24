@@ -57,7 +57,15 @@ main:
       ui:
         group: addressing
       description: "Be brief and clear. Capitalize the first letter of each word except articles, prepositions, and conjunctions. Include suspense dates in parentheses if applicable. Italicize publication titles with *asterisks* (standard Markdown emphasis), as in the References field."
-
+    
+    date:
+      type: date
+      default: ""
+      ui:
+        group: addressing
+        compact: true
+      description: YYYY-MM-DD. Leave blank to use today's date.
+      
     signature_block:
       type: array
       items:
@@ -70,14 +78,6 @@ main:
         group: addressing
         compact: true
       description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
-
-    date:
-      type: date
-      default: ""
-      ui:
-        group: addressing
-        compact: true
-      description: YYYY-MM-DD. Leave blank to use today's date.
 
     letterhead_title:
       type: array
@@ -259,6 +259,13 @@ card_kinds:
           group: addressing
           compact: true
         description: Office symbol or organization receiving the endorsed memo.
+      date:
+        type: date
+        default: ""
+        ui:
+          group: addressing
+          compact: true
+        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fillable PDF text field for the endorser to type the date into when signing."
       signature_block:
         type: array
         items:
@@ -271,13 +278,6 @@ card_kinds:
           group: addressing
           compact: true
         description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
-      date:
-        type: date
-        default: ""
-        ui:
-          group: addressing
-          compact: true
-        description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fillable PDF text field for the endorser to type the date into when signing."
       format:
         type: enum
         values:
