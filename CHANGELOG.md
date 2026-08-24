@@ -10,29 +10,42 @@
 
 ## Unreleased
 
-- **`usaf_memo@0.3.0` declines the block quote instead of mis-numbering it**
-  (#123). `main.body` and the `indorsement` card body both declare
-  `unsupported: [quote]`, and `render-body` drops `quote.where(block: true)`
-  in its capture pass, so the declaration is true rather than nominal. A body
-  holding a `>` now draws the non-fatal `plate::unsupported_construct` before
-  the render — `this quill does not typeset a block quote` — where it used to
-  render as an ordinary numbered paragraph with the quote marking silently
-  dropped. Documents that hold no block quote render byte-identically.
-  - The root cause is upstream and structural, and this is a containment, not
-    a fix. Against `@quillmark/wasm` 0.108.3 the Markdown lowering does not
-    nest a quote inside a list item: it closes the `item(..)` at the quote,
-    emits the `quote(..)` as a sibling, and leaves every later block of that
-    item at top level, so the next item restarts its lettering. A heading, a
-    fenced block, and a nested list in the same position all stay inside
-    `item(body: ..)`, which acquits `render-body`'s capture shape — the
-    nesting is gone before this package sees the tree, and no show rule here
-    can recover it. That damage to the *surrounding* blocks remains; what
-    changes is that the construct responsible is now named out loud, and
-    removing the `>` restores a correct render.
-  - So a block quote is not the unlabeled-block escape hatch. A fenced block
-    is (#124): it nests correctly inside a list item today, and it preserves
-    line structure, which a quote cannot — the lowering collapses a quote's
-    soft breaks to spaces before any plate is reached.
+- **`usaf_memo@0.3.0` typesets the block quote as the body's unlabeled block**
+  (#123). AFH 33-337 numbers every paragraph and letters every subparagraph, and
+  a memorandum sometimes has to hold lines that are neither — a roster of names,
+  an address, a quoted passage. A `>` block is where an author says so:
+  `render-body` captures it and emits its content verbatim in the second pass,
+  so nothing inside it takes a number, a letter, or a bullet, and the paragraphs
+  around it keep the numbering they had. `main.body` and the `indorsement` card
+  body no longer declare `unsupported: [quote]`, so a body holding one stops
+  drawing `plate::unsupported_construct`. A body with no block quote renders
+  byte-identically.
+  - This supersedes the decline that stood in this section: a quote used to be
+    dropped, and before that it was silently swallowed into a numbered
+    paragraph. What was blocking is fixed upstream — under `@quillmark/wasm`
+    0.109.0 a container inside a list item no longer terminates the list, so a
+    quote nests inside `item(body: ..)`, its siblings keep their nesting, and
+    the level the capture records is trustworthy. A quote inside a subparagraph
+    therefore hangs under that subparagraph's text; one at top level sits flush
+    at the left margin.
+  - Two things are imposed on the quote, both so it reads as authored: it is
+    block-indented to that offset rather than first-line-indented like a
+    continuation, since its line structure is the point; and its own paragraphs
+    are spaced by a blank line, because `par.leading` and `par.spacing` are both
+    half an em here and a paragraph break would otherwise land as an ordinary
+    line break. Typst's own block-quote framing (padding, attribution) is
+    dropped with the element.
+  - Line breaks inside a quote are the Markdown ones: a soft break joins, a hard
+    break (a trailing backslash, or two trailing spaces) breaks. That is settled
+    in `from_markdown` before any plate is reached — `> A\n> B` parses as the
+    single line `A B` — so a roster ends each of its lines with a backslash. The
+    seeded body example shows it.
+  - This is the unlabeled-block escape hatch #124 went looking for, and now the
+    only one that reaches the page. A fenced block was the standing answer, but
+    it does not render at all: a block `raw` is neither a paragraph nor a table,
+    so no rule in `render-body`'s capture pass buffers it and the hidden first
+    pass swallows it whole — the same silent drop the quote used to take. That
+    is untouched here and still open.
 
 - **`usaf_memo@0.3.0` takes `subject` and `attachments` as `richtext`.** Both
   fields carry citations, and AFH 33-337 italicizes publication titles wherever
