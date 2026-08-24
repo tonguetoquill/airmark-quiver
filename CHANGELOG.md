@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.32.1 - 2026-08-24
+
+- feat(usaf_memo): file the date under Addressing, and give the automatic one a region (#128)
+- feat(usaf_memo): typeset the block quote as the body's unlabeled block (#127)
+- Take quillkit 0.5.3 and quiver 0.26.0, on wasm 0.109.0 (#126)
+- fix(usaf_memo): decline the block quote rather than mis-number it (#125)
+- feat(usaf_memo): take subject and attachments as richtext (#122)
+- Take quillkit 0.5.2 and quiver 0.25.0, on wasm 0.108.3 (#121)
+
+
 ## v0.32.0 - 2026-08-20
 
 - Take quillkit 0.5.1, on wasm 0.108.1 (#119)
