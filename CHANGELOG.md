@@ -33,6 +33,12 @@
   a writer's obligation on the content seam and reaches no plate: a quill reads a
   container path and writes none.
 
+- **Take `quillkit` 0.5.4 and `@quillmark/quiver` 0.27.0.** The gate already
+  rendered on wasm 0.110.0, resolving whatever this collection's tree holds; the
+  studio client renders through the copies it was built with, and those were the
+  0.109.0 stack. Both now stand on one version, so what the studio draws and what
+  `quillkit test` renders agree. Nothing in a quill moves for either.
+
 - **`usaf_memo@0.3.0` drops the `box` around its date claim.**
   [borb-sh/quillmark#1375](https://github.com/borb-sh/quillmark/pull/1375)
   makes a `field-region` claim around inline content layout-neutral: each of the
