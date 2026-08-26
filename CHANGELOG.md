@@ -20,8 +20,21 @@
 
 ## Unreleased
 
-- **Take `@quillmark/wasm` 0.109.1.** The release carries
-  [borb-sh/quillmark#1375](https://github.com/borb-sh/quillmark/pull/1375), which
+- **Take `@quillmark/wasm` 0.110.0.** `Quill::validate` refuses only what the
+  render floor refuses, and the difference lands here: `usaf_memo@0.2.0` declares
+  `letterhead_caption` an `array`, and the bare scalar a starter template spells
+  it with — a valid one-element list everywhere the document renders — audited as
+  fatally `validation::type_mismatch` on every document seeded from that template.
+  It audits clean, and a fatal `validation::*` now means the document does not
+  render. Two codes move with the rule: a value the render floor adopts raises
+  nothing where it raised `type_mismatch`, and a bare scalar stringified into an
+  `enum` field is domain-checked on that string, so a spelling outside `values:`
+  is `validation::enum_violation` where it was silent. The release's other half is
+  a writer's obligation on the content seam and reaches no plate: a quill reads a
+  container path and writes none.
+
+- **`usaf_memo@0.3.0` drops the `box` around its date claim.**
+  [borb-sh/quillmark#1375](https://github.com/borb-sh/quillmark/pull/1375)
   makes a `field-region` claim around inline content layout-neutral: each of the
   helper's two markers had trailed a space into the inline flow, 5.43pt across
   the pair at 12pt. `usaf_memo@0.3.0`'s date claim needed a `box` to absorb that,
