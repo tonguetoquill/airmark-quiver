@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.32.2 - 2026-08-27
+
+- fix(usaf_memo): keep the signing widget in the blank lines above the signature block
+- Take quillkit 0.5.4 and quiver 0.27.0
+- Take @quillmark/wasm 0.110.0 (#130)
+- Move date above signature block
+
+
 ## v0.32.1 - 2026-08-24
 
 - feat(usaf_memo): file the date under Addressing, and give the automatic one a region (#128)
