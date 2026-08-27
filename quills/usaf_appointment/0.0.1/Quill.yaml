@@ -1,0 +1,347 @@
+quill:
+  name: usaf_appointment
+  version: 0.0.1
+  backend: typst
+  description: U.S. Air Force and Space Force Appointment Letter (official memorandum with an appointee table)
+
+typst:
+  plate_file: plate.typ
+
+main:
+  ui:
+    groups: [addressing, appointment, letterhead, classification, additional]
+  body:
+    example: |
+      Appointees will complete the required program training within 30 days of this letter and will notify the program office 60 days prior to PCS, PCA, or separation. Appointees will:
+
+      - Maintain the unit program binder and continuity folder.
+      - Brief unit leadership on program status at the monthly staff meeting.
+
+      Point of contact for this action is Capt First M. Last, ORG/SYMBOL, DSN 555-1234 or first.last@us.af.mil.
+  fields:
+    memo_for:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      example:
+        - ORG/SYMBOL
+      ui:
+        group: addressing
+        compact: true
+      description: "Program office receiving the appointment (e.g. the FAC, Wing IP, or equipment accountability office), as organization/office symbol in UPPERCASE. To address a specific person, add their rank and name in parentheses (e.g., 'ORG/SYMBOL (LT COL JANE DOE)'). For many recipients, enter 'SEE DISTRIBUTION' and list them in the Distribution field."
+
+    memo_from:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - ORG/SYMBOL
+        - Organization Name
+        - 123 Street Ave
+        - City ST 12345-6789
+      ui:
+        group: addressing
+        compact: true
+      description: "If recipients are on the same installation, use only the office symbol. For recipients on other installations, include the full mailing address to enable return correspondence. Omit entirely to produce a Memorandum for Record (no MEMO FROM line)."
+
+    subject:
+      type: richtext
+      inline: true
+      example: Appointment of Primary and Alternate Unit Fitness Program Managers
+      ui:
+        group: addressing
+      description: "Be brief and clear. Capitalize the first letter of each word except articles, prepositions, and conjunctions. Include suspense dates in parentheses if applicable. Italicize publication titles with *asterisks* (standard Markdown emphasis), as in the References field."
+    
+    date:
+      type: date
+      default: ""
+      ui:
+        group: addressing
+        compact: true
+      description: YYYY-MM-DD. Leave blank to use today's date.
+      
+    signature_block:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      example:
+        - "FIRST M. LAST, Lt Col, USAF"
+        - Commander
+      ui:
+        group: addressing
+        compact: true
+      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Program publications normally require the unit commander to appoint; a designated representative signs under a FOR THE COMMANDER authority line only with a delegation on file."
+
+    appointment_statement:
+      type: richtext
+      inline: true
+      example: "In accordance with reference (a), the following individuals are appointed as the 773d Logistics Readiness Squadron Primary and Alternate Unit Fitness Program Managers:"
+      ui:
+        group: appointment
+      description: "Paragraph 1 of the letter: the appointing sentence that introduces the appointee table. Cite the governing publication here or in References. Supports Markdown emphasis (*italics*, **bold**)."
+
+    members_position:
+      type: enum
+      values:
+        - after_statement
+        - end_of_body
+      default: after_statement
+      ui:
+        group: appointment
+        compact: true
+      description: "'after_statement' places the appointee table directly under paragraph 1 (the usual form). 'end_of_body' places it after the last body paragraph, before the supersession sentence."
+
+    members_extra_column:
+      type: plaintext
+      inline: true
+      default: ""
+      example: Training Date
+      ui:
+        group: appointment
+        compact: true
+      description: "Header of an optional extra table column (e.g. 'Training Date', 'Clearance', 'Account Number'). Leave blank to omit the column; each appointee's value goes in that card's Extra field."
+
+    supersedes_previous:
+      type: boolean
+      default: true
+      ui:
+        group: appointment
+        compact: true
+      description: "Append 'This letter supersedes all previous letters, same subject.' as the final numbered paragraph."
+
+    supersession_text:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: appointment
+      description: "Replacement wording for the supersession sentence. Leave blank for the standard sentence."
+
+    letterhead_title:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default:
+        - DEPARTMENT OF THE AIR FORCE
+      example:
+        - DEPARTMENT OF THE AIR FORCE
+        - HEADQUARTERS [UNIT NAME]
+      ui:
+        group: letterhead
+      description: "Letterhead lines, top to bottom. The first is the department title, set larger than the rest; change it only for Joint Commands or DoW agencies. The lines below it are your unit's full organization name."
+
+    letterhead_seal:
+      type: enum
+      values:
+        - dow
+        - dod
+      default: dow
+      ui:
+        group: letterhead
+        compact: true
+      description: Department of War (DoW) or Department of Defense (DoD) seal shown in the letterhead.
+
+    letterhead_seal_subtitle:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: letterhead
+        compact: true
+      description: Bold-caps line below the seal; blank to omit.
+
+    tag_line:
+      type: richtext
+      inline: true
+      default: ""
+      ui:
+        group: letterhead
+        compact: true
+      description: "Organizational motto at the bottom of the page. Supports Markdown emphasis (e.g. *italics*, **bold**)."
+
+    classification:
+      type: enum
+      values:
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "Select the classification marking shown in the header and footer banner. Unclassified documents typically omit this banner entirely — leave blank unless the document is CUI or classified. Mark per DAFI 16-1404 (DoDM 5200.48 for CUI) and applicable DoD guidance."
+      variants:
+        CUI:
+          controlled_by:
+            type: plaintext
+            inline: true
+            example: SAF/AA
+            description: "Office or organization that designated this information as CUI. Required by DoDM 5200.48."
+          poc:
+            type: plaintext
+            inline: true
+            example: "Capt J. Smith, DSN 555-1234, john.smith@us.af.mil"
+            description: "Point of contact for CUI questions. Required by DoDM 5200.48."
+          category:
+            type: plaintext
+            inline: true
+            default: ""
+            description: "CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
+          limited_dissemination:
+            type: plaintext
+            inline: true
+            default: ""
+            description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix."
+
+    dissemination:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "Banner dissemination suffix appended after double slash (e.g. 'NF' renders as CUI//NF in the header/footer). Leave blank for no suffix."
+
+    references:
+      type: array
+      items:
+        type: richtext
+        inline: true
+      default: []
+      example:
+        - "DAFMAN 36-2905, 21 April 2022, *Department of the Air Force Physical Fitness Program*"
+      ui:
+        group: additional
+      description: "References, auto-lettered (a), (b), (c) per AFH 33-337. Cite each by organization, type, date, and title; italicize publication titles with *asterisks* (standard Markdown emphasis)."
+
+    cc:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - Rank and Name, ORG/SYMBOL
+      ui:
+        group: additional
+      description: List office symbols of recipients to receive copies.
+
+    distribution:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - ORG1/SYMBOL
+        - ORG2/SYMBOL
+      ui:
+        group: additional
+      description: Complete list of recipients if 'SEE DISTRIBUTION' is used in the 'Memo For' field.
+
+    attachments:
+      type: array
+      items:
+        type: richtext
+        inline: true
+      default: []
+      example:
+        - Attachment description, YYYY MMM DD
+      ui:
+        group: additional
+      description: "List attachments in the order they are mentioned in the memo. Briefly describe each; do not use 'as stated' or abbreviations. Italicize publication titles with *asterisks* (standard Markdown emphasis), as in the References field."
+
+
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: additional
+        compact: true
+      description: Body text size in points; decimals allowed (e.g. 11.5). Table cells are set two points smaller.
+
+card_kinds:
+  member:
+    description: "One card per appointee, in the order they should appear in the table (primary first). At least one is needed for the table to render. Names with duty phones and official e-mail are personally identifiable information; when DEROS, clearance, or non-duty details are listed, mark the letter CUI per DAFI 16-1404 (DoDM 5200.48) using the Classification field."
+    ui:
+      title: Appointed member
+      groups: [member]
+    body:
+      enabled: false
+    fields:
+      role:
+        type: plaintext
+        inline: true
+        default: ""
+        example: Primary
+        ui:
+          group: member
+          compact: true
+        description: "Position in the program: Primary, Alternate, Assistant, or a program-specific title (UFPM, PTL). Leave blank on every card to omit the column."
+      rank:
+        type: plaintext
+        inline: true
+        default: ""
+        example: TSgt
+        ui:
+          group: member
+          compact: true
+        description: "Grade abbreviation (TSgt, Capt, GS-11)."
+      name:
+        type: plaintext
+        inline: true
+        example: John A. Doe
+        ui:
+          group: member
+        description: "Name as it should print in the table."
+      office_symbol:
+        type: plaintext
+        inline: true
+        default: ""
+        example: 773 LRS/LGRD
+        ui:
+          group: member
+          compact: true
+        description: "Organization/office symbol. Leave blank on every card to omit the column."
+      duty_phone:
+        type: plaintext
+        inline: true
+        default: ""
+        example: 907-552-1234
+        ui:
+          group: member
+          compact: true
+        description: "Duty phone (DSN or commercial). Leave blank on every card to omit the column."
+      email:
+        type: plaintext
+        inline: true
+        default: ""
+        example: john.doe.1@us.af.mil
+        ui:
+          group: member
+        description: "Official e-mail address. Leave blank on every card to omit the column."
+      deros:
+        type: plaintext
+        inline: true
+        default: ""
+        example: Jun 27
+        ui:
+          group: member
+          compact: true
+        description: "DEROS or assignment expiration, month and year. Leave blank on every card to omit the column."
+      extra:
+        type: plaintext
+        inline: true
+        default: ""
+        example: 14 Aug 26
+        ui:
+          group: member
+          compact: true
+        description: "Value for the extra column named by the letter's 'Extra column' field; ignored when that field is blank."

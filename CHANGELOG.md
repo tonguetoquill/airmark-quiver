@@ -20,6 +20,47 @@
 
 ## Unreleased
 
+- **`usaf_appointment@0.0.1` is the appointment letter.** A unit appoints its
+  program members (fitness program managers, security managers, equipment
+  custodians, and the rest of the additional-duty roster) by official memorandum:
+  a sentence naming the appointment, a table of the appointees, the duties, a
+  point of contact, and a line superseding the last letter on the subject. That
+  is a `usaf_memo` with a table hanging under paragraph 1, and the quill is built
+  as one. It vendors the same `tonguetoquill-usaf-memo` 4.0.0 package, keeps the
+  memo's addressing, letterhead, classification (with the CUI variant), and
+  trailer fields under their existing names, and adds what the letter needs on
+  top: `appointment_statement` is paragraph 1; each appointee is a `member` card
+  (role, rank, name, office symbol, duty phone, e-mail, DEROS, and one free
+  column the letter names with `members_extra_column`); the plate builds the
+  table from the cards and hands it to the memo package's body renderer, which
+  numbers the paragraphs around it and leaves the table unnumbered, as it does
+  for a table typed into a memo body.
+  - A column prints only when some appointee fills it, so a letter with no
+    e-mail addresses has no e-mail column, and a letter whose appointees carry
+    no primary/alternate distinction has no role column. Cells are set two
+    points below the body size, one more per column past six, so a full
+    eight-column roster fits the text block at 12pt.
+  - `supersedes_previous` (on by default) closes the body with "This letter
+    supersedes all previous letters, same subject."; `supersession_text`
+    replaces the wording. `members_position` moves the table to the end of the
+    body for the letters that describe the duties first.
+  - The DAF headquarters style is not offered: it un-numbers top-level
+    paragraphs, and an appointment letter is a unit memo with a paragraph 1.
+    Nothing under `usaf_memo` moves. The vendored package copy differs from
+    `usaf_memo@0.3.0`'s in one place: `render-signature-block` places the
+    signing widget before it emits the blank lines rather than after, offset
+    to the bottom of the gap, so the widget ends where the printed name begins
+    and the gap's remainder stays clear above its frame. Placed after, as
+    `usaf_memo@0.3.0` still does, `place` anchors at the name line and the
+    widget paints down over the signature block (#113 moved the gap inside
+    the block and left the anchor behind it). `usaf_memo` is left for its own
+    fix. The block keeps AFH 33-337's four blank lines; the widget is sized
+    to two and a half of them so the rest stays clear of the body text.
+  - `design/usaf_appointment/` carries three fixtures, the render harness, and
+    a validator (pymupdf) that reads the PDF back for paragraph 1, the numbering
+    chain, every appointee, the column rule, the supersession sentence, and a
+    signature block that shares its page.
+
 - **Take `@quillmark/wasm` 0.110.0.** `Quill::validate` refuses only what the
   render floor refuses, and the difference lands here: `usaf_memo@0.2.0` declares
   `letterhead_caption` an `array`, and the bare scalar a starter template spells

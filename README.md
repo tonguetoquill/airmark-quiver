@@ -15,6 +15,7 @@ and aligned to the current Quillmark spec.
 | `daf1206`    | 0.1.0   | DAF Form 1206 — Nomination for Award                                              |
 | `daf4392`    | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                            |
 | `afmc_moa`   | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                        |
+| `usaf_appointment` | 0.0.1 | USAF / DAF Appointment Letter: official memorandum with an appointee table (AFH 33-337) |
 
 ## Install
 
