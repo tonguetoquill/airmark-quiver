@@ -264,23 +264,33 @@
       // but a gap left outside can be consumed at the foot of one page while
       // the block starts at the top margin of the next, which is also what put
       // the signing field off the page (see below).
-      #v(gap)
       #if signing-field != none {
         // The signing field covers those blank lines — where a signature is
-        // actually written — so it is placed over the gap. With the gap inside
-        // the block that is a downward offset from the block's own origin, and
-        // the field therefore travels with the block onto whatever page it
-        // lands on. The superseded form placed it at a NEGATIVE dy, reaching
-        // above the block into space that belongs to the previous page: when
-        // the block started at the top margin, the field was painted into the
-        // header band over the page number and the classification banner, or
-        // off the sheet entirely.
+        // actually written — so it is placed over the gap. It is placed BEFORE
+        // the gap is emitted: `place` anchors at the current flow position, so
+        // placing it after `v(gap)` anchors the box at the first name line and
+        // paints it down over the printed signature block. Anchored here it
+        // still travels with the block onto whatever page the block lands on,
+        // since the gap is inside the unbreakable block rather than ahead of
+        // it.
+        //
+        // The widget keeps its own size (the helper's default is 50pt tall and
+        // it positions itself, so an `align` around it does nothing) and is
+        // offset to the BOTTOM of the gap: it always ends where the printed
+        // name begins, and whatever the gap has beyond the widget's height
+        // stays clear between the body text and the widget's frame.
+        let widget-height = {
+          let h = measure(signing-field).height
+          if h > 0pt { h } else { 50pt }
+        }
+        let drop = gap - widget-height - 3pt
         place(
           dx: left-pad,
-          dy: 0pt,
-          box(width: body-width - left-pad, height: gap, signing-field),
+          dy: if drop > 0pt { drop } else { 0pt },
+          box(width: body-width - left-pad, height: widget-height, signing-field),
         )
       }
+      #v(gap)
       #align(left)[
         #pad(left: left-pad)[
           #text(hyphenate: false)[
