@@ -20,6 +20,20 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` keeps the signing widget in the blank lines above the
+  signature block.** Since #113 moved the four blank lines inside the
+  unbreakable block, `render-signature-block` has emitted `v(gap)` and then
+  `place`d the widget: `place` anchors at the current flow position, so the
+  widget anchored at the first name line and painted down over the printed
+  signature block. It is now placed before the gap is emitted and offset to
+  the bottom of the gap, so it ends where the printed name begins, and the
+  same code path carries every indorsement's widget. The plate sizes the
+  widget to two and a half lines (the helper's default is 50pt, the whole
+  gap) so the line and a half above it stays clear of the body text; the
+  block itself stays on AFH 33-337's fifth line below the text. Nothing else
+  moves: the printed memo is pixel-identical, only the widget rectangle
+  changes.
+
 - **Take `@quillmark/wasm` 0.110.0.** `Quill::validate` refuses only what the
   render floor refuses, and the difference lands here: `usaf_memo@0.2.0` declares
   `letterhead_caption` an `array`, and the bare scalar a starter template spells
