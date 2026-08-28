@@ -15,7 +15,9 @@
   `appointment_statement` is paragraph 1, `members_position` moves the table
   to the end of the body, and `supersedes_previous` closes the body with "This
   letter supersedes all previous letters, same subject." (`supersession_text`
-  replaces the wording). The editor titles each card `{rank} {name}`.
+  replaces the wording). Cards are titled `Appointee` (a literal, until
+  `@quillmark/svelte` interpolates `{field}` titles from edited plaintext
+  values; today an edited value reaches the title as `[object Object]`).
   - A column prints only when some appointee fills it, so a letter with no
     e-mail addresses has no e-mail column. Cells are set two points below the
     body size, one more per column past six, so an eight-column roster fits

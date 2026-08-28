@@ -195,11 +195,32 @@
 }
 #let table_at_end = data.members_position == "end_of_body"
 
+// `after_statement` puts the table under paragraph 1, and paragraph 1 is the
+// statement when one is set, else the body's own first paragraph. The body
+// arrives as one content sequence, so its first paragraph is the run of
+// children up to the first paragraph break (a leading list or heading ends
+// at that break too); the table goes between that run and the rest.
+#let split-first-par(body) = {
+  let kids = if type(body) == content { body.at("children", default: none) } else { none }
+  if kids == none { return (body, []) }
+  let padding(c) = c == [ ] or c.func() == parbreak
+  let i = 0
+  while i < kids.len() and padding(kids.at(i)) { i += 1 }
+  while i < kids.len() and kids.at(i).func() != parbreak { i += 1 }
+  (kids.slice(0, i).sum(default: []), kids.slice(i).sum(default: []))
+}
+#let members_table = members-table()
+#let (par1, rest) = if statement != none or members_table == none or table_at_end {
+  (statement, data.at("$body"))
+} else {
+  split-first-par(data.at("$body"))
+}
+
 #mainmatter[
-  #statement
-  #if not table_at_end { members-table() }
-  #data.at("$body")
-  #if table_at_end { members-table() }
+  #par1
+  #if not table_at_end { members_table }
+  #rest
+  #if table_at_end { members_table }
   #supersession
 ]
 

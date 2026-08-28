@@ -253,7 +253,7 @@ main:
       ui:
         group: appointment
         compact: true
-      description: "Where the appointee table prints: directly under the appointing sentence, or after the last body paragraph."
+      description: "Where the appointee table prints: directly under paragraph 1 (the appointing sentence, or the first body paragraph when no sentence is set), or after the last body paragraph."
 
     members_extra_column:
       type: plaintext
@@ -348,7 +348,7 @@ card_kinds:
   member:
     description: "Appointment letters: one card per appointee, in table order (primary first). A column every card leaves blank is omitted. Names with duty phones and official e-mail are PII; when DEROS, clearance, or non-duty details are listed, mark the letter CUI (DoDM 5200.48) with the Classification field."
     ui:
-      title: "{rank} {name}"
+      title: Appointee
     body:
       enabled: false
     fields:
