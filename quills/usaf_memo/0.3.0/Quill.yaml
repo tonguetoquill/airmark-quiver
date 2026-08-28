@@ -9,7 +9,7 @@ typst:
 
 main:
   ui:
-    groups: [addressing, letterhead, classification, additional]
+    groups: [addressing, letterhead, classification, additional, appointment]
   body:
     example: |
       The first paragraph. Top-level paragraphs are auto-numbered; do not add manual numbering.
@@ -236,6 +236,50 @@ main:
         compact: true
       description: Body text size in points; decimals allowed (e.g. 11.5).
 
+    appointment_statement:
+      type: richtext
+      inline: true
+      default: ""
+      ui:
+        group: appointment
+      description: "Appointment letters: the appointing sentence that becomes paragraph 1, with the appointee table under it. Leave blank on an ordinary memo. Supports Markdown emphasis (*italics*, **bold**)."
+
+    members_position:
+      type: enum
+      values:
+        - after_statement
+        - end_of_body
+      default: after_statement
+      ui:
+        group: appointment
+        compact: true
+      description: "Where the appointee table prints: directly under the appointing sentence, or after the last body paragraph."
+
+    members_extra_column:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: appointment
+        compact: true
+      description: "Header of an optional extra table column (Training Date, Clearance, Account Number); each appointee's value goes in that card's Extra field. Blank omits the column."
+
+    supersedes_previous:
+      type: boolean
+      default: false
+      ui:
+        group: appointment
+        compact: true
+      description: "Close the body with 'This letter supersedes all previous letters, same subject.' as the final numbered paragraph."
+
+    supersession_text:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: appointment
+      description: "Replacement wording for the supersession sentence. Blank keeps the standard sentence."
+
 card_kinds:
   indorsement:
     description: Chain of routing endorsements. Each endorsement block adds an official response or forwarding action to the original memo.
@@ -300,3 +344,68 @@ card_kinds:
           group: additional
           compact: true
         description: "Decision taken by the endorser, shown as an either/or line with the choice underlined and the rejected option struck out. Leave blank to hide the line entirely. The wording is automatic: the last indorsement is the approval authority and reads Approve/Disapprove, while every earlier one is a coordinating official and reads Concur/Nonconcur. Use 'undecided' to print the pair unmarked for the endorser to mark by hand."
+
+  member:
+    description: "Appointment letters: one card per appointee, in table order (primary first). A column every card leaves blank is omitted. Names with duty phones and official e-mail are PII; when DEROS, clearance, or non-duty details are listed, mark the letter CUI (DoDM 5200.48) with the Classification field."
+    ui:
+      title: "{rank} {name}"
+    body:
+      enabled: false
+    fields:
+      role:
+        type: plaintext
+        inline: true
+        default: ""
+        example: Primary
+        ui:
+          compact: true
+        description: "Position in the program: Primary, Alternate, Assistant, or a program-specific title (UFPM, PTL). Leave blank on every card to omit the column."
+      rank:
+        type: plaintext
+        inline: true
+        default: ""
+        example: TSgt
+        ui:
+          compact: true
+        description: "Grade abbreviation (TSgt, Capt, GS-11)."
+      name:
+        type: plaintext
+        inline: true
+        example: John A. Doe
+        description: "Name as it should print in the table."
+      office_symbol:
+        type: plaintext
+        inline: true
+        default: ""
+        example: 773 LRS/LGRD
+        ui:
+          compact: true
+        description: "Organization/office symbol. Leave blank on every card to omit the column."
+      duty_phone:
+        type: plaintext
+        inline: true
+        default: ""
+        example: 907-552-1234
+        ui:
+          compact: true
+        description: "Duty phone (DSN or commercial). Leave blank on every card to omit the column."
+      email:
+        type: plaintext
+        inline: true
+        default: ""
+        example: john.doe.1@us.af.mil
+        description: "Official e-mail address. Leave blank on every card to omit the column."
+      deros:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          compact: true
+        description: "DEROS or assignment expiration, month and year. Leave blank on every card to omit the column."
+      extra:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          compact: true
+        description: "Value for the extra column named by the letter's 'Extra column' field; ignored when that field is blank."

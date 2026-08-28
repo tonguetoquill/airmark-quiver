@@ -1,5 +1,38 @@
 # Changelog
 
+## Unreleased
+
+- **`usaf_memo@0.3.0` writes appointment letters.** A unit appoints its program
+  members (fitness program managers, security managers, equipment custodians)
+  by official memorandum: an appointing sentence, a table of the appointees,
+  the duties, and a line superseding the last letter on the subject. That is a
+  memo with a table hanging under paragraph 1, so it lives on the memo rather
+  than on a fork of it. Each appointee is a `member` card (role, rank, name,
+  office symbol, duty phone, e-mail, DEROS, and one free column the letter
+  names with `members_extra_column`); the plate builds the table from the
+  cards and hands it to the body renderer, which numbers the paragraphs around
+  it and leaves the table unnumbered, as it does for a table typed into a body.
+  `appointment_statement` is paragraph 1, `members_position` moves the table
+  to the end of the body, and `supersedes_previous` closes the body with "This
+  letter supersedes all previous letters, same subject." (`supersession_text`
+  replaces the wording). The editor titles each card `{rank} {name}`.
+  - A column prints only when some appointee fills it, so a letter with no
+    e-mail addresses has no e-mail column. Cells are set two points below the
+    body size, one more per column past six, so an eight-column roster fits
+    the text block at 12pt.
+  - Every addition is off by default: a memo with no member cards, a blank
+    statement, and `supersedes_previous: false` hands the renderer exactly its
+    body. Verified by rendering the USAF and USSF memo templates, the LOC, the
+    rebuttal, and an indorsed memo through the previous plate and this one:
+    identical PDF sizes, zero differing pixels at 144 dpi.
+  - With two card kinds, "+ Add Card" on a memo now offers Routing indorsement
+    or Appointed member.
+  - `design/usaf_memo_appointment/` carries three fixtures, the render harness
+    (which resolves the fixture's own `$quill`), and a validator (pymupdf) that
+    reads the PDF back for paragraph 1, the numbering chain, every appointee,
+    the column rule, the supersession sentence, and a signature block that
+    shares its page.
+
 ## v0.32.2 - 2026-08-27
 
 - fix(usaf_memo): keep the signing widget in the blank lines above the signature block

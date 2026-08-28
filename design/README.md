@@ -22,3 +22,15 @@ python3 design/afmc_moa/validate_moa.py design/afmc_moa/fixtures/maximal.md /tmp
 `minimal.md` is a non-reimbursable MOA (no Attachment A); `maximal.md` is a
 reimbursable one with two card-driven attachments, so it exercises the
 Attachment A/B/C lettering.
+
+## usaf_memo_appointment
+
+Appointment letters on `usaf_memo@0.3.0`: fixtures with `member` cards, the
+render harness, and a validator that reads the PDF back.
+
+```sh
+node design/usaf_memo_appointment/render_fixture.mjs design/usaf_memo_appointment/fixtures/roster.md /tmp/roster.pdf
+python3 design/usaf_memo_appointment/validate_appointment.py design/usaf_memo_appointment/fixtures/roster.md /tmp/roster.pdf
+```
+Fixtures: `minimal` (two appointees, four columns), `maximal` (CUI, extra
+column, table at end of body, custom supersession), `roster` (ten appointees).

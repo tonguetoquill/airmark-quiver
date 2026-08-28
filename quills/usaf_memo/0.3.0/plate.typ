@@ -111,8 +111,96 @@
 // render-body rebuilds paragraphs through a state buffer (AFH 33-337
 // auto-numbering), but the rebuilt glyphs keep their spans, which is what
 // the backend reads regions from.
+// Appointment letters ride the same block: the appointing sentence becomes
+// paragraph 1 with the appointee table under it (or after the body, by
+// choice), and a supersession sentence closes the numbering. Each piece is
+// emitted only when set, so a memo with no member cards, no statement, and
+// no supersession hands the renderer exactly its body, as before.
+//
+// Nothing here may emit a PDF form widget: the renderer lays the block out
+// once hidden and once for real, and a widget inside it would be born twice.
+#let trim-inline(v) = {
+  if type(v) != content { return v }
+  let kids = v.at("children", default: none)
+  if kids == none { return v }
+  let padding(c) = c == [ ] or c.func() == parbreak
+  while kids.len() > 0 and padding(kids.first()) { kids = kids.slice(1) }
+  while kids.len() > 0 and padding(kids.last()) { kids = kids.slice(0, -1) }
+  kids.sum(default: [])
+}
+
+// An unset content field reaches the plate as the empty string; a set-but-
+// whitespace one trims to empty content. Both read as blank.
+
+// An unset content field reaches the plate as the empty string; a set-but-
+// whitespace one trims to empty content. Both read as blank.
+#let blank(v) = v == "" or v == none or trim-inline(v) == []
+
+#let member_cards = (
+  data
+    .at("$cards", default: ())
+    .filter(card => card.at("$kind", default: none) == "member")
+)
+
+// Column spec: (field key, header, width). A column renders only when some
+// appointee fills it, so a letter that lists no e-mail addresses prints no
+// e-mail column; the extra column renders only when the letter names it.
+// Widths are `auto` except e-mail, which takes whatever is left and is the
+// one value long enough to need it.
+#let any-filled(key) = member_cards.any(card => not blank(card.at(key, default: "")))
+#let columns = (
+  ("role", "Role", auto),
+  ("rank", "Rank", auto),
+  ("name", "Name", auto),
+  ("office_symbol", "Office Symbol", auto),
+  ("duty_phone", "Duty Phone", auto),
+  ("email", "Email", 1fr),
+  ("deros", "DEROS", auto),
+).filter(col => any-filled(col.at(0)))
+#let columns = if not blank(data.members_extra_column) {
+  columns + (("extra", trim-inline(data.members_extra_column), auto),)
+} else {
+  columns
+}
+
+// Cells step down from the body size (two points, then one more per column
+// past six) so a full seven- or eight-column roster fits the 6.5in text block
+// at 12pt body text. The size is set inside each
+// cell rather than around the table: the memo package's body renderer keeps
+// only the bare `table` element it captures, so anything wrapped around the
+// table is dropped, and its own `set table(stroke, inset)` rule supplies the
+// borders — pass neither here.
+#let cell-size = body_font_size - 2pt - calc.max(0, columns.len() - 6) * 1pt
+#let cell(v) = text(size: cell-size, trim-inline(v))
+#let members-table() = if member_cards.len() > 0 and columns.len() > 0 {
+  table(
+    columns: columns.map(col => col.at(2)),
+    table.header(..columns.map(col => cell(col.at(1)))),
+    ..member_cards
+      .map(card => columns.map(col => cell(card.at(col.at(0), default: ""))))
+      .flatten(),
+  )
+}
+
+#let statement = if not blank(data.appointment_statement) {
+  [#trim-inline(data.appointment_statement)#parbreak()]
+}
+#let supersession = if data.supersedes_previous {
+  let wording = if blank(data.supersession_text) {
+    [This letter supersedes all previous letters, same subject.]
+  } else {
+    trim-inline(data.supersession_text)
+  }
+  [#wording#parbreak()]
+}
+#let table_at_end = data.members_position == "end_of_body"
+
 #mainmatter[
+  #statement
+  #if not table_at_end { members-table() }
   #data.at("$body")
+  #if table_at_end { members-table() }
+  #supersession
 ]
 
 // Backmatter
