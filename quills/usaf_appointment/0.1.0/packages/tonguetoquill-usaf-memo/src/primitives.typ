@@ -268,12 +268,12 @@
         // The signing field covers those blank lines — where a signature is
         // actually written — so it is placed over the gap. It is placed BEFORE
         // the gap is emitted: `place` anchors at the current flow position, so
-        // placing it after `v(gap)` would anchor the box at the first name
-        // line and paint it down over the printed signature block (which is
-        // what usaf_memo@0.3.0 does). Anchored here, the box spans exactly the
-        // gap, ends where the name begins, and still travels with the block
-        // onto whatever page the block lands on, since the gap is inside the
-        // unbreakable block rather than ahead of it.
+        // placing it after `v(gap)` anchors the box at the first name line and
+        // paints it down over the printed signature block. Anchored here it
+        // still travels with the block onto whatever page the block lands on,
+        // since the gap is inside the unbreakable block rather than ahead of
+        // it.
+        //
         // The widget keeps its own size (the helper's default is 50pt tall and
         // it positions itself, so an `align` around it does nothing) and is
         // offset to the BOTTOM of the gap: it always ends where the printed

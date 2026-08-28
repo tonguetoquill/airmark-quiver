@@ -42,7 +42,7 @@
   moves: the printed memo is pixel-identical, only the widget rectangle
   changes.
 
-- **`usaf_appointment@0.0.1` is the appointment letter.** A unit appoints its
+- **`usaf_appointment@0.1.0` is the appointment letter.** A unit appoints its
   program members (fitness program managers, security managers, equipment
   custodians, and the rest of the additional-duty roster) by official memorandum:
   a sentence naming the appointment, a table of the appointees, the duties, a
@@ -68,16 +68,14 @@
     body for the letters that describe the duties first.
   - The DAF headquarters style is not offered: it un-numbers top-level
     paragraphs, and an appointment letter is a unit memo with a paragraph 1.
-    Nothing under `usaf_memo` moves. The vendored package copy differs from
-    `usaf_memo@0.3.0`'s in one place: `render-signature-block` places the
-    signing widget before it emits the blank lines rather than after, offset
-    to the bottom of the gap, so the widget ends where the printed name begins
-    and the gap's remainder stays clear above its frame. Placed after, as
-    `usaf_memo@0.3.0` still does, `place` anchors at the name line and the
-    widget paints down over the signature block (#113 moved the gap inside
-    the block and left the anchor behind it). `usaf_memo` is left for its own
-    fix. The block keeps AFH 33-337's four blank lines; the widget is sized
-    to two and a half of them so the rest stays clear of the body text.
+    Nothing under `usaf_memo` moves; the vendored package copy is byte-equal
+    to `usaf_memo@0.3.0`'s, signing-widget fix included.
+  - The first version is 0.1.0, not 0.0.1: `@quillmark/quiver`'s `build` leaves
+    versions below 0.1.0 in the draft space, so a 0.0.x quill renders in the
+    gate and the studio and never reaches a packed artifact.
+  - Each `member` card is titled from its own fields (`{rank} {name}`), and its
+    fields sit ungrouped on the card face so a roster reads and edits as a list
+    of people rather than a stack of collapsed panels.
   - `design/usaf_appointment/` carries three fixtures, the render harness, and
     a validator (pymupdf) that reads the PDF back for paragraph 1, the numbering
     chain, every appointee, the column rule, the supersession sentence, and a

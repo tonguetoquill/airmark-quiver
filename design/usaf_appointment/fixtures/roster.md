@@ -1,5 +1,5 @@
 ~~~
-$quill: usaf_appointment@0.0.1
+$quill: usaf_appointment@0.1.0
 $kind: main
 memo_for:
   - 673 FSS/FSVF

@@ -27,7 +27,7 @@ const { Document } = await init();
 
 const quiver = await fromDir(repoRoot);
 const engine = new Engine();
-const quill = await quiver.getQuill("usaf_appointment@0.0.1");
+const quill = await quiver.getQuill("usaf_appointment@0.1.0");
 
 const doc = Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"));
 let result;

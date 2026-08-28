@@ -1,6 +1,6 @@
 quill:
   name: usaf_appointment
-  version: 0.0.1
+  version: 0.1.0
   backend: typst
   description: U.S. Air Force and Space Force Appointment Letter (official memorandum with an appointee table)
 
@@ -271,8 +271,7 @@ card_kinds:
   member:
     description: "One card per appointee, in the order they should appear in the table (primary first). At least one is needed for the table to render. Names with duty phones and official e-mail are personally identifiable information; when DEROS, clearance, or non-duty details are listed, mark the letter CUI per DAFI 16-1404 (DoDM 5200.48) using the Classification field."
     ui:
-      title: Appointed member
-      groups: [member]
+      title: "{rank} {name}"
     body:
       enabled: false
     fields:
@@ -282,7 +281,6 @@ card_kinds:
         default: ""
         example: Primary
         ui:
-          group: member
           compact: true
         description: "Position in the program: Primary, Alternate, Assistant, or a program-specific title (UFPM, PTL). Leave blank on every card to omit the column."
       rank:
@@ -291,15 +289,12 @@ card_kinds:
         default: ""
         example: TSgt
         ui:
-          group: member
           compact: true
         description: "Grade abbreviation (TSgt, Capt, GS-11)."
       name:
         type: plaintext
         inline: true
         example: John A. Doe
-        ui:
-          group: member
         description: "Name as it should print in the table."
       office_symbol:
         type: plaintext
@@ -307,7 +302,6 @@ card_kinds:
         default: ""
         example: 773 LRS/LGRD
         ui:
-          group: member
           compact: true
         description: "Organization/office symbol. Leave blank on every card to omit the column."
       duty_phone:
@@ -316,7 +310,6 @@ card_kinds:
         default: ""
         example: 907-552-1234
         ui:
-          group: member
           compact: true
         description: "Duty phone (DSN or commercial). Leave blank on every card to omit the column."
       email:
@@ -324,24 +317,18 @@ card_kinds:
         inline: true
         default: ""
         example: john.doe.1@us.af.mil
-        ui:
-          group: member
         description: "Official e-mail address. Leave blank on every card to omit the column."
       deros:
         type: plaintext
         inline: true
         default: ""
-        example: Jun 27
         ui:
-          group: member
           compact: true
         description: "DEROS or assignment expiration, month and year. Leave blank on every card to omit the column."
       extra:
         type: plaintext
         inline: true
         default: ""
-        example: 14 Aug 26
         ui:
-          group: member
           compact: true
         description: "Value for the extra column named by the letter's 'Extra column' field; ignored when that field is blank."
