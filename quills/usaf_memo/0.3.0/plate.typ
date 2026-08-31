@@ -108,6 +108,7 @@
 ]
 
 #backmatter(
+  authority_line: data.authority_line,
   signature_block: data.signature_block,
   // The widget sits at the bottom of AFH 33-337's four blank lines and is
   // sized to two and a half of them, so the line and a half above it stays
@@ -173,6 +174,7 @@
     indorsement(
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
+      authority_line: card.authority_line,
       signature_block: card.signature_block,
       signing_field: signature-field(
         "Ind_" + str(i) + "_Signature",

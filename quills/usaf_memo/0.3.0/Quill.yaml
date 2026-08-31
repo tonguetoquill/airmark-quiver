@@ -66,6 +66,16 @@ main:
         compact: true
       description: "YYYY-MM-DD, printed in the format the Memo Style field selects. Leave blank to use today's date."
       
+    authority_line:
+      type: plaintext
+      inline: true
+      default: ""
+      example: FOR THE COMMANDER
+      ui:
+        group: addressing
+        compact: true
+      description: "Line telling the reader the signer acted for the commander, the command section, or the headquarters, printed in uppercase above the signature block. AFH 33-337 words it 'FOR THE COMMANDER', or the appropriate title where the head of your organization holds one other than commander. Fill it in when the commander's designated representative signs for a specific action, when the memo carries the commander's position or the coordinated position of the headquarters staff, or when a staff member directs action or announces policy within their own area of responsibility. Leave blank — the usual case — when the commander signs, when the memo gives the opinion of a unit, directorate, division, office, or branch, or when it goes outside the DoD. Leave blank as well when the deputy or vice commander signs while the commander is temporarily away, unless command action is directed by law and requires an indication of delegation."
+
     signature_block:
       type: array
       items:
@@ -266,6 +276,14 @@ card_kinds:
           group: addressing
           compact: true
         description: "YYYY-MM-DD, the date the endorser signs or forwards the memo — distinct from the originating memo's date, per AFH 33-337 Ch. 14. Leave blank to print a fillable PDF text field for the endorser to type into when signing."
+      authority_line:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          group: addressing
+          compact: true
+        description: "Authority line for this indorsement, printed in uppercase above its signature block. An indorsement has a closing section of its own, so the same rules apply: fill it in when the endorser signs for the commander or the headquarters, leave it blank when the commander signs."
       signature_block:
         type: array
         items:

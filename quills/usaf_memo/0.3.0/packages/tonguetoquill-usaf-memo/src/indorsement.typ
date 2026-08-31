@@ -11,6 +11,9 @@
   from: none,
   to: none,
   signature_block: none,
+  // An indorsement has a closing section of its own, so it takes an authority
+  // line on the same terms as the memorandum.
+  authority_line: none,
   signature_blank_lines: 4,
   signing_field: none,
   date: none,
@@ -168,5 +171,10 @@
     }
   }
 
-  render-signature-block(signature_block, signature-blank-lines: signature_blank_lines, signing-field: signing_field)
+  render-signature-block(
+    signature_block,
+    closing-line: authority-line(authority_line),
+    signature-blank-lines: signature_blank_lines,
+    signing-field: signing_field,
+  )
 }

@@ -201,9 +201,32 @@
 // AFH 33-337 "Do not place the signature element on a continuation page by itself"
 // AFH 33-337 long-name example: "Signature block adjusted to the left" when a
 // long name would otherwise exceed the right margin.
+//
+// A closing line may open the section above the block, and AFH 33-337 gives it
+// one geometry across the two documents that have one: on the second line below
+// the text at the block's own anchor, with the signature then five lines below
+// the line rather than below the body. The memorandum's occupant is the
+// authority line, "FOR THE COMMANDER"; the personal letter's is the
+// complimentary close, "Sincerely", which the handbook bars the authority line
+// from. Hence the neutral parameter, and hence case belongs to the caller — the
+// authority line is uppercased, "Sincerely" is not.
 
-#let render-signature-block(signature-lines, signature-blank-lines: 4, signing-field: none) = {
+/// The memorandum's occupant of that slot, uppercased per AFH 33-337. Blank is
+/// no line: the handbook forbids one where the commander signs.
+///
+/// - value (str | content | none): The authority line as authored
+/// -> content | none
+#let authority-line(value) = if falsey(value) { none } else { upper(value) }
+
+#let render-signature-block(
+  signature-lines,
+  closing-line: none,
+  signature-blank-lines: 4,
+  signing-field: none,
+) = {
   signature-lines = ensure-array(signature-lines)
+  // Blank is no line, whichever occupant the caller passes.
+  if falsey(closing-line) { closing-line = none }
   // AFH 33-337 allows two equivalent anchors: 4.5in from the left edge, or three
   // spaces right of page center. On 8.5in stock these coincide (page center =
   // 4.25in; three TNR-12pt spaces ≈ 0.25in), so we use 4.5in as the canonical
@@ -211,9 +234,13 @@
   let default-pad = 4.5in - spacing.margin
   context {
     // Measure each line at its rendered settings to detect long-name overflow.
+    // The closing line shares the anchor, so it joins the measurement: the
+    // wider of the two decides the shift and they stay aligned.
     let body-width = page.width - 2 * spacing.margin
+    let anchored-lines = signature-lines
+    if closing-line != none { anchored-lines.push(closing-line) }
     let widest = 0pt
-    for line in signature-lines {
+    for line in anchored-lines {
       let w = measure(text(hyphenate: false, line)).width
       if w > widest { widest = w }
     }
@@ -243,6 +270,14 @@
       // identical either way — `block.above` still contributes the same 0.5em —
       // but a gap left outside can be consumed at the foot of one page while
       // the block starts at the top margin of the next.
+      //
+      // The closing line takes one of those lines above it and the gap then
+      // measures from the line, not from the text. Inside the block, so no page
+      // break can put it on a different page from the signature.
+      #if closing-line != none {
+        v(stride)
+        pad(left: left-pad, text(hyphenate: false, closing-line))
+      }
       #if signing-field != none {
         // The signing field covers those blank lines — where a signature is
         // actually written — so it is placed over the gap. It is placed BEFORE
@@ -251,7 +286,8 @@
         // paints it down over the printed signature block. Anchored here it
         // still travels with the block onto whatever page the block lands on,
         // since the gap is inside the unbreakable block rather than ahead of
-        // it.
+        // it. The current position is below the closing line when there is
+        // one, which is where the signature is written.
         //
         // The widget keeps its own size (the helper's default is 50pt tall and
         // it positions itself, so an `align` around it does nothing) and is
