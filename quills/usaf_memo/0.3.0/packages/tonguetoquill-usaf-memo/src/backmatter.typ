@@ -29,7 +29,11 @@
   // Render backmatter sections without paragraph numbering
   render-signature-block(
     signature_block,
-    authority-line: authority_line,
+    // The memo's occupant of the closing-line slot. Cased on the way in, by the
+    // element rather than by the slot: the authority line is uppercased, and
+    // the personal letter's complimentary close — which sits in the same slot,
+    // under the same five-line rule — must not be.
+    closing-line: authority-line(authority_line),
     signature-blank-lines: signature_blank_lines,
     signing-field: signing_field,
   )

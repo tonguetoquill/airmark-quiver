@@ -184,7 +184,7 @@
 
   render-signature-block(
     signature_block,
-    authority-line: authority_line,
+    closing-line: authority-line(authority_line),
     signature-blank-lines: signature_blank_lines,
     signing-field: signing_field,
   )

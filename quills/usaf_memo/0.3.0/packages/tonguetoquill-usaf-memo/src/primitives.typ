@@ -222,29 +222,51 @@
 // AFH 33-337 long-name example: "Signature block adjusted to the left" when a
 // long name would otherwise exceed the right margin.
 //
-// AFH 33-337 "Authority Line": "The authority line informs readers that the
-// person who signed the document acted for the commander, the command section,
-// or the headquarters. If an authority line is used, add 'FOR THE COMMANDER'
-// (or appropriate title) in uppercase on the second line below the last line of
-// the text and 4.5 inches from the left edge of the page or three spaces to the
-// right of the page center." — and then: "If the authority line is used, type
-// the signature element five lines below the authority line." So the authority
-// line, not the body, becomes what the signature block is measured from; the
-// four blank lines below it are the same four either way.
+// One line may open the closing section above the signature block, and AFH
+// 33-337 gives it the same geometry in both documents that have one, so
+// `closing-line` is the neutral name for the slot rather than either occupant's:
+//
+//   Memorandum — the authority line. "The authority line informs readers that
+//   the person who signed the document acted for the commander, the command
+//   section, or the headquarters. If an authority line is used, add 'FOR THE
+//   COMMANDER' (or appropriate title) in uppercase on the second line below the
+//   last line of the text and 4.5 inches from the left edge of the page or
+//   three spaces to the right of the page center." Optional, and forbidden
+//   where the commander signs personally.
+//
+//   Personal letter — the complimentary close. "Place 'Sincerely' on the second
+//   line below the text and 4.5 inches from the left edge of the page or three
+//   spaces to the right of page center. Do not punctuate the complimentary
+//   close." Always present, and expressly NOT an authority line: "The authority
+//   line is not used for Personal Letters."
+//
+// Either way the signature is then measured from that line, not from the body:
+// "type the signature element five lines below the authority line" / "on the
+// fifth line below and aligned with the complimentary close." The four blank
+// lines under it are the same four either way, which is the whole of what this
+// function needs to know — so it takes the line already worded and already
+// cased. Case is the caller's, and it differs: the authority line is uppercased
+// (`authority-line` below), "Sincerely" must not be.
+
+/// The memorandum's authority line as this slot's occupant: uppercased per AFH
+/// 33-337, whoever typed it and in whatever case — the same treatment the
+/// letterhead and MEMORANDUM FOR give their text. A blank field (the quillmark
+/// helper's `""`) is no authority line at all, which is the common case: most
+/// memos are signed by the commander, and AFH 33-337 forbids the line there.
+///
+/// - value (str | content | none): The authority line as authored
+/// -> content | none
+#let authority-line(value) = if falsey(value) { none } else { upper(value) }
 
 #let render-signature-block(
   signature-lines,
-  authority-line: none,
+  closing-line: none,
   signature-blank-lines: 4,
   signing-field: none,
 ) = {
   signature-lines = ensure-array(signature-lines)
-  // AFH 33-337 asks for the authority line in uppercase, whoever typed it and
-  // in whatever case — the same treatment the letterhead and MEMORANDUM FOR
-  // give their text. A blank field (the quillmark helper's `""`) is no
-  // authority line at all, which is the common case: most memos are signed by
-  // the commander, and AFH 33-337 forbids the line there.
-  authority-line = if falsey(authority-line) { none } else { upper(authority-line) }
+  // Blank is no line, whichever occupant the caller passes.
+  if falsey(closing-line) { closing-line = none }
   // AFH 33-337 allows two equivalent anchors: 4.5in from the left edge, or three
   // spaces right of page center. On 8.5in stock these coincide (page center =
   // 4.25in; three TNR-12pt spaces ≈ 0.25in), so we use 4.5in as the canonical
@@ -252,12 +274,12 @@
   let default-pad = 4.5in - spacing.margin
   context {
     // Measure each line at its rendered settings to detect long-name overflow.
-    // The authority line shares the block's anchor, so it is measured with the
+    // The closing line shares the block's anchor, so it is measured with the
     // signature lines: whichever is widest decides the shift, and the two stay
     // aligned with each other wherever they land.
     let body-width = page.width - 2 * spacing.margin
     let anchored-lines = signature-lines
-    if authority-line != none { anchored-lines.push(authority-line) }
+    if closing-line != none { anchored-lines.push(closing-line) }
     let widest = 0pt
     for line in anchored-lines {
       let w = measure(text(hyphenate: false, line)).width
@@ -291,16 +313,15 @@
       // the block starts at the top margin of the next, which is also what put
       // the signing field off the page (see below).
       //
-      // The authority line, when there is one, is what the four blank lines
-      // then measure from ("five lines below the authority line"), and it sits
-      // one blank line below the text ("the second line below the last line of
-      // the text"). It is emitted inside this same unbreakable block for the
-      // reason the block exists: an authority line stranded at the foot of one
-      // page with the signature it authorizes overleaf is the split AFH 33-337
-      // forbids for the signature element itself.
-      #if authority-line != none {
+      // A closing line, when there is one, is what the four blank lines then
+      // measure from, and it sits one blank line below the text ("the second
+      // line below the last line of the text"). It is emitted inside this same
+      // unbreakable block for the reason the block exists: a line stranded at
+      // the foot of one page with the signature it introduces overleaf is the
+      // split AFH 33-337 forbids for the signature element itself.
+      #if closing-line != none {
         v(stride)
-        pad(left: left-pad, text(hyphenate: false, authority-line))
+        pad(left: left-pad, text(hyphenate: false, closing-line))
       }
       #if signing-field != none {
         // The signing field covers those blank lines — where a signature is
@@ -311,8 +332,8 @@
         // still travels with the block onto whatever page the block lands on,
         // since the gap is inside the unbreakable block rather than ahead of
         // it. Anchoring at the current position is also what keeps the widget
-        // over the right four lines when an authority line precedes it: the
-        // anchor rides below that line, where the signature is written.
+        // over the right four lines when a closing line precedes it: the anchor
+        // rides below that line, where the signature is written.
         //
         // The widget keeps its own size (the helper's default is 50pt tall and
         // it positions itself, so an `align` around it does nothing) and is

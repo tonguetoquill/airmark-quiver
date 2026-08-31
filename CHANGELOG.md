@@ -45,6 +45,19 @@
   that is the ordinary memo, the one the commander signs, where the handbook
   forbids the line outright.
 
+  What that primitive takes is the slot rather than the element. AFH 33-337
+  seats a personal letter's complimentary close in exactly the same place under
+  exactly the same rule — "'Sincerely' on the second line below the text and 4.5
+  inches from the left edge", the signature "on the fifth line below and aligned
+  with the complimentary close" — while barring the authority line from letters
+  outright: "The authority line is not used for Personal Letters." One geometry,
+  two occupants that never co-occur. So the parameter is `closing-line`, either
+  may fill it, and casing stays with the element that has an opinion about it:
+  `authority-line()` uppercases the memo's, and "Sincerely" would not be. The
+  schema field stays `authority_line` — this quill renders memoranda, whose slot
+  admits one occupant, and a letter would be its own quill with its own field
+  over the same primitive.
+
 - **`usaf_memo@0.3.0` keeps the signing widget in the blank lines above the
   signature block.** Since #113 moved the four blank lines inside the
   unbreakable block, `render-signature-block` has emitted `v(gap)` and then
