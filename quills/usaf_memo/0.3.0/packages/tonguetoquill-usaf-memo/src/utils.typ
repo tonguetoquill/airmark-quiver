@@ -1,21 +1,8 @@
-// utils.typ: Utility functions and backend code for Typst usaf-memo package.
-//
-// This module provides core utility functions, configuration constants, and helper
-// functions used by the main memorandum template. It handles spacing calculations,
-// paragraph numbering, grid layouts, and various formatting utilities required
-// for AFH 33-337 compliance.
-//
-// Key components:
-// - Spacing constants and configuration management
-// - Paragraph numbering and indentation utilities
-// - Grid layout and backmatter formatting functions
-// - Date formatting and content scaling utilities
-// - Indorsement processing and ordinal number generation
+// Spacing, normalization, and formatting helpers shared across the template.
 
 #import "config.typ": CLASSIFICATION_COLORS, counters, paragraph-config, spacing
 
-// Shared measured line-stride cache used by body line-count heuristics.
-// Value is a `length` set once in `frontmatter`.
+// Measured height of one wrapped body line, set once in `frontmatter`.
 #let LINE_STRIDE = state("LINE_STRIDE")
 
 /// The height one wrapped line of body text occupies.
@@ -48,20 +35,12 @@
 }
 
 /// Creates vertical spacing equivalent to one blank line.
-/// Convenience function for single line spacing.
 ///
 /// -> content
 #let blank-line() = blank-lines(1)
 
-// =============================================================================
-// GENERAL UTILITY FUNCTIONS
-// =============================================================================
-
 /// Checks if a value is "falsey" (none, false, empty array, empty string, or
 /// empty content).
-///
-/// Provides a consistent way to test for empty or missing values across
-/// the template system. Used for conditional rendering of optional sections.
 ///
 /// Content fields (`plaintext` / `richtext`) reach the template in one of two
 /// shapes: a blank one as the empty string `""`, a filled one as a markup
@@ -80,11 +59,9 @@
   )
 }
 
-/// Scales content to fit within a specified box while maintaining aspect ratio.
+/// Scales content uniformly to fit a fixed-size box, preserving aspect ratio.
 ///
-/// Automatically measures content and calculates uniform scaling to fit within
-/// the given dimensions. Commonly used for letterhead seals and other images
-/// that need to fit specific size constraints while preserving proportions.
+/// Used for letterhead seals and emblems, whose source images vary in size.
 ///
 /// - width (length): Maximum width for the content (default: 2in)
 /// - height (length): Maximum height for the content (default: 1in)
@@ -92,13 +69,9 @@
 /// - body (content): Content to scale and fit
 /// -> content
 #let fit-box(width: 2in, height: 1in, alignment: left + horizon, body) = context {
-  // 1) measure the unscaled content
   let s = measure(body)
-
-  // 2) compute the uniform scale that fits inside the box
   let f = calc.min(width / s.width, height / s.height) * 100% // ratio
-
-  // 3) fixed-size box, center the scaled content, and reflow so layout respects it
+  // `reflow: true` so layout respects the scaled size rather than the original.
   box(width: width, height: height, clip: true)[
     #align(alignment)[
       #scale(f, reflow: true)[#body]
@@ -220,21 +193,8 @@
   rgb(0, 0, 0)
 }
 
-// =============================================================================
-// GRID LAYOUT UTILITIES
-// =============================================================================
-
-/// Creates an automatic grid layout from a cell value or array of them.
-///
-/// Converts 1D content into a multi-column grid layout with proper spacing.
-/// Used primarily for formatting recipient lists in the "MEMORANDUM FOR" section
-/// where multiple organizations need to be displayed in columns.
-///
-/// Features:
-/// - Automatic column distribution and row filling
-/// - Configurable column spacing and count
-/// - Handles a single cell or an array of them, as `str` or as content
-/// - Adds padding cells to maintain consistent column alignment
+/// Arranges one cell or an array of them into a `cols`-wide grid, filled
+/// row-major. Used for the MEMORANDUM FOR recipient list.
 ///
 /// Cells may be content, not just `str`: a `plaintext` recipient list lowers
 /// each element to a markup block, which is what makes the rendered glyphs
@@ -247,25 +207,23 @@
 #let create-auto-grid(content, column-gutter: .5em, cols: 3) = {
   let content_type = type(content)
 
-  // Normalize to 1d array. A lone cell — `str` or content — is a one-cell grid.
   if content_type != array {
     content = (content,)
   }
 
 
-  // Build cell array in row-major order
+  // Each row carries a trailing empty cell, so a row is `cols + 1` wide — the
+  // width both this loop and the tail padding below count against.
   let cells = ()
   let i = 0
   for item in content {
     i += 1
     cells.push(item)
     if calc.rem(i, cols) == 0 {
-      // Add empty cell to pad the page
       cells.push([])
     }
   }
 
-  // Add padding cells to complete the last row if needed
   let remainder = calc.rem(cells.len(), cols + 1)
   if remainder != 0 {
     let padding_needed = (cols + 1) - remainder
@@ -282,23 +240,10 @@
   )
 }
 
-// =============================================================================
-// TYPE NORMALIZATION UTILITIES
-// =============================================================================
-
-/// Ensures the input is an array. If already an array, returns as-is.
-/// If not an array, wraps the value in a tuple.
-///
-/// This utility eliminates repetitive `if type(x) == array` checks throughout
-/// the codebase by providing a canonical "normalize to array" function.
+/// Normalizes a value to an array, wrapping a scalar and mapping `none` to `()`.
 ///
 /// - value: Any value to normalize to array form
-/// - Returns: Array containing the value(s)
-///
-/// Examples:
-/// - ensure-array("foo") → ("foo",)
-/// - ensure-array(("a", "b")) → ("a", "b")
-/// - ensure-array(none) → ()
+/// -> array
 #let ensure-array(value) = {
   if value == none {
     ()
@@ -312,8 +257,7 @@
 /// Normalizes a scalar-or-array field to a single stacked-lines **content**
 /// value, one array element per line.
 ///
-/// This is the content-safe successor to the former `ensure-string`: every
-/// prose field the quill declares is now a `plaintext` / `richtext` field, so
+/// Every prose field the quill declares is a `plaintext` / `richtext` field, so
 /// it arrives as Typst *content* (a markup block), and `str(..)` on content is
 /// an error. Joining with `linebreak()` rather than `"\n"` renders the same
 /// stacked lines while accepting either shape.
@@ -325,9 +269,7 @@
 /// -> content
 ///
 /// Examples:
-/// - join-lines("foo") → [foo]
 /// - join-lines(([a], [b])) → [a] + linebreak() + [b]
-/// - join-lines(()) → []
 /// - join-lines(none) → []
 #let join-lines(value) = {
   if value == none { return [] }
@@ -339,20 +281,11 @@
   if joined == none { [] } else { joined }
 }
 
-/// Extracts the first element from an array, or returns the value if not an array.
-///
-/// This utility eliminates repetitive ternary operators like
-/// `if type(x) == array { x.at(0) } else { x }` by providing a canonical
-/// "first element or self" function.
+/// The first element of an array, or the value itself when it is not one.
+/// An empty array and `none` both yield `none`.
 ///
 /// - value: Any value to extract from
-/// - Returns: First array element if array, otherwise the value itself
-///
-/// Examples:
-/// - first-or-value("foo") → "foo"
-/// - first-or-value(("a", "b")) → "a"
-/// - first-or-value(()) → none
-/// - first-or-value(none) → none
+/// -> any
 #let first-or-value(value) = {
   if value == none {
     none
@@ -368,19 +301,10 @@
 }
 
 
-// =============================================================================
-// INDORSEMENT UTILITIES
-// =============================================================================
-
-/// Converts number to ordinal suffix for indorsements following AFH 33-337 conventions.
+/// The ordinal suffix for an indorsement number: 1st, 2d, 3d, 4th, …
 ///
-/// AFH 33-337 Chapter 14 indorsement examples show "1st Ind", "2d Ind", "3d Ind" format.
-/// Note: Military style uses "2d" and "3d" instead of "2nd" and "3rd" per DoD correspondence standards.
-///
-/// Generates proper ordinal suffixes for indorsement numbering:
-/// - 1st, 2d, 3d, 4th, 5th, etc. (note: military uses "2d" and "3d", not "2nd" and "3rd")
-/// - Special handling for 11th, 12th, 13th (all use "th")
-/// - Follows official military correspondence standards
+/// Military correspondence writes "2d" and "3d" where ordinary English writes
+/// "2nd" and "3rd"; 11th through 13th take "th" as usual.
 ///
 /// - number (int): The indorsement number (1, 2, 3, etc.)
 /// -> str
@@ -401,34 +325,11 @@
   }
 }
 
-/// Formats indorsement number according to AFH 33-337 standards.
-///
-/// Creates properly formatted indorsement labels with ordinal suffixes:
-/// - "1st Ind", "2d Ind", "3d Ind", "4th Ind", etc.
-/// - Uses military-specific ordinal format (2d/3d instead of 2nd/3rd)
-/// - Combines with "Ind" suffix for standard indorsement header format
+/// An indorsement's header label: "1st Ind", "2d Ind", "3d Ind", …
 ///
 /// - number (int): Indorsement sequence number (1, 2, 3, etc.)
 /// -> str
 #let format-indorsement-number(number) = {
   let suffix = get-ordinal-suffix(number)
   str(number) + suffix + " Ind"
-}
-
-/// Processes and renders an array of indorsements.
-///
-/// Iterates through an array of indorsement objects and renders each one
-/// with proper formatting and font settings. Used by the main memorandum
-/// template to process the indorsements parameter.
-///
-/// - indorsements (array): Array of indorsement objects created with indorsement()
-/// - body-font (str | array): Font(s) to use for indorsement text
-/// - font-size (length): Font size for indorsement text (default: 12pt)
-/// -> content
-#let process-indorsements(indorsements, body-font: none, font-size: 12pt) = {
-  if not falsey(indorsements) {
-    for indorsement in indorsements {
-      (indorsement.render)(body-font: body-font, font-size: font-size)
-    }
-  }
 }

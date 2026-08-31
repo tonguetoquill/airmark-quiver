@@ -21,9 +21,7 @@
 // widget (`date-placeholder-slot`, whose slot is `1em` tall and 1in wide).
 #let body_font_size = data.font_size * 1pt
 
-// Frontmatter configuration
 #show: frontmatter.with(
-  // Letterhead configuration
   letterhead_title: letterhead_lines.at(0, default: ""),
   letterhead_caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
   letterhead_seal_subtitle: data.letterhead_seal_subtitle,
@@ -62,19 +60,15 @@
     }
   },
 
-  // Receiver information
   memo_for: data.memo_for,
 
-  // Sender information (omitted for Memorandum for Record)
+  // A memo with no FROM line is a Memorandum for Record.
   ..if data.memo_from.len() > 0 { (memo_from: data.memo_from) },
 
-  // Subject line
   subject: data.subject,
 
-  // Optional references
   ..if data.references.len() > 0 { (references: data.references) },
 
-  // Optional footer tag line
   footer_tag_line: data.tag_line,
 
   // The blank reads as no banner, which is what the package's own
@@ -97,32 +91,24 @@
     )
   },
 
-  // USAF vs DAF memorandum style (date format, body indentation).
   memo_style: memo_style,
 
-  // Font size
   font_size: body_font_size,
 
-  // List recipients in vertical list
+  // One recipient per line; the package's own default is three columns.
   memo_for_cols: 1,
 )
 
-// Mainmatter. The body's region needs no recovery step here: the package's
-// render-body rebuilds paragraphs through a state buffer (AFH 33-337
-// auto-numbering), but the rebuilt glyphs keep their spans, which is what
-// the backend reads regions from.
+// The body's region needs no recovery step here: the package's render-body
+// rebuilds paragraphs through a state buffer (AFH 33-337 auto-numbering), but
+// the rebuilt glyphs keep their spans, which is what the backend reads regions
+// from.
 #mainmatter[
   #data.at("$body")
 ]
 
-// Backmatter
 #backmatter(
-  // Authority line. Blank is the ordinary case — AFH 33-337 forbids the line
-  // where the commander signs personally — and the package reads the blank as
-  // no line, so the field goes across as written.
   authority_line: data.authority_line,
-
-  // Signature block
   signature_block: data.signature_block,
   // The widget sits at the bottom of AFH 33-337's four blank lines and is
   // sized to two and a half of them, so the line and a half above it stays
@@ -133,13 +119,10 @@
     height: body_font_size * 2.5,
   ),
 
-  // Optional cc
   ..if data.cc.len() > 0 { (cc: data.cc) },
 
-  // Optional distribution
   ..if data.distribution.len() > 0 { (distribution: data.distribution) },
 
-  // Optional attachments
   ..if data.attachments.len() > 0 { (attachments: data.attachments) },
 )
 
@@ -163,7 +146,6 @@
     .at(-1, default: -1)
 )
 
-// Indorsements - iterate through CARDS array and filter by CARD tag
 #for (i, card) in data.at("$cards").enumerate() {
   if card.at("$kind", default: none) == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as

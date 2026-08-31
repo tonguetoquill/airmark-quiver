@@ -1,19 +1,11 @@
-// primitives.typ: Reusable rendering primitives for USAF memorandum sections
-//
-// This module implements the visual rendering functions that produce AFH 33-337
-// compliant formatting for all sections of a USAF memorandum. Each function
-// corresponds to specific placement and formatting requirements from Chapter 14.
+// One rendering function per section of the memorandum, each placing its
+// section where AFH 33-337 Chapter 14 puts it.
 
 #import "config.typ": *
 #import "utils.typ": *
 
-// =============================================================================
-// LETTERHEAD RENDERING
-// =============================================================================
-// AFH 33-337 §1: "Use printed letterhead, computer-generated letterhead, or plain bond paper"
-// Letterhead placement is not explicitly specified in AFH 33-337, but follows
-// standard USAF memo formatting conventions
-
+// AFH 33-337 does not specify letterhead placement; the geometry below follows
+// standard USAF memo convention.
 #let render-letterhead(
   title,
   caption,
@@ -115,15 +107,6 @@
   }
 }
 
-// =============================================================================
-// HEADER SECTIONS
-// =============================================================================
-// AFH 33-337 "The Heading Section" specifies exact placement and format for:
-// - Date: 1 inch from right edge, 1.75 inches from top
-// - MEMORANDUM FOR: Second line below date
-// - FROM: Second line below MEMORANDUM FOR
-// - SUBJECT: Second line below FROM
-
 // AFH 33-337 "Date": "Place the date 1 inch from the right edge, 1.75 inches from the top"
 #let render-date-section(date, memo-style: "usaf") = {
   align(right)[#display-date(date, memo-style: memo-style)]
@@ -212,9 +195,6 @@
   }
 }
 
-// =============================================================================
-// SIGNATURE BLOCK
-// =============================================================================
 // AFH 33-337 "Signature Block": "Start the signature block on the fifth line below
 // the last line of text and 4.5 inches from the left edge of the page or three
 // spaces to the right of page center"
@@ -222,37 +202,17 @@
 // AFH 33-337 long-name example: "Signature block adjusted to the left" when a
 // long name would otherwise exceed the right margin.
 //
-// One line may open the closing section above the signature block, and AFH
-// 33-337 gives it the same geometry in both documents that have one, so
-// `closing-line` is the neutral name for the slot rather than either occupant's:
-//
-//   Memorandum — the authority line. "The authority line informs readers that
-//   the person who signed the document acted for the commander, the command
-//   section, or the headquarters. If an authority line is used, add 'FOR THE
-//   COMMANDER' (or appropriate title) in uppercase on the second line below the
-//   last line of the text and 4.5 inches from the left edge of the page or
-//   three spaces to the right of the page center." Optional, and forbidden
-//   where the commander signs personally.
-//
-//   Personal letter — the complimentary close. "Place 'Sincerely' on the second
-//   line below the text and 4.5 inches from the left edge of the page or three
-//   spaces to the right of page center. Do not punctuate the complimentary
-//   close." Always present, and expressly NOT an authority line: "The authority
-//   line is not used for Personal Letters."
-//
-// Either way the signature is then measured from that line, not from the body:
-// "type the signature element five lines below the authority line" / "on the
-// fifth line below and aligned with the complimentary close." The four blank
-// lines under it are the same four either way, which is the whole of what this
-// function needs to know — so it takes the line already worded and already
-// cased. Case is the caller's, and it differs: the authority line is uppercased
-// (`authority-line` below), "Sincerely" must not be.
+// A closing line may open the section above the block, and AFH 33-337 gives it
+// one geometry across the two documents that have one: on the second line below
+// the text at the block's own anchor, with the signature then five lines below
+// the line rather than below the body. The memorandum's occupant is the
+// authority line, "FOR THE COMMANDER"; the personal letter's is the
+// complimentary close, "Sincerely", which the handbook bars the authority line
+// from. Hence the neutral parameter, and hence case belongs to the caller — the
+// authority line is uppercased, "Sincerely" is not.
 
-/// The memorandum's authority line as this slot's occupant: uppercased per AFH
-/// 33-337, whoever typed it and in whatever case — the same treatment the
-/// letterhead and MEMORANDUM FOR give their text. A blank field (the quillmark
-/// helper's `""`) is no authority line at all, which is the common case: most
-/// memos are signed by the commander, and AFH 33-337 forbids the line there.
+/// The memorandum's occupant of that slot, uppercased per AFH 33-337. Blank is
+/// no line: the handbook forbids one where the commander signs.
 ///
 /// - value (str | content | none): The authority line as authored
 /// -> content | none
@@ -274,9 +234,8 @@
   let default-pad = 4.5in - spacing.margin
   context {
     // Measure each line at its rendered settings to detect long-name overflow.
-    // The closing line shares the block's anchor, so it is measured with the
-    // signature lines: whichever is widest decides the shift, and the two stay
-    // aligned with each other wherever they land.
+    // The closing line shares the anchor, so it joins the measurement: the
+    // wider of the two decides the shift and they stay aligned.
     let body-width = page.width - 2 * spacing.margin
     let anchored-lines = signature-lines
     if closing-line != none { anchored-lines.push(closing-line) }
@@ -310,15 +269,11 @@
       // and the block one indivisible unit. The total space above the block is
       // identical either way — `block.above` still contributes the same 0.5em —
       // but a gap left outside can be consumed at the foot of one page while
-      // the block starts at the top margin of the next, which is also what put
-      // the signing field off the page (see below).
+      // the block starts at the top margin of the next.
       //
-      // A closing line, when there is one, is what the four blank lines then
-      // measure from, and it sits one blank line below the text ("the second
-      // line below the last line of the text"). It is emitted inside this same
-      // unbreakable block for the reason the block exists: a line stranded at
-      // the foot of one page with the signature it introduces overleaf is the
-      // split AFH 33-337 forbids for the signature element itself.
+      // The closing line takes one of those lines above it and the gap then
+      // measures from the line, not from the text. Inside the block, so no page
+      // break can put it on a different page from the signature.
       #if closing-line != none {
         v(stride)
         pad(left: left-pad, text(hyphenate: false, closing-line))
@@ -331,9 +286,8 @@
         // paints it down over the printed signature block. Anchored here it
         // still travels with the block onto whatever page the block lands on,
         // since the gap is inside the unbreakable block rather than ahead of
-        // it. Anchoring at the current position is also what keeps the widget
-        // over the right four lines when a closing line precedes it: the anchor
-        // rides below that line, where the signature is written.
+        // it. The current position is below the closing line when there is
+        // one, which is where the signature is written.
         //
         // The widget keeps its own size (the helper's default is 50pt tall and
         // it positions itself, so an `align` around it does nothing) and is
@@ -367,24 +321,11 @@
   }
 }
 
-// =============================================================================
-// ACTION LINE RENDERING
-// =============================================================================
-// Renders the decision line for indorsement memos — an "either / or" pair
-// where the endorser's choice is circled and the rejected option struck out.
-//
-// Two option pairs are supported, reflecting the two roles an indorsement
-// plays in a coordination chain: coordinating officials Concur / Nonconcur,
-// while the final approval authority Approves / Disapproves.
-//
-// Which pair prints is not the endorser's to choose — it follows from the
-// role, so the caller supplies the role via `approval-authority` and the same
-// three `action` values (affirm, reject, or leave open) carry over both pairs.
-//
-// The "undecided" form renders both options plain, for printing a memo the
-// endorser marks by hand when signing.
-//
-// Empty/none suppression is handled by the caller before this is invoked.
+// The indorsement decision line is an "either / or" pair. Which pair prints
+// follows from the indorsement's role in the coordination chain rather than
+// from the endorser's choice, so the caller supplies the role and the same
+// three `action` values carry over both pairs. The caller also suppresses the
+// line entirely; reaching here means one is wanted.
 
 // The option pair for each role, ordered (affirmative, negative).
 #let APPROVAL_OPTIONS = ("Approve", "Disapprove")
@@ -439,24 +380,16 @@
   }
 }
 
-// =============================================================================
-// TABLE RENDERING
-// =============================================================================
-// AFH 33-337 does not specify table formatting, so we follow the general
-// aesthetic principles of the standard: plain black borders, no decorative
-// fills, and the body font inherited throughout.
-
-/// Renders a table with USAF memorandum–consistent formatting.
+/// Renders a table in the memorandum's style.
 ///
-/// Applies simple 0.5pt black cell borders and standard padding to any
-/// Typst `table` element, keeping the visual style clean and formal.
-/// Font and size are inherited from the surrounding body text.
+/// AFH 33-337 does not specify table formatting, so this follows the general
+/// aesthetic of the standard: plain black borders, a bold header row, no
+/// decorative fills, and the body font and size inherited from the surrounding
+/// text.
 ///
 /// - it (content): The table element to style and render
 /// -> content
 #let render-memo-table(it) = {
-  // AFH 33-337 does not specify table formatting, so we follow the general
-  // aesthetic principles of the standard: bold headers for clarity.
   show table.cell.where(y: 0): set text(weight: "bold")
   set table(
     stroke: 0.5pt + black,
@@ -465,15 +398,6 @@
   it
 }
 
-// =============================================================================
-// BACKMATTER SECTIONS
-// =============================================================================
-// AFH 33-337 "Attachment or Attachments": "Place 'Attachment:' (for a single attachment)
-// or '# Attachments:' (for two or more attachments) at the left margin, on the third
-// line below the signature element"
-// AFH 33-337 "Courtesy Copy Element": "place 'cc:' flush with the left margin, on the
-// second line below the attachment element"
-
 #let render-backmatter-section(
   content,
   section-label,
@@ -481,7 +405,7 @@
   continuation-label: none,
 ) = {
   let formatted-content = {
-    // Use text() wrapper to prevent section label from being treated as a paragraph
+    // `text()` keeps the label from being laid out as a paragraph of its own.
     text()[#section-label]
     linebreak()
     if numbering-style != none {
@@ -515,6 +439,12 @@
     blank-lines(line_count)
   }
 }
+
+// AFH 33-337 "Attachment or Attachments": "Place 'Attachment:' (for a single attachment)
+// or '# Attachments:' (for two or more attachments) at the left margin, on the third
+// line below the signature element"
+// AFH 33-337 "Courtesy Copy Element": "place 'cc:' flush with the left margin, on the
+// second line below the attachment element"
 
 #let render-backmatter-sections(
   attachments: none,
