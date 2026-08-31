@@ -28,6 +28,23 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` takes an authority line.** AFH 33-337's closing section
+  opens with an element the quill had no field for: the authority line, which
+  tells the reader the signer acted for the commander, the command section, or
+  the headquarters. `authority_line` now carries it — on the memo, and on each
+  indorsement, which closes with a signature of its own. The handbook places it
+  "in uppercase on the second line below the last line of the text and 4.5
+  inches from the left edge", and then measures the signature from it rather
+  than from the body: "if the authority line is used, type the signature element
+  five lines below the authority line." So `render-signature-block` renders it,
+  as the one place that knows where the block's anchor landed — it shares that
+  anchor, joins the widest-line test that shifts a long block left, and rides
+  inside the same unbreakable block, since an authority line stranded above a
+  page break from the signature it authorizes is the split the block exists to
+  prevent. The field is uppercased for the author, and blank is no line at all:
+  that is the ordinary memo, the one the commander signs, where the handbook
+  forbids the line outright.
+
 - **`usaf_memo@0.3.0` keeps the signing widget in the blank lines above the
   signature block.** Since #113 moved the four blank lines inside the
   unbreakable block, `render-signature-block` has emitted `v(gap)` and then

@@ -66,6 +66,16 @@ main:
         compact: true
       description: YYYY-MM-DD. Leave blank to use today's date.
       
+    authority_line:
+      type: plaintext
+      inline: true
+      default: ""
+      example: FOR THE COMMANDER
+      ui:
+        group: addressing
+        compact: true
+      description: "Authority line, printed in uppercase above the signature block, telling the reader the signer acted for the commander, the command section, or the headquarters. Write 'FOR THE COMMANDER' unless the head of the organization holds another title (e.g. 'FOR THE COMMANDER IN CHIEF', 'FOR THE SUPERINTENDENT', 'FOR THE COMMANDANT'). Per AFH 33-337, use it when the commander's designated representative signs for a specific action, when the memo carries the commander's position or the coordinated position of the headquarters staff, or when a staff member signs to direct action or announce policy within their area of responsibility. Leave blank — the usual case — when the commander signs, when the deputy or vice commander signs during the commander's temporary absence, when the memo expresses the opinion of a unit, directorate, division, office, or branch, or when it is addressed outside the DoD."
+
     signature_block:
       type: array
       items:
@@ -266,6 +276,14 @@ card_kinds:
           group: addressing
           compact: true
         description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fillable PDF text field for the endorser to type the date into when signing."
+      authority_line:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          group: addressing
+          compact: true
+        description: "Authority line for this indorsement, printed in uppercase above its signature block (e.g. 'FOR THE COMMANDER'). An indorsement carries its own closing section, so AFH 33-337's rules apply as they do to the memo: use it when the endorser signs as the commander's designated representative or for the headquarters, and leave it blank when the commander signs personally."
       signature_block:
         type: array
         items:

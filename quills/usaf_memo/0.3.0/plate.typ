@@ -117,6 +117,11 @@
 
 // Backmatter
 #backmatter(
+  // Authority line. Blank is the ordinary case — AFH 33-337 forbids the line
+  // where the commander signs personally — and the package reads the blank as
+  // no line, so the field goes across as written.
+  authority_line: data.authority_line,
+
   // Signature block
   signature_block: data.signature_block,
   // The widget sits at the bottom of AFH 33-337's four blank lines and is
@@ -187,6 +192,7 @@
     indorsement(
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
+      authority_line: card.authority_line,
       signature_block: card.signature_block,
       signing_field: signature-field(
         "Ind_" + str(i) + "_Signature",

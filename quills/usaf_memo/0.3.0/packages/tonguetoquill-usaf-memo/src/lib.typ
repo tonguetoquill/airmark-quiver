@@ -10,6 +10,8 @@
 // - Date placement: 1.75 inches from top, 1 inch from right (Date section)
 // - Heading elements: MEMORANDUM FOR, FROM, SUBJECT with 2-line spacing
 // - Paragraph numbering: Hierarchical 1., a., (1), (a) format (§2)
+// - Authority line: "FOR THE COMMANDER" on the second line below the text, with
+//   the signature block five lines below it (Authority Line section)
 // - Signature block: 4.5 inches from left, never orphaned (Signature Block section)
 // - Backmatter: Attachments, cc:, distribution with specific spacing
 //

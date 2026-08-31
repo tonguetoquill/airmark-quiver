@@ -221,9 +221,30 @@
 // AFH 33-337 "Do not place the signature element on a continuation page by itself"
 // AFH 33-337 long-name example: "Signature block adjusted to the left" when a
 // long name would otherwise exceed the right margin.
+//
+// AFH 33-337 "Authority Line": "The authority line informs readers that the
+// person who signed the document acted for the commander, the command section,
+// or the headquarters. If an authority line is used, add 'FOR THE COMMANDER'
+// (or appropriate title) in uppercase on the second line below the last line of
+// the text and 4.5 inches from the left edge of the page or three spaces to the
+// right of the page center." — and then: "If the authority line is used, type
+// the signature element five lines below the authority line." So the authority
+// line, not the body, becomes what the signature block is measured from; the
+// four blank lines below it are the same four either way.
 
-#let render-signature-block(signature-lines, signature-blank-lines: 4, signing-field: none) = {
+#let render-signature-block(
+  signature-lines,
+  authority-line: none,
+  signature-blank-lines: 4,
+  signing-field: none,
+) = {
   signature-lines = ensure-array(signature-lines)
+  // AFH 33-337 asks for the authority line in uppercase, whoever typed it and
+  // in whatever case — the same treatment the letterhead and MEMORANDUM FOR
+  // give their text. A blank field (the quillmark helper's `""`) is no
+  // authority line at all, which is the common case: most memos are signed by
+  // the commander, and AFH 33-337 forbids the line there.
+  authority-line = if falsey(authority-line) { none } else { upper(authority-line) }
   // AFH 33-337 allows two equivalent anchors: 4.5in from the left edge, or three
   // spaces right of page center. On 8.5in stock these coincide (page center =
   // 4.25in; three TNR-12pt spaces ≈ 0.25in), so we use 4.5in as the canonical
@@ -231,9 +252,14 @@
   let default-pad = 4.5in - spacing.margin
   context {
     // Measure each line at its rendered settings to detect long-name overflow.
+    // The authority line shares the block's anchor, so it is measured with the
+    // signature lines: whichever is widest decides the shift, and the two stay
+    // aligned with each other wherever they land.
     let body-width = page.width - 2 * spacing.margin
+    let anchored-lines = signature-lines
+    if authority-line != none { anchored-lines.push(authority-line) }
     let widest = 0pt
-    for line in signature-lines {
+    for line in anchored-lines {
       let w = measure(text(hyphenate: false, line)).width
       if w > widest { widest = w }
     }
@@ -264,6 +290,18 @@
       // but a gap left outside can be consumed at the foot of one page while
       // the block starts at the top margin of the next, which is also what put
       // the signing field off the page (see below).
+      //
+      // The authority line, when there is one, is what the four blank lines
+      // then measure from ("five lines below the authority line"), and it sits
+      // one blank line below the text ("the second line below the last line of
+      // the text"). It is emitted inside this same unbreakable block for the
+      // reason the block exists: an authority line stranded at the foot of one
+      // page with the signature it authorizes overleaf is the split AFH 33-337
+      // forbids for the signature element itself.
+      #if authority-line != none {
+        v(stride)
+        pad(left: left-pad, text(hyphenate: false, authority-line))
+      }
       #if signing-field != none {
         // The signing field covers those blank lines — where a signature is
         // actually written — so it is placed over the gap. It is placed BEFORE
@@ -272,7 +310,9 @@
         // paints it down over the printed signature block. Anchored here it
         // still travels with the block onto whatever page the block lands on,
         // since the gap is inside the unbreakable block rather than ahead of
-        // it.
+        // it. Anchoring at the current position is also what keeps the widget
+        // over the right four lines when an authority line precedes it: the
+        // anchor rides below that line, where the signature is written.
         //
         // The widget keeps its own size (the helper's default is 50pt tall and
         // it positions itself, so an `align` around it does nothing) and is

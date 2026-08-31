@@ -17,6 +17,10 @@
   from: none,
   to: none,
   signature_block: none,
+  // Authority line above this indorsement's signature block, e.g. "FOR THE
+  // COMMANDER". An indorsement carries its own closing section, so AFH 33-337's
+  // authority-line rules apply to it as they do to the originating memo.
+  authority_line: none,
   signature_blank_lines: 4,
   signing_field: none,
   date: none,
@@ -178,5 +182,10 @@
     }
   }
 
-  render-signature-block(signature_block, signature-blank-lines: signature_blank_lines, signing-field: signing_field)
+  render-signature-block(
+    signature_block,
+    authority-line: authority_line,
+    signature-blank-lines: signature_blank_lines,
+    signing-field: signing_field,
+  )
 }
