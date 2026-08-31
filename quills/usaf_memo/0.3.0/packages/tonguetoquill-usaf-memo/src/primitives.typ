@@ -1,19 +1,11 @@
-// primitives.typ: Reusable rendering primitives for USAF memorandum sections
-//
-// This module implements the visual rendering functions that produce AFH 33-337
-// compliant formatting for all sections of a USAF memorandum. Each function
-// corresponds to specific placement and formatting requirements from Chapter 14.
+// One rendering function per section of the memorandum, each placing its
+// section where AFH 33-337 Chapter 14 puts it.
 
 #import "config.typ": *
 #import "utils.typ": *
 
-// =============================================================================
-// LETTERHEAD RENDERING
-// =============================================================================
-// AFH 33-337 §1: "Use printed letterhead, computer-generated letterhead, or plain bond paper"
-// Letterhead placement is not explicitly specified in AFH 33-337, but follows
-// standard USAF memo formatting conventions
-
+// AFH 33-337 does not specify letterhead placement; the geometry below follows
+// standard USAF memo convention.
 #let render-letterhead(
   title,
   caption,
@@ -115,15 +107,6 @@
   }
 }
 
-// =============================================================================
-// HEADER SECTIONS
-// =============================================================================
-// AFH 33-337 "The Heading Section" specifies exact placement and format for:
-// - Date: 1 inch from right edge, 1.75 inches from top
-// - MEMORANDUM FOR: Second line below date
-// - FROM: Second line below MEMORANDUM FOR
-// - SUBJECT: Second line below FROM
-
 // AFH 33-337 "Date": "Place the date 1 inch from the right edge, 1.75 inches from the top"
 #let render-date-section(date, memo-style: "usaf") = {
   align(right)[#display-date(date, memo-style: memo-style)]
@@ -212,9 +195,6 @@
   }
 }
 
-// =============================================================================
-// SIGNATURE BLOCK
-// =============================================================================
 // AFH 33-337 "Signature Block": "Start the signature block on the fifth line below
 // the last line of text and 4.5 inches from the left edge of the page or three
 // spaces to the right of page center"
@@ -262,8 +242,7 @@
       // and the block one indivisible unit. The total space above the block is
       // identical either way — `block.above` still contributes the same 0.5em —
       // but a gap left outside can be consumed at the foot of one page while
-      // the block starts at the top margin of the next, which is also what put
-      // the signing field off the page (see below).
+      // the block starts at the top margin of the next.
       #if signing-field != none {
         // The signing field covers those blank lines — where a signature is
         // actually written — so it is placed over the gap. It is placed BEFORE
@@ -306,24 +285,11 @@
   }
 }
 
-// =============================================================================
-// ACTION LINE RENDERING
-// =============================================================================
-// Renders the decision line for indorsement memos — an "either / or" pair
-// where the endorser's choice is circled and the rejected option struck out.
-//
-// Two option pairs are supported, reflecting the two roles an indorsement
-// plays in a coordination chain: coordinating officials Concur / Nonconcur,
-// while the final approval authority Approves / Disapproves.
-//
-// Which pair prints is not the endorser's to choose — it follows from the
-// role, so the caller supplies the role via `approval-authority` and the same
-// three `action` values (affirm, reject, or leave open) carry over both pairs.
-//
-// The "undecided" form renders both options plain, for printing a memo the
-// endorser marks by hand when signing.
-//
-// Empty/none suppression is handled by the caller before this is invoked.
+// The indorsement decision line is an "either / or" pair. Which pair prints
+// follows from the indorsement's role in the coordination chain rather than
+// from the endorser's choice, so the caller supplies the role and the same
+// three `action` values carry over both pairs. The caller also suppresses the
+// line entirely; reaching here means one is wanted.
 
 // The option pair for each role, ordered (affirmative, negative).
 #let APPROVAL_OPTIONS = ("Approve", "Disapprove")
@@ -378,24 +344,16 @@
   }
 }
 
-// =============================================================================
-// TABLE RENDERING
-// =============================================================================
-// AFH 33-337 does not specify table formatting, so we follow the general
-// aesthetic principles of the standard: plain black borders, no decorative
-// fills, and the body font inherited throughout.
-
-/// Renders a table with USAF memorandum–consistent formatting.
+/// Renders a table in the memorandum's style.
 ///
-/// Applies simple 0.5pt black cell borders and standard padding to any
-/// Typst `table` element, keeping the visual style clean and formal.
-/// Font and size are inherited from the surrounding body text.
+/// AFH 33-337 does not specify table formatting, so this follows the general
+/// aesthetic of the standard: plain black borders, a bold header row, no
+/// decorative fills, and the body font and size inherited from the surrounding
+/// text.
 ///
 /// - it (content): The table element to style and render
 /// -> content
 #let render-memo-table(it) = {
-  // AFH 33-337 does not specify table formatting, so we follow the general
-  // aesthetic principles of the standard: bold headers for clarity.
   show table.cell.where(y: 0): set text(weight: "bold")
   set table(
     stroke: 0.5pt + black,
@@ -404,15 +362,6 @@
   it
 }
 
-// =============================================================================
-// BACKMATTER SECTIONS
-// =============================================================================
-// AFH 33-337 "Attachment or Attachments": "Place 'Attachment:' (for a single attachment)
-// or '# Attachments:' (for two or more attachments) at the left margin, on the third
-// line below the signature element"
-// AFH 33-337 "Courtesy Copy Element": "place 'cc:' flush with the left margin, on the
-// second line below the attachment element"
-
 #let render-backmatter-section(
   content,
   section-label,
@@ -420,7 +369,7 @@
   continuation-label: none,
 ) = {
   let formatted-content = {
-    // Use text() wrapper to prevent section label from being treated as a paragraph
+    // `text()` keeps the label from being laid out as a paragraph of its own.
     text()[#section-label]
     linebreak()
     if numbering-style != none {
@@ -454,6 +403,12 @@
     blank-lines(line_count)
   }
 }
+
+// AFH 33-337 "Attachment or Attachments": "Place 'Attachment:' (for a single attachment)
+// or '# Attachments:' (for two or more attachments) at the left margin, on the third
+// line below the signature element"
+// AFH 33-337 "Courtesy Copy Element": "place 'cc:' flush with the left margin, on the
+// second line below the attachment element"
 
 #let render-backmatter-sections(
   attachments: none,

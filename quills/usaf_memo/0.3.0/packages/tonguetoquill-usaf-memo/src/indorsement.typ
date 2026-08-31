@@ -1,14 +1,8 @@
-// indorsement.typ: Indorsement rendering for USAF memorandum
+// An indorsement forwards a memorandum onward with the endorser's own
+// commentary and signature, per AFH 33-337 Chapter 14.
 //
-// This module implements indorsements (endorsements) per AFH 33-337 Chapter 14.
-// Indorsements are used to forward memorandums with additional commentary.
-// They follow the format: "1st Ind", "2d Ind", "3d Ind", etc.
-// Each indorsement includes its own body text and signature block.
-//
-// Note: When using #show: indorsement.with(...), the indorsement wraps the
-// entire remainder of the document. This works for a single indorsement at
-// the end of a file. For multiple indorsements, use the function call syntax:
-// #indorsement(...)[Body text...]
+// Call it as a function, `#indorsement(..)[Body]`. As a show rule it wraps the
+// whole remainder of the document, which leaves room for exactly one.
 
 #import "primitives.typ": *
 #import "body.typ": *
@@ -38,7 +32,6 @@
   approval_authority: false,
   content,
 ) = {
-  // Validate format parameter
   assert(
     format in ("standard", "informal", "separate_page"),
     message: "format must be \"standard\", \"informal\", or \"separate_page\"",
@@ -54,16 +47,14 @@
   let ind_from = first-or-value(from)
   let ind_for = to
 
-  // An empty body (e.g. a KIND with only an action selected and no markdown
-  // body) collapses to zero rendered layout via render-body's filter. To
-  // make the "empty body takes no layout space" guarantee end-to-end, also
-  // suppress the spacing the surrounding code reserves *for* the body:
-  // the header→body gap (when no action is present) and the action→body
-  // trailing gap. Without this, an empty body still leaves an extra
-  // blank-line stride above the signature, pushing it off the AFH 33-337
-  // "fifth line below the last line of text" anchor.
-  // The plate calls indorsement with `[]` when the markdown body is empty
-  // or whitespace-only; comparing against `[]` reliably detects that.
+  // An empty body renders as zero layout through render-body's filter, so the
+  // spacing reserved *for* the body is suppressed too: the header→body gap
+  // (when no action is present) and the action→body trailing gap. Left in,
+  // they add a blank-line stride above the signature and push it off AFH
+  // 33-337's "fifth line below the last line of text" anchor.
+  //
+  // A caller with no body passes `[]` — what the plate hands over for an empty
+  // or whitespace-only markdown body.
   let body_empty = content == []
 
   let effective_action = if action == none or type(action) != str or action.trim() == "" {
@@ -73,7 +64,8 @@
   }
 
   if format != "informal" {
-    // Step the counter BEFORE the context block to avoid read-then-update loop
+    // Stepped outside the `context` below, which reads it: a step inside would
+    // read and update the same counter.
     counters.indorsement.step()
 
     context {
@@ -83,7 +75,6 @@
       let original_date = config.original_date
       let original_from = config.original_from
 
-      // Read the counter value (already stepped above)
       let indorsement_number = counters.indorsement.get().at(0, default: 1)
       let indorsement_label = format-indorsement-number(indorsement_number)
 
@@ -162,7 +153,6 @@
     }
   }
 
-  // Show action line only when an action decision is set (not `none`)
   if effective_action != none {
     render-action-line(
       effective_action,

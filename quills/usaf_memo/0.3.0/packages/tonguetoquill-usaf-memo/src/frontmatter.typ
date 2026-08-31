@@ -1,11 +1,5 @@
-// frontmatter.typ: Frontmatter show rule for USAF memorandum
-//
-// This module implements the frontmatter (heading section) of a USAF memorandum
-// per AFH 33-337 Chapter 14 "The Heading Section". It handles:
-// - Page setup with proper margins
-// - Letterhead rendering
-// - Date, MEMORANDUM FOR, FROM, SUBJECT, and References placement
-// - Classification markings in headers/footers
+// The memorandum's heading section, and the page setup the rest of the
+// document inherits: AFH 33-337 Chapter 14 "The Heading Section".
 
 #import "primitives.typ": *
 
@@ -77,8 +71,8 @@
     and classification_level.trim().starts-with("CUI")
   ) {
     // Each indicator is a `plaintext` field, so it arrives as content when set
-    // and as `""` when blank — `falsey` is the shape-agnostic presence test
-    // that the former `type(..) == str and ..trim() != ""` guard replaces.
+    // and as `""` when blank; `falsey` is the presence test that reads both
+    // shapes.
     let lines = ()
     if not falsey(cui_controlled_by) {
       lines.push([Controlled By: #cui_controlled_by])
@@ -97,11 +91,10 @@
     none
   }
 
-  // Document-wide typography settings (inlined from configure())
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
   set block(above: spacing.line, below: 0em, spacing: 0em)
   set text(font: body_font, size: font_size, fallback: true)
-  show raw: set text(font: DEFAULT_MONO_FONTS)  // Static monospace face for inline code and code blocks
+  show raw: set text(font: DEFAULT_MONO_FONTS)
 
   set page(
     paper: "us-letter",
@@ -207,7 +200,8 @@
   // Since we have a 1-inch top margin, we need (1.75in - margin) vertical space
   v(1.75in - spacing.margin)
 
-  // Measure and cache body line stride once for body line-count heuristics.
+  // Measure one line's stride once, under the typography just set, for the
+  // blank-line spacing the sections below and the body are laid out on.
   context {
     let one-line = measure(par(spacing: 0pt)[x]).height
     let line-stride = measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
