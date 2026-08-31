@@ -28,6 +28,13 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` slants an italic tag line.** The footer motto is typeset
+  in Cinzel, which carries one weight axis and no italic face: `strong` moves
+  along the axis and shows, while `emph` resolved to the roman and reached the
+  page as nothing, so the field's promise of Markdown emphasis held for bold
+  alone. Emphasis inside the tag line is now synthesized as a 12° slant. A tag
+  line carrying none renders unchanged.
+
 - **`usaf_memo@0.3.0` keeps the signing widget in the blank lines above the
   signature block.** Since #113 moved the four blank lines inside the
   unbreakable block, `render-signature-block` has emitted `v(gap)` and then

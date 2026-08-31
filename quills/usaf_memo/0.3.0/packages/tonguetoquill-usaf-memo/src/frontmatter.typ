@@ -148,6 +148,10 @@
           bottom + center,
           dy: -0.625in,
           align(center)[
+            // Cinzel is one weight axis and no italic face, so `emph` resolves
+            // to the roman and reads as nothing. The slant is synthesized;
+            // `box` keeps the run inline.
+            #show emph: it => box(skew(ax: -12deg, reflow: false, it.body))
             #text(fill: LETTERHEAD_COLOR, font: "cinzel", size: 15pt)[#footer_tag_line]
           ],
         )
