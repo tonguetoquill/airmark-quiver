@@ -154,20 +154,23 @@
 /// `form-field(.., type: "text")`, which lowers to a fillable AcroForm text box
 /// in PDF output. It is anchored at the slot's top-left corner, the corner the
 /// widget's own rectangle grows right and down from, so a widget declared at
-/// this slot's dimensions covers it exactly. `none` (a caller with no widget to
-/// give, e.g. the package used outside Quillmark) leaves the slot blank.
+/// this slot's dimensions covers it exactly. With no widget to anchor — the
+/// package used outside Quillmark — the slot rules its baseline instead, for
+/// the endorser to date by hand.
 ///
 /// - field (content | none): Fill-in widget to anchor in the slot
 /// - width (length): Width of the slot; defaults to fit a long date such as
 ///   "15 September 2026".
 /// -> content
-#let date-placeholder-slot(field, width: 1in) = box(
+#let date-placeholder-slot(field: none, width: 1in) = box(
   width: width,
   height: 1em,
   // Keep the slot's bottom edge on the line's baseline, where the printed date
-  // would sit; the 1em height then reserves the line above it.
+  // would sit; the 1em height then reserves the line above it — the space a
+  // handwritten date is written in.
   // (A positive baseline shift would drop the box a full line too low.)
   baseline: 0pt,
+  stroke: if field == none { (bottom: 0.5pt + black) },
   if field != none { place(top + left, field) },
 )
 

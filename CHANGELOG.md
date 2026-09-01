@@ -28,6 +28,32 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` vendors `tonguetoquill-usaf-memo` 5.0.0, upstream's own.**
+  The vendored copy had drifted from `tonguetoquill/typst-usaf-memo` in five
+  places, and upstream is where the package is authored, so upstream wins each:
+  `authority-line` is renamed `format-authority-line`; `date-placeholder-slot`
+  takes its widget by name and rules the slot's baseline when given none, for a
+  date written by hand; the two inlined line-stride measurements call the
+  `line-stride()` helper they duplicated; and `render-backmatter-section` drops
+  its explicit `pagebreak()` for `block(breakable: false, ..)`, which is a
+  rendering change — **the gap after an attachment list was 21.89pt where every
+  other blank-line gap in a memorandum is 27.89pt, and is now 27.89pt too.**
+  Nothing else moves. `Cinzel[wght].ttf` gives way to upstream's static
+  `Cinzel-Regular.ttf`, which renders identically and does not draw typst
+  0.14's warning that variable fonts may render incorrectly.
+
+  Every `.typ` file is now code-identical to upstream. Two adaptations remain
+  and are deliberate: public parameters keep this quiver's `snake_case`
+  spelling, as `Quill.yaml` and every other vendored package do, and comments
+  naming what a quill hands the package — `plaintext` and `richtext` fields,
+  the helper's `form-field`, the spans that make rendered glyphs
+  click-navigable — stay, since upstream has no quillmark to describe and the
+  facts are true here.
+
+  The manifest declares 5.0.0 rather than 4.0.0, which the plate's import
+  follows; its `[template]` section is dropped, having named a `template/`
+  directory and thumbnail the vendored copy does not ship.
+
 - **`usaf_memo@0.3.0` keeps the closing sections out of the body rebuild.**
   `mainmatter` renders through a buffer: `render-body` lays the content out
   hidden, collects each paragraph, table, and block quote, and emits that

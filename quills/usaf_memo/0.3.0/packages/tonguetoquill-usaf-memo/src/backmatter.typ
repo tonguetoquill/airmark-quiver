@@ -18,7 +18,7 @@
     signature_block,
     // Cased by the element, not by the slot: the letter's complimentary close
     // fills the same slot and must not be uppercased.
-    closing-line: authority-line(authority_line),
+    closing-line: format-authority-line(authority_line),
     signature-blank-lines: signature_blank_lines,
     signing-field: signing_field,
   )
