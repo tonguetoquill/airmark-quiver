@@ -18,8 +18,8 @@
   signing_field: none,
   date: none,
   // Fill-in widget for an omitted `date`, anchored in the date slot of the
-  // indorsement header (see `date-placeholder-slot`). `none` leaves the slot
-  // blank.
+  // indorsement header (see `date-placeholder-slot`). Without one the slot is
+  // ruled for a handwritten date.
   date_field: none,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",

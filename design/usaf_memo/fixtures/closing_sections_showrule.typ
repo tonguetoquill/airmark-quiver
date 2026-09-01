@@ -1,6 +1,4 @@
-// `#show: mainmatter`: the rest of the document reaches the show rule, closing
-// sections included, and `split-closing` is what keeps them out of the rebuild
-// pass. The form `lib.typ` documents.
+// The show-rule form, closing sections written as markup children.
 
 #import "closing_sections.typ": *
 

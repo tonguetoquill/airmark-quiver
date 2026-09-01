@@ -1,12 +1,7 @@
-// The memorandum both call forms typeset, and the two ways of writing it.
+// The memorandum every form in this directory typesets.
 //
-// `mainmatter` is a show rule that hands its content to a rebuild pass, so a
-// memorandum written `#show: mainmatter` puts its closing sections through
-// machinery meant for the body. `#mainmatter[…]` never does. The two must
-// nonetheless land the same document on the page.
-//
-// The package is imported by path rather than as `@local/…`, so the check
-// reads the working tree and needs no package cache.
+// Imported by path rather than as `@local/…`, so the check reads the working
+// tree and needs no package cache.
 
 #import "../../../quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/src/lib.typ": (
   backmatter, frontmatter, indorsement, mainmatter,

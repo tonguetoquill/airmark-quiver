@@ -1,13 +1,14 @@
-// check_closing_sections.mjs — one memorandum, three ways of writing it, and
-// the requirement that all three render the same pages.
+// check_closing_sections.mjs — `#show: mainmatter` and `#mainmatter[…]` must
+// typeset the same memorandum.
 //
-// The invariant: `#show: mainmatter` and `#mainmatter[…]` typeset the same
-// document. The show rule receives the closing sections along with the body,
-// and `split-closing` is what keeps them out of the body's rebuild pass — the
-// rebuild buffers paragraphs, tables, and block quotes and drops everything
-// else, so a closing section that enters it loses its 4.5-inch signature
-// anchor and its labels, takes body paragraph numbers, and, where it carries a
-// page break, does not compile at all.
+// The show rule is handed the closing sections along with the body, and
+// `split-closing` is what keeps them out of the body's rebuild pass. The three
+// show-rule fixtures put the closing sections in a different shape each time —
+// markup children, emitted from a code block, and under `set`/`show` rules that
+// wrap the remainder in a `styled` element — and each must match the function
+// form page for page. A fourth stands alone: a memorandum with no body, where
+// the closing section is the whole of what `mainmatter` receives, checked
+// against the signature anchor since it has no counterpart to match.
 //
 // Usage (from the repo root):
 //   node design/usaf_memo/check_closing_sections.mjs
@@ -33,7 +34,15 @@ const fonts = join(
 const typst = process.env.TYPST ?? "typst";
 
 const BASELINE = "closing_sections_function.typ";
-const FORMS = ["closing_sections_showrule.typ", "closing_sections_nested.typ"];
+const FORMS = [
+  "closing_sections_showrule.typ",
+  "closing_sections_nested.typ",
+  "closing_sections_styled.typ",
+];
+// A memorandum with no body: the closing section is then the whole of what
+// `mainmatter` receives rather than one child among several.
+const BODYLESS_BASELINE = "closing_sections_only_function.typ";
+const BODYLESS_FORM = "closing_sections_only.typ";
 // With page breaks the split is what makes the document compile; without them
 // it compiles either way and only the ink says whether the split happened.
 const VARIANTS = ["true", "false"];
@@ -60,7 +69,10 @@ const renderPages = (fixture, pageBreaks, outDir) => {
       ],
       { stdio: ["ignore", "ignore", "inherit"] },
     );
-  } catch {
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      throw new Error(`no typst binary at ${typst} — set TYPST to point at one`);
+    }
     return null;
   }
   return readdirSync(outDir)
@@ -103,6 +115,19 @@ try {
         }
       }
     }
+  }
+
+  const bodylessBaseline = renderPages(BODYLESS_BASELINE, "false", work);
+  const bodyless = renderPages(BODYLESS_FORM, "false", work);
+  if (bodylessBaseline === null) {
+    throw new Error(`${BODYLESS_BASELINE} does not compile, so there is nothing to compare against`);
+  }
+  if (bodyless === null || bodyless.length !== bodylessBaseline.length
+      || bodyless.some((hash, i) => hash !== bodylessBaseline[i])) {
+    console.error(`FAIL ${BODYLESS_FORM} differs from ${BODYLESS_BASELINE}`);
+    failures += 1;
+  } else {
+    console.log(`pass bodyless: ${BODYLESS_FORM}`);
   }
 } finally {
   rmSync(work, { recursive: true, force: true });

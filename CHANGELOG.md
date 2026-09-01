@@ -29,26 +29,39 @@
 ## Unreleased
 
 - **`usaf_memo@0.3.0` vendors `tonguetoquill-usaf-memo` 5.0.0, upstream's own.**
-  The vendored copy had drifted from `tonguetoquill/typst-usaf-memo` in five
-  places, and upstream is where the package is authored, so upstream wins each:
+  The vendored copy had drifted from `tonguetoquill/typst-usaf-memo`, and
+  upstream is where the package is authored, so upstream wins each difference:
   `authority-line` is renamed `format-authority-line`; `date-placeholder-slot`
   takes its widget by name and rules the slot's baseline when given none, for a
   date written by hand; the two inlined line-stride measurements call the
-  `line-stride()` helper they duplicated; and `render-backmatter-section` drops
-  its explicit `pagebreak()` for `block(breakable: false, ..)`, which is a
-  rendering change — **the gap after an attachment list was 21.89pt where every
-  other blank-line gap in a memorandum is 27.89pt, and is now 27.89pt too.**
-  Nothing else moves. `Cinzel[wght].ttf` gives way to upstream's static
-  `Cinzel-Regular.ttf`, which renders identically and does not draw typst
-  0.14's warning that variable fonts may render incorrectly.
+  `line-stride()` helper they duplicated; a local in `frontmatter` is inlined;
+  and `render-backmatter-section` drops its explicit `pagebreak()` for
+  `block(breakable: false, ..)`.
+
+  **That last one moves every memorandum with an attachment, cc, or
+  distribution list.** A bare emission skipped `block.above`, so the gap below
+  the signature block measured 35.83pt where every other blank-line gap in a
+  memorandum is a whole number of line strides; it is 41.83pt now, three
+  strides, and the gap after an enumerated attachment list is 27.89pt where it
+  was 21.89pt. Both are the spec-correct values. `Cinzel[wght].ttf` gives way to
+  upstream's static `Cinzel-Regular.ttf`, which renders the same glyphs at the
+  same positions and does not draw typst 0.14's warning that variable fonts may
+  render incorrectly.
+
+  It also carries upstream's defect in that function. AFH 33-337 wants a list
+  running onto the next page to say so on the page it leaves; the note is
+  computed from a fit test that cannot be reached once the section has moved,
+  since the section carries `here()` with it and then measures against a full
+  empty page. The note was already missing for most body lengths and is now
+  missing for all of them. `primitives.typ` records the shape of the fix.
 
   Every `.typ` file is now code-identical to upstream. Two adaptations remain
   and are deliberate: public parameters keep this quiver's `snake_case`
-  spelling, as `Quill.yaml` and every other vendored package do, and comments
-  naming what a quill hands the package — `plaintext` and `richtext` fields,
-  the helper's `form-field`, the spans that make rendered glyphs
-  click-navigable — stay, since upstream has no quillmark to describe and the
-  facts are true here.
+  spelling, as `Quill.yaml` and every other vendored package do — locals and
+  the `memo_style` config key follow the same spelling — and comments naming
+  what a quill hands the package — `plaintext` and `richtext` fields, the
+  helper's `form-field`, the spans that make rendered glyphs click-navigable —
+  stay, since upstream has no quillmark to describe and the facts are true here.
 
   The manifest declares 5.0.0 rather than 4.0.0, which the plate's import
   follows; its `[template]` section is dropped, having named a `template/`
@@ -75,18 +88,23 @@
   The two halves have to part before the rebuild rather than be filtered
   during it, since by then the geometry is already gone. `backmatter` and
   `indorsement` label what they return, and `mainmatter` splits its content at
-  the first child carrying that label: what precedes it goes to `render-body`,
-  what follows reaches the page untouched. Everything from the marker on stays
-  together, prose written between two closing sections included — past the
-  signature block a memorandum's body is over.
+  the first marker: what precedes it goes to `render-body`, what follows
+  reaches the page untouched. Everything from the marker on stays together,
+  prose written between two closing sections included — past the signature
+  block a memorandum's body is over. Three shapes carry a marker and all three
+  are read: a direct child, the whole of what the show rule was handed where a
+  closing section is all there is, and the `child` of the `styled` element a
+  `set` or `show` rule written after `#show: mainmatter` wraps the remainder
+  in — that last one being the shape an ordinary `#set par(..)` produces, and
+  the one whose absence left the bug fully reachable.
 
-  The plate calls `#mainmatter[…]`, which has no labelled child to split at
-  and renders exactly as before, so nothing this quiver produces moves. The
-  fix is for the package's own callers — the form `lib.typ` documents — and the
-  same one landed upstream in `tonguetoquill/typst-usaf-memo`.
-  `design/usaf_memo/check_closing_sections.mjs` renders one memorandum written
-  both ways and requires the pages to agree, which `quillkit test` cannot do:
-  every plate in `quills/` uses the function form.
+  The plate calls `#mainmatter[…]`, which has no marker to split at and renders
+  exactly as before, so nothing this quiver produces moves. The fix is for the
+  package's own callers — the form `lib.typ` documents — and the same one
+  landed upstream in `tonguetoquill/typst-usaf-memo`.
+  `design/usaf_memo/check_closing_sections.mjs` renders one memorandum in each
+  of those shapes and requires the pages to agree, which `quillkit test` cannot
+  do: every plate in `quills/` uses the function form.
 
 - **The `usaf_memo` packages are Apache-2.0.** Both vendored copies of
   `tonguetoquill-usaf-memo` carried MIT while every other quill's package,

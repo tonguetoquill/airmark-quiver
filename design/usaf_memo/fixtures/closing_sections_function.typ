@@ -1,5 +1,5 @@
-// `#mainmatter[…]`: the body reaches the rebuild pass, the closing sections
-// never enter it. What the plates in `quills/` compile.
+// The function form: the closing sections never enter the rebuild pass. The
+// baseline every other form here has to match, and what the plates compile.
 
 #import "closing_sections.typ": *
 
