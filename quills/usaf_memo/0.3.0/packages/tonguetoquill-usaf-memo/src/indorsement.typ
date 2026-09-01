@@ -18,8 +18,8 @@
   signing_field: none,
   date: none,
   // Fill-in widget for an omitted `date`, anchored in the date slot of the
-  // indorsement header (see `date-placeholder-slot`). `none` leaves the slot
-  // blank.
+  // indorsement header (see `date-placeholder-slot`). Without one the slot is
+  // ruled for a handwritten date.
   date_field: none,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
@@ -34,7 +34,7 @@
   // whether further indorsements follow.
   approval_authority: false,
   content,
-) = {
+) = [#{
   assert(
     format in ("standard", "informal", "separate_page"),
     message: "format must be \"standard\", \"informal\", or \"separate_page\"",
@@ -81,7 +81,7 @@
       let indorsement_number = counters.indorsement.get().at(0, default: 1)
       let indorsement_label = format-indorsement-number(indorsement_number)
 
-      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-slot(date_field) }]
+      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-slot(field: date_field) }]
 
       // Separate-page header body: restates the original memo's identity (FROM,
       // date, subject) on its own line, since the indorsement no longer shares a
@@ -131,13 +131,7 @@
         // resolved position is at the top of its page, it was pushed; emit the
         // separate-page body (no extra pagebreak — we are already at page top).
         // Otherwise the header flows in place with the standard form.
-        let stride = {
-          let s = LINE_STRIDE.get()
-          if s == none {
-            let one-line = measure(par(spacing: 0pt)[x]).height
-            measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
-          } else { s }
-        }
+        let stride = line-stride()
         // here().position().y is the resolved flow position of this header. On a
         // continuation page the first content sits at the top margin; allow one
         // line stride of tolerance for baseline/rounding.
@@ -173,8 +167,9 @@
 
   render-signature-block(
     signature_block,
-    closing-line: authority-line(authority_line),
+    closing-line: format-authority-line(authority_line),
     signature-blank-lines: signature_blank_lines,
     signing-field: signing_field,
   )
-}
+  // Labelled so `mainmatter` can split the closing off the body; `split-closing`.
+}<usaf-memo-closing>]

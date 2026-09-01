@@ -204,8 +204,7 @@
   // blank-line spacing the sections below and the body are laid out on.
   context {
     let one-line = measure(par(spacing: 0pt)[x]).height
-    let line-stride = measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line
-    LINE_STRIDE.update(line-stride)
+    LINE_STRIDE.update(measure(par(spacing: 0pt)[x#linebreak()x]).height - one-line)
   }
 
   [#metadata((

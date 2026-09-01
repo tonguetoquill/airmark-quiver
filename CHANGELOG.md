@@ -28,6 +28,98 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` vendors `tonguetoquill-usaf-memo` 5.0.0, upstream's own.**
+  The vendored copy had drifted from `tonguetoquill/typst-usaf-memo`, and
+  upstream is where the package is authored, so upstream wins each difference:
+  `authority-line` is renamed `format-authority-line`; `date-placeholder-slot`
+  takes its widget by name and rules the slot's baseline when given none, for a
+  date written by hand; the two inlined line-stride measurements call the
+  `line-stride()` helper they duplicated; a local in `frontmatter` is inlined;
+  and `render-backmatter-section` drops its explicit `pagebreak()` for
+  `block(breakable: false, ..)`.
+
+  **That last one moves every memorandum with an attachment, cc, or
+  distribution list.** A bare emission skipped `block.above`, so the gap below
+  the signature block measured 35.83pt where every other blank-line gap in a
+  memorandum is a whole number of line strides; it is 41.83pt now, three
+  strides, and the gap after an enumerated attachment list is 27.89pt where it
+  was 21.89pt. Both are the spec-correct values. `Cinzel[wght].ttf` gives way to
+  upstream's static `Cinzel-Regular.ttf`, which renders the same glyphs at the
+  same positions and does not draw typst 0.14's warning that variable fonts may
+  render incorrectly.
+
+  It also carries upstream's defect in that function. AFH 33-337 wants a list
+  running onto the next page to say so on the page it leaves; the note is
+  computed from a fit test that cannot be reached once the section has moved,
+  since the section carries `here()` with it and then measures against a full
+  empty page. The note is due only where the signature block and the list fall
+  on different pages — a body long enough to push the list over, short enough
+  to keep the signature back. Across a sweep of that band the note printed for
+  the first half of it before this sync and prints nowhere in it now.
+  `primitives.typ` records the constraint a fix has to meet.
+
+  Every `.typ` file is now code-identical to upstream. Two adaptations remain
+  and are deliberate: public parameters keep this quiver's `snake_case`
+  spelling, as `Quill.yaml` and every other vendored package do — locals and
+  the `memo_style` config key follow the same spelling — and comments naming
+  what a quill hands the package — `plaintext` and `richtext` fields, the
+  helper's `form-field`, the spans that make rendered glyphs click-navigable —
+  stay, since upstream has no quillmark to describe and the facts are true here.
+
+  The manifest declares 5.0.0 rather than 4.0.0, which the plate's import
+  follows; its `[template]` section is dropped, having named a `template/`
+  directory and thumbnail the vendored copy does not ship.
+
+- **`usaf_memo@0.3.0` keeps the closing sections out of the body rebuild.**
+  `mainmatter` renders through a buffer: `render-body` lays the content out
+  hidden, collects each paragraph, table, and block quote, and emits that
+  buffer in document order with AFH 33-337 numbering assigned. Everything the
+  buffer does not hold — the `place`, the measured gaps, the 4.5-inch pad a
+  signature block is made of — is dropped on the way through. That is the right
+  treatment for a body and the wrong one for anything else, and applied as a
+  show rule, `#show: mainmatter`, the rest of the document is what it gets:
+  `backmatter` and every `indorsement` went through it too. The signature
+  blocks landed at the left margin without their anchors, the attachment and
+  cc labels and the indorsement headers vanished, and the lines that survived
+  took body paragraph numbers — in a memo with one indorsement, the memo's own
+  signature block disappeared and the indorsement's became paragraphs 3 and 4.
+  A closing section carrying a page break did not render wrong so much as not
+  render: the rebuild lays its content out inside a `place`, where Typst rejects
+  a `pagebreak` outright, so `backmatter(leading_pagebreak: true)` and any
+  `separate_page` indorsement failed the compile.
+
+  The two halves have to part before the rebuild rather than be filtered
+  during it, since by then the geometry is already gone. `backmatter` and
+  `indorsement` label what they return, and `mainmatter` splits its content at
+  the first marker: what precedes it goes to `render-body`, what follows
+  reaches the page untouched. Everything from the marker on stays together,
+  prose written between two closing sections included — past the signature
+  block a memorandum's body is over. Three shapes carry a marker and all three
+  are read: a direct child, the whole of what the show rule was handed where a
+  closing section is all there is, and the `child` of the `styled` element a
+  `set` or `show` rule written after `#show: mainmatter` wraps the remainder
+  in — that last one being the shape an ordinary `#set par(..)` produces, and
+  the one whose absence left the bug fully reachable.
+
+  The plate calls `#mainmatter[…]`, which has no marker to split at and renders
+  exactly as before, so nothing this quiver produces moves. The fix is for the
+  package's own callers — the form `lib.typ` documents — and the same one
+  landed upstream in `tonguetoquill/typst-usaf-memo`.
+  `design/usaf_memo/check_closing_sections.mjs` renders one memorandum in each
+  of those shapes and requires the pages to agree, which `quillkit test` cannot
+  do: every plate in `quills/` uses the function form.
+
+- **The `usaf_memo` packages are Apache-2.0.** Both vendored copies of
+  `tonguetoquill-usaf-memo` carried MIT while every other quill's package,
+  `package.json`, and the README said Apache-2.0. Upstream relicensed the
+  package, so each copy now takes that LICENSE and the `Apache-2.0` SPDX
+  identifier in `typst.toml` — `usaf_memo/0.2.0` included, since a published
+  version's distributed copies keep the terms they were received under and
+  leaving the file MIT would only misdeclare the license from here on. No
+  `.typ` source under `0.2.0` is touched and nothing it renders moves. The
+  bundled fonts keep their own upstream terms, as do the seals under
+  `quills/usaf_memo/*/assets/`.
+
 - **`usaf_memo@0.3.0` takes an authority line.** AFH 33-337's closing section
   opens with an element the quill had no field for: the authority line, which
   tells the reader the signer acted for the commander, the command section, or

@@ -144,5 +144,8 @@ holds `pages: write`.
 
 ## License
 
-Apache-2.0. Individual quills carry their own licensing terms; see the
-`packages/` directory inside each quill for upstream font and template licenses.
+Apache-2.0, the quill packages under `quills/` included. Two things a quill
+carries are not the project's to license: the fonts its package bundles, which
+keep their own upstream terms — see the `packages/` directory inside each quill
+— and the DoD and DoW seals under `quills/usaf_memo/*/assets/`, which are US
+Government insignia and whose use is governed as such.

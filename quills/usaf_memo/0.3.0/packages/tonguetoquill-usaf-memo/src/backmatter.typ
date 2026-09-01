@@ -13,12 +13,12 @@
   cc: none,
   distribution: none,
   leading_pagebreak: false,
-) = {
+) = [#{
   render-signature-block(
     signature_block,
     // Cased by the element, not by the slot: the letter's complimentary close
     // fills the same slot and must not be uppercased.
-    closing-line: authority-line(authority_line),
+    closing-line: format-authority-line(authority_line),
     signature-blank-lines: signature_blank_lines,
     signing-field: signing_field,
   )
@@ -28,4 +28,5 @@
     distribution: distribution,
     leading-pagebreak: leading_pagebreak,
   )
-}
+  // Labelled so `mainmatter` can split the closing off the body; `split-closing`.
+}<usaf-memo-closing>]
