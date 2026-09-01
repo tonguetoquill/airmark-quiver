@@ -41,6 +41,10 @@
   cc labels and the indorsement headers vanished, and the lines that survived
   took body paragraph numbers — in a memo with one indorsement, the memo's own
   signature block disappeared and the indorsement's became paragraphs 3 and 4.
+  A closing section carrying a page break did not render wrong so much as not
+  render: the rebuild lays its content out inside a `place`, where Typst rejects
+  a `pagebreak` outright, so `backmatter(leading_pagebreak: true)` and any
+  `separate_page` indorsement failed the compile.
 
   The two halves have to part before the rebuild rather than be filtered
   during it, since by then the geometry is already gone. `backmatter` and
@@ -52,9 +56,22 @@
 
   The plate calls `#mainmatter[…]`, which has no labelled child to split at
   and renders exactly as before, so nothing this quiver produces moves. The
-  fix is for the package's own callers, and the same one landed upstream in
-  `tonguetoquill/typst-usaf-memo`, which carries a regression check that
-  renders one memorandum written both ways and requires them to agree.
+  fix is for the package's own callers — the form `lib.typ` documents — and the
+  same one landed upstream in `tonguetoquill/typst-usaf-memo`.
+  `design/usaf_memo/check_closing_sections.mjs` renders one memorandum written
+  both ways and requires the pages to agree, which `quillkit test` cannot do:
+  every plate in `quills/` uses the function form.
+
+- **The `usaf_memo` packages are Apache-2.0.** Both vendored copies of
+  `tonguetoquill-usaf-memo` carried MIT while every other quill's package,
+  `package.json`, and the README said Apache-2.0. Upstream relicensed the
+  package, so each copy now takes that LICENSE and the `Apache-2.0` SPDX
+  identifier in `typst.toml` — `usaf_memo/0.2.0` included, since a published
+  version's distributed copies keep the terms they were received under and
+  leaving the file MIT would only misdeclare the license from here on. No
+  `.typ` source under `0.2.0` is touched and nothing it renders moves. The
+  bundled fonts keep their own upstream terms, as do the seals under
+  `quills/usaf_memo/*/assets/`.
 
 - **`usaf_memo@0.3.0` takes an authority line.** AFH 33-337's closing section
   opens with an element the quill had no field for: the authority line, which
