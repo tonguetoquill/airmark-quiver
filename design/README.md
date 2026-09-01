@@ -37,10 +37,6 @@ TYPST=/path/to/typst node design/usaf_memo/check_closing_sections.mjs
 ```
 
 The fixtures compile the package straight out of `quills/`, so there is no
-package cache to populate. `closing_sections.typ` holds the memorandum and
-`_function.typ` is the baseline; `_showrule.typ`, `_nested.typ`, and
-`_styled.typ` write the same document under the show rule with its closing
-sections as markup children, emitted from a code block, and under `set`/`show`
-rules that wrap the remainder in a `styled` element. `_only.typ` and its
-`_only_function.typ` baseline are a memorandum with no body, where the closing
-section is the whole of what `mainmatter` receives.
+package cache to populate. `closing_sections.typ` holds the memorandum; each
+`_*.typ` beside it writes that same memorandum in one of the shapes a closing
+section reaches the show rule in, against a `_function.typ` baseline.

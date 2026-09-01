@@ -2,13 +2,9 @@
 // typeset the same memorandum.
 //
 // The show rule is handed the closing sections along with the body, and
-// `split-closing` is what keeps them out of the body's rebuild pass. The three
-// show-rule fixtures put the closing sections in a different shape each time —
-// markup children, emitted from a code block, and under `set`/`show` rules that
-// wrap the remainder in a `styled` element — and each must match the function
-// form page for page. A fourth stands alone: a memorandum with no body, where
-// the closing section is the whole of what `mainmatter` receives, checked
-// against the signature anchor since it has no counterpart to match.
+// `split-closing` is what keeps them out of the body's rebuild pass. Each
+// show-rule fixture puts them in one of the shapes the split has to find them
+// in, and must match its function-form baseline page for page.
 //
 // Usage (from the repo root):
 //   node design/usaf_memo/check_closing_sections.mjs

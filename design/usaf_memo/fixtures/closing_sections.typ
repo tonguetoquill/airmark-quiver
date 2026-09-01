@@ -58,9 +58,8 @@
   date: "2 September 2026",
 )
 
-// Informal rather than a second standard indorsement: two standard ones after a
-// backmatter that does not break the page make the layout fail to converge, a
-// defect of its own and not one this fixture is here to hold still.
+// Informal rather than standard: two standard indorsements after a backmatter
+// that does not break the page make the layout fail to converge.
 #let second-indorsement = indorsement.with(
   from: "456 TS/CC",
   to: "123 TS/CC",
