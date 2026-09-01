@@ -28,6 +28,34 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` keeps the closing sections out of the body rebuild.**
+  `mainmatter` renders through a buffer: `render-body` lays the content out
+  hidden, collects each paragraph, table, and block quote, and emits that
+  buffer in document order with AFH 33-337 numbering assigned. Everything the
+  buffer does not hold — the `place`, the measured gaps, the 4.5-inch pad a
+  signature block is made of — is dropped on the way through. That is the right
+  treatment for a body and the wrong one for anything else, and applied as a
+  show rule, `#show: mainmatter`, the rest of the document is what it gets:
+  `backmatter` and every `indorsement` went through it too. The signature
+  blocks landed at the left margin without their anchors, the attachment and
+  cc labels and the indorsement headers vanished, and the lines that survived
+  took body paragraph numbers — in a memo with one indorsement, the memo's own
+  signature block disappeared and the indorsement's became paragraphs 3 and 4.
+
+  The two halves have to part before the rebuild rather than be filtered
+  during it, since by then the geometry is already gone. `backmatter` and
+  `indorsement` label what they return, and `mainmatter` splits its content at
+  the first child carrying that label: what precedes it goes to `render-body`,
+  what follows reaches the page untouched. Everything from the marker on stays
+  together, prose written between two closing sections included — past the
+  signature block a memorandum's body is over.
+
+  The plate calls `#mainmatter[…]`, which has no labelled child to split at
+  and renders exactly as before, so nothing this quiver produces moves. The
+  fix is for the package's own callers, and the same one landed upstream in
+  `tonguetoquill/typst-usaf-memo`, which carries a regression check that
+  renders one memorandum written both ways and requires them to agree.
+
 - **`usaf_memo@0.3.0` takes an authority line.** AFH 33-337's closing section
   opens with an element the quill had no field for: the authority line, which
   tells the reader the signer acted for the commander, the command section, or

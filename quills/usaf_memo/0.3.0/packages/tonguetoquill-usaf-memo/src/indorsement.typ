@@ -34,7 +34,7 @@
   // whether further indorsements follow.
   approval_authority: false,
   content,
-) = {
+) = [#{
   assert(
     format in ("standard", "informal", "separate_page"),
     message: "format must be \"standard\", \"informal\", or \"separate_page\"",
@@ -177,4 +177,6 @@
     signature-blank-lines: signature_blank_lines,
     signing-field: signing_field,
   )
-}
+  // Labelled so `mainmatter`, applied as a show rule over the rest of the
+  // document, can tell the closing section from the body (see `split-closing`).
+}<usaf-memo-closing>]

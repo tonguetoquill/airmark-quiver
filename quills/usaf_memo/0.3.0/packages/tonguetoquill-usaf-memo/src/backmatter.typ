@@ -13,7 +13,7 @@
   cc: none,
   distribution: none,
   leading_pagebreak: false,
-) = {
+) = [#{
   render-signature-block(
     signature_block,
     // Cased by the element, not by the slot: the letter's complimentary close
@@ -28,4 +28,6 @@
     distribution: distribution,
     leading-pagebreak: leading_pagebreak,
   )
-}
+  // Labelled so `mainmatter`, applied as a show rule over the rest of the
+  // document, can tell the closing section from the body (see `split-closing`).
+}<usaf-memo-closing>]
