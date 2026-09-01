@@ -52,8 +52,11 @@
   running onto the next page to say so on the page it leaves; the note is
   computed from a fit test that cannot be reached once the section has moved,
   since the section carries `here()` with it and then measures against a full
-  empty page. The note was already missing for most body lengths and is now
-  missing for all of them. `primitives.typ` records the shape of the fix.
+  empty page. The note is due only where the signature block and the list fall
+  on different pages — a body long enough to push the list over, short enough
+  to keep the signature back. Across a sweep of that band the note printed for
+  the first half of it before this sync and prints nowhere in it now.
+  `primitives.typ` records the constraint a fix has to meet.
 
   Every `.typ` file is now code-identical to upstream. Two adaptations remain
   and are deliberate: public parameters keep this quiver's `snake_case`
