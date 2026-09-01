@@ -144,5 +144,5 @@ holds `pages: write`.
 
 ## License
 
-Apache-2.0. Individual quills carry their own licensing terms; see the
-`packages/` directory inside each quill for upstream font and template licenses.
+Apache-2.0, the quill packages under `quills/` included. The fonts they bundle
+keep their own upstream terms; see the `packages/` directory inside each quill.
