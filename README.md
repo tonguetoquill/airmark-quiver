@@ -7,14 +7,15 @@ and aligned to the current Quillmark spec.
 
 ## Contents
 
-| Quill        | Version | Description                                                                       |
-|--------------|---------|-----------------------------------------------------------------------------------|
-| `usaf_memo`  | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                       |
-| `usaf_memo`  | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving           |
-| `af4141`     | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment)  |
-| `daf1206`    | 0.1.0   | DAF Form 1206 — Nomination for Award                                              |
-| `daf4392`    | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                            |
-| `afmc_moa`   | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                        |
+| Quill         | Version | Description                                                                      |
+|---------------|---------|----------------------------------------------------------------------------------|
+| `usaf_memo`   | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                      |
+| `usaf_memo`   | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
+| `usaf_letter` | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
+| `af4141`      | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment) |
+| `daf1206`     | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |
+| `daf4392`     | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |
+| `afmc_moa`    | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                       |
 
 ## Install
 
@@ -147,5 +148,5 @@ holds `pages: write`.
 Apache-2.0, the quill packages under `quills/` included. Two things a quill
 carries are not the project's to license: the fonts its package bundles, which
 keep their own upstream terms — see the `packages/` directory inside each quill
-— and the DoD and DoW seals under `quills/usaf_memo/*/assets/`, which are US
+— and the DoD and DoW seals under `quills/*/*/assets/`, which are US
 Government insignia and whose use is governed as such.

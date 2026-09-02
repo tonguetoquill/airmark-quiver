@@ -1,0 +1,22 @@
+[package]
+name = "tonguetoquill-usaf-letter"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Typeset USAF personal letters per AFH 33-337 'The Tongue and Quill'."
+keywords = [
+    "USAF",
+    "Air Force",
+    "personal letter",
+    "letter",
+    "military",
+    "AFH 33-337",
+    "official",
+    "correspondence",
+    "formatting",
+]
+categories = ["office"]
+disciplines = ["politics", "business", "education"]

@@ -54,3 +54,30 @@ once and cannot see it.
 python3 design/usaf_memo/check_continuation_note.py
 TYPST=/path/to/typst python3 design/usaf_memo/check_continuation_note.py
 ```
+
+## usaf_letter
+
+Fixtures and a layout check for the `usaf_letter` quill.
+
+```sh
+# render a fixture to PDF (run from the repo root)
+node design/usaf_letter/render_fixture.mjs design/usaf_letter/fixtures/maximal.md /tmp/max.pdf
+
+# check the rendered PDF against AFH 33-337's line offsets
+python3 design/usaf_letter/validate_letter.py design/usaf_letter/fixtures/maximal.md /tmp/max.pdf
+```
+
+`validate_letter.py` needs `pymupdf` and `pyyaml`.
+
+AFH 33-337 places every element of a personal letter a stated number of lines
+below the one before it, and `quillkit test` renders the example document
+without reading a single one of those offsets. The check reads them off the
+rendered baselines, in lines rather than points: the line is the stride of the
+sender's address block, a run of consecutive single-spaced lines, so a letter
+set at another `font_size` measures the same integers.
+
+`minimal.md` is a one-page letter carrying one attachment and one courtesy
+copy, so every offset from the date to the `cc:` element is on one page and
+comparable; `maximal.md` carries a CUI banner, a seal subtitle, a tag line, and
+two of each listed element, and runs onto a second page, which is where the
+page numbering is exercised — the first page of a letter is never numbered.
