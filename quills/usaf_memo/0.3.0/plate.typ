@@ -1,7 +1,7 @@
 #import "@local/quillmark-helper:0.1.0": (
   data, display, field-region, form-field, signature-field,
 )
-#import "@local/tonguetoquill-usaf-memo:4.0.0": (
+#import "@local/tonguetoquill-usaf-memo:5.0.0": (
   backmatter, date-pattern, frontmatter, indorsement, mainmatter,
 )
 
@@ -21,16 +21,14 @@
 // widget (`date-placeholder-slot`, whose slot is `1em` tall and 1in wide).
 #let body_font_size = data.font_size * 1pt
 
-// Frontmatter configuration
 #show: frontmatter.with(
-  // Letterhead configuration
-  letterhead_title: letterhead_lines.at(0, default: ""),
-  letterhead_caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
-  letterhead_seal_subtitle: data.letterhead_seal_subtitle,
+  letterhead-title: letterhead_lines.at(0, default: ""),
+  letterhead-caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
+  letterhead-seal-subtitle: data.letterhead_seal_subtitle,
   // Enum blank is `""`, not a seal. Omit so the package renders none rather
   // than treating the blank as DoW.
   ..if data.letterhead_seal != "" {
-    (letterhead_seal: image(
+    (letterhead-seal: image(
       if data.letterhead_seal == "dod" {
         "assets/dod_seal.png"
       } else {
@@ -62,24 +60,26 @@
     }
   },
 
-  // Receiver information
-  memo_for: data.memo_for,
+  memo-for: data.memo_for,
 
-  // Sender information (omitted for Memorandum for Record)
-  ..if data.memo_from.len() > 0 { (memo_from: data.memo_from) },
+  // A memo with no FROM line is a Memorandum for Record.
+  ..if data.memo_from.len() > 0 { (memo-from: data.memo_from) },
 
-  // Subject line
   subject: data.subject,
 
-  // Optional references
   ..if data.references.len() > 0 { (references: data.references) },
 
-  // Optional footer tag line
-  footer_tag_line: data.tag_line,
+  // The tag line is set in Cinzel, which ships one regular face: `emph` resolves
+  // to it and reads as nothing. The slant is synthesized here rather than in the
+  // package, whose `src/` is upstream's verbatim. `box` keeps the run inline.
+  footer-tag-line: {
+    show emph: it => box(skew(ax: -12deg, reflow: false, it.body))
+    data.tag_line
+  },
 
   // The blank reads as no banner, which is what the package's own
-  // `classification_level: none` default means.
-  classification_level: data.classification.value,
+  // `classification-level: none` default means.
+  classification-level: data.classification.value,
 
   dissemination: data.dissemination,
 
@@ -90,51 +90,45 @@
   // own `cui_*: none` defaults cover the worlds that omit them.
   ..if data.classification.value == "CUI" {
     (
-      cui_controlled_by: data.classification.controlled_by,
-      cui_category: data.classification.category,
-      cui_limited_dissemination: data.classification.limited_dissemination,
-      cui_poc: data.classification.poc,
+      cui-controlled-by: data.classification.controlled_by,
+      cui-category: data.classification.category,
+      cui-limited-dissemination: data.classification.limited_dissemination,
+      cui-poc: data.classification.poc,
     )
   },
 
-  // USAF vs DAF memorandum style (date format, body indentation).
-  memo_style: memo_style,
+  memo-style: memo_style,
 
-  // Font size
-  font_size: body_font_size,
+  font-size: body_font_size,
 
-  // List recipients in vertical list
-  memo_for_cols: 1,
+  // One recipient per line; the package's own default is three columns.
+  memo-for-cols: 1,
 )
 
-// Mainmatter. The body's region needs no recovery step here: the package's
-// render-body rebuilds paragraphs through a state buffer (AFH 33-337
-// auto-numbering), but the rebuilt glyphs keep their spans, which is what
-// the backend reads regions from.
+// The body's region needs no recovery step here: the package's render-body
+// rebuilds paragraphs through a state buffer (AFH 33-337 auto-numbering), but
+// the rebuilt glyphs keep their spans, which is what the backend reads regions
+// from.
 #mainmatter[
   #data.at("$body")
 ]
 
-// Backmatter
 #backmatter(
-  // Signature block
-  signature_block: data.signature_block,
+  authority-line: data.authority_line,
+  signature-block: data.signature_block,
   // The widget sits at the bottom of AFH 33-337's four blank lines and is
   // sized to two and a half of them, so the line and a half above it stays
   // clear of the body text without moving the block off the fifth line.
-  signing_field: signature-field(
+  signing-field: signature-field(
     "Signature",
     field: "signature_block",
     height: body_font_size * 2.5,
   ),
 
-  // Optional cc
   ..if data.cc.len() > 0 { (cc: data.cc) },
 
-  // Optional distribution
   ..if data.distribution.len() > 0 { (distribution: data.distribution) },
 
-  // Optional attachments
   ..if data.attachments.len() > 0 { (attachments: data.attachments) },
 )
 
@@ -158,7 +152,6 @@
     .at(-1, default: -1)
 )
 
-// Indorsements - iterate through CARDS array and filter by CARD tag
 #for (i, card) in data.at("$cards").enumerate() {
   if card.at("$kind", default: none) == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
@@ -187,8 +180,9 @@
     indorsement(
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
-      signature_block: card.signature_block,
-      signing_field: signature-field(
+      authority-line: card.authority_line,
+      signature-block: card.signature_block,
+      signing-field: signature-field(
         "Ind_" + str(i) + "_Signature",
         field: card.at("$path") + "signature_block",
         height: body_font_size * 2.5,
@@ -200,7 +194,7 @@
       // Built only when there is no date to print: a widget over a printed date
       // would offer an edit that the rendered document does not carry back.
       ..if resolved_date == none {
-        (date_field: form-field(
+        (date-field: form-field(
           "Ind_" + str(i) + "_Date",
           type: "text",
           width: 1in,
@@ -209,7 +203,7 @@
         ))
       },
       ..if card.action != "" { (action: card.action) },
-      approval_authority: i == last_indorsement_index,
+      approval-authority: i == last_indorsement_index,
       body_content,
     )
   }
