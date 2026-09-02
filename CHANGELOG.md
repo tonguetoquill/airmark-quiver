@@ -28,6 +28,13 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0`'s blueprint body says what a bullet becomes.** It called a
+  bullet "nested" and never named the label one takes, so an author after a
+  lettered subparagraph typed the letter — which is text inside a paragraph that
+  still takes its own number, printing as "1.  a.". The example now names the
+  levels a bullet reaches (a., then (1), then (a)) and says the labels are added
+  rather than typed.
+
 - **`usaf_memo@0.3.0`'s vendored `src/` is a verbatim copy of upstream.** Every
   `.typ` file matches `tonguetoquill/typst-usaf-memo` byte for byte, so a sync
   is a copy rather than a translation, and an upstream fix can no longer be

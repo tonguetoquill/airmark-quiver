@@ -12,9 +12,11 @@ main:
     groups: [addressing, letterhead, classification, additional]
   body:
     example: |
-      The first paragraph. Top-level paragraphs are auto-numbered; do not add manual numbering.
+      The first paragraph. Top-level paragraphs are numbered 1., 2., 3. for you.
 
-      - Nested bullets are automatically lettered.
+      - A bullet is a lettered subparagraph — a., b., c. — and one indented under it takes (1), then (a).
+
+      Numbers and letters are added for you. A typed one stays text: a paragraph starting "a." prints as "1.  a.".
 
       Lines that take no number, letter, or bullet — a roster of names, an address — go in a block quote, typeset as written. End a line with a backslash to break it.
 
