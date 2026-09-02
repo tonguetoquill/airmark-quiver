@@ -40,3 +40,17 @@ The fixtures compile the package straight out of `quills/`, so there is no
 package cache to populate. `closing_sections.typ` holds the memorandum; each
 `_*.typ` beside it writes that same memorandum in one of the shapes a closing
 section reaches the show rule in, against a `_function.typ` baseline.
+
+A second check: a backmatter section that leaves a page must say so on the page
+it leaves, per AFH 33-337. The note is due only across the narrow band of body
+lengths where the section above stays behind and the section itself moves, so
+the check sweeps each combination of attachments, `cc:` and `DISTRIBUTION:`
+across that band rather than asserting on one fixture — one body length sits on
+a side of the band and passes either way. `quillkit test` renders each plate
+once and cannot see it.
+
+```sh
+# run from the repo root; needs a typst binary and pymupdf
+python3 design/usaf_memo/check_continuation_note.py
+TYPST=/path/to/typst python3 design/usaf_memo/check_continuation_note.py
+```

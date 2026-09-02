@@ -28,6 +28,26 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0`: a backmatter list running onto the next page says so on
+  the page it leaves.** AFH 33-337 wants the note there — "3 Attachments (listed
+  on next page):", or the neutral "(continued on next page)" for `cc:` and
+  `DISTRIBUTION:`. It is decided by reading the page the section landed on
+  instead of predicting it from inside the section, which reported the top of
+  the page it had already moved to and so never fired. Each closing block
+  reserves the following section's lead-in and note line as breaking height and
+  reclaims it immediately, so the note is guaranteed room on the departing page;
+  where that reservation does not fit, the signature block travels with its
+  sections rather than stranding them. Ported from upstream
+  [typst-usaf-memo#53](https://github.com/tonguetoquill/typst-usaf-memo/pull/53),
+  leaving the three touched functions code-identical to upstream.
+
+  A memorandum whose signature block ends within about three lines of the bottom
+  margin, with backmatter below it, now moves that block to the next page with
+  its sections. Nothing else moves: where no section splits, layout is unchanged.
+
+  The vendored manifest requires Typst 0.15.1, matching the compiler the quiver's
+  wasm runtime already provides.
+
 - **`usaf_memo@0.3.0` vendors `tonguetoquill-usaf-memo` 5.0.0, upstream's own.**
   The vendored copy had drifted from `tonguetoquill/typst-usaf-memo`, and
   upstream is where the package is authored, so upstream wins each difference:
@@ -55,8 +75,8 @@
   empty page. The note is due only where the signature block and the list fall
   on different pages — a body long enough to push the list over, short enough
   to keep the signature back. Across a sweep of that band the note printed for
-  the first half of it before this sync and prints nowhere in it now.
-  `primitives.typ` records the constraint a fix has to meet.
+  the first half of it before this sync and nowhere in it after. Fixed by the
+  first entry above, which ships in the same release.
 
   Every `.typ` file is now code-identical to upstream. Two adaptations remain
   and are deliberate: public parameters keep this quiver's `snake_case`
