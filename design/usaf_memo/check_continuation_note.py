@@ -52,8 +52,8 @@ FIXTURE = """#import "/quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/s
 
 #show: frontmatter.with(
   subject: "Continuation Label",
-  memo_for: "TEST/CC",
-  memo_from: "TEST/DO",
+  memo-for: "TEST/CC",
+  memo-from: "TEST/DO",
   date: datetime(year: 2026, month: 3, day: 11),
 )
 
@@ -62,7 +62,7 @@ FIXTURE = """#import "/quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/s
 ]
 
 #backmatter(
-  signature_block: ("FIRST M. LAST, Maj, USAF", "{signature}"),
+  signature-block: ("FIRST M. LAST, Maj, USAF", "{signature}"),
 {fields})
 """
 

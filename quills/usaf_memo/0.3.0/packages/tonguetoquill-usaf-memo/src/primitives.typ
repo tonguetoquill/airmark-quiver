@@ -16,8 +16,8 @@
   letterhead-emblem-height: 1in, // emblem fit-box height; reduce for shorter emblems
 ) = {
   font = ensure-array(font)
-  // `upper` lowers content as readily as `str`, so the letterhead's uppercasing
-  // survives the title/caption arriving as `plaintext` markup blocks.
+  // `upper` takes content as readily as `str`, so the letterhead's uppercasing
+  // survives a title or caption handed over as markup.
   title = upper(join-lines(title))
   caption = upper(join-lines(caption))
 
@@ -70,8 +70,8 @@
         #fit-box(width: corner-width, height: band-height)[#letterhead-seal]
       ]
     } else {
-      // Isolate seal column from document `font_size`: stack `em` spacing and subtitle
-      // must not scale with body text (see frontmatter `set text(size: font_size)`).
+      // Isolate seal column from document `font-size`: stack `em` spacing and subtitle
+      // must not scale with body text (see frontmatter `set text(size: font-size)`).
       // Subtitle is wrapped in `box` so it stays on one line and may extend past
       // the seal's 2in column rather than wrapping.
       block[
@@ -143,12 +143,10 @@
 
 /// Whether a `references` entry carries no citation text.
 ///
-/// Blank entries reach the template routinely: a template author leaves a
-/// stub `- ` under `references:` for the user to fill in, and the quillmark
-/// helper hands back `""` for an unset or whitespace-only markdown field.
-/// Such an entry must not count as a reference — otherwise a lone blank one
-/// satisfies the "exactly one reference" test below and renders as an empty
-/// `()` after the subject.
+/// Blank entries reach the template routinely — a stub entry left under
+/// `references:` for the user to fill in. Such an entry must not count as a
+/// reference: a lone blank one would otherwise satisfy the "exactly one
+/// reference" test below and render as an empty `()` after the subject.
 ///
 /// - entry (any): A single `references` element
 /// -> bool
@@ -188,8 +186,7 @@
     blank-line()
     grid(
       columns: (auto, auto, 1fr),
-      // Each entry is markdown-converted content; spread them as enum items
-      // lettered "(a) (b) (c)" per AFH 33-337.
+      // Spread the entries as enum items lettered "(a) (b) (c)" per AFH 33-337.
       "References:", "  ", enum(..references, numbering: "(a) ", body-indent: 0pt),
     )
   }
@@ -467,8 +464,8 @@
 
 #let calculate-backmatter-spacing(is-first-section) = {
   context {
-    let line_count = if is-first-section { 2 } else { 1 }
-    blank-lines(line_count)
+    let line-count = if is-first-section { 2 } else { 1 }
+    blank-lines(line-count)
   }
 }
 

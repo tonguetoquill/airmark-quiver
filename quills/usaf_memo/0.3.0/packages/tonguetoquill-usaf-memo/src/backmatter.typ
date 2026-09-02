@@ -3,16 +3,16 @@
 #import "primitives.typ": *
 
 #let backmatter(
-  signature_block: none,
+  signature-block: none,
   // "FOR THE COMMANDER", or the appropriate title, where the signer acted for
   // the commander, the command section, or the headquarters. Blank is no line.
-  authority_line: none,
-  signature_blank_lines: 4,
-  signing_field: none,
+  authority-line: none,
+  signature-blank-lines: 4,
+  signing-field: none,
   attachments: none,
   cc: none,
   distribution: none,
-  leading_pagebreak: false,
+  leading-pagebreak: false,
 ) = [#{
   // Two lead-in lines plus the continuation note's own line. With no section
   // below, nothing can run over, so the block reserves nothing and breaks where
@@ -23,19 +23,19 @@
       or (distribution != none and distribution.len() > 0)
   )
   render-signature-block(
-    signature_block,
+    signature-block,
     reserved-lines: if has-backmatter { 3 } else { 0 },
     // Cased by the element, not by the slot: the letter's complimentary close
     // fills the same slot and must not be uppercased.
-    closing-line: format-authority-line(authority_line),
-    signature-blank-lines: signature_blank_lines,
-    signing-field: signing_field,
+    closing-line: format-authority-line(authority-line),
+    signature-blank-lines: signature-blank-lines,
+    signing-field: signing-field,
   )
   render-backmatter-sections(
     attachments: attachments,
     cc: cc,
     distribution: distribution,
-    leading-pagebreak: leading_pagebreak,
+    leading-pagebreak: leading-pagebreak,
   )
   // Labelled so `mainmatter` can split the closing off the body; `split-closing`.
 }<usaf-memo-closing>]

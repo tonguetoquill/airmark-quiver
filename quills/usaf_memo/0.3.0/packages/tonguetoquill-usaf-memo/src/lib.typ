@@ -11,20 +11,20 @@
 //
 // #show: frontmatter.with(
 //   subject: "Your Subject Here",
-//   memo_for: ("OFFICE/SYMBOL",),
-//   memo_from: ("YOUR/SYMBOL",),
-//   memo_style: "usaf", // "usaf" (default) or "daf"
+//   memo-for: ("OFFICE/SYMBOL",),
+//   memo-from: ("YOUR/SYMBOL",),
+//   memo-style: "usaf", // "usaf" (default) or "daf"
 // )
 // #show: mainmatter
 //
 // Body paragraphs.
 //
-// #backmatter(signature_block: ("FIRST M. LAST, Maj, USAF", "Duty Title"))
+// #backmatter(signature-block: ("FIRST M. LAST, Maj, USAF", "Duty Title"))
 //
 // #indorsement(
 //   from: "ORG/SYMBOL",
 //   to: "RECIPIENT/SYMBOL",
-//   signature_block: ("FIRST M. LAST, Maj, USAF", "Duty Title"),
+//   signature-block: ("FIRST M. LAST, Maj, USAF", "Duty Title"),
 // )[
 //   Indorsement content here.
 // ]

@@ -8,10 +8,10 @@
 )
 
 #let addressing = frontmatter.with(
-  letterhead_title: "DEPARTMENT OF THE AIR FORCE",
-  letterhead_caption: ("123D TEST SQUADRON (AETC)",),
-  memo_for: ("ALL PERSONNEL",),
-  memo_from: ("123 TS/CC", "1 Test Way", "Test AFB TX 12345-6789"),
+  letterhead-title: "DEPARTMENT OF THE AIR FORCE",
+  letterhead-caption: ("123D TEST SQUADRON (AETC)",),
+  memo-for: ("ALL PERSONNEL",),
+  memo-from: ("123 TS/CC", "1 Test Way", "Test AFB TX 12345-6789"),
   subject: "Closing Sections Outside the Body Rebuild",
   date: "1 September 2026",
 )
@@ -41,20 +41,20 @@
 // The 4.5-inch signature anchor, the measured gaps, and the attachment, cc, and
 // distribution labels.
 #let closing = backmatter.with(
-  authority_line: "FOR THE COMMANDER",
-  signature_block: ("FIRST M. LAST, Maj, USAF", "Commander"),
+  authority-line: "FOR THE COMMANDER",
+  signature-block: ("FIRST M. LAST, Maj, USAF", "Commander"),
   attachments: ("Test Attachment 1", "Test Attachment 2"),
   cc: ("456 TS/CC",),
   distribution: ("123 TS/CC",),
-  leading_pagebreak: page-breaks,
+  leading-pagebreak: page-breaks,
 )
 
 #let first-indorsement = indorsement.with(
   from: "123 TS/CC",
   to: "456 TS/CC",
   format: if page-breaks { "separate_page" } else { "standard" },
-  authority_line: "FOR THE COMMANDER",
-  signature_block: ("SECOND N. LAST, Capt, USAF", "Flight Commander"),
+  authority-line: "FOR THE COMMANDER",
+  signature-block: ("SECOND N. LAST, Capt, USAF", "Flight Commander"),
   date: "2 September 2026",
 )
 
@@ -64,10 +64,10 @@
   from: "456 TS/CC",
   to: "123 TS/CC",
   format: "informal",
-  signature_block: ("THIRD O. LAST, Maj, USAF", "Director of Operations"),
+  signature-block: ("THIRD O. LAST, Maj, USAF", "Director of Operations"),
   date: "3 September 2026",
   action: "approve",
-  approval_authority: true,
+  approval-authority: true,
 )
 
 #let indorsements = (

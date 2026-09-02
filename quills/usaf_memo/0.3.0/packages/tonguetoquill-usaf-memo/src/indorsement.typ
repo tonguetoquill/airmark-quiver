@@ -10,17 +10,17 @@
 #let indorsement(
   from: none,
   to: none,
-  signature_block: none,
+  signature-block: none,
   // An indorsement has a closing section of its own, so it takes an authority
   // line on the same terms as the memorandum.
-  authority_line: none,
-  signature_blank_lines: 4,
-  signing_field: none,
+  authority-line: none,
+  signature-blank-lines: 4,
+  signing-field: none,
   date: none,
   // Fill-in widget for an omitted `date`, anchored in the date slot of the
   // indorsement header (see `date-placeholder-slot`). Without one the slot is
   // ruled for a handwritten date.
-  date_field: none,
+  date-field: none,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
   // Decision action. `none` (default) displays no action line at all.
@@ -32,7 +32,7 @@
   // in the chain) Approves / Disapproves, every coordinating official before
   // it Concurs / Nonconcurs. The caller owns this because only it can see
   // whether further indorsements follow.
-  approval_authority: false,
+  approval-authority: false,
   content,
 ) = [#{
   assert(
@@ -46,9 +46,9 @@
   }
 
 
-  let actual_date = date
-  let ind_from = first-or-value(from)
-  let ind_for = to
+  let actual-date = date
+  let ind-from = first-or-value(from)
+  let ind-for = to
 
   // An empty body renders as zero layout through render-body's filter, so the
   // spacing reserved *for* the body is suppressed too: the header→body gap
@@ -56,11 +56,10 @@
   // they add a blank-line stride above the signature and push it off AFH
   // 33-337's "fifth line below the last line of text" anchor.
   //
-  // A caller with no body passes `[]` — what the plate hands over for an empty
-  // or whitespace-only markdown body.
-  let body_empty = content == []
+  // A caller with no body passes `[]`.
+  let body-empty = content == []
 
-  let effective_action = if action == none or type(action) != str or action.trim() == "" {
+  let effective-action = if action == none or type(action) != str or action.trim() == "" {
     none
   } else {
     action
@@ -73,33 +72,33 @@
 
     context {
       let config = query(<usaf-memo-config>).first().value
-      let memo-style = config.at("memo_style", default: "usaf")
-      let original_subject = config.subject
-      let original_date = config.original_date
-      let original_from = config.original_from
+      let memo-style = config.at("memo-style", default: "usaf")
+      let original-subject = config.subject
+      let original-date = config.original-date
+      let original-from = config.original-from
 
-      let indorsement_number = counters.indorsement.get().at(0, default: 1)
-      let indorsement_label = format-indorsement-number(indorsement_number)
+      let indorsement-number = counters.indorsement.get().at(0, default: 1)
+      let indorsement-label = format-indorsement-number(indorsement-number)
 
-      let ind_date = align(right)[#if actual_date != none { display-date(actual_date, memo-style: memo-style) } else { date-placeholder-slot(field: date_field) }]
+      let ind-date = align(right)[#if actual-date != none { display-date(actual-date, memo-style: memo-style) } else { date-placeholder-slot(field: date-field) }]
 
       // Separate-page header body: restates the original memo's identity (FROM,
       // date, subject) on its own line, since the indorsement no longer shares a
       // page with the action document. Rendered as a non-breakable, sticky unit
       // so it travels to the next page *with* the content it heads rather than
       // being stranded at the bottom of a page.
-      // `original_from` / `original_subject` are content fields, and a content
+      // `original-from` / `original-subject` are content fields, and a content
       // field lowers to a markup block whose newlines read as spaces in the
       // enclosing paragraph — mid-sentence that lands a stray space before the
       // following comma. `box` gives each its own paragraph context, where
       // Typst trims the edge spaces (the same treatment the inline reference
       // gets in `render-subject-section`), and keeps the phrase unbroken.
       let separate-page-body = block(breakable: false, sticky: true)[
-        #[#indorsement_label to #box(original_from), #display-date(original_date, memo-style: memo-style), #box(original_subject)]
+        #[#indorsement-label to #box(original-from), #display-date(original-date, memo-style: memo-style), #box(original-subject)]
         #blank-line()
-        #grid(columns: (auto, 1fr), ind_from, ind_date)
+        #grid(columns: (auto, 1fr), ind-from, ind-date)
         #blank-line()
-        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", "  ", ind_for)
+        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", "  ", ind-for)
       ]
 
       // Standard header: terse "Nth Ind, FROM    date" line, used when the
@@ -108,9 +107,9 @@
       // across a page boundary and never detach from the body/signature below.
       let standard-header = block(breakable: false, sticky: true)[
         #blank-line()
-        #grid(columns: (auto, 1fr), [#indorsement_label, #box(ind_from)], ind_date)
+        #grid(columns: (auto, 1fr), [#indorsement-label, #box(ind-from)], ind-date)
         #blank-line()
-        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", "  ", ind_for)
+        #grid(columns: (auto, auto, 1fr), "MEMORANDUM FOR", "  ", ind-for)
       ]
 
       if format == "separate_page" {
@@ -145,31 +144,31 @@
     }
     // Header→content gap. Skipped when there is neither an action line nor
     // body to follow — render-signature-block supplies its own 4-line gap.
-    if effective_action != none or not body_empty {
+    if effective-action != none or not body-empty {
       blank-line()
     }
   }
 
-  if effective_action != none {
+  if effective-action != none {
     render-action-line(
-      effective_action,
-      approval-authority: approval_authority,
-      trailing-blank-line: not body_empty,
+      effective-action,
+      approval-authority: approval-authority,
+      trailing-blank-line: not body-empty,
     )
   }
 
-  if not body_empty {
+  if not body-empty {
     context {
-      let memo-style = query(<usaf-memo-config>).first().value.at("memo_style", default: "usaf")
+      let memo-style = query(<usaf-memo-config>).first().value.at("memo-style", default: "usaf")
       render-body(content, memo-style: memo-style)
     }
   }
 
   render-signature-block(
-    signature_block,
-    closing-line: format-authority-line(authority_line),
-    signature-blank-lines: signature_blank_lines,
-    signing-field: signing_field,
+    signature-block,
+    closing-line: format-authority-line(authority-line),
+    signature-blank-lines: signature-blank-lines,
+    signing-field: signing-field,
   )
   // Labelled so `mainmatter` can split the closing off the body; `split-closing`.
 }<usaf-memo-closing>]

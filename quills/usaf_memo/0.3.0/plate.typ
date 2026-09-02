@@ -22,13 +22,13 @@
 #let body_font_size = data.font_size * 1pt
 
 #show: frontmatter.with(
-  letterhead_title: letterhead_lines.at(0, default: ""),
-  letterhead_caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
-  letterhead_seal_subtitle: data.letterhead_seal_subtitle,
+  letterhead-title: letterhead_lines.at(0, default: ""),
+  letterhead-caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
+  letterhead-seal-subtitle: data.letterhead_seal_subtitle,
   // Enum blank is `""`, not a seal. Omit so the package renders none rather
   // than treating the blank as DoW.
   ..if data.letterhead_seal != "" {
-    (letterhead_seal: image(
+    (letterhead-seal: image(
       if data.letterhead_seal == "dod" {
         "assets/dod_seal.png"
       } else {
@@ -60,20 +60,20 @@
     }
   },
 
-  memo_for: data.memo_for,
+  memo-for: data.memo_for,
 
   // A memo with no FROM line is a Memorandum for Record.
-  ..if data.memo_from.len() > 0 { (memo_from: data.memo_from) },
+  ..if data.memo_from.len() > 0 { (memo-from: data.memo_from) },
 
   subject: data.subject,
 
   ..if data.references.len() > 0 { (references: data.references) },
 
-  footer_tag_line: data.tag_line,
+  footer-tag-line: data.tag_line,
 
   // The blank reads as no banner, which is what the package's own
-  // `classification_level: none` default means.
-  classification_level: data.classification.value,
+  // `classification-level: none` default means.
+  classification-level: data.classification.value,
 
   dissemination: data.dissemination,
 
@@ -84,19 +84,19 @@
   // own `cui_*: none` defaults cover the worlds that omit them.
   ..if data.classification.value == "CUI" {
     (
-      cui_controlled_by: data.classification.controlled_by,
-      cui_category: data.classification.category,
-      cui_limited_dissemination: data.classification.limited_dissemination,
-      cui_poc: data.classification.poc,
+      cui-controlled-by: data.classification.controlled_by,
+      cui-category: data.classification.category,
+      cui-limited-dissemination: data.classification.limited_dissemination,
+      cui-poc: data.classification.poc,
     )
   },
 
-  memo_style: memo_style,
+  memo-style: memo_style,
 
-  font_size: body_font_size,
+  font-size: body_font_size,
 
   // One recipient per line; the package's own default is three columns.
-  memo_for_cols: 1,
+  memo-for-cols: 1,
 )
 
 // The body's region needs no recovery step here: the package's render-body
@@ -108,12 +108,12 @@
 ]
 
 #backmatter(
-  authority_line: data.authority_line,
-  signature_block: data.signature_block,
+  authority-line: data.authority_line,
+  signature-block: data.signature_block,
   // The widget sits at the bottom of AFH 33-337's four blank lines and is
   // sized to two and a half of them, so the line and a half above it stays
   // clear of the body text without moving the block off the fifth line.
-  signing_field: signature-field(
+  signing-field: signature-field(
     "Signature",
     field: "signature_block",
     height: body_font_size * 2.5,
@@ -174,9 +174,9 @@
     indorsement(
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
-      authority_line: card.authority_line,
-      signature_block: card.signature_block,
-      signing_field: signature-field(
+      authority-line: card.authority_line,
+      signature-block: card.signature_block,
+      signing-field: signature-field(
         "Ind_" + str(i) + "_Signature",
         field: card.at("$path") + "signature_block",
         height: body_font_size * 2.5,
@@ -188,7 +188,7 @@
       // Built only when there is no date to print: a widget over a printed date
       // would offer an edit that the rendered document does not carry back.
       ..if resolved_date == none {
-        (date_field: form-field(
+        (date-field: form-field(
           "Ind_" + str(i) + "_Date",
           type: "text",
           width: 1in,
@@ -197,7 +197,7 @@
         ))
       },
       ..if card.action != "" { (action: card.action) },
-      approval_authority: i == last_indorsement_index,
+      approval-authority: i == last_indorsement_index,
       body_content,
     )
   }
