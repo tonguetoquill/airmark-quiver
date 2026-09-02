@@ -118,27 +118,27 @@
   let ITEM_FIRST_PAR = state("ITEM_FIRST_PAR")
   ITEM_FIRST_PAR.update(false)
 
-  let first_pass = {
+  let first-pass = {
     show par: p => context {
-      let nest_level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
-      let is_heading = IS_HEADING.get()
-      let is_first_par = ITEM_FIRST_PAR.get()
+      let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
+      let is-heading = IS_HEADING.get()
+      let is-first-par = ITEM_FIRST_PAR.get()
 
       // Determine if this is a continuation block within a multi-block list item.
-      // A continuation is a non-first paragraph inside a list item (nest_level > 0).
-      let is_continuation = nest_level > 0 and not is_first_par
+      // A continuation is a non-first paragraph inside a list item (nest-level > 0).
+      let is-continuation = nest-level > 0 and not is-first-par
 
       PAR_BUFFER.update(pars => {
         pars.push((
           content: text([#p.body]),
-          nest_level: nest_level,
-          kind: if is_heading { "heading" } else if is_continuation { "continuation" } else { "par" },
+          nest-level: nest-level,
+          kind: if is-heading { "heading" } else if is-continuation { "continuation" } else { "par" },
         ))
         pars
       })
 
       // After the first paragraph of a list item, mark subsequent ones as continuations
-      if nest_level > 0 and is_first_par {
+      if nest-level > 0 and is-first-par {
         ITEM_FIRST_PAR.update(false)
       }
 
@@ -149,7 +149,7 @@
       PAR_BUFFER.update(pars => {
         pars.push((
           content: t,
-          nest_level: -1,
+          nest-level: -1,
           kind: "table",
         ))
         pars
@@ -170,11 +170,11 @@
     // The nesting level rides along so a quote inside a list item lines up with
     // that item's text (see the emission below).
     show quote.where(block: true): q => context {
-      let nest_level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
+      let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
       PAR_BUFFER.update(pars => {
         pars.push((
           content: q.body,
-          nest_level: nest_level,
+          nest-level: nest-level,
           kind: "quote",
         ))
         pars
@@ -225,17 +225,17 @@
     }
   }
   // Use place() to prevent hidden content from affecting layout flow
-  place(hide(first_pass))
+  place(hide(first-pass))
 
   // Second pass: consume par buffer
   //
   // PAR_BUFFER item dictionary layout:
   //   item.content    — the paragraph body, table element, or block-quote body
-  //   item.nest_level — nesting depth (−1 for tables)
+  //   item.nest-level — nesting depth (−1 for tables)
   //   item.kind       — "par", "heading", "table", "continuation", or "quote"
   context {
-    let heading_buffer = none
-    let heading_level = 0
+    let heading-buffer = none
+    let heading-level = 0
     // Zero-width paragraphs are dropped, so an empty body emits nothing and
     // collapses to zero vertical space. A table is kept whatever it measures.
     let items = PAR_BUFFER.get().filter(item =>
@@ -243,8 +243,8 @@
     )
     if items.len() == 0 { return }
     // Only top-level paragraphs count for AFH 33-337 §2 numbering purposes
-    let par_count = items.filter(item => item.kind == "par").len()
-    let total_count = items.len()
+    let par-count = items.filter(item => item.kind == "par").len()
+    let total-count = items.len()
 
     // Numbers are tracked in a dictionary keyed by level index (as a string)
     // rather than in counters, whose updates do not propagate out of the
@@ -256,55 +256,55 @@
     }
 
     let i = 0
-    let any_emitted = false
+    let any-emitted = false
     for item in items {
       i += 1
       let kind = item.kind
-      let item_content = item.content
+      let item-content = item.content
 
       // A buffered heading runs into this element only when the two belong to
       // the same item: a later block of this list item ("continuation"), or,
       // at top level, the next paragraph. The first block of the *next* item,
-      // a table (nest_level −1, so the level test alone excludes it), a block
+      // a table (nest-level −1, so the level test alone excludes it), a block
       // quote (verbatim: a heading prepended to it would be ink the author did
       // not put inside the quote), and another heading all fail the test, and
       // each would otherwise carry the heading's text somewhere it was not
       // authored. Those emit the heading on its own line, the treatment a
       // heading before a table takes.
-      if heading_buffer != none {
-        let runs_in = (
+      if heading-buffer != none {
+        let runs-in = (
           kind not in ("heading", "quote")
-            and item.nest_level == heading_level
-            and (heading_level == 0 or kind == "continuation")
+            and item.nest-level == heading-level
+            and (heading-level == 0 or kind == "continuation")
         )
-        if runs_in {
-          item_content = [#strong[#heading_buffer.] #item_content]
+        if runs-in {
+          item-content = [#strong[#heading-buffer.] #item-content]
         } else {
-          if any_emitted { blank-line() }
-          strong[#heading_buffer.]
-          any_emitted = true
+          if any-emitted { blank-line() }
+          strong[#heading-buffer.]
+          any-emitted = true
         }
-        heading_buffer = none
+        heading-buffer = none
       }
 
       // Buffer this heading for the next element to run into. The level it was
       // captured at rides along: the run-in test needs it, and the buffer is
       // read one iteration later, by which time `item` is the *next* element.
       if kind == "heading" {
-        heading_buffer = item_content
-        heading_level = item.nest_level
+        heading-buffer = item-content
+        heading-level = item.nest-level
         continue
       }
 
-      let nest_level = item.nest_level
+      let nest-level = item.nest-level
       let indent-fn = if memo-style == "daf" {
         (level, _counts) => calculate-daf-indent(level)
       } else {
         (level, counts) => calculate-indent-from-counts(level, counts)
       }
-      let final_par = {
+      let final-par = {
         if kind == "table" {
-          render-memo-table(item_content)
+          render-memo-table(item-content)
         } else if kind == "quote" {
           // A block quote is the body's unlabeled block: no number, no letter,
           // no bullet — the author's lines as written. It is placed, not
@@ -330,39 +330,39 @@
           // body puts between its own paragraphs — keeps that break visible.
           let quoted = {
             set par(spacing: spacing.line + line-stride())
-            item_content
+            item-content
           }
-          let offset = paragraph-text-offset(nest_level, level-counts, indent-fn)
+          let offset = paragraph-text-offset(nest-level, level-counts, indent-fn)
           if offset == 0pt { quoted } else { pad(left: offset, quoted) }
         } else if kind == "continuation" {
           // Continuation block within a multi-block list item:
           // indent to align with preceding numbered paragraph's text, no new number.
           // level-counts still holds the value of the preceding numbered paragraph.
-          if memo-style == "daf" and nest_level == 0 {
-            item_content
+          if memo-style == "daf" and nest-level == 0 {
+            item-content
           } else {
-            format-par(item_content, nest_level, level-counts, indent-fn, continuation: true)
+            format-par(item-content, nest-level, level-counts, indent-fn, continuation: true)
           }
         } else if memo-style == "daf" {
-          if nest_level > 0 {
-            let par = format-par(item_content, nest_level, level-counts, indent-fn)
-            level-counts.insert(str(nest_level), level-counts.at(str(nest_level), default: 1) + 1)
-            level-counts = reset-levels-from(level-counts, nest_level + 1, max-levels)
+          if nest-level > 0 {
+            let par = format-par(item-content, nest-level, level-counts, indent-fn)
+            level-counts.insert(str(nest-level), level-counts.at(str(nest-level), default: 1) + 1)
+            level-counts = reset-levels-from(level-counts, nest-level + 1, max-levels)
             par
           } else {
             // DAF top-level paragraphs are unnumbered and first-line indented.
             // Reset nested counters so each new top-level paragraph restarts children.
             level-counts = reset-levels-from(level-counts, 0, max-levels)
-            [#h(daf-paragraph.top-first-line-indent)#item_content]
+            [#h(daf-paragraph.top-first-line-indent)#item-content]
           }
-        } else if par_count > 1 {
-          let par = format-par(item_content, nest_level, level-counts, indent-fn)
-          level-counts.insert(str(nest_level), level-counts.at(str(nest_level)) + 1)
-          level-counts = reset-levels-from(level-counts, nest_level + 1, max-levels)
+        } else if par-count > 1 {
+          let par = format-par(item-content, nest-level, level-counts, indent-fn)
+          level-counts.insert(str(nest-level), level-counts.at(str(nest-level)) + 1)
+          level-counts = reset-levels-from(level-counts, nest-level + 1, max-levels)
           par
         } else {
           // AFH 33-337 §2: "A single paragraph is not numbered"
-          item_content
+          item-content
         }
       }
 
@@ -372,9 +372,9 @@
       // `context { for … }` block, where it does not combine with the
       // preceding header section's block-spacing the same way as a
       // top-level blank-line() call.
-      if any_emitted { blank-line() }
-      any_emitted = true
-      if i == total_count {
+      if any-emitted { blank-line() }
+      any-emitted = true
+      if i == total-count {
         // AFH 33-337 "Signature Block": "Do not place the signature element on a
         // continuation page by itself." The signature block that follows has no
         // keep-with-previous of its own — Typst has no such property — so the
@@ -396,16 +396,16 @@
         // the top of the page, so every element measures as fitting and
         // relocates — and from the top of its new page the same test agrees, so
         // the wrong answer is a fixed point that later passes never revisit.
-        let available_width = page.width - spacing.margin * 2
-        let relocation_budget = (page.height - spacing.margin * 2) / 3
-        let element_height = measure(final_par, width: available_width).height
-        block(sticky: element_height <= relocation_budget)[#final_par]
+        let available-width = page.width - spacing.margin * 2
+        let relocation-budget = (page.height - spacing.margin * 2) / 3
+        let element-height = measure(final-par, width: available-width).height
+        block(sticky: element-height <= relocation-budget)[#final-par]
       } else {
         // A plain block, so that the document-wide `set block(above:
         // spacing.line)` contributes the same 0.5em above every paragraph as it
         // does above the last one. A bare emission skips `block.above` and
         // visibly compresses the gap.
-        block[#final_par]
+        block[#final-par]
       }
     }
 
@@ -413,9 +413,9 @@
     // dies with the loop unless it is drained here. Sticky for the same reason
     // the last item is: a standalone heading is one line, so it keeps with the
     // signature block rather than opening a page alone.
-    if heading_buffer != none {
-      if any_emitted { blank-line() }
-      block(sticky: true)[#strong[#heading_buffer.]]
+    if heading-buffer != none {
+      if any-emitted { blank-line() }
+      block(sticky: true)[#strong[#heading-buffer.]]
     }
   }
 }
