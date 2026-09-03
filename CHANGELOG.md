@@ -376,6 +376,15 @@
   PDF read as a fillable form widget sitting among the real ones; the rejected
   option is still struck out.
 
+- **The version moves past a release** (#100). After `v0.32.2` was tagged,
+  `package.json` stayed at `0.32.2` through every commit that followed, so a
+  consumer installing from a git ref reported the published tarball's version
+  with different contents. `release.yml` now opens the next patch on `main` as
+  `X.Y.(Z+1)-dev` once a final release is tagged, and `release-prepare.yml`
+  bumps from it: `patch` drops the suffix, `minor` takes the next minor. A
+  release candidate leaves the version at its `-rc.N`, where the RC loop reads
+  it. The seeded changelog skips the `chore: open` commit.
+
 
 ## v0.31.0 - 2026-08-14
 
