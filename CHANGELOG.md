@@ -53,6 +53,13 @@
 
   `usaf_memo@0.2.0` vendors its own older package and is untouched.
 
+- **`usaf_memo@0.3.0` says which `action` value a coordinating official
+  writes** (#145). The description taught that an earlier indorsement "reads
+  Concur/Nonconcur" and left the author to write `concur`, which `values:`
+  refuses. It now says to write `approve` or `disapprove` at every place in the
+  chain, and that the printed pair follows the place: `approve` is Concur on a
+  coordinating indorsement and Approve on the last. Nothing renders differently.
+
 - **`usaf_memo@0.3.0`: a backmatter list running onto the next page says so on
   the page it leaves.** AFH 33-337 wants the note there — "3 Attachments (listed
   on next page):", or the neutral "(continued on next page)" for `cc:` and
