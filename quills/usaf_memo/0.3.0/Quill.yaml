@@ -112,7 +112,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Department of War (DoW) or Department of Defense (DoD) seal, shown at the top left of the letterhead. Leave blank for no seal."
+      description: "Department of War (DoW) or Department of Defense (DoD) seal, shown at the top left of the letterhead."
 
     letterhead_seal_subtitle:
       type: plaintext
@@ -121,7 +121,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Bold-caps line below the seal. Nothing prints when it is blank, or when there is no seal."
+      description: "Bold-caps line below the seal. Nothing prints when it is blank."
 
     tag_line:
       type: richtext

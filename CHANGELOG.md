@@ -28,6 +28,14 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` prints a seal on every memorandum** (#146). `letterhead_seal`
+  had a third state its `values:` did not name: the description said "Leave
+  blank for no seal", an explicit `""` reached the plate and printed none, and
+  an omitted field took `dow`. Both are blank to an author, and only one of
+  them removed the seal. The seal is not optional, so the plate treats the
+  blank as the default and prints DoW, and the description names the two seals
+  and nothing else. `dod` is unchanged.
+
 - **`usaf_memo@0.3.0`'s vendored `src/` is a verbatim copy of upstream.** Every
   `.typ` file matches `tonguetoquill/typst-usaf-memo` byte for byte, so a sync
   is a copy rather than a translation, and an upstream fix can no longer be
