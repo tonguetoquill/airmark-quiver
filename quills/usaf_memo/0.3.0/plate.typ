@@ -66,7 +66,13 @@
 
   ..if data.references.len() > 0 { (references: data.references) },
 
-  footer-tag-line: data.tag_line,
+  // The tag line is set in Cinzel, which ships one regular face: `emph` resolves
+  // to it and reads as nothing. The slant is synthesized here rather than in the
+  // package, whose `src/` is upstream's verbatim. `box` keeps the run inline.
+  footer-tag-line: {
+    show emph: it => box(skew(ax: -12deg, reflow: false, it.body))
+    data.tag_line
+  },
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.

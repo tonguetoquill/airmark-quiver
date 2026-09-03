@@ -36,6 +36,14 @@
   blank as the default and prints DoW, and the description names the two seals
   and nothing else. `dod` is unchanged.
 
+- **`usaf_memo@0.3.0` slants an italic tag line.** The footer motto is set in
+  Cinzel, which ships a regular face and no italic one, so `emph` resolved to
+  the regular and the mark reached the page as nothing. The slant is
+  synthesized instead, by a `show emph` rule the plate wraps the tag line in —
+  the package's `src/` stays upstream's verbatim — and the run is boxed to keep
+  it inline with the text around it. A tag line carrying no emphasis renders
+  unchanged.
+
 - **`usaf_memo@0.3.0`'s vendored `src/` is a verbatim copy of upstream.** Every
   `.typ` file matches `tonguetoquill/typst-usaf-memo` byte for byte, so a sync
   is a copy rather than a translation, and an upstream fix can no longer be
