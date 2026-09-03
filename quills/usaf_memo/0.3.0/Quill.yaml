@@ -112,7 +112,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Department of War (DoW) or Department of Defense (DoD) seal, shown at the top left of the letterhead. Leave blank for no seal."
+      description: "Department of War (DoW) or Department of Defense (DoD) seal, shown at the top left of the letterhead."
 
     letterhead_seal_subtitle:
       type: plaintext
@@ -121,7 +121,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Bold-caps line below the seal. Nothing prints when it is blank, or when there is no seal."
+      description: "Bold-caps line below the seal. Nothing prints when it is blank."
 
     tag_line:
       type: richtext
@@ -317,4 +317,4 @@ card_kinds:
         ui:
           group: additional
           compact: true
-        description: "The endorser's decision, printed as an either/or line with the choice underlined and the rejected option struck out. Leave blank to omit the line. The wording follows the indorsement's place in the chain: the last one is the approval authority and reads Approve/Disapprove, every earlier one is a coordinating official and reads Concur/Nonconcur. Use 'undecided' to print the pair unmarked, for the endorser to mark by hand."
+        description: "The endorser's decision, printed as an either/or line with the choice underlined and the rejected option struck out. Leave blank to omit the line. Write 'approve' or 'disapprove' whatever the indorsement's place in the chain; the printed pair follows the place, not the value: the last indorsement is the approval authority and prints Approve/Disapprove, every earlier one is a coordinating official and prints 'approve' as Concur and 'disapprove' as Nonconcur. Use 'undecided' to print the pair unmarked, for the endorser to mark by hand."

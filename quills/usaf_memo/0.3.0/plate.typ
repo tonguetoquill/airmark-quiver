@@ -25,17 +25,14 @@
   letterhead-title: letterhead_lines.at(0, default: ""),
   letterhead-caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
   letterhead-seal-subtitle: data.letterhead_seal_subtitle,
-  // Enum blank is `""`, not a seal. Omit so the package renders none rather
-  // than treating the blank as DoW.
-  ..if data.letterhead_seal != "" {
-    (letterhead-seal: image(
-      if data.letterhead_seal == "dod" {
-        "assets/dod_seal.png"
-      } else {
-        "assets/dow_seal.png"
-      }
-    ))
-  },
+  // A memo has no seal-less state, so the blank takes the default, DoW.
+  letterhead-seal: image(
+    if data.letterhead_seal == "dod" {
+      "assets/dod_seal.png"
+    } else {
+      "assets/dow_seal.png"
+    }
+  ),
 
   // Date. `data.date` is the native `datetime` and would render identically,
   // but its ink would be born inside the package and carry no schema address.

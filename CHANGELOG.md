@@ -28,13 +28,21 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` prints a seal on every memorandum** (#146). `letterhead_seal`
+  had a third state its `values:` did not name: the description said "Leave
+  blank for no seal", an explicit `""` reached the plate and printed none, and
+  an omitted field took `dow`. Both are blank to an author, and only one of
+  them removed the seal. The seal is not optional, so the plate treats the
+  blank as the default and prints DoW, and the description names the two seals
+  and nothing else. `dod` is unchanged.
+
 - **`usaf_memo@0.3.0` slants an italic tag line.** The footer motto is set in
   Cinzel, which ships a regular face and no italic one, so `emph` resolved to
   the regular and the mark reached the page as nothing. The slant is
   synthesized instead, by a `show emph` rule the plate wraps the tag line in —
-  the package's `src/` stays upstream's verbatim — and the run is boxed so
-  emphasis does not break the motto across lines. A tag line carrying no
-  emphasis renders unchanged.
+  the package's `src/` stays upstream's verbatim — and the run is boxed to keep
+  it inline with the text around it. A tag line carrying no emphasis renders
+  unchanged.
 
 - **`usaf_memo@0.3.0`'s vendored `src/` is a verbatim copy of upstream.** Every
   `.typ` file matches `tonguetoquill/typst-usaf-memo` byte for byte, so a sync
@@ -60,6 +68,13 @@
   hash, across both page-break variants.
 
   `usaf_memo@0.2.0` vendors its own older package and is untouched.
+
+- **`usaf_memo@0.3.0` says which `action` value a coordinating official
+  writes** (#145). The description taught that an earlier indorsement "reads
+  Concur/Nonconcur" and left the author to write `concur`, which `values:`
+  refuses. It now says to write `approve` or `disapprove` at every place in the
+  chain, and that the printed pair follows the place: `approve` is Concur on a
+  coordinating indorsement and Approve on the last. Nothing renders differently.
 
 - **`usaf_memo@0.3.0`: a backmatter list running onto the next page says so on
   the page it leaves.** AFH 33-337 wants the note there — "3 Attachments (listed
@@ -376,6 +391,15 @@
   also underlined rather than enclosed in a rounded box, which in a rendered
   PDF read as a fillable form widget sitting among the real ones; the rejected
   option is still struck out.
+
+- **The version moves past a release** (#100). After `v0.32.2` was tagged,
+  `package.json` stayed at `0.32.2` through every commit that followed, so a
+  consumer installing from a git ref reported the published tarball's version
+  with different contents. `release.yml` now opens the next patch on `main` as
+  `X.Y.(Z+1)-dev` once a final release is tagged, and `release-prepare.yml`
+  bumps from it: `patch` drops the suffix, `minor` takes the next minor. A
+  release candidate leaves the version at its `-rc.N`, where the RC loop reads
+  it. The seeded changelog skips the `chore: open` commit.
 
 
 ## v0.31.0 - 2026-08-14

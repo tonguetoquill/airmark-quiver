@@ -48,7 +48,16 @@ jobs:
               NEXT="${RC_BASE}"
             fi
           else
-            IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+            # `release.yml` leaves `X.Y.Z-dev` on main after tagging
+            # vX.Y.(Z-1): the next patch, unreleased. Bump from the release
+            # it follows.
+            if [[ "$CURRENT" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)-dev$ ]]; then
+              MAJOR="${BASH_REMATCH[1]}"
+              MINOR="${BASH_REMATCH[2]}"
+              PATCH=$((BASH_REMATCH[3] - 1))
+            else
+              IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+            fi
             case "${{ inputs.bump }}" in
               minor) NEXT="${MAJOR}.$((MINOR + 1)).0" ;;
               patch) NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
@@ -76,9 +85,11 @@ jobs:
             echo "## v${VERSION} - ${DATE}"
             echo
             if [ -n "$LAST" ]; then
-              git log --no-merges --pretty='- %s' "${LAST}..HEAD"
+              git log --no-merges --invert-grep --grep='^chore: open v' \
+                --pretty='- %s' "${LAST}..HEAD"
             else
-              git log --no-merges --pretty='- %s'
+              git log --no-merges --invert-grep --grep='^chore: open v' \
+                --pretty='- %s'
             fi
             echo
           } > entry.md
