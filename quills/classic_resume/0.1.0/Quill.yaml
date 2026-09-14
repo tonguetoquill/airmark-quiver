@@ -1,0 +1,216 @@
+quill:
+  name: classic_resume
+  version: 0.1.0
+  backend: typst
+  description: Classic single-page resume
+
+typst:
+  plate_file: plate.typ
+
+# The card list is flat and a resume is nested, so a `section` card opens a
+# section and every entry, project and list card after it belongs to that
+# section until the next one. Card kinds name the shape of an entry, not one use
+# of it: the section title is free text and already says what it is.
+main:
+  ui:
+    groups: [identity, page]
+  # Everything prints under a section heading, so main carries no body: a
+  # summary is a section whose body is prose and which holds no entries.
+  body:
+    enabled: false
+  fields:
+    name:
+      type: string
+      example: John Doe
+      ui:
+        group: identity
+      description: "Your name, set large at the top. It is the document's level 1 heading, and becomes the exported PDF's title and author."
+
+    contacts:
+      type: array
+      items:
+        type: string
+      example:
+        - john.doe@example.com
+        - (555) 123-4567
+        - github.com/johndoe
+        - linkedin.com/in/johndoe
+        - Pittsburgh, PA
+      ui:
+        group: identity
+      description: "The line under your name, one contact per line here, printed across the page separated by a diamond. Order them by how much you want them used."
+
+    link_contacts:
+      type: boolean
+      default: true
+      ui:
+        group: identity
+        compact: true
+      description: "Turn contacts that look like an email address, a web address or a phone number into live links in the PDF. Anything else — a city, a clearance level — is printed as written."
+
+    paper:
+      type: enum
+      values:
+        - us-letter
+        - a4
+      default: us-letter
+      ui:
+        group: page
+        compact: true
+      description: "Page size."
+
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: page
+        compact: true
+      description: "Body text size in points; decimals allowed, such as 11.5. Along with the margin, this is the lever for fitting a resume onto one page — drop a half point before you drop a bullet."
+
+    margin:
+      type: number
+      default: 0.5
+      ui:
+        group: page
+        compact: true
+      description: "Page margin in inches, the same on all four sides. The layout is dense by design; below about 0.4 a printer starts clipping."
+
+card_kinds:
+  section:
+    description: "Opens a section: a title in uppercase over a rule. Every entry, project and list card that follows belongs to this section, until the next section card begins the next one. The body is optional prose — a summary, an objective, a note under the heading — and a section may hold nothing else."
+    ui:
+      title: Section
+    body:
+      example: |
+        Optional prose under the heading. Delete it for a section that holds only entries.
+      # The name (level 1) and the section titles (level 2) carry the PDF's
+      # structure tree; a heading authored in a body lands in that outline
+      # unannounced. The rest no resume component typesets.
+      unsupported: [heading, rule, code, table, image]
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        example: Work Experience
+        description: "Section heading, rendered in uppercase however you write it."
+      extra:
+        type: richtext
+        inline: true
+        default: ""
+        ui:
+          compact: true
+        description: "Qualifier set after the title in the same style, such as a date range or a clarifier. Italicize with *asterisks*. Leave blank for the usual case."
+
+  entry:
+    description: "A dated entry — a job, a degree, an award, a competition placing. The title and dates share the first line, the subtitle and location the second, and the body holds the bullets. Leave both the subtitle and the location blank and that second line is not printed, which is what an award or a placing wants. An entry is never split across a page break."
+    ui:
+      title: Entry
+    body:
+      example: |
+        - What you did, and what came of it. One line each, strongest first.
+      unsupported: [heading, rule, code, table, image]
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        example: Carnegie Mellon University
+        description: "Employer, school or award, set in bold at the left."
+      dates:
+        type: plaintext
+        inline: true
+        default: ""
+        example: August 2024 – Present
+        ui:
+          compact: true
+        description: "Set in bold at the right, opposite the title. Free text rather than a date, so a range reads as you write it: 'August 2024 – Present', 'December 2025'. Keep the form the same down the page."
+      subtitle:
+        type: plaintext
+        inline: true
+        default: ""
+        example: Master of Information Technology Strategy
+        description: "Role, degree or placing, set in italics below the title."
+      location:
+        type: plaintext
+        inline: true
+        default: ""
+        example: Pittsburgh, PA
+        ui:
+          compact: true
+        description: "Set in italics below the dates. 'Pittsburgh, PA', 'Remote'."
+
+  project:
+    description: "A project, with an optional link set small and italic at the right. Use it where an entry's dates and location would be noise."
+    ui:
+      title: Project
+    body:
+      example: |
+        - What it does, and what you built.
+      unsupported: [heading, rule, code, table, image]
+    fields:
+      name:
+        type: plaintext
+        inline: true
+        example: Quillmark
+        description: "Project name, set in bold at the left."
+      url:
+        type: string
+        default: ""
+        example: https://github.com/nibsbin/quillmark
+        ui:
+          compact: true
+        description: "Set small and italic at the right, and made a live link when it starts with http. Anything else is printed as written, so '<closed source>' stands in for a project with nothing to link."
+
+  item_list:
+    description: "A multi-column list of short items — certifications, awards, honors, coursework. One card is one list, so a section that needs two of them holds two cards."
+    ui:
+      title: Item list
+    body:
+      enabled: false
+    fields:
+      items:
+        type: array
+        items:
+          type: richtext
+          inline: true
+        example:
+          - Offensive Security Certified Professional (OSCP)
+          - GIAC Cyber Threat Intelligence (GCTI)
+          - CompTIA CASP+, CySA+, Sec+, Net+, A+, Proj+
+          - GIAC Machine Learning Engineer (GMLE)
+        description: "One item per line, filled across the columns and then down. Keep each to a line at the column width. Italicize with *asterisks*."
+      columns:
+        type: integer
+        default: 2
+        ui:
+          compact: true
+        description: "Number of columns. Two suits items that run most of a line, three suits single words."
+
+  labeled_list:
+    description: "A multi-column list where each item carries a bold label on the line above it — skills by discipline, languages, tools. One card is one list."
+    ui:
+      title: Labeled list
+    body:
+      enabled: false
+    fields:
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            label:
+              type: plaintext
+              inline: true
+              example: Programming
+              description: "Set in bold on its own line above the text."
+            text:
+              type: plaintext
+              inline: true
+              example: Python, R, JS, Rust, PowerShell, CI/CD
+              description: "The items under that label, usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
+        description: "One label and its items per row, filled across the columns and then down."
+      columns:
+        type: integer
+        default: 2
+        ui:
+          compact: true
+        description: "Number of columns. Two is right for most labels; three crowds them."
