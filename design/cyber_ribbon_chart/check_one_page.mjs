@@ -1,0 +1,51 @@
+// check_one_page.mjs — a ribbon chart is a one-page leave-behind, and the one
+// lever that can cost it that page is the timeline window: more years buy their
+// columns out of the width, and the milestone chips wrap taller as they narrow.
+// `quillkit test` renders the blueprint's near-empty seed and never sees it, so
+// this sweeps a filled document across every window the schema recommends.
+//
+// Usage: node design/cyber_ribbon_chart/check_one_page.mjs
+
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+
+import { Engine, init } from "@quillmark/wasm";
+import { fromDir } from "@quillmark/quiver/node";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const repoRoot = resolve(__dirname, "../..");
+
+const { Document } = await init();
+const quiver = await fromDir(repoRoot);
+const engine = new Engine();
+const quill = await quiver.getQuill("cyber_ribbon_chart@0.1.0");
+
+const maximal = readFileSync(resolve(__dirname, "fixtures/maximal.md"), "utf8");
+
+// 6 is the shortest window a young officer would set; 18 is the one the
+// `timeline_years` description points at, because it is where the last SDE look
+// comes into view. Every year between them has to hold the page too.
+const windows = [6, 8, 10, 12, 14, 16, 18];
+const failures = [];
+
+for (const years of windows) {
+  const md = maximal.replace(/^timeline_years: \d+$/m, `timeline_years: ${years}`);
+  const doc = Document.fromMarkdown(md);
+  let result;
+  try {
+    result = await engine.render(quill, doc, { format: "pdf" });
+  } finally {
+    doc.free();
+  }
+  const pages = result.artifacts.length;
+  console.log(`  timeline_years: ${String(years).padStart(2)} → ${pages} page${pages === 1 ? "" : "s"}`);
+  if (pages !== 1) failures.push(`${years}-year window renders ${pages} pages`);
+}
+
+if (failures.length > 0) {
+  console.error("the chart left its page:");
+  for (const f of failures) console.error(`  - ${f}`);
+  process.exit(1);
+}
+console.log(`one page at every window from ${windows[0]} to ${windows.at(-1)} years`);
