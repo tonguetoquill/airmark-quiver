@@ -14,9 +14,12 @@ typst:
 main:
   ui:
     groups: [officer, timeline, record]
-  # Every part of the chart is a field or a card; there is no prose on the page.
+  # The chart's one piece of prose. It heads the notes area at the foot of the
+  # page, above ruled lines a rater writes on during the discussion.
   body:
-    enabled: false
+    example: |
+      What you want out of this discussion, and anything that constrains it — a join-spouse, a degree finishing, a date you cannot move before.
+    unsupported: [heading, rule, code, table, image]
   fields:
     name:
       # Read as `string` rather than `plaintext`: it reaches
@@ -271,10 +274,16 @@ card_kinds:
         ui:
           compact: true
         description: "Length in years. The timeline is ruled in half-years, which is why the choices stop at the half."
+      school:
+        type: boolean
+        default: false
+        ui:
+          compact: true
+        description: "Tick for a school you would move for — IDE or SDE in residence, Weapons School — rather than a duty assignment. It prints outlined instead of filled, so a year in a classroom does not read as a year in a job."
       vml:
         type: enum
         values: [Summer, Winter]
         default: Summer
         ui:
           compact: true
-        description: "Which VML cycle you would move on. This places the tour rather than labelling it: a Summer tour starts in the second half of a year and a Winter tour in the first, so a tour waits for its own cycle and the gap before it is a real one — the months you stay put because the next move is not until summer."
+        description: "Which VML cycle you would move on. This places the tour rather than labelling it: a Summer tour starts in the second half of a year and a Winter tour in the first. Where that means waiting, the wait is added to the tour before it rather than left as a hole — you hold a job until you move — so a tour can print longer than the length you gave it."

@@ -58,6 +58,8 @@ deployments:
   - OIR rotation, 2023
 ~~~
 
+What I want out of this DT: IDE in residence on the second look, then a DO job before the Lt Col board. Constraint is join-spouse — no OCONUS before 2029.
+
 ~~~
 $kind: vector
 label: Vector 1
@@ -82,6 +84,14 @@ vml: Winter
 $kind: tour
 title: Sq/CC, Scott AFB
 duration: "2"
+vml: Summer
+~~~
+
+~~~
+$kind: tour
+title: IDE in residence
+duration: "1"
+school: true
 vml: Summer
 ~~~
 

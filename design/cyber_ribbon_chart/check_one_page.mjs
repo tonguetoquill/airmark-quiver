@@ -34,7 +34,9 @@ for (const years of windows) {
   const doc = Document.fromMarkdown(md);
   let result;
   try {
-    result = await engine.render(quill, doc, { format: "pdf" });
+    // PNG, not PDF: a PDF is one artifact however many pages it holds, so
+    // counting artifacts off a PDF render is a check that cannot fail.
+    result = await engine.render(quill, doc, { format: "png" });
   } finally {
     doc.free();
   }
