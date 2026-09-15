@@ -143,6 +143,13 @@ by downloading the artifact and serving the directory.
 that same command and keeps the deploy here: nothing outside this repository
 holds `pages: write`.
 
+`vercel.json` deploys the same layout to Vercel, where a pull request gets a
+preview URL instead of an artifact to download. It carries the build, the output
+directory and the one cache rule a host owes this layout — `assets/*` immutable,
+which is the engine, and everything else already right by default. Importing the
+repository is the rest of the setup. Both deploys run off `main` and neither
+knows about the other.
+
 ## License
 
 Apache-2.0, the quill packages under `quills/` included. Two things a quill
