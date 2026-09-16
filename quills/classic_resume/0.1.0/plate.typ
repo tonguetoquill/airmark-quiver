@@ -1,6 +1,6 @@
 #import "@local/quillmark-helper:0.1.0": data
 #import "@local/ttq-classic-resume:0.1.0": (
-  default-config, item-grid, project-entry, resume, resume-header, section-header, timeline-entry,
+  default-config, entry, item-grid, resume, resume-header, section-header,
 )
 
 // `plaintext`/`richtext` fields lower to content carrying a space element on
@@ -17,8 +17,8 @@
 }
 
 // `none` for a field the author left blank, so the components can drop what it
-// would have occupied: `timeline-entry` omits its whole second line when both
-// halves are none, and `project-entry` its annotation.
+// would have occupied: a dated `entry` omits its whole second line when both
+// halves are none, and a linked one its annotation.
 #let or-none(v) = {
   let trimmed = trim-inline(v)
   if trimmed == [] or trimmed == "" { none } else { trimmed }
@@ -30,6 +30,21 @@
   let body = card.at("$body", default: "")
   if type(body) == str { none } else { body }
 }
+
+// A variant-bearing enum rests as `{value: …, …}`; a bare string is the
+// discriminant before that container is built.
+#let member(field) = {
+  if type(field) == dictionary { field.at("value", default: "") } else { field }
+}
+
+#let stock-title = (
+  experience: "Work Experience",
+  education: "Education",
+  projects: "Projects",
+  skills: "Skills",
+  certifications: "Certifications",
+  summary: "Summary",
+)
 
 #show: resume.with(
   // An enum's blank is authorable even where the schema declares a default.
@@ -72,39 +87,57 @@
   link-contacts: data.link_contacts,
 )
 
-// One flat card list, and a section owns every card after it until the next
-// section card. Nothing accumulates: a card renders where it stands, so the
-// section it belongs to is the one whose header was already printed above it.
+// One flat card list. A section prints its heading (and, for skills and
+// certifications, its list); every entry after it belongs to that heading
+// until the next section card.
 #for card in data.at("$cards") {
   let kind = card.at("$kind", default: none)
 
   if kind == "section" {
-    section-header(trim-inline(card.title), extra: or-none(card.extra))
+    let topic = member(card.topic)
+    let title = or-none(card.title)
+    if title == none { title = stock-title.at(topic, default: none) }
+    let extra = or-none(card.extra)
+    if title != none or extra != none {
+      section-header(if title != none { title } else { [] }, extra: extra)
+    }
     body-of(card)
+
+    // These fields exist only in the live world; the branch is what makes
+    // reading them total, the same as `classification` on the memo plate.
+    if topic == "certifications" {
+      item-grid(
+        items: card.topic.at("items", default: ()).map(trim-inline),
+        columns: card.topic.at("columns", default: 2),
+      )
+    } else if topic == "skills" {
+      item-grid(
+        items: card.topic.at("labeled_items", default: ()).map(row => (
+          label: trim-inline(row.label),
+          text: trim-inline(row.text),
+        )),
+        columns: card.topic.at("columns", default: 2),
+      )
+    }
   } else if kind == "entry" {
-    timeline-entry(
-      heading-left: trim-inline(card.title),
-      heading-right: trim-inline(card.dates),
-      subheading-left: or-none(card.subtitle),
-      subheading-right: or-none(card.location),
-      body: body-of(card),
-    )
-  } else if kind == "project" {
-    project-entry(
-      name: trim-inline(card.name),
-      url: if card.url != "" { card.url } else { none },
-      body: body-of(card),
-    )
-  } else if kind == "item_list" {
-    item-grid(items: card.items.map(trim-inline), columns: card.columns)
-  } else if kind == "labeled_list" {
-    // `item-grid` reads a labeled row off the `category` key.
-    item-grid(
-      items: card.items.map(row => (
-        category: trim-inline(row.label),
-        text: trim-inline(row.text),
-      )),
-      columns: card.columns,
-    )
+    let form = member(card.form)
+    if form == "linked" {
+      let url = card.form.at("url", default: "")
+      entry(
+        heading: trim-inline(card.heading),
+        form: "linked",
+        url: if url != "" { url } else { none },
+        body: body-of(card),
+      )
+    } else {
+      entry(
+        heading: trim-inline(card.heading),
+        form: "dated",
+        dates: trim-inline(card.form.at("dates", default: "")),
+        subtitle: or-none(card.form.at("subtitle", default: "")),
+        location: or-none(card.form.at("location", default: "")),
+        body: body-of(card),
+      )
+    }
   }
 }

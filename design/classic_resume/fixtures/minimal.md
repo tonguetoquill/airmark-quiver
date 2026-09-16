@@ -13,7 +13,8 @@ margin: 0.75
 
 ~~~
 $kind: section
-title: Summary
+topic:
+  value: summary
 ~~~
 
 Security engineer of eight years, most of it on detection pipelines that other people have to keep running at three in the morning.
@@ -23,53 +24,68 @@ Security engineer of eight years, most of it on detection pipelines that other p
 
 ~~~
 $kind: section
-title: Experience
+topic:
+  value: experience
 extra: "*selected*"
 ~~~
 
 ~~~
 $kind: entry
-title: Northwind Analytics
-dates: 2021 – Present
+heading: Northwind Analytics
+form:
+  value: dated
+  dates: 2021 – Present
 ~~~
 
 - Rebuilt the alert triage path; median time to first human eyes fell from 40 minutes to 6.
 
 ~~~
 $kind: entry
-title: Contoso Security
-subtitle: Detection Engineer
+heading: Contoso Security
+form:
+  value: dated
+  subtitle: Detection Engineer
 ~~~
 
 - Wrote the detection content review process the team still runs.
 
 ~~~
 $kind: entry
-title: Winner, Regional CCDC
+heading: Far Peak Labs
+form:
+  value: dated
+  location: Remote
+~~~
+
+~~~
+$kind: entry
+heading: Winner, Regional CCDC
+form:
+  value: dated
 ~~~
 
 ~~~
 $kind: section
-title: Certifications
-~~~
-
-~~~
-$kind: item_list
-columns: 3
-items:
-  - GCIA
-  - GCFA
-  - "CISSP, *lapsed*"
+topic:
+  value: certifications
+  columns: 3
+  items:
+    - GCIA
+    - GCFA
+    - "CISSP, *lapsed*"
 ~~~
 
 ~~~
 $kind: section
-title: Projects
+topic:
+  value: projects
 ~~~
 
 ~~~
-$kind: project
-name: Internal detection corpus
+$kind: entry
+heading: Internal detection corpus
+form:
+  value: linked
 ~~~
 
 - Not public, and the better part of two years.

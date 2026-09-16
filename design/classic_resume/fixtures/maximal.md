@@ -16,49 +16,47 @@ margin: 0.5
 
 ~~~
 $kind: section
+topic:
+  value: certifications
+  columns: 2
+  items:
+    - Offensive Security Certified Professional (OSCP)
+    - GIAC Cyber Threat Intelligence (GCTI)
+    - "CompTIA CASP+, CySA+, Sec+, Net+, A+, Proj+"
+    - GIAC Machine Learning Engineer (GMLE)
 title: Active Certifications
 ~~~
 
 ~~~
-$kind: item_list
-columns: 2
-items:
-  - Offensive Security Certified Professional (OSCP)
-  - GIAC Cyber Threat Intelligence (GCTI)
-  - "CompTIA CASP+, CySA+, Sec+, Net+, A+, Proj+"
-  - GIAC Machine Learning Engineer (GMLE)
+$kind: section
+topic:
+  value: skills
+  columns: 2
+  labeled_items:
+    - label: Programming
+      text: "Python, R, JS, C#, Rust, PowerShell, CI/CD"
+    - label: Data Science
+      text: "ML/statistics, TensorFlow, AI Engineering"
+    - label: IT & Cybersecurity
+      text: "AD DS, Splunk, Metasploit, Wireshark, Nessus"
+    - label: Cloud
+      text: "AWS EC2/S3, Helm, Docker, Serverless"
 ~~~
 
 ~~~
 $kind: section
-title: Skills
-~~~
-
-~~~
-$kind: labeled_list
-columns: 2
-items:
-  - label: Programming
-    text: "Python, R, JS, C#, Rust, PowerShell, CI/CD"
-  - label: Data Science
-    text: "ML/statistics, TensorFlow, AI Engineering"
-  - label: IT & Cybersecurity
-    text: "AD DS, Splunk, Metasploit, Wireshark, Nessus"
-  - label: Cloud
-    text: "AWS EC2/S3, Helm, Docker, Serverless"
-~~~
-
-~~~
-$kind: section
-title: Work Experience
+topic:
+  value: experience
 ~~~
 
 ~~~
 $kind: entry
-title: Templar Archives Research Division
-dates: August 2024 – Present
-subtitle: Psionic Research Analyst
-location: Aiur
+heading: Templar Archives Research Division
+form:
+  value: dated
+  dates: August 2024 – Present
+  subtitle: Psionic Research Analyst
+  location: Aiur
 ~~~
 
 - Analyzed Khala disruption patterns following Amon's corruption, developing countermeasures to protect remaining neural link infrastructure.
@@ -66,10 +64,12 @@ location: Aiur
 
 ~~~
 $kind: entry
-title: Terran Dominion Ghost Academy
-dates: May 2025 – July 2025
-subtitle: Covert Ops Trainee
-location: Tarsonis (Remote)
+heading: Terran Dominion Ghost Academy
+form:
+  value: dated
+  dates: May 2025 – July 2025
+  subtitle: Covert Ops Trainee
+  location: Tarsonis (Remote)
 ~~~
 
 - Developed tactical HUD displays for Ghost operatives integrating real-time Zerg hive cluster intelligence.
@@ -78,10 +78,12 @@ location: Tarsonis (Remote)
 
 ~~~
 $kind: entry
-title: Abathur's Evolution Pit
-dates: June 2023 – July 2023
-subtitle: Biomass Research Intern
-location: Char
+heading: Abathur's Evolution Pit
+form:
+  value: dated
+  dates: June 2023 – July 2023
+  subtitle: Biomass Research Intern
+  location: Char
 ~~~
 
 - Developed tracking algorithms for Overlord surveillance networks; supported pattern-of-life analysis for Terran outpost elimination.
@@ -89,10 +91,12 @@ location: Char
 
 ~~~
 $kind: entry
-title: Raynor's Raiders
-dates: January 2018 – June 2020
-subtitle: Combat Engineer
-location: Mar Sara
+heading: Raynor's Raiders
+form:
+  value: dated
+  dates: January 2018 – June 2020
+  subtitle: Combat Engineer
+  location: Mar Sara
 ~~~
 
 - Administered Hyperion shipboard systems, SCV maintenance protocols, and bunker defense automation for 30,000+ colonists.
@@ -102,23 +106,28 @@ location: Mar Sara
 
 ~~~
 $kind: section
-title: Education
+topic:
+  value: education
 ~~~
 
 ~~~
 $kind: entry
-title: Carnegie Mellon University
-dates: December 2025
-subtitle: Master of Information Technology Strategy
-location: Pittsburgh, PA
+heading: Carnegie Mellon University
+form:
+  value: dated
+  dates: December 2025
+  subtitle: Master of Information Technology Strategy
+  location: Pittsburgh, PA
 ~~~
 
 ~~~
 $kind: entry
-title: United States Air Force Academy
-dates: May 2024
-subtitle: BS, Data Science
-location: Colorado Springs, CO
+heading: United States Air Force Academy
+form:
+  value: dated
+  dates: May 2024
+  subtitle: BS, Data Science
+  location: Colorado Springs, CO
 ~~~
 
 - Distinguished Graduate (top 10%); Chinese language minor (L2+/R1 on DLPT).
@@ -127,28 +136,36 @@ location: Colorado Springs, CO
 
 ~~~
 $kind: entry
-title: Western Governors University
-dates: April 2022
-subtitle: BS, Cybersecurity and Information Assurance
-location: Remote
+heading: Western Governors University
+form:
+  value: dated
+  dates: April 2022
+  subtitle: BS, Cybersecurity and Information Assurance
+  location: Remote
 ~~~
 
 ~~~
 $kind: entry
-title: Community College of the Air Force
-dates: February 2019
-subtitle: AS, Information Systems Technology
-location: Remote
+heading: Community College of the Air Force
+form:
+  value: dated
+  dates: February 2019
+  subtitle: AS, Information Systems Technology
+  location: Remote
 ~~~
 
 ~~~
 $kind: section
+topic:
+  value: other
 title: Cyber Competition
 ~~~
 
 ~~~
 $kind: entry
-title: 1st in SANS Academy Cup 2024
+heading: 1st in SANS Academy Cup 2024
+form:
+  value: dated
 ~~~
 
 - Competed as the Delogrand Web Exploit SME, solving SQLi, API, and HTTP packet crafting problems.
@@ -156,7 +173,9 @@ title: 1st in SANS Academy Cup 2024
 
 ~~~
 $kind: entry
-title: 1st in NCX 2023
+heading: 1st in NCX 2023
+form:
+  value: dated
 ~~~
 
 - Developed strategies, defensive scripts, and exploits for the Cyber Combat event.
@@ -164,7 +183,9 @@ title: 1st in NCX 2023
 
 ~~~
 $kind: entry
-title: 1st in SANS Academy Cup 2023
+heading: 1st in SANS Academy Cup 2023
+form:
+  value: dated
 ~~~
 
 - Competed as the Delogrand Web Exploit SME, solving XSS, XXE, SQLi, and HTTP crafting problems.
@@ -172,37 +193,46 @@ title: 1st in SANS Academy Cup 2023
 
 ~~~
 $kind: section
-title: Projects
+topic:
+  value: projects
 ~~~
 
 ~~~
-$kind: project
-name: TongueToQuill
-url: https://www.tonguetoquill.com
+$kind: entry
+heading: TongueToQuill
+form:
+  value: linked
+  url: https://www.tonguetoquill.com
 ~~~
 
 - Rich markdown editor for perfectly formatted USAF and USSF documents with Claude MCP integration.
 
 ~~~
-$kind: project
-name: Quillmark
-url: https://github.com/nibsbin/quillmark
+$kind: entry
+heading: Quillmark
+form:
+  value: linked
+  url: https://github.com/nibsbin/quillmark
 ~~~
 
 - Parameterization engine for generating arbitrarily typesetted documents from markdown content.
 
 ~~~
-$kind: project
-name: Scraipe
-url: https://pypi.org/project/scraipe/
+$kind: entry
+heading: Scraipe
+form:
+  value: linked
+  url: https://pypi.org/project/scraipe/
 ~~~
 
 - An asynchronous scraping and enrichment library to automate cybersecurity research.
 
 ~~~
-$kind: project
-name: ADSBLookup
-url: <closed source>
+$kind: entry
+heading: ADSBLookup
+form:
+  value: linked
+  url: <closed source>
 ~~~
 
 - Reversed the internal API of a popular ADSB web service to pull comprehensive live ADSB datasets; ported and exposed attributes in a user-friendly, Pandas-compatible Python library for data scientists.

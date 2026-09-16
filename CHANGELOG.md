@@ -28,6 +28,13 @@
 
 ## Unreleased
 
+- **`classic_resume@0.1.0` is two kinds: a section and an entry.** The section's
+  `topic` is the world — Experience, Education, Projects and Other take the
+  entry cards that follow; Skills and Certifications are the list on the
+  section card; Summary is the heading plus the body — and the entry's `form`
+  is dated or linked. `project`, `item_list` and `labeled_list` are gone; a
+  job, a degree and a project are one row whose chrome follows the section.
+
 - **`usaf_memo@0.3.0` prints a seal on every memorandum** (#146). `letterhead_seal`
   had a third state its `values:` did not name: the description said "Leave
   blank for no seal", an explicit `""` reached the plate and printed none, and
