@@ -21,9 +21,8 @@
   body
 }
 
-// Shared skeleton of `timeline-entry` and `project-entry`: a grid of
-// left/right aligned header cells followed by an optional bulleted body, kept
-// together on one page.
+// Shared skeleton of `entry`: a grid of left/right aligned header cells
+// followed by an optional bulleted body, kept together on one page.
 #let _entry(cfg, cells, body) = {
   v(cfg.entry-spacing)
   block(breakable: false, {
@@ -82,61 +81,57 @@
   heading(level: 2, if extra == none { title } else { [#title #extra] })
 }
 
-/// Dated entry for a job, a degree or an award.
+/// A resume row: dated (a job, a degree, an award) or linked (a project).
 ///
-/// The headings sit on one row (left and right aligned), the subheadings on a
-/// second one, and `body` holds ordinary Typst markup — most often a `- item`
-/// list, which picks up the square bullet of the template.
-#let timeline-entry(
-  heading-left: "",
-  heading-right: "",
-  subheading-left: none,
-  subheading-right: none,
+/// `dated` puts `dates` opposite `heading` and an optional italic second line
+/// (`subtitle` / `location`). `linked` puts `url` opposite `heading`, small
+/// and italic, and drops the second line. `body` is ordinary Typst markup —
+/// most often a `- item` list, which picks up the square bullet of the template.
+#let entry(
+  heading: "",
+  form: "dated",
+  dates: none,
+  subtitle: none,
+  location: none,
+  url: none,
   body: none,
 ) = with-config(cfg => {
-  let cells = (
-    align(left, text(weight: "bold", heading-left)),
-    align(right, text(weight: "bold", heading-right)),
+  assert(
+    form in ("dated", "linked"),
+    message: "entry: `form` must be \"dated\" or \"linked\", found " + repr(form),
   )
 
-  if subheading-left != none or subheading-right != none {
-    cells.push(align(left, text(style: "italic", subheading-left)))
-    cells.push(align(right, text(style: "italic", subheading-right)))
+  let cells = if form == "linked" {
+    let annotation = if url != none {
+      let label = text(
+        size: cfg.annotation-size,
+        font: if cfg.annotation-font == auto { cfg.font } else { cfg.annotation-font },
+        style: "italic",
+        url,
+      )
+      if type(url) == str and url.starts-with("http") { link(url, label) } else { label }
+    }
+    (align(left, text(weight: "bold", heading)), align(right, annotation))
+  } else {
+    let cells = (
+      align(left, text(weight: "bold", heading)),
+      align(right, text(weight: "bold", dates)),
+    )
+    if subtitle != none or location != none {
+      cells.push(align(left, text(style: "italic", subtitle)))
+      cells.push(align(right, text(style: "italic", location)))
+    }
+    cells
   }
 
   _entry(cfg, cells, body)
 })
 
-/// Project entry: a name, an optional annotation set to the right, and a body.
-///
-/// The annotation is usually a URL, and is linked when it looks like one.
-#let project-entry(
-  name: "",
-  url: none,
-  body: none,
-) = with-config(cfg => {
-  let annotation = if url != none {
-    let label = text(
-      size: cfg.annotation-size,
-      font: if cfg.annotation-font == auto { cfg.font } else { cfg.annotation-font },
-      style: "italic",
-      url,
-    )
-    if type(url) == str and url.starts-with("http") { link(url, label) } else { label }
-  }
-
-  _entry(
-    cfg,
-    (align(left, text(weight: "bold", name)), align(right, annotation)),
-    body,
-  )
-})
-
 /// Multi-column list of short items, for certifications, skills or awards.
 ///
 /// Two shapes are accepted and told apart by the first item: a flat array of
-/// content, or an array of `(category: .., text: ..)` dictionaries, which puts
-/// the category in bold above its text.
+/// content, or an array of `(label: .., text: ..)` dictionaries, which puts
+/// the label in bold above its text.
 #let item-grid(items: (), columns: 2) = {
   if items.len() == 0 {
     return
@@ -146,23 +141,23 @@
     message: "item-grid: `columns` must be a positive integer, found " + repr(columns),
   )
 
-  let categorized = type(items.at(0)) == dictionary and "category" in items.at(0)
+  let labeled = type(items.at(0)) == dictionary and "label" in items.at(0)
 
-  let cell(item) = if categorized {
+  let cell(item) = if labeled {
     assert(
-      type(item) == dictionary and "category" in item and "text" in item,
-      message: "item-grid: every item must be a `(category: .., text: ..)` dictionary "
+      type(item) == dictionary and "label" in item and "text" in item,
+      message: "item-grid: every item must be a `(label: .., text: ..)` dictionary "
         + "when the first one is, found " + repr(item),
     )
     block({
-      text(weight: "bold", item.category)
+      text(weight: "bold", item.label)
       linebreak()
       item.text
     })
   } else {
     assert(
       type(item) != dictionary,
-      message: "item-grid: a `(category: .., text: ..)` dictionary cannot be mixed with "
+      message: "item-grid: a `(label: .., text: ..)` dictionary cannot be mixed with "
         + "plain items, found " + repr(item),
     )
     item
@@ -175,9 +170,9 @@
       left: cfg.marker-size + cfg.marker-indent,
       grid(
         columns: (1fr,) * columns,
-        // Categorized items are two lines tall, so they need the extra gap to
+        // Labeled items are two lines tall, so they need the extra gap to
         // stay visually separated.
-        row-gutter: if categorized { cfg.leading + cfg.entry-spacing } else { cfg.leading },
+        row-gutter: if labeled { cfg.leading + cfg.entry-spacing } else { cfg.leading },
         column-gutter: 1em,
         ..items.map(cell),
       ),

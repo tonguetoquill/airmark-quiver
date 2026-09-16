@@ -40,7 +40,7 @@
   marker-baseline: -0.07em,
   marker-indent: 0.8em,
 
-  // Right-aligned annotation of a project entry, normally a URL. A font of
+  // Right-aligned annotation of a linked entry, normally a URL. A font of
   // `auto` keeps the body font.
   annotation-font: auto,
   annotation-size: 8pt,

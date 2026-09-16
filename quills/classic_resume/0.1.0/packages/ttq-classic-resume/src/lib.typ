@@ -3,4 +3,4 @@
 
 #import "config.typ": default-config
 #import "layout.typ": resume
-#import "components.typ": item-grid, project-entry, resume-header, section-header, timeline-entry
+#import "components.typ": entry, item-grid, resume-header, section-header

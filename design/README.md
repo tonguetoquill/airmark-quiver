@@ -37,10 +37,10 @@ node design/classic_resume/render_fixture.mjs /tmp/seed.pdf
 
 `maximal.md` is the package's own example resume, so its render is comparable
 against `thumbnail.png` upstream. `minimal.md` is the one the gate cannot reach:
-a4 at 11pt, unlinked contacts, a section whose body is prose and a list, a
-`labeled_list` at three columns, a project with nothing to link, and an entry
-at each of the four fills of its second line — both halves, each half alone,
-and neither, which is the fill that prints no second line at all.
+a4 at 11pt, unlinked contacts, a Summary whose body is prose and a list, a
+Certifications list at three columns, a linked entry with nothing to link, and
+a dated entry at each of the four fills of its second line — both halves, each
+half alone, and neither, which is the fill that prints no second line at all.
 
 ## usaf_memo
 
