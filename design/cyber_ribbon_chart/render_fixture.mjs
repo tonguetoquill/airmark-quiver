@@ -27,7 +27,7 @@ const { Document } = await init();
 
 const quiver = await fromDir(repoRoot);
 const engine = new Engine();
-const quill = await quiver.getQuill("cyber_ribbon_chart@0.1.0");
+const quill = await quiver.getQuill("cyber_ribbon_chart@0.0.1");
 
 const doc = fixturePath
   ? Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"))

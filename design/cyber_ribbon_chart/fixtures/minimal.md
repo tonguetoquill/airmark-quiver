@@ -1,5 +1,5 @@
 ~~~
-$quill: cyber_ribbon_chart@0.1.0
+$quill: cyber_ribbon_chart@0.0.1
 $kind: main
 name: 2d Lt Dana R. Reyes
 commissioning_yg: 2026

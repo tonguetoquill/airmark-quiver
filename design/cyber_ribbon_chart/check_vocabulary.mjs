@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const quill = resolve(__dirname, "../../quills/cyber_ribbon_chart/0.1.0");
+const quill = resolve(__dirname, "../../quills/cyber_ribbon_chart/0.0.1");
 
 // The `values:` block under `qualifications.items.properties.qualification`.
 const yaml = readFileSync(resolve(quill, "Quill.yaml"), "utf8");

@@ -1,5 +1,5 @@
 ~~~
-$quill: cyber_ribbon_chart@0.1.0
+$quill: cyber_ribbon_chart@0.0.1
 $kind: main
 name: Capt John A. Snuffy
 duty_title: 17S Instructor · 333 TRS, Keesler AFB

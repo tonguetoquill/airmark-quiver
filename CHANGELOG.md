@@ -28,7 +28,7 @@
 
 ## Unreleased
 
-- **`classic_resume@0.1.0` is two kinds: a section and an entry.** The section's
+- **`classic_resume@0.0.1` is two kinds: a section and an entry.** The section's
   `topic` is the world — Experience, Education, Projects and Other take the
   entry cards that follow; Skills and Certifications are the list on the
   section card; Summary is the heading plus the body — and the entry's `form`
