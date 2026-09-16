@@ -80,6 +80,7 @@ card_kinds:
     description: "A heading in uppercase over a rule. Experience, Education, Projects and Other take the entry cards that follow, until the next section. Skills and Certifications are the list on this card. Summary is the heading plus the prose in the body. Other is the heading you type when the list above does not name it."
     ui:
       title: Section
+      groups: [heading]
     body:
       # An omitted example seeds "Write section body here."; empty is a heading
       # with no prose, which is the usual section.

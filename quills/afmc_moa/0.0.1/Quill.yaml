@@ -276,6 +276,7 @@ card_kinds:
     description: "A lettered attachment to the MOA, starting at Attachment B (Attachment A is reserved for the reimbursable financial-details page and is generated automatically when 'reimbursable' is true). Each card starts on its own page."
     ui:
       title: Attachment
+      groups: [attachment]
     body:
       example: |
         [Describe the attachment's content here.]

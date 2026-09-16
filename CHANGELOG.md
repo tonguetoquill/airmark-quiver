@@ -28,6 +28,16 @@
 
 ## Unreleased
 
+- **Take `@quillmark/wasm` 0.113.0, `quillkit` 0.6.0 and `@quillmark/quiver`
+  0.28.0.** `Quill::from_tree` now refuses a `ui.group` whose card has no
+  `ui.groups` registry (`quill::implicit_group`). Two cards already used a
+  group that way: `classic_resume@0.0.1`'s section (`heading`) and
+  `afmc_moa@0.0.1`'s attachment (`attachment`). Each now declares the group it
+  already used. Nothing renders differently. The rest of the floor — closed
+  content vocabularies, every `~~~` a card, `pdfform` becoming `acroform` —
+  reaches no plate here. The studio client now carries wasm 0.113.0 as well, so
+  what it draws and what `quillkit test` renders stand on one version.
+
 - **`classic_resume@0.0.1` is two kinds: a section and an entry.** The section's
   `topic` is the world — Experience, Education, Projects and Other take the
   entry cards that follow; Skills and Certifications are the list on the
