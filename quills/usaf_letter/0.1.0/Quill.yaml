@@ -1,0 +1,214 @@
+quill:
+  name: usaf_letter
+  version: 0.1.0
+  backend: typst
+  description: U.S. Air Force and Space Force Personal Letter
+
+typst:
+  plate_file: plate.typ
+
+main:
+  ui:
+    groups: [addressing, letterhead, classification, additional]
+  body:
+    example: |
+      Thank you for asking about the personal letter. The personal letter conveys official information in a personal manner to a limited number of people, which is what makes it the right form for a reply to an inquiry, a welcome, a note of appreciation, or a letter of condolence.
+
+      Paragraphs are indented and take no number or letter. Leave one blank line between them.
+
+      Lines that stand as written — a roster of names, an address — go in a block quote, typeset flush with the margin. End a line with a backslash to break it.
+
+      > FIRST M. LAST, Maj, USAF\
+      > SECOND N. LAST, Capt, USAF
+
+      The last paragraph may carry your contact information: DSN and commercial telephone numbers and your official email address.
+  fields:
+    letter_from:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      example:
+        - Colonel Jane A. Doe
+        - Commander
+        - 123d Example Squadron
+        - 1 Example Way
+        - Placeholder AFB ST 12345-6789
+      ui:
+        group: addressing
+        compact: true
+      description: "Your full rank and full name, then your duty title and mailing address, one line each. Printed on the second line below the date. Do not put a comma between the city and the state abbreviation."
+
+    letter_for:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      example:
+        - Major John B. Smith
+        - Chief, Plans and Programs
+        - 456th Example Group
+        - 2 Sample Boulevard
+        - Sample AFB ST 98765-4321
+      ui:
+        group: addressing
+        compact: true
+      description: "The receiver's full rank and full name, then their duty title and mailing address, one line each. Printed on the third line below your own address. Do not put a comma between the city and the state abbreviation."
+
+    salutation:
+      type: plaintext
+      inline: true
+      example: Dear Major Smith
+      ui:
+        group: addressing
+        compact: true
+      description: "The form of address for the receiver's rank followed by their last name — see 'Forms of Address, Salutation, and Complimentary Close' in AFH 33-337. Take no punctuation after the last name."
+
+    date:
+      type: date
+      default: ""
+      ui:
+        group: addressing
+        compact: true
+      description: "YYYY-MM-DD, printed as '15 September 2026' flush with the right margin. Leave blank to use today's date."
+
+    complimentary_close:
+      type: plaintext
+      inline: true
+      default: Sincerely
+      ui:
+        group: addressing
+        compact: true
+      description: "Printed on the second line below the last line of text, above the signature block. AFH 33-337's 'Forms of Address, Salutation, and Complimentary Close' tables give the close each receiver takes; 'Sincerely' is the usual one."
+
+    signature_block:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      example:
+        - "FIRST M. LAST, Rank, USAF"
+      ui:
+        group: addressing
+        compact: true
+      description: "Name in UPPERCASE as signed, grade, and service, printed on the fifth line below the complimentary close. A personal letter does not carry the sender's duty title, which the heading has already given."
+
+    letterhead_title:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default:
+        - DEPARTMENT OF THE AIR FORCE
+      example:
+        - DEPARTMENT OF THE AIR FORCE
+        - HEADQUARTERS [UNIT NAME]
+      ui:
+        group: letterhead
+      description: "Letterhead lines, top to bottom, all rendered in uppercase. The first is the department title, set larger than the rest. Change that line only for a Joint Command or a DoW agency. The lines below it are your unit's full organization name. AFH 33-337 admits only approved organizational letterhead."
+
+    letterhead_seal:
+      type: enum
+      values:
+        - dow
+        - dod
+      default: dow
+      ui:
+        group: letterhead
+        compact: true
+      description: "Department of War (DoW) or Department of Defense (DoD) seal, shown at the top left of the letterhead. Leave blank for no seal."
+
+    letterhead_seal_subtitle:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: letterhead
+        compact: true
+      description: "Bold-caps line below the seal. Nothing prints when it is blank, or when there is no seal."
+
+    tag_line:
+      type: richtext
+      inline: true
+      default: ""
+      ui:
+        group: letterhead
+        compact: true
+      description: "Organizational motto, centered in the footer of every page. Supports Markdown emphasis: *italics*, **bold**."
+
+    classification:
+      type: enum
+      values:
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "Classification marking, banner-printed at the top and bottom of every page. Leave blank for no banner, which is what an unclassified document normally carries. Mark per DAFI 16-1404, DoDM 5200.48 for CUI, and applicable DoD guidance."
+      variants:
+        CUI:
+          controlled_by:
+            type: plaintext
+            inline: true
+            example: SAF/AA
+            description: "Office or organization that designated this information as CUI. Required by DoDM 5200.48."
+          poc:
+            type: plaintext
+            inline: true
+            example: "Capt J. Smith, DSN 555-1234, john.smith@us.af.mil"
+            description: "Point of contact for CUI questions. Required by DoDM 5200.48."
+          category:
+            type: plaintext
+            inline: true
+            default: ""
+            description: "CUI category from the DoD CUI Registry, such as 'Privacy/MED', 'CTI', or 'PRVCY'. Leave blank to omit."
+          limited_dissemination:
+            type: plaintext
+            inline: true
+            default: ""
+            description: "Limited dissemination control shown in the indicator block, such as 'FEDONLY' or 'NOFORN'; rendered in uppercase. The banner's own suffix is the separate Dissemination field."
+
+    dissemination:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "Suffix appended to the banner after a double slash, rendered in uppercase: 'NF' prints as CUI//NF. Leave blank for no suffix."
+
+    attachments:
+      type: array
+      items:
+        type: richtext
+        inline: true
+      default: []
+      example:
+        - Attachment description, YYYY MMM DD
+      ui:
+        group: additional
+      description: "Attachments in the order the letter mentions them, listed on the third line below the signature block. Describe each briefly; do not write 'as stated' or abbreviate. A lone attachment prints unnumbered, two or more are numbered. Italicize publication titles with *asterisks*."
+
+    cc:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - Rank and Name, ORG/SYMBOL
+      ui:
+        group: additional
+      description: "Offices or people receiving a courtesy copy, one per line, listed below the attachment element."
+
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: additional
+        compact: true
+      description: "Body text size in points; decimals allowed, such as 11.5. AFH 33-337 specifies 12."
