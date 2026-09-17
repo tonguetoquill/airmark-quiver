@@ -78,27 +78,6 @@
     none
   }
 
-  // The block shrink-wraps to its widest line; `set align(left)` keeps the text
-  // flush-left within it, overriding the `align(right)` the placement imposes.
-  // Both the float below and the footer's tag line measure this one box: the
-  // tag line rides above whatever height it takes.
-  let indicator-box = if cui-indicator == none {
-    none
-  } else {
-    box({
-      set text(font: DEFAULT_BODY_FONTS, size: 10pt)
-      set par(leading: 0.4em, spacing: 0pt)
-      set align(left)
-      cui-indicator
-    })
-  }
-
-  let tag-box = if falsey(footer-tag-line) {
-    none
-  } else {
-    box(text(fill: LETTERHEAD_COLOR, font: "cinzel", size: 15pt)[#footer-tag-line])
-  }
-
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
   set block(above: spacing.line, below: 0em, spacing: 0em)
   set text(font: body-font, size: font-size, fallback: true)
@@ -145,19 +124,14 @@
         )
       }
 
-      if tag-box != none {
-        // The indicator block occupies the page-edge band the tag line centers
-        // in, so on the page carrying one the line rides above its full height
-        // rather than through it. The float below reserves the flow this lift
-        // needs, so the body clears the raised line too.
-        context {
-          let lift = if indicator-box != none and counter(page).get().first() == 1 {
-            measure(indicator-box).height + spacing.line
-          } else {
-            0pt
-          }
-          place(bottom + center, dy: -0.625in - lift, align(center, tag-box))
-        }
+      if not falsey(footer-tag-line) {
+        place(
+          bottom + center,
+          dy: -0.625in,
+          align(center)[
+            #text(fill: LETTERHEAD_COLOR, font: "cinzel", size: 15pt)[#footer-tag-line]
+          ],
+        )
       }
     },
   )
@@ -167,8 +141,17 @@
   // it (1) reserves flow space, raising page 1's effective bottom margin so body
   // text never overlaps it, and (2) stays pinned to page 1 — as the first flow
   // content it can never be bumped to page 2.
-  if indicator-box != none {
+  if cui-indicator != none {
     context {
+      // The box shrink-wraps to its widest line; `set align(left)` keeps the
+      // text flush-left within it, overriding the `align(right)` the placement
+      // below imposes.
+      let indicator-box = box({
+        set text(font: DEFAULT_BODY_FONTS, size: 10pt)
+        set par(leading: 0.4em, spacing: 0pt)
+        set align(left)
+        cui-indicator
+      })
       // Reserve only the part of the block inside the text area (`reserved`):
       // float a box of that height, then `place` the full block inside it pushed
       // down by `overhang` so the surplus overflows into the edge band. (A bare
@@ -176,10 +159,7 @@
       // instead.) The inner `place` adds no size, so the box stays `reserved`
       // tall and the block's bottom lands 0.5in from the page edge.
       let overhang = spacing.margin - 0.5in
-      // A tag line rides above the block on this page, so the flow reserves the
-      // stack rather than the block alone.
-      let stack = if tag-box == none { 0pt } else { measure(tag-box).height + spacing.line }
-      let reserved = measure(indicator-box).height + stack - overhang
+      let reserved = measure(indicator-box).height - overhang
       place(
         bottom + right,
         float: true,
