@@ -25,17 +25,14 @@
   letterhead-title: letterhead_lines.at(0, default: ""),
   letterhead-caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
   letterhead-seal-subtitle: data.letterhead_seal_subtitle,
-  // Enum blank is `""`, not a seal. Omit so the package renders none rather
-  // than treating the blank as DoW.
-  ..if data.letterhead_seal != "" {
-    (letterhead-seal: image(
-      if data.letterhead_seal == "dod" {
-        "assets/dod_seal.png"
-      } else {
-        "assets/dow_seal.png"
-      }
-    ))
-  },
+  // A memo has no seal-less state, so the blank takes the default, DoW.
+  letterhead-seal: image(
+    if data.letterhead_seal == "dod" {
+      "assets/dod_seal.png"
+    } else {
+      "assets/dow_seal.png"
+    }
+  ),
 
   // Date. `data.date` is the native `datetime` and would render identically,
   // but its ink would be born inside the package and carry no schema address.
@@ -69,7 +66,13 @@
 
   ..if data.references.len() > 0 { (references: data.references) },
 
-  footer-tag-line: data.tag_line,
+  // The tag line is set in Cinzel, which ships one regular face: `emph` resolves
+  // to it and reads as nothing. The slant is synthesized here rather than in the
+  // package, whose `src/` is upstream's verbatim. `box` keeps the run inline.
+  footer-tag-line: {
+    show emph: it => box(skew(ax: -12deg, reflow: false, it.body))
+    data.tag_line
+  },
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.

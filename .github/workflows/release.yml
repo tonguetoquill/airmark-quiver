@@ -103,3 +103,35 @@ jobs:
           else
             npm publish --access public --provenance
           fi
+
+  # A final release leaves `main` at the version it just tagged, so every
+  # commit after it reports the tarball's version with different contents.
+  # Open the next patch as a `-dev` prerelease; `release-prepare.yml` bumps
+  # from it. A release candidate stays put: the RC loop reads its `-rc.N`
+  # from `main`.
+  reopen:
+    needs: [prepare]
+    if: ${{ !contains(needs.prepare.outputs.version, '-') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Open the next patch as a prerelease
+        run: |
+          RELEASED="${{ needs.prepare.outputs.version }}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$RELEASED"
+          NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))-dev"
+          npm version "$NEXT" --no-git-tag-version
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: open v${NEXT}"
+          git push origin HEAD:main

@@ -23,6 +23,60 @@ python3 design/afmc_moa/validate_moa.py design/afmc_moa/fixtures/maximal.md /tmp
 reimbursable one with two card-driven attachments, so it exercises the
 Attachment A/B/C lettering.
 
+## cyber_ribbon_chart
+
+Fixtures, a render helper, and two checks for the `cyber_ribbon_chart` quill.
+
+```sh
+# render a fixture (run from the repo root; .png renders an image, anything else a PDF)
+node design/cyber_ribbon_chart/render_fixture.mjs design/cyber_ribbon_chart/fixtures/maximal.md /tmp/max.pdf
+
+# with no fixture, renders the blueprint the schema seeds
+node design/cyber_ribbon_chart/render_fixture.mjs /tmp/seed.pdf
+```
+
+`maximal.md` is a Captain with three vectors, a tour clipped by the window and
+one placed past it, and every kind of record filled. `minimal.md` is the other
+end: a 2d Lt at a six-year window with one vector, a half-year tour, no
+stratifications and no remarks — the fills where a section collapses rather than
+printing an empty heading, and where the record column disappears entirely.
+
+The qualification vocabulary is written twice, as the `enum` a document picks
+from and as the grouped list the plate prints in full. Neither can read the
+other:
+
+```sh
+node design/cyber_ribbon_chart/check_vocabulary.mjs
+```
+
+A ribbon chart is a one-page leave-behind, and `timeline_years` is the lever
+that can cost it that page — more years narrow the columns and the milestone
+chips wrap taller as they do. `quillkit test` renders the near-empty seed and
+never sees it, so a filled document sweeps the windows the schema recommends:
+
+```sh
+node design/cyber_ribbon_chart/check_one_page.mjs
+```
+
+## classic_resume
+
+Fixtures and a render helper for the `classic_resume` quill.
+
+```sh
+# render a fixture to PDF (run from the repo root)
+node design/classic_resume/render_fixture.mjs design/classic_resume/fixtures/maximal.md /tmp/max.pdf
+
+# with no fixture, renders the blueprint the schema seeds
+node design/classic_resume/render_fixture.mjs /tmp/seed.pdf
+```
+
+`maximal.md` is the package's own example resume, so its render is comparable
+against `thumbnail.png` upstream. `minimal.md` is the one the gate cannot reach:
+a4 at 11pt, unlinked contacts, a Summary whose body is prose and a list, a
+Certifications list at three columns, a linked entry with nothing to link, and
+a dated entry at each of the four fills of its second line — both halves, each
+half alone, and neither, which is the fill that prints no second line at all.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same

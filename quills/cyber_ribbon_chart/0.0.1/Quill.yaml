@@ -1,0 +1,289 @@
+quill:
+  name: cyber_ribbon_chart
+  version: 0.0.1
+  backend: typst
+  description: 17X Cyber Operations Officer ribbon chart and career vector planner
+
+typst:
+  plate_file: plate.typ
+
+# One landscape page an officer hands to a senior rater or a development team.
+# The top half is the plan — three alternative assignment vectors laid over the
+# years the boards and schools fall in. The bottom half is the record that makes
+# the plan credible.
+main:
+  ui:
+    groups: [officer, timeline, record]
+  # The chart's one piece of prose. It heads the notes area at the foot of the
+  # page, above ruled lines a rater writes on during the discussion.
+  body:
+    example: |
+      What you want out of this discussion, and anything that constrains it — a join-spouse, a degree finishing, a date you cannot move before.
+    unsupported: [heading, rule, code, table, image]
+  fields:
+    name:
+      # Read as `string` rather than `plaintext`: it reaches
+      # `set document(author:)`, which takes no content.
+      type: string
+      example: Capt John A. Snuffy
+      ui:
+        group: officer
+      description: "Grade and name as you want them read, set largest on the page. This is also the exported PDF's title and author, so it is written out rather than marked up."
+
+    duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      example: 17S Instructor · 333 TRS, Keesler AFB
+      ui:
+        group: officer
+      description: "Current duty title and unit, printed in one line under your name. Where you are today, not where you are going."
+
+    commissioning_yg:
+      type: integer
+      example: 2022
+      ui:
+        group: officer
+        compact: true
+      description: "Commissioning year group. Every milestone on the timeline is counted from this year, so it is the one number that changes the whole chart — a board at YG+7 lands in this year plus seven."
+
+    adjusted_yg:
+      type: integer
+      default: 0
+      ui:
+        group: officer
+        compact: true
+      description: "Adjusted year group, if a board or a break in service moved yours. Leave at 0 when it is unchanged; the chart then counts from your commissioning year group and prints nothing here."
+
+    date_of_rank:
+      type: date
+      default: ""
+      ui:
+        group: officer
+        compact: true
+      description: "Date of rank in your current grade, YYYY-MM-DD. Leave blank to print a dash."
+
+    date_arrived_station:
+      type: date
+      default: ""
+      ui:
+        group: officer
+        compact: true
+      description: "Date arrived station, YYYY-MM-DD. Read together with your first tour's length, it is what tells a rater when you are actually available to move."
+
+    advanced_degree:
+      type: plaintext
+      inline: true
+      default: ""
+      example: MS Cyber Operations, AFIT
+      ui:
+        group: officer
+        compact: true
+      description: "Advanced academic degree, in hand or in progress. Leave blank if you hold none — the slot prints a dash rather than disappearing, because its absence is itself information to a board."
+
+    timeline_start_year:
+      type: integer
+      example: 2026
+      ui:
+        group: timeline
+        compact: true
+      description: "First calendar year the timeline shows. Usually the current year: the chart is a plan, so it starts where you are, not where you commissioned."
+
+    timeline_years:
+      type: integer
+      default: 12
+      ui:
+        group: timeline
+        compact: true
+      description: "How many years wide the timeline is. Twelve carries a Captain from today past the Lt Col board and is the comfortable reading width. The full milestone ladder runs to YG+17, so widening it toward eighteen brings the SDE looks into view at the cost of narrower columns; any milestone that falls outside the window is counted in a note rather than dropped."
+
+    stratifications:
+      type: array
+      items:
+        type: object
+        properties:
+          year:
+            type: plaintext
+            inline: true
+            example: "2026"
+            description: "The reporting year."
+          duty_strat:
+            type: plaintext
+            inline: true
+            default: ""
+            example: "#1 of 14 Capts"
+            description: "Your rater's stratification, as it was written."
+          senior_rater_strat:
+            type: plaintext
+            inline: true
+            default: ""
+            example: "#1 of 45 CGOs"
+            description: "Your senior rater's stratification, as it was written. Leave blank where you drew none."
+      example:
+        - year: "2026"
+          duty_strat: "#1 of 14 Capts"
+          senior_rater_strat: "#1 of 45 CGOs"
+        - year: "2025"
+          duty_strat: "#2 of 12 Capts"
+          senior_rater_strat: "#3 of 40 CGOs"
+        - year: "2024"
+          duty_strat: "#1 of 8 Lts"
+          senior_rater_strat: Top 10%
+      ui:
+        group: record
+      description: "Your last three years of stratifications, most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them."
+
+    qualifications:
+      type: array
+      items:
+        type: object
+        properties:
+          qualification:
+            type: enum
+            values:
+              - Sq/CC Candidate
+              - DO / Det CC Candidate
+              - Flight CC
+              - Director of Operations
+              - Detachment CC
+              - Squadron CC
+              - DODIN Ops
+              - DCO (Defensive)
+              - OCO (Offensive)
+              - Crew CC
+              - Cyber Engineer
+              - Team Lead (MDT / CPT)
+              - Expeditionary Comms
+              - Mission CC
+              - Exec / Aide / CAG
+              - HAF Staff
+              - MAJCOM / NAF Staff
+              - Joint Staff
+              - Instructor
+              - Joint Qualified Officer (JQO)
+              - Commissioning Source DG
+              - SOS DG / Top Third
+              - Cyber 200
+              - Cyber 300
+              - IDE Candidate / Graduate
+              - SDE Candidate / Graduate
+              - Weapons School / WIC DG
+            description: "Which qualification this row claims."
+          detail:
+            type: plaintext
+            inline: true
+            default: ""
+            example: 333 TRS/DO
+            description: "The unit, course, or year that proves it, set in italics beside the label. Leave blank where the label says enough on its own."
+      example:
+        - qualification: Flight CC
+          detail: UMS Flt/CC
+        - qualification: Director of Operations
+          detail: 333 TRS/DO
+        - qualification: DCO (Defensive)
+          detail: 23 IOS
+        - qualification: Instructor
+          detail: 333 TRS
+        - qualification: MAJCOM / NAF Staff
+          detail: 16 AF
+        - qualification: Commissioning Source DG
+          detail: OTS DG
+        - qualification: Cyber 200
+          detail: ""
+      ui:
+        group: record
+      description: "List only what you hold; the page prints the whole 17X vocabulary and marks these. That is the point of the section — a rater reads the empty boxes as readily as the filled ones, so what you have not done yet is on the page whether you list it or not."
+
+    awards:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - Wing CGOQ ×2
+        - HAF A2/6 CGOY 2025
+      ui:
+        group: record
+      description: "Major awards, one per line, strongest first. Wing level and above earns a line; anything smaller costs more room than it wins."
+
+    certifications:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - SANS FOR577 (GLIR)
+        - CISSP
+        - Security+
+      ui:
+        group: record
+      description: "Certifications and courses, one per line. Name the certification a board would recognize rather than every course you have sat."
+
+    deployments:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - 1× short tour — returned Jan 2024
+      ui:
+        group: record
+      description: "Deployments and short tours, one per line. Include the return date: it is what a rater needs to work out when you are next eligible."
+
+card_kinds:
+  vector:
+    description: "Opens one career vector — a row on the timeline and the alternative it represents. Every tour card after it belongs to this vector, until the next vector card begins the next one. Three is the conventional chart: a primary, an alternate, and a joint or special path. One is a plan; three is a conversation."
+    ui:
+      title: "{label}"
+    body:
+      enabled: false
+    fields:
+      label:
+        type: plaintext
+        inline: true
+        example: Vector 1
+        description: "Short name for the row, set in bold at the left of the timeline. 'Vector 1' and its siblings keep the rows straight in discussion; a name like 'Command track' says more if you would rather it did."
+      focus:
+        type: plaintext
+        inline: true
+        default: ""
+        example: Primary
+        ui:
+          compact: true
+        description: "What this vector is for, set small under the label — 'Primary', 'Alternate / Staff', 'Joint / Special'. Leave blank where the label already says it."
+
+  tour:
+    description: "One assignment in the vector above it. Tours lay end to end from the start of the timeline in the order you write them, so the order here is the order you would serve them — there are no dates to keep in step."
+    ui:
+      title: "{title}"
+    body:
+      enabled: false
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        example: 333 TRS Instructor
+        description: "Assignment and unit, set in the block. Keep it to what fits — roughly twenty characters per year of length at the default width."
+      duration:
+        type: enum
+        values: ["0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4"]
+        default: "2"
+        ui:
+          compact: true
+        description: "Length in years. The timeline is ruled in half-years, which is why the choices stop at the half."
+      school:
+        type: boolean
+        default: false
+        ui:
+          compact: true
+        description: "Tick for a school you would move for — IDE or SDE in residence, Weapons School — rather than a duty assignment. It prints outlined instead of filled, so a year in a classroom does not read as a year in a job."
+      vml:
+        type: enum
+        values: [Summer, Winter]
+        default: Summer
+        ui:
+          compact: true
+        description: "Which VML cycle you would move on. This places the tour rather than labelling it: a Summer tour starts in the second half of a year and a Winter tour in the first. Where that means waiting, the wait is added to the tour before it rather than left as a hole — you hold a job until you move — so a tour can print longer than the length you gave it."
