@@ -68,6 +68,7 @@
   // reads CUI, and the branch is what makes reading them total: inside it every
   // declared field of that world is present, outside it none is. The package's
   // own `cui_*: none` defaults cover the worlds that omit them.
+  // These only show up for when the classificaiton is CUI 
   ..if data.classification.value == "CUI" {
     (
       cui-controlled-by: data.classification.controlled_by,
