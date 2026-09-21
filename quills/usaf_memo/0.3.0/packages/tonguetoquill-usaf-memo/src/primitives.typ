@@ -198,6 +198,10 @@
 // AFH 33-337 "Do not place the signature element on a continuation page by itself"
 // AFH 33-337 long-name example: "Signature block adjusted to the left" when a
 // long name would otherwise exceed the right margin.
+// AFH 33-337 dual signatures: "type the junior ranking official's signature block
+// at the left margin; type the senior ranking official's signature block 4.5
+// inches from the left edge of the page". The two stand side by side on one
+// anchor line, so `signature-lines` is the senior's wherever a junior is given.
 //
 // A closing line may open the section above the block, and AFH 33-337 gives it
 // one geometry across the two documents that have one: on the second line below
@@ -217,15 +221,20 @@
 
 #let render-signature-block(
   signature-lines,
+  // The junior ranking official's block, at the left margin. Empty is one
+  // signer, which is the memorandum's usual shape.
+  junior-lines: none,
   closing-line: none,
   signature-blank-lines: 4,
   signing-field: none,
+  junior-signing-field: none,
   // Lines of breaking height reserved below the block for the backmatter
   // lead-in and its continuation note. Reclaimed immediately after, so it moves
   // where the block may break and nothing else.
   reserved-lines: 0,
 ) = {
   signature-lines = ensure-array(signature-lines)
+  junior-lines = ensure-array(junior-lines)
   // Blank is no line, whichever occupant the caller passes.
   if falsey(closing-line) { closing-line = none }
   // AFH 33-337 allows two equivalent anchors: 4.5in from the left edge, or three
@@ -238,26 +247,70 @@
     // The closing line shares the anchor, so it joins the measurement: the
     // wider of the two decides the shift and they stay aligned.
     let body-width = page.width - 2 * spacing.margin
+    let widest-of(lines) = {
+      let widest = 0pt
+      for line in lines {
+        let w = measure(text(hyphenate: false, line)).width
+        if w > widest { widest = w }
+      }
+      widest
+    }
     let anchored-lines = signature-lines
     if closing-line != none { anchored-lines.push(closing-line) }
-    let widest = 0pt
-    for line in anchored-lines {
-      let w = measure(text(hyphenate: false, line)).width
-      if w > widest { widest = w }
-    }
+    let widest = widest-of(anchored-lines)
     let stride = line-stride()
-    // If the widest line would overflow the right margin at the standard
-    // anchor, shift the block left just enough to fit. Clamp at 0 so the
-    // block never crosses the left margin.
-    let available = body-width - default-pad
-    let left-pad = if widest > available {
-      let shifted = body-width - widest
-      if shifted < 0pt { 0pt } else { shifted }
+    // Where the junior block ends, separated by the handbook's own unit, three
+    // spaces. The left margin is where it ends when there is none.
+    let floor-pad = if junior-lines.len() > 0 {
+      widest-of(junior-lines) + measure(text(hyphenate: false, "   ")).width
     } else {
-      default-pad
+      0pt
     }
+    // If the widest line would overflow the right margin at the standard
+    // anchor, shift the block left just enough to fit.
+    let available = body-width - default-pad
+    let left-pad = if widest > available { body-width - widest } else { default-pad }
+    // The shift stops at the junior block, and the anchor never moves right of
+    // 4.5in to clear one wider than that: a junior block that long takes AFH
+    // 33-337's hanging indent, which is what any line too long for its column
+    // does, and the senior block keeps the anchor the handbook names.
+    left-pad = calc.min(default-pad, calc.max(floor-pad, left-pad))
+    let gap = stride * signature-blank-lines
+    // The signing field covers those blank lines — where a signature is
+    // actually written — so it is placed over the gap. It is placed BEFORE the
+    // gap is emitted: `place` anchors at the current flow position, so placing
+    // it after `v(gap)` anchors the box at the first name line and paints it
+    // down over the printed signature block. Anchored there it still travels
+    // with the block onto whatever page the block lands on, since the gap is
+    // inside the unbreakable block rather than ahead of it. The current
+    // position is below the closing line when there is one, which is where the
+    // signature is written.
+    //
+    // The widget keeps its own size (the helper's default is 50pt tall and it
+    // positions itself, so an `align` around it does nothing) and is offset to
+    // the BOTTOM of the gap: it always ends where the printed name begins, and
+    // whatever the gap has beyond the widget's height stays clear between the
+    // body text and the widget's frame.
+    let place-signing-field(field, dx, width) = {
+      let widget-height = {
+        let h = measure(field).height
+        if h > 0pt { h } else { 50pt }
+      }
+      let drop = gap - widget-height - 3pt
+      place(
+        dx: dx,
+        dy: if drop > 0pt { drop } else { 0pt },
+        box(width: width, height: widget-height, field),
+      )
+    }
+    let name-column(lines) = text(hyphenate: false, {
+      for line in lines {
+        // AFH 33-337: "indent the next line to begin under the third character
+        // of the line above" — 2-character indent ≈ 1em in Times New Roman 12pt
+        par(hanging-indent: .5em, line)
+      }
+    })
     block(breakable: false)[
-      #let gap = stride * signature-blank-lines
       // AFH 33-337: "fifth line below the last line of text" = four blank lines
       // between the text and the signature block. Carried INSIDE the
       // unbreakable block rather than emitted ahead of it, which keeps the gap
@@ -274,49 +327,30 @@
         pad(left: left-pad, text(hyphenate: false, closing-line))
       }
       #if signing-field != none {
-        // The signing field covers those blank lines — where a signature is
-        // actually written — so it is placed over the gap. It is placed BEFORE
-        // the gap is emitted: `place` anchors at the current flow position, so
-        // placing it after `v(gap)` anchors the box at the first name line and
-        // paints it down over the printed signature block. Anchored here it
-        // still travels with the block onto whatever page the block lands on,
-        // since the gap is inside the unbreakable block rather than ahead of
-        // it. The current position is below the closing line when there is
-        // one, which is where the signature is written.
-        //
-        // The widget keeps its own size (the helper's default is 50pt tall and
-        // it positions itself, so an `align` around it does nothing) and is
-        // offset to the BOTTOM of the gap: it always ends where the printed
-        // name begins, and whatever the gap has beyond the widget's height
-        // stays clear between the body text and the widget's frame.
-        let widget-height = {
-          let h = measure(signing-field).height
-          if h > 0pt { h } else { 50pt }
-        }
-        let drop = gap - widget-height - 3pt
-        place(
-          dx: left-pad,
-          dy: if drop > 0pt { drop } else { 0pt },
-          box(width: body-width - left-pad, height: widget-height, signing-field),
-        )
+        place-signing-field(signing-field, left-pad, body-width - left-pad)
+      }
+      #if junior-signing-field != none and junior-lines.len() > 0 {
+        place-signing-field(junior-signing-field, 0pt, left-pad)
       }
       #v(gap)
       #align(left)[
-        #pad(left: left-pad)[
-          #text(hyphenate: false)[
-            #for line in signature-lines {
-              // AFH 33-337: "indent the next line to begin under the third character
-              // of the line above" — 2-character indent ≈ 1em in Times New Roman 12pt
-              par(hanging-indent: .5em, line)
-            }
-            // The page the backmatter compares its own against. Must stay
-            // inside the unbreakable block: a marker outside one travels with
-            // the section that moves.
-            #metadata(none)<usaf-memo-flow-anchor>
-            #v(stride * reserved-lines)
-          ]
-        ]
+        // One anchor line for both, the junior's column ending where the
+        // senior's begins.
+        #if junior-lines.len() > 0 {
+          grid(
+            columns: (left-pad, body-width - left-pad),
+            name-column(junior-lines),
+            name-column(signature-lines),
+          )
+        } else {
+          pad(left: left-pad, name-column(signature-lines))
+        }
       ]
+      // The page the backmatter compares its own against. Must stay inside the
+      // unbreakable block: a marker outside one travels with the section that
+      // moves.
+      #metadata(none)<usaf-memo-flow-anchor>
+      #v(stride * reserved-lines)
     ]
     // The reservation counted toward breaking height only; the backmatter
     // emits its own lead-in below.

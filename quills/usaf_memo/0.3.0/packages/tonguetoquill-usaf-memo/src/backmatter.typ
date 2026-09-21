@@ -4,11 +4,15 @@
 
 #let backmatter(
   signature-block: none,
+  // The junior ranking official's block where two officials sign, which makes
+  // `signature-block` the senior's. Blank is one signer.
+  junior-signature-block: none,
   // "FOR THE COMMANDER", or the appropriate title, where the signer acted for
   // the commander, the command section, or the headquarters. Blank is no line.
   authority-line: none,
   signature-blank-lines: 4,
   signing-field: none,
+  junior-signing-field: none,
   attachments: none,
   cc: none,
   distribution: none,
@@ -24,12 +28,14 @@
   )
   render-signature-block(
     signature-block,
+    junior-lines: junior-signature-block,
     reserved-lines: if has-backmatter { 3 } else { 0 },
     // Cased by the element, not by the slot: the letter's complimentary close
     // fills the same slot and must not be uppercased.
     closing-line: format-authority-line(authority-line),
     signature-blank-lines: signature-blank-lines,
     signing-field: signing-field,
+    junior-signing-field: junior-signing-field,
   )
   render-backmatter-sections(
     attachments: attachments,

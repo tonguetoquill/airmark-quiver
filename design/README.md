@@ -108,3 +108,17 @@ once and cannot see it.
 python3 design/usaf_memo/check_continuation_note.py
 TYPST=/path/to/typst python3 design/usaf_memo/check_continuation_note.py
 ```
+
+A third: where two officials sign, the junior ranking official's block stands at
+the left margin and the senior's keeps the 4.5in anchor. The schema's seed
+carries one signer, so `quillkit test` renders the single-block path alone. The
+check renders through the engine rather than a typst binary, so the plate's
+signing widgets are in what it reads.
+
+```sh
+# run from the repo root; needs pymupdf and `npm install`
+python3 design/usaf_memo/check_dual_signature.py
+
+# render one of its fixtures to look at (.md fixtures here render this way)
+node design/usaf_memo/render_fixture.mjs design/usaf_memo/fixtures/signature_dual.md /tmp/dual.pdf
+```

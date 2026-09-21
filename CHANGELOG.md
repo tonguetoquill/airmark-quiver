@@ -28,6 +28,15 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` takes a second signature block** (#162). AFH 33-337 types
+  the junior ranking official's signature block at the left margin and the
+  senior's at the 4.5in anchor where a memorandum requires dual signatures, and
+  the quill had one block and one anchor. `junior_signature_block` is the
+  junior's, on the memorandum and on each indorsement, and `signature_block` is
+  the senior's wherever one is given. The two open on one line, each with its
+  own signing widget, and the authority line stays at the senior's anchor. Left
+  blank — the usual case — a memorandum renders exactly as before.
+
 - **Take `@quillmark/wasm` 0.113.0, `quillkit` 0.6.0 and `@quillmark/quiver`
   0.28.0.** `Quill::from_tree` now refuses a `ui.group` whose card has no
   `ui.groups` registry (`quill::implicit_group`). Two cards already used a

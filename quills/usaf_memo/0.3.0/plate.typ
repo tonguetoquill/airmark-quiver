@@ -113,12 +113,21 @@
 #backmatter(
   authority-line: data.authority_line,
   signature-block: data.signature_block,
+  // The junior ranking official where two sign, at the left margin; empty
+  // renders one block, and the widget below it is placed only where the block
+  // is (`render-signature-block`).
+  junior-signature-block: data.junior_signature_block,
   // The widget sits at the bottom of AFH 33-337's four blank lines and is
   // sized to two and a half of them, so the line and a half above it stays
   // clear of the body text without moving the block off the fifth line.
   signing-field: signature-field(
     "Signature",
     field: "signature_block",
+    height: body_font_size * 2.5,
+  ),
+  junior-signing-field: signature-field(
+    "Junior_Signature",
+    field: "junior_signature_block",
     height: body_font_size * 2.5,
   ),
 
@@ -179,9 +188,15 @@
       to: card.at("for", default: ""),
       authority-line: card.authority_line,
       signature-block: card.signature_block,
+      junior-signature-block: card.junior_signature_block,
       signing-field: signature-field(
         "Ind_" + str(i) + "_Signature",
         field: card.at("$path") + "signature_block",
+        height: body_font_size * 2.5,
+      ),
+      junior-signing-field: signature-field(
+        "Ind_" + str(i) + "_Junior_Signature",
+        field: card.at("$path") + "junior_signature_block",
         height: body_font_size * 2.5,
       ),
       ..if card.format != "" { (format: card.format) },

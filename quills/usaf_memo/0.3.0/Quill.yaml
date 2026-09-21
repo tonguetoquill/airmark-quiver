@@ -87,7 +87,18 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
+      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Where two officials sign, this is the senior ranking official's block and the Junior Signature Block field carries the other."
+
+    junior_signature_block:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      ui:
+        group: addressing
+        compact: true
+      description: "The second signature block where a memorandum requires two signatures. AFH 33-337 types the junior ranking official's block at the left margin and the senior ranking official's 4.5 inches from the left edge, so the junior's goes here and the senior's in the Signature Block field. Same two lines: name in UPPERCASE as signed, grade, and service, then duty title. Leave blank — the usual case — when one official signs."
 
     letterhead_title:
       type: array
@@ -295,7 +306,17 @@ card_kinds:
         ui:
           group: addressing
           compact: true
-        description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
+        description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. Where two officials sign the indorsement, this is the senior ranking official's block."
+      junior_signature_block:
+        type: array
+        items:
+          type: plaintext
+          inline: true
+        default: []
+        ui:
+          group: addressing
+          compact: true
+        description: "The second signature block where this indorsement requires two signatures, printed at the left margin. AFH 33-337 puts the junior ranking official there and the senior at 4.5 inches from the left edge. Leave blank when one official signs."
       format:
         type: enum
         values:

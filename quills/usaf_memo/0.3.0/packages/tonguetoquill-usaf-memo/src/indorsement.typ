@@ -11,11 +11,15 @@
   from: none,
   to: none,
   signature-block: none,
+  // The junior ranking official's block where two officials sign the
+  // indorsement, on the same terms as the memorandum.
+  junior-signature-block: none,
   // An indorsement has a closing section of its own, so it takes an authority
   // line on the same terms as the memorandum.
   authority-line: none,
   signature-blank-lines: 4,
   signing-field: none,
+  junior-signing-field: none,
   date: none,
   // Fill-in widget for an omitted `date`, anchored in the date slot of the
   // indorsement header (see `date-placeholder-slot`). Without one the slot is
@@ -166,9 +170,11 @@
 
   render-signature-block(
     signature-block,
+    junior-lines: junior-signature-block,
     closing-line: format-authority-line(authority-line),
     signature-blank-lines: signature-blank-lines,
     signing-field: signing-field,
+    junior-signing-field: junior-signing-field,
   )
   // Labelled so `mainmatter` can split the closing off the body; `split-closing`.
 }<usaf-memo-closing>]
