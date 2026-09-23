@@ -28,6 +28,19 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` leaves a blank memo date fillable.** A memo is dated
+  when it is signed, so a blank `date` now prints an empty PDF text field for
+  the signer, as a blank indorsement date already did, instead of the compile
+  date. A `separate_page` indorsement header that restates the memo's date gets
+  a field of its own there.
+
+- **`usaf_memo@0.3.0`'s blank dates no longer move the page.** The fill-in slot
+  stood `1em` above the baseline where a line of text stands a cap-height, so a
+  blank indorsement date pushed everything below its header line down 4pt.
+  Both dates' slots are now built in `plate.typ`, a cap-height tall, and a
+  document lays out the same whether its dates are filled or blank. The widget
+  is set in Times at the body size, flush right, and sized to the longest date.
+
 - **Take `@quillmark/wasm` 0.115.0, `quillkit` 0.7.0 and `@quillmark/quiver`
   0.29.0.** Every quill loads and renders as before; no quill declares a
   `matrix`, a `ui.layout: table` or an array `max:`, so the contract changes to
