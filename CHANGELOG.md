@@ -47,7 +47,9 @@
   signature block and closing elements as they are, the backmatter
   continuation note among them. As the memo does, it prints a seal on every
   letter, slants an italic tag line, and keeps a short closing paragraph with
-  the signature block so the signature never opens a page alone.
+  the signature block so the signature never opens a page alone. A blank date
+  prints an empty PDF text field for the signer rather than the compile date,
+  and the page lays out the same whether the date is filled or blank.
 
 - **Take `@quillmark/wasm` 0.115.0, `quillkit` 0.7.0 and `@quillmark/quiver`
   0.29.0.** Every quill loads and renders as before; no quill declares a
