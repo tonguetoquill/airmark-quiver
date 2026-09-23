@@ -7,15 +7,14 @@ quill:
 typst:
   plate_file: plate.typ
 
-# Two kinds: a section is a heading (and, for Skills and Certifications, the
-# list under it); an entry is a row. Entries after a section print under it
-# until the next section. The topic names the world; the title, when filled,
-# is what prints.
+# A resume is a stack of sections, and each kind of section is a card kind: a
+# heading, optional prose under it, and the rows that section holds. The rows
+# are the section's own, so an entry cannot land under the wrong heading.
 main:
   ui:
     groups: [identity, page]
   # Everything prints under a section heading, so main carries no body: a
-  # summary is a section whose topic is Summary.
+  # summary is a Summary card.
   body:
     enabled: false
   fields:
@@ -75,98 +74,31 @@ main:
         compact: true
       description: "Page margin in inches, the same on all four sides. The layout is dense by design; below about 0.4 a printer starts clipping."
 
+
+# Each kind carries the same heading pair and optional prose under it. A blank
+# title prints the kind's usual heading, which the plate holds.
 card_kinds:
-  section:
-    description: "A heading in uppercase over a rule. Experience, Education, Projects and Other take the entry cards that follow, until the next section. Skills and Certifications are the list on this card. Summary is the heading plus the prose in the body. Other is the heading you type when the list above does not name it."
+  summary:
+    description: "A heading and a paragraph or two under it."
     ui:
-      title: Section
+      title: Summary
       groups: [heading]
     body:
-      # An omitted example seeds "Write section body here."; empty is a heading
-      # with no prose, which is the usual section.
-      example: ""
+      example: |
+        Security engineer of eight years, most of it on detection pipelines other people have to keep running.
       # The name (level 1) and the section titles (level 2) carry the PDF's
       # structure tree; a heading authored in a body lands in that outline
       # unannounced. The rest no resume component typesets.
-      unsupported: [heading, rule, code, table, image]
+      unsupported: &unsupported [heading, rule, code, table, image]
     fields:
-      topic:
-        type: enum
-        values:
-          - experience
-          - education
-          - projects
-          - skills
-          - certifications
-          - summary
-          - other
-        default: experience
-        example: experience
-        ui:
-          compact: true
-        description: "What this block is for. Experience, Education, Projects and Other take a heading and the entry cards that follow, until the next section. Skills and Certifications are the list on this card — there are no entries to add. Summary is the heading plus the prose in the body. Other is the heading you type when the list above does not name it: volunteer, military, publications, a competition."
-        variants:
-          skills:
-            labeled_items:
-              type: array
-              items:
-                type: object
-                properties:
-                  label:
-                    type: plaintext
-                    inline: true
-                    example: Programming
-                    description: "Set in bold on its own line above the text."
-                  text:
-                    type: plaintext
-                    inline: true
-                    example: Python, R, JS, Rust, PowerShell, CI/CD
-                    description: "The items under that label, usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
-              example:
-                - label: Programming
-                  text: "Python, R, JS, C#, Rust, PowerShell, CI/CD"
-                - label: Data Science
-                  text: "ML/statistics, TensorFlow, AI Engineering"
-                - label: IT & Cybersecurity
-                  text: "AD DS, Splunk, Metasploit, Wireshark, Nessus"
-                - label: Cloud
-                  text: "AWS EC2/S3, Helm, Docker, Serverless"
-              description: "One label and its items per row, filled across the columns and then down."
-            columns:
-              type: integer
-              default: 2
-              ui:
-                compact: true
-              description: "Number of columns. Two suits items that run most of a line; three suits single words."
-          certifications:
-            items:
-              type: array
-              items:
-                type: richtext
-                inline: true
-              example:
-                - Offensive Security Certified Professional (OSCP)
-                - GIAC Cyber Threat Intelligence (GCTI)
-                - CompTIA CASP+, CySA+, Sec+, Net+, A+, Proj+
-                - GIAC Machine Learning Engineer (GMLE)
-              description: "One item per line, filled across the columns and then down. Keep each to a line at the column width. Italicize with *asterisks*."
-            columns:
-              type: integer
-              default: 2
-              ui:
-                compact: true
-              description: "Number of columns. Two suits items that run most of a line; three suits single words."
-
       title:
         type: plaintext
         inline: true
         default: ""
-        example: Work Experience
         ui:
           group: heading
-        description: "Printed in uppercase over a rule. Leave blank to use the usual heading for the topic — 'Work Experience', 'Education', 'Projects', 'Skills', 'Certifications', 'Summary'. Other has no usual heading; fill this in."
-
-      extra:
+        description: &title_description "Printed in uppercase over a rule. Leave blank for the usual heading: Summary, Work Experience, Education, Projects, Skills or Certifications."
+      extra: &extra
         type: richtext
         inline: true
         default: ""
@@ -175,60 +107,270 @@ card_kinds:
           compact: true
         description: "Qualifier set after the title in the same style, such as a date range or a clarifier. Italicize with *asterisks*. Leave blank for the usual case."
 
-  entry:
-    description: "A row under the section above it. Dated is a job, a degree, an award: heading and dates on the first line, role and location on the second, bullets in the body. Linked is a project: heading and a URL, no second line. Leave both the role and the location blank and that second line is not printed. A row is never split across a page break."
+  experience:
+    description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, bullets under them."
     ui:
-      title: "{heading}"
-    body:
-      example: |
-        - What you did, and what came of it. One line each, strongest first.
-      unsupported: [heading, rule, code, table, image]
+      title: Experience
+      groups: [heading]
+    body: &section_body
+      # Empty is a heading straight over its rows, which is the usual section.
+      example: ""
+      unsupported: *unsupported
     fields:
-      heading:
+      title:
         type: plaintext
         inline: true
-        example: Carnegie Mellon University
-        description: "Left side of the first line, set in bold. Company, school, award, or project name, depending on the section."
-
-      form:
-        type: enum
-        values:
-          - dated
-          - linked
-        default: dated
-        example: dated
+        default: ""
         ui:
-          compact: true
-        description: "Dated puts dates opposite the heading and an optional role or degree under it. Linked puts a URL opposite the heading, small and italic, and drops the second line. A job with a company URL is a dated row under Experience, not a switch to Linked."
-        variants:
-          dated:
-            dates:
+          group: heading
+        description: *title_description
+      extra: *extra
+      jobs:
+        type: array
+        items:
+          type: object
+          ui:
+            title: "{company}"
+          properties:
+            company:
+              type: plaintext
+              inline: true
+              example: Templar Archives Research Division
+              description: "Set in bold at the left of the first line."
+            dates: &dates
               type: plaintext
               inline: true
               default: ""
               example: August 2024 – Present
-              ui:
-                compact: true
-              description: "Set in bold at the right, opposite the heading. Free text rather than a date, so a range reads as you write it: 'August 2024 – Present', 'December 2025'. Keep the form the same down the page."
-            subtitle:
+              description: "Set in bold at the right, opposite the name. Free text rather than a date, so a range reads as you write it: 'August 2024 – Present', 'December 2025'. Keep the form the same down the page."
+            role:
               type: plaintext
               inline: true
               default: ""
-              example: Master of Information Technology Strategy
-              description: "Role, degree or placing, set in italics below the heading. Leave blank to omit."
-            location:
+              example: Psionic Research Analyst
+              description: "Your title, set in italics under the employer. Leave blank to omit."
+            location: &location
               type: plaintext
               inline: true
               default: ""
               example: Pittsburgh, PA
-              ui:
-                compact: true
-              description: "Set in italics below the dates. 'Pittsburgh, PA', 'Remote'. Leave blank to omit."
-          linked:
+              description: "Set in italics at the right of the second line. 'Pittsburgh, PA', 'Remote'. Leave blank to omit; with the line's other half blank too, the second line is not printed."
+            bullets: &bullets
+              type: array
+              items:
+                type: richtext
+                inline: true
+              default: []
+              example:
+                - What you did, and what came of it.
+              description: "One line each, strongest first. Italicize with *asterisks*, embolden with **two**."
+        example:
+          - company: Templar Archives Research Division
+            dates: August 2024 – Present
+            role: Psionic Research Analyst
+            location: Aiur
+            bullets:
+              - Analyzed Khala disruption patterns, developing countermeasures to protect neural link infrastructure.
+        description: "One row per job. A row is never split across a page break."
+
+  education:
+    description: "Schools, most recent first: school and date on the first line, degree and location on the second."
+    ui:
+      title: Education
+      groups: [heading]
+    body: *section_body
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          group: heading
+        description: *title_description
+      extra: *extra
+      schools:
+        type: array
+        items:
+          type: object
+          ui:
+            title: "{school}"
+          properties:
+            school:
+              type: plaintext
+              inline: true
+              example: Carnegie Mellon University
+              description: "Set in bold at the left of the first line."
+            dates:
+              <<: *dates
+              example: May 2024
+            degree:
+              type: plaintext
+              inline: true
+              default: ""
+              example: BS, Data Science
+              description: "Degree and field, set in italics under the school. Leave blank to omit."
+            location: *location
+            bullets:
+              <<: *bullets
+              example:
+                - Distinguished Graduate (top 10%).
+              description: "Honors, activities, coursework — one line each. Most degrees need none."
+        example:
+          - school: Carnegie Mellon University
+            dates: December 2025
+            degree: Master of Information Technology Strategy
+            location: Pittsburgh, PA
+        description: "One row per school or degree."
+
+  projects:
+    description: "Projects: name and link on the first line, bullets under them."
+    ui:
+      title: Projects
+      groups: [heading]
+    body: *section_body
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          group: heading
+        description: *title_description
+      extra: *extra
+      projects:
+        type: array
+        items:
+          type: object
+          ui:
+            title: "{name}"
+          properties:
+            name:
+              type: plaintext
+              inline: true
+              example: Quillmark
+              description: "Set in bold at the left."
             url:
               type: string
               default: ""
               example: https://github.com/nibsbin/quillmark
-              ui:
-                compact: true
               description: "Set small and italic at the right, and made a live link when it starts with http. Anything else is printed as written, so '<closed source>' stands in for a project with nothing to link. Leave blank to omit."
+            bullets: *bullets
+        example:
+          - name: Quillmark
+            url: https://github.com/nibsbin/quillmark
+            bullets:
+              - Parameterization engine for typesetting documents from markdown.
+        description: "One row per project."
+
+  skills:
+    description: "Labelled lists of skills, filled across the columns and then down."
+    ui:
+      title: Skills
+      groups: [heading]
+    body: *section_body
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          group: heading
+        description: *title_description
+      extra: *extra
+      skills:
+        type: array
+        ui:
+          layout: table
+        items:
+          type: object
+          ui:
+            title: "{label}"
+          properties:
+            label:
+              type: plaintext
+              inline: true
+              example: Programming
+              description: "Set in bold on its own line above the text."
+            text:
+              type: plaintext
+              inline: true
+              example: Python, R, JS, Rust, PowerShell, CI/CD
+              ui:
+                title: Items
+              description: "The items under that label, usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
+        example:
+          - label: Programming
+            text: "Python, R, JS, C#, Rust, PowerShell, CI/CD"
+          - label: Cloud
+            text: "AWS EC2/S3, Helm, Docker, Serverless"
+        description: "One label and its items per row."
+      columns: &columns
+        type: integer
+        default: 2
+        ui:
+          compact: true
+        description: "Number of columns. Two suits items that run most of a line; three suits single words."
+
+  certifications:
+    description: "A list of certifications, filled across the columns and then down."
+    ui:
+      title: Certifications
+      groups: [heading]
+    body: *section_body
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        default: ""
+        ui:
+          group: heading
+        description: *title_description
+      extra: *extra
+      items:
+        type: array
+        items:
+          type: richtext
+          inline: true
+        example:
+          - Offensive Security Certified Professional (OSCP)
+          - GIAC Cyber Threat Intelligence (GCTI)
+        description: "One item per line. Keep each to a line at the column width. Italicize with *asterisks*."
+      columns: *columns
+
+  other:
+    description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names."
+    ui:
+      title: Other section
+      groups: [heading]
+    body: *section_body
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        example: Cyber Competition
+        ui:
+          group: heading
+        description: "Printed in uppercase over a rule. Other has no usual heading, so this one is yours to write."
+      extra: *extra
+      entries:
+        type: array
+        default: []
+        items:
+          type: object
+          ui:
+            title: "{heading}"
+          properties:
+            heading:
+              type: plaintext
+              inline: true
+              example: 1st in NCX 2023
+              description: "Set in bold at the left of the first line."
+            dates: *dates
+            subtitle:
+              type: plaintext
+              inline: true
+              default: ""
+              description: "Set in italics under the heading. Leave blank to omit."
+            location: *location
+            bullets: *bullets
+        description: "One row per item. Leave this empty for a section that is only prose."

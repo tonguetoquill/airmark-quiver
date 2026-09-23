@@ -37,6 +37,17 @@
   `experience`, `daf4392@0.1.0`'s `itinerary`, and `cyber_ribbon_chart@0.0.1`'s
   `vector` and `tour`. They stay cards until a new version of each remodels
   them. The studio client now carries wasm 0.115.0 as well.
+- **`cyber_ribbon_chart@0.0.1` and `classic_resume@0.0.1` carry their data as
+  rows, reshaped in place while both are prototypes.** The ribbon chart's
+  `vector` and `tour` cards become `vectors` on `main` (at most three, each with
+  a `tours` table), and `qualifications` becomes a typed dictionary of four
+  `matrix` fields, one per printed column, so the vocabulary is declared once
+  and `check_vocabulary.mjs` goes. The resume's `section` and `entry` cards
+  become one card kind per section — `summary`, `experience`, `education`,
+  `projects`, `skills`, `certifications`, `other` — each holding its own rows,
+  with bullets as a list of one-line `richtext` cells; `topic` and
+  `dated | linked` go. Documents written against either earlier shape no longer
+  load; both fixtures render byte for byte as before.
 
 - **Take `@quillmark/wasm` 0.113.0, `quillkit` 0.6.0 and `@quillmark/quiver`
   0.28.0.** `Quill::from_tree` now refuses a `ui.group` whose card has no

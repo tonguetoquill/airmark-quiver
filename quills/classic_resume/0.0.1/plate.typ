@@ -18,7 +18,7 @@
 
 // `none` for a field the author left blank, so the components can drop what it
 // would have occupied: a dated `entry` omits its whole second line when both
-// halves are none, and a linked one its annotation.
+// halves are none, a linked one its annotation, and a section its heading.
 #let or-none(v) = {
   let trimmed = trim-inline(v)
   if trimmed == [] or trimmed == "" { none } else { trimmed }
@@ -31,19 +31,13 @@
   if type(body) == str { none } else { body }
 }
 
-// A variant-bearing enum rests as `{value: …, …}`; a bare string is the
-// discriminant before that container is built.
-#let member(field) = {
-  if type(field) == dictionary { field.at("value", default: "") } else { field }
-}
-
 #let stock-title = (
+  summary: "Summary",
   experience: "Work Experience",
   education: "Education",
   projects: "Projects",
   skills: "Skills",
   certifications: "Certifications",
-  summary: "Summary",
 )
 
 #show: resume.with(
@@ -87,57 +81,57 @@
   link-contacts: data.link_contacts,
 )
 
-// One flat card list. A section prints its heading (and, for skills and
-// certifications, its list); every entry after it belongs to that heading
-// until the next section card.
+#let bulleted(lines) = {
+  let lines = lines.map(trim-inline)
+  if lines.len() == 0 { none } else { list(..lines) }
+}
+
+#let dated(heading, dates, subtitle, location, bullets) = entry(
+  heading: trim-inline(heading),
+  form: "dated",
+  dates: trim-inline(dates),
+  subtitle: or-none(subtitle),
+  location: or-none(location),
+  body: bulleted(bullets),
+)
+
 #for card in data.at("$cards") {
   let kind = card.at("$kind", default: none)
+  let title = or-none(card.title)
+  if title == none { title = stock-title.at(kind, default: none) }
+  let extra = or-none(card.extra)
+  if title != none or extra != none {
+    section-header(if title != none { title } else { [] }, extra: extra)
+  }
+  body-of(card)
 
-  if kind == "section" {
-    let topic = member(card.topic)
-    let title = or-none(card.title)
-    if title == none { title = stock-title.at(topic, default: none) }
-    let extra = or-none(card.extra)
-    if title != none or extra != none {
-      section-header(if title != none { title } else { [] }, extra: extra)
+  if kind == "experience" {
+    for job in card.jobs {
+      dated(job.company, job.dates, job.role, job.location, job.bullets)
     }
-    body-of(card)
-
-    // These fields exist only in the live world; the branch is what makes
-    // reading them total, the same as `classification` on the memo plate.
-    if topic == "certifications" {
-      item-grid(
-        items: card.topic.at("items", default: ()).map(trim-inline),
-        columns: card.topic.at("columns", default: 2),
-      )
-    } else if topic == "skills" {
-      item-grid(
-        items: card.topic.at("labeled_items", default: ()).map(row => (
-          label: trim-inline(row.label),
-          text: trim-inline(row.text),
-        )),
-        columns: card.topic.at("columns", default: 2),
-      )
+  } else if kind == "education" {
+    for school in card.schools {
+      dated(school.school, school.dates, school.degree, school.location, school.bullets)
     }
-  } else if kind == "entry" {
-    let form = member(card.form)
-    if form == "linked" {
-      let url = card.form.at("url", default: "")
+  } else if kind == "other" {
+    for row in card.entries {
+      dated(row.heading, row.dates, row.subtitle, row.location, row.bullets)
+    }
+  } else if kind == "projects" {
+    for project in card.projects {
       entry(
-        heading: trim-inline(card.heading),
+        heading: trim-inline(project.name),
         form: "linked",
-        url: if url != "" { url } else { none },
-        body: body-of(card),
-      )
-    } else {
-      entry(
-        heading: trim-inline(card.heading),
-        form: "dated",
-        dates: trim-inline(card.form.at("dates", default: "")),
-        subtitle: or-none(card.form.at("subtitle", default: "")),
-        location: or-none(card.form.at("location", default: "")),
-        body: body-of(card),
+        url: if project.url != "" { project.url } else { none },
+        body: bulleted(project.bullets),
       )
     }
+  } else if kind == "skills" {
+    item-grid(
+      items: card.skills.map(row => (label: trim-inline(row.label), text: trim-inline(row.text))),
+      columns: card.columns,
+    )
+  } else if kind == "certifications" {
+    item-grid(items: card.items.map(trim-inline), columns: card.columns)
   }
 }
