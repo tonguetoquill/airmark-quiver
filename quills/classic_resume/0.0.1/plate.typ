@@ -18,7 +18,8 @@
 
 // `none` for a field the author left blank, so the components can drop what it
 // would have occupied: a dated `entry` omits its whole second line when both
-// halves are none, a linked one its annotation, and a section its heading.
+// halves are none, a linked one its annotation, an entry what is under it, and
+// a section its heading.
 #let or-none(v) = {
   let trimmed = trim-inline(v)
   if trimmed == [] or trimmed == "" { none } else { trimmed }
@@ -81,18 +82,13 @@
   link-contacts: data.link_contacts,
 )
 
-#let bulleted(lines) = {
-  let lines = lines.map(trim-inline)
-  if lines.len() == 0 { none } else { list(..lines) }
-}
-
-#let dated(heading, dates, subtitle, location, bullets) = entry(
+#let dated(heading, dates, subtitle, location, details) = entry(
   heading: trim-inline(heading),
   form: "dated",
   dates: trim-inline(dates),
   subtitle: or-none(subtitle),
   location: or-none(location),
-  body: bulleted(bullets),
+  body: or-none(details),
 )
 
 #for card in data.at("$cards") {
@@ -107,15 +103,15 @@
 
   if kind == "experience" {
     for job in card.jobs {
-      dated(job.company, job.dates, job.role, job.location, job.bullets)
+      dated(job.company, job.dates, job.role, job.location, job.details)
     }
   } else if kind == "education" {
     for school in card.schools {
-      dated(school.school, school.dates, school.degree, school.location, school.bullets)
+      dated(school.school, school.dates, school.degree, school.location, school.details)
     }
   } else if kind == "other" {
     for row in card.entries {
-      dated(row.heading, row.dates, row.subtitle, row.location, row.bullets)
+      dated(row.heading, row.dates, row.subtitle, row.location, row.details)
     }
   } else if kind == "projects" {
     for project in card.projects {
@@ -123,7 +119,7 @@
         heading: trim-inline(project.name),
         form: "linked",
         url: if project.url != "" { project.url } else { none },
-        body: bulleted(project.bullets),
+        body: or-none(project.details),
       )
     }
   } else if kind == "skills" {

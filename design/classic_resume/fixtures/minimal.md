@@ -26,14 +26,16 @@ extra: '*selected*'
 jobs:
 - company: Northwind Analytics
   dates: 2021 – Present
-  bullets:
-  - Rebuilt the alert triage path; median time to first human eyes fell from 40 minutes to 6.
+  details: |
+    - Rebuilt the alert triage path; median time to first human eyes fell from 40 minutes to 6.
 - company: Contoso Security
   role: Detection Engineer
-  bullets:
-  - Wrote the detection content review process the team still runs.
+  details: |
+    - Wrote the detection content review process the team still runs.
 - company: Far Peak Labs
   location: Remote
+  details: |
+    A six-month contract building the log pipeline the detection team now runs on, handed over with its runbook.
 - company: Winner, Regional CCDC
 ~~~
 
@@ -50,6 +52,6 @@ items:
 $kind: projects
 projects:
 - name: Internal detection corpus
-  bullets:
-  - Not public, and the better part of two years.
+  details: |
+    - Not public, and the better part of two years.
 ~~~

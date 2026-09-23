@@ -79,7 +79,7 @@ main:
 # title prints the kind's usual heading, which the plate holds.
 card_kinds:
   summary:
-    description: "A heading and a paragraph or two under it."
+    description: "A heading and prose under it. With a title of its own it is any section that is only prose — an objective, a statement of interest."
     ui:
       title: Summary
       groups: [heading]
@@ -108,7 +108,7 @@ card_kinds:
         description: "Qualifier set after the title in the same style, such as a date range or a clarifier. Italicize with *asterisks*. Leave blank for the usual case."
 
   experience:
-    description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, bullets under them."
+    description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them."
     ui:
       title: Experience
       groups: [heading]
@@ -155,21 +155,18 @@ card_kinds:
               default: ""
               example: Pittsburgh, PA
               description: "Set in italics at the right of the second line. 'Pittsburgh, PA', 'Remote'. Leave blank to omit; with the line's other half blank too, the second line is not printed."
-            bullets: &bullets
-              type: array
-              items:
-                type: richtext
-                inline: true
-              default: []
-              example:
+            details: &details
+              type: richtext
+              default: ""
+              example: |
                 - What you did, and what came of it.
-              description: "One line each, strongest first. Italicize with *asterisks*, embolden with **two**."
+              description: "Set under the entry. Usually a bulleted list, one line each and strongest first; a sentence, *italics* and **bold** set as well. Leave blank for nothing under the entry."
         example:
           - company: Templar Archives Research Division
             dates: August 2024 – Present
             role: Psionic Research Analyst
             location: Aiur
-            bullets:
+            details: |
               - Analyzed Khala disruption patterns, developing countermeasures to protect neural link infrastructure.
         description: "One row per job. A row is never split across a page break."
 
@@ -210,11 +207,11 @@ card_kinds:
               example: BS, Data Science
               description: "Degree and field, set in italics under the school. Leave blank to omit."
             location: *location
-            bullets:
-              <<: *bullets
-              example:
+            details:
+              <<: *details
+              example: |
                 - Distinguished Graduate (top 10%).
-              description: "Honors, activities, coursework — one line each. Most degrees need none."
+              description: "Honors, activities, coursework, set under the entry. Most degrees need none."
         example:
           - school: Carnegie Mellon University
             dates: December 2025
@@ -223,7 +220,7 @@ card_kinds:
         description: "One row per school or degree."
 
   projects:
-    description: "Projects: name and link on the first line, bullets under them."
+    description: "Projects: name and link on the first line, details under them."
     ui:
       title: Projects
       groups: [heading]
@@ -254,11 +251,11 @@ card_kinds:
               default: ""
               example: https://github.com/nibsbin/quillmark
               description: "Set small and italic at the right, and made a live link when it starts with http. Anything else is printed as written, so '<closed source>' stands in for a project with nothing to link. Leave blank to omit."
-            bullets: *bullets
+            details: *details
         example:
           - name: Quillmark
             url: https://github.com/nibsbin/quillmark
-            bullets:
+            details: |
               - Parameterization engine for typesetting documents from markdown.
         description: "One row per project."
 
@@ -372,5 +369,9 @@ card_kinds:
               default: ""
               description: "Set in italics under the heading. Leave blank to omit."
             location: *location
-            bullets: *bullets
-        description: "One row per item. Leave this empty for a section that is only prose."
+            details: *details
+        example:
+          - heading: 1st in NCX 2023
+            details: |
+              - Developed strategies, defensive scripts, and exploits for the Cyber Combat event.
+        description: "One row per item. A section that is only prose is a Summary with a title of its own."
