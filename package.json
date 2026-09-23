@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "quillkit test",
-    "site": "quillkit site --out site",
+    "site": "quillkit site --out site --drafts",
     "dev": "quillkit studio"
   },
   "keywords": [
