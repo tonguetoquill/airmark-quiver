@@ -66,30 +66,6 @@
   (17, "SDE final look", "look"),
 )
 
-// ─── the vocabulary ──────────────────────────────────────────────────────────
-// Printed in full and marked against what the document claims, so an unmarked
-// box is as much of the chart as a marked one. These labels are the `enum`
-// members in Quill.yaml; design/cyber_ribbon_chart/check_vocabulary.mjs holds
-// the two lists to each other.
-#let vocabulary = (
-  ("Leadership & Command", (
-    "Sq/CC Candidate", "DO / Det CC Candidate", "Flight CC",
-    "Director of Operations", "Detachment CC", "Squadron CC",
-  )),
-  ("Operations", (
-    "DODIN Ops", "DCO (Defensive)", "OCO (Offensive)", "Crew CC",
-    "Cyber Engineer", "Team Lead (MDT / CPT)", "Expeditionary Comms", "Mission CC",
-  )),
-  ("Staff & Functional", (
-    "Exec / Aide / CAG", "HAF Staff", "MAJCOM / NAF Staff", "Joint Staff",
-    "Instructor", "Joint Qualified Officer (JQO)",
-  )),
-  ("Education & PME", (
-    "Commissioning Source DG", "SOS DG / Top Third", "Cyber 200", "Cyber 300",
-    "IDE Candidate / Graduate", "SDE Candidate / Graduate", "Weapons School / WIC DG",
-  )),
-)
-
 // ─── inputs ──────────────────────────────────────────────────────────────────
 #let comm-yg = data.commissioning_yg
 #let adj-yg = data.adjusted_yg
@@ -119,29 +95,17 @@
 #let rank-tints = (luma(86%), luma(92%), luma(96%))
 
 
-// ─── vectors, gathered off the flat card list ────────────────────────────────
-// A vector card opens a row and every tour after it belongs to that row, until
-// the next vector card. A tour that arrives before any vector opens one, so a
-// document that lists tours and forgets the vector still draws.
-#let vectors = ()
-#for card in data.at("$cards", default: ()) {
-  let kind = card.at("$kind", default: none)
-  if kind == "vector" {
-    vectors.push((label: trim(card.label), focus: trim(card.focus), tours: ()))
-  } else if kind == "tour" {
-    if vectors.len() == 0 {
-      vectors.push((label: [Vector 1], focus: [], tours: ()))
-    }
-    let last = vectors.last()
-    last.tours.push((
-      title: trim(card.title),
-      duration: float(card.duration),
-      vml: card.vml,
-      school: card.school,
-    ))
-    vectors.at(vectors.len() - 1) = last
-  }
-}
+// ─── vectors ─────────────────────────────────────────────────────────────────
+#let vectors = data.vectors.enumerate().map(((i, v)) => (
+  label: if blank(v.label) { [Vector #(i + 1)] } else { trim(v.label) },
+  focus: trim(v.focus),
+  tours: v.tours.map(t => (
+    title: trim(t.title),
+    duration: float(t.duration),
+    vml: t.vml,
+    school: t.school,
+  )),
+))
 
 // A half-year column is H1 (Jan–Jun, even) or H2 (Jul–Dec, odd), and a VML
 // cycle picks the phase a tour may start on. Where that means waiting, the wait
@@ -352,8 +316,15 @@
 #v(9pt)
 
 // ═══ RECORD ══════════════════════════════════════════════════════════════════
-#let held = (:)
-#for row in data.qualifications { held.insert(row.qualification, trim(row.detail)) }
+// Every member arrives, held or not, in the order Quill.yaml declares it; an
+// unheld member's detail arrives blank whatever the document retains.
+#let quals = data.qualifications
+#let vocabulary = (
+  ("Leadership & Command", quals.command),
+  ("Operations", quals.operations),
+  ("Staff & Functional", quals.staff),
+  ("Education & PME", quals.education),
+)
 
 #let remarks = (
   ("Awards", data.awards),
@@ -385,25 +356,24 @@
       columns: (1fr,) * vocabulary.len(),
       column-gutter: 14pt,
       ..vocabulary.map(group => {
-        let (heading, items) = group
+        let (heading, members) = group
         [
           #text(size: 6.2pt, weight: 700, tracking: 0.4pt, fill: mute)[#upper(heading)]
           #v(3pt)
           #set par(leading: 0.42em)
-          #for label in items {
-            let is-held = label in held
+          #for (_, m) in members {
             block(spacing: 0pt, inset: (y: 1.1pt))[
               #grid(columns: (7.6pt, 1fr), align: (left + top, left + top))[
-                #if is-held { held-mark } else { open-mark }
+                #if m.held { held-mark } else { open-mark }
               ][
                 #text(
                   size: 7.2pt,
-                  weight: if is-held { 600 } else { 400 },
-                  fill: if is-held { ink } else { luma(50%) },
-                )[#label]
-                #if is-held and not blank(held.at(label)) [
+                  weight: if m.held { 600 } else { 400 },
+                  fill: if m.held { ink } else { luma(50%) },
+                )[#m.title]
+                #if not blank(m.detail) [
                   #linebreak()
-                  #text(size: 6.4pt, style: "italic", fill: mute)[#held.at(label)]
+                  #text(size: 6.4pt, style: "italic", fill: mute)[#trim(m.detail)]
                 ]
               ]
             ]

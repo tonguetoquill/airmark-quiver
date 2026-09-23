@@ -10,6 +10,28 @@ date_arrived_station: 2025-07-14
 advanced_degree: MS Cyber Operations, AFIT
 timeline_start_year: 2026
 timeline_years: 12
+vectors:
+  - label: Vector 1
+    focus: Primary — command track
+    tours:
+      - { title: 333 TRS Instructor, duration: "2", vml: Summer }
+      - { title: 333 TRS / DO, duration: "1.5", vml: Winter }
+      - { title: "Sq/CC, Scott AFB", duration: "2", vml: Summer }
+      - { title: IDE in residence, duration: "1", vml: Summer, school: true }
+      - { title: HAF A2/6 Staff, duration: "3", vml: Summer }
+  - label: Vector 2
+    focus: Alternate — staff depth
+    tours:
+      - { title: 17X CFM Staff, duration: "2.5", vml: Winter }
+      - { title: ROTC Det/CC, duration: "3", vml: Summer }
+      - { title: MAJCOM A3 Division Chief, duration: "2", vml: Summer }
+  - label: Vector 3
+    focus: Joint / special
+    tours:
+      - { title: 2 AF Staff, duration: "2", vml: Summer }
+      - { title: Joint Staff J6, duration: "3", vml: Summer }
+      - { title: USCYBERCOM JFHQ-C, duration: "2.5", vml: Winter }
+      - { title: Post-window follow-on, duration: "4", vml: Summer }
 stratifications:
   - year: "2026"
     duty_strat: "#1 of 14 Capts"
@@ -20,31 +42,6 @@ stratifications:
   - year: "2024"
     duty_strat: "#1 of 8 Lts"
     senior_rater_strat: Top 10%
-qualifications:
-  - qualification: Flight CC
-    detail: UMS Flt/CC
-  - qualification: Director of Operations
-    detail: 333 TRS/DO
-  - qualification: DODIN Ops
-    detail: ""
-  - qualification: DCO (Defensive)
-    detail: 23 IOS
-  - qualification: Crew CC
-    detail: ""
-  - qualification: Team Lead (MDT / CPT)
-    detail: MDT
-  - qualification: Exec / Aide / CAG
-    detail: Wing Exec
-  - qualification: MAJCOM / NAF Staff
-    detail: 16 AF
-  - qualification: Instructor
-    detail: 333 TRS
-  - qualification: Commissioning Source DG
-    detail: OTS DG
-  - qualification: SOS DG / Top Third
-    detail: ""
-  - qualification: Cyber 200
-    detail: "2025"
 awards:
   - Wing CGOQ ×2
   - HAF A2/6 CGOY 2025
@@ -56,109 +53,23 @@ certifications:
 deployments:
   - 1× short tour — returned Jan 2024
   - OIR rotation, 2023
+qualifications:
+  command:
+    flight_cc: { held: true, detail: UMS Flt/CC }
+    director_of_operations: { held: true, detail: 333 TRS/DO }
+  operations:
+    dodin_ops: true
+    dco: { held: true, detail: 23 IOS }
+    crew_cc: true
+    team_lead: { held: true, detail: MDT }
+  staff:
+    exec_aide_cag: { held: true, detail: Wing Exec }
+    majcom_naf_staff: { held: true, detail: 16 AF }
+    instructor: { held: true, detail: 333 TRS }
+  education:
+    commissioning_dg: { held: true, detail: OTS DG }
+    sos_dg: true
+    cyber_200: { held: true, detail: "2025" }
 ~~~
 
 What I want out of this DT: IDE in residence on the second look, then a DO job before the Lt Col board. Constraint is join-spouse — no OCONUS before 2029.
-
-~~~
-$kind: vector
-label: Vector 1
-focus: Primary — command track
-~~~
-
-~~~
-$kind: tour
-title: 333 TRS Instructor
-duration: "2"
-vml: Summer
-~~~
-
-~~~
-$kind: tour
-title: 333 TRS / DO
-duration: "1.5"
-vml: Winter
-~~~
-
-~~~
-$kind: tour
-title: Sq/CC, Scott AFB
-duration: "2"
-vml: Summer
-~~~
-
-~~~
-$kind: tour
-title: IDE in residence
-duration: "1"
-school: true
-vml: Summer
-~~~
-
-~~~
-$kind: tour
-title: HAF A2/6 Staff
-duration: "3"
-vml: Summer
-~~~
-
-~~~
-$kind: vector
-label: Vector 2
-focus: Alternate — staff depth
-~~~
-
-~~~
-$kind: tour
-title: 17X CFM Staff
-duration: "2.5"
-vml: Winter
-~~~
-
-~~~
-$kind: tour
-title: ROTC Det/CC
-duration: "3"
-vml: Summer
-~~~
-
-~~~
-$kind: tour
-title: MAJCOM A3 Division Chief
-duration: "2"
-vml: Summer
-~~~
-
-~~~
-$kind: vector
-label: Vector 3
-focus: Joint / special
-~~~
-
-~~~
-$kind: tour
-title: 2 AF Staff
-duration: "2"
-vml: Summer
-~~~
-
-~~~
-$kind: tour
-title: Joint Staff J6
-duration: "3"
-vml: Summer
-~~~
-
-~~~
-$kind: tour
-title: USCYBERCOM JFHQ-C
-duration: "2.5"
-vml: Winter
-~~~
-
-~~~
-$kind: tour
-title: Post-window follow-on
-duration: "4"
-vml: Summer
-~~~

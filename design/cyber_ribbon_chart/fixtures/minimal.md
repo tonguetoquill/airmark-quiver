@@ -5,27 +5,12 @@ name: 2d Lt Dana R. Reyes
 commissioning_yg: 2026
 timeline_start_year: 2026
 timeline_years: 6
+vectors:
+  - tours:
+      - { title: Undergraduate Cyber Training, duration: "0.5", vml: Winter }
+      - { title: "26 NOS, Crew Duty", duration: "3", vml: Summer }
 stratifications: []
 qualifications:
-  - qualification: Cyber 200
-    detail: ""
-~~~
-
-~~~
-$kind: vector
-label: Vector 1
-~~~
-
-~~~
-$kind: tour
-title: Undergraduate Cyber Training
-duration: "0.5"
-vml: Winter
-~~~
-
-~~~
-$kind: tour
-title: 26 NOS, Crew Duty
-duration: "3"
-vml: Summer
+  education:
+    cyber_200: true
 ~~~
