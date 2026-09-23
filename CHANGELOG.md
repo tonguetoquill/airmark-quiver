@@ -28,6 +28,10 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` sets the tag line in the body font.** Cinzel has no
+  italic face, so `*italics*` in the tag line were a synthesized slant; the
+  body font's own italic and bold faces now render instead.
+
 - **Take `@quillmark/wasm` 0.115.0, `quillkit` 0.7.0 and `@quillmark/quiver`
   0.29.0.** Every quill loads and renders as before; no quill declares a
   `matrix`, a `ui.layout: table` or an array `max:`, so the contract changes to
