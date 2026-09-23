@@ -1,4 +1,6 @@
-#import "@local/quillmark-helper:0.1.0": data, display, field-region, signature-field
+#import "@local/quillmark-helper:0.1.0": (
+  data, display, field-region, signature-field,
+)
 #import "@local/tonguetoquill-usaf-letter:0.1.0": (
   backmatter, date-pattern, frontmatter, mainmatter,
 )

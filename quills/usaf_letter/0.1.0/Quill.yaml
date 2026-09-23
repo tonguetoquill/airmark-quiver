@@ -105,7 +105,7 @@ main:
         - HEADQUARTERS [UNIT NAME]
       ui:
         group: letterhead
-      description: "Letterhead lines, top to bottom, all rendered in uppercase. The first is the department title, set larger than the rest. Change that line only for a Joint Command or a DoW agency. The lines below it are your unit's full organization name. AFH 33-337 admits only approved organizational letterhead."
+      description: "Letterhead lines, top to bottom, all rendered in uppercase. The first is the department title, set larger than the rest. Change that line only for a Joint Command or a DoW agency. The lines below it are your unit's full organization name."
 
     letterhead_seal:
       type: enum
@@ -181,18 +181,6 @@ main:
         compact: true
       description: "Suffix appended to the banner after a double slash, rendered in uppercase: 'NF' prints as CUI//NF. Leave blank for no suffix."
 
-    attachments:
-      type: array
-      items:
-        type: richtext
-        inline: true
-      default: []
-      example:
-        - Attachment description, YYYY MMM DD
-      ui:
-        group: additional
-      description: "Attachments in the order the letter mentions them, listed on the third line below the signature block. Describe each briefly; do not write 'as stated' or abbreviate. A lone attachment prints unnumbered, two or more are numbered. Italicize publication titles with *asterisks*."
-
     cc:
       type: array
       items:
@@ -203,7 +191,19 @@ main:
         - Rank and Name, ORG/SYMBOL
       ui:
         group: additional
-      description: "Offices or people receiving a courtesy copy, one per line, listed below the attachment element."
+      description: Offices or people receiving a courtesy copy, one per line.
+
+    attachments:
+      type: array
+      items:
+        type: richtext
+        inline: true
+      default: []
+      example:
+        - Attachment description, YYYY MMM DD
+      ui:
+        group: additional
+      description: "Attachments in the order the letter mentions them. Describe each briefly; do not write 'as stated' or abbreviate. A lone attachment prints unnumbered, two or more are numbered. Italicize publication titles with *asterisks*."
 
     font_size:
       type: number

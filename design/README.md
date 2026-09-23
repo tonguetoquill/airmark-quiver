@@ -110,6 +110,9 @@ Fixtures and a layout check for the `usaf_letter` quill.
 # render a fixture to PDF (run from the repo root)
 node design/usaf_letter/render_fixture.mjs design/usaf_letter/fixtures/maximal.md /tmp/max.pdf
 
+# with no fixture, renders the blueprint the schema seeds
+node design/usaf_letter/render_fixture.mjs /tmp/seed.pdf
+
 # check the rendered PDF against AFH 33-337's line offsets
 python3 design/usaf_letter/validate_letter.py design/usaf_letter/fixtures/maximal.md /tmp/max.pdf
 ```

@@ -12,6 +12,8 @@
   letterhead-caption: "[YOUR SQUADRON/UNIT NAME]",
   letterhead-seal: none,
   letterhead-seal-subtitle: none, // optional line under seal (9pt bold caps); ignored if no seal
+  letterhead-emblem: none, // optional image placed opposite the seal (right side)
+  letterhead-emblem-height: 1in, // emblem fit-box height; reduce for shorter emblems
   letterhead-font: DEFAULT_LETTERHEAD_FONTS,
   body-font: DEFAULT_BODY_FONTS,
   font-size: 12pt,
@@ -50,13 +52,13 @@
   }
   let classification-color = get-classification-level-color(classification-level)
 
-  // The CUI designation indicator block (DoDM 5200.48, Table 1), shown only for
-  // CUI when at least one indicator field is set. Rendered as a bottom-right
-  // page-1 float (see placement below).
+  // Build the CUI designation indicator block (DoDM 5200.48, Table 1), shown
+  // only for CUI when at least one indicator field is set. Rendered as a
+  // bottom-right page-1 float (see placement below).
   let cui-indicator = if (
     classification-level != none
-      and type(classification-level) == str
-      and classification-level.trim().starts-with("CUI")
+    and type(classification-level) == str
+    and classification-level.trim().starts-with("CUI")
   ) {
     // An indicator may arrive as content or as a `str`; `falsey` is the
     // presence test that reads both shapes.
@@ -180,6 +182,8 @@
     letterhead-font,
     letterhead-seal: letterhead-seal,
     letterhead-seal-subtitle: letterhead-seal-subtitle,
+    letterhead-emblem: letterhead-emblem,
+    letterhead-emblem-height: letterhead-emblem-height,
   )
 
   // AFH 33-337: the date sits 1.75 inches from the top of the first page. The
