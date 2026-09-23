@@ -25,7 +25,7 @@ Attachment A/B/C lettering.
 
 ## cyber_ribbon_chart
 
-Fixtures, a render helper, and two checks for the `cyber_ribbon_chart` quill.
+Fixtures, a render helper, and a check for the `cyber_ribbon_chart` quill.
 
 ```sh
 # render a fixture (run from the repo root; .png renders an image, anything else a PDF)
@@ -37,17 +37,9 @@ node design/cyber_ribbon_chart/render_fixture.mjs /tmp/seed.pdf
 
 `maximal.md` is a Captain with three vectors, a tour clipped by the window and
 one placed past it, and every kind of record filled. `minimal.md` is the other
-end: a 2d Lt at a six-year window with one vector, a half-year tour, no
-stratifications and no remarks — the fills where a section collapses rather than
+end: a 2d Lt at a six-year window with one unlabelled vector, a half-year tour,
+no stratifications and no remarks — the fills where a section collapses rather than
 printing an empty heading, and where the record column disappears entirely.
-
-The qualification vocabulary is written twice, as the `enum` a document picks
-from and as the grouped list the plate prints in full. Neither can read the
-other:
-
-```sh
-node design/cyber_ribbon_chart/check_vocabulary.mjs
-```
 
 A ribbon chart is a one-page leave-behind, and `timeline_years` is the lever
 that can cost it that page — more years narrow the columns and the milestone
