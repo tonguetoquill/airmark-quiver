@@ -16,13 +16,13 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "0.28.0",
-    "@quillmark/wasm": "^0.113.0",
-    "quillkit": "0.6.0"
+    "@quillmark/quiver": "0.29.0",
+    "@quillmark/wasm": "^0.115.0",
+    "quillkit": "0.8.0"
   },
   "scripts": {
     "test": "quillkit test",
-    "site": "quillkit site --out site",
+    "site": "quillkit site --out site --drafts",
     "dev": "quillkit studio"
   },
   "keywords": [

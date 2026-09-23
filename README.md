@@ -137,7 +137,9 @@ wasm it was built against, and nothing at runtime reconciles the two. The gate
 is authoritative, studio is advisory.
 
 `npm run site` writes the arrangement a deploy serves into `site/` — the client
-at the root, a built quiver at `quiver/` beneath it — without serving it. CI
+at the root, a built quiver at `quiver/` beneath it — without serving it. It
+passes `--drafts`, so the `0.0.x` prototypes are packed beside the releases and
+every deploy previews them as `npm run dev` does. CI
 uploads that on every run, so a pull request — a fork's included — is reviewed
 by downloading the artifact and serving the directory.
 
