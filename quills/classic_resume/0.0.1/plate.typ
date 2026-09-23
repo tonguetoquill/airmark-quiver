@@ -82,13 +82,23 @@
   link-contacts: data.link_contacts,
 )
 
+// The section titles are the PDF's outline, and a `details` cell cannot decline a
+// heading as a body does, so one written there sets as a bold line outside it.
+#let under-entry(details) = {
+  let body = or-none(details)
+  if body == none { return none }
+  set heading(outlined: false, bookmarked: false)
+  show heading: it => block(strong(it.body))
+  body
+}
+
 #let dated(heading, dates, subtitle, location, details) = entry(
   heading: trim-inline(heading),
   form: "dated",
   dates: trim-inline(dates),
   subtitle: or-none(subtitle),
   location: or-none(location),
-  body: or-none(details),
+  body: under-entry(details),
 )
 
 #for card in data.at("$cards") {
@@ -119,7 +129,7 @@
         heading: trim-inline(project.name),
         form: "linked",
         url: if project.url != "" { project.url } else { none },
-        body: or-none(project.details),
+        body: under-entry(project.details),
       )
     }
   } else if kind == "skills" {

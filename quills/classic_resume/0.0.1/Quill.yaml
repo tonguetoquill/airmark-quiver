@@ -160,7 +160,7 @@ card_kinds:
               default: ""
               example: |
                 - What you did, and what came of it.
-              description: "Set under the entry. Usually a bulleted list, one line each and strongest first; a sentence, *italics* and **bold** set as well. Leave blank for nothing under the entry."
+              description: "Set under the entry. Usually a bulleted list, one line each and strongest first; a sentence, *italics* and **bold** set as well, and a heading sets as a bold line. Leave blank for nothing under the entry."
         example:
           - company: Templar Archives Research Division
             dates: August 2024 – Present

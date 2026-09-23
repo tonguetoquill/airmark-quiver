@@ -45,7 +45,8 @@
   and `check_vocabulary.mjs` goes. The resume's `section` and `entry` cards
   become one card kind per section — `summary`, `experience`, `education`,
   `projects`, `skills`, `certifications`, `other` — each holding its own rows,
-  with what sits under an entry as one `richtext` cell, `details`; `topic` and
+  with what sits under an entry as one `richtext` cell, `details`, where a
+  heading sets as a bold line outside the PDF outline; `topic` and
   `dated | linked` go. Documents written against either earlier shape no longer
   load; both fixtures render byte for byte as before.
 

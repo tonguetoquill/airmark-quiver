@@ -263,7 +263,7 @@ main:
       type: object
       ui:
         group: qualifications
-      description: "Tick what you hold. The page prints the whole 17X vocabulary and marks these — a rater reads the empty boxes as readily as the filled ones, so what you have not done yet is on the page whether you tick it or not."
+      description: "Tick what you hold. The page prints the whole 17X vocabulary and marks these — a rater reads the empty boxes as readily as the filled ones, so what you have not done yet is on the page whether you tick it or not. Written out, a tick is `flight_cc: true`, and a tick with its detail `flight_cc: {held: true, detail: 333 TRS/DO}`."
       properties:
         command:
           type: matrix
