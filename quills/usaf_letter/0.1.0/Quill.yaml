@@ -70,7 +70,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "YYYY-MM-DD, printed as '15 September 2026' flush with the right margin. Leave blank to use today's date."
+      description: "YYYY-MM-DD, printed as '15 September 2026' flush with the right margin. Leave blank to print a fillable PDF text field for the signer to type the date into when signing."
 
     complimentary_close:
       type: plaintext
