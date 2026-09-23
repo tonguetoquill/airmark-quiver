@@ -1,5 +1,5 @@
 #import "@local/quillmark-helper:0.1.0": (
-  data, display, field-region, signature-field,
+  data, display, form-field, signature-field,
 )
 #import "@local/tonguetoquill-usaf-letter:0.1.0": (
   backmatter, date-pattern, frontmatter, mainmatter,
@@ -12,8 +12,32 @@
 // leaves no glyphs and takes no space from the flow, and the seal stands alone.
 #let letterhead_lines = data.letterhead_title
 
-// Body text size, in points.
+// Body text size, in points. Also the height of a blank date's fill-in widget.
 #let body_font_size = data.font_size * 1pt
+
+// A blank date's fill-in slot: an empty AcroForm text box the signer types the
+// date into, set in the body face and flush right, as the printed date would
+// be. Wide enough for the longest date, "30 September 2026", which runs 8em in
+// the body face.
+//
+// The slot claims a cap-height, the extent of a printed date, and the widget
+// overhangs it about the line's middle, so a blank date takes no more room from
+// the flow than a printed one and the page lays out the same either way.
+#let date_slot_width = body_font_size * 8.5
+#let date_slot(name, field) = context box(
+  width: date_slot_width,
+  height: measure[0].height,
+  place(horizon + left, form-field(
+    name,
+    type: "text",
+    width: date_slot_width,
+    height: body_font_size,
+    field: field,
+    font: "times",
+    size: body_font_size,
+    align: "right",
+  )),
+)
 
 #show: frontmatter.with(
   letterhead-title: letterhead_lines.at(0, default: ""),
@@ -34,20 +58,13 @@
   // born in the generated helper, so the letter's date stays click-to-edit
   // however deep the package formats it.
   //
-  // A blank date means today's, and the plate stamps it rather than falling
-  // through to `frontmatter`'s own `datetime.today()`: package-born ink carries
-  // no address, so the one date a letter never types would be the one date a
-  // preview cannot click. `field-region` claims that ink for the field instead.
-  //
-  // The stamp is markup, not the bare `str` `.display()` returns: a `str` off a
-  // function call carries no source position, and ink with none is unclaimable.
+  // A blank date is left for the signer: a letter is dated when it is signed,
+  // which is generally not when it is rendered, so the slot is fillable rather
+  // than stamped with the compile date. Passing it as the date also keeps it
+  // from `frontmatter`'s own `datetime.today()` fallback.
   date: {
     let authored = display("date", date-pattern())
-    if authored != none {
-      authored
-    } else {
-      field-region("date", [#datetime.today().display(date-pattern())])
-    }
+    if authored != none { authored } else { date_slot("Date", "date") }
   },
 
   letter-from: data.letter_from,
