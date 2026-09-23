@@ -4,6 +4,11 @@
 // The three sections compose in document order: `frontmatter` and `mainmatter`
 // as show rules, `backmatter` as a function.
 //
+// `config.typ`, `utils.typ` and `primitives.typ` are `tonguetoquill-usaf-memo`
+// 5.0.0's, byte for byte, so the letterhead, signature block and closing
+// elements the two documents share are set by one implementation and a sync is
+// a copy. The other files are the letter's own.
+//
 // #import "@preview/tonguetoquill-usaf-letter:0.1.0": (
 //   backmatter, frontmatter, mainmatter,
 // )

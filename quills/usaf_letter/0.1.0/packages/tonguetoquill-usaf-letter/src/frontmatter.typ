@@ -184,7 +184,7 @@
 
   // AFH 33-337: the date sits 1.75 inches from the top of the first page. The
   // top margin is 1 inch, so the remainder is made up here.
-  v(spacing.first-page-top - spacing.margin)
+  v(1.75in - spacing.margin)
 
   // Measure one line's stride once, under the typography just set, for the
   // blank-line spacing every element below is laid out on.
@@ -201,14 +201,19 @@
   let has-sender = not falsey(letter-from)
   if has-sender {
     blank-line()
-    render-address-block(letter-from)
+    join-lines(letter-from)
   }
   blank-lines(if has-sender { 2 } else { 1 })
-  render-address-block(letter-for)
+  join-lines(letter-for)
 
-  // A blank salutation prints nothing and takes no line, so the body opens on
-  // the second line below the receiver's address.
-  if not falsey(salutation) { render-salutation(salutation) }
+  // AFH 33-337: the salutation sits on the second line below the receiver's
+  // address, and takes no punctuation after the receiver's last name. A blank
+  // one prints nothing and takes no line, so the body opens on the second line
+  // below the receiver's address.
+  if not falsey(salutation) {
+    blank-line()
+    [#salutation]
+  }
 
   // The body opens on the second line below the salutation, which `mainmatter`
   // supplies: the gap above its first paragraph is the same blank line it puts

@@ -4,7 +4,11 @@
 
 #import "config.typ": *
 #import "utils.typ": *
-#import "primitives.typ": render-letter-table
+#import "primitives.typ": render-memo-table
+
+// AFH 33-337: a personal letter's paragraphs are indented half an inch from the
+// left margin and carry no number or letter.
+#let paragraph-indent = 0.5in
 
 /// Splits content at the closing section: the part this styles as body
 /// paragraphs, and the part that reaches the page untouched.
@@ -43,6 +47,24 @@
   (children.slice(0, boundary).sum(default: []), children.slice(boundary).sum(default: []))
 }
 
+// The body's blocks in order — its own paragraphs, and each list, table and
+// block quote whole — so the last can be found; and how deep in one of those
+// containers the current paragraph sits.
+#let BLOCKS = counter("usaf-letter-blocks")
+#let NESTED = state("usaf-letter-nested", 0)
+
+/// Counts a container as one block of the body and the paragraphs inside it
+/// as none.
+///
+/// - it (content): The container
+/// -> content
+#let container(it) = {
+  BLOCKS.step()
+  NESTED.update(n => n + 1)
+  it
+  NESTED.update(n => n - 1)
+}
+
 /// Show rule for the personal letter's body.
 ///
 /// - it (content): Body content
@@ -54,16 +76,22 @@
     // would otherwise land on the page as an ordinary line break. A blank line
     // is what separates one letter paragraph from the next.
     set par(
-      first-line-indent: (amount: letter-paragraph.first-line-indent, all: true),
+      first-line-indent: (amount: paragraph-indent, all: true),
       spacing: spacing.line + line-stride(),
     )
     // The indent belongs to the letter's own paragraphs. Inside a list, a
     // quote, or a table cell, a line already sits where its container put it.
-    show list: set par(first-line-indent: 0pt)
-    show enum: set par(first-line-indent: 0pt)
+    show list: it => {
+      set par(first-line-indent: 0pt)
+      container(it)
+    }
+    show enum: it => {
+      set par(first-line-indent: 0pt)
+      container(it)
+    }
     show table: it => {
       set par(first-line-indent: 0pt)
-      render-letter-table(it)
+      container(render-memo-table(it))
     }
     // A block quote is the body's unindented block: the author's lines as
     // written, flush with the margin, which is what lets a letter carry a
@@ -71,7 +99,29 @@
     // first line.
     show quote.where(block: true): it => {
       set par(first-line-indent: 0pt)
-      it.body
+      container(it.body)
+    }
+    // AFH 33-337: "Do not place the signature element on a continuation page
+    // by itself." The signature block has no keep-with-previous of its own —
+    // Typst has no such property — so the anchor comes from this side: a body
+    // that ends on a paragraph of its own sets it as a sticky block, carried
+    // onto the next page along with the signature instead of breaking away
+    // from it. A body that ends on a container keeps nothing.
+    //
+    // Bounded, as the memo's is (`render-body`): a sticky block relocates
+    // whole rather than splitting, so a long closing paragraph is left to the
+    // break, which leaves its own tail above the signature.
+    show par: p => context {
+      if NESTED.get() > 0 { return p }
+      BLOCKS.step()
+      context {
+        if BLOCKS.get() != BLOCKS.final() { return p }
+        let budget = (page.height - spacing.margin * 2) / 3
+        let height = measure(p, width: page.width - spacing.margin * 2).height
+        // `above` stands in for the paragraph spacing a bare paragraph would
+        // have taken from the one before it.
+        block(sticky: height <= budget, above: par.spacing, p)
+      }
     }
     body
   }

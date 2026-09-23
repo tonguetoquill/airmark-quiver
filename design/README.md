@@ -128,3 +128,16 @@ copy, so every offset from the date to the `cc:` element is on one page and
 comparable; `maximal.md` carries a CUI banner, a seal subtitle, a tag line, and
 two of each listed element, and runs onto a second page, which is where the
 page numbering is exercised — the first page of a letter is never numbered.
+
+The letter package's `config.typ`, `utils.typ` and `primitives.typ` are
+`usaf_memo@0.3.0`'s, byte for byte: the letterhead, the signature block, and
+the attachment and `cc:` elements with their continuation note are one
+implementation across the two documents. Syncing them is a copy, and a
+divergence shows here:
+
+```sh
+for f in config utils primitives; do
+  cmp quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/src/$f.typ \
+      quills/usaf_letter/0.1.0/packages/tonguetoquill-usaf-letter/src/$f.typ
+done
+```

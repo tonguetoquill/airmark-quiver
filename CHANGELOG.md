@@ -28,6 +28,14 @@
 
 ## Unreleased
 
+- **Add `usaf_letter@0.1.0`, the USAF / DAF Personal Letter, per AFH 33-337.**
+  Its package shares `usaf_memo@0.3.0`'s `config.typ`, `utils.typ` and
+  `primitives.typ` byte for byte, so the letter takes the memo's letterhead,
+  signature block and closing elements as they are, the backmatter
+  continuation note among them. As the memo does, it prints a seal on every
+  letter, slants an italic tag line, and keeps a short closing paragraph with
+  the signature block so the signature never opens a page alone.
+
 - **Take `@quillmark/wasm` 0.115.0, `quillkit` 0.7.0 and `@quillmark/quiver`
   0.29.0.** Every quill loads and renders as before; no quill declares a
   `matrix`, a `ui.layout: table` or an array `max:`, so the contract changes to

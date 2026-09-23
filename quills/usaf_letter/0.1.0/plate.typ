@@ -17,17 +17,14 @@
   letterhead-title: letterhead_lines.at(0, default: ""),
   letterhead-caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
   letterhead-seal-subtitle: data.letterhead_seal_subtitle,
-  // Enum blank is `""`, not a seal. Omit so the package renders none rather
-  // than treating the blank as DoW.
-  ..if data.letterhead_seal != "" {
-    (letterhead-seal: image(
-      if data.letterhead_seal == "dod" {
-        "assets/dod_seal.png"
-      } else {
-        "assets/dow_seal.png"
-      }
-    ))
-  },
+  // A letter has no seal-less state, so the blank takes the default, DoW.
+  letterhead-seal: image(
+    if data.letterhead_seal == "dod" {
+      "assets/dod_seal.png"
+    } else {
+      "assets/dow_seal.png"
+    }
+  ),
 
   // Date. `data.date` is the native `datetime` and would render identically,
   // but its ink would be born inside the package and carry no schema address.
@@ -55,7 +52,14 @@
   letter-for: data.letter_for,
   salutation: data.salutation,
 
-  footer-tag-line: data.tag_line,
+  // The tag line is set in Cinzel, which ships one regular face: `emph` resolves
+  // to it and reads as nothing. The slant is synthesized here, as `usaf_memo`'s
+  // plate does, so the footer the package draws stays the memo's. `box` keeps
+  // the run inline.
+  footer-tag-line: {
+    show emph: it => box(skew(ax: -12deg, reflow: false, it.body))
+    data.tag_line
+  },
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.
@@ -68,7 +72,6 @@
   // reads CUI, and the branch is what makes reading them total: inside it every
   // declared field of that world is present, outside it none is. The package's
   // own `cui_*: none` defaults cover the worlds that omit them.
-  // These only show up for when the classificaiton is CUI 
   ..if data.classification.value == "CUI" {
     (
       cui-controlled-by: data.classification.controlled_by,
