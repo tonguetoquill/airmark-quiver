@@ -240,6 +240,7 @@ main:
           type: matrix
           ui:
             title: Leadership & Command
+            compact: true
           members:
             sq_cc_candidate: Sq/CC Candidate
             do_det_cc_candidate: DO / Det CC Candidate
@@ -256,6 +257,8 @@ main:
               description: "The unit, course, or year that proves it, set in italics under the label. Leave blank where the label says enough on its own."
         operations:
           type: matrix
+          ui:
+            compact: true
           members:
             dodin_ops: DODIN Ops
             dco: DCO (Defensive)
@@ -270,6 +273,7 @@ main:
           type: matrix
           ui:
             title: Staff & Functional
+            compact: true
           members:
             exec_aide_cag: Exec / Aide / CAG
             haf_staff: HAF Staff
@@ -282,6 +286,7 @@ main:
           type: matrix
           ui:
             title: Education & PME
+            compact: true
           members:
             commissioning_dg: Commissioning Source DG
             sos_dg: SOS DG / Top Third
