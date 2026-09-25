@@ -71,14 +71,10 @@
   letter-for: data.letter_for,
   salutation: data.salutation,
 
-  // The tag line is set in Cinzel, which ships one regular face: `emph` resolves
-  // to it and reads as nothing. The slant is synthesized here, as `usaf_memo`'s
-  // plate does, so the footer the package draws stays the memo's. `box` keeps
-  // the run inline.
-  footer-tag-line: {
-    show emph: it => box(skew(ax: -12deg, reflow: false, it.body))
-    data.tag_line
-  },
+  // The package sets the tag line in Cinzel, which has no italic or bold face.
+  // The body font set here, nearer the text, wins and carries real italics and
+  // bold. `usaf_memo`'s plate does the same, so the footer stays the memo's.
+  footer-tag-line: text(font: "NimbusRomNo9L", data.tag_line),
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.

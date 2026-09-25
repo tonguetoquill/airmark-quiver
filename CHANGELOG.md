@@ -28,6 +28,14 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` set the tag line in the body
+  font, not Cinzel.** Cinzel ships one regular face, so `*italics*` in the
+  footer motto could only be a synthesized slant and `**bold**` did not show
+  at all. Each plate now wraps the tag line in the body font, which overrides
+  the package's Cinzel and has real italic and bold faces. Every tag line
+  changes typeface, including one with no emphasis. It keeps its size, color
+  and position.
+
 - **`usaf_memo@0.3.0` leaves a blank memo date fillable.** A memo is dated
   when it is signed, so a blank `date` now prints an empty PDF text field for
   the signer, as a blank indorsement date already did, instead of the compile
@@ -46,10 +54,10 @@
   `primitives.typ` byte for byte, so the letter takes the memo's letterhead,
   signature block and closing elements as they are, the backmatter
   continuation note among them. As the memo does, it prints a seal on every
-  letter, slants an italic tag line, and keeps a short closing paragraph with
-  the signature block so the signature never opens a page alone. A blank date
-  prints an empty PDF text field for the signer rather than the compile date,
-  and the page lays out the same whether the date is filled or blank.
+  letter and keeps a short closing paragraph with the signature block so the
+  signature never opens a page alone. A blank date prints an empty PDF text
+  field for the signer rather than the compile date, and the page lays out the
+  same whether the date is filled or blank.
 
 - **Take `@quillmark/wasm` 0.115.0, `quillkit` 0.7.0 and `@quillmark/quiver`
   0.29.0.** Every quill loads and renders as before; no quill declares a
@@ -97,14 +105,6 @@
   them removed the seal. The seal is not optional, so the plate treats the
   blank as the default and prints DoW, and the description names the two seals
   and nothing else. `dod` is unchanged.
-
-- **`usaf_memo@0.3.0` slants an italic tag line.** The footer motto is set in
-  Cinzel, which ships a regular face and no italic one, so `emph` resolved to
-  the regular and the mark reached the page as nothing. The slant is
-  synthesized instead, by a `show emph` rule the plate wraps the tag line in —
-  the package's `src/` stays upstream's verbatim — and the run is boxed to keep
-  it inline with the text around it. A tag line carrying no emphasis renders
-  unchanged.
 
 - **`usaf_memo@0.3.0`'s vendored `src/` is a verbatim copy of upstream.** Every
   `.typ` file matches `tonguetoquill/typst-usaf-memo` byte for byte, so a sync
