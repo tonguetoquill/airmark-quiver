@@ -157,6 +157,17 @@
     height: body_font_size * 2.5,
   ),
 
+  ..if data.junior_signature_block.len() > 0 {
+    (
+      junior-signature-block: data.junior_signature_block,
+      junior-signing-field: signature-field(
+        "Junior_Signature",
+        field: "junior_signature_block",
+        height: body_font_size * 2.5,
+      ),
+    )
+  },
+
   ..if data.cc.len() > 0 { (cc: data.cc) },
 
   ..if data.distribution.len() > 0 { (distribution: data.distribution) },
