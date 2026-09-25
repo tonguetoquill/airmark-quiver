@@ -49,7 +49,7 @@ main:
       ui:
         group: officer
         compact: true
-      description: "Commissioning year group. Every milestone on the timeline is counted from this year, so it is the one number that changes the whole chart — a board at YG+7 lands in this year plus seven."
+      description: "Commissioning year group. Every milestone on the timeline is counted from this year, so it is the one number that changes the whole chart — a board at YG+8 lands in this year plus eight."
 
     adjusted_yg:
       type: integer
