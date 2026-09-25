@@ -32,6 +32,29 @@
   italic face, so `*italics*` in the tag line were a synthesized slant; the
   body font's own italic and bold faces now render instead.
 
+- **`usaf_memo@0.3.0` leaves a blank memo date fillable.** A memo is dated
+  when it is signed, so a blank `date` now prints an empty PDF text field for
+  the signer, as a blank indorsement date already did, instead of the compile
+  date. A `separate_page` indorsement header that restates the memo's date gets
+  a field of its own there.
+
+- **`usaf_memo@0.3.0`'s blank dates no longer move the page.** The fill-in slot
+  stood `1em` above the baseline where a line of text stands a cap-height, so a
+  blank indorsement date pushed everything below its header line down 4pt.
+  Both dates' slots are now built in `plate.typ`, a cap-height tall, and a
+  document lays out the same whether its dates are filled or blank. The widget
+  is set in Times at the body size, flush right, and sized to the longest date.
+
+- **Add `usaf_letter@0.1.0`, the USAF / DAF Personal Letter, per AFH 33-337.**
+  Its package shares `usaf_memo@0.3.0`'s `config.typ`, `utils.typ` and
+  `primitives.typ` byte for byte, so the letter takes the memo's letterhead,
+  signature block and closing elements as they are, the backmatter
+  continuation note among them. As the memo does, it prints a seal on every
+  letter, slants an italic tag line, and keeps a short closing paragraph with
+  the signature block so the signature never opens a page alone. A blank date
+  prints an empty PDF text field for the signer rather than the compile date,
+  and the page lays out the same whether the date is filled or blank.
+
 - **Take `@quillmark/wasm` 0.115.0, `quillkit` 0.7.0 and `@quillmark/quiver`
   0.29.0.** Every quill loads and renders as before; no quill declares a
   `matrix`, a `ui.layout: table` or an array `max:`, so the contract changes to
