@@ -184,7 +184,7 @@ main:
             example: "#1/14 Capts"
             ui:
               title: Rater
-            description: "Your rater's stratification, as it was written."
+            description: "Your rater's stratification as it was written, such as '#1/14 Capts'."
           hlr_strat:
             type: plaintext
             inline: true
@@ -192,9 +192,9 @@ main:
             example: "#1/45 CGOs"
             ui:
               title: Higher Level Reviewer
-            description: "Your Higher Level Reviewer's stratification, as it was written. Leave blank where you drew none."
+            description: "Your Higher Level Reviewer's stratification as it was written, such as '#1/45 CGOs'. Leave blank where you drew none."
       default: []
-      description: "Your last three years of stratifications, most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them."
+      description: "Your last three years of stratifications, most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them. Written out, a row is `{year: \"2026\", rater_strat: \"#1/14 Capts\", hlr_strat: \"#1/45 CGOs\"}`."
 
     awards:
       type: array
