@@ -104,8 +104,9 @@
 
   ..if data.references.len() > 0 { (references: data.references) },
 
-  // The package sets the tag line in Cinzel, which has no italic face. The body
-  // font set here, nearer the text, wins and carries real italics.
+  // The package sets the tag line in Cinzel, which has no italic or bold face.
+  // The body font set here, nearer the text, wins and carries real italics and
+  // bold.
   footer-tag-line: text(font: "NimbusRomNo9L", data.tag_line),
 
   // The blank reads as no banner, which is what the package's own
