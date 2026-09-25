@@ -28,6 +28,15 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` takes dual signatures.** A new `junior_signature_block`
+  field, blank by default, prints the junior ranking official's block at the
+  left margin, level with the senior's at 4.5 inches, per AFH 33-337. Each
+  block has its own signing widget. The authority line stays above the senior
+  block. A memo that leaves the field blank renders byte for byte as before.
+  The change is in the vendored `primitives.typ` and `backmatter.typ`, which
+  now differ from upstream `tonguetoquill/typst-usaf-memo` until it takes the
+  same patch; `usaf_letter@0.1.0`'s shared `primitives.typ` carries it too.
+
 - **`cyber_ribbon_chart@0.0.1` moves the Maj board to YG+8, opens a new
   document blank, and names the Higher Level Reviewer's stratification**
   (#169). The quill is a prototype, so 0.0.1 changes in place. The board
