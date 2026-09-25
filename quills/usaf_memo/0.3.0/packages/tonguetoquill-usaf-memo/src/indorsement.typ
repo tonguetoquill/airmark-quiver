@@ -21,6 +21,9 @@
   // indorsement header (see `date-placeholder-slot`). Without one the slot is
   // ruled for a handwritten date.
   date-field: none,
+  // The original memo's date as the separate-page header restates it. `auto`
+  // restates the date `frontmatter` was given.
+  original-date: auto,
   // Format of indorsement: "standard" (same page), "informal" (no header), or "separate_page" (starts on new page)
   format: "standard",
   // Decision action. `none` (default) displays no action line at all.
@@ -74,7 +77,7 @@
       let config = query(<usaf-memo-config>).first().value
       let memo-style = config.at("memo-style", default: "usaf")
       let original-subject = config.subject
-      let original-date = config.original-date
+      let original-date = if original-date == auto { config.original-date } else { original-date }
       let original-from = config.original-from
 
       let indorsement-number = counters.indorsement.get().at(0, default: 1)

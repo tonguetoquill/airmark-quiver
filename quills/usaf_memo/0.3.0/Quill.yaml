@@ -87,7 +87,21 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title."
+      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. With a junior signature block, this is the senior ranking official's."
+
+    junior_signature_block:
+      type: array
+      items:
+        type: plaintext
+        inline: true
+      default: []
+      example:
+        - "FIRST M. LAST, Rank, USAF"
+        - Duty Title
+      ui:
+        group: addressing
+        compact: true
+      description: "Only when dual signatures are required: the junior ranking official's signature block, printed at the left margin beside the senior's. Same lines as the Signature Block. Leave blank for a single signer."
 
     letterhead_title:
       type: array
