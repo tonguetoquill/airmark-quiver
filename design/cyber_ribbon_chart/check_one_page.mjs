@@ -21,7 +21,6 @@ const quiver = await fromDir(repoRoot);
 const engine = new Engine();
 const quill = await quiver.getQuill("cyber_ribbon_chart@0.0.1");
 
-
 // 6 is the shortest window a young officer would set; 18 is the one the
 // `timeline_years` description points at, because it is where the last SDE look
 // comes into view. Every year between them has to hold the page too.

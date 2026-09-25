@@ -28,20 +28,20 @@
 
 ## Unreleased
 
-- **`cyber_ribbon_chart@0.0.1` takes a process SME's review, edited in place
-  while it is a prototype.** The Maj board moves from YG+7 to YG+8, sharing a
-  column with IDE 1st look. In a window over twelve years the board and look
-  chips take 2pt of side padding rather than 3.5pt, which keeps "Maj board" on
-  one line at eighteen years. A new document opens as a blank planning sheet:
-  no duty title, degree, stratifications, awards, certifications or
-  deployments, and three empty vectors marked Primary, Alternate and Backup. A
-  stratification row's `duty_strat` and `senior_rater_strat` become
-  `rater_strat` and `hlr_strat`, the second being the Higher Level Reviewer's,
-  and the examples write them `#1/14`. The four qualifications matrices declare
-  `ui.compact`, so the editor lays each one's items out in columns. Otherwise a
-  document prints as it did, except one still using the old keys: it loads,
-  validates and renders without a diagnostic, and prints each stratification
-  year with nothing beside it.
+- **`cyber_ribbon_chart@0.0.1` moves the Maj board to YG+8, opens a new
+  document blank, and names the Higher Level Reviewer's stratification**
+  (#169). The quill is a prototype, so 0.0.1 changes in place. The board
+  shares a column with IDE 1st look. In a window over twelve years the board
+  and look chips take 2pt of side padding rather than 3.5pt, which keeps "Maj
+  board" on one line at eighteen years. A new document opens as a blank
+  planning sheet: three empty vectors marked Primary, Alternate and Backup,
+  and no duty title, degree, stratifications, awards, certifications or
+  deployments. A stratification row's `duty_strat` and `senior_rater_strat`
+  become `rater_strat` and `hlr_strat`, and the examples and descriptions
+  write a stratification `#1/14`. A document still using the old keys loads
+  and renders without a diagnostic, and prints each stratification year with
+  nothing beside it. The four qualifications matrices declare `ui.compact`, so
+  the editor lays each checklist out in as many columns as the width allows.
 
 - **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` set the tag line in the body
   font, not Cinzel.** Cinzel ships one regular face, so `*italics*` in the

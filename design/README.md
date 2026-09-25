@@ -44,7 +44,8 @@ printing an empty heading, and where the record column disappears entirely.
 A ribbon chart is a one-page leave-behind, and `timeline_years` is the lever
 that can cost it that page — more years narrow the columns and the milestone
 chips wrap taller as they do. `quillkit test` renders the near-empty seed and
-never sees it, so both fixtures sweep the windows the schema recommends:
+never sees it, so the check sweeps both fixtures across the windows the schema
+recommends:
 
 ```sh
 node design/cyber_ribbon_chart/check_one_page.mjs

@@ -40,7 +40,7 @@ main:
       default: ""
       ui:
         group: officer
-      description: "Current duty title and unit, as in '17S Instructor · 333 TRS, Keesler AFB', printed in one line under your name. Where you are today, not where you are going."
+      description: "Current duty title and unit, such as '17S Instructor · 333 TRS, Keesler AFB', printed in one line under your name. Where you are today, not where you are going."
 
     commissioning_yg:
       type: integer
@@ -81,7 +81,7 @@ main:
       ui:
         group: officer
         compact: true
-      description: "Advanced academic degree, in hand or in progress, as in 'MS Cyber Operations, AFIT'. Leave blank if you hold none — the slot prints a dash rather than disappearing, because its absence is itself information to a board."
+      description: "Advanced academic degree, in hand or in progress, such as 'MS Cyber Operations, AFIT'. Leave blank if you hold none — the slot prints a dash rather than disappearing, because its absence is itself information to a board."
 
     timeline_start_year:
       type: integer
