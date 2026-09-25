@@ -29,9 +29,14 @@ const failures = [];
 
 for (const fixture of ["maximal.md", "minimal.md"]) {
   const source = readFileSync(resolve(__dirname, "fixtures", fixture), "utf8");
+  const windowLine = /^timeline_years: \d+$/m;
+  if (!windowLine.test(source)) {
+    console.error(`${fixture} has no bare \`timeline_years: N\` line to sweep`);
+    process.exit(1);
+  }
   console.log(fixture);
   for (const years of windows) {
-    const md = source.replace(/^timeline_years: \d+$/m, `timeline_years: ${years}`);
+    const md = source.replace(windowLine, `timeline_years: ${years}`);
     const doc = Document.fromMarkdown(md);
     let result;
     try {
