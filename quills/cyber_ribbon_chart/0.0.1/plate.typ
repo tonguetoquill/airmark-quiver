@@ -53,7 +53,7 @@
 #let ladder = (
   (3, "Cyber 200", "course"),
   (4, "SOS window", "course"),
-  (7, "Maj board", "board"),
+  (8, "Maj board", "board"),
   (8, "IDE 1st look", "look"),
   (9, "Cyber 300", "course"),
   (9, "IDE 2nd look", "look"),
@@ -76,14 +76,15 @@
 #let narrow = years > 12
 #let band-height = 0.52in
 #let chip-size = if narrow { 5.6pt } else { 6.2pt }
+#let chip-inset = if narrow { 2pt } else { 3.5pt }
 
 // Three weights of gate, by what each one is: a board ranks you against a year
 // group on a date, a look is one of a numbered series, a course is a seat.
 #let chip(label, tier) = {
   if tier == "board" {
-    box(fill: ink, inset: (x: 3.5pt, y: 2pt))[#text(size: chip-size, weight: 700, fill: white)[#label]]
+    box(fill: ink, inset: (x: chip-inset, y: 2pt))[#text(size: chip-size, weight: 700, fill: white)[#label]]
   } else if tier == "look" {
-    box(fill: none, stroke: 0.5pt + ink, inset: (x: 3.5pt, y: 2pt))[#text(size: chip-size, weight: 600)[#label]]
+    box(fill: none, stroke: 0.5pt + ink, inset: (x: chip-inset, y: 2pt))[#text(size: chip-size, weight: 600)[#label]]
   } else {
     box(inset: (x: 0.5pt, y: 2pt))[#text(size: chip-size, fill: mute)[#label]]
   }
@@ -341,9 +342,9 @@
         #grid(columns: (0.44in, 1fr), column-gutter: 7pt, align: (right + top, left + top),
           text(size: 8.5pt, weight: 700)[#s.year],
           [
-            #if not blank(s.duty_strat) [#text(size: 8pt)[#s.duty_strat]]
-            #if not blank(s.duty_strat) and not blank(s.senior_rater_strat) [#linebreak()]
-            #if not blank(s.senior_rater_strat) [#text(size: 7.4pt, fill: mute)[#s.senior_rater_strat]]
+            #if not blank(s.rater_strat) [#text(size: 8pt)[#s.rater_strat]]
+            #if not blank(s.rater_strat) and not blank(s.hlr_strat) [#linebreak()]
+            #if not blank(s.hlr_strat) [#text(size: 7.4pt, fill: mute)[#s.hlr_strat]]
           ],
         )
       ]

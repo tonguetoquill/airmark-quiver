@@ -38,10 +38,9 @@ main:
       type: plaintext
       inline: true
       default: ""
-      example: 17S Instructor · 333 TRS, Keesler AFB
       ui:
         group: officer
-      description: "Current duty title and unit, printed in one line under your name. Where you are today, not where you are going."
+      description: "Current duty title and unit, such as '17S Instructor · 333 TRS, Keesler AFB', printed in one line under your name. Where you are today, not where you are going."
 
     commissioning_yg:
       type: integer
@@ -49,7 +48,7 @@ main:
       ui:
         group: officer
         compact: true
-      description: "Commissioning year group. Every milestone on the timeline is counted from this year, so it is the one number that changes the whole chart — a board at YG+7 lands in this year plus seven."
+      description: "Commissioning year group. Every milestone on the timeline is counted from this year, so it is the one number that changes the whole chart — a board at YG+8 lands in this year plus eight."
 
     adjusted_yg:
       type: integer
@@ -79,11 +78,10 @@ main:
       type: plaintext
       inline: true
       default: ""
-      example: MS Cyber Operations, AFIT
       ui:
         group: officer
         compact: true
-      description: "Advanced academic degree, in hand or in progress. Leave blank if you hold none — the slot prints a dash rather than disappearing, because its absence is itself information to a board."
+      description: "Advanced academic degree, in hand or in progress, such as 'MS Cyber Operations, AFIT'. Leave blank if you hold none — the slot prints a dash rather than disappearing, because its absence is itself information to a board."
 
     timeline_start_year:
       type: integer
@@ -120,7 +118,7 @@ main:
             inline: true
             default: ""
             example: Primary
-            description: "What this vector is for, set small under the label — 'Primary', 'Alternate / Staff', 'Joint / Special'. Leave blank where the label already says it."
+            description: "What this vector is for, set small under the label — 'Primary', 'Alternate', 'Backup'. Leave blank where the label already says it."
           tours:
             type: array
             ui:
@@ -157,21 +155,12 @@ main:
                   description: "Tick for a school you would move for — IDE or SDE in residence, Weapons School — rather than a duty assignment. It prints outlined instead of filled, so a year in a classroom does not read as a year in a job."
             description: "The assignments on this row, in the order you would serve them. Tours lay end to end from the start of the timeline, so there are no dates to keep in step."
       example:
-        - label: Vector 1
-          focus: Primary — command track
-          tours:
-            - { title: 333 TRS Instructor, duration: "2", vml: Summer }
-            - { title: 333 TRS / DO, duration: "1.5", vml: Winter }
-            - { title: IDE in residence, duration: "1", vml: Summer, school: true }
-            - { title: Sq/CC, duration: "2", vml: Summer }
-        - label: Vector 2
-          focus: Alternate — staff depth
-          tours:
-            - { title: 17X CFM Staff, duration: "2.5", vml: Winter }
-            - { title: MAJCOM A3 Division Chief, duration: "2", vml: Summer }
+        - { label: Vector 1, focus: Primary, tours: [] }
+        - { label: Vector 2, focus: Alternate, tours: [] }
+        - { label: Vector 3, focus: Backup, tours: [] }
       ui:
         group: timeline
-      description: "One row per alternative career path. Three is the conventional chart and all the page holds — a primary, an alternate, and a joint or special path. One is a plan; three is a conversation."
+      description: "One row per alternative career path. Three is the conventional chart and all the page holds — a primary, an alternate, and a backup. One is a plan; three is a conversation."
 
     stratifications:
       type: array
@@ -188,33 +177,24 @@ main:
             inline: true
             example: "2026"
             description: "The reporting year."
-          duty_strat:
+          rater_strat:
             type: plaintext
             inline: true
             default: ""
-            example: "#1 of 14 Capts"
+            example: "#1/14 Capts"
             ui:
               title: Rater
-            description: "Your rater's stratification, as it was written."
-          senior_rater_strat:
+            description: "Your rater's stratification as it was written, such as '#1/14 Capts'."
+          hlr_strat:
             type: plaintext
             inline: true
             default: ""
-            example: "#1 of 45 CGOs"
+            example: "#1/45 CGOs"
             ui:
-              title: Senior rater
-            description: "Your senior rater's stratification, as it was written. Leave blank where you drew none."
-      example:
-        - year: "2026"
-          duty_strat: "#1 of 14 Capts"
-          senior_rater_strat: "#1 of 45 CGOs"
-        - year: "2025"
-          duty_strat: "#2 of 12 Capts"
-          senior_rater_strat: "#3 of 40 CGOs"
-        - year: "2024"
-          duty_strat: "#1 of 8 Lts"
-          senior_rater_strat: Top 10%
-      description: "Your last three years of stratifications, most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them."
+              title: Higher Level Reviewer
+            description: "Your Higher Level Reviewer's stratification as it was written, such as '#1/45 CGOs'. Leave blank where you drew none."
+      default: []
+      description: "Your last three years of stratifications, most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them. Written out, a row is `{year: \"2026\", rater_strat: \"#1/14 Capts\", hlr_strat: \"#1/45 CGOs\"}`."
 
     awards:
       type: array
@@ -222,9 +202,6 @@ main:
         type: plaintext
         inline: true
       default: []
-      example:
-        - Wing CGOQ ×2
-        - HAF A2/6 CGOY 2025
       ui:
         group: record
       description: "Major awards, one per line, strongest first. Wing level and above earns a line; anything smaller costs more room than it wins."
@@ -235,10 +212,6 @@ main:
         type: plaintext
         inline: true
       default: []
-      example:
-        - SANS FOR577 (GLIR)
-        - CISSP
-        - Security+
       ui:
         group: record
       description: "Certifications and courses, one per line. Name the certification a board would recognize rather than every course you have sat."
@@ -249,8 +222,6 @@ main:
         type: plaintext
         inline: true
       default: []
-      example:
-        - 1× short tour — returned Jan 2024
       ui:
         group: record
       description: "Deployments and short tours, one per line. Include the return date: it is what a rater needs to work out when you are next eligible."
@@ -269,6 +240,7 @@ main:
           type: matrix
           ui:
             title: Leadership & Command
+            compact: true
           members:
             sq_cc_candidate: Sq/CC Candidate
             do_det_cc_candidate: DO / Det CC Candidate
@@ -285,6 +257,8 @@ main:
               description: "The unit, course, or year that proves it, set in italics under the label. Leave blank where the label says enough on its own."
         operations:
           type: matrix
+          ui:
+            compact: true
           members:
             dodin_ops: DODIN Ops
             dco: DCO (Defensive)
@@ -299,6 +273,7 @@ main:
           type: matrix
           ui:
             title: Staff & Functional
+            compact: true
           members:
             exec_aide_cag: Exec / Aide / CAG
             haf_staff: HAF Staff
@@ -311,6 +286,7 @@ main:
           type: matrix
           ui:
             title: Education & PME
+            compact: true
           members:
             commissioning_dg: Commissioning Source DG
             sos_dg: SOS DG / Top Third

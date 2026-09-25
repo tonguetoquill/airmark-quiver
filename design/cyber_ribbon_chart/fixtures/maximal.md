@@ -34,14 +34,14 @@ vectors:
       - { title: Post-window follow-on, duration: "4", vml: Summer }
 stratifications:
   - year: "2026"
-    duty_strat: "#1 of 14 Capts"
-    senior_rater_strat: "#1 of 45 CGOs"
+    rater_strat: "#1/14 Capts"
+    hlr_strat: "#1/45 CGOs"
   - year: "2025"
-    duty_strat: "#2 of 12 Capts"
-    senior_rater_strat: "#3 of 40 CGOs"
+    rater_strat: "#2/12 Capts"
+    hlr_strat: "#3/40 CGOs"
   - year: "2024"
-    duty_strat: "#1 of 8 Lts"
-    senior_rater_strat: Top 10%
+    rater_strat: "#1/8 Lts"
+    hlr_strat: Top 10%
 awards:
   - Wing CGOQ ×2
   - HAF A2/6 CGOY 2025
