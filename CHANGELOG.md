@@ -33,9 +33,20 @@
   left margin, level with the senior's at 4.5 inches, per AFH 33-337. Each
   block has its own signing widget. The authority line stays above the senior
   block. A memo that leaves the field blank renders byte for byte as before.
-  The change is in the vendored `primitives.typ` and `backmatter.typ`, which
-  now differ from upstream `tonguetoquill/typst-usaf-memo` until it takes the
-  same patch; `usaf_letter@0.1.0`'s shared `primitives.typ` carries it too.
+  `usaf_letter@0.1.0`'s shared `primitives.typ` carries it too.
+
+- **`usaf_memo@0.3.0` compiles a blank memo date beside a pushed indorsement.**
+  An indorsement moved to a page of its own restates the memo's date, and with
+  the date blank both the memo and the restatement named their widget `Date`,
+  which failed the compile. Whether the indorsement moved depended on the page
+  above it, so filling in the authority line could hide the failure. Each
+  indorsement now restates a blank memo date in a widget of its own,
+  `Ind_<n>_Memo_Date`, through a new `original-date` parameter on
+  `indorsement`.
+
+  Both changes are in the vendored `primitives.typ`, `backmatter.typ` and
+  `indorsement.typ`, which differ from upstream
+  `tonguetoquill/typst-usaf-memo` until it takes the same patch.
 
 - **`cyber_ribbon_chart@0.0.1` moves the Maj board to YG+8, opens a new
   document blank, and names the Higher Level Reviewer's stratification**

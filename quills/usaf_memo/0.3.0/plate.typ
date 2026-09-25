@@ -19,6 +19,8 @@
 // Body text size, in points. Also the height of a blank date's fill-in widget.
 #let body_font_size = data.font_size * 1pt
 
+#let memo_date = display("date", date-pattern(memo-style: memo_style))
+
 // A blank date's fill-in slot: an empty AcroForm text box the signer types the
 // date into, set in the body face. The value sits flush right in a date line's
 // slot, as the printed date would, and flush left where the date runs on inside
@@ -71,29 +73,7 @@
   // which is generally not when it is rendered, so the slot is fillable rather
   // than stamped with the compile date. Passing it as the date also keeps it
   // from `frontmatter`'s own `datetime.today()` fallback.
-  //
-  // The package places this content again wherever an indorsement's header
-  // restates the original memo (`separate_page`, or one pushed to a new page).
-  // A widget name may occur once, so each placement after the first is a widget
-  // of its own, still addressed to `date`, and set flush left: the restatement
-  // is mid-sentence.
-  date: {
-    let authored = display("date", date-pattern(memo-style: memo_style))
-    if authored != none {
-      authored
-    } else {
-      let placements = state("usaf-memo-date-slot-placements", 0)
-      placements.update(n => n + 1)
-      context {
-        let n = placements.get()
-        if n == 1 {
-          date_slot("Date", "date")
-        } else {
-          date_slot("Date_" + str(n), "date", align: "left")
-        }
-      }
-    }
-  },
+  date: if memo_date != none { memo_date } else { date_slot("Date", "date") },
 
   memo-for: data.memo_for,
 
@@ -238,6 +218,15 @@
         resolved_date
       } else {
         date_slot("Ind_" + str(i) + "_Date", card.at("$path") + "date")
+      },
+      // The header an indorsement takes on a page of its own restates the
+      // memo's date. A widget name may occur once, so a blank memo date is
+      // restated as a widget of this card's own, still addressed to `date`, and
+      // set flush left: the restatement is mid-sentence.
+      original-date: if memo_date != none {
+        memo_date
+      } else {
+        date_slot("Ind_" + str(i) + "_Memo_Date", "date", align: "left")
       },
       ..if card.action != "" { (action: card.action) },
       approval-authority: i == last_indorsement_index,
