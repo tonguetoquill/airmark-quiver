@@ -28,6 +28,21 @@
 
 ## Unreleased
 
+- **Take `@quillmark/wasm` 0.116.0, `quillkit` 0.9.0 and `@quillmark/quiver`
+  0.30.0. Every quill now needs wasm 0.116 or later to load.** 0.116 reads a
+  label as a top-level `title` beside `description` and refuses `ui.title` and
+  `body.unsupported`, so every quill but `usaf_letter@0.1.0` failed to load
+  under it. Each literal `ui.title` moves to its field's or card kind's
+  `title`, in every version, published ones included; a 0.115 engine refuses
+  that key, so this quiver and a consumer's wasm move together. The `{field}`
+  row titles on `classic_resume@0.0.1` and `cyber_ribbon_chart@0.0.1` go, 0.116
+  having no templated title, and so does both prototypes' `body.unsupported`.
+  Every design fixture, and every quill's 0.115 blueprint, renders the same
+  pages as before. 0.116 seeds no `example:`, so a new document opens with
+  every field and body empty rather than filled with the examples;
+  `cyber_ribbon_chart@0.0.1`'s three blank vectors become the field's
+  `default:` so a new chart still opens on them.
+
 - **`cyber_ribbon_chart@0.0.1` moves the Maj board to YG+8, opens a new
   document blank, and names the Higher Level Reviewer's stratification**
   (#169). The quill is a prototype, so 0.0.1 changes in place. The board
@@ -39,9 +54,10 @@
   deployments. A stratification row's `duty_strat` and `senior_rater_strat`
   become `rater_strat` and `hlr_strat`, and the examples and descriptions
   write a stratification `#1/14`. A document still using the old keys loads
-  and renders without a diagnostic, and prints each stratification year with
-  nothing beside it. The four qualifications matrices declare `ui.compact`, so
-  the editor lays each checklist out in as many columns as the width allows.
+  and renders, warning `validation::unknown_field` at each old key, and prints
+  each stratification year with nothing beside it. The four qualifications
+  matrices declare `ui.compact`, so the editor lays each checklist out in as
+  many columns as the width allows.
 
 - **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` set the tag line in the body
   font, not Cinzel.** Cinzel ships one regular face, so `*italics*` in the
