@@ -17,7 +17,7 @@ spaced lines, so its stride is what one line is at whatever size the letter is
 set in. A change of `font_size` moves every baseline and leaves every number
 here where it was.
 
-`quillkit test` renders each quill's example document and reports that it
+`quillkit test` renders each quill's blank seed and reports that it
 rendered. The offsets are what it cannot see.
 
 Needs `pymupdf` and `pyyaml`.

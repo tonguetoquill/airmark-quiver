@@ -121,7 +121,7 @@ python3 design/usaf_letter/validate_letter.py design/usaf_letter/fixtures/maxima
 `validate_letter.py` needs `pymupdf` and `pyyaml`.
 
 AFH 33-337 places every element of a personal letter a stated number of lines
-below the one before it, and `quillkit test` renders the example document
+below the one before it, and `quillkit test` renders a blank seed
 without reading a single one of those offsets. The check reads them off the
 rendered baselines, in lines rather than points: the line is the stride of the
 sender's address block, a run of consecutive single-spaced lines, so a letter

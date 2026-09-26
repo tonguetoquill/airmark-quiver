@@ -95,9 +95,9 @@ main:
 
 card_kinds:
   itinerary:
+    title: Proposed Travel Itinerary
     description: "Each card represents one row in the travel itinerary table. Up to 10 rows are supported."
     ui:
-      title: Proposed Travel Itinerary
       groups: [itinerary_entry]
     body:
       enabled: false

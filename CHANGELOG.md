@@ -28,6 +28,32 @@
 
 ## Unreleased
 
+- **Migrate the quills to `@quillmark/wasm` 0.116.0.** A seed commits no
+  `example:` now: `quillkit test` renders, and the studio opens on, each quill
+  with every field at its `default:` or blank and every body empty, and a
+  `body.example` is the placeholder an editor shows rather than starter prose.
+  Every plate renders that blank document, and every design fixture renders
+  byte for byte as before. No version moves: the released quills change only
+  where a label is declared, and the prototypes change in place.
+  - A card kind's or field's label is a top-level `title` beside
+    `description`, where `ui.title` no longer loads. The tables in
+    `classic_resume@0.0.1` and `cyber_ribbon_chart@0.0.1` drop their row
+    titles (`{company}`, `{label}`, `{year}` and the rest), which the loader
+    refuses; the field that names each row already comes first.
+  - `body.unsupported` no longer loads, so `classic_resume@0.0.1` and
+    `cyber_ribbon_chart@0.0.1` drop theirs, and a body construct their plates
+    do not typeset stops warning. The resume's sections also drop
+    `body.example: ""`, which kept a seeded body empty.
+  - `cyber_ribbon_chart@0.0.1`'s three vectors move from `example:` to
+    `default:`, so a new document still opens on empty rows marked Primary,
+    Alternate and Backup. A document that omits `vectors` now prints them too,
+    where it printed none; `vectors: []` prints none.
+  - `afmc_moa@0.0.1` skips a section card with an empty body, which printed a
+    bare paragraph number, and drops `times new roman` from its package's font
+    list, which no quill carries and which warned on every render. Its section
+    cards no longer seed DoDI 4000.19 Figure 1's text; that text stays each
+    body's `body.example`.
+
 - **`cyber_ribbon_chart@0.0.1` moves the Maj board to YG+8, opens a new
   document blank, and names the Higher Level Reviewer's stratification**
   (#169). The quill is a prototype, so 0.0.1 changes in place. The board

@@ -60,7 +60,8 @@
 #let card-body(kind) = {
   let bodies = ()
   for card in data.at("$cards") {
-    if card.at("$kind", default: none) == kind and "$body" in card {
+    // An empty body arrives as the string `""`, and would print a bare number.
+    if card.at("$kind", default: none) == kind and type(card.at("$body", default: "")) != str {
       bodies.push(card.at("$body"))
     }
   }

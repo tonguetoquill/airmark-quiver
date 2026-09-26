@@ -35,9 +35,9 @@ main:
 
 card_kinds:
   experience:
+    title: Record of Experience
     description: Each card represents one row in the Record of Experience table. Rows fill page 1 (up to 16 rows) then page 2 (up to 21 rows), for a maximum of 37 rows.
     ui:
-      title: Record of Experience
       groups: [record]
     body:
       enabled: false
