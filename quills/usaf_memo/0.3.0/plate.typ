@@ -137,12 +137,12 @@
     height: body_font_size * 2.5,
   ),
 
-  ..if data.junior_signature_block.len() > 0 {
+  ..if data.dual_signature_block.len() > 0 {
     (
-      junior-signature-block: data.junior_signature_block,
-      junior-signing-field: signature-field(
-        "Junior_Signature",
-        field: "junior_signature_block",
+      dual-signature-block: data.dual_signature_block,
+      dual-signing-field: signature-field(
+        "Dual_Signature",
+        field: "dual_signature_block",
         height: body_font_size * 2.5,
       ),
     )

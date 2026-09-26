@@ -87,9 +87,9 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. With a junior signature block, this is the senior ranking official's."
+      description: "Line 1: Name in UPPERCASE as signed, grade, and service. Line 2: Duty title. With a dual signature, this block prints 4.5 inches from the left edge; per AFH 33-337 it belongs to the senior ranking official."
 
-    junior_signature_block:
+    dual_signature_block:
       type: array
       items:
         type: plaintext
@@ -101,7 +101,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "Only when dual signatures are required: the junior ranking official's signature block, printed at the left margin beside the senior's. Same lines as the Signature Block. Leave blank for a single signer."
+      description: "A second signature block, printed at the left margin beside the Signature Block, for a memo two officials sign. Same lines as the Signature Block. AFH 33-337: 'If dual signatures are required, type the junior ranking official's signature block at the left margin; type the senior ranking official's signature block 4.5 inches from the left edge of the page or three spaces to the right of page center.' So put the junior official here and the senior in the Signature Block. Leave blank for a single signer."
 
     letterhead_title:
       type: array

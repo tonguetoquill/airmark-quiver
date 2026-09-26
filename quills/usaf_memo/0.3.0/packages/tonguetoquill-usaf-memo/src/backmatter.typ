@@ -9,10 +9,9 @@
   authority-line: none,
   signature-blank-lines: 4,
   signing-field: none,
-  // Dual signatures: the junior official's block, at the left margin beside
-  // `signature-block`, the senior's.
-  junior-signature-block: none,
-  junior-signing-field: none,
+  // Dual signatures: the block at the left margin, beside `signature-block`.
+  dual-signature-block: none,
+  dual-signing-field: none,
   attachments: none,
   cc: none,
   distribution: none,
@@ -34,8 +33,8 @@
     closing-line: format-authority-line(authority-line),
     signature-blank-lines: signature-blank-lines,
     signing-field: signing-field,
-    junior-signature-lines: junior-signature-block,
-    junior-signing-field: junior-signing-field,
+    dual-signature-lines: dual-signature-block,
+    dual-signing-field: dual-signing-field,
   )
   render-backmatter-sections(
     attachments: attachments,

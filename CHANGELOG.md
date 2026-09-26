@@ -28,10 +28,11 @@
 
 ## Unreleased
 
-- **`usaf_memo@0.3.0` takes dual signatures.** A new `junior_signature_block`
-  field, blank by default, prints the junior ranking official's block at the
-  left margin, level with the senior's at 4.5 inches, per AFH 33-337. Each
-  block has its own signing widget. The authority line stays above the senior
+- **`usaf_memo@0.3.0` takes dual signatures.** A new `dual_signature_block`
+  field, blank by default, prints a second signature block at the left margin,
+  level with `signature_block` at 4.5 inches. AFH 33-337 puts the junior
+  ranking official at the left and the senior at 4.5 inches, and the field's
+  description says so. Each block has its own signing widget. The authority line stays above the senior
   block. A memo that leaves the field blank renders byte for byte as before.
   `usaf_letter@0.1.0`'s shared `primitives.typ` carries it too.
 

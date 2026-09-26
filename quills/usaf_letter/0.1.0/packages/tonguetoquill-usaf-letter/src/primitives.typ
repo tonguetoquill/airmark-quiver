@@ -211,9 +211,9 @@
 // AFH 33-337 "If dual signatures are required, type the junior ranking
 // official's signature block at the left margin; type the senior ranking
 // official's signature block 4.5 inches from the left edge of the page or three
-// spaces to the right of page center." The senior block is `signature-lines`
-// and keeps the closing line; the junior block starts on the senior's first
-// name line.
+// spaces to the right of page center." `signature-lines` is the block at the
+// standard anchor and keeps the closing line; `dual-signature-lines` is the
+// block at the left margin, starting on the other's first name line.
 
 /// The memorandum's occupant of that slot, uppercased per AFH 33-337. Blank is
 /// no line: the handbook forbids one where the commander signs.
@@ -227,16 +227,16 @@
   closing-line: none,
   signature-blank-lines: 4,
   signing-field: none,
-  junior-signature-lines: none,
-  junior-signing-field: none,
+  dual-signature-lines: none,
+  dual-signing-field: none,
   // Lines of breaking height reserved below the block for the backmatter
   // lead-in and its continuation note. Reclaimed immediately after, so it moves
   // where the block may break and nothing else.
   reserved-lines: 0,
 ) = {
   signature-lines = ensure-array(signature-lines)
-  junior-signature-lines = if falsey(junior-signature-lines) { () } else { ensure-array(junior-signature-lines) }
-  let dual = junior-signature-lines.len() > 0
+  dual-signature-lines = if falsey(dual-signature-lines) { () } else { ensure-array(dual-signature-lines) }
+  let dual = dual-signature-lines.len() > 0
   // Blank is no line, whichever occupant the caller passes.
   if falsey(closing-line) { closing-line = none }
   // AFH 33-337 allows two equivalent anchors: 4.5in from the left edge, or three
@@ -267,8 +267,8 @@
     } else {
       default-pad
     }
-    // Three spaces keep a long junior line off the senior block.
-    let junior-width = {
+    // Three spaces keep a long left-margin line off the other block.
+    let dual-width = {
       let w = left-pad - measure(text("   ")).width
       if w > 0pt { w } else { 0pt }
     }
@@ -323,23 +323,23 @@
           box(width: body-width - left-pad, height: widget-height, signing-field),
         )
       }
-      #if dual and junior-signing-field != none {
+      #if dual and dual-signing-field != none {
         let widget-height = {
-          let h = measure(junior-signing-field).height
+          let h = measure(dual-signing-field).height
           if h > 0pt { h } else { 50pt }
         }
         let drop = gap - widget-height - 3pt
         place(
           dy: if drop > 0pt { drop } else { 0pt },
-          box(width: junior-width, height: widget-height, junior-signing-field),
+          box(width: dual-width, height: widget-height, dual-signing-field),
         )
       }
       #v(gap)
       #align(left)[
         #if dual {
           grid(
-            columns: (junior-width, left-pad - junior-width, 1fr),
-            lines-of(junior-signature-lines), [], lines-of(signature-lines),
+            columns: (dual-width, left-pad - dual-width, 1fr),
+            lines-of(dual-signature-lines), [], lines-of(signature-lines),
           )
         } else {
           pad(left: left-pad, lines-of(signature-lines))
