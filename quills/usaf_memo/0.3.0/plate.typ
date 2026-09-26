@@ -20,20 +20,18 @@
 #let body_font_size = data.font_size * 1pt
 
 // A blank date's fill-in slot: an empty AcroForm text box the signer types the
-// date into, set in the body face. The value sits flush right in a date line's
-// slot, as the printed date would, and flush left where the date runs on inside
-// a sentence. Wide enough for the longest date either style prints, "September
-// 30, 2026", which runs 8em in the body face.
+// date into, set in the body face, the value flush right in the date line's
+// slot as the printed date would sit. Wide enough for the longest date either
+// style prints, "September 30, 2026", which runs 8em in the body face.
 //
-// The slot is built here and handed to the package as the date itself, which
-// `display-date` passes through, rather than through the package's
+// The slot is built here rather than through the package's
 // `date-placeholder-slot`: that slot stands `1em` above the baseline, and a
 // text line only a cap-height, so a blank date grew its line and pushed
 // everything below it down. This one claims exactly a cap-height, the extent of
 // a printed date, and the widget overhangs it about the line's middle, taking
 // no room from the flow.
 #let date_slot_width = body_font_size * 8.5
-#let date_slot(name, field, align: "right") = context box(
+#let date_slot(name, field) = context box(
   width: date_slot_width,
   height: measure[0].height,
   place(horizon + left, form-field(
@@ -44,7 +42,7 @@
     field: field,
     font: "times",
     size: body_font_size,
-    align: align,
+    align: "right",
   )),
 )
 
@@ -69,31 +67,9 @@
   //
   // A blank date is left for the signer: a memo is dated when it is signed,
   // which is generally not when it is rendered, so the slot is fillable rather
-  // than stamped with the compile date. Passing it as the date also keeps it
-  // from `frontmatter`'s own `datetime.today()` fallback.
-  //
-  // The package places this content again wherever an indorsement's header
-  // restates the original memo (`separate_page`, or one pushed to a new page).
-  // A widget name may occur once, so each placement after the first is a widget
-  // of its own, still addressed to `date`, and set flush left: the restatement
-  // is mid-sentence.
-  date: {
-    let authored = display("date", date-pattern(memo-style: memo_style))
-    if authored != none {
-      authored
-    } else {
-      let placements = state("usaf-memo-date-slot-placements", 0)
-      placements.update(n => n + 1)
-      context {
-        let n = placements.get()
-        if n == 1 {
-          date_slot("Date", "date")
-        } else {
-          date_slot("Date_" + str(n), "date", align: "left")
-        }
-      }
-    }
-  },
+  // than stamped with the compile date.
+  date: display("date", date-pattern(memo-style: memo_style)),
+  date-field: date_slot("Date", "date"),
 
   memo-for: data.memo_for,
 

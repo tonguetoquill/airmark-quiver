@@ -74,8 +74,9 @@
 - **`usaf_memo@0.3.0` leaves a blank memo date fillable.** A memo is dated
   when it is signed, so a blank `date` now prints an empty PDF text field for
   the signer, as a blank indorsement date already did, instead of the compile
-  date. A `separate_page` indorsement header that restates the memo's date gets
-  a field of its own there.
+  date. An indorsement header that restates the memo, `separate_page` or pushed
+  to a page of its own, leaves a blank memo date out: `1st Ind to 12 FTW/CC,
+  Subject`.
 
 - **`usaf_memo@0.3.0`'s blank dates no longer move the page.** The fill-in slot
   stood `1em` above the baseline where a line of text stands a cap-height, so a
