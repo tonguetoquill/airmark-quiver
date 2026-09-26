@@ -60,9 +60,8 @@
   many columns as the width allows.
 
 - **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` set the tag line in the body
-  font, not Cinzel.** Cinzel ships one regular face, so `*italics*` in the
-  footer motto could only be a synthesized slant and `**bold**` did not show
-  at all. Each plate now wraps the tag line in the body font, which overrides
+  font, not Cinzel.** Cinzel has no italic, so `*italics*` in the footer motto
+  printed upright. Each plate now wraps the tag line in the body font, which overrides
   the package's Cinzel and has real italic and bold faces. Every tag line
   changes typeface, including one with no emphasis. It keeps its size, color
   and position.
@@ -78,15 +77,18 @@
   blank indorsement date pushed everything below its header line down 4pt.
   Both dates' slots are now built in `plate.typ`, a cap-height tall, and a
   document lays out the same whether its dates are filled or blank. The widget
-  is set in Times at the body size, flush right, and sized to the longest date.
+  is set in Times at the body size and sized to the longest date.
 
 - **Add `usaf_letter@0.1.0`, the USAF / DAF Personal Letter, per AFH 33-337.**
   Its package shares `usaf_memo@0.3.0`'s `config.typ`, `utils.typ` and
   `primitives.typ` byte for byte, so the letter takes the memo's letterhead,
   signature block and closing elements as they are, the backmatter
   continuation note among them. As the memo does, it prints a seal on every
-  letter and keeps a short closing paragraph with the signature block so the
-  signature never opens a page alone. A blank date prints an empty PDF text
+  letter and keeps the body's last block, where it is short, with the
+  signature block so the signature never opens a page alone, whether that
+  block is a paragraph, a list, a block quote, a table or a code block. Each of those containers
+  stands a blank line off the paragraph before it, as one paragraph does from
+  the next. A blank date prints an empty PDF text
   field for the signer rather than the compile date, and the page lays out the
   same whether the date is filled or blank.
 
