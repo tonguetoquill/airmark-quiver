@@ -83,6 +83,20 @@ main:
         compact: true
       description: "Put in your Grade."
 
+    briefer_name:
+      type: string
+      default: ""
+      ui:
+        compact: true
+      description: "Name of the person giving the briefing (Last, First)."
+
+    briefer_grade:
+      type: string
+      default: ""
+      ui:
+        compact: true
+      description: "Grade of the person giving the briefing."
+
     emergency_contact_name:
       type: string
       default: ""

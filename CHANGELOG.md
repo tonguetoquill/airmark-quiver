@@ -43,6 +43,11 @@
   `cyber_ribbon_chart@0.0.1`'s three blank vectors become the field's
   `default:` so a new chart still opens on them.
 
+- **`daf4392@0.1.0` declares `briefer_name` and `briefer_grade`.** The plate
+  printed both when a document wrote them, but `Quill.yaml` never named them,
+  so the editor offered no control for the briefer and 0.116 warns
+  `validation::unknown_field` on each. Every document renders as before.
+
 - **`cyber_ribbon_chart@0.0.1` moves the Maj board to YG+8, opens a new
   document blank, and names the Higher Level Reviewer's stratification**
   (#169). The quill is a prototype, so 0.0.1 changes in place. The board
