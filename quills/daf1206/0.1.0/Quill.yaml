@@ -59,9 +59,8 @@ main:
 
 card_kinds:
   accomplishments_continued:
+    title: Specific Accomplishments (Continued — Page 2)
     description: Optional. Add this card only when page 2 overflow is required. Use the card body for continued bullets. Rank/name on page 2 matches the main nominee line automatically.
-    ui:
-      title: Specific Accomplishments (Continued — Page 2)
     body:
       example: |
         - Continued accomplishment bullet.

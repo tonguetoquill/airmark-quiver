@@ -52,6 +52,6 @@ The body's paragraphs are indented half an inch and take no number or letter. On
 
 The complimentary close sits on the second line below the last line of text, and the signature block five lines below the close: the four blank lines between them are where the letter is signed. A personal letter carries no duty title under the signature, the heading having given it already.
 
-A letter of three or more pages is numbered from its second page; the first page is never numbered. The attachment element opens on the third line below the signature block and the courtesy copy element on the second line below the attachment element.
+A letter is numbered from its second page; the first page is never numbered. The attachment element opens on the third line below the signature block and the courtesy copy element on the second line below the attachment element.
 
 This paragraph is here to push the closing onto a second page, so that the page number and the continuation margin are both exercised by the fixture. Contact me at DSN 999-9999, commercial (999) 999-9999, or jane.doe@us.af.mil.

@@ -79,17 +79,13 @@ main:
 # title prints the kind's usual heading, which the plate holds.
 card_kinds:
   summary:
+    title: Summary
     description: "A heading and prose under it. With a title of its own it is any section that is only prose — an objective, a statement of interest."
     ui:
-      title: Summary
       groups: [heading]
     body:
       example: |
         Security engineer of eight years, most of it on detection pipelines other people have to keep running.
-      # The name (level 1) and the section titles (level 2) carry the PDF's
-      # structure tree; a heading authored in a body lands in that outline
-      # unannounced. The rest no resume component typesets.
-      unsupported: &unsupported [heading, rule, code, table, image]
     fields:
       title:
         type: plaintext
@@ -108,14 +104,13 @@ card_kinds:
         description: "Qualifier set after the title in the same style, such as a date range or a clarifier. Italicize with *asterisks*. Leave blank for the usual case."
 
   experience:
+    title: Experience
     description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them."
     ui:
-      title: Experience
       groups: [heading]
     body: &section_body
       # Empty is a heading straight over its rows, which is the usual section.
       example: ""
-      unsupported: *unsupported
     fields:
       title:
         type: plaintext
@@ -129,8 +124,6 @@ card_kinds:
         type: array
         items:
           type: object
-          ui:
-            title: "{company}"
           properties:
             company:
               type: plaintext
@@ -171,9 +164,9 @@ card_kinds:
         description: "One row per job. A row is never split across a page break."
 
   education:
+    title: Education
     description: "Schools, most recent first: school and date on the first line, degree and location on the second."
     ui:
-      title: Education
       groups: [heading]
     body: *section_body
     fields:
@@ -189,8 +182,6 @@ card_kinds:
         type: array
         items:
           type: object
-          ui:
-            title: "{school}"
           properties:
             school:
               type: plaintext
@@ -220,9 +211,9 @@ card_kinds:
         description: "One row per school or degree."
 
   projects:
+    title: Projects
     description: "Projects: name and link on the first line, details under them."
     ui:
-      title: Projects
       groups: [heading]
     body: *section_body
     fields:
@@ -238,8 +229,6 @@ card_kinds:
         type: array
         items:
           type: object
-          ui:
-            title: "{name}"
           properties:
             name:
               type: plaintext
@@ -260,9 +249,9 @@ card_kinds:
         description: "One row per project."
 
   skills:
+    title: Skills
     description: "Labelled lists of skills, filled across the columns and then down."
     ui:
-      title: Skills
       groups: [heading]
     body: *section_body
     fields:
@@ -280,8 +269,6 @@ card_kinds:
           layout: table
         items:
           type: object
-          ui:
-            title: "{label}"
           properties:
             label:
               type: plaintext
@@ -292,8 +279,7 @@ card_kinds:
               type: plaintext
               inline: true
               example: Python, R, JS, Rust, PowerShell, CI/CD
-              ui:
-                title: Items
+              title: Items
               description: "The items under that label, usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
         example:
           - label: Programming
@@ -309,9 +295,9 @@ card_kinds:
         description: "Number of columns. Two suits items that run most of a line; three suits single words."
 
   certifications:
+    title: Certifications
     description: "A list of certifications, filled across the columns and then down."
     ui:
-      title: Certifications
       groups: [heading]
     body: *section_body
     fields:
@@ -335,9 +321,9 @@ card_kinds:
       columns: *columns
 
   other:
+    title: Other section
     description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names."
     ui:
-      title: Other section
       groups: [heading]
     body: *section_body
     fields:
@@ -354,8 +340,6 @@ card_kinds:
         default: []
         items:
           type: object
-          ui:
-            title: "{heading}"
           properties:
             heading:
               type: plaintext

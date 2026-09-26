@@ -83,6 +83,20 @@ main:
         compact: true
       description: "Put in your Grade."
 
+    briefer_name:
+      type: string
+      default: ""
+      ui:
+        compact: true
+      description: "Name of the person giving the briefing (Last, First)."
+
+    briefer_grade:
+      type: string
+      default: ""
+      ui:
+        compact: true
+      description: "Grade of the person giving the briefing."
+
     emergency_contact_name:
       type: string
       default: ""
@@ -95,9 +109,9 @@ main:
 
 card_kinds:
   itinerary:
+    title: Proposed Travel Itinerary
     description: "Each card represents one row in the travel itinerary table. Up to 10 rows are supported."
     ui:
-      title: Proposed Travel Itinerary
       groups: [itinerary_entry]
     body:
       enabled: false

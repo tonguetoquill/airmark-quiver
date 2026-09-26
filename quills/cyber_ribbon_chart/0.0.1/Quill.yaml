@@ -23,7 +23,6 @@ main:
   body:
     example: |
       What you want out of this discussion, and anything that constrains it — a join-spouse, a degree finishing, a date you cannot move before.
-    unsupported: [heading, rule, code, table, image]
   fields:
     name:
       # Read as `string` rather than `plaintext`: it reaches
@@ -104,8 +103,6 @@ main:
       max: 3
       items:
         type: object
-        ui:
-          title: "{label}"
         properties:
           label:
             type: plaintext
@@ -125,36 +122,31 @@ main:
               layout: table
             items:
               type: object
-              ui:
-                title: "{title}"
               properties:
                 title:
                   type: plaintext
                   inline: true
                   example: 333 TRS Instructor
-                  ui:
-                    title: Assignment
+                  title: Assignment
                   description: "Assignment and unit, set in the block. Keep it to what fits — roughly twenty characters per year of length at the default width."
                 duration:
                   type: enum
                   values: ["0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4"]
                   default: "2"
-                  ui:
-                    title: Years
+                  title: Years
                   description: "Length in years. The timeline is ruled in half-years, which is why the choices stop at the half."
                 vml:
                   type: enum
                   values: [Summer, Winter]
                   default: Summer
-                  ui:
-                    title: VML
+                  title: VML
                   description: "Which VML cycle you would move on. This places the tour rather than labelling it: a Summer tour starts in the second half of a year and a Winter tour in the first. Where that means waiting, the wait is added to the tour before it rather than left as a hole — you hold a job until you move — so a tour can print longer than the length you gave it."
                 school:
                   type: boolean
                   default: false
                   description: "Tick for a school you would move for — IDE or SDE in residence, Weapons School — rather than a duty assignment. It prints outlined instead of filled, so a year in a classroom does not read as a year in a job."
             description: "The assignments on this row, in the order you would serve them. Tours lay end to end from the start of the timeline, so there are no dates to keep in step."
-      example:
+      default:
         - { label: Vector 1, focus: Primary, tours: [] }
         - { label: Vector 2, focus: Alternate, tours: [] }
         - { label: Vector 3, focus: Backup, tours: [] }
@@ -169,8 +161,6 @@ main:
         layout: table
       items:
         type: object
-        ui:
-          title: "{year}"
         properties:
           year:
             type: plaintext
@@ -182,16 +172,14 @@ main:
             inline: true
             default: ""
             example: "#1/14 Capts"
-            ui:
-              title: Rater
+            title: Rater
             description: "Your rater's stratification as it was written, such as '#1/14 Capts'."
           hlr_strat:
             type: plaintext
             inline: true
             default: ""
             example: "#1/45 CGOs"
-            ui:
-              title: Higher Level Reviewer
+            title: Higher Level Reviewer
             description: "Your Higher Level Reviewer's stratification as it was written, such as '#1/45 CGOs'. Leave blank where you drew none."
       default: []
       description: "Your last three years of stratifications, most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them. Written out, a row is `{year: \"2026\", rater_strat: \"#1/14 Capts\", hlr_strat: \"#1/45 CGOs\"}`."
@@ -238,8 +226,8 @@ main:
       properties:
         command:
           type: matrix
+          title: Leadership & Command
           ui:
-            title: Leadership & Command
             compact: true
           members:
             sq_cc_candidate: Sq/CC Candidate
@@ -271,8 +259,8 @@ main:
           properties: *detail
         staff:
           type: matrix
+          title: Staff & Functional
           ui:
-            title: Staff & Functional
             compact: true
           members:
             exec_aide_cag: Exec / Aide / CAG
@@ -284,8 +272,8 @@ main:
           properties: *detail
         education:
           type: matrix
+          title: Education & PME
           ui:
-            title: Education & PME
             compact: true
           members:
             commissioning_dg: Commissioning Source DG

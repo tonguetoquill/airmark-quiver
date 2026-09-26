@@ -53,15 +53,31 @@
 #let BLOCKS = counter("usaf-letter-blocks")
 #let NESTED = state("usaf-letter-nested", 0)
 
+/// Whether a body's last block holds the signature to its page: a sticky block
+/// relocates whole rather than splitting, so one taller than a third of the
+/// text height is left to the break, which leaves its own tail above the
+/// signature.
+///
+/// - it (content): The last block
+/// -> bool
+#let keeps-signature(it) = {
+  let budget = (page.height - spacing.margin * 2) / 3
+  measure(it, width: page.width - spacing.margin * 2).height <= budget
+}
+
 /// Counts a container as one block of the body and the paragraphs inside it
-/// as none.
+/// as none, and sets it a blank line off the paragraphs around it.
 ///
 /// - it (content): The container
 /// -> content
-#let container(it) = {
+#let container(it) = context {
+  if NESTED.get() > 0 { return it }
   BLOCKS.step()
   NESTED.update(n => n + 1)
-  it
+  context {
+    let last = BLOCKS.get() == BLOCKS.final()
+    block(above: par.spacing, sticky: last and keeps-signature(it), it)
+  }
   NESTED.update(n => n - 1)
 }
 
@@ -101,26 +117,21 @@
       set par(first-line-indent: 0pt)
       container(it.body)
     }
+    show raw.where(block: true): container
     // AFH 33-337: "Do not place the signature element on a continuation page
     // by itself." The signature block has no keep-with-previous of its own —
-    // Typst has no such property — so the anchor comes from this side: a body
-    // that ends on a paragraph of its own sets it as a sticky block, carried
+    // Typst has no such property — so the anchor comes from this side: the
+    // body's last block, a paragraph or a container, is set sticky, carried
     // onto the next page along with the signature instead of breaking away
-    // from it. A body that ends on a container keeps nothing.
-    //
-    // Bounded, as the memo's is (`render-body`): a sticky block relocates
-    // whole rather than splitting, so a long closing paragraph is left to the
-    // break, which leaves its own tail above the signature.
+    // from it.
     show par: p => context {
       if NESTED.get() > 0 { return p }
       BLOCKS.step()
       context {
         if BLOCKS.get() != BLOCKS.final() { return p }
-        let budget = (page.height - spacing.margin * 2) / 3
-        let height = measure(p, width: page.width - spacing.margin * 2).height
         // `above` stands in for the paragraph spacing a bare paragraph would
         // have taken from the one before it.
-        block(sticky: height <= budget, above: par.spacing, p)
+        block(sticky: keeps-signature(p), above: par.spacing, p)
       }
     }
     body

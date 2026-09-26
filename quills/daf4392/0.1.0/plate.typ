@@ -47,8 +47,8 @@
 #if data.briefed_date != none { vals.insert("briefed_date", data.briefed_date) }
 #if data.briefee_name != "" { vals.insert("briefee_name", data.briefee_name) }
 #if data.briefee_grade != "" { vals.insert("briefee_grade", data.briefee_grade) }
-#if "briefer_name" in data { vals.insert("briefer_name", data.briefer_name) }
-#if "briefer_grade" in data { vals.insert("briefer_grade", data.briefer_grade) }
+#if data.briefer_name != "" { vals.insert("briefer_name", data.briefer_name) }
+#if data.briefer_grade != "" { vals.insert("briefer_grade", data.briefer_grade) }
 
 // Emergency contact — bold label prefixes a "name: phone" pair.
 #{
