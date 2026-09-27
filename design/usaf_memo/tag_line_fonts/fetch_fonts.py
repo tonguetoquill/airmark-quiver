@@ -6,9 +6,9 @@ candidates are compared at their Regular.
 
     python3 fetch_fonts.py            # fetch FAMILIES
     python3 fetch_fonts.py --survey   # list the Google Fonts families with
-                                      # an italic that are small caps natively,
-                                      # and the serif families whose upright
-                                      # and italic both carry smcp
+                                      # small caps, native (any category) or
+                                      # by smcp (serif), grouped by what
+                                      # their italic does
 
 Needs git and fontTools.
 """
@@ -20,6 +20,7 @@ import sys
 import tempfile
 from pathlib import Path
 
+from fontTools.pens.boundsPen import BoundsPen
 from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 
@@ -37,6 +38,10 @@ FAMILIES = [
     # Small caps natively, with an italic.
     "alegreyasc", "bodonimodasc", "bonanovasc", "playfairdisplaysc", "spectralsc",
     "alegreyasanssc", "arsenalsc", "alumnisanssc",
+    # Small caps natively, no italic.
+    "vollkornsc", "imfellenglishsc", "marcellussc", "baskervvillesc", "matesc", "sedansc",
+    # Upright carries smcp, italic does not.
+    "sourceserif4", "vollkorn", "cardo", "baskervville", "sortsmillgoudy", "gfsdidot",
 ]
 
 
@@ -70,6 +75,27 @@ def gsub_features(path):
     return {r.FeatureTag for r in font["GSUB"].table.FeatureList.FeatureRecord}
 
 
+def is_native(name, upright):
+    """Whether a family's own lowercase are small caps. Google names such a
+    family `… SC`, except the Noto CJK `SC`, Simplified Chinese. One under
+    another name, such as Cinzel, draws its lowercase without ascenders."""
+    if name.endswith(" SC"):
+        return not name.startswith("Noto")
+    font = TTFont(upright)
+    glyphs, cmap = font.getGlyphSet(), font.getBestCmap()
+
+    def top(char):
+        pen = BoundsPen(glyphs)
+        glyphs[cmap[ord(char)]].draw(pen)
+        return pen.bounds[3]
+
+    try:
+        x, cap = top("x"), top("H")
+        return max(top("h"), top("d"), top("l")) <= x * 1.04 and x < cap * 0.95
+    except (KeyError, TypeError):
+        return False
+
+
 def at_regular(path):
     font = TTFont(path)
     if "fvar" not in font:
@@ -100,25 +126,30 @@ def main():
                              nearest_400(files, "normal"), nearest_400(files, "italic"))
             categories[family] = re.findall(r'category: "(\w+)"', text)
         if survey:
-            picks = {d: p for d, p in picks.items() if p[1] and p[2]}
-            # Google names a family whose lowercase are small caps `… SC`. A
-            # family that is small caps by design under another name would
-            # draw its lowercase without ascenders; across every family with an
-            # italic, only the Playwrite handwriting guides do.
-            print("Small caps natively, with an italic:")
-            for family, (name, *_) in sorted(picks.items(), key=lambda p: p[1][0]):
-                if name.endswith(" SC"):
-                    print(f"  {name:28} {'/'.join(categories[family]):12} {family.relative_to(repo)}")
-            picks = {d: p for d, p in picks.items() if "SERIF" in categories[d]}
+            picks = {
+                d: p for d, p in picks.items()
+                if p[1] and ("SERIF" in categories[d] or p[0].endswith(" SC"))
+            }
 
         wanted = [f"{d.relative_to(repo)}/{f}" for d, (_, *fs) in picks.items() for f in fs if f]
         git(repo, "sparse-checkout", "set", "--no-cone", "--stdin", stdin=sparse_paths(wanted))
 
         if survey:
-            print("Serif, upright and italic both carrying smcp:")
+            groups = {}
             for family, (name, upright, italic) in sorted(picks.items(), key=lambda p: p[1][0]):
-                if "smcp" in gsub_features(family / upright) and "smcp" in gsub_features(family / italic):
-                    print(f"  {name:28} {family.relative_to(repo)}")
+                if is_native(name, family / upright):
+                    group = "Small caps natively, " + ("with an italic" if italic else "no italic")
+                elif "smcp" not in gsub_features(family / upright):
+                    continue
+                elif not italic:
+                    group = "smcp, no italic"
+                elif "smcp" in gsub_features(family / italic):
+                    group = "smcp, upright and italic"
+                else:
+                    group = "smcp, upright only"
+                groups.setdefault(group, []).append(f"{name:30} {family.relative_to(repo)}")
+            for group, rows in groups.items():
+                print(f"{group} ({len(rows)}):", *rows, sep="\n  ")
             return
 
         out = here / "fonts"
