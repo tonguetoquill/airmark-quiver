@@ -65,6 +65,17 @@ SHORTLIST = [
     ("Source Serif 4", "smcp", "Source Serif 4", False),
 ]
 
+# Non-native: small caps by smcp, or faked, as nonnative.typ sets them.
+FAKED = [
+    ("NimbusRomNo9L", "synth", "NimbusRomNo9L — faked SC", ("synth", False)),
+    ("Cinzel", "native", "Cinzel — faked italic", ("native", True)),
+    ("Source Serif 4", "smcp", "Source Serif 4 — faked italic SC", ("synth", False)),
+    ("Vollkorn", "smcp", "Vollkorn — faked italic SC", ("synth", False)),
+    ("Baskervville", "smcp", "Baskervville — faked italic SC", ("synth", False)),
+    ("GFS Didot", "smcp", "GFS Didot — faked italic", ("smcp", True)),
+    ("STIX Two Text", "smcp", "STIX Two Text — nothing faked", True),
+]
+
 
 def compile_(source, out, *inputs):
     args = [typst, "compile", "--root", str(repo), "--ignore-system-fonts",
@@ -75,8 +86,9 @@ def compile_(source, out, *inputs):
     subprocess.run(args + [str(here / source), str(out)], check=True)
 
 
-def slug(font, caps, italic):
-    return f"{font.lower().replace(' ', '_')}-{caps}{'-italic' if italic else ''}"
+def slug(font, caps, italic, slant=False):
+    return (f"{font.lower().replace(' ', '_')}-{caps}{'-italic' if italic else ''}"
+            f"{'-slanted' if slant else ''}")
 
 
 # The footer band: 3in wide, centered, 0.6in tall around the tag line.
@@ -86,14 +98,20 @@ NOTE_FONT = ImageFont.truetype(str(package_fonts / "NimbusRomanNo9L/NimbusRomNo9
 
 
 def footer_sheet(candidates, out):
-    """Each candidate is (font, caps, label) or (font, caps, label, has italic
-    small caps); a face without them leaves its italic cell to say so."""
+    """Each candidate is (font, caps, label) or (font, caps, label, italic).
+    `italic` is False for a face without italic small caps, which leaves its
+    italic cell to say so, or (caps, slant) for an italic set another way than
+    the upright: faked small caps, or a faked italic."""
     crops = {}
     for font, caps, _, *italics in candidates:
-        for italic in (False, True)[: 1 if italics == [False] else 2]:
-            page = shots / f"memo-{slug(font, caps, italic)}.png"
-            compile_("in_context.typ", page, f"font={font}", f"caps={caps}",
-                     f"italic={'true' if italic else 'false'}")
+        styles = [(False, caps, False)]
+        if italics != [False]:
+            styles.append((True, *(italics[0] if italics and italics[0] is not True else (caps, False))))
+        for italic, style_caps, slant in styles:
+            page = shots / f"memo-{slug(font, style_caps, italic, slant)}.png"
+            compile_("in_context.typ", page, f"font={font}", f"caps={style_caps}",
+                     f"italic={'true' if italic else 'false'}",
+                     f"slant={'true' if slant else 'false'}")
             crops[font, caps, italic] = Image.open(page).convert("RGB").crop(BAND)
 
     label_w, head_h = 520, 90
@@ -120,8 +138,10 @@ compile_("specimen.typ", shots / "specimen.png")
 compile_("survey.typ", shots / "survey.png")
 compile_("native.typ", shots / "native.png")
 compile_("shortlist.typ", shots / "shortlist-{p}.png")
+compile_("nonnative.typ", shots / "nonnative-{p}.png")
 footer_sheet(CANDIDATES, "in_context.png")
 footer_sheet(FINALISTS, "in_context_finalists.png")
 footer_sheet(NATIVE, "in_context_native.png")
 footer_sheet(SHORTLIST, "in_context_shortlist.png")
+footer_sheet(FAKED, "in_context_nonnative.png")
 print(f"wrote {shots}")

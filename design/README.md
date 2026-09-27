@@ -157,7 +157,11 @@ there, and near-duplicates. `native.png` holds every family whose own lowercase
 are small caps and which has an italic, set as plain text. `shortlist-*.png`
 sets the letterhead-grade faces with small caps, one page per tier (native with
 an italic, native without, `smcp` with italic small caps, `smcp` upright only),
-at the footer's true 15pt on a narrow page so the sheet reads large. Each `in_context*.png` crops the footers of real
+at the footer's true 15pt on a narrow page so the sheet reads large.
+`nonnative-*.png` sets the faces whose small caps are not their own lowercase,
+with Cinzel for its italic: what a face lacks is faked and marked, small caps
+as capitals scaled to the face's measured x-height and an italic as the upright
+skewed 12°. Each `in_context*.png` crops the footers of real
 memo pages, one per candidate and style, from the `memo-*.png` beside it.
 
 ```sh

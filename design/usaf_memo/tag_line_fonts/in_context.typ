@@ -2,6 +2,7 @@
 // own `frontmatter`, so the candidate sits at its real size and position.
 //
 //   --input font=<family>  --input caps=<mode>  --input italic=true|false
+//   --input slant=true|false
 
 #import "../../../quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/src/lib.typ": (
   backmatter, frontmatter, mainmatter,
@@ -11,6 +12,7 @@
 #let font = sys.inputs.at("font", default: "NimbusRomNo9L")
 #let caps = sys.inputs.at("caps", default: "none")
 #let italic = sys.inputs.at("italic", default: "false") == "true"
+#let slant = sys.inputs.at("slant", default: "false") == "true"
 
 #show: frontmatter.with(
   letterhead-title: "DEPARTMENT OF THE AIR FORCE",
@@ -20,7 +22,7 @@
   memo-from: ("123 TS/CC",),
   subject: "Tag Line Typeface",
   date: "1 September 2026",
-  footer-tag-line: tag-line(font, "Aim High", italic: italic, caps: caps),
+  footer-tag-line: tag-line(font, "Aim High", italic: italic, caps: caps, slant: slant),
 )
 
 #mainmatter[

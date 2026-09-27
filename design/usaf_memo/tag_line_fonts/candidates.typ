@@ -6,15 +6,42 @@
 //   "native" — the face's default lowercase already are small caps. Cinzel
 //              has no smcp; Cormorant SC's maps them back to lowercase, so
 //              `smallcaps()` would undo them.
-//   "synth"  — the face has no smcp, so the lowercase are set as capitals at
-//              `SYNTH_SCALE`. Typst does not synthesize small caps itself.
+//   "synth"  — faked: the lowercase are set as capitals, scaled to the face's
+//              own x-height. Typst does not synthesize small caps itself.
 //   "none"   — as the tag line prints today.
+//
+// `slant` fakes an italic for a face that has none, by skewing the upright.
 
 #let LETTERHEAD_COLOR = rgb("#355e93")
 
-// A touch over NimbusRomNo9L's x-height (0.68 of its cap height), so a
-// synthesized small cap stands just above the lowercase it replaces.
-#let SYNTH_SCALE = 0.72
+// A faked small cap stands this much over the face's x-height, the usual
+// allowance so it does not read as a shrunken capital.
+#let SYNTH_OVERSHOOT = 1.06
+
+// A faked italic's slant, near a book italic's.
+#let SLANT = -12deg
+
+// `fallback: false` so a face missing a glyph shows as a gap, not as the next
+// font's glyph passing for this one's.
+#let tag-line(font, body, italic: false, caps: "smcp", slant: false) = {
+  set text(
+    font: font,
+    fallback: false,
+    size: 15pt,
+    fill: LETTERHEAD_COLOR,
+    style: if italic and not slant { "italic" } else { "normal" },
+  )
+  let set-caps = if caps == "smcp" { smallcaps(body) } else if caps == "synth" {
+    context {
+      // Glyph bounds, not the line box, so the ratio is the letters' own.
+      let height(c) = measure(text(top-edge: "bounds", bottom-edge: "baseline", c)).height
+      let scale = height("x") / height("H") * SYNTH_OVERSHOOT
+      show regex("\p{Ll}+"): it => text(size: scale * 1em, upper(it))
+      body
+    }
+  } else { body }
+  if slant { box(skew(ax: SLANT, reflow: true, set-caps)) } else { set-caps }
+}
 
 #let candidates = (
   (label: [*NimbusRomNo9L* \ today, no small caps], font: "NimbusRomNo9L", caps: "none"),
@@ -28,19 +55,3 @@
 )
 
 #let mottos = ("Aim High", "Semper Supra", "Ad Astra Per Aspera")
-
-// `fallback: false` so a face missing a glyph shows as a gap, not as the next
-// font's glyph passing for this one's.
-#let tag-line(font, body, italic: false, caps: "smcp") = {
-  set text(
-    font: font,
-    fallback: false,
-    size: 15pt,
-    fill: LETTERHEAD_COLOR,
-    style: if italic { "italic" } else { "normal" },
-  )
-  show regex("\p{Ll}+"): it => if caps == "synth" {
-    text(size: SYNTH_SCALE * 1em, upper(it))
-  } else { it }
-  if caps == "smcp" { smallcaps(body) } else { body }
-}
