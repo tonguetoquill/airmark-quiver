@@ -37,9 +37,10 @@ main:
       type: plaintext
       inline: true
       default: ""
+      example: 17S Instructor · 333 TRS, Keesler AFB
       ui:
         group: officer
-      description: "Current duty title and unit, such as '17S Instructor · 333 TRS, Keesler AFB', printed in one line under your name. Where you are today, not where you are going."
+      description: "Current duty title and unit, printed in one line under your name. Where you are today, not where you are going."
 
     commissioning_yg:
       type: integer
@@ -60,6 +61,7 @@ main:
     date_of_rank:
       type: date
       default: ""
+      example: 2026-05-01
       ui:
         group: officer
         compact: true
@@ -68,6 +70,7 @@ main:
     date_arrived_station:
       type: date
       default: ""
+      example: 2025-06-15
       ui:
         group: officer
         compact: true
@@ -77,10 +80,11 @@ main:
       type: plaintext
       inline: true
       default: ""
+      example: MS Cyber Operations, AFIT
       ui:
         group: officer
         compact: true
-      description: "Advanced academic degree, in hand or in progress, such as 'MS Cyber Operations, AFIT'. Leave blank if you hold none — the slot prints a dash rather than disappearing, because its absence is itself information to a board."
+      description: "Advanced academic degree, in hand or in progress. Leave blank if you hold none — the slot prints a dash rather than disappearing, because its absence is itself information to a board."
 
     timeline_start_year:
       type: integer
@@ -150,6 +154,23 @@ main:
         - { label: Vector 1, focus: Primary, tours: [] }
         - { label: Vector 2, focus: Alternate, tours: [] }
         - { label: Vector 3, focus: Backup, tours: [] }
+      example:
+        - label: Vector 1
+          focus: Primary — command track
+          tours:
+            - { title: 333 TRS Instructor, duration: "4", vml: Summer }
+            - { title: 333 TRS / DO, duration: "3.5", vml: Winter }
+            - { title: IDE in residence, duration: "1", vml: Summer, school: true }
+        - label: Vector 2
+          focus: Alternate — staff depth
+          tours:
+            - { title: 17X CFM Staff, duration: "2.5", vml: Winter }
+            - { title: MAJCOM A3 Division Chief, duration: "2", vml: Summer }
+        - label: Vector 3
+          focus: Backup — joint
+          tours:
+            - { title: Joint Staff J6, duration: "3", vml: Summer }
+            - { title: USCYBERCOM JFHQ-C, duration: "2.5", vml: Winter }
       ui:
         group: timeline
       description: "One row per alternative career path. Three is the conventional chart and all the page holds — a primary, an alternate, and a backup. One is a plan; three is a conversation."
@@ -182,6 +203,10 @@ main:
             title: Higher Level Reviewer
             description: "Your Higher Level Reviewer's stratification as it was written, such as '#1/45 CGOs'. Leave blank where you drew none."
       default: []
+      example:
+        - { year: "2026", rater_strat: "#1/14 Capts", hlr_strat: "#1/45 Capts" }
+        - { year: "2025", rater_strat: "#2/12 Capts", hlr_strat: "#3/40 Capts" }
+        - { year: "2024", rater_strat: "#1/8 Lts, #2/40 Instructors", hlr_strat: "" }
       description: "Your last three years of stratifications, most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them. Written out, a row is `{year: \"2026\", rater_strat: \"#1/14 Capts\", hlr_strat: \"#1/45 CGOs\"}`."
 
     awards:
@@ -190,6 +215,9 @@ main:
         type: plaintext
         inline: true
       default: []
+      example:
+        - Wing CGOQ ×2
+        - HAF A2/6 CGOY 2025
       ui:
         group: record
       description: "Major awards, one per line, strongest first. Wing level and above earns a line; anything smaller costs more room than it wins."
@@ -200,6 +228,10 @@ main:
         type: plaintext
         inline: true
       default: []
+      example:
+        - SANS FOR577 (GLIR)
+        - CISSP
+        - Security+
       ui:
         group: record
       description: "Certifications and courses, one per line. Name the certification a board would recognize rather than every course you have sat."
@@ -210,6 +242,8 @@ main:
         type: plaintext
         inline: true
       default: []
+      example:
+        - 1× short tour — returned Jan 2024
       ui:
         group: record
       description: "Deployments and short tours, one per line. Include the return date: it is what a rater needs to work out when you are next eligible."

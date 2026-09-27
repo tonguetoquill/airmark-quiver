@@ -28,6 +28,14 @@
 
 ## Unreleased
 
+- **cyber_ribbon_chart: examples describe a whole chart again.** Duty title,
+  advanced degree, date of rank, date arrived station, three vectors with
+  tours, three years of stratifications, awards, certifications and a
+  deployment each carry an `example:`, after the SME's worked chart. A new
+  document still opens blank: 0.116 seeds no example, so they reach the
+  blueprint's `# e.g.` lines, the editor's placeholders, and studio's **Fill
+  examples**.
+
 - **Ship Tongue to Quill's official templates under `templates/`.** Eight
   starter documents and the `templates.json` manifest naming them move here
   from the web app, exported as `@airmark/quiver/templates/*`: the USAF and
