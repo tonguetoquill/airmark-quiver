@@ -3,9 +3,9 @@
 //
 // How a candidate reaches small caps is its `caps`:
 //   "smcp"   — Typst `smallcaps()`, the face's OpenType smcp feature.
-//   "native" — the face's default lowercase already are small caps. Cormorant
-//              SC's smcp maps them back to lowercase, so `smallcaps()` would
-//              undo them.
+//   "native" — the face's default lowercase already are small caps. Cinzel
+//              has no smcp; Cormorant SC's maps them back to lowercase, so
+//              `smallcaps()` would undo them.
 //   "synth"  — the face has no smcp, so the lowercase are set as capitals at
 //              `SYNTH_SCALE`. Typst does not synthesize small caps itself.
 //   "none"   — as the tag line prints today.
@@ -20,6 +20,7 @@
   (label: [*NimbusRomNo9L* \ today, no small caps], font: "NimbusRomNo9L", caps: "none"),
   (label: [*NimbusRomNo9L* \ `smallcaps()` — no smcp, no change], font: "NimbusRomNo9L", caps: "smcp"),
   (label: [*NimbusRomNo9L* \ synthesized small caps], font: "NimbusRomNo9L", caps: "synth"),
+  (label: [*Cinzel* \ the package's own; no italic face], font: "Cinzel", caps: "native"),
   (label: [*EB Garamond*], font: "EB Garamond", caps: "smcp"),
   (label: [*Cormorant* \ italic has no smcp], font: "Cormorant", caps: "smcp"),
   (label: [*Cormorant Garamond* \ italic has no smcp], font: "Cormorant Garamond", caps: "smcp"),

@@ -149,8 +149,8 @@ done
 ### Tag line typeface spike
 
 `usaf_memo/tag_line_fonts/` sets the footer tag line in small caps, upright and
-italic, in NimbusRomNo9L and four Google Fonts candidates: EB Garamond,
-Cormorant, Cormorant Garamond and Cormorant SC. It writes a specimen sheet, a
+italic, in NimbusRomNo9L, the package's own Cinzel, and four Google Fonts
+candidates: EB Garamond, Cormorant, Cormorant Garamond and Cormorant SC. It writes a specimen sheet, a
 full memo page per candidate, and a sheet of their footers to `shots/`.
 
 ```sh
@@ -161,8 +161,9 @@ TYPST=/path/to/typst python3 design/usaf_memo/tag_line_fonts/render.py
 
 Only EB Garamond has real italic small caps. Cormorant and Cormorant Garamond
 carry `smcp` in the roman face only, so their italic prints lowercase.
-Cormorant SC has no italic face, and Typst silently sets it upright. Its
-lowercase are small caps by default, and its `smcp` maps them back to
-lowercase, so it must not be wrapped in `smallcaps()`. NimbusRomNo9L has no
+Cinzel and Cormorant SC have no italic face, and Typst silently sets them
+upright. Both draw their lowercase as small caps by default. Cinzel has no
+`smcp`, and Cormorant SC's maps them back to lowercase, so neither is wrapped in
+`smallcaps()`. NimbusRomNo9L has no
 `smcp` at all, so `smallcaps()` leaves it unchanged. Its small caps are
 synthesized from capitals at 0.72em.

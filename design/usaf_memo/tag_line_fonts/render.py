@@ -22,6 +22,7 @@ PPI = 200
 CANDIDATES = [
     ("NimbusRomNo9L", "none", "NimbusRomNo9L — today"),
     ("NimbusRomNo9L", "synth", "NimbusRomNo9L — synthesized SC"),
+    ("Cinzel", "native", "Cinzel"),
     ("EB Garamond", "smcp", "EB Garamond"),
     ("Cormorant", "smcp", "Cormorant"),
     ("Cormorant Garamond", "smcp", "Cormorant Garamond"),
