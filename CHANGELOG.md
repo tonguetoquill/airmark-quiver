@@ -1,51 +1,12 @@
 # Changelog
 
-## v0.32.2 - 2026-08-27
+## v0.33.0 - 2026-09-27
 
-- fix(usaf_memo): keep the signing widget in the blank lines above the signature block
-- Take quillkit 0.5.4 and quiver 0.27.0
-- Take @quillmark/wasm 0.110.0 (#130)
-- Move date above signature block
-
-
-## v0.32.1 - 2026-08-24
-
-- feat(usaf_memo): file the date under Addressing, and give the automatic one a region (#128)
-- feat(usaf_memo): typeset the block quote as the body's unlabeled block (#127)
-- Take quillkit 0.5.3 and quiver 0.26.0, on wasm 0.109.0 (#126)
-- fix(usaf_memo): decline the block quote rather than mis-number it (#125)
-- feat(usaf_memo): take subject and attachments as richtext (#122)
-- Take quillkit 0.5.2 and quiver 0.25.0, on wasm 0.108.3 (#121)
-
-
-## v0.32.0 - 2026-08-20
-
-- Take quillkit 0.5.1, on wasm 0.108.1 (#119)
-- Take quillkit 0.5.0 for the studio
-- feat(usaf_memo): make classification a variant container, on quillmark 0.108
-- feat(usaf_memo): derive indorsement action wording, underline the choice
-
-
-## Unreleased
-
-- **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` split a closing list taller than
-  a page instead of losing its tail.** Each attachment, `cc:` or
-  `DISTRIBUTION:` section moves to the next page whole, and one taller than a
-  page overflowed the bottom margin: a memo with 80 distribution entries
-  printed about fifty and dropped the rest without a warning. A section taller
-  than a page, counting the room it reserves for the section below, now breaks
-  where the page ends, and the section below measures its continuation note
-  from where it ends. Every document whose closing lists fit on a page lays out
-  as before.
-
-- **`usaf_letter@0.1.0` sets the close on the second line below an empty
-  body's salutation**, not the fourth, so a new letter opens laid out as AFH
-  33-337 places it.
-
-- **`cyber_ribbon_chart@0.0.1` names the window's last year in a vector's
-  count of tours past it**, as a clipped tour does, and
-  **`classic_resume@0.0.1`** renders a `columns` of zero or less as one column
-  rather than failing.
+Every quill now needs `@quillmark/wasm` 0.116 or later to load, so a consumer
+takes this release and that wasm together. New: `usaf_letter@0.1.0`, the
+official templates under `templates/`, and an authority line on
+`usaf_memo@0.3.0`. A blank `usaf_memo@0.3.0` date now prints a fillable field
+for the signer instead of the compile date.
 
 - **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` examples are one worked
   document each.** Every `example:` and the body example's roster is a
@@ -156,6 +117,7 @@
   `experience`, `daf4392@0.1.0`'s `itinerary`, and `cyber_ribbon_chart@0.0.1`'s
   `vector` and `tour`. They stay cards until a new version of each remodels
   them. The studio client now carries wasm 0.115.0 as well.
+
 - **`cyber_ribbon_chart@0.0.1` and `classic_resume@0.0.1` carry their data as
   rows, reshaped in place while both are prototypes.** The ribbon chart's
   `vector` and `tour` cards become `vectors` on `main` (at most three, each with
@@ -245,6 +207,8 @@
   A memorandum whose signature block ends within about three lines of the bottom
   margin, with backmatter below it, now moves that block to the next page with
   its sections. Nothing else moves: where no section splits, layout is unchanged.
+  A section taller than a page still breaks where the page ends, and the
+  section below it measures its note from where it ends.
 
   The vendored manifest requires Typst 0.15.1, matching the compiler the quiver's
   wasm runtime already provides.
@@ -367,6 +331,44 @@
   admits one occupant, and a letter would be its own quill with its own field
   over the same primitive.
 
+- **The version moves past a release** (#100). After `v0.32.2` was tagged,
+  `package.json` stayed at `0.32.2` through every commit that followed, so a
+  consumer installing from a git ref reported the published tarball's version
+  with different contents. `release.yml` now opens the next patch on `main` as
+  `X.Y.(Z+1)-dev` once a final release is tagged, and `release-prepare.yml`
+  bumps from it: `patch` drops the suffix, `minor` takes the next minor. A
+  release candidate leaves the version at its `-rc.N`, where the RC loop reads
+  it. The seeded changelog skips the `chore: open` commit.
+
+
+## v0.32.2 - 2026-08-27
+
+- fix(usaf_memo): keep the signing widget in the blank lines above the signature block
+- Take quillkit 0.5.4 and quiver 0.27.0
+- Take @quillmark/wasm 0.110.0 (#130)
+- Move date above signature block
+
+
+## v0.32.1 - 2026-08-24
+
+- feat(usaf_memo): file the date under Addressing, and give the automatic one a region (#128)
+- feat(usaf_memo): typeset the block quote as the body's unlabeled block (#127)
+- Take quillkit 0.5.3 and quiver 0.26.0, on wasm 0.109.0 (#126)
+- fix(usaf_memo): decline the block quote rather than mis-number it (#125)
+- feat(usaf_memo): take subject and attachments as richtext (#122)
+- Take quillkit 0.5.2 and quiver 0.25.0, on wasm 0.108.3 (#121)
+
+
+## v0.32.0 - 2026-08-20
+
+- Take quillkit 0.5.1, on wasm 0.108.1 (#119)
+- Take quillkit 0.5.0 for the studio
+- feat(usaf_memo): make classification a variant container, on quillmark 0.108
+- feat(usaf_memo): derive indorsement action wording, underline the choice
+
+
+## v0.32.0–v0.32.2 notes
+
 - **`usaf_memo@0.3.0` keeps the signing widget in the blank lines above the
   signature block.** Since #113 moved the four blank lines inside the
   unbreakable block, `render-signature-block` has emitted `v(gap)` and then
@@ -466,6 +468,7 @@
     so no rule in `render-body`'s capture pass buffers it and the hidden first
     pass swallows it whole — the same silent drop the quote used to take. That
     is untouched here and still open.
+
 - **`usaf_memo@0.3.0` takes `subject` and `attachments` as `richtext`.** Both
   fields carry citations, and AFH 33-337 italicizes publication titles wherever
   they appear. `references` has accepted emphasis since 0.2.0, so until now an
@@ -545,14 +548,6 @@
   PDF read as a fillable form widget sitting among the real ones; the rejected
   option is still struck out.
 
-- **The version moves past a release** (#100). After `v0.32.2` was tagged,
-  `package.json` stayed at `0.32.2` through every commit that followed, so a
-  consumer installing from a git ref reported the published tarball's version
-  with different contents. `release.yml` now opens the next patch on `main` as
-  `X.Y.(Z+1)-dev` once a final release is tagged, and `release-prepare.yml`
-  bumps from it: `patch` drops the suffix, `minor` takes the next minor. A
-  release candidate leaves the version at its `-rc.N`, where the RC loop reads
-  it. The seeded changelog skips the `chore: open` commit.
 
 
 ## v0.31.0 - 2026-08-14
