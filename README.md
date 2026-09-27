@@ -25,8 +25,8 @@ and aligned to the current Quillmark spec.
 npm install @airmark/quiver @quillmark/quiver @quillmark/wasm
 ```
 
-This package ships only the source-quiver assets (`Quiver.yaml` + `quills/`) and
-exposes no JavaScript API. Loading is `@quillmark/quiver`'s, rendering is
+This package ships the source-quiver assets (`Quiver.yaml` + `quills/`) and the
+official [templates](#templates), and exposes no JavaScript API. Loading is `@quillmark/quiver`'s, rendering is
 `@quillmark/wasm`'s.
 
 ## Usage
@@ -97,7 +97,27 @@ quills/
       plate.typ
       assets/
       packages/
+templates/
+  templates.json
+  <file>.md
 ```
+
+## Templates
+
+`templates/` holds the official starter documents Tongue to Quill offers in its
+template library. They sit beside the quiver rather than inside it: the quiver
+loaders never read them, and a consumer reaches them as files, through
+`@airmark/quiver/templates/templates.json` and the Markdown it names. Each entry
+is `{ id, name, description, file, tags }`, and every listed template is live.
+
+An entry's `id` is permanent. Tongue to Quill derives the template's row id and
+its shareable short code from it, so renaming one retires the old template (its
+stars and its short code with it) and publishes a new one. Removing an entry
+retires it the same way.
+
+`npm test` renders every template against this quiver after `quillkit test`, and
+a warning fails it as an error does, so a quill change that breaks a template
+fails here rather than on the app's build.
 
 ## Working on a quill
 

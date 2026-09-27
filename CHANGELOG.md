@@ -28,6 +28,14 @@
 
 ## Unreleased
 
+- **Ship Tongue to Quill's official templates under `templates/`.** Eight
+  starter documents and the `templates.json` manifest naming them move here
+  from the web app, exported as `@airmark/quiver/templates/*`: the USAF and
+  USSF memos, the LOC rebuttal, the pass request, the appointment letter, and
+  AF Form 4141, DAF Form 4392 and DAF Form 1206. The manifest has no
+  `production` flag; every entry is live. `npm test` renders each against the
+  quiver and fails on any warning.
+
 - **Take `@quillmark/wasm` 0.116.0, `quillkit` 0.9.0 and `@quillmark/quiver`
   0.30.0. Every quill now needs wasm 0.116 or later to load.** 0.116 reads a
   label as a top-level `title` beside `description` and refuses `ui.title` and
