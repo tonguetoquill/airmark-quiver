@@ -135,9 +135,9 @@
   } else if kind == "skills" {
     item-grid(
       items: card.skills.map(row => (label: trim-inline(row.label), text: trim-inline(row.text))),
-      columns: card.columns,
+      columns: calc.max(1, card.columns),
     )
   } else if kind == "certifications" {
-    item-grid(items: card.items.map(trim-inline), columns: card.columns)
+    item-grid(items: card.items.map(trim-inline), columns: calc.max(1, card.columns))
   }
 }

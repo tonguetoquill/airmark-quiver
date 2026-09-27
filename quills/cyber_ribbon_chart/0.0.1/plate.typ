@@ -241,7 +241,7 @@
         #if not blank(v.focus) [#v.focus]
         #if beyond.len() > 0 [
           #if not blank(v.focus) [ · ]
-          +#beyond.len() past #(start-year + years)
+          +#beyond.len() past #(start-year + years - 1)
         ]
       ]
     ]

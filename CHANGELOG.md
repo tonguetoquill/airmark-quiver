@@ -28,6 +28,25 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` split a closing list taller than
+  a page instead of losing its tail.** Each attachment, `cc:` or
+  `DISTRIBUTION:` section moves to the next page whole, and one taller than a
+  page overflowed the bottom margin: a memo with 80 distribution entries
+  printed about fifty and dropped the rest without a warning. A section taller
+  than a page, counting the room it reserves for the section below, now breaks
+  where the page ends, and the section below measures its continuation note
+  from where it ends. Every document whose closing lists fit on a page lays out
+  as before.
+
+- **`usaf_letter@0.1.0` sets the close on the second line below an empty
+  body's salutation**, not the fourth, so a new letter opens laid out as AFH
+  33-337 places it.
+
+- **`cyber_ribbon_chart@0.0.1` names the window's last year in a vector's
+  count of tours past it**, as a clipped tour does, and
+  **`classic_resume@0.0.1`** renders a `columns` of zero or less as one column
+  rather than failing.
+
 - **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` examples are one worked
   document each.** Every `example:` and the body example's roster is a
   realistic value from a single fictional unit (the 123d, at Example AFB)
@@ -178,7 +197,10 @@
 - **`usaf_memo@0.3.0`'s vendored `src/` is a verbatim copy of upstream.** Every
   `.typ` file matches `tonguetoquill/typst-usaf-memo` byte for byte, so a sync
   is a copy rather than a translation, and an upstream fix can no longer be
-  mistranslated on the way in.
+  mistranslated on the way in. Three patches later in this release stand
+  outside upstream: `frontmatter.typ`'s `date-field` and `indorsement.typ`'s
+  header without a blank memo date, below, and `primitives.typ`'s split of a
+  closing list taller than a page, above.
 
   The two adaptations that stood in the way are gone. Public parameters take
   upstream's `kebab-case` spelling: `plate.typ` already maps `Quill.yaml` fields
@@ -280,7 +302,7 @@
   signature block disappeared and the indorsement's became paragraphs 3 and 4.
   A closing section carrying a page break did not render wrong so much as not
   render: the rebuild lays its content out inside a `place`, where Typst rejects
-  a `pagebreak` outright, so `backmatter(leading_pagebreak: true)` and any
+  a `pagebreak` outright, so `backmatter(leading-pagebreak: true)` and any
   `separate_page` indorsement failed the compile.
 
   The two halves have to part before the rebuild rather than be filtered
@@ -340,7 +362,7 @@
   outright: "The authority line is not used for Personal Letters." One geometry,
   two occupants that never co-occur. So the parameter is `closing-line`, either
   may fill it, and casing stays with the element that has an opinion about it:
-  `authority-line()` uppercases the memo's, and "Sincerely" would not be. The
+  `format-authority-line()` uppercases the memo's, and "Sincerely" would not be. The
   schema field stays `authority_line` — this quill renders memoranda, whose slot
   admits one occupant, and a letter would be its own quill with its own field
   over the same primitive.

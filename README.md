@@ -176,7 +176,8 @@ knows about the other.
 
 ## License
 
-Apache-2.0, the quill packages under `quills/` included. Two things a quill
+Apache-2.0, the quill packages under `quills/` included, except
+`classic_resume`'s `ttq-classic-resume`, which is MIT. Two things a quill
 carries are not the project's to license: the fonts its package bundles, which
 keep their own upstream terms — see the `packages/` directory inside each quill
 — and the DoD and DoW seals under `quills/*/*/assets/`, which are US

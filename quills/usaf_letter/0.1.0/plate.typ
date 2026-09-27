@@ -99,9 +99,11 @@
   font-size: body_font_size,
 )
 
-#mainmatter[
-  #data.at("$body")
-]
+// An empty body reaches the plate as `""`, and `mainmatter` would still set a
+// blank paragraph for it, dropping the close two lines too far.
+#if data.at("$body") != "" {
+  mainmatter[#data.at("$body")]
+}
 
 #backmatter(
   complimentary-close: data.complimentary_close,
