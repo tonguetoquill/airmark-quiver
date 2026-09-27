@@ -18,8 +18,8 @@ main:
 
       Lines that stand as written — a roster of names, an address — go in a block quote, typeset flush with the margin. End a line with a backslash to break it.
 
-      > FIRST M. LAST, Maj, USAF\
-      > SECOND N. LAST, Capt, USAF
+      > MARY E. BROWN, Maj, USAF\
+      > ROBERT L. JONES, Capt, USAF
 
       The last paragraph may carry your contact information: DSN and commercial telephone numbers and your official email address.
   fields:
@@ -33,7 +33,7 @@ main:
         - Commander
         - 123d Example Squadron
         - 1 Example Way
-        - Placeholder AFB ST 12345-6789
+        - Example AFB ST 12345-6789
       ui:
         group: addressing
         compact: true
@@ -87,7 +87,7 @@ main:
         type: plaintext
         inline: true
       example:
-        - "FIRST M. LAST, Rank, USAF"
+        - "JANE A. DOE, Col, USAF"
       ui:
         group: addressing
         compact: true
@@ -102,7 +102,7 @@ main:
         - DEPARTMENT OF THE AIR FORCE
       example:
         - DEPARTMENT OF THE AIR FORCE
-        - HEADQUARTERS [UNIT NAME]
+        - 123D EXAMPLE SQUADRON
       ui:
         group: letterhead
       description: "Letterhead lines, top to bottom, all rendered in uppercase. The first is the department title, set larger than the rest. Change that line only for a Joint Command or a DoW agency. The lines below it are your unit's full organization name."
@@ -188,7 +188,7 @@ main:
         inline: true
       default: []
       example:
-        - Rank and Name, ORG/SYMBOL
+        - 456 EXG/CC
       ui:
         group: additional
       description: Offices or people receiving a courtesy copy, one per line.
@@ -200,7 +200,7 @@ main:
         inline: true
       default: []
       example:
-        - Attachment description, YYYY MMM DD
+        - Squadron Newcomer Guide, 1 September 2026
       ui:
         group: additional
       description: "Attachments in the order the letter mentions them. Describe each briefly; do not write 'as stated' or abbreviate. A lone attachment prints unnumbered, two or more are numbered. Italicize publication titles with *asterisks*."

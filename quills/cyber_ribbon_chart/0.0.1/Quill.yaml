@@ -199,9 +199,9 @@ main:
             type: plaintext
             inline: true
             default: ""
-            example: "#1/45 CGOs"
+            example: "#1/45 Capts"
             title: Higher Level Reviewer
-            description: "Your Higher Level Reviewer's stratification as it was written, such as '#1/45 CGOs'. Leave blank where you drew none."
+            description: "Your Higher Level Reviewer's stratification as it was written, such as '#1/45 Capts'. Leave blank where you drew none."
       default: []
       example:
         - { year: "2026", rater_strat: "#1/14 Capts", hlr_strat: "#1/45 Capts" }
@@ -275,7 +275,7 @@ main:
               type: plaintext
               inline: true
               default: ""
-              example: 333 TRS/DO
+              example: "2025"
               description: "The unit, course, or year that proves it, set in italics under the label. Leave blank where the label says enough on its own."
         operations:
           type: matrix
