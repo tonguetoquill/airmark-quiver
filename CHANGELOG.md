@@ -28,6 +28,20 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` examples are one worked
+  document each.** Every `example:` and the body example's roster is a
+  realistic value from a single fictional unit (the 123d, at Example AFB)
+  rather than a fill-in pattern like `ORG/SYMBOL`, `FIRST M. LAST, Rank,
+  USAF` or `HEADQUARTERS [UNIT NAME]`, so studio's **Fill examples** sets a
+  memo and a letter a reader can judge. Patterns stay in the descriptions,
+  which are instructions. No `default:` changes, so every document renders as
+  before.
+
+- **`cyber_ribbon_chart@0.0.1` examples agree with themselves.** A
+  qualification's `detail` example is a year, which fits all four matrices
+  that share it; the Higher Level Reviewer's field example is `#1/45 Capts`,
+  as in the stratifications example.
+
 - **cyber_ribbon_chart: examples describe a whole chart again.** Duty title,
   advanced degree, date of rank, date arrived station, three vectors with
   tours, three years of stratifications, awards, certifications and a
