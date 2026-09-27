@@ -129,17 +129,17 @@ this collection's own `node_modules`, so the versions pinned here are the format
 the quiver is packed in and the wasm the gate renders through.
 
 **Does it work?** `quillkit test` loads the collection with `fromDir`, compiles
-every quill, and renders each one's example document — the blueprint seeded from
-the `example:` values in `Quill.yaml`. It is the gate CI runs, so a validation
-failure surfaces here rather than on a consumer's build:
+every quill, and renders each one's seed: every field absent, rendering its
+`default:` or its blank. It is the gate CI runs, so a validation failure
+surfaces here rather than on a consumer's build:
 
 ```bash
 npm install
 npm test
 ```
 
-The gate renders nothing the schema did not write, so the coverage is the
-`example:` block: a field with no example is a field no render exercises.
+The gate renders no answer, so a page with a long list or a wrapping value in
+it is a design fixture's to exercise (`design/`), not the gate's.
 
 **What is it like to use?** `npm run dev` is `quillkit studio`: it packs this
 quiver, serves the studio client over it, and repacks on every save — pick a
