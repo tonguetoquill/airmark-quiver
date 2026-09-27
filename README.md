@@ -143,7 +143,8 @@ it is a design fixture's to exercise (`design/`), not the gate's.
 
 **What is it like to use?** `npm run dev` is `quillkit studio`: it packs this
 quiver, serves the studio client over it, and repacks on every save — pick a
-quill, edit the seeded document, watch it paint, read the diagnostics. The
+quill, edit the seeded document or press **Fill examples** to write each
+unanswered field's `example:` into it, watch it paint, read the diagnostics. The
 client is quillkit's own, so there is nothing to install for it and nothing to
 keep in step.
 
