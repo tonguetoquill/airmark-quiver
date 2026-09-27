@@ -6,10 +6,12 @@
   "exports": {
     "./Quiver.yaml": "./Quiver.yaml",
     "./quills/*": "./quills/*",
+    "./templates/*": "./templates/*",
     "./package.json": "./package.json"
   },
   "files": [
     "quills",
+    "templates",
     "Quiver.yaml"
   ],
   "engines": {
@@ -21,7 +23,7 @@
     "quillkit": "0.9.0"
   },
   "scripts": {
-    "test": "quillkit test",
+    "test": "quillkit test && node scripts/check-templates.mjs",
     "site": "quillkit site --out site --drafts",
     "dev": "quillkit studio"
   },
