@@ -41,6 +41,18 @@ FINALISTS = [
     ("Alegreya", "smcp", "Alegreya"),
 ]
 
+# Small caps natively, with an italic. Mirrors `native` in native.typ.
+NATIVE = [
+    ("Spectral SC", "native", "Spectral SC"),
+    ("Bona Nova SC", "native", "Bona Nova SC"),
+    ("Alegreya SC", "native", "Alegreya SC"),
+    ("Playfair Display SC", "native", "Playfair Display SC"),
+    ("Bodoni Moda SC 11pt", "native", "Bodoni Moda SC"),
+    ("Alegreya Sans SC", "native", "Alegreya Sans SC"),
+    ("Arsenal SC", "native", "Arsenal SC"),
+    ("Alumni Sans SC", "native", "Alumni Sans SC"),
+]
+
 
 def compile_(source, out, *inputs):
     args = [typst, "compile", "--root", str(repo), "--ignore-system-fonts",
@@ -87,6 +99,8 @@ def footer_sheet(candidates, out):
 shots.mkdir(exist_ok=True)
 compile_("specimen.typ", shots / "specimen.png")
 compile_("survey.typ", shots / "survey.png")
+compile_("native.typ", shots / "native.png")
 footer_sheet(CANDIDATES, "in_context.png")
 footer_sheet(FINALISTS, "in_context_finalists.png")
+footer_sheet(NATIVE, "in_context_native.png")
 print(f"wrote {shots}")

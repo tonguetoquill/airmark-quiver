@@ -153,7 +153,8 @@ italic. `specimen.png` holds the first round: NimbusRomNo9L, the package's own
 Cinzel, EB Garamond, Cormorant, Cormorant Garamond and Cormorant SC.
 `survey.png` holds every serif family on Google Fonts whose upright and italic
 both carry `smcp`, less the Tiro Indic families, the SC cuts of families already
-there, and near-duplicates. Each `in_context*.png` crops the footers of real
+there, and near-duplicates. `native.png` holds every family whose own lowercase
+are small caps and which has an italic, set as plain text. Each `in_context*.png` crops the footers of real
 memo pages, one per candidate and style, from the `memo-*.png` beside it.
 
 ```sh
@@ -161,7 +162,7 @@ memo pages, one per candidate and style, from the `memo-*.png` beside it.
 python3 design/usaf_memo/tag_line_fonts/fetch_fonts.py
 TYPST=/path/to/typst python3 design/usaf_memo/tag_line_fonts/render.py
 
-# list the survey's families afresh
+# list the survey's and the native sheet's families afresh
 python3 design/usaf_memo/tag_line_fonts/fetch_fonts.py --survey
 ```
 
@@ -175,3 +176,11 @@ unchanged. Its small caps are synthesized from capitals at 0.72em.
 
 In the survey every italic small cap slants except Literata's, which stand
 near upright.
+
+Google names a family whose lowercase are small caps `… SC`, and ten have an
+italic: five serif (Spectral SC, Bona Nova SC, Alegreya SC, Playfair Display SC,
+Bodoni Moda SC), four sans and a mono. A family small caps by design under
+another name would draw its lowercase without ascenders; across the 357
+families with an italic, only the Playwrite handwriting guides do. Cinzel,
+Cormorant SC, Vollkorn SC, IM Fell SC and Marcellus SC are small caps natively
+but have no italic.

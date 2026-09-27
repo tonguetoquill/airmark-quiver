@@ -5,9 +5,10 @@ font is instanced at weight 400 with every other axis at its default, so the
 candidates are compared at their Regular.
 
     python3 fetch_fonts.py            # fetch FAMILIES
-    python3 fetch_fonts.py --survey   # list every serif family on Google
-                                      # Fonts whose upright and italic both
-                                      # carry smcp
+    python3 fetch_fonts.py --survey   # list the Google Fonts families with
+                                      # an italic that are small caps natively,
+                                      # and the serif families whose upright
+                                      # and italic both carry smcp
 
 Needs git and fontTools.
 """
@@ -28,11 +29,14 @@ here = Path(__file__).resolve().parent
 FAMILIES = [
     # The first round.
     "ebgaramond", "cormorant", "cormorantgaramond", "cormorantsc",
-    # The survey's: upright and italic both carry smcp.
+    # Upright and italic both carry smcp.
     "alegreya", "ancizarserif", "andadapro", "bitter", "bodonimoda", "bonanova",
     "brygada1918", "castoro", "charissil", "gentiumbookplus", "ibarrarealnova",
     "literata", "merriweather", "neuton", "notoserif", "petrona", "piazzolla",
     "playfairdisplay", "poltawskinowy", "spectral", "stixtwotext", "zillaslab",
+    # Small caps natively, with an italic.
+    "alegreyasc", "bodonimodasc", "bonanovasc", "playfairdisplaysc", "spectralsc",
+    "alegreyasanssc", "arsenalsc", "alumnisanssc",
 ]
 
 
@@ -85,28 +89,36 @@ def main():
                         "--sparse", "https://github.com/google/fonts.git", str(repo)], check=True)
         git(repo, "sparse-checkout", "set", "--no-cone", "/*/*/METADATA.pb")
 
-        picks = {}
+        picks, categories = {}, {}
         for metadata in sorted(repo.glob("*/*/METADATA.pb")):
             family = metadata.parent
             text = metadata.read_text()
-            if survey:
-                if "SERIF" not in re.findall(r'category: "(\w+)"', text):
-                    continue
-            elif family.parent.name != "ofl" or family.name not in FAMILIES:
+            if not survey and (family.parent.name != "ofl" or family.name not in FAMILIES):
                 continue
             files = styles(text)
             picks[family] = (re.search(r'^name: "([^"]+)"', text, re.M)[1],
                              nearest_400(files, "normal"), nearest_400(files, "italic"))
+            categories[family] = re.findall(r'category: "(\w+)"', text)
         if survey:
             picks = {d: p for d, p in picks.items() if p[1] and p[2]}
+            # Google names a family whose lowercase are small caps `… SC`. A
+            # family that is small caps by design under another name would
+            # draw its lowercase without ascenders; across every family with an
+            # italic, only the Playwrite handwriting guides do.
+            print("Small caps natively, with an italic:")
+            for family, (name, *_) in sorted(picks.items(), key=lambda p: p[1][0]):
+                if name.endswith(" SC"):
+                    print(f"  {name:28} {'/'.join(categories[family]):12} {family.relative_to(repo)}")
+            picks = {d: p for d, p in picks.items() if "SERIF" in categories[d]}
 
         wanted = [f"{d.relative_to(repo)}/{f}" for d, (_, *fs) in picks.items() for f in fs if f]
         git(repo, "sparse-checkout", "set", "--no-cone", "--stdin", stdin=sparse_paths(wanted))
 
         if survey:
+            print("Serif, upright and italic both carrying smcp:")
             for family, (name, upright, italic) in sorted(picks.items(), key=lambda p: p[1][0]):
                 if "smcp" in gsub_features(family / upright) and "smcp" in gsub_features(family / italic):
-                    print(f"{name:28} {family.relative_to(repo)}")
+                    print(f"  {name:28} {family.relative_to(repo)}")
             return
 
         out = here / "fonts"
