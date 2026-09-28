@@ -17,7 +17,7 @@ signature_block:
 tag_line: ""
 ~~~
 
-I am requesting an extension of my current DEROS from DD MMM YYYY to DD MM YYYY. Why do you need this DEROS extension? What has caused the delay?
+I am requesting an extension of my current DEROS from DD MMM YYYY to DD MMM YYYY. Why do you need this DEROS extension? What has caused the delay?
 
 My original DEROS from insert base to insert base is *DD MMM YYYY* with a RNLTD of *DD MMM YYYY*
 
