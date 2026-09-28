@@ -54,5 +54,12 @@
     "description": "Appoint primary and alternate program managers with an appointee table",
     "file": "appointment_letter.md",
     "tags": ["appointment", "additional-duty", "air-force"]
+  },
+  {
+    "id": "deros-extension",
+    "name": "DEROS Extension Request",
+    "description": "Exception to policy DEROS extension request memorandum with commander indorsement",
+    "file": "deros_extension.md",
+    "tags": ["deros", "pcs", "assignments"]
   }
 ]
