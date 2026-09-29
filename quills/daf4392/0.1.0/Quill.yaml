@@ -20,7 +20,6 @@ main:
     departure_date:
       type: date
       default: ""
-      example: "2026-06-01"
       ui:
         compact: true
       description: "Date of initial departure."
@@ -28,10 +27,9 @@ main:
     final_destination:
       type: string
       default: ""
-      example: San Antonio, TX
       ui:
         compact: true
-      description: "Final travel destination."
+      description: "Final travel destination, as in City, ST."
 
     dept_flight_num:
       type: string
@@ -55,7 +53,6 @@ main:
     organization:
       type: string
       default: ""
-      example: 1st Air Control Squadron
       ui:
         compact: true
       description: "Unit / Organization."
@@ -63,7 +60,6 @@ main:
     briefed_date:
       type: date
       default: ""
-      example: "2026-05-22"
       ui:
         compact: true
       description: "Put in today's date."
@@ -71,7 +67,6 @@ main:
     briefee_name:
       type: string
       default: ""
-      example: "Doe, John"
       ui:
         compact: true
       description: "Put in your Name (Last, First)."

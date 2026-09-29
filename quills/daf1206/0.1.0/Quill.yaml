@@ -8,15 +8,11 @@ typst:
   plate_file: plate.typ
 
 main:
-  body:
-    example: |
-      - First accomplishment bullet.
-      - Second accomplishment bullet.
+  description: The body holds the specific accomplishments, one bullet per line.
   fields:
     award:
       type: string
       default: ""
-      example: Outstanding Performer of the Quarter
     category_if_applicable:
       type: string
       default: ""
@@ -25,42 +21,39 @@ main:
     award_period:
       type: string
       default: ""
-      example: 1 Jan 2026 – 31 Mar 2026
+      description: Date range, as in 1 Jan 2026 – 31 Mar 2026.
       ui:
         compact: true
     rankname_of_nominee:
       type: string
       default: ""
-      example: "SSgt John A. Doe"
+      description: Rank and name, as in RANK FIRST M. LAST.
       ui:
         compact: true
     majcom_fldcom_foa_or_dru:
       type: string
       default: ""
-      example: ACC
+      description: Abbreviation, as in ACC.
       ui:
         compact: true
     dafsc_duty_title:
       type: string
       default: ""
-      example: "1C5X1, Aerospace Control and Warning Systems"
+      description: DAFSC, then duty title.
     nominees_telephone_dsn_commercial:
       type: string
       default: ""
-      example: "DSN 555-1234 / (555) 555-1234"
+      description: DSN and commercial numbers, as in DSN XXX-XXXX / (XXX) XXX-XXXX.
     unit_office_symbol_street_address_base_state_zip:
       type: string
       default: ""
-      example: "1st ACS, 123 Main St, Tyndall AFB FL 32403"
+      description: One line, as in UNIT/SYMBOL, STREET, BASE ST ZIP.
     unit_commander_rank_name_and_telephone:
       type: string
       default: ""
-      example: "Lt Col Jane B. Smith, (555) 555-5678"
+      description: Rank, name and telephone, as in RANK FIRST M. LAST, (XXX) XXX-XXXX.
 
 card_kinds:
   accomplishments_continued:
     title: Specific Accomplishments (Continued — Page 2)
-    description: Optional. Add this card only when page 2 overflow is required. Use the card body for continued bullets. Rank/name on page 2 matches the main nominee line automatically.
-    body:
-      example: |
-        - Continued accomplishment bullet.
+    description: Optional. Add this card only when page 2 overflow is required. Use the card body for continued bullets, one per line. Rank/name on page 2 matches the main nominee line automatically.
