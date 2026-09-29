@@ -8,32 +8,15 @@ typst:
   plate_file: plate.typ
 
 main:
+  description: "Paragraphs are indented and take no number or letter, with one blank line between them. Put lines that stand as written, such as a roster of names or an address, in a block quote, typeset flush with the margin. End a line with a backslash to break it. The last paragraph may give your DSN and commercial telephone numbers and official email address."
   ui:
     groups: [addressing, letterhead, classification, additional]
-  body:
-    example: |
-      Thank you for asking about the personal letter. The personal letter conveys official information in a personal manner to a limited number of people, which is what makes it the right form for a reply to an inquiry, a welcome, a note of appreciation, or a letter of condolence.
-
-      Paragraphs are indented and take no number or letter. Leave one blank line between them.
-
-      Lines that stand as written — a roster of names, an address — go in a block quote, typeset flush with the margin. End a line with a backslash to break it.
-
-      > MARY E. BROWN, Maj, USAF\
-      > ROBERT L. JONES, Capt, USAF
-
-      The last paragraph may carry your contact information: DSN and commercial telephone numbers and your official email address.
   fields:
     letter_from:
       type: array
       items:
         type: plaintext
         inline: true
-      example:
-        - Colonel Jane A. Doe
-        - Commander
-        - 123d Example Squadron
-        - 1 Example Way
-        - Example AFB ST 12345-6789
       ui:
         group: addressing
         compact: true
@@ -44,12 +27,6 @@ main:
       items:
         type: plaintext
         inline: true
-      example:
-        - Major John B. Smith
-        - Chief, Plans and Programs
-        - 456th Example Group
-        - 2 Sample Boulevard
-        - Sample AFB ST 98765-4321
       ui:
         group: addressing
         compact: true
@@ -58,11 +35,10 @@ main:
     salutation:
       type: plaintext
       inline: true
-      example: Dear Major Smith
       ui:
         group: addressing
         compact: true
-      description: "The form of address for the receiver's rank followed by their last name — see 'Forms of Address, Salutation, and Complimentary Close' in AFH 33-337. Take no punctuation after the last name."
+      description: "The form of address for the receiver's rank followed by their last name, as in 'Dear Major Smith' — see 'Forms of Address, Salutation, and Complimentary Close' in AFH 33-337. Take no punctuation after the last name."
 
     date:
       type: date
@@ -86,12 +62,10 @@ main:
       items:
         type: plaintext
         inline: true
-      example:
-        - "JANE A. DOE, Col, USAF"
       ui:
         group: addressing
         compact: true
-      description: "Name in UPPERCASE as signed, grade, and service, printed on the fifth line below the complimentary close. A personal letter does not carry the sender's duty title, which the heading has already given."
+      description: "Name in UPPERCASE as signed, grade, and service, as in 'FIRST M. LAST, Col, USAF', printed on the fifth line below the complimentary close. A personal letter does not carry the sender's duty title, which the heading has already given."
 
     letterhead_title:
       type: array
@@ -100,9 +74,6 @@ main:
         inline: true
       default:
         - DEPARTMENT OF THE AIR FORCE
-      example:
-        - DEPARTMENT OF THE AIR FORCE
-        - 123D EXAMPLE SQUADRON
       ui:
         group: letterhead
       description: "Letterhead lines, top to bottom, all rendered in uppercase. The first is the department title, set larger than the rest. Change that line only for a Joint Command or a DoW agency. The lines below it are your unit's full organization name."
@@ -154,13 +125,11 @@ main:
           controlled_by:
             type: plaintext
             inline: true
-            example: SAF/AA
-            description: "Office or organization that designated this information as CUI. Required by DoDM 5200.48."
+            description: "Office or organization that designated this information as CUI, such as 'SAF/AA'. Required by DoDM 5200.48."
           poc:
             type: plaintext
             inline: true
-            example: "Capt J. Smith, DSN 555-1234, john.smith@us.af.mil"
-            description: "Point of contact for CUI questions. Required by DoDM 5200.48."
+            description: "Point of contact for CUI questions, with phone and email, as in 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'. Required by DoDM 5200.48."
           category:
             type: plaintext
             inline: true
@@ -187,8 +156,6 @@ main:
         type: plaintext
         inline: true
       default: []
-      example:
-        - 456 EXG/CC
       ui:
         group: additional
       description: Offices or people receiving a courtesy copy, one per line.
@@ -199,11 +166,9 @@ main:
         type: richtext
         inline: true
       default: []
-      example:
-        - Squadron Newcomer Guide, 1 September 2026
       ui:
         group: additional
-      description: "Attachments in the order the letter mentions them. Describe each briefly; do not write 'as stated' or abbreviate. A lone attachment prints unnumbered, two or more are numbered. Italicize publication titles with *asterisks*."
+      description: "Attachments in the order the letter mentions them. Describe each briefly and give its date; do not write 'as stated' or abbreviate. A lone attachment prints unnumbered, two or more are numbered. Italicize publication titles with *asterisks*."
 
     font_size:
       type: number
