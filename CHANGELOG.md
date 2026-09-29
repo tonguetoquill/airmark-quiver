@@ -1,5 +1,33 @@
 # Changelog
 
+## Unreleased
+
+- **Take `@quillmark/wasm` 0.117.0, `@quillmark/quiver` 0.31.0 and `quillkit`
+  0.11.0. Every quill now needs wasm 0.117 or later to load.** 0.117 refuses
+  `example:` on a field at any depth and `body.example`, and every quill
+  declared them, so none loaded under it. Each is deleted from every quill, in
+  every version, published ones included; a 0.116 engine loads the result, so
+  only a consumer on 0.117 must move. The format hint an example alone carried
+  moves into its field's `description`, as in `'FIRST M. LAST, Capt, USAF'`, and
+  a body example's rules move into the `description` of `main` or of its card
+  kind, which the blueprint prints on the `$kind` line in place of the quill's
+  own description. Every document renders as before.
+
+- **Every quill ships a root `example.md`**, one filled-in page of made-up
+  values, where its examples stood. `quill.exampleDocument()` hands it out,
+  studio opens a quill on it, and `npm test` fails a quill that ships none or
+  whose example warns. `usaf_memo` and `usaf_letter` keep the 123d at Example
+  AFB; `afmc_moa`'s writes out the DoDI 4000.19 boilerplate its body examples
+  carried.
+
+- **`cyber_ribbon_chart@0.0.1` and `afmc_moa@0.0.1` stop naming fonts they do
+  not ship.** `"Figtree"` and `"times new roman"` each warned on every render;
+  neither was ever drawn, so the pages are unchanged.
+
+- **Studio and the site offer the templates.** `npm run dev` and `npm run site`
+  pass `--templates templates`, so the head's **Templates…** opens any of them in
+  the quill it names.
+
 ## v0.33.0 - 2026-09-27
 
 Every quill now needs `@quillmark/wasm` 0.116 or later to load, so a consumer

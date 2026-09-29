@@ -18,14 +18,14 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "0.30.0",
-    "@quillmark/wasm": "^0.116.0",
-    "quillkit": "0.10.0"
+    "@quillmark/quiver": "0.31.0",
+    "@quillmark/wasm": "^0.117.0",
+    "quillkit": "0.11.0"
   },
   "scripts": {
-    "test": "quillkit test && node scripts/check-templates.mjs",
-    "site": "quillkit site --out site --drafts",
-    "dev": "quillkit studio"
+    "test": "quillkit test && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
+    "site": "quillkit site --out site --drafts --templates templates",
+    "dev": "quillkit studio --templates templates"
   },
   "keywords": [
     "quillmark",

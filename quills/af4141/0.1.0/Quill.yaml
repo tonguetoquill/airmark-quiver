@@ -14,13 +14,11 @@ main:
     name:
       type: string
       default: ""
-      example: "Doe, John A."
       description: Full name in Last, First, Middle Initial format.
 
     unit:
       type: string
       default: ""
-      example: 1st Air Control Squadron
       description: Unit or organization of assignment.
 
     grade:
@@ -45,7 +43,6 @@ card_kinds:
       date:
         type: date
         default: ""
-        example: "2026-03-14"
         ui:
           group: record
         description: Date of the action (column A).
@@ -53,7 +50,6 @@ card_kinds:
       action:
         type: string
         default: ""
-        example: Upgraded to 5-level; assumed ADO duties
         ui:
           group: record
         description: One type of action per line (column B).
@@ -61,16 +57,14 @@ card_kinds:
       written_grade:
         type: string
         default: ""
-        example: "3"
         ui:
           group: record
           compact: true
-        description: Written grade, if applicable (column C).
+        description: Written grade, as in 3, if applicable (column C).
 
       written_grade_date:
         type: date
         default: ""
-        example: "2026-02-28"
         ui:
           group: record
           compact: true
@@ -79,16 +73,14 @@ card_kinds:
       positional_grade:
         type: string
         default: ""
-        example: "2"
         ui:
           group: record
           compact: true
-        description: Positional grade, if applicable (column E).
+        description: Positional grade, as in 2, if applicable (column E).
 
       positional_grade_date:
         type: date
         default: ""
-        example: "2026-03-14"
         ui:
           group: record
           compact: true
@@ -97,7 +89,6 @@ card_kinds:
       auth_or_remarks:
         type: string
         default: ""
-        example: "J.A.D."
         ui:
           group: record
-        description: Authentication or remarks entry (column G).
+        description: Authentication initials, as in J.A.D., or remarks entry (column G).
