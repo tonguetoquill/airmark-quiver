@@ -5,7 +5,7 @@
 #let faint = luma(62%)
 
 #set page(width: 11in, height: 8.5in, margin: 0.45in)
-#set text(font: "Figtree", size: 8pt, fill: ink)
+#set text(size: 8pt, fill: ink)
 
 #set document(
   title: "Ribbon Chart — " + data.name,

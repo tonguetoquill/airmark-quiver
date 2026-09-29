@@ -20,7 +20,6 @@ main:
   fields:
     name:
       type: string
-      example: John Doe
       ui:
         group: identity
       description: "Your name, set large at the top. It is the document's level 1 heading, and becomes the exported PDF's title and author."
@@ -29,12 +28,6 @@ main:
       type: array
       items:
         type: string
-      example:
-        - john.doe@example.com
-        - (555) 123-4567
-        - github.com/johndoe
-        - linkedin.com/in/johndoe
-        - Pittsburgh, PA
       ui:
         group: identity
       description: "The line under your name, one contact per line here, printed across the page separated by a diamond. Order them by how much you want them used."
@@ -83,9 +76,6 @@ card_kinds:
     description: "A heading and prose under it. With a title of its own it is any section that is only prose — an objective, a statement of interest."
     ui:
       groups: [heading]
-    body:
-      example: |
-        Security engineer of eight years, most of it on detection pipelines other people have to keep running.
     fields:
       title:
         type: plaintext
@@ -108,9 +98,6 @@ card_kinds:
     description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them."
     ui:
       groups: [heading]
-    body: &section_body
-      # Empty is a heading straight over its rows, which is the usual section.
-      example: ""
     fields:
       title:
         type: plaintext
@@ -128,39 +115,26 @@ card_kinds:
             company:
               type: plaintext
               inline: true
-              example: Templar Archives Research Division
               description: "Set in bold at the left of the first line."
             dates: &dates
               type: plaintext
               inline: true
               default: ""
-              example: August 2024 – Present
               description: "Set in bold at the right, opposite the name. Free text rather than a date, so a range reads as you write it: 'August 2024 – Present', 'December 2025'. Keep the form the same down the page."
             role:
               type: plaintext
               inline: true
               default: ""
-              example: Psionic Research Analyst
               description: "Your title, set in italics under the employer. Leave blank to omit."
             location: &location
               type: plaintext
               inline: true
               default: ""
-              example: Pittsburgh, PA
               description: "Set in italics at the right of the second line. 'Pittsburgh, PA', 'Remote'. Leave blank to omit; with the line's other half blank too, the second line is not printed."
             details: &details
               type: richtext
               default: ""
-              example: |
-                - What you did, and what came of it.
               description: "Set under the entry. Usually a bulleted list, one line each and strongest first; a sentence, *italics* and **bold** set as well, and a heading sets as a bold line. Leave blank for nothing under the entry."
-        example:
-          - company: Templar Archives Research Division
-            dates: August 2024 – Present
-            role: Psionic Research Analyst
-            location: Aiur
-            details: |
-              - Analyzed Khala disruption patterns, developing countermeasures to protect neural link infrastructure.
         description: "One row per job. A row is never split across a page break."
 
   education:
@@ -168,7 +142,6 @@ card_kinds:
     description: "Schools, most recent first: school and date on the first line, degree and location on the second."
     ui:
       groups: [heading]
-    body: *section_body
     fields:
       title:
         type: plaintext
@@ -186,28 +159,17 @@ card_kinds:
             school:
               type: plaintext
               inline: true
-              example: Carnegie Mellon University
               description: "Set in bold at the left of the first line."
-            dates:
-              <<: *dates
-              example: May 2024
+            dates: *dates
             degree:
               type: plaintext
               inline: true
               default: ""
-              example: BS, Data Science
               description: "Degree and field, set in italics under the school. Leave blank to omit."
             location: *location
             details:
               <<: *details
-              example: |
-                - Distinguished Graduate (top 10%).
               description: "Honors, activities, coursework, set under the entry. Most degrees need none."
-        example:
-          - school: Carnegie Mellon University
-            dates: December 2025
-            degree: Master of Information Technology Strategy
-            location: Pittsburgh, PA
         description: "One row per school or degree."
 
   projects:
@@ -215,7 +177,6 @@ card_kinds:
     description: "Projects: name and link on the first line, details under them."
     ui:
       groups: [heading]
-    body: *section_body
     fields:
       title:
         type: plaintext
@@ -233,19 +194,12 @@ card_kinds:
             name:
               type: plaintext
               inline: true
-              example: Quillmark
               description: "Set in bold at the left."
             url:
               type: string
               default: ""
-              example: https://github.com/nibsbin/quillmark
               description: "Set small and italic at the right, and made a live link when it starts with http. Anything else is printed as written, so '<closed source>' stands in for a project with nothing to link. Leave blank to omit."
             details: *details
-        example:
-          - name: Quillmark
-            url: https://github.com/nibsbin/quillmark
-            details: |
-              - Parameterization engine for typesetting documents from markdown.
         description: "One row per project."
 
   skills:
@@ -253,7 +207,6 @@ card_kinds:
     description: "Labelled lists of skills, filled across the columns and then down."
     ui:
       groups: [heading]
-    body: *section_body
     fields:
       title:
         type: plaintext
@@ -273,19 +226,12 @@ card_kinds:
             label:
               type: plaintext
               inline: true
-              example: Programming
               description: "Set in bold on its own line above the text."
             text:
               type: plaintext
               inline: true
-              example: Python, R, JS, Rust, PowerShell, CI/CD
               title: Items
               description: "The items under that label, usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
-        example:
-          - label: Programming
-            text: "Python, R, JS, C#, Rust, PowerShell, CI/CD"
-          - label: Cloud
-            text: "AWS EC2/S3, Helm, Docker, Serverless"
         description: "One label and its items per row."
       columns: &columns
         type: integer
@@ -299,7 +245,6 @@ card_kinds:
     description: "A list of certifications, filled across the columns and then down."
     ui:
       groups: [heading]
-    body: *section_body
     fields:
       title:
         type: plaintext
@@ -314,9 +259,6 @@ card_kinds:
         items:
           type: richtext
           inline: true
-        example:
-          - Offensive Security Certified Professional (OSCP)
-          - GIAC Cyber Threat Intelligence (GCTI)
         description: "One item per line. Keep each to a line at the column width. Italicize with *asterisks*."
       columns: *columns
 
@@ -325,12 +267,10 @@ card_kinds:
     description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names."
     ui:
       groups: [heading]
-    body: *section_body
     fields:
       title:
         type: plaintext
         inline: true
-        example: Cyber Competition
         ui:
           group: heading
         description: "Printed in uppercase over a rule. Other has no usual heading, so this one is yours to write."
@@ -344,7 +284,6 @@ card_kinds:
             heading:
               type: plaintext
               inline: true
-              example: 1st in NCX 2023
               description: "Set in bold at the left of the first line."
             dates: *dates
             subtitle:
@@ -354,8 +293,4 @@ card_kinds:
               description: "Set in italics under the heading. Leave blank to omit."
             location: *location
             details: *details
-        example:
-          - heading: 1st in NCX 2023
-            details: |
-              - Developed strategies, defensive scripts, and exploits for the Cyber Combat event.
         description: "One row per item. A section that is only prose is a Summary with a title of its own."

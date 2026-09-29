@@ -94,6 +94,7 @@ quills/
   <name>/
     <x.y.z>/
       Quill.yaml
+      example.md
       plate.typ
       assets/
       packages/
@@ -129,24 +130,26 @@ this collection's own `node_modules`, so the versions pinned here are the format
 the quiver is packed in and the wasm the gate renders through.
 
 **Does it work?** `quillkit test` loads the collection with `fromDir`, compiles
-every quill, and renders each one's seed: every field absent, rendering its
-`default:` or its blank. It is the gate CI runs, so a validation failure
-surfaces here rather than on a consumer's build:
+every quill, and renders each one's seed, every field absent and rendering its
+`default:` or its blank, and its `example.md`, one filled-in page of made-up
+values. `npm test` then fails a quill that ships no example or whose example
+warns, and a template that warns. It is the gate CI runs, so a validation
+failure surfaces here rather than on a consumer's build:
 
 ```bash
 npm install
 npm test
 ```
 
-The gate renders no answer, so a page with a long list or a wrapping value in
-it is a design fixture's to exercise (`design/`), not the gate's.
+The gate renders one answer per quill, so a page with a long list or a
+wrapping value in it is a design fixture's to exercise (`design/`).
 
 **What is it like to use?** `npm run dev` is `quillkit studio`: it packs this
 quiver, serves the studio client over it, and repacks on every save — pick a
-quill, edit the seeded document or press **Fill examples** to write each
-unanswered field's `example:` into it, watch it paint, read the diagnostics. The
-client is quillkit's own, so there is nothing to install for it and nothing to
-keep in step.
+quill, edit its example (or, with **Examples** off, its blank seed), or open one
+of the official templates from **Templates…**, watch it paint, read the
+diagnostics. The client is quillkit's own, so there is nothing to install for it
+and nothing to keep in step.
 
 Reload to pick up a repack. Editing a quill into an invalid state is not a
 failure of the loop: it packs, and the client says what is wrong with that quill
@@ -159,8 +162,9 @@ is authoritative, studio is advisory.
 
 `npm run site` writes the arrangement a deploy serves into `site/` — the client
 at the root, a built quiver at `quiver/` beneath it — without serving it. It
-passes `--drafts`, so the `0.0.x` prototypes are packed beside the releases and
-every deploy previews them as `npm run dev` does. CI
+passes `--drafts`, so the `0.0.x` prototypes are packed beside the releases, and
+`--templates`, so every deploy previews them and the templates as `npm run dev`
+does. CI
 uploads that on every run, so a pull request — a fork's included — is reviewed
 by downloading the artifact and serving the directory.
 
