@@ -440,19 +440,21 @@
   table.hline(stroke: 0.4pt + hair),
 )
 
-// The legend names the marks this chart actually carries and no others.
+// The legend names the marks this chart actually carries and no others, and
+// says what each mark is rather than what it means: a rater knows what a board
+// is. A chip carries its own name, as the chips on the chart do.
 #let drawn-tours = vectors.map(v => lay(v.tours).filter(p => not p.beyond)).flatten()
 #let shown = ladder.filter(m => in-window(m.year) or m.overdue)
 #let swatch(..args) = box(width: 14pt, height: 6pt, ..args)
 #let legend = ()
 #if current-span > 0 { legend.push([#swatch(stroke: current-stroke) current assignment]) }
-#if shown.any(m => m.tier == "board" and not m.done) { legend.push([#chip("board", "board") ranked against your year group]) }
-#if shown.any(m => m.tier == "look" and not m.done) { legend.push([#chip("look", "look") one of a numbered series]) }
-#if shown.any(m => m.done) { legend.push([#chip("done", "course", done: true) already done]) }
-#if shown.any(m => m.overdue) { legend.push([#chip("course", "course", overdue: "year") passed unticked]) }
+#if shown.any(m => m.tier == "board" and not m.done) { legend.push(chip("promotion boards", "board")) }
+#if shown.any(m => m.tier == "look" and not m.done) { legend.push(chip("IDE / SDE looks", "look")) }
+#if shown.any(m => m.done) { legend.push([#chip("course", "course", done: true) done]) }
+#if shown.any(m => m.overdue) { legend.push([#chip("course", "course", overdue: "year") overdue]) }
 #if drawn-tours.any(p => not p.tour.school) { legend.push([#swatch(fill: rank-tints.at(0), stroke: tour-stroke) assignment]) }
 #if drawn-tours.any(p => p.tour.school) { legend.push([#swatch(stroke: school-stroke) school]) }
-#if drawn-tours.any(p => p.tour.out-of-range) { legend.push([#sym.dagger length entered outside 0.5–4 yr, drawn at the nearer end]) }
+#if drawn-tours.any(p => p.tour.out-of-range) { legend.push([#sym.dagger length outside 0.5–4 yr]) }
 
 #if legend.len() > 0 {
   v(5pt)
