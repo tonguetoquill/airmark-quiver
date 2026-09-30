@@ -5,7 +5,6 @@ name: Jane Q. Roe
 contacts:
   - Portland, OR
   - jane.roe@example.org
-link_contacts: false
 paper: a4
 font_size: 11
 margin: 0.75
@@ -13,6 +12,7 @@ margin: 0.75
 
 ~~~
 $kind: summary
+title: ""
 ~~~
 
 Security engineer of eight years, most of it on detection pipelines that other people have to keep running at three in the morning.
@@ -22,7 +22,7 @@ Security engineer of eight years, most of it on detection pipelines that other p
 
 ~~~
 $kind: experience
-extra: '*selected*'
+title: Selected Experience
 jobs:
 - company: Northwind Analytics
   dates: 2021 – Present
