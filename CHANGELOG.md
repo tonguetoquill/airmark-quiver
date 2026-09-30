@@ -6,10 +6,12 @@
   now.** The quill is a prototype, so 0.0.1 changes in place and every
   existing chart document needs rewriting.
   - `duty_title` and `unit` are two fields, and `afsc` is new, printed first
-    in the facts row. With `date_arrived_station`, `move_year` and
-    `move_cycle` they form a Current assignment group. The page draws the
-    current job once across every vector row, up to the move, and each vector
-    starts from there.
+    in the facts row. `move_year` and `move_cycle` are new: the page draws
+    the current job once across every vector row, up to the move, and each
+    vector starts from there.
+  - The editor groups are four, one task each: Officer (opens first), Plan
+    (the timeline window, the move, constraints and vectors), Record, and
+    Qualifications.
   - A tour takes `years` (a number) in place of the `duration` enum, and
     loses `vml`. Tours lay end to end from the move, so each one's cycle
     follows from the lengths before it and prints on the block; the "held to
