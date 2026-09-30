@@ -18,8 +18,8 @@ main:
       timeline: {}
       record: {}
       qualifications: { title: "Qualifications & experience" }
-  # The chart's one piece of prose. It heads the notes area at the foot of the
-  # page, above ruled lines a rater writes on during the discussion.
+  # The chart's one piece of prose. It is set on the ruled notes area at the
+  # foot of the page, and a rater goes on writing below it during the discussion.
   description: "The body is what you want out of this discussion, and anything that constrains it: a join-spouse, a degree finishing, a date you cannot move before."
   fields:
     name:
@@ -51,7 +51,7 @@ main:
       ui:
         group: officer
         compact: true
-      description: "Adjusted year group, if a board or a break in service moved yours. Leave at 0 when it is unchanged; the chart then counts from your commissioning year group and prints nothing here."
+      description: "Adjusted year group, if a board or a break in service moved yours. The chart counts every milestone from it and prints it as your year group, noting the one you commissioned in. Leave at 0 when it is unchanged; the chart then counts from your commissioning year group and prints nothing more."
 
     date_of_rank:
       type: date

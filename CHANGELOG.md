@@ -33,6 +33,33 @@
   AFB; `afmc_moa`'s writes out the DoDI 4000.19 boilerplate its body examples
   carried.
 
+- **`cyber_ribbon_chart@0.0.1` gets a layout pass: one type scale, one set of
+  column edges, a ruled timeline, and notes that run to the foot of the
+  page.** The quill is a prototype, so 0.0.1 changes in place.
+  - Thirteen type sizes become five (6, 7, 8, 9 and 18pt), bar the tour titles
+    and chips that set to their width. No text is lighter than 40% gray and the
+    open qualification boxes are stroked at that value, so they survive a
+    photocopy.
+  - A section heading sits 3pt over its rule and 14pt under the section above.
+    A paragraph gap had set each one nearer the section above than the content
+    it heads.
+  - The name shares its column's width with the stratifications, and the facts
+    stand on the four qualification columns, so the header, the record and the
+    awards, certifications and deployments beneath it share one set of edges.
+  - One **Year group** fact prints the year the boards count from, noting
+    `adjusted from` the commissioning year where `adjusted_yg` moves it, in
+    place of a Commissioning YG and an Adjusted YG that printed a dash when
+    unchanged.
+  - Year rules run from the axis down behind the tours, so a tour reads against
+    the gate above it, and a blank chart is a grid to draw on. The window's far
+    side is open, and a tour the window cuts runs into it without an end.
+  - Stratifications are a table with Rater and HLR columns; with no HLR strat on
+    any row the column goes.
+  - The notes are ruled at a quarter inch to the foot of the page, with the
+    typed notes set on the ruling and `Discussed with` at the foot. Tighter
+    spacing above leaves room for three typed paragraphs on `maximal.md` at a
+    twelve-year window, where one fit before.
+
 - **`cyber_ribbon_chart@0.0.1` and `afmc_moa@0.0.1` stop naming fonts they do
   not ship.** `"Figtree"` and `"times new roman"` each warned on every render;
   neither was ever drawn, so the pages are unchanged.
