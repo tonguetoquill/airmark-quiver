@@ -128,8 +128,9 @@
   as before.
 
 - **Take `@quillmark/wasm` 0.121.0, `@quillmark/quiver` 0.33.0 and `quillkit`
-  0.13.0. `cyber_ribbon_chart@0.0.1` now needs wasm 0.121 or later to load;
-  every other quill loads as before.** A matrix member is ticked by being
+  0.13.0. `cyber_ribbon_chart@0.0.1` now needs wasm 0.121 or later to render;
+  under an older engine it loads and fails to compile. Every other quill renders
+  as before.** A matrix member is ticked by being
   present, so a qualification is written `sos: true` or `sos: {detail: DG}` and
   an unticked one is left out. A document storing `held` fails validation as
   `validation::held_stored` and does not render: drop the key, and delete any

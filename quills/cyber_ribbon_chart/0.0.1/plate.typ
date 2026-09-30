@@ -508,7 +508,7 @@
   ("Education & PME", roster(quals, "education")),
 )
 #let member(m) = box[
-  #let detail = if m.held { m.value.at("detail", default: "") } else { "" }
+  #let detail = if m.held { m.value.detail } else { "" }
   #if m.held { held-mark } else { open-mark }#h(3pt)#text(
     weight: if m.held { 600 } else { 400 },
     fill: if m.held { ink } else { mute },
