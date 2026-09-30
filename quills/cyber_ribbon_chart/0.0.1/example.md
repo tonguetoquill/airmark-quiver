@@ -49,6 +49,8 @@ qualifications:
   education:
     sos: { held: true, detail: DG }
     cyber_200: { held: true, detail: "2025" }
+other_qualifications:
+  - { row: Staff, title: Wing IG, detail: 81 TRW }
 timeline_start_year: 2026
 ~~~
 

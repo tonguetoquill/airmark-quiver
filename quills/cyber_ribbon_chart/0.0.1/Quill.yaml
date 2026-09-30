@@ -325,3 +325,35 @@ main:
             sde_graduate: SDE Graduate
             weapons_school: Weapons School / WIC DG
           properties: *detail
+
+    # What the vocabulary does not name. Only what is held is written here, so
+    # nothing it adds prints as an open box, and it lands in the row it names
+    # rather than under a heading of its own that tells a rater nothing.
+    other_qualifications:
+      type: array
+      max: 6
+      ui:
+        group: qualifications
+        layout: table
+      items:
+        type: object
+        properties:
+          row:
+            type: enum
+            values: [Command, Operations, Staff, Education]
+            default: Operations
+            title: Row
+            description: "The qualifications row it prints in: Leadership & Command, Operations, Staff & Functional or Education & PME."
+          title:
+            type: plaintext
+            inline: true
+            title: Qualification
+            description: "What you hold, as in 'Section CC' or 'Wing IG'."
+          detail:
+            type: plaintext
+            inline: true
+            default: ""
+            title: Detail
+            description: "The unit, course, year or distinction that proves it, as in '688 CW'."
+      default: []
+      description: "Qualifications the checklist above does not name, one per row. Each prints ticked in the row you choose, after the ticked ones there. Tick anything the checklist already names instead of writing it here; six is all the page holds."

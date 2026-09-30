@@ -502,11 +502,15 @@
 // carry. Every member prints: the open boxes say what has not been done yet as
 // plainly as the filled ones say what has. What is held leads its row, and a
 // member holds together on its line.
+// A member written into `other_qualifications` is held by being written, so it
+// prints ticked, after the vocabulary's held members in the row it names.
+#let others = data.at("other_qualifications", default: ())
+#let others-in(row) = others.filter(o => o.row == row).map(o => (held: true, title: trim(o.title), detail: o.detail))
 #let vocabulary = (
-  ("Leadership & command", quals.command),
-  ("Operations", quals.operations),
-  ("Staff & functional", quals.staff),
-  ("Education & PME", quals.education),
+  ("Leadership & command", quals.command, "Command"),
+  ("Operations", quals.operations, "Operations"),
+  ("Staff & functional", quals.staff, "Staff"),
+  ("Education & PME", quals.education, "Education"),
 )
 #let member(m) = box[
   #if m.held { held-mark } else { open-mark }#h(3pt)#text(
@@ -515,9 +519,9 @@
     m.title,
   )#if not blank(m.detail) [#h(2pt)#text(size: micro, style: "italic", fill: mute, trim(m.detail))]
 ]
-#let members-row(members) = {
+#let members-row(members, extra) = {
   let all = members.values()
-  (all.filter(m => m.held) + all.filter(m => not m.held)).map(member).join([#h(10pt) ])
+  (all.filter(m => m.held) + extra + all.filter(m => not m.held)).map(member).join([#h(10pt) ])
 }
 
 // A table, so each rater's column reads down the years. With no Higher Level
@@ -544,7 +548,7 @@
 #let record = (
   ..if strats.len() > 0 { (([Stratifications], strats-table),) },
   ..listed("Awards", data.awards),
-  ..vocabulary.map(((name, members)) => ([#name], members-row(members))),
+  ..vocabulary.map(((name, members, row)) => ([#name], members-row(members, others-in(row)))),
   ..listed("Certifications", data.certifications),
   ..listed("Deployments", data.deployments),
 )

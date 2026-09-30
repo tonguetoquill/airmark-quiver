@@ -30,6 +30,10 @@
     course or school strikes its milestones on the timeline, so an SOS
     graduate no longer sees "SOS window" ahead of them.
   - `adjusted_yg: 0` reads as blank. Stratifications take `max: 3`.
+  - New `other_qualifications`, up to six `{row, title, detail}` rows for
+    what the four checklists do not name. Each prints ticked in the row it
+    names (Command, Operations, Staff or Education), after that row's ticked
+    members, so the vocabulary keeps its open boxes and gains no "Other".
   - The page is redrawn on one rail: every row under the name hangs its label
     in a left column, the timeline's rows, the record's and the notes', and
     those labels are its only headings. Five type sizes (6, 7, 8, 9 and 18pt)

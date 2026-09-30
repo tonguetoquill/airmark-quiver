@@ -67,6 +67,13 @@ qualifications:
     commissioning_dg: { held: true, detail: OTS DG }
     sos: { held: true, detail: Top third }
     cyber_200: { held: true, detail: "2025" }
+other_qualifications:
+  - { row: Command, title: Section CC, detail: 688 CW }
+  - { row: Operations, title: Red Team Operator }
+  - { row: Operations, title: Weapons Officer, detail: 90 COS }
+  - { row: Staff, title: Wing IG, detail: 81 TRW }
+  - { row: Staff, title: Protocol }
+  - { row: Education, title: Joint PME I }
 timeline_start_year: 2026
 timeline_years: 12
 ~~~
