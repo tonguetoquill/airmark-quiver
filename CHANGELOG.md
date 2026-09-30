@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Take `@quillmark/wasm` 0.119.0, which `cyber_ribbon_chart@0.0.1` needs
+  to load.** Its `qualifications` declares `ui.layout: flat`, so an editor
+  draws the four columns under the Qualifications section's header with no
+  frame of their own, where it drew the section header, then a
+  "Qualifications" label over a framed subform, then the columns. The data,
+  the page and the blueprint are unchanged.
+
 - **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
   now.** The quill is a prototype, so 0.0.1 changes in place and every
   existing chart document needs rewriting.
