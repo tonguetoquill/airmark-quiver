@@ -215,6 +215,12 @@ card_kinds:
     description: "An endorsing official's response to the memo, or their forwarding of it onward. Indorsements are numbered in card order: 1st Ind, 2d Ind, 3d Ind."
     ui:
       groups: [addressing, additional]
+    seed:
+      from: ORG/SYMBOL
+      for: ORG/SYMBOL
+      signature_block:
+        - FIRST M. LAST, Rank, USAF
+        - Duty Title
     fields:
       from:
         type: plaintext

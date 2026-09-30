@@ -130,11 +130,12 @@ this collection's own `node_modules`, so the versions pinned here are the format
 the quiver is packed in and the wasm the gate renders through.
 
 **Does it work?** `quillkit test` loads the collection with `fromDir`, compiles
-every quill, and renders each one's seed, every field absent and rendering its
-`default:` or its blank, and its `example.md`, one filled-in page of made-up
-values. `npm test` then fails a quill that ships no example or whose example
-warns, and a template that warns. It is the gate CI runs, so a validation
-failure surfaces here rather than on a consumer's build:
+every quill, and renders each one's seed, every field absent but what a card
+kind's `seed:` writes and rendering its `default:` or its blank, and its
+`example.md`, one filled-in page of made-up values. `npm test` then fails a
+quill that ships no example or whose example warns, and a template that warns.
+It is the gate CI runs, so a validation failure surfaces here rather than on a
+consumer's build:
 
 ```bash
 npm install
@@ -146,7 +147,7 @@ wrapping value in it is a design fixture's to exercise (`design/`).
 
 **What is it like to use?** `npm run dev` is `quillkit studio`: it packs this
 quiver, serves the studio client over it, and repacks on every save — pick a
-quill, edit its example (or, with **Examples** off, its blank seed), or open one
+quill, edit its example (or, with **Examples** off, its seed), or open one
 of the official templates from **Templates…**, watch it paint, read the
 diagnostics. The client is quillkit's own, so there is nothing to install for it
 and nothing to keep in step.

@@ -76,6 +76,8 @@ card_kinds:
     description: "A heading and prose under it. With a title of its own it is any section that is only prose — an objective, a statement of interest."
     ui:
       groups: [heading]
+    seed:
+      $body: A few lines on who you are and the work you want next.
     fields:
       title:
         type: plaintext
@@ -98,6 +100,14 @@ card_kinds:
     description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them."
     ui:
       groups: [heading]
+    seed:
+      jobs:
+        - company: Employer
+          dates: Month YYYY – Present
+          role: Job Title
+          location: City, ST
+          details: |
+            - What you did, and what it changed.
     fields:
       title:
         type: plaintext
@@ -142,6 +152,12 @@ card_kinds:
     description: "Schools, most recent first: school and date on the first line, degree and location on the second."
     ui:
       groups: [heading]
+    seed:
+      schools:
+        - school: School
+          dates: Month YYYY
+          degree: Degree
+          location: City, ST
     fields:
       title:
         type: plaintext
@@ -177,6 +193,11 @@ card_kinds:
     description: "Projects: name and link on the first line, details under them."
     ui:
       groups: [heading]
+    seed:
+      projects:
+        - name: Project
+          details: |
+            - What it does, and your part in it.
     fields:
       title:
         type: plaintext
@@ -207,6 +228,10 @@ card_kinds:
     description: "Labelled lists of skills, filled across the columns and then down."
     ui:
       groups: [heading]
+    seed:
+      skills:
+        - label: Category
+          text: Skill, Skill, Skill
     fields:
       title:
         type: plaintext
@@ -245,6 +270,9 @@ card_kinds:
     description: "A list of certifications, filled across the columns and then down."
     ui:
       groups: [heading]
+    seed:
+      items:
+        - Certification (ABBREVIATION)
     fields:
       title:
         type: plaintext
@@ -267,6 +295,12 @@ card_kinds:
     description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names."
     ui:
       groups: [heading]
+    seed:
+      title: Section Title
+      entries:
+        - heading: Entry
+          details: |
+            - What it was, and what came of it.
     fields:
       title:
         type: plaintext
