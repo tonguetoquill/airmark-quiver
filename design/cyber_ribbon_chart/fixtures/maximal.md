@@ -2,48 +2,45 @@
 $quill: cyber_ribbon_chart@0.0.1
 $kind: main
 name: Capt John A. Snuffy
-duty_title: 17S Instructor · 333 TRS, Keesler AFB
-commissioning_yg: 2022
-adjusted_yg: 0
-date_of_rank: 2026-05-01
+afsc: K17S3
+duty_title: Instructor
+unit: 333 TRS, Keesler AFB
 date_arrived_station: 2025-07-14
-advanced_degree: MS Cyber Operations, AFIT
-timeline_start_year: 2026
-timeline_years: 12
+move_year: 2027
+move_cycle: Winter
+commissioning_yg: 2022
+adjusted_yg: 2023
+date_of_rank: 2026-05-01
+advanced_degree: MS Cyber Operations, AFIT (in progress)
+constraints:
+  - { note: "Join-spouse, no OCONUS", through: 2029 }
+  - { note: AFIT degree finishing, through: 2027 }
+  - { note: Child finishing high school, through: 2031 }
 vectors:
-  - label: Vector 1
-    focus: Primary, command track
+  - track: Command
     tours:
-      - { title: 333 TRS Instructor, duration: "2", vml: Summer }
-      - { title: 333 TRS / DO, duration: "1.5", vml: Winter }
-      - { title: "Sq/CC, Scott AFB", duration: "2", vml: Summer }
-      - { title: IDE in residence, duration: "1", vml: Summer, school: true }
-      - { title: HAF A2/6 Staff, duration: "3", vml: Summer }
-  - label: Vector 2
-    focus: Alternate, staff depth
+      - { title: 333 TRS/DO, years: 1.5 }
+      - { title: "Sq/CC, Scott AFB", years: 2 }
+      - { title: IDE in residence, years: 1, school: true }
+      - { title: HAF A2/6 Staff, years: 3 }
+  - track: Staff depth
     tours:
-      - { title: 17X CFM Staff, duration: "2.5", vml: Winter }
-      - { title: ROTC Det/CC, duration: "3", vml: Summer }
-      - { title: MAJCOM A3 Division Chief, duration: "2", vml: Summer }
-  - label: Vector 3
-    focus: Joint / special
+      - { title: 17X CFM Staff, years: 2.5 }
+      - { title: ROTC Det/CC, years: 3 }
+      - { title: MAJCOM A3 Division Chief, years: 2 }
+  - track: Joint
     tours:
-      - { title: 2 AF Staff, duration: "2", vml: Summer }
-      - { title: Joint Staff J6, duration: "3", vml: Summer }
-      - { title: USCYBERCOM JFHQ-C, duration: "2.5", vml: Winter }
-      - { title: Post-window follow-on, duration: "4", vml: Summer }
+      - { title: 2 AF Staff, years: 2 }
+      - { title: Joint Staff J6, years: 3.5 }
+      - { title: USCYBERCOM JFHQ-C, years: 2.5 }
+      - { title: Post-window follow-on, years: 4 }
+      - { title: Beyond the window, years: 2 }
 stratifications:
-  - year: "2026"
-    rater_strat: "#1/14 Capts"
-    hlr_strat: "#1/45 CGOs"
-  - year: "2025"
-    rater_strat: "#2/12 Capts"
-    hlr_strat: "#3/40 CGOs"
-  - year: "2024"
-    rater_strat: "#1/8 Lts"
-    hlr_strat: Top 10%
+  - { year: 2024, rater: "#1/8 Lts", hlr: Top 10% }
+  - { year: 2026, rater: "#1/14 Capts", hlr: "#1/45 CGOs" }
+  - { year: 2025, rater: "#2/12 Capts", hlr: "#3/40 CGOs" }
 awards:
-  - Wing CGOQ ×2
+  - Wing CGOQ x2
   - HAF A2/6 CGOY 2025
   - 688 CW Instructor of the Year
 certifications:
@@ -51,7 +48,7 @@ certifications:
   - CISSP
   - Security+, Network+
 deployments:
-  - 1× short tour, returned Jan 2024
+  - 1x short tour, returned Jan 2024
   - OIR rotation, 2023
 qualifications:
   command:
@@ -68,8 +65,10 @@ qualifications:
     instructor: { held: true, detail: 333 TRS }
   education:
     commissioning_dg: { held: true, detail: OTS DG }
-    sos_dg: true
+    sos: { held: true, detail: Top third }
     cyber_200: { held: true, detail: "2025" }
+timeline_start_year: 2026
+timeline_years: 12
 ~~~
 
-What I want out of this DT: IDE in residence on the second look, then a DO job before the Lt Col board. Constraint is join-spouse, so no OCONUS before 2029.
+What I want out of this DT: IDE in residence on the second look, then a DO job before the Lt Col board.

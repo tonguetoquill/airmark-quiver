@@ -2,6 +2,33 @@
 
 ## Unreleased
 
+- **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
+  now.** The quill is a prototype, so 0.0.1 changes in place and every
+  existing chart document needs rewriting.
+  - `duty_title` and `unit` are two fields, and `afsc` is new, printed first
+    in the facts row. With `date_arrived_station`, `move_year` and
+    `move_cycle` they form a Current assignment group. The page draws the
+    current job once across every vector row, up to the move, and each vector
+    starts from there.
+  - A tour takes `years` (a number) in place of the `duration` enum, and
+    loses `vml`. Tours lay end to end from the move, so each one's cycle
+    follows from the lengths before it and prints on the block; the "held to
+    the next cycle" dagger goes.
+  - A vector's `label` and `focus` become one `track`. Its rank (Primary,
+    Alternate, Backup) comes from its position.
+  - New `constraints`, up to three `{note, through}` rows, each drawn as a
+    bar from the left edge of the timeline to the end of its year, above the
+    vectors.
+  - `adjusted_yg` is `integer?`: blank rather than `0` when unchanged.
+  - A stratification row is `{year, rater, hlr}`, and `year` is an integer.
+    The page sorts the rows most recent first.
+  - The education column ticks `sos` (with DG or top third as its detail),
+    and IDE and SDE each split into a candidate and a graduate tick. A ticked
+    course or school strikes its milestones on the timeline, so an SOS
+    graduate no longer sees "SOS window" ahead of them.
+  - A qualification's detail sets on its label's line. In a window over
+    twelve years, board and look chips drop their trailing word.
+
 - **Take `@quillmark/wasm` 0.118.0, `@quillmark/quiver` 0.32.0 and `quillkit`
   0.12.0. Every quill now needs wasm 0.117 or later to load, and
   `usaf_memo@0.3.0`, `afmc_moa`, `classic_resume` and `daf1206` need 0.118,

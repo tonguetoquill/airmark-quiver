@@ -35,11 +35,15 @@ node design/cyber_ribbon_chart/render_fixture.mjs design/cyber_ribbon_chart/fixt
 node design/cyber_ribbon_chart/render_fixture.mjs /tmp/seed.pdf
 ```
 
-`maximal.md` is a Captain with three vectors, a tour clipped by the window and
-one placed past it, and every kind of record filled. `minimal.md` is the other
-end: a 2d Lt at a six-year window with one unlabelled vector, a half-year tour,
-no stratifications and no remarks — the fills where a section collapses rather than
-printing an empty heading, and where the record column disappears entirely.
+`maximal.md` is a Captain with an adjusted year group, three constraints (one
+too short for its label), three vectors branching from a Winter move, a tour
+clipped by the window and one placed past it, milestones already done,
+stratifications out of order, and every kind of record filled. `minimal.md` is
+the other end: a 2d Lt at a six-year window whose current assignment is one
+half-year wide, so it sets on its side, with one untracked vector, no
+constraints, no stratifications and no remarks. Those are the fills where a
+section collapses rather than printing an empty heading, and where the record
+column disappears entirely.
 
 A ribbon chart is a one-page leave-behind, and `timeline_years` is the lever
 that can cost it that page — more years narrow the columns and the milestone
