@@ -105,7 +105,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Organizational motto, centered in the footer of every page. Supports Markdown emphasis: *italics*, **bold**."
+      description: "Organizational motto, centered in the footer of every page in small caps. Supports *italics*; bold prints regular."
 
     classification:
       type: enum

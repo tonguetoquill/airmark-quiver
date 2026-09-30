@@ -71,10 +71,7 @@
   letter-for: data.letter_for,
   salutation: data.salutation,
 
-  // The package sets the tag line in Cinzel, which has no italic or bold face.
-  // The body font set here, nearer the text, wins and carries real italics and
-  // bold. `usaf_memo`'s plate does the same, so the footer stays the memo's.
-  footer-tag-line: text(font: "NimbusRomNo9L", data.tag_line),
+  footer-tag-line: data.tag_line,
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.

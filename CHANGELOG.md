@@ -153,6 +153,15 @@
   pass `--templates templates`, so the head's **Templates…** opens any of them in
   the quill it names.
 
+- **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` set the tag line in Spectral
+  SC.** It reads in small caps as Cinzel did and has an italic, so the plates
+  no longer override the packages' footer font with Nimbus Roman. Each
+  package's `frontmatter.typ` names `"Spectral SC"` where upstream names
+  `"cinzel"`, a patch outside upstream. Only the regular and italic faces ship,
+  with their hinting stripped, so `**bold**` in a tag line prints regular, and
+  the field's description says so. Cinzel and `CopperplateCC-Heavy.otf`, which
+  neither quill drew, leave both.
+
 ## v0.33.0 - 2026-09-27
 
 Every quill now needs `@quillmark/wasm` 0.116 or later to load, so a consumer
