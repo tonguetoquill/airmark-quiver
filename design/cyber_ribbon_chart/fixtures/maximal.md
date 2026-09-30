@@ -52,21 +52,21 @@ deployments:
   - OIR rotation, 2023
 qualifications:
   command:
-    flight_cc: { held: true, detail: UMS Flt/CC }
-    do_det_cc_candidate: { held: true, detail: "2026" }
+    flight_cc: { detail: UMS Flt/CC }
+    do_det_cc_candidate: { detail: "2026" }
   operations:
     dodin_ops: true
-    dco: { held: true, detail: 23 IOS }
+    dco: { detail: 23 IOS }
     crew_cc: true
-    team_lead: { held: true, detail: MDT }
+    team_lead: { detail: MDT }
   staff:
-    exec_aide_cag: { held: true, detail: Wing Exec }
-    majcom_naf_staff: { held: true, detail: 16 AF }
-    instructor: { held: true, detail: 333 TRS }
+    exec_aide_cag: { detail: Wing Exec }
+    majcom_naf_staff: { detail: 16 AF }
+    instructor: { detail: 333 TRS }
   education:
-    commissioning_dg: { held: true, detail: OTS DG }
-    sos: { held: true, detail: Top third }
-    cyber_200: { held: true, detail: "2025" }
+    commissioning_dg: { detail: OTS DG }
+    sos: { detail: Top third }
+    cyber_200: { detail: "2025" }
 timeline_start_year: 2026
 timeline_years: 12
 ~~~

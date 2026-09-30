@@ -127,6 +127,16 @@
   `$kind` line in place of the quill's own description. Every document renders
   as before.
 
+- **Take `@quillmark/wasm` 0.121.0, `@quillmark/quiver` 0.33.0 and `quillkit`
+  0.13.0. `cyber_ribbon_chart@0.0.1` now needs wasm 0.121 or later to load;
+  every other quill loads as before.** A matrix member is ticked by being
+  present, so a qualification is written `sos: true` or `sos: {detail: DG}` and
+  an unticked one is left out. A document storing `held` fails validation as
+  `validation::held_stored` and does not render: drop the key, and delete any
+  member written `held: false`. A mapping naming no `held`, `{}` included, reads
+  ticked where it read unticked. The plate reads the four matrices through the
+  helper's `roster`, so the page is unchanged.
+
 - **Add Card writes starter content.** A card kind's `seed:` is what a new card
   of it starts with, placeholders that print until replaced, and a template's
   `$seed.<kind>` replaces it. An `afmc_moa` section opens on DoDI 4000.19's own
