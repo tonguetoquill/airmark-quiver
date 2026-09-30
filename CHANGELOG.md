@@ -138,10 +138,12 @@
   pass `--templates templates`, so the head's **Templates…** opens any of them in
   the quill it names.
 
-- **`usaf_memo@0.3.0` sets the tag line in small caps.** Nimbus Roman has no
-  small-caps face, so lowercase letters print as capitals at 0.8em and capitals
-  stay full size, as the package's Cinzel read. Italic and bold still show.
-  `usaf_letter@0.1.0` is unchanged.
+- **`usaf_memo@0.3.0` sets the tag line in Spectral SC.** It reads in small
+  caps as Cinzel did and has real italic, bold and bold italic faces, so the
+  plate no longer overrides the package's footer font with Nimbus Roman. The
+  package's `frontmatter.typ` names `"Spectral SC"` where upstream names
+  `"cinzel"`, a patch outside upstream. Cinzel and `CopperplateCC-Heavy.otf`,
+  which no memo drew, leave the quill. `usaf_letter@0.1.0` is unchanged.
 
 ## v0.33.0 - 2026-09-27
 
