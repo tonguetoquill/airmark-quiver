@@ -1,6 +1,7 @@
 // check_one_page.mjs — a ribbon chart is a one-page leave-behind, and the one
 // lever that can cost it that page is the timeline window: more years buy their
-// columns out of the width, and the milestone chips wrap taller as they narrow.
+// columns out of the width, and a mark that wrapped as they narrowed would make
+// the timeline taller.
 // `quillkit test` renders the blueprint's near-empty seed and never sees it, so
 // this sweeps every fixture across every window the schema recommends.
 //

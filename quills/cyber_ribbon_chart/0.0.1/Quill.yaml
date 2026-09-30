@@ -249,11 +249,11 @@ main:
         group: record
       description: "Deployments and short tours, one per line, with the month you returned: it is what a rater needs to work out when you are next eligible."
 
-    # The page prints every member in four columns and marks the held ones, so
-    # an empty box is as much of the chart as a filled one. A column is a
-    # property here rather than a heading in the plate, so the partition is in
-    # the value and the address as well as on the page. The plate repeats each
-    # `title` as its column heading, since the data carries only the members.
+    # The page prints every member in four rows and marks the held ones, so an
+    # empty box is as much of the chart as a filled one. A row is a property
+    # here rather than a heading in the plate, so the partition is in the value
+    # and the address as well as on the page. The plate repeats each `title` as
+    # its row's label, since the data carries only the members.
     qualifications:
       type: object
       ui:
