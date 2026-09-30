@@ -2,7 +2,7 @@
 // lever that can cost it that page is the timeline window: more years buy their
 // columns out of the width, and the milestone chips wrap taller as they narrow.
 // `quillkit test` renders the blueprint's near-empty seed and never sees it, so
-// this sweeps both fixtures across every window the schema recommends.
+// this sweeps every fixture across every window the schema recommends.
 //
 // Usage: node design/cyber_ribbon_chart/check_one_page.mjs
 
@@ -27,7 +27,7 @@ const quill = await quiver.getQuill("cyber_ribbon_chart@0.0.1");
 const windows = [6, 8, 10, 12, 14, 16, 18];
 const failures = [];
 
-for (const fixture of ["maximal.md", "minimal.md"]) {
+for (const fixture of ["maximal.md", "minimal.md", "current.md"]) {
   const source = readFileSync(resolve(__dirname, "fixtures", fixture), "utf8");
   const windowLine = /^timeline_years: \d+$/m;
   if (!windowLine.test(source)) {
@@ -57,4 +57,4 @@ if (failures.length > 0) {
   for (const f of failures) console.error(`  - ${f}`);
   process.exit(1);
 }
-console.log(`both fixtures hold one page at every window from ${windows[0]} to ${windows.at(-1)} years`);
+console.log(`every fixture holds one page at every window from ${windows[0]} to ${windows.at(-1)} years`);

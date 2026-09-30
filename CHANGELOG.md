@@ -2,6 +2,61 @@
 
 ## Unreleased
 
+- **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
+  now.** The quill is a prototype, so 0.0.1 changes in place and every
+  existing chart document needs rewriting.
+  - `duty_title` and `unit` are two fields, and `afsc` is new; the three
+    read as one line under the name. `move_year` and `move_cycle` are new:
+    the page draws the current job once across every vector row, up to the
+    move, and each vector starts from there.
+  - The editor groups are four, one task each: Officer (opens first, and
+    holds every required field, `timeline_start_year` included), Plan (the
+    timeline's width, the move, constraints and vectors), Record, and
+    Qualifications.
+  - A tour takes `years` (a number) in place of the `duration` enum, and
+    loses `vml`. Tours lay end to end from the move, so each one's cycle
+    follows from the lengths before it and prints on the block; the "held to
+    the next cycle" dagger goes.
+  - A vector's `label` and `focus` become one `track`. Its rank (Primary,
+    Alternate, Backup) comes from its position.
+  - New `constraints`, up to three `{note, through}` rows, each drawn as a
+    bar from the left edge of the timeline to the end of its year, above the
+    vectors.
+  - `adjusted_yg` is `integer?`: blank rather than `0` when unchanged.
+  - A stratification row is `{year, rater, hlr}`, and `year` is an integer.
+    The page sorts the rows most recent first.
+  - The education column ticks `sos` (with DG or top third as its detail),
+    and IDE and SDE each split into a candidate and a graduate tick. A ticked
+    course or school strikes its milestones on the timeline, so an SOS
+    graduate no longer sees "SOS window" ahead of them.
+  - The current block reads like a tour block, duty title over "Current · to
+    Summer 2028", and sheds what its space cannot hold: the small print, then
+    the flat setting for one up the side, then the text, which the header
+    already carries. A move before the window lays the tours from their real
+    start and cuts them at the left edge.
+  - A course whose year has passed unticked prints at the left edge of the
+    eligibility row with its year. A constraint running past the window is
+    left open at its end, and a label longer than its bar stays on one line.
+  - A tour length outside 0.5 to 4 draws at the nearer end under a dagger the
+    legend explains, and a title past its block is clipped.
+  - `adjusted_yg: 0` reads as blank. Stratifications take `max: 3`.
+  - A qualification's detail sets on its label's line. In a window over
+    twelve years, look chips drop their trailing word.
+  - A layout pass, after #191. Thirteen type sizes become five (6, 7, 8, 9
+    and 18pt), bar the chips that set to their width, and no text is lighter
+    than 40% gray, so the page survives a photocopy. A section heading sits
+    3pt over its rule and 14pt under the section above. The name shares its
+    column's width with the stratifications, the four facts stand on the four
+    qualification columns, and the awards, certifications and deployments
+    stand on the same edges. One **Year group** fact prints the year the
+    boards count from, noting `adjusted from` the commissioning year. Year
+    rules run from the axis down behind the tours, and a tour the window cuts
+    runs into its edge open. Stratifications are a table with Rater and HLR
+    columns, the HLR column dropping when no row has one. The notes are ruled
+    at a quarter inch to the foot of the page with the typed notes set on the
+    ruling: `maximal.md` holds two typed paragraphs at twelve and eighteen
+    years, where one fit before, and a chart with less record holds more.
+
 - **`classic_resume@0.0.1` prints each section's heading from its `title`
   default, makes the name, the contacts and the project links click-to-edit,
   and spaces the page evenly.** The quill is a prototype, so 0.0.1 changes in
