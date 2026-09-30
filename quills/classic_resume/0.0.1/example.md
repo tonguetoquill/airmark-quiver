@@ -17,7 +17,7 @@ margin: 0.5
 $kind: summary
 ~~~
 
-Data scientist and security engineer who builds detection pipelines other people have to keep running.
+An engineer. Likes climbing rocks and making useful things.
 
 ~~~
 $kind: certifications
