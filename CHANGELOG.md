@@ -138,12 +138,14 @@
   pass `--templates templates`, so the head's **Templates…** opens any of them in
   the quill it names.
 
-- **`usaf_memo@0.3.0` sets the tag line in Spectral SC.** It reads in small
-  caps as Cinzel did and has real italic, bold and bold italic faces, so the
-  plate no longer overrides the package's footer font with Nimbus Roman. The
+- **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` set the tag line in Spectral
+  SC.** It reads in small caps as Cinzel did and has an italic, so the plates
+  no longer override the packages' footer font with Nimbus Roman. Each
   package's `frontmatter.typ` names `"Spectral SC"` where upstream names
-  `"cinzel"`, a patch outside upstream. Cinzel and `CopperplateCC-Heavy.otf`,
-  which no memo drew, leave the quill. `usaf_letter@0.1.0` is unchanged.
+  `"cinzel"`, a patch outside upstream. Only the regular and italic faces ship,
+  with their hinting stripped, so `**bold**` in a tag line prints regular, and
+  the field's description says so. Cinzel and `CopperplateCC-Heavy.otf`, which
+  neither quill drew, leave both.
 
 ## v0.33.0 - 2026-09-27
 
