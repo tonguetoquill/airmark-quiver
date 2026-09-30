@@ -8,7 +8,6 @@ contacts:
   - github.com/johndoe
   - linkedin.com/in/johndoe
   - Pittsburgh, PA
-link_contacts: true
 paper: us-letter
 font_size: 12
 margin: 0.5
@@ -30,13 +29,13 @@ $kind: skills
 columns: 2
 skills:
 - label: Programming
-  text: Python, R, JS, C#, Rust, PowerShell, CI/CD
+  items: Python, R, JS, C#, Rust, PowerShell, CI/CD
 - label: Data Science
-  text: ML/statistics, TensorFlow, AI Engineering
+  items: ML/statistics, TensorFlow, AI Engineering
 - label: IT & Cybersecurity
-  text: AD DS, Splunk, Metasploit, Wireshark, Nessus
+  items: AD DS, Splunk, Metasploit, Wireshark, Nessus
 - label: Cloud
-  text: AWS EC2/S3, Helm, Docker, Serverless
+  items: AWS EC2/S3, Helm, Docker, Serverless
 ~~~
 
 ~~~
@@ -122,19 +121,19 @@ entries:
 $kind: projects
 projects:
 - name: TongueToQuill
-  url: https://www.tonguetoquill.com
+  link: https://www.tonguetoquill.com
   details: |
     - Rich markdown editor for perfectly formatted USAF and USSF documents with Claude MCP integration.
 - name: Quillmark
-  url: https://github.com/nibsbin/quillmark
+  link: https://github.com/nibsbin/quillmark
   details: |
     - Parameterization engine for generating arbitrarily typesetted documents from markdown content.
 - name: Scraipe
-  url: https://pypi.org/project/scraipe/
+  link: https://pypi.org/project/scraipe/
   details: |
     - An asynchronous scraping and enrichment library to automate cybersecurity research.
 - name: ADSBLookup
-  url: <closed source>
+  link: <closed source>
   details: |
     - Reversed the internal API of a popular ADSB web service to pull comprehensive live ADSB datasets; ported and exposed attributes in a user-friendly, Pandas-compatible Python library for data scientists.
 ~~~

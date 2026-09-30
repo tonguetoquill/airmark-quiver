@@ -10,23 +10,28 @@
 #let _phone = regex("^[+(\\d][\\d\\s()./+-]*\\d$")
 #let _digit = regex("\\d")
 
-// Turns a contact into a link when it looks like an email address, a web
-// address or a phone number, and returns it unchanged otherwise. A city or a
-// clearance level is therefore left alone, and so is anything that is already
-// content, so callers can always pass their own `link(..)` instead.
-#let auto-link(contact) = {
+/// Turns a contact into a link when it looks like an email address, a web
+/// address or a phone number, and returns it unchanged otherwise. A city or a
+/// clearance level is therefore left alone, and so is anything that is already
+/// content, so callers can always pass their own `link(..)` instead.
+///
+/// `body` is what prints, the contact itself unless given: a caller holding the
+/// contact as text and as content of its own reads the one and prints the
+/// other.
+#let auto-link(contact, body: auto) = {
+  let body = if body == auto { contact } else { body }
   if type(contact) != str {
-    contact
+    body
   } else if contact.match(_email) != none {
-    link("mailto:" + contact, contact)
+    link("mailto:" + contact, body)
   } else if contact.match(_scheme) != none {
     let href = if contact.starts-with("www.") { "https://" + contact } else { contact }
-    link(href, contact)
+    link(href, body)
   } else if contact.match(_domain) != none {
-    link("https://" + contact, contact)
+    link("https://" + contact, body)
   } else if contact.match(_phone) != none and contact.matches(_digit).len() >= 7 {
-    link("tel:" + contact.replace(regex("[^\\d+]"), ""), contact)
+    link("tel:" + contact.replace(regex("[^\\d+]"), ""), body)
   } else {
-    contact
+    body
   }
 }
