@@ -6,24 +6,21 @@
 #let ink = luma(12%)
 #let mute = luma(40%)
 #let hair = luma(82%)
+#let shade = luma(88%)
 
-// One type scale. A size off it is a fit — a chip set to the width it was
-// given — and says so where it is set.
+// One type scale. A size off it is a fit, set to the width it was given, and
+// says so where it is set.
 #let micro = 6pt
 #let small = 7pt
 #let base = 8pt
 #let lead = 9pt
 #let display = 18pt
 
-// A heading sits nearer its own rule than the section above it; the gap
-// between sections is the largest on the page.
-#let section-gap = 14pt
-
-// The name and the stratifications share a left column, and the facts and the
-// qualifications the columns right of it, so the page keeps one set of edges.
-#let rail = 2.5in
-#let rail-gutter = 22pt
-#let col-gutter = 14pt
+// Every row under the name hangs its label in one rail: the timeline's rows,
+// the record's and the notes'. The labels are the page's headings, and the
+// rail's edge is the one left edge everything after the name stands on.
+#let rail = 1.2in
+#let name-width = 2.5in
 
 #let margin = 0.45in
 #set page(width: 11in, height: 8.5in, margin: margin)
@@ -50,6 +47,11 @@
 }
 #let blank(v) = { let t = trim(v); t == none or t == [] or t == "" }
 #let or-none(v) = if blank(v) { none } else { trim(v) }
+#let plain(c) = if c == none { "" } else if type(c) == str { c } else if c.has("text") {
+  c.text
+} else if c.has("children") {
+  c.children.map(plain).sum(default: "")
+} else if c.func() == smartquote { "’" } else { " " }
 #let dash = text(fill: mute)[—]
 
 // The bundled fallback face carries no geometric glyphs — no ✓, ■, □, ●, ▸ — so
@@ -58,25 +60,9 @@
 #let held-mark = box(baseline: 0.5pt, rect(width: 4.6pt, height: 4.6pt, fill: ink, stroke: 0.5pt + ink))
 #let open-mark = box(baseline: 0.5pt, rect(width: 4.6pt, height: 4.6pt, fill: none, stroke: 0.5pt + mute))
 
-#let eyebrow(label) = text(size: micro, weight: 700, tracking: 0.5pt, fill: mute, upper(label))
-
-#let section-rule(title, aside: none) = block(above: section-gap, below: 6pt, stack(
-  spacing: 3pt,
-  grid(
-    columns: (1fr, auto),
-    align: (left + bottom, right + bottom),
-    text(size: small, weight: 700, tracking: 0.7pt, upper(title)),
-    if aside != none { text(size: micro, fill: mute, aside) },
-  ),
-  line(length: 100%, stroke: 0.6pt + ink),
-))
-
-#let fact(label, value, note: none) = stack(
-  spacing: 3pt,
-  eyebrow(label),
-  text(size: lead, weight: 500, if value == none { dash } else { value }),
-  ..if note != none { (text(size: micro, fill: mute, note),) },
-)
+#let eyebrow(body) = text(size: micro, weight: 700, tracking: 0.5pt, fill: mute, upper(body))
+#let rail-label(body) = text(size: small, weight: 600, fill: mute, body)
+#let divider(above) = block(above: above, below: 10pt, line(length: 100%, stroke: 0.5pt + ink))
 
 #let show-date(d) = if d == none { none } else { d.display("[day padding:none] [month repr:short] [year]") }
 
@@ -87,16 +73,21 @@
 #let adj-yg = { let v = data.at("adjusted_yg", default: none); if v == 0 { none } else { v } }
 #let adjusted = adj-yg != none and adj-yg != comm-yg
 #let board-yg = if adjusted { adj-yg } else { comm-yg }
-#let start-year = data.timeline_start_year
+// A required year not yet filled in arrives as 0. With no start year the window
+// opens on the year group; with neither, as on a new chart, the axis counts
+// from YG+0 and prints no calendar years rather than the years 0 to 11.
+#let start-year = if data.timeline_start_year == 0 { board-yg } else { data.timeline_start_year }
+#let dated = start-year != 0
 #let years = calc.max(1, data.timeline_years)
 #let cols = years * 2
 #let last-year = start-year + years - 1
-#let narrow = years > 12
+#let window-end = if dated [#last-year] else [YG+#(last-year - board-yg)]
+#let in-window(y) = y >= start-year and y <= last-year
 #let band-height = 0.46in
-#let label-width = 1.2in
-// Chips fit their year column: past twelve years they step off the scale.
-#let chip-size = if narrow { 5.6pt } else { micro }
-#let chip-inset = if narrow { 2pt } else { 3.5pt }
+// Marks fit their year column: past twelve years they step off the scale.
+#let narrow = years > 12
+#let mark-size = if narrow { 5.6pt } else { micro }
+#let mark-inset = if narrow { 2pt } else { 3.5pt }
 
 // A half-year column is H1 (Jan–Jun, even) or H2 (Jul–Dec, odd), and each one is
 // a VML cycle: Winter moves land in the first half, Summer moves in the second.
@@ -114,79 +105,84 @@
 // laid from their real start and cut at the left edge rather than shifted.
 #let move-col = if move-year == none { 0 } else { col-of(move-year, data.move_cycle) }
 #let current-span = if data.vectors.len() == 0 { 0 } else { calc.clamp(move-col, 0, cols) }
-#let col-width = (11in - 2 * margin - label-width) / cols
 
 // ─── the ladder ──────────────────────────────────────────────────────────────
 // Every 17X board and school gate, as an offset from the year group, counted
 // from the adjusted year group where one is set because that is the year a
-// board counts from. The tier is how heavily it prints: a board is a date you
-// are ranked against, a look is one of a numbered series, a course is neither.
-// A gate is done once any qualification it names is ticked — an IDE candidate
-// has no looks left — and prints struck rather than as something still ahead.
-#let ide = ("ide_candidate", "ide_graduate")
-#let sde = ("sde_candidate", "sde_graduate")
-#let ladder = (
-  (yg: 3, label: "Cyber 200", tier: "course", by: ("cyber_200",)),
-  (yg: 4, label: "SOS window", tier: "course", by: ("sos",)),
-  (yg: 8, label: "Maj board", tier: "board", by: ()),
-  (yg: 8, label: "IDE 1st look", tier: "look", by: ide),
-  (yg: 9, label: "Cyber 300", tier: "course", by: ("cyber_300",)),
-  (yg: 9, label: "IDE 2nd look", tier: "look", by: ide),
-  (yg: 10, label: "IDE 3rd look", tier: "look", by: ide),
-  (yg: 11, label: "IDE final look", tier: "look", by: ide),
-  (yg: 12, label: "Lt Col board", tier: "board", by: ()),
-  (yg: 14, label: "SDE 1st look", tier: "look", by: sde),
-  (yg: 15, label: "SDE 2nd look", tier: "look", by: sde),
-  (yg: 16, label: "SDE 3rd look", tier: "look", by: sde),
-  (yg: 17, label: "SDE final look", tier: "look", by: sde),
-).map(m => (..m, year: board-yg + m.yg, done: m.by.any(k => quals.education.at(k).held)))
-// A course whose year has passed unticked is what a rater most needs to see,
-// so it prints at the left edge with its year rather than leaving the window.
-// A passed look or board is history either way, so it goes.
-#let ladder = ladder.map(m => (..m, overdue: m.tier == "course" and not m.done and m.year < start-year))
+// board counts from. A board or a course falls in one year; IDE and SDE are
+// each a window of four yearly looks, drawn as one span. A gate is done once
+// any qualification it names is ticked (an IDE candidate has no looks left)
+// and prints struck rather than as something still ahead.
+#let held(keys) = keys.any(k => quals.education.at(k).held)
+#let gates = (
+  (yg: 3, name: "Cyber 200", board: false, by: ("cyber_200",)),
+  (yg: 4, name: "SOS window", board: false, by: ("sos",)),
+  (yg: 8, name: "Maj board", board: true, by: ()),
+  (yg: 9, name: "Cyber 300", board: false, by: ("cyber_300",)),
+  (yg: 12, name: "Lt Col board", board: true, by: ()),
+).map(g => (..g, year: board-yg + g.yg, done: held(g.by)))
+// A course whose year has passed unticked is what a rater most needs to see, so
+// it stands before the window, in the rail, saying when it was due. A passed
+// board is history.
+#let gates = gates.map(g => (..g, overdue: not g.board and not g.done and g.year < start-year))
+#let looks = ("1st", "2nd", "3rd", "final")
+#let windows = (
+  (yg: 8, name: "IDE", by: ("ide_candidate", "ide_graduate")),
+  (yg: 14, name: "SDE", by: ("sde_candidate", "sde_graduate")),
+).map(w => (..w, done: held(w.by), years: looks.enumerate().map(((k, _)) => board-yg + w.yg + k)))
+#let ahead = (
+  gates.filter(g => not g.done and g.year > last-year).len()
+    + windows.filter(w => not w.done).map(w => w.years.filter(y => y > last-year).len()).sum(default: 0)
+)
 
-// Three weights of gate, by what each one is: a board ranks you against a year
-// group on a date, a look is one of a numbered series, a course is a seat. In a
-// narrow window a look drops its word, which its outline says as the legend
-// does; a board keeps it, since "Maj" alone reads as a rank.
-#let chip(label, tier, done: false, overdue: none) = {
-  if narrow and tier == "look" { label = label.replace(regex(" look$"), "") }
-  if overdue != none {
-    box(inset: (x: 0.5pt, y: 2pt))[#text(size: chip-size, weight: 600, style: "italic")[#label (#overdue)]]
-  } else if done {
-    box(inset: (x: 0.5pt, y: 2pt))[#text(size: chip-size, fill: mute)[#strike(stroke: 0.5pt + mute)[#label]]]
-  } else if tier == "board" {
-    box(fill: ink, inset: (x: chip-inset, y: 2pt))[#text(size: chip-size, weight: 700, fill: white)[#label]]
-  } else if tier == "look" {
-    box(fill: none, stroke: 0.5pt + ink, inset: (x: chip-inset, y: 2pt))[#text(size: chip-size, weight: 600)[#label]]
+// A board prints heaviest, since it is a date you are ranked against; a course
+// is a seat, and prints plain. A board holds to one line: at eighteen years
+// "Lt Col board" runs a little into YG+13, which the ladder leaves empty.
+#let gate-mark(g) = {
+  let plain-mark(body, ..style) = box(inset: (x: 0.5pt, y: 2pt), text(size: mark-size, ..style, body))
+  if g.overdue {
+    plain-mark([#g.name, due #g.year], weight: 600, style: "italic")
+  } else if g.done {
+    plain-mark(strike(stroke: 0.5pt + mute, g.name), fill: mute)
+  } else if g.board {
+    box(fill: ink, inset: (x: mark-inset, y: 2pt), text(size: mark-size, weight: 700, fill: white, g.name.replace(" ", "\u{a0}")))
   } else {
-    box(inset: (x: 0.5pt, y: 2pt))[#text(size: chip-size, fill: mute)[#label]]
+    plain-mark(g.name, fill: mute)
   }
 }
 
-// One tint per vector, darkest first, so the shade says which row this is.
-// Adjacent tours part by a gap and an edge instead, and at the third rank the
-// edge is doing all the work — which is what a photocopy leaves anyway.
-#let rank-tints = (luma(86%), luma(92%), luma(96%))
-#let ranks = ("Primary", "Alternate", "Backup")
-
-#let current-stroke = 0.9pt + ink
-#let school-stroke = (paint: mute, thickness: 0.5pt, dash: (2pt, 1.5pt))
-#let tour-stroke = 0.5pt + luma(55%)
+// A window is one span over its looks in the chart, split by year and named
+// once. Looks already past are history and the span opens at the left edge;
+// looks past the window run it open into the right.
+#let window-mark(w, shown) = {
+  let paint = if w.done { mute } else { ink }
+  let edge = 0.5pt + paint
+  box(
+    width: 100%,
+    stroke: (
+      top: edge,
+      bottom: edge,
+      left: if w.years.first() < start-year { none } else { edge },
+      right: if w.years.last() > last-year { none } else { edge },
+    ),
+    grid(
+      columns: (1fr,) * shown.len(),
+      inset: (x: mark-inset, y: 2pt),
+      stroke: (x, _) => (left: if x > 0 { 0.4pt + hair }),
+      ..shown.enumerate().map(((n, k)) => {
+        let name = [#if n == 0 [#w.name~]#looks.at(k)]
+        text(size: mark-size, weight: 600, fill: paint, if w.done { strike(stroke: 0.5pt + mute, name) } else { name })
+      }),
+    ),
+  )
+}
 
 // ─── vectors ─────────────────────────────────────────────────────────────────
-#let vectors = data.vectors.enumerate().map(((i, v)) => (
-  rank: ranks.at(i, default: "Vector " + str(i + 1)),
-  track: or-none(v.track),
-  // A length outside 0.5 to 4 draws at the nearer end under a dagger the
-  // legend explains, since the schema cannot bound a number.
-  tours: v.tours.map(t => (
-    title: trim(t.title),
-    span: calc.clamp(int(calc.round(float(t.years) * 2)), 1, 8),
-    out-of-range: t.years < 0.25 or t.years > 4,
-    school: t.school,
-  )),
-))
+#let ranks = ("Primary", "Alternate", "Backup")
+#let current-stroke = 0.9pt + ink
+#let constraint-stroke = 0.6pt + ink
+#let school-stroke = (paint: mute, thickness: 0.5pt, dash: (2pt, 1.5pt))
+#let tour-stroke = 0.5pt + luma(55%)
 
 // Tours lay end to end from the move, so each one's cycle is where the one
 // before it ended rather than something to keep in step by hand.
@@ -217,13 +213,51 @@
   })
 }
 
-// The band is ruled to an even height, so a narrow block cannot grow to fit its
-// title: the title sets to the block instead. That is the ceiling `title`
-// warns about in Quill.yaml — about twelve characters per year of length.
-#let title-size(span) = {
-  let w = span * col-width
-  if w < 0.55in { micro } else if w < 1.3in { small } else { base }
-}
+#let vectors = data.vectors.enumerate().map(((i, v)) => (
+  rank: ranks.at(i, default: "Vector " + str(i + 1)),
+  track: or-none(v.track),
+  // A length outside 0.5 to 4 draws at the nearer end under a dagger the
+  // legend explains, since the schema cannot bound a number.
+  placed: lay(v.tours.map(t => (
+    title: trim(t.title),
+    span: calc.clamp(int(calc.round(float(t.years) * 2)), 1, 8),
+    out-of-range: t.years < 0.25 or t.years > 4,
+    school: t.school,
+  ))),
+))
+
+// The band is ruled to an even height, so a block cannot grow to fit its text:
+// the text sheds what the block cannot hold instead. The notes go a phrase at a
+// time, then the title steps down the scale, and each setting is tried flat and
+// then turned up the side before the next. A block too small for any setting is
+// left blank rather than overprinted; that is the ceiling `title` warns about in
+// Quill.yaml, about twelve characters per year of length.
+//
+// The title is broken here rather than by the paragraph, between words only and
+// each line as full as it will go, so "JFHQ-C" never strands its "C" and a word
+// too long for the block rules the setting out rather than running past its
+// edge. A note holds to one line, and turned up the side nothing breaks.
+#let block-text(title, notes, ..style) = layout(size => {
+  let (w, h) = (size.width, size.height)
+  let words = plain(title).split(" ").filter(x => x != "")
+  let face(s, body) = text(size: s, weight: 600, ..style, body)
+  // The title in lines no wider than `room`, or in one line given none.
+  let lines(s, room) = words.fold((), (out, x) => {
+    if out.len() > 0 and (room == none or measure(face(s, out.last() + " " + x)).width <= room) {
+      out.slice(0, -1) + (out.last() + " " + x,)
+    } else { out + (x,) }
+  })
+  let typeset((s, n), room) = (
+    ..if words.len() > 0 { (face(s, lines(s, room).join(linebreak())),) },
+    ..if n != none { (text(size: micro, fill: mute, n),) },
+  ).join(linebreak(), default: [])
+  let within(c, room, w, h) = { let m = measure(typeset(c, room)); m.width <= w and m.height <= h }
+  let settings = notes.map(n => (base, n)) + (base, small, micro).map(s => (s, none))
+  block(width: w, height: h, settings.map(c => (
+    if within(c, w, w, h) { align(left + horizon, typeset(c, w)) },
+    if within(c, none, h, w) { align(center + bottom, rotate(-90deg, reflow: true, block(width: h, typeset(c, none)))) },
+  )).flatten().find(s => s != none))
+})
 
 #let span-label(span) = {
   let years = span / 2
@@ -237,132 +271,139 @@
 )).filter(c => c.end > 0)
 
 // ═══ IDENTITY ════════════════════════════════════════════════════════════════
-// The AFSC, duty title and unit read as one line under the name. The year group
-// printed is the one the boards count from; an adjustment says where it came
-// from, and an unadjusted one prints nothing more.
+// The name stands on the facts' labels, and the line under it on their values:
+// both hang from the top of their row by one edge, so the two sizes share a
+// baseline, and a degree that wraps or a year group's note hangs below the row
+// rather than lifting it. The AFSC, duty title and unit read as one line,
+// breaking before the unit rather than inside it. The year group printed is the
+// one the boards count from; an adjustment says where it came from, and an
+// unadjusted one prints nothing more.
+#let hang = 0.72 * lead
+#let identity = layout(size => {
+  set text(top-edge: hang)
+  let parts = (
+    if afsc != none { text(weight: 600, afsc) },
+    if duty != none { text(weight: 600, duty) },
+    if unit != none { text(weight: 500, fill: mute, unit) },
+  ).filter(x => x != none)
+  let sep = text(fill: mute)[ · ]
+  if parts.len() < 2 or measure(parts.join(sep)).width <= size.width {
+    parts.join(sep)
+  } else {
+    parts.slice(0, -1).join(sep) + linebreak() + parts.last()
+  }
+})
+#let facts = (
+  ("Year group", if board-yg != 0 [#board-yg], if adjusted [adjusted from #comm-yg]),
+  ("Date of rank", show-date(data.date_of_rank), none),
+  ("Arrived station", show-date(data.date_arrived_station), none),
+  ("Advanced degree", or-none(data.advanced_degree), none),
+)
 #grid(
-  columns: (rail, 1fr),
-  column-gutter: rail-gutter,
-  align: bottom,
-  stack(
-    spacing: 6pt,
-    text(size: display, weight: 800, tracking: -0.3pt, data.name),
-    ..{
-      let parts = (
-        if afsc != none { text(weight: 600, afsc) },
-        if duty != none { text(weight: 600, duty) },
-        if unit != none { text(weight: 500, fill: mute, unit) },
-      ).filter(x => x != none)
-      if parts.len() > 0 { (parts.join(text(fill: mute)[ · ]),) } else { () }
-    },
-  ),
-  grid(
-    columns: (1fr,) * 4,
-    column-gutter: col-gutter,
-    align: top,
-    fact("Year group", [#board-yg], note: if adjusted [adjusted from #comm-yg]),
-    fact("Date of rank", show-date(data.date_of_rank)),
-    fact("Arrived station", show-date(data.date_arrived_station)),
-    fact("Advanced degree", or-none(data.advanced_degree)),
-  ),
+  columns: (name-width,) + (1fr,) * facts.len(),
+  column-gutter: 16pt,
+  row-gutter: 3pt,
+  align: (_, y) => if y == 0 { bottom } else { top },
+  // Raised clear of the line under it by the depth of its descenders.
+  pad(bottom: 3pt, text(size: display, weight: 800, tracking: -0.3pt, data.name)),
+  ..facts.map(((name, ..)) => eyebrow(name)),
+  identity,
+  ..facts.map(((_, value, note)) => stack(
+    spacing: 3pt,
+    text(size: lead, weight: 500, top-edge: hang, if value == none { dash } else { value }),
+    ..if note != none { (text(size: micro, fill: mute, note),) },
+  )),
 )
 
-#v(7pt)
-#line(length: 100%, stroke: 1.3pt + ink)
-
-// ═══ TIMELINE ════════════════════════════════════════════════════════════════
-#let in-window(cy) = cy >= start-year and cy <= last-year
-#let ahead = ladder.filter(m => m.year > last-year and not m.done)
-
-#section-rule(
-  "Assignment vectors & development timeline",
-  aside: [
-    CY #start-year–#last-year · counted from YG #board-yg
-    #if ahead.len() > 0 [ · #ahead.len() later milestone#if ahead.len() > 1 [s] beyond #last-year]
-  ],
-)
-
-#let row-label(body) = table.cell(align: left + horizon, stroke: none)[
-  #text(size: small, weight: 600, fill: mute)[#body]
-]
-
-#let rows = ()
-
-// year header
-#rows.push(table.cell(stroke: none)[])
-#for i in range(years) {
-  rows.push(table.cell(colspan: 2, stroke: (bottom: 0.7pt + ink), inset: (x: 3pt, bottom: 3pt))[
-    #text(weight: 700)[#(start-year + i)]
-    #linebreak()
-    #text(size: micro, fill: mute)[YG+#(start-year + i - board-yg)]
-  ])
-}
-
-// milestone row
-#rows.push(row-label[Eligibility])
-#for i in range(years) {
-  let hits = ladder.filter(m => m.year == start-year + i or (i == 0 and m.overdue))
-  rows.push(table.cell(colspan: 2, stroke: none, inset: (x: 1.5pt, y: 3pt))[
-    #for m in hits [
-      #block(spacing: 2pt, breakable: false)[#chip(m.label, m.tier, done: m.done, overdue: if m.overdue { m.year })]
-    ]
-  ])
-}
-
+// ═══ PLAN ════════════════════════════════════════════════════════════════════
+#let row-label(body) = table.cell(align: left + horizon, rail-label(body))
 // An empty half-year is its own cell, so the year rules run through it.
 #let empty(n, stroke: none) = range(n).map(_ => table.cell(stroke: stroke)[])
 
-// one row per constraint: a bar from today to the end of the last year it holds,
-// ruled under and closed at its end, so it reads as "until here"
+#let rows = ()
+
+// the axis
+#rows.push(table.cell[])
+#for i in range(years) {
+  let offset = [YG+#(start-year + i - board-yg)]
+  rows.push(table.cell(colspan: 2, stroke: (bottom: 0.7pt + ink), inset: (x: 3pt, bottom: 3pt))[
+    #if dated [
+      #text(weight: 700)[#(start-year + i)]
+      #linebreak()
+      #text(size: micro, fill: mute, offset)
+    ] else { text(weight: 700, offset) }
+  ])
+}
+
+// One row per constraint, under the axis: a bar from today to the end of the
+// last year it holds, ruled under and closed at its end, so it reads as "until
+// here". The band is not ruled by year, so a label too long for its bar runs
+// on past its end, on one line, over nothing.
 #for (i, c) in constraints.enumerate() {
-  rows.push(if i == 0 { row-label[Constraints] } else { table.cell(stroke: none)[] })
-  let label = [#text(size: micro, weight: 600)[#c.note]#text(size: micro, fill: mute)[#(" · through " + str(c.through))]]
-  // A bar too short for its label carries it past its end rather than
-  // wrapping it, so every constraint costs the timeline one line.
-  rows.push(table.cell(colspan: c.end, stroke: none, inset: (x: 1pt, y: 0.5pt))[
+  rows.push(if i == 0 { row-label[Constraints] } else { table.cell[] })
+  let note = [#text(size: micro, weight: 600)[#c.note]#text(size: micro, fill: mute)[#(" · through " + str(c.through))]]
+  // The first stands clear of the axis, which would otherwise close its top.
+  rows.push(table.cell(colspan: c.end, inset: (x: 1pt, top: if i == 0 { 3pt } else { 0.5pt }, bottom: 0.5pt))[
     #layout(size => {
       // A bar that runs past the window is left open at its end, since the
       // window's edge is not where it stops.
       let open = c.through > last-year
-      let fits = measure(label).width + 8pt <= size.width
-      box(width: 100%, height: 8.5pt, stroke: (bottom: 0.9pt + ink, right: if open { none } else { 0.9pt + ink }))
-      place(left + bottom, dx: if fits { 3pt } else { size.width + 3pt }, dy: -2pt, box(width: 10in, label))
+      let fits = measure(note).width + 8pt <= size.width
+      box(width: 100%, height: 8.5pt, stroke: (bottom: constraint-stroke, right: if open { none } else { constraint-stroke }))
+      place(left + bottom, dx: if fits { 3pt } else { size.width + 3pt }, dy: -2pt, box(width: 10in, note))
     })
   ])
   rows += empty(cols - c.end)
 }
 
-// The assignment held now, drawn once across every vector row. It reads like a
-// tour block, title over a line of small print, and sheds what its space cannot
-// hold: the small print a word at a time, then the flat setting for one up the
-// side, then the text itself, since the header already names the job. The unit
-// is left to the header throughout.
-#let current-block = {
-  let title = text(size: small, weight: 600, if duty != none { duty } else { [Current assignment] })
-  let over(note) = (title, text(size: micro, fill: mute, note)).join(linebreak())
-  let move = [to #data.move_cycle #move-year]
-  let settings = (over[Current · #move], over(move), title)
-  box(width: 100%, height: 100%, stroke: current-stroke, inset: 3pt, layout(size => {
-    let fits(c, w, h) = { let m = measure(c); m.width <= w and m.height <= h }
-    let flat = settings.find(c => fits(c, size.width, size.height))
-    let up = settings.find(c => fits(c, size.height, size.width))
-    block(width: size.width, height: size.height, if flat != none {
-      align(left + horizon, flat)
-    } else if up != none {
-      align(left + bottom, rotate(-90deg, reflow: true, up))
-    })
-  }))
+// Eligibility, in lanes the year rules start from: the boards and courses, each
+// on its year, and under them the IDE and SDE windows, when one is in view.
+#let spans = windows.map(w => (w, range(looks.len()).filter(k => in-window(w.years.at(k))))).filter(((_, shown)) => shown.len() > 0)
+#let lanes = if spans.len() > 0 { 2 } else { 1 }
+#rows.push(table.cell(rowspan: lanes, align: left + horizon, stack(
+  spacing: 3pt,
+  rail-label[Eligibility],
+  ..gates.filter(g => g.overdue).map(gate-mark),
+)))
+#for i in range(years) {
+  let here = gates.filter(g => g.year == start-year + i)
+  rows.push(table.cell(colspan: 2, inset: (x: 1.5pt, y: 3pt), stack(spacing: 2pt, ..here.map(gate-mark))))
+}
+#if spans.len() > 0 {
+  let at = 0
+  for (w, shown) in spans {
+    let from = (w.years.at(shown.first()) - start-year) * 2
+    rows += empty(from - at)
+    rows.push(table.cell(colspan: 2 * shown.len(), inset: (x: 1.5pt, top: 0pt, bottom: 3pt), window-mark(w, shown)))
+    at = from + 2 * shown.len()
+  }
+  rows += empty(cols - at)
 }
 
-// one row per vector
+// The assignment held now, drawn once across every vector row. It reads like a
+// tour block, title over a line of small print, and sheds what its space cannot
+// hold the way one does; with nothing left, the header still names the job. The
+// unit is left to the header throughout.
+#let current-block = block(
+  width: 100%,
+  height: 100%,
+  stroke: current-stroke,
+  inset: (x: 3pt, y: 2pt),
+  block-text(
+    if duty != none { duty } else { [Current assignment] },
+    ([Current · to #data.move_cycle #move-year], [to #data.move_cycle #move-year]),
+  ),
+)
+
+// One row per vector. Its label says which it is, so every duty tour takes the
+// one shade, and a school goes unshaded: a year in a classroom does not read as
+// a year in a job.
 #for (rank, v) in vectors.enumerate() {
-  let placed = lay(v.tours)
-  let beyond = placed.filter(p => p.beyond)
+  let beyond = v.placed.filter(p => p.beyond)
   let top-rule = (top: 0.4pt + hair)
-  let tint = rank-tints.at(calc.min(rank, rank-tints.len() - 1))
   let sub = ()
   if v.track != none { sub.push(v.rank) }
-  if beyond.len() > 0 { sub.push([+#beyond.len() past #last-year]) }
+  if beyond.len() > 0 { sub.push([+#beyond.len() past #window-end]) }
 
   rows.push(table.cell(align: left + horizon, stroke: top-rule, inset: (right: 5pt, y: 3pt))[
     #text(size: lead, weight: 700)[#if v.track != none { v.track } else { v.rank }]
@@ -373,31 +414,29 @@
   ])
 
   if rank == 0 and current-span > 0 {
-    rows.push(table.cell(
-      colspan: current-span,
-      rowspan: vectors.len(),
-      stroke: none,
-      inset: (x: 1pt, y: 2pt),
-    )[#current-block])
+    rows.push(table.cell(colspan: current-span, rowspan: vectors.len(), inset: (x: 1pt, y: 2pt))[#current-block])
   }
 
   let at = current-span
-  for p in placed.filter(p => not p.beyond) {
+  for p in v.placed.filter(p => not p.beyond) {
     let edge = if p.tour.school { school-stroke } else { tour-stroke }
+    let notes = (
+      [#span-label(p.span)#if p.tour.out-of-range [#sym.dagger]],
+      cycle-of(p.start),
+      ..if p.clipped { ([runs past #window-end],) },
+    )
     rows.push(table.cell(
       colspan: p.drawn,
       stroke: top-rule,
       inset: (left: if p.cut { 0pt } else { 1pt }, right: if p.clipped { 0pt } else { 1pt }, y: 2pt),
-      align: left + horizon,
     )[
       // The block is drawn inside its cell rather than as the cell's fill, so
-      // adjacent tours are parted by a gap and an edge instead of by a second
-      // shade — which is what lets the shade say which vector this is. A tour
-      // the window cuts runs to the window's edge with that end open.
-      #box(
+      // adjacent tours part by a gap and an edge. A tour the window cuts runs
+      // to the window's edge with that end open.
+      #block(
         width: 100%,
         height: 100%,
-        fill: if p.tour.school { none } else { tint },
+        fill: if p.tour.school { none } else { shade },
         stroke: (
           top: edge,
           bottom: edge,
@@ -405,159 +444,118 @@
           right: if p.clipped { none } else { edge },
         ),
         inset: (x: 3pt, y: 2pt),
-        baseline: 0pt,
-        // A title past the guidance in Quill.yaml is cut at the block's edge
-        // rather than printed over the next block.
-        clip: true,
-      )[
-        #set align(left + horizon)
-        #text(size: title-size(p.drawn), weight: 600, style: if p.tour.school { "italic" } else { "normal" })[
-          #p.tour.title
-        ]
-        #linebreak()
-        #text(size: micro, fill: mute)[
-          #span-label(p.span)#if p.tour.out-of-range [#sym.dagger]#if p.drawn * col-width >= 0.55in [ · #cycle-of(p.start)]#if p.clipped [ · runs past #last-year]
-        ]
-      ]
+        block-text(
+          p.tour.title,
+          range(notes.len(), 0, step: -1).map(n => notes.slice(0, n).join[ · ]),
+          style: if p.tour.school { "italic" } else { "normal" },
+        ),
+      )
     ])
     at = p.from + p.drawn
   }
   rows += empty(cols - at, stroke: top-rule)
 }
 
-// The years are ruled from the axis down, so a block is read against the gate
+// The years are ruled from the gates down, so a block is read against the gate
 // above it without a straightedge. A rule stops where a block crosses it: the
 // block is in front of the year, not cut by it. On a blank chart the rules are
 // the grid a pen draws the vectors on. The window's far side is left open,
 // because the career is not over where the chart stops.
-#table(
-  columns: (label-width,) + (1fr,) * cols,
-  rows: (auto, auto) + (auto,) * constraints.len() + (band-height,) * vectors.len(),
+#block(above: 18pt, table(
+  columns: (rail,) + (1fr,) * cols,
+  rows: (auto,) * (1 + constraints.len() + lanes) + (band-height,) * vectors.len(),
   stroke: none,
   inset: 2pt,
-  ..range(years).map(i => table.vline(x: 1 + 2 * i, start: 1, stroke: 0.4pt + hair)),
+  ..range(years).map(i => table.vline(x: 1 + 2 * i, start: 1 + constraints.len(), stroke: 0.4pt + hair)),
   ..rows,
   table.hline(stroke: 0.4pt + hair),
-)
+))
 
-// The legend names the marks this chart actually carries and no others, and
-// says what each mark is rather than what it means: a rater knows what a board
-// is. A chip carries its own name, as the chips on the chart do.
-#let drawn-tours = vectors.map(v => lay(v.tours).filter(p => not p.beyond)).flatten()
-#let shown = ladder.filter(m => in-window(m.year) or m.overdue)
-#let swatch(..args) = box(width: 14pt, height: 6pt, ..args)
-#let legend = ()
-#if current-span > 0 { legend.push([#swatch(stroke: current-stroke) current assignment]) }
-#if shown.any(m => m.tier == "board" and not m.done) { legend.push(chip("promotion boards", "board")) }
-#if shown.any(m => m.tier == "look" and not m.done) { legend.push(chip("IDE / SDE looks", "look")) }
-#if shown.any(m => m.done) { legend.push([#chip("course", "course", done: true) done]) }
-#if shown.any(m => m.overdue) { legend.push([#chip("course", "course", overdue: "year") overdue]) }
-#if drawn-tours.any(p => not p.tour.school) { legend.push([#swatch(fill: rank-tints.at(0), stroke: tour-stroke) assignment]) }
-#if drawn-tours.any(p => p.tour.school) { legend.push([#swatch(stroke: school-stroke) school]) }
-#if drawn-tours.any(p => p.tour.out-of-range) { legend.push([#sym.dagger length outside 0.5–4 yr]) }
-
-#if legend.len() > 0 {
-  v(5pt)
-  text(size: micro, fill: mute, legend.join(h(12pt)))
+// The gates and tours carry their own names. The legend keys only the marks
+// that cannot, and only those this chart carries, beside a count of the gates
+// past the window's far side.
+#let drawn-tours = vectors.map(v => v.placed.filter(p => not p.beyond)).flatten()
+#let swatch(..args) = box(width: 14pt, height: 6pt, baseline: 1pt, ..args)
+#let key(mark, name) = [#mark#h(3pt)#name]
+#let legend = (
+  if current-span > 0 { key(swatch(stroke: current-stroke), [current assignment]) },
+  if drawn-tours.any(p => p.tour.school) { key(swatch(stroke: school-stroke), [school]) },
+  if drawn-tours.any(p => p.tour.out-of-range) { key(sym.dagger, [length outside 0.5–4 yr]) },
+).filter(k => k != none)
+#if legend.len() > 0 or ahead > 0 {
+  block(above: 5pt, pad(left: rail, grid(
+    columns: (1fr, auto),
+    text(size: micro, fill: mute, legend.join(h(12pt), default: [])),
+    if ahead > 0 { text(size: micro, fill: mute)[#ahead more milestone#if ahead > 1 [s] past #window-end] },
+  )))
 }
 
 // ═══ RECORD ══════════════════════════════════════════════════════════════════
-// Every member arrives, held or not, in the order Quill.yaml declares it; an
-// unheld member's detail arrives blank whatever the document retains. The
-// headings repeat each matrix's `title`, which the data does not carry.
+// The record that makes the plan credible, a row to a part: one with nothing
+// in it goes rather than printing empty. Every first line in it hangs from the
+// top of its row by one edge, so a label and its row share a baseline.
+#let row-top = 5pt
+
+// Every member of a matrix arrives, held or not, in the order Quill.yaml
+// declares it; an unheld member's detail arrives blank whatever the document
+// retains. The labels repeat each matrix's `title`, which the data does not
+// carry. Every member prints: the open boxes say what has not been done yet as
+// plainly as the filled ones say what has. What is held leads its row, and a
+// member holds together on its line.
 #let vocabulary = (
-  ("Leadership & Command", quals.command),
+  ("Leadership & command", quals.command),
   ("Operations", quals.operations),
-  ("Staff & Functional", quals.staff),
+  ("Staff & functional", quals.staff),
   ("Education & PME", quals.education),
 )
+#let member(m) = box[
+  #if m.held { held-mark } else { open-mark }#h(3pt)#text(
+    weight: if m.held { 600 } else { 400 },
+    fill: if m.held { ink } else { mute },
+    m.title,
+  )#if not blank(m.detail) [#h(2pt)#text(size: micro, style: "italic", fill: mute, trim(m.detail))]
+]
+#let members-row(members) = {
+  let all = members.values()
+  (all.filter(m => m.held) + all.filter(m => not m.held)).map(member).join([#h(10pt) ])
+}
 
-#let remarks = (
-  ("Awards", data.awards),
-  ("Certifications", data.certifications),
-  ("Deployments", data.deployments),
-).filter(r => r.at(1).len() > 0)
-
-// A table rather than a stack, so each rater's column reads down the years and
-// neither line has to be recognized by its shade. With no Higher Level
-// Reviewer strat on any row, the column goes rather than printing empty.
+// A table, so each rater's column reads down the years. With no Higher Level
+// Reviewer strat on any row, that column goes rather than printing empty.
 #let strats = data.stratifications.sorted(key: s => -s.year)
 #let any-hlr = strats.any(s => not blank(s.hlr))
 #let strat-cell(v) = if blank(v) { dash } else { trim(v) }
-#let strats-column = [
-  #section-rule("Recent stratifications")
-  #table(
-    columns: (auto, 1fr) + if any-hlr { (1fr,) } else { () },
-    column-gutter: 10pt,
-    inset: (x: 0pt, y: 2.5pt),
-    stroke: none,
-    table.header([], eyebrow("Rater"), ..if any-hlr { (eyebrow("HLR"),) }),
-    table.hline(stroke: 0.4pt + hair),
-    ..strats.map(s => (
-      text(weight: 700)[#s.year],
-      strat-cell(s.rater),
-      ..if any-hlr { (strat-cell(s.hlr),) },
-    )).flatten(),
-  )
-]
+#let strats-table = table(
+  columns: (auto,) * (if any-hlr { 3 } else { 2 }),
+  column-gutter: 16pt,
+  inset: (_, y) => (x: 0pt, top: if y == 0 { 0pt } else { 2pt }, bottom: 2pt),
+  stroke: none,
+  table.header([], eyebrow[Rater], ..if any-hlr { (eyebrow[HLR],) }),
+  ..strats.map(s => (
+    text(size: base, weight: 700)[#s.year],
+    text(size: base, strat-cell(s.rater)),
+    ..if any-hlr { (text(size: base, strat-cell(s.hlr)),) },
+  )).flatten(),
+)
 
-#let vocabulary-column = [
-  #section-rule("Qualifications & experience")
-  #grid(
-    columns: (1fr,) * vocabulary.len(),
-    column-gutter: col-gutter,
-    ..vocabulary.map(((heading, members)) => stack(
-      spacing: 4pt,
-      eyebrow(heading),
-      ..members.values().map(m => grid(
-        columns: (7.6pt, 1fr),
-        align: (left + top, left + top),
-        if m.held { held-mark } else { open-mark },
-        [
-          #set par(leading: 0.42em)
-          #text(
-            size: small,
-            weight: if m.held { 600 } else { 400 },
-            fill: if m.held { ink } else { mute },
-          )[#m.title]
-          // The detail runs on after the label: under it, the tallest column
-          // costs the notes a line a detail.
-          #if not blank(m.detail) [
-            #text(size: micro, style: "italic", fill: mute)[#h(2pt)#trim(m.detail)]
-          ]
-        ],
-      )),
-    )),
-  )
-]
+// The two things a board reads first, the stratifications and the awards,
+// lead; the experience follows.
+#let listed(name, lines) = if lines.len() > 0 { (([#name], lines.map(trim).join[ · ]),) }
+#let record = (
+  ..if strats.len() > 0 { (([Stratifications], strats-table),) },
+  ..listed("Awards", data.awards),
+  ..vocabulary.map(((name, members)) => ([#name], members-row(members))),
+  ..listed("Certifications", data.certifications),
+  ..listed("Deployments", data.deployments),
+)
 
-// The stratifications sit beside the vocabulary; with none, there is no narrow
-// empty column beside it, there is no column. The block carries the gap its
-// headings would, since a heading nested in a grid drops the space above it.
-#block(above: section-gap, if strats.len() > 0 {
-  grid(columns: (rail, 1fr), column-gutter: rail-gutter, strats-column, vocabulary-column)
-} else {
-  vocabulary-column
-})
-
-// Three lists side by side across the full width. Stacked in a narrow column
-// they cost three times the height and read as one long list. They stand on
-// the columns above them: the first under the stratifications and the other two
-// each under a pair of qualification columns, or one to a qualification column
-// where there are no stratifications.
-#if remarks.len() > 0 {
-  section-rule("Awards · certifications · deployments")
+#divider(14pt)
+#{
+  set text(size: small, top-edge: row-top)
   grid(
-    ..if strats.len() > 0 {
-      (columns: (rail, 1fr, 1fr), column-gutter: (rail-gutter, col-gutter))
-    } else {
-      (columns: (1fr,) * vocabulary.len(), column-gutter: col-gutter)
-    },
-    ..remarks.map(((label, lines)) => stack(
-      spacing: 4pt,
-      eyebrow(label),
-      ..lines.map(l => text(l)),
-    )),
+    columns: (rail, 1fr),
+    row-gutter: 7pt,
+    ..record.map(((name, body)) => (rail-label(name), body)).flatten(),
   )
 }
 
@@ -567,7 +565,7 @@
 // the conversation. So the ruling prints whether or not anything was typed, the
 // typed notes are set on it, and it runs to the foot of the page: whatever the
 // record above leaves is room to write.
-#section-rule("Development notes")
+#divider(12pt)
 
 // Narrow rule, a quarter inch: the tightest a pen writes on comfortably.
 #let pitch = 18pt
@@ -578,7 +576,8 @@
 }
 
 // Every line box is exactly one pitch tall with its baseline at the same drop,
-// so the typed notes land on the rules however many lines they run to.
+// so the typed notes land on the rules however many lines they run to, and the
+// rail's label sits on the first.
 #let typed = data.at("$body", default: "")
 #let on-ruling(body) = {
   set text(top-edge: baseline-drop, bottom-edge: baseline-drop - pitch)
@@ -589,16 +588,23 @@
 // What was typed and two blank lines under it are the minimum, and hold their
 // height: a record too long for the page pushes it onto a second rather than
 // eating the lines a rater writes on.
-#block(width: 100%, layout(size => {
-  let notes = if type(typed) != str { on-ruling(typed) } else { [] }
-  let used = calc.round(measure(block(width: size.width, notes)).height / pitch)
-  let n = int(used) + 2
-  block(width: 100%, height: n * pitch, { ruling(n); notes })
-}))
-#block(width: 100%, height: 1fr, layout(size => ruling(calc.floor((size.height - rule-drop) / pitch) + 1)))
+#grid(
+  columns: (rail, 1fr),
+  on-ruling(rail-label[Notes]),
+  layout(size => {
+    let notes = if type(typed) != str { on-ruling(typed) } else { [] }
+    let used = calc.round(measure(block(width: size.width, notes)).height / pitch)
+    let n = int(used) + 2
+    block(width: 100%, height: n * pitch, { ruling(n); notes })
+  }),
+)
+#block(width: 100%, height: 1fr, pad(left: rail, layout(size => ruling(calc.floor((size.height - rule-drop) / pitch) + 1))))
 
-#v(10pt)
-#text(size: micro, fill: mute)[
-  Discussed with #box(width: 2in, stroke: (bottom: 0.4pt + mute))[]
-  #h(12pt) on #box(width: 1in, stroke: (bottom: 0.4pt + mute))[]
-]
+#block(above: 10pt, grid(
+  columns: (rail, 1fr),
+  rail-label[Discussed with],
+  text(size: micro, fill: mute)[
+    #box(width: 2.5in, stroke: (bottom: 0.4pt + mute))[]
+    #h(12pt) on #box(width: 1.2in, stroke: (bottom: 0.4pt + mute))[]
+  ],
+))

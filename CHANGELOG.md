@@ -19,43 +19,58 @@
     the next cycle" dagger goes.
   - A vector's `label` and `focus` become one `track`. Its rank (Primary,
     Alternate, Backup) comes from its position.
-  - New `constraints`, up to three `{note, through}` rows, each drawn as a
-    bar from the left edge of the timeline to the end of its year, above the
-    vectors.
+  - New `constraints`, up to three `{note, through}` rows, each drawn under
+    the axis as a bar from the left edge of the timeline to the end of its
+    year.
   - `adjusted_yg` is `integer?`: blank rather than `0` when unchanged.
   - A stratification row is `{year, rater, hlr}`, and `year` is an integer.
     The page sorts the rows most recent first.
-  - The education column ticks `sos` (with DG or top third as its detail),
+  - The education matrix ticks `sos` (with DG or top third as its detail),
     and IDE and SDE each split into a candidate and a graduate tick. A ticked
     course or school strikes its milestones on the timeline, so an SOS
     graduate no longer sees "SOS window" ahead of them.
-  - The current block reads like a tour block, duty title over "Current · to
-    Summer 2028", and sheds what its space cannot hold: the small print, then
-    the flat setting for one up the side, then the text, which the header
-    already carries. A move before the window lays the tours from their real
-    start and cuts them at the left edge.
-  - A course whose year has passed unticked prints at the left edge of the
-    eligibility row with its year. A constraint running past the window is
-    left open at its end, and a label longer than its bar stays on one line.
-  - A tour length outside 0.5 to 4 draws at the nearer end under a dagger the
-    legend explains, and a title past its block is clipped.
   - `adjusted_yg: 0` reads as blank. Stratifications take `max: 3`.
-  - A qualification's detail sets on its label's line. In a window over
-    twelve years, look chips drop their trailing word.
-  - A layout pass, after #191. Thirteen type sizes become five (6, 7, 8, 9
-    and 18pt), bar the chips that set to their width, and no text is lighter
-    than 40% gray, so the page survives a photocopy. A section heading sits
-    3pt over its rule and 14pt under the section above. The name shares its
-    column's width with the stratifications, the four facts stand on the four
-    qualification columns, and the awards, certifications and deployments
-    stand on the same edges. One **Year group** fact prints the year the
-    boards count from, noting `adjusted from` the commissioning year. Year
-    rules run from the axis down behind the tours, and a tour the window cuts
-    runs into its edge open. Stratifications are a table with Rater and HLR
-    columns, the HLR column dropping when no row has one. The notes are ruled
-    at a quarter inch to the foot of the page with the typed notes set on the
-    ruling: `maximal.md` holds two typed paragraphs at twelve and eighteen
-    years, where one fit before, and a chart with less record holds more.
+  - The page is redrawn on one rail: every row under the name hangs its label
+    in a left column, the timeline's rows, the record's and the notes', and
+    those labels are its only headings. Five type sizes (6, 7, 8, 9 and 18pt)
+    serve the page, bar the marks that set to a narrow column, and no text is
+    lighter than 40% gray, so it survives a photocopy.
+    - The name stands on the facts' labels, and the AFSC, duty title and unit
+      under it share a baseline with their values, breaking before the unit
+      rather than inside it. One **Year group** fact prints the year the
+      boards count from, noting `adjusted from` the commissioning year.
+    - A constraint running past the window is left open at its end, and a
+      label longer than its bar runs on past it on one line.
+    - Eligibility is two lanes. Boards and courses stand on their years, and
+      IDE and SDE are each one span of four looks, split by year; looks
+      already past open the span at the left edge. A course passed unticked
+      stands in the rail before the window, saying when it was due. Year
+      rules run from the lanes down behind the tours.
+    - The current job is drawn once across every vector row, duty title over
+      "Current · to Summer 2028". A move before the window lays the tours
+      from their real start and cuts them at the left edge, and a tour the
+      window cuts runs into its edge open. Every duty tour takes one shade,
+      since its row's label says which vector it is, and a school is
+      outlined.
+    - Tour blocks and the current block fit their text by one rule: the small
+      print goes a phrase at a time, then the title steps down the type
+      scale, each setting tried flat and then turned up the side. A title
+      breaks between words only, so `JFHQ-C` never strands its `C`, and a
+      block too small for any setting is left blank rather than overprinted.
+      A tour length outside 0.5 to 4 draws at the nearer end under a dagger.
+    - The legend keys only the marks that do not name themselves (the
+      current job, a school and the dagger) beside a count of the milestones
+      past the window.
+    - The record is a row to a part, and a part with nothing in it goes:
+      stratifications as a Rater and HLR table, its HLR column dropping when
+      no row has one; awards; one row per qualification matrix, what is held
+      leading it with its detail; certifications; deployments.
+    - The notes are ruled at a quarter inch to the foot of the page with the
+      typed notes set on the ruling: `maximal.md` holds four typed paragraphs
+      at twelve and eighteen years, where one fit before.
+    - A blank start year opens the window on the year group. A new chart,
+      with neither, prints a dash for the year group and an axis of YG+0 to
+      YG+11 in place of the years 0 to 11.
 
 - **`classic_resume@0.0.1` prints each section's heading from its `title`
   default, makes the name, the contacts and the project links click-to-edit,
