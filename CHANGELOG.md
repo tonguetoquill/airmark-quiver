@@ -2,16 +2,29 @@
 
 ## Unreleased
 
-- **Take `@quillmark/wasm` 0.117.0, `@quillmark/quiver` 0.31.0 and `quillkit`
-  0.11.0. Every quill now needs wasm 0.117 or later to load.** 0.117 refuses
-  `example:` on a field at any depth and `body.example`, and every quill
-  declared them, so none loaded under it. Each is deleted from every quill, in
-  every version, published ones included; a 0.116 engine loads the result, so
-  only a consumer on 0.117 must move. The format hint an example alone carried
-  moves into its field's `description`, as in `'FIRST M. LAST, Capt, USAF'`, and
-  a body example's rules move into the `description` of `main` or of its card
-  kind, which the blueprint prints on the `$kind` line in place of the quill's
-  own description. Every document renders as before.
+- **Take `@quillmark/wasm` 0.118.0, `@quillmark/quiver` 0.32.0 and `quillkit`
+  0.12.0. Every quill now needs wasm 0.117 or later to load, and
+  `usaf_memo@0.3.0`, `afmc_moa`, `classic_resume` and `daf1206` need 0.118,
+  which reads a card kind's `seed:`.** 0.117 refuses `example:` on a field at
+  any depth and `body.example`, and every quill declared them, so none loaded
+  under it. Each is deleted from every quill, in every version, published ones
+  included; a 0.116 engine still loads a quill declaring no `seed:`. The format
+  hint an example alone carried moves into its field's `description`, as in
+  `'FIRST M. LAST, Capt, USAF'`, and a body example's rules move into the
+  `description` of `main` or of its card kind, which the blueprint prints on the
+  `$kind` line in place of the quill's own description. Every document renders
+  as before.
+
+- **Add Card writes starter content.** A card kind's `seed:` is what a new card
+  of it starts with, placeholders that print until replaced, and a template's
+  `$seed.<kind>` replaces it. An `afmc_moa` section opens on DoDI 4000.19's own
+  text, its heading and bracketed prompts and, for general provisions and
+  financial details, the standard clauses, where it opened empty. A
+  `usaf_memo@0.3.0` indorsement starts `ORG/SYMBOL` to `ORG/SYMBOL` over
+  `FIRST M. LAST, Rank, USAF` and `Duty Title`, a `daf1206` continuation a
+  category heading over a bullet, and each `classic_resume` section one
+  placeholder row in the shape its list takes. The `af4141` and `daf4392` rows
+  and `usaf_memo@0.2.0` seed nothing.
 
 - **Every quill ships a root `example.md`**, one filled-in page of made-up
   values, where its examples stood. `quill.exampleDocument()` hands it out,
