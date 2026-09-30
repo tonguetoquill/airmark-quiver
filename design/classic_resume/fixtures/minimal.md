@@ -15,7 +15,7 @@ $kind: summary
 title: ""
 ~~~
 
-Security engineer of eight years, most of it on detection pipelines that other people have to keep running at three in the morning.
+An engineer. Likes climbing rocks and making useful things.
 
 - Cleared: TS/SCI, current.
 - Reads and writes Go, Python, and enough Rust to be dangerous.

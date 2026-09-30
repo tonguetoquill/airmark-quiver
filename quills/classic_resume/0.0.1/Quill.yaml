@@ -69,7 +69,7 @@ card_kinds:
     title: Summary
     description: "Prose under a heading: a few lines on who you are and the work you want next. Retitled, it is any section that is only prose, such as an objective."
     seed:
-      $body: A few lines on who you are and the work you want next.
+      $body: An engineer. Likes climbing rocks and making useful things.
     fields:
       title:
         type: plaintext
