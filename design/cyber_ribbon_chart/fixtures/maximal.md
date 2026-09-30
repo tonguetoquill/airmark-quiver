@@ -12,7 +12,7 @@ timeline_start_year: 2026
 timeline_years: 12
 vectors:
   - label: Vector 1
-    focus: Primary — command track
+    focus: Primary, command track
     tours:
       - { title: 333 TRS Instructor, duration: "2", vml: Summer }
       - { title: 333 TRS / DO, duration: "1.5", vml: Winter }
@@ -20,7 +20,7 @@ vectors:
       - { title: IDE in residence, duration: "1", vml: Summer, school: true }
       - { title: HAF A2/6 Staff, duration: "3", vml: Summer }
   - label: Vector 2
-    focus: Alternate — staff depth
+    focus: Alternate, staff depth
     tours:
       - { title: 17X CFM Staff, duration: "2.5", vml: Winter }
       - { title: ROTC Det/CC, duration: "3", vml: Summer }
@@ -51,7 +51,7 @@ certifications:
   - CISSP
   - Security+, Network+
 deployments:
-  - 1× short tour — returned Jan 2024
+  - 1× short tour, returned Jan 2024
   - OIR rotation, 2023
 qualifications:
   command:
@@ -72,4 +72,4 @@ qualifications:
     cyber_200: { held: true, detail: "2025" }
 ~~~
 
-What I want out of this DT: IDE in residence on the second look, then a DO job before the Lt Col board. Constraint is join-spouse — no OCONUS before 2029.
+What I want out of this DT: IDE in residence on the second look, then a DO job before the Lt Col board. Constraint is join-spouse, so no OCONUS before 2029.

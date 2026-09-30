@@ -9,18 +9,18 @@ advanced_degree: MS Cyber Operations, AFIT
 timeline_start_year: 2026
 vectors:
   - label: Vector 1
-    focus: Primary — command track
+    focus: Primary, command track
     tours:
       - { title: 333 TRS Instructor, duration: "4", vml: Summer }
       - { title: 333 TRS / DO, duration: "3.5", vml: Winter }
       - { title: IDE in residence, duration: "1", vml: Summer, school: true }
   - label: Vector 2
-    focus: Alternate — staff depth
+    focus: Alternate, staff depth
     tours:
       - { title: 17X CFM Staff, duration: "2.5", vml: Winter }
       - { title: MAJCOM A3 Division Chief, duration: "2", vml: Summer }
   - label: Vector 3
-    focus: Backup — joint
+    focus: Backup, joint
     tours:
       - { title: Joint Staff J6, duration: "3", vml: Summer }
       - { title: USCYBERCOM JFHQ-C, duration: "2.5", vml: Winter }
@@ -36,7 +36,7 @@ certifications:
   - CISSP
   - Security+
 deployments:
-  - 1× short tour — returned Jan 2024
+  - 1× short tour, returned Jan 2024
 qualifications:
   operations:
     dodin_ops: true
@@ -49,4 +49,4 @@ qualifications:
     cyber_200: { held: true, detail: "2025" }
 ~~~
 
-What I want out of this discussion: the DO seat at the 333 TRS when my instructor tour ends, then IDE in residence. Constraint is join-spouse — my spouse is at Keesler through 2029, so no OCONUS before then.
+What I want out of this discussion: the DO seat at the 333 TRS when my instructor tour ends, then IDE in residence. Constraint is join-spouse. My spouse is at Keesler through 2029, so no OCONUS before then.
