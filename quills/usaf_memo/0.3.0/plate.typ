@@ -46,6 +46,14 @@
   )),
 )
 
+// Small caps drawn from capitals: Nimbus Roman has no `smcp` feature, and
+// Typst's `smallcaps` does not synthesize one. Each run of lowercase letters is
+// uppercased and set smaller; capitals stay full size.
+#let faux_smallcaps(body) = {
+  show regex("\p{Ll}+"): it => text(size: 0.8em, upper(it))
+  body
+}
+
 #show: frontmatter.with(
   letterhead-title: letterhead_lines.at(0, default: ""),
   letterhead-caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
@@ -82,8 +90,8 @@
 
   // The package sets the tag line in Cinzel, which has no italic or bold face.
   // The body font set here, nearer the text, wins and carries real italics and
-  // bold.
-  footer-tag-line: text(font: "NimbusRomNo9L", data.tag_line),
+  // bold, set in small caps as Cinzel would read.
+  footer-tag-line: text(font: "NimbusRomNo9L", faux_smallcaps(data.tag_line)),
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.

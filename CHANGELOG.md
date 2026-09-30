@@ -138,6 +138,11 @@
   pass `--templates templates`, so the head's **Templates…** opens any of them in
   the quill it names.
 
+- **`usaf_memo@0.3.0` sets the tag line in small caps.** Nimbus Roman has no
+  small-caps face, so lowercase letters print as capitals at 0.8em and capitals
+  stay full size, as the package's Cinzel read. Italic and bold still show.
+  `usaf_letter@0.1.0` is unchanged.
+
 ## v0.33.0 - 2026-09-27
 
 Every quill now needs `@quillmark/wasm` 0.116 or later to load, so a consumer
