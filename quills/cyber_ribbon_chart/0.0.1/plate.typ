@@ -50,7 +50,8 @@
 // ─── inputs ──────────────────────────────────────────────────────────────────
 #let quals = data.qualifications
 #let comm-yg = data.commissioning_yg
-#let adj-yg = data.at("adjusted_yg", default: none)
+// 0 is read as blank: it was this field's blank before the field took `?`.
+#let adj-yg = { let v = data.at("adjusted_yg", default: none); if v == 0 { none } else { v } }
 #let board-yg = if adj-yg != none { adj-yg } else { comm-yg }
 #let start-year = data.timeline_start_year
 #let years = calc.max(1, data.timeline_years)
@@ -73,8 +74,10 @@
 
 // Where the vectors branch. Everything left of it is the assignment you hold
 // now, which is the same on every row, so it is drawn once across all of them.
-#let move-col = if move-year == none { 0 } else { calc.max(0, col-of(move-year, data.move_cycle)) }
-#let current-span = calc.min(move-col, cols)
+// A move before the window is kept where it falls, so the tours after it are
+// laid from their real start and cut at the left edge rather than shifted.
+#let move-col = if move-year == none { 0 } else { col-of(move-year, data.move_cycle) }
+#let current-span = if data.vectors.len() == 0 { 0 } else { calc.clamp(move-col, 0, cols) }
 #let col-width = (11in - 2 * margin - label-width) / cols
 
 // ─── the ladder ──────────────────────────────────────────────────────────────
@@ -101,14 +104,20 @@
   (yg: 16, label: "SDE 3rd look", tier: "look", by: sde),
   (yg: 17, label: "SDE final look", tier: "look", by: sde),
 ).map(m => (..m, year: board-yg + m.yg, done: m.by.any(k => quals.education.at(k).held)))
+// A course whose year has passed unticked is what a rater most needs to see,
+// so it prints at the left edge with its year rather than leaving the window.
+// A passed look or board is history either way, so it goes.
+#let ladder = ladder.map(m => (..m, overdue: m.tier == "course" and not m.done and m.year < start-year))
 
 // Three weights of gate, by what each one is: a board ranks you against a year
 // group on a date, a look is one of a numbered series, a course is a seat. In a
-// narrow window the chip's weight alone says board or look, as the legend
-// does, so the word goes and the chip keeps to one line.
-#let chip(label, tier, done: false) = {
-  if narrow and tier != "course" { label = label.replace(regex(" (look|board)$"), "") }
-  if done {
+// narrow window a look drops its word, which its outline says as the legend
+// does; a board keeps it, since "Maj" alone reads as a rank.
+#let chip(label, tier, done: false, overdue: none) = {
+  if narrow and tier == "look" { label = label.replace(regex(" look$"), "") }
+  if overdue != none {
+    box(inset: (x: 0.5pt, y: 2pt))[#text(size: chip-size, weight: 600, style: "italic")[#label (#overdue)]]
+  } else if done {
     box(inset: (x: 0.5pt, y: 2pt))[#text(size: chip-size, fill: faint)[#strike(stroke: 0.5pt + faint)[#label]]]
   } else if tier == "board" {
     box(fill: ink, inset: (x: chip-inset, y: 2pt))[#text(size: chip-size, weight: 700, fill: white)[#label]]
@@ -133,9 +142,12 @@
 #let vectors = data.vectors.enumerate().map(((i, v)) => (
   rank: ranks.at(i, default: "Vector " + str(i + 1)),
   track: or-none(v.track),
+  // A length outside 0.5 to 4 draws at the nearer end under a dagger the
+  // legend explains, since the schema cannot bound a number.
   tours: v.tours.map(t => (
     title: trim(t.title),
-    span: calc.max(1, int(calc.round(float(t.years) * 2))),
+    span: calc.clamp(int(calc.round(float(t.years) * 2)), 1, 8),
+    out-of-range: t.years < 0.25 or t.years > 4,
     school: t.school,
   )),
 ))
@@ -152,14 +164,18 @@
     out.push((tour: t, start: cursor, span: t.span))
     cursor += t.span
   }
-  out.map(p => if p.start >= cols { (..p, beyond: true) } else {
-    (..p, beyond: false, drawn: calc.min(p.span, cols - p.start), clipped: p.start + p.span > cols)
+  // A tour over before the window opens is history, not plan.
+  out.filter(p => p.start + p.span > 0).map(p => {
+    let from = calc.max(0, p.start)
+    if from >= cols { (..p, beyond: true) } else {
+      (..p, beyond: false, from: from, drawn: calc.min(p.start + p.span, cols) - from, clipped: p.start + p.span > cols)
+    }
   })
 }
 
 // The band is ruled to an even height, so a narrow block cannot grow to fit its
 // title: the title sets to the block instead. That is the ceiling `title`
-// warns about in Quill.yaml — about twenty characters per year of length.
+// warns about in Quill.yaml — about twelve characters per year of length.
 #let title-size(span) = {
   let w = span * col-width
   if w < 0.55in { 6pt } else if w < 1.3in { 7pt } else { 8pt }
@@ -244,10 +260,10 @@
 // milestone row
 #rows.push(row-label[Eligibility])
 #for i in range(years) {
-  let hits = ladder.filter(m => m.year == start-year + i)
+  let hits = ladder.filter(m => m.year == start-year + i or (i == 0 and m.overdue))
   rows.push(table.cell(colspan: 2, stroke: none, inset: (x: 1.5pt, y: 3pt))[
     #for m in hits [
-      #block(spacing: 2pt, breakable: false)[#chip(m.label, m.tier, done: m.done)]
+      #block(spacing: 2pt, breakable: false)[#chip(m.label, m.tier, done: m.done, overdue: if m.overdue { m.year })]
     ]
   ])
 }
@@ -261,32 +277,37 @@
   // wrapping it, so every constraint costs the timeline one line.
   rows.push(table.cell(colspan: c.end, stroke: none, inset: (x: 1pt, y: 0.5pt))[
     #layout(size => {
+      // A bar that runs past the window is left open at its end, since the
+      // window's edge is not where it stops.
+      let open = c.through > last-year
       let fits = measure(label).width + 8pt <= size.width
-      box(width: 100%, height: 8.5pt, stroke: (bottom: 0.9pt + ink, right: 0.9pt + ink))
-      place(left + bottom, dx: if fits { 3pt } else { size.width + 3pt }, dy: -2pt, box(width: 3in, label))
+      box(width: 100%, height: 8.5pt, stroke: (bottom: 0.9pt + ink, right: if open { none } else { 0.9pt + ink }))
+      place(left + bottom, dx: if fits { 3pt } else { size.width + 3pt }, dy: -2pt, box(width: 10in, label))
     })
   ])
   if c.end < cols { rows.push(table.cell(colspan: cols - c.end, stroke: none)[]) }
 }
 
-// The assignment held now, drawn once across every vector row. Where it is
-// too narrow to set across, it sets up the side.
+// The assignment held now, drawn once across every vector row. It reads like a
+// tour block, title over a line of small print, and sheds what its space cannot
+// hold: the small print, then the flat setting for one up the side, then the
+// text itself, since the header already names the job. The unit is left to
+// the header throughout.
 #let current-block = {
-  let lines = (
-    text(size: 5.6pt, weight: 700, tracking: 0.5pt, fill: mute)[CURRENT],
-    if duty != none { text(size: 7.2pt, weight: 600)[#duty] },
-    if unit != none { text(size: 6.2pt, fill: mute)[#unit] },
-    if move-year != none { text(size: 5.8pt, fill: mute)[to #data.move_cycle #move-year] },
-  ).filter(l => l != none)
-  let tall = vectors.len() * band-height
-  box(width: 100%, height: 100%, stroke: current-stroke, inset: 3pt)[
-    #set align(left + horizon)
-    #if current-span * col-width >= 0.6in {
-      lines.join(linebreak())
-    } else {
-      rotate(-90deg, reflow: true, box(width: tall - 8pt)[#set par(leading: 0.4em); #lines.join(linebreak())])
-    }
-  ]
+  let title = if duty != none { duty } else { [Current assignment] }
+  let full = (
+    text(size: 7pt, weight: 600, title),
+    text(size: 5.8pt, fill: mute)[Current · to #data.move_cycle #move-year],
+  ).join(linebreak())
+  let short = text(size: 6.4pt, weight: 600, title)
+  box(width: 100%, height: 100%, stroke: current-stroke, inset: 3pt, layout(size => {
+    let flat(c) = { let m = measure(c); m.width <= size.width and m.height <= size.height }
+    let up(c) = { let m = measure(c); m.width <= size.height and m.height <= size.width }
+    if flat(full) { align(left + horizon, full) }
+    else if flat(short) { align(left + horizon, short) }
+    else if up(full) { align(left + bottom, rotate(-90deg, reflow: true, full)) }
+    else if up(short) { align(left + bottom, rotate(-90deg, reflow: true, short)) }
+  }))
 }
 
 // one row per vector
@@ -334,6 +355,9 @@
         stroke: if p.tour.school { school-stroke } else { tour-stroke },
         inset: (x: 3pt, y: 2pt),
         baseline: 0pt,
+        // A title past the guidance in Quill.yaml is cut at the block's edge
+        // rather than printed over the next block.
+        clip: true,
       )[
         #set align(left + horizon)
         #text(size: title-size(p.drawn), weight: 600, style: if p.tour.school { "italic" } else { "normal" })[
@@ -341,11 +365,11 @@
         ]
         #linebreak()
         #text(size: 5.8pt, fill: mute)[
-          #span-label(p.span)#if p.drawn * col-width >= 0.55in [ · #cycle-of(p.start)]#if p.clipped [ · runs past #last-year]
+          #span-label(p.span)#if p.tour.out-of-range [#sym.dagger]#if p.drawn * col-width >= 0.55in [ · #cycle-of(p.start)]#if p.clipped [ · runs past #last-year]
         ]
       ]
     ])
-    at = p.start + p.drawn
+    at = p.from + p.drawn
   }
   if at < cols { rows.push(table.cell(colspan: cols - at, stroke: top-rule)[]) }
 }
@@ -360,15 +384,17 @@
 
 // The legend names the marks this chart actually carries and no others.
 #let drawn-tours = vectors.map(v => lay(v.tours).filter(p => not p.beyond)).flatten()
-#let shown = ladder.filter(m => in-window(m.year))
+#let shown = ladder.filter(m => in-window(m.year) or m.overdue)
 #let swatch(..args) = box(width: 14pt, height: 6pt, ..args)
 #let legend = ()
 #if current-span > 0 { legend.push([#swatch(stroke: current-stroke) current assignment]) }
 #if shown.any(m => m.tier == "board" and not m.done) { legend.push([#chip("board", "board") ranked against your year group]) }
 #if shown.any(m => m.tier == "look" and not m.done) { legend.push([#chip("look", "look") one of a numbered series]) }
 #if shown.any(m => m.done) { legend.push([#chip("done", "course", done: true) already done]) }
+#if shown.any(m => m.overdue) { legend.push([#chip("course", "course", overdue: "year") passed unticked]) }
 #if drawn-tours.any(p => not p.tour.school) { legend.push([#swatch(fill: rank-tints.at(0), stroke: tour-stroke) assignment]) }
 #if drawn-tours.any(p => p.tour.school) { legend.push([#swatch(stroke: school-stroke) school]) }
+#if drawn-tours.any(p => p.tour.out-of-range) { legend.push([#sym.dagger length entered outside 0.5–4 yr, drawn at the nearer end]) }
 
 #if legend.len() > 0 {
   v(3pt)

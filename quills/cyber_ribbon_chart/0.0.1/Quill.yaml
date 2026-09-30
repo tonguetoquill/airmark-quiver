@@ -16,7 +16,8 @@ main:
     # The editor opens one group at a time, starting with the first, so each is a
     # task finished without looking at another: who you are, where you are
     # going, what you have done. The checklist is apart from the record because
-    # most visits skip it whole.
+    # most visits skip it whole. The timeline's start year sits with the officer
+    # so every required field is in the group that opens.
     groups:
       officer: {}
       plan: {}
@@ -89,6 +90,13 @@ main:
         compact: true
       description: "Date arrived station, YYYY-MM-DD. Leave blank to print a dash."
 
+    timeline_start_year:
+      type: integer
+      ui:
+        group: officer
+        compact: true
+      description: "First calendar year the timeline shows. Usually the current year: the chart is a plan, so it starts where you are, not where you commissioned."
+
     advanced_degree:
       type: plaintext
       inline: true
@@ -97,12 +105,6 @@ main:
         group: officer
       description: "Advanced academic degree, as in 'MS Cyber Operations, AFIT'. Add '(in progress)' for one you have not finished. Leave blank if you hold none: the slot prints a dash rather than disappearing, because its absence is itself information to a board."
 
-    timeline_start_year:
-      type: integer
-      ui:
-        group: plan
-        compact: true
-      description: "First calendar year the timeline shows. Usually the current year: the chart is a plan, so it starts where you are, not where you commissioned."
 
     timeline_years:
       type: integer
@@ -117,7 +119,7 @@ main:
       ui:
         group: plan
         compact: true
-      description: "The year you expect to leave this assignment. The current-assignment block runs until it and every vector starts from it, so this is the date a rater reads first. Leave blank to start the vectors at the left edge of the timeline with no current block."
+      description: "The year you expect to leave this assignment. The current-assignment block runs until it and every vector starts from it, so this is the date a rater reads first. Every vector leaves on this one date; a vector that stays longer, say to upgrade in place, starts with that extension as its first tour. Leave blank to start the vectors at the left edge of the timeline with no current block."
 
     move_cycle:
       type: enum
@@ -173,12 +175,12 @@ main:
                   type: plaintext
                   inline: true
                   title: Assignment
-                  description: "Assignment and unit as you would say it, as in '333 TRS/DO' or 'Joint Staff J6'. Keep it to what fits: roughly twenty characters per year of length at the default width."
+                  description: "Assignment and unit as you would say it, as in '333 TRS/DO' or 'Joint Staff J6'. Keep it to what fits: roughly twelve characters per year of length at the default width."
                 years:
                   type: number
                   default: 2
                   title: Years
-                  description: "Length in years, in halves: 0.5 to 4. The timeline is ruled in half-years, one per VML cycle, so a length is rounded to the nearest half. A whole number of years keeps you on the cycle you moved in on; a half switches Summer to Winter or back."
+                  description: "Length in years, in halves: 0.5 to 4. The timeline is ruled in half-years, one per VML cycle, so a length is rounded to the nearest half, and one outside that range draws at the nearer end, marked with a dagger. A whole number of years keeps you on the cycle you moved in on; a half switches Summer to Winter or back."
                 school:
                   type: boolean
                   default: false
@@ -192,6 +194,7 @@ main:
 
     stratifications:
       type: array
+      max: 3
       ui:
         group: record
         layout: table
@@ -214,7 +217,7 @@ main:
             title: Higher Level Reviewer
             description: "Your Higher Level Reviewer's stratification as it was written, as in '#1/45 CGOs'. Leave blank where you drew none."
       default: []
-      description: "Your last three years of stratifications, in any order: the page sets the most recent first. Three is what the page is built for; more rows will set, and the section grows to hold them. Written out, a row is `{year: 2026, rater: \"#1/14 Capts\", hlr: \"#1/45 CGOs\"}`."
+      description: "Your last three years of stratifications, in any order: the page sets the most recent first. Three is all the page holds. Written out, a row is `{year: 2026, rater: \"#1/14 Capts\", hlr: \"#1/45 CGOs\"}`."
 
     awards:
       type: array
@@ -274,7 +277,7 @@ main:
               type: plaintext
               inline: true
               default: ""
-              description: "The unit, course, year or distinction that proves it, set in italics under the label, as in '23 IOS' or 'DG'. Leave blank where the label says enough on its own."
+              description: "The unit, course, year or distinction that proves it, set in italics after the label, as in '23 IOS' or 'DG'. Leave blank where the label says enough on its own."
         operations:
           type: matrix
           title: Operations

@@ -9,8 +9,9 @@
     in the facts row. `move_year` and `move_cycle` are new: the page draws
     the current job once across every vector row, up to the move, and each
     vector starts from there.
-  - The editor groups are four, one task each: Officer (opens first), Plan
-    (the timeline window, the move, constraints and vectors), Record, and
+  - The editor groups are four, one task each: Officer (opens first, and
+    holds every required field, `timeline_start_year` included), Plan (the
+    timeline's width, the move, constraints and vectors), Record, and
     Qualifications.
   - A tour takes `years` (a number) in place of the `duration` enum, and
     loses `vml`. Tours lay end to end from the move, so each one's cycle
@@ -28,8 +29,19 @@
     and IDE and SDE each split into a candidate and a graduate tick. A ticked
     course or school strikes its milestones on the timeline, so an SOS
     graduate no longer sees "SOS window" ahead of them.
+  - The current block reads like a tour block, duty title over "Current · to
+    Summer 2028", and sheds what its space cannot hold: the small print, then
+    the flat setting for one up the side, then the text, which the header
+    already carries. A move before the window lays the tours from their real
+    start and cuts them at the left edge.
+  - A course whose year has passed unticked prints at the left edge of the
+    eligibility row with its year. A constraint running past the window is
+    left open at its end, and a label longer than its bar stays on one line.
+  - A tour length outside 0.5 to 4 draws at the nearer end under a dagger the
+    legend explains, and a title past its block is clipped.
+  - `adjusted_yg: 0` reads as blank. Stratifications take `max: 3`.
   - A qualification's detail sets on its label's line. In a window over
-    twelve years, board and look chips drop their trailing word.
+    twelve years, look chips drop their trailing word.
 
 - **Take `@quillmark/wasm` 0.118.0, `@quillmark/quiver` 0.32.0 and `quillkit`
   0.12.0. Every quill now needs wasm 0.117 or later to load, and

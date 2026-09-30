@@ -53,7 +53,7 @@ deployments:
 qualifications:
   command:
     flight_cc: { held: true, detail: UMS Flt/CC }
-    director_of_operations: { held: true, detail: 333 TRS/DO }
+    do_det_cc_candidate: { held: true, detail: "2026" }
   operations:
     dodin_ops: true
     dco: { held: true, detail: 23 IOS }
