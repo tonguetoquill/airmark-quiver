@@ -23,8 +23,8 @@ main:
       plan: {}
       record: {}
       qualifications: { title: "Qualifications & experience" }
-  # The chart's one piece of prose. It heads the notes area at the foot of the
-  # page, above ruled lines a rater writes on during the discussion.
+  # The chart's one piece of prose. It is set on the ruled notes area at the
+  # foot of the page, and a rater goes on writing below it during the discussion.
   description: "The body is what you want out of this discussion, and anything that shapes it that has no date to draw: a preference, an assignment you would turn down, a question for the rater. A constraint that ends in a known year goes in constraints, where the timeline can show it."
   fields:
     name:
@@ -58,7 +58,7 @@ main:
       ui:
         group: officer
         compact: true
-      description: "Your AFSC with its skill level and any prefix, as in 17S3 or K17D3. It is the first fact a rater reads, because it says which half of the career field the plan is in."
+      description: "Your AFSC with its skill level and any prefix, as in 17S3 or K17D3. It leads the line under your name, because it says which half of the career field the plan is in."
 
     commissioning_yg:
       type: integer
@@ -72,7 +72,7 @@ main:
       ui:
         group: officer
         compact: true
-      description: "Adjusted year group, if a board or a break in service moved yours. Leave blank when it is unchanged; the milestones then count from your commissioning year group and the slot prints a dash."
+      description: "Adjusted year group, if a board or a break in service moved yours. The chart counts every milestone from it and prints it as your year group, noting the one you commissioned in. Leave blank when it is unchanged; the chart then counts from your commissioning year group."
 
     date_of_rank:
       type: date

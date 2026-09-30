@@ -5,8 +5,8 @@
 - **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
   now.** The quill is a prototype, so 0.0.1 changes in place and every
   existing chart document needs rewriting.
-  - `duty_title` and `unit` are two fields, and `afsc` is new, printed first
-    in the facts row. `move_year` and `move_cycle` are new: the page draws
+  - `duty_title` and `unit` are two fields, and `afsc` is new; the three
+    read as one line under the name. `move_year` and `move_cycle` are new: the page draws
     the current job once across every vector row, up to the move, and each
     vector starts from there.
   - The editor groups are four, one task each: Officer (opens first, and
@@ -42,6 +42,20 @@
   - `adjusted_yg: 0` reads as blank. Stratifications take `max: 3`.
   - A qualification's detail sets on its label's line. In a window over
     twelve years, look chips drop their trailing word.
+  - A layout pass, after #191. Thirteen type sizes become five (6, 7, 8, 9
+    and 18pt), bar the chips that set to their width, and no text is lighter
+    than 40% gray, so the page survives a photocopy. A section heading sits
+    3pt over its rule and 14pt under the section above. The name shares its
+    column's width with the stratifications, the four facts stand on the four
+    qualification columns, and the awards, certifications and deployments
+    stand on the same edges. One **Year group** fact prints the year the
+    boards count from, noting `adjusted from` the commissioning year. Year
+    rules run from the axis down behind the tours, and a tour the window cuts
+    runs into its edge open. Stratifications are a table with Rater and HLR
+    columns, the HLR column dropping when no row has one. The notes are ruled
+    at a quarter inch to the foot of the page with the typed notes set on the
+    ruling: `maximal.md` holds two typed paragraphs at twelve and eighteen
+    years, where one fit before, and a chart with less record holds more.
 
 - **Take `@quillmark/wasm` 0.118.0, `@quillmark/quiver` 0.32.0 and `quillkit`
   0.12.0. Every quill now needs wasm 0.117 or later to load, and
