@@ -27,8 +27,6 @@
   computed with, which carries no click target. Each now prints its ink twin,
   so a click on any of them in the preview goes to its field, as a click on a
   section heading does now that the heading is a field's default.
-  `design/classic_resume/check_click_targets.mjs` fails on a printed field no
-  region names.
 
   The contact line breaks only between two contacts, where it broke inside one
   (`github.com/` over `you`), and never ends or opens on a diamond. The diamond

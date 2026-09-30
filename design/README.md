@@ -53,7 +53,7 @@ node design/cyber_ribbon_chart/check_one_page.mjs
 
 ## classic_resume
 
-Fixtures, a render helper and a check for the `classic_resume` quill.
+Fixtures and a render helper for the `classic_resume` quill.
 
 ```sh
 # render a fixture to PDF (run from the repo root)
@@ -72,16 +72,6 @@ at three columns, a project with nothing to link, a job whose details are a
 sentence rather than a list, and a job at each of the four fills of its second
 line — both halves, each half alone, and neither, which is the fill that prints
 no second line at all.
-
-A click on text in the editor's preview goes to the field that printed it,
-through the regions a render reports. A `string` field keeps its region only
-where the plate prints its ink twin rather than the value it computes with, and
-`quillkit test` asks for no regions, so the check renders the example, the seed
-and both fixtures and fails on a field the page prints that no region names:
-
-```sh
-node design/classic_resume/check_click_targets.mjs
-```
 
 ## usaf_memo
 
