@@ -1,4 +1,4 @@
-#import "@local/quillmark-helper:0.1.0": data
+#import "@local/quillmark-helper:0.1.0": data, roster
 
 // ─── tokens ──────────────────────────────────────────────────────────────────
 // Grays only, and none lighter than a copier holds: the chart is read from a
@@ -113,7 +113,7 @@
 // each a window of four yearly looks, drawn as one span. A gate is done once
 // any qualification it names is ticked (an IDE candidate has no looks left)
 // and prints struck rather than as something still ahead.
-#let held(keys) = keys.any(k => quals.education.at(k).held)
+#let held(keys) = keys.any(k => k in quals.education)
 #let gates = (
   (yg: 3, name: "Cyber 200", board: false, by: ("cyber_200",)),
   (yg: 4, name: "SOS window", board: false, by: ("sos",)),
@@ -496,28 +496,27 @@
 // top of its row by one edge, so a label and its row share a baseline.
 #let row-top = 5pt
 
-// Every member of a matrix arrives, held or not, in the order Quill.yaml
-// declares it; an unheld member's detail arrives blank whatever the document
-// retains. The labels repeat each matrix's `title`, which the data does not
-// carry. Every member prints: the open boxes say what has not been done yet as
-// plainly as the filled ones say what has. What is held leads its row, and a
-// member holds together on its line.
+// A matrix arrives as the members it holds; `roster` gives back the whole
+// vocabulary in the order Quill.yaml declares it, held or not. The labels repeat
+// each matrix's `title`, which the data does not carry. Every member prints: the
+// open boxes say what has not been done yet as plainly as the filled ones say
+// what has. What is held leads its row, and a member holds together on its line.
 #let vocabulary = (
-  ("Leadership & command", quals.command),
-  ("Operations", quals.operations),
-  ("Staff & functional", quals.staff),
-  ("Education & PME", quals.education),
+  ("Leadership & command", roster(quals, "command")),
+  ("Operations", roster(quals, "operations")),
+  ("Staff & functional", roster(quals, "staff")),
+  ("Education & PME", roster(quals, "education")),
 )
 #let member(m) = box[
+  #let detail = if m.held { m.value.detail } else { "" }
   #if m.held { held-mark } else { open-mark }#h(3pt)#text(
     weight: if m.held { 600 } else { 400 },
     fill: if m.held { ink } else { mute },
     m.title,
-  )#if not blank(m.detail) [#h(2pt)#text(size: micro, style: "italic", fill: mute, trim(m.detail))]
+  )#if not blank(detail) [#h(2pt)#text(size: micro, style: "italic", fill: mute, trim(detail))]
 ]
-#let members-row(members) = {
-  let all = members.values()
-  (all.filter(m => m.held) + all.filter(m => not m.held)).map(member).join([#h(10pt) ])
+#let members-row(rows) = {
+  (rows.filter(m => m.held) + rows.filter(m => not m.held)).map(member).join([#h(10pt) ])
 }
 
 // A table, so each rater's column reads down the years. With no Higher Level

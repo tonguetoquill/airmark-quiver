@@ -42,13 +42,13 @@ deployments:
 qualifications:
   operations:
     dodin_ops: true
-    dco: { held: true, detail: 23 IOS }
+    dco: { detail: 23 IOS }
     crew_cc: true
   staff:
-    instructor: { held: true, detail: 333 TRS }
+    instructor: { detail: 333 TRS }
   education:
-    sos: { held: true, detail: DG }
-    cyber_200: { held: true, detail: "2025" }
+    sos: { detail: DG }
+    cyber_200: { detail: "2025" }
 timeline_start_year: 2026
 ~~~
 
