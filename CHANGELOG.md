@@ -6,9 +6,9 @@
   now.** The quill is a prototype, so 0.0.1 changes in place and every
   existing chart document needs rewriting.
   - `duty_title` and `unit` are two fields, and `afsc` is new; the three
-    read as one line under the name. `move_year` and `move_cycle` are new: the page draws
-    the current job once across every vector row, up to the move, and each
-    vector starts from there.
+    read as one line under the name. `move_year` and `move_cycle` are new:
+    the page draws the current job once across every vector row, up to the
+    move, and each vector starts from there.
   - The editor groups are four, one task each: Officer (opens first, and
     holds every required field, `timeline_start_year` included), Plan (the
     timeline's width, the move, constraints and vectors), Record, and
@@ -56,6 +56,48 @@
     at a quarter inch to the foot of the page with the typed notes set on the
     ruling: `maximal.md` holds two typed paragraphs at twelve and eighteen
     years, where one fit before, and a chart with less record holds more.
+
+- **`classic_resume@0.0.1` prints each section's heading from its `title`
+  default, makes the name, the contacts and the project links click-to-edit,
+  and spaces the page evenly.** The quill is a prototype, so 0.0.1 changes in
+  place.
+
+  A section's usual heading is its `title`'s `default:` — `Work Experience`,
+  `Education`, `Skills` — so a new card's form and the blueprint show the
+  heading the page prints, where the field stood blank over a table in the
+  plate. An authored `title: ""` prints no heading, which sets a summary
+  straight under the name. `extra` and the `heading` group go: a qualifier is
+  part of the title, as in `Selected Projects`. `link_contacts` goes, and a
+  contact that reads as an email address, a web address or a phone number
+  always links. A project's `url` is `link`, linked by the rule a contact is,
+  so `github.com/you/project` links as its `https://` form did and prints as
+  written. A skills row's `text` is `items`, the label the editor already
+  showed. `other.entries` declares no `default: []`, so the blueprint shows its
+  row as it shows every other kind's. Skills moves ahead of Projects, the order
+  a new resume opens in and Add Card lists. A document still using `extra`,
+  `link_contacts`, `url` or `text` loads and renders, warning
+  `validation::unknown_field` at each, and prints without it.
+
+  The name, each contact and each project link printed a value the plate
+  computed with, which carries no click target. Each now prints its ink twin,
+  so a click on any of them in the preview goes to its field, as a click on a
+  section heading does now that the heading is a field's default.
+
+  The contact line breaks only between two contacts, where it broke inside one
+  (`github.com/` over `you`), and never ends or opens on a diamond. The diamond
+  is centred on the x-height, where it hung below it, with a real space on
+  each side, so text copied or parsed out of the PDF reads `a@b.com ◆ (555)
+  123-4567` rather than `◆(555)`. What follows a section's rule stands 3.5pt
+  beyond the leading off it, whether it is prose, a list or an entry, where
+  prose sat at the leading and an entry 5pt beyond it; the name and contacts
+  stand 10pt beyond the leading off the first section, and section titles are
+  tracked 0.04em. An entry keeps 1em between its left text and its dates. A
+  project's link is set at 0.85em, where it was a fixed 8pt. A blank name
+  prints no heading and leaves no empty PDF bookmark. Every page after the
+  first carries the name and `2 of 2` in a small italic running head. A card
+  of an undeclared kind is left off the page under the engine's
+  `validation::unknown_card` warning, where it failed the render. The example
+  keeps to one page.
 
 - **Take `@quillmark/wasm` 0.118.0, `@quillmark/quiver` 0.32.0 and `quillkit`
   0.12.0. Every quill now needs wasm 0.117 or later to load, and

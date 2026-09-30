@@ -11,6 +11,7 @@ typst:
 # heading, optional prose under it, and the rows that section holds. The rows
 # are the section's own, so an entry cannot land under the wrong heading.
 main:
+  description: "Your name and contacts head the page. Each section under them is a card, printed in the order the cards stand: add a card for every section you want."
   ui:
     groups: [identity, page]
   # Everything prints under a section heading, so main carries no body: a
@@ -22,7 +23,7 @@ main:
       type: string
       ui:
         group: identity
-      description: "Your name, set large at the top. It is the document's level 1 heading, and becomes the exported PDF's title and author."
+      description: "Your name as you want it read, set large at the top. It also titles the exported PDF."
 
     contacts:
       type: array
@@ -30,15 +31,7 @@ main:
         type: string
       ui:
         group: identity
-      description: "The line under your name, one contact per line here, printed across the page separated by a diamond. Order them by how much you want them used."
-
-    link_contacts:
-      type: boolean
-      default: true
-      ui:
-        group: identity
-        compact: true
-      description: "Turn contacts that look like an email address, a web address or a phone number into live links in the PDF. Anything else — a city, a clearance level — is printed as written."
+      description: "How to reach you, one per line and the one you want used first: an email address, a phone number, a profile such as linkedin.com/in/you, a city. They print in that order across the page under your name, a diamond between each. An email address, a web address or a phone number becomes a live link in the PDF."
 
     paper:
       type: enum
@@ -57,7 +50,7 @@ main:
       ui:
         group: page
         compact: true
-      description: "Body text size in points; decimals allowed, such as 11.5. Along with the margin, this is the lever for fitting a resume onto one page — drop a half point before you drop a bullet."
+      description: "Body text size in points, such as 11 or 11.5. Along with the margin, this is the lever for fitting a resume onto one page — drop a half point before you drop a bullet."
 
     margin:
       type: number
@@ -68,38 +61,25 @@ main:
       description: "Page margin in inches, the same on all four sides. The layout is dense by design; below about 0.4 a printer starts clipping."
 
 
-# Each kind carries the same heading pair and optional prose under it. A blank
-# title prints the kind's usual heading, which the plate holds.
+# Each kind opens with the heading it prints. Its `default:` is the usual one,
+# so a new card shows the heading it will print, and an authored "" prints
+# none.
 card_kinds:
   summary:
     title: Summary
-    description: "A heading and prose under it. With a title of its own it is any section that is only prose — an objective, a statement of interest."
-    ui:
-      groups: [heading]
+    description: "Prose under a heading: a few lines on who you are and the work you want next. Retitled, it is any section that is only prose, such as an objective."
     seed:
-      $body: A few lines on who you are and the work you want next.
+      $body: An engineer. Likes climbing rocks and making useful things.
     fields:
       title:
         type: plaintext
         inline: true
-        default: ""
-        ui:
-          group: heading
-        description: &title_description "Printed in uppercase over a rule. Leave blank for the usual heading: Summary, Work Experience, Education, Projects, Skills or Certifications."
-      extra: &extra
-        type: richtext
-        inline: true
-        default: ""
-        ui:
-          group: heading
-          compact: true
-        description: "Qualifier set after the title in the same style, such as a date range or a clarifier. Italicize with *asterisks*. Leave blank for the usual case."
+        default: Summary
+        description: "Printed in uppercase over a rule. An empty title prints no heading, which sets the summary straight under your name."
 
   experience:
     title: Experience
     description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them."
-    ui:
-      groups: [heading]
     seed:
       jobs:
         - company: Employer
@@ -112,11 +92,8 @@ card_kinds:
       title:
         type: plaintext
         inline: true
-        default: ""
-        ui:
-          group: heading
-        description: *title_description
-      extra: *extra
+        default: Work Experience
+        description: &title_description "Printed in uppercase over a rule. An empty title prints no heading."
       jobs:
         type: array
         items:
@@ -130,7 +107,7 @@ card_kinds:
               type: plaintext
               inline: true
               default: ""
-              description: "Set in bold at the right, opposite the name. Free text rather than a date, so a range reads as you write it: 'August 2024 – Present', 'December 2025'. Keep the form the same down the page."
+              description: "Set in bold at the right of the first line. Free text rather than a date, so a range reads as you write it: 'August 2024 – Present', 'December 2025'. Keep the form the same down the page."
             role:
               type: plaintext
               inline: true
@@ -150,8 +127,6 @@ card_kinds:
   education:
     title: Education
     description: "Schools, most recent first: school and date on the first line, degree and location on the second."
-    ui:
-      groups: [heading]
     seed:
       schools:
         - school: School
@@ -162,11 +137,8 @@ card_kinds:
       title:
         type: plaintext
         inline: true
-        default: ""
-        ui:
-          group: heading
+        default: Education
         description: *title_description
-      extra: *extra
       schools:
         type: array
         items:
@@ -188,59 +160,19 @@ card_kinds:
               description: "Honors, activities, coursework, set under the entry. Most degrees need none."
         description: "One row per school or degree."
 
-  projects:
-    title: Projects
-    description: "Projects: name and link on the first line, details under them."
-    ui:
-      groups: [heading]
-    seed:
-      projects:
-        - name: Project
-          details: |
-            - What it does, and your part in it.
-    fields:
-      title:
-        type: plaintext
-        inline: true
-        default: ""
-        ui:
-          group: heading
-        description: *title_description
-      extra: *extra
-      projects:
-        type: array
-        items:
-          type: object
-          properties:
-            name:
-              type: plaintext
-              inline: true
-              description: "Set in bold at the left."
-            url:
-              type: string
-              default: ""
-              description: "Set small and italic at the right, and made a live link when it starts with http. Anything else is printed as written, so '<closed source>' stands in for a project with nothing to link. Leave blank to omit."
-            details: *details
-        description: "One row per project."
-
   skills:
     title: Skills
-    description: "Labelled lists of skills, filled across the columns and then down."
-    ui:
-      groups: [heading]
+    description: "Skills in labelled groups, filled across the columns and then down."
     seed:
       skills:
         - label: Category
-          text: Skill, Skill, Skill
+          items: Skill, Skill, Skill
     fields:
       title:
         type: plaintext
         inline: true
-        default: ""
-        ui:
-          group: heading
+        default: Skills
         description: *title_description
-      extra: *extra
       skills:
         type: array
         ui:
@@ -251,12 +183,11 @@ card_kinds:
             label:
               type: plaintext
               inline: true
-              description: "Set in bold on its own line above the text."
-            text:
+              description: "Set in bold, with its items on the line under it."
+            items:
               type: plaintext
               inline: true
-              title: Items
-              description: "The items under that label, usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
+              description: "Usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
         description: "One label and its items per row."
       columns: &columns
         type: integer
@@ -265,11 +196,40 @@ card_kinds:
           compact: true
         description: "Number of columns. Two suits items that run most of a line; three suits single words."
 
+  projects:
+    title: Projects
+    description: "Projects: name and link on the first line, details under them."
+    seed:
+      projects:
+        - name: Project
+          link: github.com/you/project
+          details: |
+            - What it does, and your part in it.
+    fields:
+      title:
+        type: plaintext
+        inline: true
+        default: Projects
+        description: *title_description
+      projects:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: plaintext
+              inline: true
+              description: "Set in bold at the left."
+            link:
+              type: string
+              default: ""
+              description: "Where to see it, set small and italic at the right as written: github.com/you/project reads better than its https:// form. A web address becomes a live link; anything else, such as 'closed source', prints as written. Leave blank to omit."
+            details: *details
+        description: "One row per project."
+
   certifications:
     title: Certifications
-    description: "A list of certifications, filled across the columns and then down."
-    ui:
-      groups: [heading]
+    description: "A list filled across the columns and then down. Retitled, it holds any short items: awards, languages, clearances."
     seed:
       items:
         - Certification (ABBREVIATION)
@@ -277,11 +237,8 @@ card_kinds:
       title:
         type: plaintext
         inline: true
-        default: ""
-        ui:
-          group: heading
+        default: Certifications
         description: *title_description
-      extra: *extra
       items:
         type: array
         items:
@@ -293,8 +250,6 @@ card_kinds:
   other:
     title: Other section
     description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names."
-    ui:
-      groups: [heading]
     seed:
       title: Section Title
       entries:
@@ -305,13 +260,9 @@ card_kinds:
       title:
         type: plaintext
         inline: true
-        ui:
-          group: heading
-        description: "Printed in uppercase over a rule. Other has no usual heading, so this one is yours to write."
-      extra: *extra
+        description: "Printed in uppercase over a rule. This section has no usual heading, so this one is yours to write."
       entries:
         type: array
-        default: []
         items:
           type: object
           properties:

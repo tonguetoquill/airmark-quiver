@@ -1,11 +1,11 @@
-#import "@local/quillmark-helper:0.1.0": data
+#import "@local/quillmark-helper:0.1.0": data, ink
 #import "@local/ttq-classic-resume:0.1.0": (
-  default-config, entry, item-grid, resume, resume-header, section-header,
+  auto-link, default-config, entry, item-grid, resume, resume-header, section-header,
 )
 
 // `plaintext`/`richtext` fields lower to content carrying a space element on
-// each side, so a blank one is not `[]` and a filled one would print its
-// padding inside a bold run or an italic one.
+// each side, so a filled one would print its padding inside a bold run or an
+// italic one. A blank one lowers to "".
 #let trim-inline(v) = {
   if type(v) != content { return v }
   let kids = v.at("children", default: none)
@@ -32,14 +32,13 @@
   if type(body) == str { none } else { body }
 }
 
-#let stock-title = (
-  summary: "Summary",
-  experience: "Work Experience",
-  education: "Education",
-  projects: "Projects",
-  skills: "Skills",
-  certifications: "Certifications",
-)
+// A `string` field is text to compute with: a contact or a project link is read
+// to find its target, and the name reaches `set document(author:)`, which takes
+// no content. What prints is the field's ink twin, `printed`, which keeps the
+// click target a value computed with loses.
+#let linked(value, printed) = {
+  if value.trim() == "" { none } else { auto-link(value, body: printed) }
+}
 
 #show: resume.with(
   // An enum's blank is authorable even where the schema declares a default.
@@ -73,13 +72,13 @@
   indent: 0em,
 )
 
-// `name` and `contacts` are read as `string` rather than `plaintext`, which
-// lowers to content: the name reaches `set document(author:)`, which takes no
-// content, and `link-contacts` linkifies a str while passing content through.
 #resume-header(
-  name: data.name,
-  contacts: data.contacts,
-  link-contacts: data.link_contacts,
+  name: if data.name.trim() != "" { ink(data).name },
+  title: data.name.trim(),
+  author: data.name.trim(),
+  contacts: data.contacts.zip(ink(data).contacts)
+    .map(((contact, printed)) => linked(contact, printed))
+    .filter(contact => contact != none),
 )
 
 // The section titles are the PDF's outline, and a `details` cell cannot decline a
@@ -101,43 +100,44 @@
   body: under-entry(details),
 )
 
+// What each declared kind sets under its heading and body. A card of a kind
+// the quill does not declare is warned on and left off the page: its fields
+// are not this quill's to read.
+#let rows = (
+  summary: card => none,
+  experience: card => for job in card.jobs {
+    dated(job.company, job.dates, job.role, job.location, job.details)
+  },
+  education: card => for school in card.schools {
+    dated(school.school, school.dates, school.degree, school.location, school.details)
+  },
+  skills: card => item-grid(
+    items: card.skills.map(row => (label: trim-inline(row.label), text: trim-inline(row.items))),
+    columns: calc.max(1, card.columns),
+  ),
+  projects: card => for project in card.projects {
+    entry(
+      heading: trim-inline(project.name),
+      form: "linked",
+      url: linked(project.link, ink(project).link),
+      body: under-entry(project.details),
+    )
+  },
+  certifications: card => item-grid(
+    items: card.items.map(trim-inline),
+    columns: calc.max(1, card.columns),
+  ),
+  other: card => for row in card.entries {
+    dated(row.heading, row.dates, row.subtitle, row.location, row.details)
+  },
+)
+
 #for card in data.at("$cards") {
   let kind = card.at("$kind", default: none)
-  let title = or-none(card.title)
-  if title == none { title = stock-title.at(kind, default: none) }
-  let extra = or-none(card.extra)
-  if title != none or extra != none {
-    section-header(if title != none { title } else { [] }, extra: extra)
-  }
-  body-of(card)
-
-  if kind == "experience" {
-    for job in card.jobs {
-      dated(job.company, job.dates, job.role, job.location, job.details)
-    }
-  } else if kind == "education" {
-    for school in card.schools {
-      dated(school.school, school.dates, school.degree, school.location, school.details)
-    }
-  } else if kind == "other" {
-    for row in card.entries {
-      dated(row.heading, row.dates, row.subtitle, row.location, row.details)
-    }
-  } else if kind == "projects" {
-    for project in card.projects {
-      entry(
-        heading: trim-inline(project.name),
-        form: "linked",
-        url: if project.url != "" { project.url } else { none },
-        body: under-entry(project.details),
-      )
-    }
-  } else if kind == "skills" {
-    item-grid(
-      items: card.skills.map(row => (label: trim-inline(row.label), text: trim-inline(row.text))),
-      columns: calc.max(1, card.columns),
-    )
-  } else if kind == "certifications" {
-    item-grid(items: card.items.map(trim-inline), columns: calc.max(1, card.columns))
+  if type(kind) == str and kind in rows {
+    let title = or-none(card.title)
+    if title != none { section-header(title) }
+    body-of(card)
+    rows.at(kind)(card)
   }
 }
