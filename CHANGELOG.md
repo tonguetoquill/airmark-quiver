@@ -19,9 +19,9 @@
     the next cycle" dagger goes.
   - A vector's `label` and `focus` become one `track`. Its rank (Primary,
     Alternate, Backup) comes from its position.
-  - New `constraints`, up to three `{note, through}` rows, each drawn as a
-    bar from the left edge of the timeline to the end of its year, above the
-    vectors.
+  - New `constraints`, up to three `{note, through}` rows, each drawn under
+    the axis as a bar from the left edge of the timeline to the end of its
+    year.
   - `adjusted_yg` is `integer?`: blank rather than `0` when unchanged.
   - A stratification row is `{year, rater, hlr}`, and `year` is an integer.
     The page sorts the rows most recent first.
@@ -30,15 +30,14 @@
     course or school strikes its milestones on the timeline, so an SOS
     graduate no longer sees "SOS window" ahead of them.
   - The current block reads like a tour block, duty title over "Current · to
-    Summer 2028", and sheds what its space cannot hold: the small print, then
-    the flat setting for one up the side, then the text, which the header
-    already carries. A move before the window lays the tours from their real
-    start and cuts them at the left edge.
+    Summer 2028", and sheds what its space cannot hold as a tour block does.
+    A move before the window lays the tours from their real start and cuts
+    them at the left edge.
   - A course whose year has passed unticked prints at the left edge of the
     eligibility row with its year. A constraint running past the window is
     left open at its end, and a label longer than its bar stays on one line.
   - A tour length outside 0.5 to 4 draws at the nearer end under a dagger the
-    legend explains, and a title past its block is clipped.
+    legend explains.
   - `adjusted_yg: 0` reads as blank. Stratifications take `max: 3`.
   - A qualification's detail sets on its label's line. In a window over
     twelve years, look chips drop their trailing word.
@@ -50,12 +49,37 @@
     qualification columns, and the awards, certifications and deployments
     stand on the same edges. One **Year group** fact prints the year the
     boards count from, noting `adjusted from` the commissioning year. Year
-    rules run from the axis down behind the tours, and a tour the window cuts
-    runs into its edge open. Stratifications are a table with Rater and HLR
-    columns, the HLR column dropping when no row has one. The notes are ruled
-    at a quarter inch to the foot of the page with the typed notes set on the
-    ruling: `maximal.md` holds two typed paragraphs at twelve and eighteen
-    years, where one fit before, and a chart with less record holds more.
+    rules run from the eligibility row down behind the tours, and a tour the
+    window cuts runs into its edge open. Stratifications are a table with
+    Rater and HLR columns, the HLR column dropping when no row has one. The
+    notes are ruled at a quarter inch to the foot of the page with the typed
+    notes set on the ruling: `maximal.md` holds two typed paragraphs at twelve
+    and eighteen years, where one fit before, and a chart with less record
+    holds more.
+  - A refinement pass:
+    - Tour blocks and the current block fit their text by one rule. The small
+      print goes a phrase at a time, then the title steps down the type scale
+      from 8pt, and each setting is tried flat and then turned up the side
+      before the next. A block too small for any setting is left blank rather
+      than overprinted.
+    - A title breaks between words only, so `JFHQ-C` never strands its `C`.
+    - The constraints sit under the axis, where the year rules do not run, so
+      a label longer than its bar no longer prints across them. Their
+      brackets are 0.6pt.
+    - The heavy rule under the name goes, and the timeline sits 20pt below
+      it. The line under the name shares a baseline with the facts' values,
+      so a degree that wraps hangs below the row, and the line breaks before
+      the unit rather than inside it.
+    - The timeline's aside keeps only the count of milestones past the
+      window, since the axis prints the years and their YG offsets.
+    - Awards, certifications and deployments each take a section heading, in
+      place of one heading over three labels that repeated it.
+    - Board and look chips hold to one line, the legend's swatches stand clear
+      of their labels, and the Rater and HLR labels stand level with the
+      qualification headings.
+    - A blank start year opens the window on the year group. A new chart,
+      with neither, prints a dash for the year group and an axis of YG+0 to
+      YG+11 in place of the years 0 to 11.
 
 - **`classic_resume@0.0.1` prints each section's heading from its `title`
   default, makes the name, the contacts and the project links click-to-edit,
