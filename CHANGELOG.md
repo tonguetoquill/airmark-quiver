@@ -1,5 +1,35 @@
 # Changelog
 
+## v0.34.0 - 2026-09-30
+
+- cyber_ribbon_chart: read a held member's detail directly, and say the older engine fails the compile
+- Take @quillmark/wasm 0.121.0, @quillmark/quiver 0.33.0 and quillkit 0.13.0
+- cyber_ribbon_chart: redraw the page on one rail
+- cyber_ribbon_chart: refine the layout and drop what repeats
+- Spectral SC: regular and italic only, unhinted; usaf_letter takes it too
+- usaf_memo: set the tag line in Spectral SC and drop unused fonts
+- usaf_memo: set the tag line in faux small caps
+- cyber_ribbon_chart: a legend that names the marks
+- cyber_ribbon_chart: take #191's layout pass
+- cyber_ribbon_chart: fix the review's findings
+- cyber_ribbon_chart: four editor groups, one task each
+- Use the new summary in the classic_resume seed and minimal fixture
+- Give the classic_resume example a new summary
+- Drop the classic_resume click-target design check
+- Refine classic_resume: headings as title defaults, click-to-edit header, even spacing
+- cyber_ribbon_chart: reorganize around the assignment held now
+- cyber_ribbon_chart: write the example and fixtures without em dashes
+- Take quillmark 0.118 and seed each card kind's starter content
+- Changelog: take quillmark 0.117 and ship a root example.md per quill
+- Migrate usaf_memo and usaf_letter off example: into a root example.md
+- Migrate af4141, daf1206 and daf4392 off example: into a root example.md
+- Migrate afmc_moa off example: into a root example.md
+- Take @quillmark/wasm 0.117, quiver 0.31 and quillkit 0.11 (in progress)
+- fix(templates): DEROS extension requested date reads DD MMM YYYY
+- feat(templates): add DEROS extension request as an official template
+- Take quillkit 0.10.0
+
+
 ## Unreleased
 
 - **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
