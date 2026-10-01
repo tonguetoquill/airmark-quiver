@@ -1,6 +1,6 @@
 {
   "name": "@airmark/quiver",
-  "version": "0.35.2",
+  "version": "0.35.3-dev",
   "description": "Airmark Quiver — Air Force and DAF document Quills for Quillmark.",
   "type": "module",
   "exports": {
