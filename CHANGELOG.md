@@ -1,9 +1,9 @@
 # Changelog
 
-## Unreleased
+## v0.35.0 - 2026-10-01
 
-`classic_resume` and `cyber_career_plan` leave the `0.0.x` draft tier at
-`0.1.0`, so a deployment without `--drafts` now serves them, and their schemas
+`cyber_ribbon_chart` is renamed `cyber_career_plan`, and it and
+`classic_resume` leave the `0.0.x` draft tier at `0.1.0`, so a deployment without `--drafts` now serves them, and their schemas
 are now kept stable. `classic_resume@0.1.0` needs `@quillmark/wasm` 0.118 or
 later; `cyber_career_plan@0.1.0` needs 0.121. Every other quill is unchanged.
 
