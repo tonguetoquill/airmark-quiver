@@ -4,8 +4,10 @@
 // A contact line usually holds an email address, a profile link, a phone
 // number and a city. Only the first three are worth turning into a link, and
 // they are distinguishable by shape.
+#let _mailto = regex("^(?i:mailto):\\S+$")
+#let _tel = regex("^(?i:tel):[+(\\d][\\d\\s()./+-]*\\d$")
 #let _email = regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
-#let _scheme = regex("^(https?://|www\\.)\\S+$")
+#let _scheme = regex("^(?i:https?://|www\\.)\\S+$")
 #let _domain = regex("^[\\w-]+(\\.[\\w-]+)*\\.[A-Za-z]{2,24}(/\\S*)?$")
 #let _phone = regex("^[+(\\d][\\d\\s()./+-]*\\d$")
 #let _digit = regex("\\d")
@@ -13,7 +15,9 @@
 /// Turns a contact into a link when it looks like an email address, a web
 /// address or a phone number, and returns it unchanged otherwise. A city or a
 /// clearance level is therefore left alone, and so is anything that is already
-/// content, so callers can always pass their own `link(..)` instead.
+/// content, so callers can always pass their own `link(..)` instead. One
+/// already written as a `mailto:`, `tel:` or `http(s)://` link keeps its
+/// target, whatever case its scheme is written in.
 ///
 /// `body` is what prints, the contact itself unless given: a caller holding the
 /// contact as text and as content of its own reads the one and prints the
@@ -22,11 +26,20 @@
   let body = if body == auto { contact } else { body }
   if type(contact) != str {
     body
+  } else if contact.match(_mailto) != none {
+    link("mailto:" + contact.slice(7), body)
+  } else if contact.match(_tel) != none {
+    link("tel:" + contact.slice(4).replace(regex("[^\\d+]"), ""), body)
   } else if contact.match(_email) != none {
     link("mailto:" + contact, body)
   } else if contact.match(_scheme) != none {
-    let href = if contact.starts-with("www.") { "https://" + contact } else { contact }
-    link(href, body)
+    let (scheme, rest) = if lower(contact).starts-with("www.") {
+      ("https://", contact)
+    } else {
+      let split = contact.position("://") + 3
+      (lower(contact.slice(0, split)), contact.slice(split))
+    }
+    link(scheme + rest, body)
   } else if contact.match(_domain) != none {
     link("https://" + contact, body)
   } else if contact.match(_phone) != none and contact.matches(_digit).len() >= 7 {

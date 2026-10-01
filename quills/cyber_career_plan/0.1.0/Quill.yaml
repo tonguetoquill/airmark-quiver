@@ -1,6 +1,6 @@
 quill:
   name: cyber_career_plan
-  version: 0.0.1
+  version: 0.1.0
   backend: typst
   description: "17X Cyber Operations Officer career plan: current assignment, vectors and record"
 
@@ -112,7 +112,7 @@ main:
       ui:
         group: plan
         compact: true
-      description: "How many years wide the timeline is. Twelve carries a Captain from today past the Lt Col board and is the comfortable reading width. The full milestone ladder runs to YG+17, so widening it toward eighteen brings the SDE looks into view at the cost of narrower columns; any milestone that falls outside the window is counted in a note rather than dropped."
+      description: "How many years wide the timeline is, at most eighteen; a wider window draws at eighteen. Twelve carries a Captain from today past the Lt Col board and is the comfortable reading width. The full milestone ladder runs to YG+17, so widening it toward eighteen brings the SDE looks into view at the cost of narrower columns. A milestone past the window's far end is counted in a note rather than dropped; one before it is history, except a course passed unticked, which is listed as overdue."
 
     move_year:
       type: integer?
@@ -180,7 +180,7 @@ main:
                   type: number
                   default: 2
                   title: Years
-                  description: "Length in years, in halves: 0.5 to 4. The timeline is ruled in half-years, one per VML cycle, so a length is rounded to the nearest half, and one outside that range draws at the nearer end, marked with a dagger. A whole number of years keeps you on the cycle you moved in on; a half switches Summer to Winter or back."
+                  description: "Length in years, in halves: 0.5 to 4. The timeline is ruled in half-years, one per VML cycle, so a length is rounded to the nearest half first, and one that rounds to outside that range draws at the nearer end, marked with a dagger. A whole number of years keeps you on the cycle you moved in on; a half switches Summer to Winter or back."
                 school:
                   type: boolean
                   default: false
@@ -263,7 +263,7 @@ main:
       properties:
         command:
           type: matrix
-          title: Leadership & Command
+          title: Leadership & command
           ui:
             compact: true
           members:
@@ -296,7 +296,7 @@ main:
           properties: *detail
         staff:
           type: matrix
-          title: Staff & Functional
+          title: Staff & functional
           ui:
             compact: true
           members:

@@ -1,7 +1,8 @@
-// check_one_page.mjs — a career plan is a one-page leave-behind, and the one
-// lever that can cost it that page is the timeline window: more years buy their
-// columns out of the width, and a mark that wrapped as they narrowed would make
-// the timeline taller.
+// check_one_page.mjs — a career plan is a one-page leave-behind, and two levers
+// can cost it that page. The timeline window: more years buy their columns out
+// of the width, and a mark that wrapped as they narrowed would make the timeline
+// taller. And the typed notes, which the ruled notes area has to hold along with
+// the line they are signed on (`long_notes.md`).
 // `quillkit test` renders the blueprint's near-empty seed and never sees it, so
 // this sweeps every fixture across every window the schema recommends.
 //
@@ -20,7 +21,7 @@ const repoRoot = resolve(__dirname, "../..");
 const { Document } = await init();
 const quiver = await fromDir(repoRoot);
 const engine = new Engine();
-const quill = await quiver.getQuill("cyber_career_plan@0.0.1");
+const quill = await quiver.getQuill("cyber_career_plan@0.1.0");
 
 // 6 is the shortest window a young officer would set; 18 is the one the
 // `timeline_years` description points at, because it is where the last SDE look
@@ -28,7 +29,7 @@ const quill = await quiver.getQuill("cyber_career_plan@0.0.1");
 const windows = [6, 8, 10, 12, 14, 16, 18];
 const failures = [];
 
-for (const fixture of ["maximal.md", "minimal.md", "current.md"]) {
+for (const fixture of ["maximal.md", "minimal.md", "current.md", "long_notes.md"]) {
   const source = readFileSync(resolve(__dirname, "fixtures", fixture), "utf8");
   const windowLine = /^timeline_years: \d+$/m;
   if (!windowLine.test(source)) {

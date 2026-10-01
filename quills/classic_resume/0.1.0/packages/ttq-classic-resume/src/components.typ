@@ -23,18 +23,25 @@
 
 // Shared skeleton of `entry`: a grid of left/right aligned header cells
 // followed by an optional bulleted body, kept together on one page. The gutter
-// keeps a left cell that wraps off the right one.
-#let _entry(cfg, cells, body) = block(
-  above: cfg.leading + cfg.rule-spacing,
-  below: cfg.leading + cfg.entry-spacing,
-  breakable: false,
-  {
+// keeps a left cell that wraps off the right one. An entry taller than a page
+// cannot be kept together, so it breaks where it must rather than running off
+// the foot of one.
+#let _entry(cfg, cells, body) = {
+  let inner = {
     grid(columns: (1fr, auto), column-gutter: 1em, row-gutter: cfg.leading, ..cells)
     if body != none {
       _bulleted(cfg, body)
     }
-  },
-)
+  }
+  block(
+    above: cfg.leading + cfg.rule-spacing,
+    below: cfg.leading + cfg.entry-spacing,
+    layout(region => block(
+      breakable: measure(block(width: region.width, inner)).height > region.height,
+      inner,
+    )),
+  )
+}
 
 // Sets the contacts on as few lines as hold them, a separator between two on
 // one line. A line therefore breaks only between contacts, and never starts or
@@ -92,7 +99,7 @@
   if named or contacts.len() > 0 {
     with-config(cfg => block(below: cfg.leading + cfg.header-spacing, {
       if named {
-        heading(level: 1, name)
+        [#heading(level: 1, name) <ttq-classic-resume-name>]
       }
       if contacts.len() > 0 {
         block(
@@ -164,7 +171,7 @@
 ///
 /// Two shapes are accepted and told apart by the first item: a flat array of
 /// content, or an array of `(label: .., text: ..)` dictionaries, which puts
-/// the label in bold above its text.
+/// the label in bold above its text. A `none` or empty label prints no line.
 #let item-grid(items: (), columns: 2) = {
   if items.len() == 0 {
     return
@@ -183,8 +190,10 @@
         + "when the first one is, found " + repr(item),
     )
     block({
-      text(weight: "bold", item.label)
-      linebreak()
+      if item.label not in (none, "", []) {
+        text(weight: "bold", item.label)
+        linebreak()
+      }
       item.text
     })
   } else {
