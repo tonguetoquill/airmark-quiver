@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.35.5 - 2026-10-01
+
+- Date the remaining signing and briefing dates to today
+- Date usaf_memo templates and example to today
+
+
 ## Unreleased
 
 - **Signing and briefing dates in the templates and examples read `today`.**
