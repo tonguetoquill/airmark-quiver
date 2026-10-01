@@ -12,6 +12,9 @@ later; `cyber_career_plan@0.1.0` needs 0.121. Every other quill is unchanged.
   `$quill:` line rewritten to `@0.1.0`, or to the bare name; its data is
   unchanged.
 
+- **The DEROS extension request template is removed.** `deros_extension.md`
+  and its `deros-extension` entry in `templates.json` are gone.
+
 - **`cyber_ribbon_chart` is renamed `cyber_career_plan`.** The quill is a
   prototype, so it is renamed in place and no `cyber_ribbon_chart` is left
   to resolve: a document needs its `$quill:` line rewritten to
