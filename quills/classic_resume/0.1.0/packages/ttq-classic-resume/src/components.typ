@@ -205,19 +205,17 @@
     item
   }
 
+  // The items start at the margin, as a section's prose and an entry's heading
+  // do. Only a bullet's text is set in from it, where its marker explains why.
   with-config(cfg => block(
     above: cfg.leading + cfg.rule-spacing,
-    pad(
-      // Line the items up with the bullets of the entries around them.
-      left: cfg.marker-size + cfg.marker-indent,
-      grid(
-        columns: (1fr,) * columns,
-        // Labeled items are two lines tall, so they need the extra gap to
-        // stay visually separated.
-        row-gutter: if labeled { cfg.leading + cfg.entry-spacing } else { cfg.leading },
-        column-gutter: 1em,
-        ..items.map(cell),
-      ),
+    grid(
+      columns: (1fr,) * columns,
+      // Labeled items are two lines tall, so they need the extra gap to
+      // stay visually separated.
+      row-gutter: if labeled { cfg.leading + cfg.entry-spacing } else { cfg.leading },
+      column-gutter: 1em,
+      ..items.map(cell),
     ),
   ))
 }

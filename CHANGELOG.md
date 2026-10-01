@@ -19,6 +19,16 @@
   added in. Schemas and rendering are unchanged; `usaf_memo@0.2.0` keeps its
   descriptions.
 
+- **`classic_resume@0.1.0` sets Certifications and Skills at the margin.**
+  Their items were set in to where an entry's bullet text starts, with no
+  bullet beside them to say why, so the page stepped in after Summary and back
+  out at the next entry, and a skills label stood apart from the entry headings
+  it reads like. They now start at the margin with the section's prose and
+  headings. `item-grid` in the package's `components.typ` drops its left
+  padding, a patch outside upstream. The schema and every other section are
+  unchanged.
+
+
 ## v0.35.1 - 2026-10-01
 
 - Remove the DEROS extension request template
