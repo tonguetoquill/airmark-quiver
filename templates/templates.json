@@ -14,6 +14,13 @@
     "tags": ["space-force"]
   },
   {
+    "id": "usaf-letter",
+    "name": "USAF Personal Letter",
+    "description": "Official U.S. Air Force personal letter template",
+    "file": "usaf_letter.md",
+    "tags": ["air-force", "letter"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",
