@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.35.1 - 2026-10-01
+
+- Remove the DEROS extension request template
+
+
 ## v0.35.0 - 2026-10-01
 
 `cyber_ribbon_chart` is renamed `cyber_career_plan`, and it and
