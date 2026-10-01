@@ -14,6 +14,7 @@ memo_from:
   - Street Address
   - City St 12345-6789
 subject: Your Subject Here
+date: today
 signature_block:
   - FIRST M. LAST, Rank, USSF
 tag_line: Semper Supra

@@ -8,7 +8,7 @@ memo_for:
 memo_from:
   - 123 CS/SCX
 subject: "Annual Records Management Review (Suspense: 30 October 2026)"
-date: 2026-09-15
+date: today
 authority_line: FOR THE COMMANDER
 signature_block:
   - JOHN B. SMITH, Maj, USAF
@@ -39,7 +39,7 @@ Each group commander signs the checklist at the attachment and returns it to 123
 $kind: indorsement
 from: 123 OG/CC
 for: 123 CS/SCX
-date: 2026-10-22
+date: today
 signature_block:
   - RICHARD C. ROE, Col, USAF
   - Commander

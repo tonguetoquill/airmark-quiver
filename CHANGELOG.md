@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- **`usaf_memo` templates and the `usaf_memo@0.3.0` example are dated
+  `today`.** The USAF Memo, USSF Memo, Appointment Letter, Pass Request and
+  Rebuttal templates set the memo's `date` to `today`, as do the example's memo
+  and indorsement, so each renders with the day it is opened. Clear the date
+  to get a fillable date field instead. The Pass Request indorsement stays
+  blank for the commander to date. The schema default is unchanged.
+
 ## v0.35.4 - 2026-10-01
 
 - Add a USAF Personal Letter template
