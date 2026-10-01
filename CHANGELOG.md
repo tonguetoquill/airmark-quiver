@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- **A Classic Resume template is added.** `classic_resume.md`, listed in
+  `templates.json` as `classic-resume`, is a filled-in one-page resume on
+  `classic_resume@0.1`.
+- **`classic_resume@0.1.0`'s example is rewritten** around a new sample
+  person, Nibs Bin. The quill is unchanged.
+
 ## v0.35.1 - 2026-10-01
 
 - Remove the DEROS extension request template
