@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.35.6 - 2026-10-01
+
+- Remove pass request template
+
+
 ## Unreleased
 
 - **The Pass Request template is removed.** `pass_request.md` and its
