@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.35.4 - 2026-10-01
+
+- Add a USAF Personal Letter template
+
+
 ## Unreleased
 
 - **A USAF Personal Letter template is added.** `usaf_letter.md`, listed in
