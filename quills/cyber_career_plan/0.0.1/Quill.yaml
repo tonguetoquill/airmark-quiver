@@ -1,8 +1,8 @@
 quill:
-  name: cyber_ribbon_chart
+  name: cyber_career_plan
   version: 0.0.1
   backend: typst
-  description: 17X Cyber Operations Officer ribbon chart and career vector planner
+  description: "17X Cyber Operations Officer career plan: current assignment, vectors and record"
 
 typst:
   plate_file: plate.typ

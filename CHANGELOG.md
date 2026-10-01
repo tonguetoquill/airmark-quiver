@@ -32,6 +32,14 @@
 
 ## Unreleased
 
+- **`cyber_ribbon_chart` is renamed `cyber_career_plan`.** The quill is a
+  prototype, so 0.0.1 is renamed in place and no `cyber_ribbon_chart` is left
+  to resolve: a document needs its `$quill:` line rewritten to
+  `cyber_career_plan`, and is otherwise unchanged. The exported PDF is titled
+  `Career Plan — <name>`, and the description reads "17X Cyber Operations
+  Officer career plan: current assignment, vectors and record". The design
+  fixtures and checks move to `design/cyber_career_plan/`.
+
 - **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
   now.** The quill is a prototype, so 0.0.1 changes in place and every
   existing chart document needs rewriting.
