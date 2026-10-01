@@ -32,6 +32,14 @@
 
 ## Unreleased
 
+- **`cyber_ribbon_chart@0.0.1`'s `qualifications` draws flat in its
+  section.** It declares `ui.layout: flat`, so `@quillmark/svelte` 0.17 draws
+  the four checklists under the Qualifications section's header, with the
+  field's description as the header's hint, where it drew the header, then a
+  "Qualifications" label over a framed subform, then the checklists. The data,
+  the page and the blueprint are unchanged. The quillkit 0.13.0 studio predates
+  svelte 0.17 and still draws the frame.
+
 - **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
   now.** The quill is a prototype, so 0.0.1 changes in place and every
   existing chart document needs rewriting.
