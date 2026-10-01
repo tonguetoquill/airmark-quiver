@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: The body holds the specific accomplishments, one bullet per line.
+  description: List the nominee's specific accomplishments in the body, one bullet each.
   fields:
     award:
       type: string
@@ -21,42 +21,42 @@ main:
     award_period:
       type: string
       default: ""
-      description: Date range, as in 1 Jan 2026 – 31 Mar 2026.
+      description: The period the award covers, for example 1 Jan 2026 – 31 Mar 2026.
       ui:
         compact: true
     rankname_of_nominee:
       type: string
       default: ""
-      description: Rank and name, as in RANK FIRST M. LAST.
+      description: The nominee's rank and name, for example MSgt JANE A. DOE.
       ui:
         compact: true
     majcom_fldcom_foa_or_dru:
       type: string
       default: ""
-      description: Abbreviation, as in ACC.
+      description: The abbreviation, for example ACC.
       ui:
         compact: true
     dafsc_duty_title:
       type: string
       default: ""
-      description: DAFSC, then duty title.
+      description: The nominee's DAFSC and duty title.
     nominees_telephone_dsn_commercial:
       type: string
       default: ""
-      description: DSN and commercial numbers, as in DSN XXX-XXXX / (XXX) XXX-XXXX.
+      description: DSN and commercial numbers, for example DSN 555-1234 / (555) 555-1234.
     unit_office_symbol_street_address_base_state_zip:
       type: string
       default: ""
-      description: One line, as in UNIT/SYMBOL, STREET, BASE ST ZIP.
+      description: Unit, office symbol, and full address on one line.
     unit_commander_rank_name_and_telephone:
       type: string
       default: ""
-      description: Rank, name and telephone, as in RANK FIRST M. LAST, (XXX) XXX-XXXX.
+      description: The commander's rank, name, and phone number.
 
 card_kinds:
   accomplishments_continued:
     title: Specific Accomplishments (Continued — Page 2)
-    description: Optional. Add this card only when page 2 overflow is required. Use the card body for continued bullets, one per line. Rank/name on page 2 matches the main nominee line automatically.
+    description: Continues the accomplishments on page 2. Add it only when they don't fit on page 1.
     seed:
       $body: |
         **Category (continued)**

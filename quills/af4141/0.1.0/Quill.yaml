@@ -14,27 +14,27 @@ main:
     name:
       type: string
       default: ""
-      description: Full name in Last, First, Middle Initial format.
+      description: Your name as Last, First, Middle Initial.
 
     unit:
       type: string
       default: ""
-      description: Unit or organization of assignment.
+      description: Your unit of assignment.
 
     grade:
       type: string
       default: ""
-      description: Current grade or CCC level.
+      description: Your current grade or CCC level.
 
     commanders_auth:
       type: string
       default: ""
-      description: Commander's authentication entry on page 1.
+      description: The commander's authentication on page 1.
 
 card_kinds:
   experience:
     title: Record of Experience
-    description: Each card represents one row in the Record of Experience table. Rows fill page 1 (up to 16 rows) then page 2 (up to 21 rows), for a maximum of 37 rows.
+    description: One row of the Record of Experience. The form holds up to 37 rows across two pages.
     ui:
       groups: [record]
     body:
@@ -45,14 +45,14 @@ card_kinds:
         default: ""
         ui:
           group: record
-        description: Date of the action (column A).
+        description: The date of the action.
 
       action:
         type: string
         default: ""
         ui:
           group: record
-        description: One type of action per line (column B).
+        description: The action taken. Use one row per type of action.
 
       written_grade:
         type: string
@@ -60,7 +60,7 @@ card_kinds:
         ui:
           group: record
           compact: true
-        description: Written grade, as in 3, if applicable (column C).
+        description: The written grade, if any, for example 3.
 
       written_grade_date:
         type: date
@@ -68,7 +68,7 @@ card_kinds:
         ui:
           group: record
           compact: true
-        description: Date of written grade (column D). Omit or leave blank when there is no written grade.
+        description: The date of the written grade.
 
       positional_grade:
         type: string
@@ -76,7 +76,7 @@ card_kinds:
         ui:
           group: record
           compact: true
-        description: Positional grade, as in 2, if applicable (column E).
+        description: The positional grade, if any, for example 2.
 
       positional_grade_date:
         type: date
@@ -84,11 +84,11 @@ card_kinds:
         ui:
           group: record
           compact: true
-        description: Date of positional grade (column F). Omit or leave blank when there is no positional grade.
+        description: The date of the positional grade.
 
       auth_or_remarks:
         type: string
         default: ""
         ui:
           group: record
-        description: Authentication initials, as in J.A.D., or remarks entry (column G).
+        description: Authenticating initials, for example J.A.D., or remarks.
