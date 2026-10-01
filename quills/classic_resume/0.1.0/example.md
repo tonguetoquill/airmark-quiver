@@ -7,7 +7,7 @@ contacts:
   - (333) 333-3333
   - github.com/nibsbin
   - linkedin.com/in/nibsbin/
-  - Biloxi, MS
+  - New New York
 paper: us-letter
 font_size: 11.5
 margin: 0.5
@@ -41,24 +41,24 @@ skills:
 ~~~
 $kind: experience
 jobs:
-  - company: Templar Archives Research Division
+  - company: Planet Express Delivery Division
     dates: August 2024 – Present
-    role: Psionic Research Analyst
-    location: Aiur (Remote)
+    role: Interstellar Logistics Analyst
+    location: New New York
     details: |-
-      - Analyzed Khala disruption patterns following Amon's corruption, developing countermeasures to protect remaining neural link infrastructure.
+      - Analyzed dark matter fuel combustion following the Nibblonian incident, developing safeguards to protect remaining ship engine infrastructure.
 
-      - Building automated threat detection pipelines using Khaydarin crystal arrays to monitor Void energy signatures across the sector.
-  - company: Terran Dominion Ghost Academy
+      - Building automated hazard detection pipelines using Bender's antenna arrays to monitor Omicronian threat signatures across the sector.
+  - company: MomCorp Robotics Academy
     dates: May 2025 – July 2025
-    role: Covert Ops Trainee
-    location: Tarsonis
-    details: "- Developed tactical HUD displays for Ghost operatives integrating real-time Zerg hive cluster intelligence."
-  - company: Raynor's Raiders
+    role: Robot Firmware Trainee
+    location: Mars Vegas
+    details: "- Developed behavior-inhibitor firmware for MomCorp robots integrating real-time Slurm demand intelligence."
+  - company: DOOP Starship Nimbus
     dates: January 2018 – June 2020
     role: Combat Engineer
-    location: Mar Sara
-    details: "- Administrated Hyperion shipboard systems, SCV maintenance, and bunker defense automation for 30,000+ colonists."
+    location: Vergon 6
+    details: "- Administrated Nimbus shipboard systems, Kif's maintenance logs, and killbot defense automation for 30,000+ crew."
 title: Experience
 ~~~
 
