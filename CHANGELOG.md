@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.35.2 - 2026-10-01
+
+- classic_resume: set Certifications and Skills at the margin
+- classic_resume: drop the summary from the example and template
+- Add a Classic Resume template and refresh classic_resume's example
+- Rewrite quill field descriptions to be short and plain
+
+
 ## Unreleased
 
 - **A Classic Resume template is added.** `classic_resume.md`, listed in
