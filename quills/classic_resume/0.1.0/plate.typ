@@ -37,7 +37,8 @@
 // no content. What prints is the field's ink twin, `printed`, which keeps the
 // click target a value computed with loses.
 #let linked(value, printed) = {
-  if value.trim() == "" { none } else { auto-link(value, body: printed) }
+  let value = value.trim()
+  if value == "" { none } else { auto-link(value, body: printed) }
 }
 
 #show: resume.with(
@@ -53,9 +54,9 @@
   // EB Garamond has no ❖ (U+2756), the package's default separator: it prints
   // only where a second family is installed to lend the glyph, and draws from
   // that family rather than this one. ◆ is the nearest diamond EB Garamond
-  // carries itself, and wants a point less to weigh the same.
+  // carries itself, and wants a point less to weigh the same: 6pt at 12pt.
   contact-separator: "◆",
-  contact-separator-size: 6pt,
+  contact-separator-size: 0.5em,
 )
 
 // The package restyles lists to its square bullet inside an entry only. A
@@ -100,22 +101,28 @@
   body: under-entry(details),
 )
 
+// The rows an author filled in. A row left wholly blank, as a new one is, would
+// print as an empty gap.
+#let filled(rows) = rows.filter(row => row.values().any(value => {
+  or-none(if type(value) == str { value.trim() } else { value }) != none
+}))
+
 // What each declared kind sets under its heading and body. A card of a kind
 // the quill does not declare is warned on and left off the page: its fields
 // are not this quill's to read.
 #let rows = (
   summary: card => none,
-  experience: card => for job in card.jobs {
+  experience: card => for job in filled(card.jobs) {
     dated(job.company, job.dates, job.role, job.location, job.details)
   },
-  education: card => for school in card.schools {
+  education: card => for school in filled(card.schools) {
     dated(school.school, school.dates, school.degree, school.location, school.details)
   },
   skills: card => item-grid(
-    items: card.skills.map(row => (label: trim-inline(row.label), text: trim-inline(row.items))),
+    items: filled(card.skills).map(row => (label: or-none(row.label), text: trim-inline(row.items))),
     columns: calc.max(1, card.columns),
   ),
-  projects: card => for project in card.projects {
+  projects: card => for project in filled(card.projects) {
     entry(
       heading: trim-inline(project.name),
       form: "linked",
@@ -124,10 +131,10 @@
     )
   },
   certifications: card => item-grid(
-    items: card.items.map(trim-inline),
+    items: card.items.map(or-none).filter(item => item != none),
     columns: calc.max(1, card.columns),
   ),
-  other: card => for row in card.entries {
+  other: card => for row in filled(card.entries) {
     dated(row.heading, row.dates, row.subtitle, row.location, row.details)
   },
 )

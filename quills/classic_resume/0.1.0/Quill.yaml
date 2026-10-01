@@ -1,6 +1,6 @@
 quill:
   name: classic_resume
-  version: 0.0.1
+  version: 0.1.0
   backend: typst
   description: Classic single-page resume
 
@@ -75,11 +75,11 @@ card_kinds:
         type: plaintext
         inline: true
         default: Summary
-        description: "Printed in uppercase over a rule. An empty title prints no heading, which sets the summary straight under your name."
+        description: "Printed in uppercase over a rule. An empty title prints no heading, so a summary that is the first card sits straight under your name."
 
   experience:
     title: Experience
-    description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them."
+    description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them. Prose written under the card prints under the heading, ahead of the jobs."
     seed:
       jobs:
         - company: Employer
@@ -122,11 +122,11 @@ card_kinds:
               type: richtext
               default: ""
               description: "Set under the entry. Usually a bulleted list, one line each and strongest first; a sentence, *italics* and **bold** set as well, and a heading sets as a bold line. Leave blank for nothing under the entry."
-        description: "One row per job. A row is never split across a page break."
+        description: "One row per job. A row is kept to one page, unless it is taller than a page."
 
   education:
     title: Education
-    description: "Schools, most recent first: school and date on the first line, degree and location on the second."
+    description: "Schools, most recent first: school and date on the first line, degree and location on the second. Prose written under the card prints under the heading, ahead of the schools."
     seed:
       schools:
         - school: School
@@ -162,7 +162,7 @@ card_kinds:
 
   skills:
     title: Skills
-    description: "Skills in labelled groups, filled across the columns and then down."
+    description: "Skills in labelled groups, filled across the columns and then down. Prose written under the card prints under the heading, ahead of the groups."
     seed:
       skills:
         - label: Category
@@ -183,7 +183,7 @@ card_kinds:
             label:
               type: plaintext
               inline: true
-              description: "Set in bold, with its items on the line under it."
+              description: "Set in bold, with its items on the line under it. Leave blank to print the items alone."
             items:
               type: plaintext
               inline: true
@@ -198,7 +198,7 @@ card_kinds:
 
   projects:
     title: Projects
-    description: "Projects: name and link on the first line, details under them."
+    description: "Projects: name and link on the first line, details under them. Prose written under the card prints under the heading, ahead of the projects."
     seed:
       projects:
         - name: Project
@@ -223,13 +223,13 @@ card_kinds:
             link:
               type: string
               default: ""
-              description: "Where to see it, set small and italic at the right as written: github.com/you/project reads better than its https:// form. A web address becomes a live link; anything else, such as 'closed source', prints as written. Leave blank to omit."
+              description: "Where to see it, set small and italic at the right as written: github.com/you/project reads better than its https:// form. A web address, an email address or a phone number becomes a live link; anything else, such as 'closed source', prints as written. Leave blank to omit."
             details: *details
         description: "One row per project."
 
   certifications:
     title: Certifications
-    description: "A list filled across the columns and then down. Retitled, it holds any short items: awards, languages, clearances."
+    description: "A list filled across the columns and then down. Retitled, it holds any short items: awards, languages, clearances. Prose written under the card prints under the heading, ahead of the list."
     seed:
       items:
         - Certification (ABBREVIATION)
@@ -249,7 +249,7 @@ card_kinds:
 
   other:
     title: Other section
-    description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names."
+    description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names. Prose written under the card prints under the heading, ahead of the rows."
     seed:
       title: Section Title
       entries:

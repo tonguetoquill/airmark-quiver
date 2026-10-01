@@ -16,8 +16,8 @@ and aligned to the current Quillmark spec.
 | `daf1206`            | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |
 | `daf4392`            | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |
 | `afmc_moa`           | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                       |
-| `classic_resume`     | 0.0.1   | Classic single-page resume                                                       |
-| `cyber_career_plan`  | 0.0.1   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
+| `classic_resume`     | 0.1.0   | Classic single-page resume                                                       |
+| `cyber_career_plan`  | 0.1.0   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
 
 ## Install
 

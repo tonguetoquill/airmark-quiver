@@ -1,5 +1,5 @@
 ~~~
-$quill: cyber_career_plan@0.0.1
+$quill: cyber_career_plan@0.1.0
 $kind: main
 name: 2d Lt Dana R. Reyes
 duty_title: UCT Student

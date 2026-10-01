@@ -1,52 +1,80 @@
 # Changelog
 
-## v0.34.0 - 2026-09-30
-
-- cyber_ribbon_chart: read a held member's detail directly, and say the older engine fails the compile
-- Take @quillmark/wasm 0.121.0, @quillmark/quiver 0.33.0 and quillkit 0.13.0
-- cyber_ribbon_chart: redraw the page on one rail
-- cyber_ribbon_chart: refine the layout and drop what repeats
-- Spectral SC: regular and italic only, unhinted; usaf_letter takes it too
-- usaf_memo: set the tag line in Spectral SC and drop unused fonts
-- usaf_memo: set the tag line in faux small caps
-- cyber_ribbon_chart: a legend that names the marks
-- cyber_ribbon_chart: take #191's layout pass
-- cyber_ribbon_chart: fix the review's findings
-- cyber_ribbon_chart: four editor groups, one task each
-- Use the new summary in the classic_resume seed and minimal fixture
-- Give the classic_resume example a new summary
-- Drop the classic_resume click-target design check
-- Refine classic_resume: headings as title defaults, click-to-edit header, even spacing
-- cyber_ribbon_chart: reorganize around the assignment held now
-- cyber_ribbon_chart: write the example and fixtures without em dashes
-- Take quillmark 0.118 and seed each card kind's starter content
-- Changelog: take quillmark 0.117 and ship a root example.md per quill
-- Migrate usaf_memo and usaf_letter off example: into a root example.md
-- Migrate af4141, daf1206 and daf4392 off example: into a root example.md
-- Migrate afmc_moa off example: into a root example.md
-- Take @quillmark/wasm 0.117, quiver 0.31 and quillkit 0.11 (in progress)
-- fix(templates): DEROS extension requested date reads DD MMM YYYY
-- feat(templates): add DEROS extension request as an official template
-- Take quillkit 0.10.0
-
-
 ## Unreleased
 
+`classic_resume` and `cyber_career_plan` leave the `0.0.x` draft tier at
+`0.1.0`, so a deployment without `--drafts` now serves them, and their schemas
+are now kept stable. `classic_resume@0.1.0` needs `@quillmark/wasm` 0.118 or
+later; `cyber_career_plan@0.1.0` needs 0.121. Every other quill is unchanged.
+
+- **`classic_resume` and `cyber_career_plan` are released at 0.1.0.** Both
+  move from `0.0.1`, which is not kept: a document pinned to `@0.0.1` needs its
+  `$quill:` line rewritten to `@0.1.0`, or to the bare name; its data is
+  unchanged.
+
 - **`cyber_ribbon_chart` is renamed `cyber_career_plan`.** The quill is a
-  prototype, so 0.0.1 is renamed in place and no `cyber_ribbon_chart` is left
+  prototype, so it is renamed in place and no `cyber_ribbon_chart` is left
   to resolve: a document needs its `$quill:` line rewritten to
   `cyber_career_plan`, and is otherwise unchanged. The exported PDF is titled
   `Career Plan — <name>`, and the description reads "17X Cyber Operations
   Officer career plan: current assignment, vectors and record". The design
   fixtures and checks move to `design/cyber_career_plan/`.
 
-- **`cyber_ribbon_chart@0.0.1`'s `qualifications` draws flat in its
+- **`cyber_career_plan`'s `qualifications` draws flat in its
   section.** It declares `ui.layout: flat`, so `@quillmark/svelte` 0.17 draws
   the four checklists under the Qualifications section's header, with the
   field's description as the header's hint, where it drew the header, then a
   "Qualifications" label over a framed subform, then the checklists. The data,
   the page and the blueprint are unchanged. The quillkit 0.13.0 studio predates
   svelte 0.17 and still draws the frame.
+
+- **`classic_resume@0.1.0` fixes ahead of the freeze.**
+  - A row taller than a page breaks across pages; it ran off the foot of one
+    and lost its text. A row that fits on a page is still kept to one.
+  - The continuation pages' running head reads the name heading alone, so a
+    `#` heading written in a card body never stands in for it.
+  - A row left wholly blank, a blank certification item and a blank skills
+    label print nothing, where each left a gap.
+  - A contact or project link is trimmed before it is read, a value already
+    written as a `mailto:` or `tel:` link keeps its target, and an uppercase
+    `HTTPS://` links.
+  - The name, the bullet and the contact separator scale with `font_size`. At
+    the default 12pt nothing moves; at 11pt or 11.5pt they set a little
+    smaller, in proportion.
+  - Descriptions say what the page does: a card may carry prose under its
+    heading, an email address or phone number in a project link links, and a
+    blank summary title sits under the name only when the summary leads.
+
+- **`cyber_career_plan@0.1.0` fixes ahead of the freeze.**
+  - Typed notes take only the lines they need, and the notes and the
+    "Discussed with" line move together, so a long body never leaves the
+    signature line alone on page 2. The `maximal.md` page has room for seven
+    typed lines.
+  - A window starting before the year group reads `YG−4`, not `YG+−4`. With a
+    start year and no year group, the axis shows years alone and draws no
+    milestone, where it drew every course as overdue.
+  - A long vector `track` steps down in size and is clipped to its row; it
+    printed over the Eligibility rail.
+  - A stratification row with no year prints a dash for it, not `0`, and the
+    rows set at the record's size.
+  - `timeline_years` draws at most eighteen years. A tour's length is rounded
+    to the half-year before it is checked, so 4.2 draws as 4 years without the
+    dagger.
+  - A degree ending "(in progress)" prints the degree with "in progress" as a
+    note under it, where the words wrapped.
+  - A constraint label is cut at the page edge instead of running off it, the
+    current-assignment block stays open when the move falls past the window,
+    and a nameless chart's PDF is titled "Career Plan".
+  - The qualification matrix titles are in sentence case, as the page prints
+    them.
+
+## v0.34.0 - 2026-09-30
+
+Every quill now needs `@quillmark/wasm` 0.117 or later to load;
+`usaf_memo@0.3.0`, `afmc_moa`, `classic_resume` and `daf1206` need 0.118, and
+`cyber_ribbon_chart@0.0.1` needs 0.121 to render. `cyber_ribbon_chart` and
+`classic_resume` were reshaped in place as prototypes. `usaf_memo` and
+`usaf_letter` set the tag line in Spectral SC.
 
 - **`cyber_ribbon_chart@0.0.1` is reorganized around the assignment held
   now.** The quill is a prototype, so 0.0.1 changes in place and every
@@ -218,6 +246,7 @@
   with their hinting stripped, so `**bold**` in a tag line prints regular, and
   the field's description says so. Cinzel and `CopperplateCC-Heavy.otf`, which
   neither quill drew, leave both.
+
 
 ## v0.33.0 - 2026-09-27
 

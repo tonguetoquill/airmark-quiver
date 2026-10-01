@@ -5,13 +5,14 @@
 
 // The name at the left and the page count at the right, over every page after
 // the first, so a page read apart from the first still says whose it is. The
-// name is read back off the document's level 1 heading. Small and italic, it
+// name is read back off the heading `resume-header` labels, so a level 1
+// heading written in the body never stands in for it. Small and italic, it
 // reads as a running head: a 0.5in margin leaves no room to set it further off
 // the page.
 #let _continuation-header(cfg) = context {
   if counter(page).get().first() > 1 {
     set text(size: cfg.annotation-size, style: "italic")
-    let names = query(heading.where(level: 1))
+    let names = query(<ttq-classic-resume-name>)
     if names.len() > 0 { names.first().body }
     h(1fr)
     counter(page).display("1 of 1", both: true)

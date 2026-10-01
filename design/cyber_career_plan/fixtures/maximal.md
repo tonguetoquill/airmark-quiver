@@ -1,5 +1,5 @@
 ~~~
-$quill: cyber_career_plan@0.0.1
+$quill: cyber_career_plan@0.1.0
 $kind: main
 name: Capt John A. Snuffy
 afsc: K17S3

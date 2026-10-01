@@ -28,10 +28,11 @@
 
   // Resume header. The separator stands between two contacts on one line,
   // never at either end of one, with a word space and this padding on each
-  // side of it.
-  name-size: 18pt,
+  // side of it. Sizes in `em` follow the body size: at 12pt, the name is set
+  // at 18pt and the separator at 7pt.
+  name-size: 1.5em,
   contact-separator: "❖",
-  contact-separator-size: 7pt,
+  contact-separator-size: 7em / 12,
   contact-separator-padding: 0.25em,
 
   // Rule drawn underneath a section header.
@@ -39,8 +40,8 @@
 
   // Square bullet used by lists inside an entry. The negative baseline lifts
   // the square off the baseline so that it lines up with the middle of the
-  // x-height instead of hanging below the line.
-  marker-size: 3.5pt,
+  // x-height instead of hanging below the line. At 12pt the square is 3.5pt.
+  marker-size: 3.5em / 12,
   marker-baseline: -0.07em,
   marker-indent: 0.8em,
 

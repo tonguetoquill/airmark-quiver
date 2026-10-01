@@ -48,12 +48,15 @@ narrowest: one vector, a move on the first Summer of the window, so the block
 is one half-year wide and sheds its text. It also carries courses passed
 unticked, a constraint label longer than its bar, a constraint past the window,
 tour lengths outside 0.5 to 4, and the `adjusted_yg: 0` older documents hold.
+`long_notes.md` is a full chart under six typed paragraphs of notes, a degree
+marked "(in progress)", and a stratification with no HLR: the notes area holds
+what was typed and the line it is signed on, on the one page.
 
-A career plan is a one-page leave-behind, and `timeline_years` is the lever
-that can cost it that page — more years narrow the columns, and a mark that
-wrapped to fit one would make the timeline taller. `quillkit test` renders the
-near-empty seed and never sees it, so the check sweeps every fixture across
-the windows the schema recommends:
+A career plan is a one-page leave-behind, and two levers can cost it that page:
+`timeline_years` — more years narrow the columns, and a mark that wrapped to
+fit one would make the timeline taller — and the typed notes. `quillkit test`
+renders the near-empty seed and never sees either, so the check sweeps every
+fixture across the windows the schema recommends:
 
 ```sh
 node design/cyber_career_plan/check_one_page.mjs
