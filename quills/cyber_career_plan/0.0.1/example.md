@@ -1,5 +1,5 @@
 ~~~
-$quill: cyber_ribbon_chart
+$quill: cyber_career_plan
 name: Capt John A. Snuffy
 afsc: 17S3
 duty_title: Instructor

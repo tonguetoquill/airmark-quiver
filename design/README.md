@@ -23,16 +23,16 @@ python3 design/afmc_moa/validate_moa.py design/afmc_moa/fixtures/maximal.md /tmp
 reimbursable one with two card-driven attachments, so it exercises the
 Attachment A/B/C lettering.
 
-## cyber_ribbon_chart
+## cyber_career_plan
 
-Fixtures, a render helper, and a check for the `cyber_ribbon_chart` quill.
+Fixtures, a render helper, and a check for the `cyber_career_plan` quill.
 
 ```sh
 # render a fixture (run from the repo root; .png renders an image, anything else a PDF)
-node design/cyber_ribbon_chart/render_fixture.mjs design/cyber_ribbon_chart/fixtures/maximal.md /tmp/max.pdf
+node design/cyber_career_plan/render_fixture.mjs design/cyber_career_plan/fixtures/maximal.md /tmp/max.pdf
 
 # with no fixture, renders the blueprint the schema seeds
-node design/cyber_ribbon_chart/render_fixture.mjs /tmp/seed.pdf
+node design/cyber_career_plan/render_fixture.mjs /tmp/seed.pdf
 ```
 
 `maximal.md` is a Captain with an adjusted year group, three constraints (one
@@ -49,14 +49,14 @@ is one half-year wide and sheds its text. It also carries courses passed
 unticked, a constraint label longer than its bar, a constraint past the window,
 tour lengths outside 0.5 to 4, and the `adjusted_yg: 0` older documents hold.
 
-A ribbon chart is a one-page leave-behind, and `timeline_years` is the lever
+A career plan is a one-page leave-behind, and `timeline_years` is the lever
 that can cost it that page — more years narrow the columns, and a mark that
 wrapped to fit one would make the timeline taller. `quillkit test` renders the
 near-empty seed and never sees it, so the check sweeps every fixture across
 the windows the schema recommends:
 
 ```sh
-node design/cyber_ribbon_chart/check_one_page.mjs
+node design/cyber_career_plan/check_one_page.mjs
 ```
 
 ## classic_resume

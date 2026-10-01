@@ -1,11 +1,11 @@
-// check_one_page.mjs — a ribbon chart is a one-page leave-behind, and the one
+// check_one_page.mjs — a career plan is a one-page leave-behind, and the one
 // lever that can cost it that page is the timeline window: more years buy their
 // columns out of the width, and a mark that wrapped as they narrowed would make
 // the timeline taller.
 // `quillkit test` renders the blueprint's near-empty seed and never sees it, so
 // this sweeps every fixture across every window the schema recommends.
 //
-// Usage: node design/cyber_ribbon_chart/check_one_page.mjs
+// Usage: node design/cyber_career_plan/check_one_page.mjs
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -20,7 +20,7 @@ const repoRoot = resolve(__dirname, "../..");
 const { Document } = await init();
 const quiver = await fromDir(repoRoot);
 const engine = new Engine();
-const quill = await quiver.getQuill("cyber_ribbon_chart@0.0.1");
+const quill = await quiver.getQuill("cyber_career_plan@0.0.1");
 
 // 6 is the shortest window a young officer would set; 18 is the one the
 // `timeline_years` description points at, because it is where the last SDE look

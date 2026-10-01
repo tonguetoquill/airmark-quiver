@@ -30,7 +30,7 @@
 #set par(spacing: 0pt)
 
 #set document(
-  title: "Ribbon Chart — " + data.name,
+  title: "Career Plan — " + data.name,
   author: data.name,
 )
 

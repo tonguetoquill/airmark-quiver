@@ -1,8 +1,8 @@
-// render_fixture.mjs — render a cyber_ribbon_chart fixture through the real
+// render_fixture.mjs — render a cyber_career_plan fixture through the real
 // engine (@quillmark/wasm + @quillmark/quiver), the pipeline `quillkit test`
 // uses. With no fixture, renders the blueprint the schema seeds.
 //
-// Usage: node design/cyber_ribbon_chart/render_fixture.mjs [fixture.md] <out.pdf|out.png>
+// Usage: node design/cyber_career_plan/render_fixture.mjs [fixture.md] <out.pdf|out.png>
 //
 // Run it from the repo root so that `@quillmark/*` resolve from node_modules.
 
@@ -18,7 +18,7 @@ const repoRoot = resolve(__dirname, "../..");
 
 const args = process.argv.slice(2);
 if (args.length === 0) {
-  console.error("Usage: node design/cyber_ribbon_chart/render_fixture.mjs [fixture.md] <out.pdf|out.png>");
+  console.error("Usage: node design/cyber_career_plan/render_fixture.mjs [fixture.md] <out.pdf|out.png>");
   process.exit(1);
 }
 const [fixturePath, outputPath] = args.length === 1 ? [null, args[0]] : args;
@@ -27,7 +27,7 @@ const { Document } = await init();
 
 const quiver = await fromDir(repoRoot);
 const engine = new Engine();
-const quill = await quiver.getQuill("cyber_ribbon_chart@0.0.1");
+const quill = await quiver.getQuill("cyber_career_plan@0.0.1");
 
 const doc = fixturePath
   ? Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"))
