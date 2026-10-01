@@ -14,14 +14,8 @@ margin: 0.5
 ~~~
 
 ~~~
-$kind: summary
-~~~
-
-Nibs is a data, security, and software engineer. He likes to climb rocks and make useful things.
-
-~~~
 $kind: certifications
-title: Active Certifications
+title: Certifications
 columns: 2
 items:
   - Offensive Security Certified Professional (OSCP)
@@ -50,7 +44,7 @@ jobs:
   - company: Templar Archives Research Division
     dates: August 2024 – Present
     role: Psionic Research Analyst
-    location: Aiur
+    location: Aiur (Remote)
     details: |-
       - Analyzed Khala disruption patterns following Amon's corruption, developing countermeasures to protect remaining neural link infrastructure.
 
@@ -58,13 +52,14 @@ jobs:
   - company: Terran Dominion Ghost Academy
     dates: May 2025 – July 2025
     role: Covert Ops Trainee
-    location: Tarsonis (Remote)
+    location: Tarsonis
     details: "- Developed tactical HUD displays for Ghost operatives integrating real-time Zerg hive cluster intelligence."
   - company: Raynor's Raiders
     dates: January 2018 – June 2020
     role: Combat Engineer
     location: Mar Sara
-    details: "- Administered Hyperion shipboard systems, SCV maintenance protocols, and bunker defense automation for 30,000+ colonists."
+    details: "- Administrated Hyperion shipboard systems, SCV maintenance, and bunker defense automation for 30,000+ colonists."
+title: Experience
 ~~~
 
 ~~~
@@ -78,7 +73,14 @@ schools:
     dates: May 2024
     degree: BS, Data Science
     location: Colorado Springs, CO
-    details: "- Distinguished Graduate (top 10%); Chinese language minor (L2+/R1 on DLPT)."
+    details: |-
+      - Distinguished Graduate (top 10%); Chinese language minor (L2+/R1 on DLPT).
+
+      - Professor Bradley A. Warner Data Science Catalyst and Top Cadet in Computer Networks.
+  - school: Community College of the Air Force
+    dates: February 2029
+    degree: AS, Information Systems Technology
+    location: Online
 ~~~
 
 ~~~
