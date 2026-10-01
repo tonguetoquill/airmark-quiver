@@ -8,6 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
+  description: "Add a card for each section of the agreement. Sections print in DoDI 4000.19 order, whatever order you add them in."
   ui:
     groups: [parties, correspondence, terms, financial_details, signatures]
   body:
@@ -18,14 +19,14 @@ main:
       inline: true
       ui:
         group: parties
-      description: "Full organization name and acronym of the first party (the MOA's proponent). Printed as 'THE [FIRST PARTY]' in the title block and referenced throughout as '[the First Party]'."
+      description: "Full name and acronym of the organization proposing the agreement."
 
     second_party_name:
       type: plaintext
       inline: true
       ui:
         group: parties
-      description: "Full organization name and acronym of the second party. Printed as 'THE [SECOND PARTY]' in the title block."
+      description: "Full name and acronym of the other organization."
 
     second_party_is_non_government:
       type: boolean
@@ -33,21 +34,21 @@ main:
       ui:
         group: parties
         compact: true
-      description: "If the second party is a non-governmental entity, its mailing address is included in the intro paragraph identifying the Parties."
+      description: "Whether the second party is outside the government. If so, its mailing address appears in the opening paragraph."
 
     subject:
       type: plaintext
       inline: true
       ui:
         group: parties
-      description: "Subject of the agreement, printed in the title block ('FOR [SUBJECT]') and on the Attachment A cover if reimbursable."
+      description: "What the agreement covers. It follows 'FOR' in the title."
 
     agreement_number:
       type: plaintext
       inline: true
       ui:
         group: parties
-      description: Unique agreement identification number, printed in the title block.
+      description: The agreement's identification number.
 
     second_party_mailing_address:
       type: array
@@ -56,7 +57,7 @@ main:
       default: []
       ui:
         group: correspondence
-      description: "Second Party's mailing address for MOA correspondence and notices. Also shown in the intro paragraph if second_party_is_non_government is true."
+      description: "The second party's mailing address for correspondence."
 
     reimbursable:
       type: boolean
@@ -64,7 +65,7 @@ main:
       ui:
         group: terms
         compact: true
-      description: "Whether this MOA provides for reimbursement between the Parties. When true, adds the Attachment A financial details page after the signature blocks."
+      description: "Whether the parties reimburse each other. If so, fill in Financial Details, which prints as Attachment A."
 
     reimbursable_support:
       type: richtext
@@ -72,7 +73,7 @@ main:
       default: ""
       ui:
         group: financial_details
-      description: "Attachment A, item 1: description of the reimbursable support. Only used when reimbursable is true."
+      description: "The support being reimbursed."
 
     estimated_amount:
       type: plaintext
@@ -81,7 +82,7 @@ main:
       ui:
         group: financial_details
         compact: true
-      description: "Attachment A, item 2: estimated amount of funds to be reimbursed, as in $50,000. Only used when reimbursable is true."
+      description: "Estimated amount to be reimbursed, for example $50,000."
 
     appropriation_fy:
       type: plaintext
@@ -90,7 +91,7 @@ main:
       ui:
         group: financial_details
         compact: true
-      description: "Attachment A, item 2: appropriation fiscal year, printed after 'FY', as in 2027. Only used when reimbursable is true."
+      description: "Fiscal year of the appropriation, for example 2027."
 
     cost_center_provider:
       type: plaintext
@@ -99,7 +100,7 @@ main:
       ui:
         group: financial_details
         compact: true
-      description: "Attachment A, item 3: provider's cost center number, if required. Only used when reimbursable is true."
+      description: "The provider's cost center number, if required."
 
     cost_center_receiver:
       type: plaintext
@@ -108,7 +109,7 @@ main:
       ui:
         group: financial_details
         compact: true
-      description: "Attachment A, item 3: receiver's cost center number, if required. Only used when reimbursable is true."
+      description: "The receiver's cost center number, if required."
 
     financial_poc_provider:
       type: plaintext
@@ -116,7 +117,7 @@ main:
       default: ""
       ui:
         group: financial_details
-      description: "Attachment A, item 4: provider's financial point of contact. Only used when reimbursable is true."
+      description: "The provider's financial point of contact."
 
     financial_poc_receiver:
       type: plaintext
@@ -124,7 +125,7 @@ main:
       default: ""
       ui:
         group: financial_details
-      description: "Attachment A, item 4: receiver's financial point of contact. Only used when reimbursable is true."
+      description: "The receiver's financial point of contact."
 
     financial_additional_info:
       type: richtext
@@ -132,54 +133,54 @@ main:
       default: ""
       ui:
         group: financial_details
-      description: "Attachment A, item 5: any other financial information required by DoD 7000.14-R or desired in the agreement. Only used when reimbursable is true."
+      description: "Any other financial terms the agreement needs."
 
     first_party_signatory:
       type: plaintext
       inline: true
       ui:
         group: signatures
-      description: "Name and title of the First Party's approval authority, printed under the signature line."
+      description: "Name and title of the first party's approving official."
 
     second_party_signatory:
       type: plaintext
       inline: true
       ui:
         group: signatures
-      description: "Name and title of the Second Party's approval authority, printed under the signature line."
+      description: "Name and title of the second party's approving official."
 
     mid_point_review_due_date:
       type: date
       ui:
         group: signatures
         compact: true
-      description: "Due date for the mid-point review of the agreement, printed below the signature blocks."
+      description: "When the mid-point review of the agreement is due."
 
 card_kinds:
   background:
     title: Background
-    description: "Background section (DoDI 4000.19 paragraph 1) explaining the circumstances leading to this MOA. The body opens with 'BACKGROUND:'. Optional: include it only to explain a need the purpose does not make self-evident, typically with another federal agency; between OSD or DoD Components it is normally omitted. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders before authorities."
+    description: "Why the agreement is needed, when its purpose doesn't make that clear. Usually left out between DoD organizations. Start with 'BACKGROUND:'."
     seed:
       $body: |
         BACKGROUND: [If there is a need to discuss background, do so here. Normally, there is no need to discuss the background or provide justification for the MOA, particularly if between OSD or DoD Components. Occasionally, however, there is a desire to explain the need for the MOA; particularly where it is not self-evident from the purpose or it is with another federal agency.]
 
   authorities:
     title: Authorities
-    description: "Authorities section citing the legal basis for this MOA. The body opens with 'AUTHORITIES:' and states the legal authority for the MOA, such as the Economy Act, and each Party's authorities. Another federal agency's own asserted authority is prefaced 'The [Party] asserts the following authority:'; DoD need not agree with it. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after background, before purpose_and_scope."
+    description: "The legal basis for the agreement, such as the Economy Act, and each party's authorities. Start with 'AUTHORITIES:'."
     seed:
       $body: |
         AUTHORITIES: [State the legal authority upon which the reimbursable MOA is based, such as the Economy Act, or any other legal or significant authority that authorizes any such actions associated with this MOA. Discuss the authorities of the Parties here. If the other Party is another federal agency and insists on stating what it believes to be its own authority, preface that assertion with "The [Party] asserts the following authority:" The DoD has no obligation to agree with such assertions of authority by other federal agencies.]
 
   purpose_and_scope:
     title: Purpose and Scope
-    description: "Purpose and Scope section describing what this MOA establishes. The body opens with 'PURPOSE AND SCOPE:' and states the MOA's purpose and scope. Every MOA includes it. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after authorities, before responsibilities_of_the_parties."
+    description: "What the agreement does and what it covers. Every MOA has one. Start with 'PURPOSE AND SCOPE:'."
     seed:
       $body: |
         PURPOSE AND SCOPE: [State the purpose and the scope of the MOA here. Always use this paragraph.]
 
   responsibilities_of_the_parties:
     title: Responsibilities of the Parties
-    description: "Responsibilities of the Parties section listing each party's obligations under this MOA. The body opens with 'RESPONSIBILITIES OF THE PARTIES:', then a list item per Party ('The [First Party] will—', 'The [Second Party] will—', 'Both Parties will—'), each nesting every specific obligation of that Party. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after purpose_and_scope, before personnel."
+    description: "What each party will do. Start with 'RESPONSIBILITIES OF THE PARTIES:', then add a bullet for each party, such as 'The [First Party] will—', with its obligations nested under it."
     seed:
       $body: |
         RESPONSIBILITIES OF THE PARTIES:
@@ -193,14 +194,14 @@ card_kinds:
 
   personnel:
     title: Personnel
-    description: "Personnel section describing each party's responsibility for its own personnel costs. The body opens with 'PERSONNEL:' and states each Party's responsibility for all costs of its personnel (pay and benefits, support, travel) and for their supervision and management, with the process for any shared supervision. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after responsibilities_of_the_parties, before general_provisions."
+    description: "How each party pays for and supervises its own people, including pay, support, and travel. Start with 'PERSONNEL:'."
     seed:
       $body: |
         PERSONNEL: [Explain each Party's responsibility for all costs of its personnel, including pay and benefits, support, and travel, if applicable to the agreement. Each Party is responsible for supervision and management of its personnel. For shared supervision or management, explain the process to accomplish that.]
 
   general_provisions:
     title: General Provisions
-    description: "General Provisions section covering points of contact, termination, expiration, and other standard MOA terms. The body opens with 'GENERAL PROVISIONS:', then a list of DoDI 4000.19's standard provisions, each led by its capitalized title: POINTS OF CONTACT (a primary and an alternate POC per Party, each with name, position, office, phone and email), CORRESPONDENCE, REVIEW OF AGREEMENT (a non-reimbursable MOA at least at mid-point, a reimbursable one annually for financial impacts), MODIFICATION OF AGREEMENT, DISPUTES, TERMINATION OF AGREEMENT (its days of written notice), TRANSFERABILITY, ENTIRE AGREEMENT, EFFECTIVE DATE, EXPIRATION DATE, NO THIRD PARTY BENEFICIARIES, SEVERABILITY and OTHER FEDERAL AGENCIES. CANCELLATION OR MODIFICATION OF PREVIOUS AGREEMENT, naming that agreement's subject, number and effective date, appears only when this MOA supersedes one. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after personnel, before financial_details."
+    description: "The standard terms: points of contact, review, termination, expiration, and the rest of DoDI 4000.19's provisions. Start with 'GENERAL PROVISIONS:'. Include the cancellation provision only when this MOA replaces an earlier one."
     seed:
       $body: |
         GENERAL PROVISIONS:
@@ -228,7 +229,7 @@ card_kinds:
 
   financial_details:
     title: Financial Details
-    description: "Financial Details section (DoDI 4000.19 paragraph 7) covering availability of funds, billing, payment, and Economy Act determination. The body opens with 'FINANCIAL DETAILS:'. A non-reimbursable MOA follows it with 'This MOA does not provide for reimbursement between the Parties.' A reimbursable one lists AVAILABILITY OF FUNDS, BILLING, PAYMENT OF BILLS, FINANCIAL SPECIFICS (referring to Attachment A and stating any allowance or advance payments) and ECONOMY ACT DETERMINATION AND FINDINGS (D&F). The D&F adds that the provider can render the support without jeopardizing its missions when the provider is an OSD or DoD Component, and that any required D&F is completed when a separate written one is required. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders after general_provisions, before list_of_attachments."
+    description: "How the agreement is funded. Start with 'FINANCIAL DETAILS:'. If it isn't reimbursable, say 'This MOA does not provide for reimbursement between the Parties.' If it is, cover availability of funds, billing, payment, and the Economy Act determination."
     seed:
       $body: |
         FINANCIAL DETAILS [include Attachment A in all reimbursable MOAs; if the MOA is not reimbursable add, "This MOA does not provide for reimbursement between the Parties"]:
@@ -241,7 +242,7 @@ card_kinds:
 
   list_of_attachments:
     title: List of Attachments
-    description: "List of Attachments section enumerating this MOA's attachments. The body opens with 'LIST OF ATTACHMENTS:', then a list item per attachment, as in 'Attachment A, Financial Details'. Authored as its own card, but rendered inline as the body's numbered paragraphs — same chained decimal numbering as the rest of the body, no page break. Exactly one is expected; if more than one is supplied, only the first is used. Renders last, after financial_details, immediately before the signature blocks."
+    description: "The agreement's attachments, for example 'Attachment A, Financial Details'. Start with 'LIST OF ATTACHMENTS:'."
     seed:
       $body: |
         LIST OF ATTACHMENTS:
@@ -250,7 +251,7 @@ card_kinds:
 
   attachment:
     title: Attachment
-    description: "A lettered attachment to the MOA, starting at Attachment B (Attachment A is reserved for the reimbursable financial-details page and is generated automatically when 'reimbursable' is true). Each card starts on its own page."
+    description: "An attachment on its own page, lettered from B. Attachment A is reserved for financial details and is added for you when the agreement is reimbursable."
     ui:
       groups: [attachment]
     seed:
@@ -263,4 +264,4 @@ card_kinds:
         inline: true
         ui:
           group: attachment
-        description: "Subject of the attachment, printed on the cover line ('to [subject], [agreement_number] [title]')."
+        description: "The attachment's title."

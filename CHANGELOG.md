@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- **Field descriptions are rewritten to be short and plain.** Every hint in
+  `usaf_memo@0.3.0`, `usaf_letter`, `af4141`, `daf1206`, `daf4392`,
+  `afmc_moa`, `classic_resume` and `cyber_career_plan` now says what the field
+  is for and the one thing most people need to know, in the same words for the
+  form editor and the Markdown blueprint. Markup instructions, layout minutiae
+  and regulation edge cases are gone. `afmc_moa` gains a `main` description
+  saying its sections print in DoDI 4000.19 order whatever order the cards are
+  added in. Schemas and rendering are unchanged; `usaf_memo@0.2.0` keeps its
+  descriptions.
+
+
 ## v0.35.1 - 2026-10-01
 
 - Remove the DEROS extension request template

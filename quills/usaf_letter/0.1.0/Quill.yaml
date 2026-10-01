@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "Paragraphs are indented and take no number or letter, with one blank line between them. Put lines that stand as written, such as a roster of names or an address, in a block quote, typeset flush with the margin. End a line with a backslash to break it. The last paragraph may give your DSN and commercial telephone numbers and official email address."
+  description: "Write the letter as plain paragraphs; they aren't numbered. Use a block quote for lines that should stay as written, like an address. You can close with your phone number and email."
   ui:
     groups: [addressing, letterhead, classification, additional]
   fields:
@@ -20,7 +20,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "Your full rank and full name, then your duty title and mailing address, one line each. Printed on the second line below the date. Do not put a comma between the city and the state abbreviation."
+      description: "Your rank and full name, then your duty title and mailing address, one per line. Don't put a comma between city and state."
 
     letter_for:
       type: array
@@ -30,7 +30,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "The receiver's full rank and full name, then their duty title and mailing address, one line each. Printed on the third line below your own address. Do not put a comma between the city and the state abbreviation."
+      description: "The recipient's rank and full name, then their duty title and mailing address, one per line. Don't put a comma between city and state."
 
     salutation:
       type: plaintext
@@ -38,7 +38,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "The form of address for the receiver's rank followed by their last name, as in 'Dear Major Smith' — see 'Forms of Address, Salutation, and Complimentary Close' in AFH 33-337. Take no punctuation after the last name."
+      description: "The greeting, for example 'Dear Major Smith', with no punctuation after the name."
 
     date:
       type: date
@@ -46,7 +46,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "YYYY-MM-DD, printed as '15 September 2026' flush with the right margin. Leave blank to print a fillable PDF text field for the signer to type the date into when signing."
+      description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
 
     complimentary_close:
       type: plaintext
@@ -55,7 +55,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "Printed on the second line below the last line of text, above the signature block. AFH 33-337's 'Forms of Address, Salutation, and Complimentary Close' tables give the close each receiver takes; 'Sincerely' is the usual one."
+      description: "The closing above your signature. 'Sincerely' suits most letters."
 
     signature_block:
       type: array
@@ -65,7 +65,7 @@ main:
       ui:
         group: addressing
         compact: true
-      description: "Name in UPPERCASE as signed, grade, and service, as in 'FIRST M. LAST, Col, USAF', printed on the fifth line below the complimentary close. A personal letter does not carry the sender's duty title, which the heading has already given."
+      description: "Your name in uppercase, grade, and service, for example 'FIRST M. LAST, Col, USAF'. A personal letter leaves out the duty title."
 
     letterhead_title:
       type: array
@@ -76,7 +76,7 @@ main:
         - DEPARTMENT OF THE AIR FORCE
       ui:
         group: letterhead
-      description: "Letterhead lines, top to bottom, all rendered in uppercase. The first is the department title, set larger than the rest. Change that line only for a Joint Command or a DoW agency. The lines below it are your unit's full organization name."
+      description: "The letterhead, in uppercase. Keep the first line unless you work for a joint command or a DoW agency, and add your unit's full name on the lines below it."
 
     letterhead_seal:
       type: enum
@@ -87,7 +87,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Department of War (DoW) or Department of Defense (DoD) seal, shown at the top left of the letterhead."
+      description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
 
     letterhead_seal_subtitle:
       type: plaintext
@@ -96,7 +96,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Bold-caps line below the seal. Nothing prints when it is blank."
+      description: "An optional line in bold capitals under the seal."
 
     tag_line:
       type: richtext
@@ -105,7 +105,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Organizational motto, centered in the footer of every page in small caps. Supports *italics*; bold prints regular."
+      description: "Your unit's motto, centered at the bottom of every page."
 
     classification:
       type: enum
@@ -119,27 +119,27 @@ main:
       ui:
         group: classification
         compact: true
-      description: "Classification marking, banner-printed at the top and bottom of every page. Leave blank for no banner, which is what an unclassified document normally carries. Mark per DAFI 16-1404, DoDM 5200.48 for CUI, and applicable DoD guidance."
+      description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
       variants:
         CUI:
           controlled_by:
             type: plaintext
             inline: true
-            description: "Office or organization that designated this information as CUI, such as 'SAF/AA'. Required by DoDM 5200.48."
+            description: "The office that designated this information as CUI, for example 'SAF/AA'."
           poc:
             type: plaintext
             inline: true
-            description: "Point of contact for CUI questions, with phone and email, as in 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'. Required by DoDM 5200.48."
+            description: "Who to contact with questions about this CUI, with phone and email, for example 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'."
           category:
             type: plaintext
             inline: true
             default: ""
-            description: "CUI category from the DoD CUI Registry, such as 'Privacy/MED', 'CTI', or 'PRVCY'. Leave blank to omit."
+            description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
           limited_dissemination:
             type: plaintext
             inline: true
             default: ""
-            description: "Limited dissemination control shown in the indicator block, such as 'FEDONLY' or 'NOFORN'; rendered in uppercase. The banner's own suffix is the separate Dissemination field."
+            description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
 
     dissemination:
       type: plaintext
@@ -148,7 +148,7 @@ main:
       ui:
         group: classification
         compact: true
-      description: "Suffix appended to the banner after a double slash, rendered in uppercase: 'NF' prints as CUI//NF. Leave blank for no suffix."
+      description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
 
     cc:
       type: array
@@ -168,7 +168,7 @@ main:
       default: []
       ui:
         group: additional
-      description: "Attachments in the order the letter mentions them. Describe each briefly and give its date; do not write 'as stated' or abbreviate. A lone attachment prints unnumbered, two or more are numbered. Italicize publication titles with *asterisks*."
+      description: "Attachments in the order the letter mentions them. Describe each briefly and include its date. Don't write 'as stated'."
 
     font_size:
       type: number
@@ -176,4 +176,4 @@ main:
       ui:
         group: additional
         compact: true
-      description: "Body text size in points; decimals allowed, such as 11.5. AFH 33-337 specifies 12."
+      description: "Body text size in points. The standard is 12."
