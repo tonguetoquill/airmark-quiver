@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- **A USAF Personal Letter template is added.** `usaf_letter.md`, listed in
+  `templates.json` as `usaf-letter`, is a placeholder personal letter on
+  `usaf_letter@0.1` whose body says how to write one. Its date is left blank,
+  so the PDF carries a fillable date field for the signer.
+
 ## v0.35.3 - 2026-10-01
 
 - docs(classic_resume): Futurama-themed experience, New New York location
