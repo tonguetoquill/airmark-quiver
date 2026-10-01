@@ -2,12 +2,15 @@
 
 ## Unreleased
 
-- **`usaf_memo` templates and the `usaf_memo@0.3.0` example are dated
-  `today`.** The USAF Memo, USSF Memo, Appointment Letter, Pass Request and
-  Rebuttal templates set the memo's `date` to `today`, as do the example's memo
-  and indorsement, so each renders with the day it is opened. Clear the date
-  to get a fillable date field instead. The Pass Request indorsement stays
-  blank for the commander to date. The schema default is unchanged.
+- **Signing and briefing dates in the templates and examples read `today`.**
+  The USAF Memo, USSF Memo, Appointment Letter, Pass Request, Rebuttal and
+  USAF Personal Letter templates set their `date` to `today`, and the DAF Form
+  4392 template its `briefed_date`, so each prints the day it is opened. A
+  memo or letter whose date is cleared gets a fillable date field. The `usaf_memo@0.3.0`,
+  `usaf_memo@0.2.0` and `usaf_letter@0.1.0` examples date their memo, letter
+  and indorsements `today`. The Pass Request indorsement stays blank for the
+  commander to date. Dates of past events and planned travel keep fixed values,
+  and no schema default changes.
 
 ## v0.35.4 - 2026-10-01
 
