@@ -10,6 +10,7 @@ memo_for:
 memo_from:
   - ORG/SYMBOL
 subject: Your Subject Here
+date: today
 signature_block:
   - FIRST M. LAST, Rank, USAF
 tag_line: Aim High

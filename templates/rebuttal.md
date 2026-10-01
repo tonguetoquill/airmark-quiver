@@ -10,6 +10,7 @@ memo_for:
 memo_from:
   - Subject's ORG/SYMBOL
 subject: Response to Letter of Counseling, Late Arrival to Formation, dated 10 March 2026
+date: today
 signature_block:
   - Subject's FIRST M. LAST, Rank, USAF
   - Duty Title

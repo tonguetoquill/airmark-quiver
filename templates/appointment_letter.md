@@ -9,6 +9,7 @@ memo_for:
 memo_from:
   - YOUR ORG/CC
 subject: Appointment of Primary and Alternate Program Managers
+date: today
 references:
   - "DAFI XX-XXXX, DD Month YYYY, *Title of the Governing Publication*"
 signature_block:

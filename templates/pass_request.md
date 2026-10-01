@@ -10,6 +10,7 @@ memo_for:
 memo_from:
   - 2d Lt First M. Last
 subject: 15 May 2026 – 18 May 2026, Special Pass Request
+date: today
 references:
   - DAFI 36-3003, 07 August 2024, Military Leave Program
 signature_block:
