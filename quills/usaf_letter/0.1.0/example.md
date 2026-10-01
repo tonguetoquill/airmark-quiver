@@ -1,6 +1,6 @@
 ~~~
 $quill: usaf_letter
-date: 2026-09-15
+date: today
 letterhead_title:
   - DEPARTMENT OF THE AIR FORCE
   - 123D EXAMPLE SQUADRON

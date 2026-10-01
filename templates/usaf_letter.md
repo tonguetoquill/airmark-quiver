@@ -17,6 +17,7 @@ letter_for:
   - Street Address
   - City ST 12345-6789
 salutation: Dear Rank Last
+date: today
 complimentary_close: Sincerely
 signature_block:
   - FIRST M. LAST, Rank, USAF
@@ -24,7 +25,7 @@ tag_line: Aim High
 $ext:
   editor:
     tips:
-      - Leave the date blank to sign and date the PDF by hand, or set it to the day you sign.
+      - The date prints the day you open the letter. Clear it to sign and date the PDF by hand.
       - Spell out the rank in the address lines (Major, not Maj) and write the salutation with no punctuation after the name.
       - Paragraphs are not numbered; write them as plain prose.
 ~~~
