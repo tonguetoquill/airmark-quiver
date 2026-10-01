@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **A Classic Resume template is added.** `classic_resume.md`, listed in
+  `templates.json` as `classic-resume`, is a filled-in one-page resume on
+  `classic_resume@0.1`.
+
+- **`classic_resume@0.1.0`'s example is rewritten** around a new sample
+  person, Nibs Bin; its schema is unchanged.
+
 - **Field descriptions are rewritten to be short and plain.** Every hint in
   `usaf_memo@0.3.0`, `usaf_letter`, `af4141`, `daf1206`, `daf4392`,
   `afmc_moa`, `classic_resume` and `cyber_career_plan` now says what the field

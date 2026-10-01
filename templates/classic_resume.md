@@ -1,5 +1,5 @@
 ~~~
-$quill: classic_resume
+$quill: classic_resume@0.1
 $kind: main
 name: Nibs Bin
 contacts:
