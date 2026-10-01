@@ -28,13 +28,6 @@
     "tags": ["discipline", "lor", "loc"]
   },
   {
-    "id": "pass-request",
-    "name": "Pass Request",
-    "description": "USAF special pass request memorandum template",
-    "file": "pass_request.md",
-    "tags": ["leave", "travel"]
-  },
-  {
     "id": "af-form-4141",
     "name": "AF Form 4141",
     "description": "Individual's Record of Duties and Experience, Ground Environment Personnel",

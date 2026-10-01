@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **The Pass Request template is removed.** `pass_request.md` and its
+  `pass-request` entry in `templates.json` are gone.
+
 ## v0.35.5 - 2026-10-01
 
 - Date the remaining signing and briefing dates to today
