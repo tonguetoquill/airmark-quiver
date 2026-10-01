@@ -11,7 +11,7 @@ typst:
 # heading, optional prose under it, and the rows that section holds. The rows
 # are the section's own, so an entry cannot land under the wrong heading.
 main:
-  description: "Your name and contacts head the page. Each section under them is a card, printed in the order the cards stand: add a card for every section you want."
+  description: "Your name and contact details go at the top. Add a card for each section, in the order you want them."
   ui:
     groups: [identity, page]
   # Everything prints under a section heading, so main carries no body: a
@@ -23,7 +23,7 @@ main:
       type: string
       ui:
         group: identity
-      description: "Your name as you want it read, set large at the top. It also titles the exported PDF."
+      description: "Your name as you want it read. It also names the PDF."
 
     contacts:
       type: array
@@ -31,7 +31,7 @@ main:
         type: string
       ui:
         group: identity
-      description: "How to reach you, one per line and the one you want used first: an email address, a phone number, a profile such as linkedin.com/in/you, a city. They print in that order across the page under your name, a diamond between each. An email address, a web address or a phone number becomes a live link in the PDF."
+      description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
 
     paper:
       type: enum
@@ -50,7 +50,7 @@ main:
       ui:
         group: page
         compact: true
-      description: "Body text size in points, such as 11 or 11.5. Along with the margin, this is the lever for fitting a resume onto one page — drop a half point before you drop a bullet."
+      description: "Body text size in points. To fit one page, try a half point smaller before cutting content."
 
     margin:
       type: number
@@ -58,7 +58,7 @@ main:
       ui:
         group: page
         compact: true
-      description: "Page margin in inches, the same on all four sides. The layout is dense by design; below about 0.4 a printer starts clipping."
+      description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
 
 
 # Each kind opens with the heading it prints. Its `default:` is the usual one,
@@ -67,7 +67,7 @@ main:
 card_kinds:
   summary:
     title: Summary
-    description: "Prose under a heading: a few lines on who you are and the work you want next. Retitled, it is any section that is only prose, such as an objective."
+    description: "A few lines on who you are and the work you want next. Rename it for any section that's just text, such as an objective."
     seed:
       $body: An engineer. Likes climbing rocks and making useful things.
     fields:
@@ -75,11 +75,11 @@ card_kinds:
         type: plaintext
         inline: true
         default: Summary
-        description: "Printed in uppercase over a rule. An empty title prints no heading, so a summary that is the first card sits straight under your name."
+        description: "The section heading. Leave blank to omit it; a summary at the top then sits right under your name."
 
   experience:
     title: Experience
-    description: "Jobs, most recent first: employer and dates on the first line, role and location on the second, details under them. Prose written under the card prints under the heading, ahead of the jobs."
+    description: "Your jobs, most recent first."
     seed:
       jobs:
         - company: Employer
@@ -93,7 +93,7 @@ card_kinds:
         type: plaintext
         inline: true
         default: Work Experience
-        description: &title_description "Printed in uppercase over a rule. An empty title prints no heading."
+        description: &title_description "The section heading. Leave blank to omit it."
       jobs:
         type: array
         items:
@@ -102,31 +102,31 @@ card_kinds:
             company:
               type: plaintext
               inline: true
-              description: "Set in bold at the left of the first line."
+              description: "The employer's name."
             dates: &dates
               type: plaintext
               inline: true
               default: ""
-              description: "Set in bold at the right of the first line. Free text rather than a date, so a range reads as you write it: 'August 2024 – Present', 'December 2025'. Keep the form the same down the page."
+              description: "Written as you want it to read, for example 'August 2024 – Present'. Use the same style throughout."
             role:
               type: plaintext
               inline: true
               default: ""
-              description: "Your title, set in italics under the employer. Leave blank to omit."
+              description: "Your job title."
             location: &location
               type: plaintext
               inline: true
               default: ""
-              description: "Set in italics at the right of the second line. 'Pittsburgh, PA', 'Remote'. Leave blank to omit; with the line's other half blank too, the second line is not printed."
+              description: "Where it was, for example 'Pittsburgh, PA' or 'Remote'."
             details: &details
               type: richtext
               default: ""
-              description: "Set under the entry. Usually a bulleted list, one line each and strongest first; a sentence, *italics* and **bold** set as well, and a heading sets as a bold line. Leave blank for nothing under the entry."
-        description: "One row per job. A row is kept to one page, unless it is taller than a page."
+              description: "What you did, usually as short bullets with the strongest first."
+        description: "One entry per job."
 
   education:
     title: Education
-    description: "Schools, most recent first: school and date on the first line, degree and location on the second. Prose written under the card prints under the heading, ahead of the schools."
+    description: "Your schools, most recent first."
     seed:
       schools:
         - school: School
@@ -147,22 +147,22 @@ card_kinds:
             school:
               type: plaintext
               inline: true
-              description: "Set in bold at the left of the first line."
+              description: "The school's name."
             dates: *dates
             degree:
               type: plaintext
               inline: true
               default: ""
-              description: "Degree and field, set in italics under the school. Leave blank to omit."
+              description: "Degree and field of study."
             location: *location
             details:
               <<: *details
-              description: "Honors, activities, coursework, set under the entry. Most degrees need none."
-        description: "One row per school or degree."
+              description: "Honors, activities, or coursework. Most entries need none."
+        description: "One entry per school or degree."
 
   skills:
     title: Skills
-    description: "Skills in labelled groups, filled across the columns and then down. Prose written under the card prints under the heading, ahead of the groups."
+    description: "Your skills, in labeled groups."
     seed:
       skills:
         - label: Category
@@ -183,22 +183,22 @@ card_kinds:
             label:
               type: plaintext
               inline: true
-              description: "Set in bold, with its items on the line under it. Leave blank to print the items alone."
+              description: "The group's name, for example 'Languages'. Leave blank to list the skills alone."
             items:
               type: plaintext
               inline: true
-              description: "Usually comma separated. Printed as written — markup is the one thing a labeled row does not carry."
-        description: "One label and its items per row."
+              description: "The skills in this group, separated by commas."
+        description: "One group per row."
       columns: &columns
         type: integer
         default: 2
         ui:
           compact: true
-        description: "Number of columns. Two suits items that run most of a line; three suits single words."
+        description: "Number of columns. Two suit longer items; three suit single words."
 
   projects:
     title: Projects
-    description: "Projects: name and link on the first line, details under them. Prose written under the card prints under the heading, ahead of the projects."
+    description: "Your projects, each with an optional link."
     seed:
       projects:
         - name: Project
@@ -219,17 +219,17 @@ card_kinds:
             name:
               type: plaintext
               inline: true
-              description: "Set in bold at the left."
+              description: "The project's name."
             link:
               type: string
               default: ""
-              description: "Where to see it, set small and italic at the right as written: github.com/you/project reads better than its https:// form. A web address, an email address or a phone number becomes a live link; anything else, such as 'closed source', prints as written. Leave blank to omit."
+              description: "Where to see it, for example github.com/you/project. It prints as written, so leave off https://."
             details: *details
-        description: "One row per project."
+        description: "One entry per project."
 
   certifications:
     title: Certifications
-    description: "A list filled across the columns and then down. Retitled, it holds any short items: awards, languages, clearances. Prose written under the card prints under the heading, ahead of the list."
+    description: "A short list in columns. Rename it for awards, languages, clearances, or similar."
     seed:
       items:
         - Certification (ABBREVIATION)
@@ -244,12 +244,12 @@ card_kinds:
         items:
           type: richtext
           inline: true
-        description: "One item per line. Keep each to a line at the column width. Italicize with *asterisks*."
+        description: "One per line, short enough to fit its column."
       columns: *columns
 
   other:
     title: Other section
-    description: "A section the kinds above do not name — volunteer work, military service, publications, a competition. Rows take the Experience shape with neutral names. Prose written under the card prints under the heading, ahead of the rows."
+    description: "Any other section, such as volunteer work, military service, or publications."
     seed:
       title: Section Title
       entries:
@@ -260,7 +260,7 @@ card_kinds:
       title:
         type: plaintext
         inline: true
-        description: "Printed in uppercase over a rule. This section has no usual heading, so this one is yours to write."
+        description: "The section heading."
       entries:
         type: array
         items:
@@ -269,13 +269,13 @@ card_kinds:
             heading:
               type: plaintext
               inline: true
-              description: "Set in bold at the left of the first line."
+              description: "The entry's name, such as an organization or publication."
             dates: *dates
             subtitle:
               type: plaintext
               inline: true
               default: ""
-              description: "Set in italics under the heading. Leave blank to omit."
+              description: "A second line, such as your role."
             location: *location
             details: *details
-        description: "One row per item. A section that is only prose is a Summary with a title of its own."
+        description: "One entry per item."

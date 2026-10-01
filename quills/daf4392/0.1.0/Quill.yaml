@@ -15,97 +15,97 @@ main:
       type: enum
       values: [pmv, airplane, bus, train, motorcycle, other]
       default: pmv
-      description: "Matches the check box."
+      description: "How you're traveling."
 
     departure_date:
       type: date
       default: ""
       ui:
         compact: true
-      description: "Date of initial departure."
+      description: "The day you leave."
 
     final_destination:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Final travel destination, as in City, ST."
+      description: "Where you're going, for example Denver, CO."
 
     dept_flight_num:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Departure flight number. (tenative or confirmed)"
+      description: "Your departure flight number, if you're flying. A tentative number is fine."
 
     arrival_flight_num:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Arrival flight number. (tenative or confirmed)"
+      description: "Your arrival flight number, if you're flying. A tentative number is fine."
 
     notes:
       type: string
       default: ""
-      description: "Additional notes or remarks for the travel."
+      description: "Anything else about your trip."
 
     organization:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Unit / Organization."
+      description: "Your unit."
 
     briefed_date:
       type: date
       default: ""
       ui:
         compact: true
-      description: "Put in today's date."
+      description: "The date of the briefing."
 
     briefee_name:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Put in your Name (Last, First)."
+      description: "Your name as Last, First."
 
     briefee_grade:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Put in your Grade."
+      description: "Your grade."
 
     briefer_name:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Name of the person giving the briefing (Last, First)."
+      description: "The briefer's name as Last, First."
 
     briefer_grade:
       type: string
       default: ""
       ui:
         compact: true
-      description: "Grade of the person giving the briefing."
+      description: "The briefer's grade."
 
     emergency_contact_name:
       type: string
       default: ""
-      description: "Put in your Emergency Contact Name."
+      description: "Who to contact in an emergency."
 
     emergency_contact_phone:
       type: string
       default: ""
-      description: "Put in your Emergency Contact's Phone Number."
+      description: "Your emergency contact's phone number."
 
 card_kinds:
   itinerary:
     title: Proposed Travel Itinerary
-    description: "Each card represents one row in the travel itinerary table. Up to 10 rows are supported."
+    description: "One leg of your trip. The form holds up to 10."
     ui:
       groups: [itinerary_entry]
     body:
@@ -117,32 +117,32 @@ card_kinds:
         ui:
           group: itinerary_entry
           compact: true
-        description: "Date for the itinerary row."
+        description: "The date of this leg."
       departure_point:
         type: string
         default: ""
         ui:
           group: itinerary_entry
           compact: true
-        description: "Point of departure."
+        description: "Where this leg starts."
       arrival_point:
         type: string
         default: ""
         ui:
           group: itinerary_entry
           compact: true
-        description: "Point of arrival."
+        description: "Where this leg ends."
       rest_length:
         type: string
         default: ""
         ui:
           group: itinerary_entry
           compact: true
-        description: "Duration of stay at arrival point"
+        description: "How long you'll stay."
       mileage:
         type: string
         default: ""
         ui:
           group: itinerary_entry
           compact: true
-        description: "Approximate mileage for this leg (leave blank if not applicable, e.g., flights)."
+        description: "Approximate miles for this leg. Leave blank for flights."
