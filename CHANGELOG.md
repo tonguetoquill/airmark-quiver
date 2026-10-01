@@ -32,6 +32,9 @@
 
 ## Unreleased
 
+- **The DEROS extension request template is removed.** `deros_extension.md`
+  and its `deros-extension` entry in `templates.json` are gone.
+
 - **`cyber_ribbon_chart` is renamed `cyber_career_plan`.** The quill is a
   prototype, so 0.0.1 is renamed in place and no `cyber_ribbon_chart` is left
   to resolve: a document needs its `$quill:` line rewritten to
