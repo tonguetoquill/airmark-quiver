@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.35.3 - 2026-10-01
+
+- docs(classic_resume): Futurama-themed experience, New New York location
+
+
 ## v0.35.2 - 2026-10-01
 
 - classic_resume: set Certifications and Skills at the margin
