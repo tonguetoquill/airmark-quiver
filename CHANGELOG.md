@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- **`usaf_memo@0.3.0` and `usaf_letter@0.1.0` print lowercase italics in the
+  tag line.** Spectral SC turns every lowercase letter into a small capital,
+  italic included, so a motto in `*italics*` could not be set in lowercase.
+  Italic runs now switch off the font's `ccmp` feature, which carries that
+  substitution, and print Spectral's own italic lowercase. Roman text in the
+  tag line still prints in small capitals, and the field's description says
+  so.
+
 ## v0.35.6 - 2026-10-01
 
 - Remove pass request template

@@ -105,7 +105,7 @@ main:
       ui:
         group: letterhead
         compact: true
-      description: "Your unit's motto, centered at the bottom of every page."
+      description: "Your unit's motto, centered at the bottom of every page. It prints in small capitals, except *italics*, which keep their lowercase."
 
     classification:
       type: enum

@@ -131,6 +131,7 @@
           bottom + center,
           dy: -0.625in,
           align(center)[
+            #show emph: set text(features: (ccmp: 0))
             #text(fill: LETTERHEAD_COLOR, font: "Spectral SC", size: 15pt)[#footer-tag-line]
           ],
         )
