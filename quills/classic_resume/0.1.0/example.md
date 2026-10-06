@@ -1,12 +1,11 @@
 ~~~
 $quill: classic_resume
 $kind: main
-name: Nibs Bin
+name: Philip J. Fry
 contacts:
-  - nibs@tonguetoquill.com
-  - (333) 333-3333
-  - github.com/nibsbin
-  - linkedin.com/in/nibsbin/
+  - fry@planetexpress.example
+  - (212) 555-0199
+  - github.com/borb-sh
   - New New York
 paper: us-letter
 font_size: 11.5
@@ -14,96 +13,91 @@ margin: 0.5
 ~~~
 
 ~~~
+$kind: summary
+~~~
+
+Delivery boy with a thousand years of experience, most of it frozen. Brings 20th-century know-how to 31st-century problems and has saved Earth more than once. Wants to keep delivering anywhere, ideally with fewer space bees.
+
+~~~
 $kind: certifications
 title: Certifications
 columns: 2
 items:
-  - Offensive Security Certified Professional (OSCP)
-  - GIAC Cyber Threat Intelligence (GCTI)
-  - CompTIA CASP+, CySA+, Sec+, Net+, A+, Proj+
-  - GIAC Machine Learning Engineer (GMLE)
+  - "Career Chip: Delivery Boy"
+  - Earth Army Basic Training
+  - First Aid, taught by Dr. Zoidberg
+  - Food Handler's Permit, New York
 ~~~
 
 ~~~
 $kind: skills
 columns: 2
 skills:
-  - label: Programming
-    items: Python, R, JS, C#, Rust, PowerShell, CI/CD
-  - label: Data Science
-    items: ML/statistics, TensorFlow, AI Engineering
-  - label: IT & Cybersecurity
-    items: AD DS, Splunk, Metasploit, Wireshark, Nessus
-  - label: Cloud
-    items: AWS EC2/S3, Helm, Docker, Serverless
+  - label: Logistics
+    items: Packages, pizza, interplanetary freight
+  - label: 20th-Century Culture
+    items: TV, arcade games, Star Trek trivia
+  - label: Music
+    items: Holophonor, opera composition
+  - label: Endurance
+    items: Cryogenic sleep, 100 cups of coffee
 ~~~
 
 ~~~
 $kind: experience
 jobs:
-  - company: Planet Express Delivery Division
-    dates: August 2024 – Present
-    role: Interstellar Logistics Analyst
+  - company: Planet Express
+    dates: December 2999 – Present
+    role: Delivery Boy
     location: New New York
     details: |-
-      - Analyzed dark matter fuel combustion following the Nibblonian incident, developing safeguards to protect remaining ship engine infrastructure.
+      - Deliver packages anywhere in the universe with Captain Turanga Leela and Bender Bending Rodríguez.
 
-      - Building automated hazard detection pipelines using Bender's antenna arrays to monitor Omicronian threat signatures across the sector.
-  - company: MomCorp Robotics Academy
-    dates: May 2025 – July 2025
-    role: Robot Firmware Trainee
-    location: Mars Vegas
-    details: "- Developed behavior-inhibitor firmware for MomCorp robots integrating real-time Slurm demand intelligence."
-  - company: DOOP Starship Nimbus
-    dates: January 2018 – June 2020
-    role: Combat Engineer
-    location: Vergon 6
-    details: "- Administrated Nimbus shipboard systems, Kif's maintenance logs, and killbot defense automation for 30,000+ crew."
+      - Completed runs to robot-only Chapek 9 and a hive of giant space bees, and survived both.
+  - company: Earth Army
+    dates: November 3000
+    role: Private
+    location: Spheron 1
+    details: "- Enlisted for the military discount; deployed against the Spheroids under Zapp Brannigan."
+  - company: Panucci's Pizza
+    dates: June 1997 – December 1999
+    role: Delivery Boy
+    location: New York, NY
+    details: "- Delivered pizza across New York City until a prank order to Applied Cryogenics ran 1,000 years late."
 title: Experience
 ~~~
 
 ~~~
 $kind: education
 schools:
-  - school: Carnegie Mellon University
-    dates: December 2025
-    degree: Master of Information Technology Strategy
-    location: Pittsburgh, PA
-  - school: United States Air Force Academy
-    dates: May 2024
-    degree: BS, Data Science
-    location: Colorado Springs, CO
-    details: |-
-      - Distinguished Graduate (top 10%); Chinese language minor (L2+/R1 on DLPT).
-
-      - Professor Bradley A. Warner Data Science Catalyst and Top Cadet in Computer Networks.
-  - school: Community College of the Air Force
-    dates: February 2029
-    degree: AS, Information Systems Technology
-    location: Online
+  - school: Mars University
+    dates: September 3000
+    degree: Undeclared, no degree
+    location: Mars
 ~~~
 
 ~~~
 $kind: other
-title: Cyber Competition
+title: Planetary Defense
 entries:
-  - heading: 1st in SANS Academy Cup 2024
-    details: "- Competed as the Delogrand Web Exploit SME, solving SQLi, API, and HTTP packet crafting problems."
-  - heading: 1st in NCX 2023
+  - heading: Saved Earth from the Brainspawn
+    details: "- Held the line as the only human immune to the Brainspawn, thanks to a missing Delta brainwave."
+  - heading: Ended the Omicronian Invasion
     details: |-
-      - Developed strategies, defensive scripts, and exploits for the Cyber Combat event.
+      - Restaged the lost finale of *Single Female Lawyer* for Lrrr, ruler of the planet Omicron Persei 8.
 
-      - Analyzed logs with Bash and Python for the Data Analysis event.
+      - Caused the crisis in the first place by knocking the original broadcast off the air in 1999.
+  - heading: Deflected a Giant Ball of Garbage
+    details: "- Helped knock it off course with a second ball of garbage, built on 20th-century expertise."
 ~~~
 
 ~~~
 $kind: projects
 title: Projects
 projects:
-  - name: TongueToQuill
-    link: tonguetoquill.com
-    details: "- Rich markdown editor for perfectly formatted USAF and USSF documents with Claude MCP integration."
   - name: Quillmark
-    link: github.com/nibsbin/quillmark
-    details: "- Data-driven document engine for generating arbitrarily typesetted documents from markdown."
+    link: github.com/borb-sh/quillmark
+    details: "- Schema-driven document engine that delivers typeset documents from Markdown, this resume included."
+  - name: Holophonor Opera
+    details: "- Wrote and performed an opera about Leela on the holophonor, using the Robot Devil's hands."
 ~~~
