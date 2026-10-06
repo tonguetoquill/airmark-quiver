@@ -5,6 +5,7 @@ name: Philip J. Fry
 contacts:
   - fry@planetexpress.example
   - (212) 555-0199
+  - github.com/borb-sh/quillmark
   - New New York
 paper: us-letter
 font_size: 11.5
@@ -94,9 +95,9 @@ entries:
 $kind: projects
 title: Projects
 projects:
-  - name: New Justice Team
-    link: newjusticeteam.example
-    details: "- Fought crime as Captain Yesterday with Clobberella and Super King, powered by Miracle Cream."
+  - name: Quillmark
+    link: github.com/borb-sh/quillmark
+    details: "- Schema-driven document engine that delivers typeset documents from Markdown, this resume included."
   - name: Holophonor Opera
     details: "- Wrote and performed an opera about Leela on the holophonor, using the Robot Devil's hands."
 ~~~
