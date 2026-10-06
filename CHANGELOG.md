@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- **Take `@quillmark/wasm` 0.122.0, `@quillmark/quiver` 0.34.0 and `quillkit`
+  0.14.0.** Every quill, example and template renders as before. Under 0.122
+  only `true` and `false` are YAML booleans, so an unquoted `yes`, `no`, `on`,
+  `off`, `y` or `n` reads as text, and fails validation under a `boolean`
+  field; no quill, example or template writes one.
+
 ## v0.35.6 - 2026-10-01
 
 - Remove pass request template

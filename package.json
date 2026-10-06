@@ -18,9 +18,9 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@quillmark/quiver": "0.33.0",
-    "@quillmark/wasm": "^0.121.0",
-    "quillkit": "0.13.0"
+    "@quillmark/quiver": "0.34.0",
+    "@quillmark/wasm": "^0.122.0",
+    "quillkit": "0.14.0"
   },
   "scripts": {
     "test": "quillkit test && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
