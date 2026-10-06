@@ -5,7 +5,7 @@ name: Philip J. Fry
 contacts:
   - fry@planetexpress.example
   - (212) 555-0199
-  - github.com/borb-sh/quillmark
+  - github.com/borb-sh
   - New New York
 paper: us-letter
 font_size: 11.5
