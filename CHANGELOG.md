@@ -8,6 +8,10 @@
   `off`, `y` or `n` reads as text, and fails validation under a `boolean`
   field; no quill, example or template writes one.
 
+- **The Classic Resume template and `classic_resume@0.1.0`'s example are
+  rewritten** around a new sample person, Philip J. Fry; the schema is
+  unchanged.
+
 ## v0.35.6 - 2026-10-01
 
 - Remove pass request template
