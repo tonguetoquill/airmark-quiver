@@ -12,6 +12,12 @@ margin: 0.5
 ~~~
 
 ~~~
+$kind: summary
+~~~
+
+Delivery boy with a thousand years of experience, most of it frozen. Brings 20th-century know-how to 31st-century problems and has saved Earth more than once. Wants to keep delivering anywhere, ideally with fewer space bees.
+
+~~~
 $kind: certifications
 title: Certifications
 columns: 2

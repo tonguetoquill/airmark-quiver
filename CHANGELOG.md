@@ -9,8 +9,8 @@
   field; no quill, example or template writes one.
 
 - **The Classic Resume template and `classic_resume@0.1.0`'s example are
-  rewritten** around a new sample person, Philip J. Fry; the schema is
-  unchanged.
+  rewritten** around a new sample person, Philip J. Fry, and open with a
+  Summary card; the schema is unchanged.
 
 ## v0.35.6 - 2026-10-01
 
