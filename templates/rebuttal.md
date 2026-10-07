@@ -14,6 +14,11 @@ date: today
 signature_block:
   - Subject's FIRST M. LAST, Rank, USAF
   - Duty Title
+$ext:
+  editor:
+    tips:
+      - Paragraphs are numbered for you. Start a line with `- ` to make a lettered sub-paragraph (a., b., c.), and press Tab to nest it under the one above.
+      - List the documents you attach in Attachments, in the Additional group above the body.
 ~~~
 
 <!-----------------------------------------------------

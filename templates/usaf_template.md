@@ -17,14 +17,16 @@ tag_line: Aim High
 $ext:
   editor:
     tips:
+      - Start a line with `- ` to make a lettered sub-paragraph (a., b., c.). Press Tab to nest it under the one above, and Shift+Tab to move it back up.
+      - Paragraphs are numbered for you. For lines that should not be numbered, such as a list of names, start the line with `> `.
+      - Attachments, cc, and distribution are in the Additional group above the body.
       - Click "Add Card" below to add an indorsement.
-      - Type `/` for bullets, tables, and more.
-      - Deeply customize the document in form fields above the body.
+      - Type `/` to insert a list, table, or quote.
 ~~~
 Write your paragraphs here.
 
-- Use bullets to nest paragraphs.
-  - Indent to go deeper.
+- Start a line with a dash to make a lettered sub-paragraph.
+  - Press Tab on a sub-paragraph to nest it under the one above.
 
 You can also **bold**, *italicize*, <u>underline</u>, `code`, and ~~strikethrough~~ your text.
 
