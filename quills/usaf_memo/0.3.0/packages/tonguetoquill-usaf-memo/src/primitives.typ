@@ -197,7 +197,10 @@
 // spaces to the right of page center"
 // AFH 33-337 "Do not place the signature element on a continuation page by itself"
 // AFH 33-337 long-name example: "Signature block adjusted to the left" when a
-// long name would otherwise exceed the right margin.
+// long name would otherwise exceed the right margin. Only the name line moves
+// the block; any other line that runs long wraps, its overflow beginning "under
+// the third character of the line above". The handbook gives no measurement,
+// so the indent is the width of the line's own first two characters.
 //
 // A closing line may open the section above the block, and AFH 33-337 gives it
 // one geometry across the two documents that have one: on the second line below
@@ -214,6 +217,17 @@
 /// - value (str | content | none): The authority line as authored
 /// -> content | none
 #let format-authority-line(value) = if falsey(value) { none } else { upper(value) }
+
+// A signature line arrives as `str` or as content; the indent measures its text.
+#let plain-text(it) = {
+  if type(it) == str { return it }
+  if type(it) != content { return "" }
+  if it.has("text") { return plain-text(it.text) }
+  if it.has("children") { return it.children.map(plain-text).join(default: "") }
+  if it.has("body") { return plain-text(it.body) }
+  if it.has("child") { return plain-text(it.child) }
+  ""
+}
 
 #let render-signature-block(
   signature-lines,
@@ -234,11 +248,11 @@
   // anchor. pad() is relative to the text area, hence (4.5in - margin).
   let default-pad = 4.5in - spacing.margin
   context {
-    // Measure each line at its rendered settings to detect long-name overflow.
-    // The closing line shares the anchor, so it joins the measurement: the
-    // wider of the two decides the shift and they stay aligned.
+    // Measure the name line at its rendered settings to detect long-name
+    // overflow. The closing line shares the anchor, so it joins the
+    // measurement: the wider of the two decides the shift and they stay aligned.
     let body-width = page.width - 2 * spacing.margin
-    let anchored-lines = signature-lines
+    let anchored-lines = signature-lines.slice(0, calc.min(1, signature-lines.len()))
     if closing-line != none { anchored-lines.push(closing-line) }
     let widest = 0pt
     for line in anchored-lines {
@@ -305,9 +319,9 @@
         #pad(left: left-pad)[
           #text(hyphenate: false)[
             #for line in signature-lines {
-              // AFH 33-337: "indent the next line to begin under the third character
-              // of the line above" — 2-character indent ≈ 1em in Times New Roman 12pt
-              par(hanging-indent: .5em, line)
+              let clusters = plain-text(line).clusters()
+              let lead = clusters.slice(0, calc.min(2, clusters.len())).join()
+              par(hanging-indent: measure(lead).width, line)
             }
             // The page the backmatter compares its own against. Must stay
             // inside the unbreakable block: a marker outside one travels with
