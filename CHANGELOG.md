@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **The USAF Memo, USSF Memo and Rebuttal templates teach sub-paragraphs.**
+  Their tips name the gesture (`- ` makes a lettered sub-paragraph, Tab nests
+  it, Shift+Tab moves it back up), say how to write an unnumbered line, and
+  point to Attachments. The `/` tip names the menu's own words.
+
 - **Take `@quillmark/wasm` 0.122.0, `@quillmark/quiver` 0.34.0 and `quillkit`
   0.14.0.** Every quill, example and template renders as before. Under 0.122
   only `true` and `false` are YAML booleans, so an unquoted `yes`, `no`, `on`,
