@@ -34,10 +34,11 @@ jobs:
 
       - name: Compute next version
         id: version
+        env:
+          RC: ${{ inputs.release_candidate }}
+          BUMP: ${{ inputs.bump }}
         run: |
           CURRENT=$(node -p "require('./package.json').version")
-
-          RC="${{ inputs.release_candidate }}"
 
           if [[ "$CURRENT" =~ ^([0-9]+\.[0-9]+\.[0-9]+)-rc\.([0-9]+)$ ]]; then
             RC_BASE="${BASH_REMATCH[1]}"
@@ -58,7 +59,7 @@ jobs:
             else
               IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
             fi
-            case "${{ inputs.bump }}" in
+            case "$BUMP" in
               minor) NEXT="${MAJOR}.$((MINOR + 1)).0" ;;
               patch) NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
             esac
@@ -71,11 +72,14 @@ jobs:
           echo "Bumping $CURRENT → $NEXT"
 
       - name: Bump package version
-        run: npm version "${{ steps.version.outputs.next }}" --no-git-tag-version
+        env:
+          VERSION: ${{ steps.version.outputs.next }}
+        run: npm version "$VERSION" --no-git-tag-version
 
       - name: Seed changelog entry
+        env:
+          VERSION: ${{ steps.version.outputs.next }}
         run: |
-          VERSION="${{ steps.version.outputs.next }}"
           DATE=$(date +%Y-%m-%d)
 
           LAST=$(git tag -l --sort=-v:refname \
@@ -105,8 +109,8 @@ jobs:
       - name: Push branch and open PR
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.next }}
         run: |
-          VERSION="${{ steps.version.outputs.next }}"
           BRANCH="release/v${VERSION}"
 
           git config user.name "github-actions[bot]"
