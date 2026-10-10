@@ -402,12 +402,15 @@
 /// AFH 33-337 does not specify table formatting, so this follows the general
 /// aesthetic of the standard: plain black borders, a bold header row, no
 /// decorative fills, and the body font and size inherited from the surrounding
-/// text.
+/// text. A table with no `table.header` (`<qm-table headless>`) has no bold row.
 ///
 /// - it (content): The table element to style and render
 /// -> content
 #let render-memo-table(it) = {
-  show table.cell.where(y: 0): set text(weight: "bold")
+  show table: t => if t.children.any(c => c.func() == table.header) {
+    show table.cell.where(y: 0): set text(weight: "bold")
+    t
+  } else { t }
   set table(
     stroke: 0.5pt + black,
     inset: (x: 0.5em, y: 0.4em),

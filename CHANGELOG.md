@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **A table with no header row prints its first row in the body weight** in
+  `usaf_memo@0.3.0` and `usaf_letter@0.1.0`, where it printed bold. Quillmark
+  0.124 spells such a table `<qm-table headless>` and lowers it with no
+  `table.header`; a table with a header row prints as before.
+
 - **Take `@quillmark/wasm` 0.122.0, `@quillmark/quiver` 0.34.0 and `quillkit`
   0.14.0.** Every quill, example and template renders as before. Under 0.122
   only `true` and `false` are YAML booleans, so an unquoted `yes`, `no`, `on`,
