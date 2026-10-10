@@ -61,5 +61,12 @@
     "description": "Classic single-page resume",
     "file": "classic_resume.md",
     "tags": ["resume", "career"]
+  },
+  {
+    "id": "cyber-career-plan",
+    "name": "Cyber Career Plan",
+    "description": "17X Cyber Operations Officer career plan: current assignment, vectors and record",
+    "file": "cyber_career_plan.md",
+    "tags": ["career", "cyber", "development"]
   }
 ]
