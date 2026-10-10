@@ -20,7 +20,7 @@
   "devDependencies": {
     "@quillmark/quiver": "0.36.0",
     "@quillmark/wasm": "^0.124.0",
-    "quillkit": "0.16.0"
+    "quillkit": "0.16.1"
   },
   "scripts": {
     "test": "quillkit test && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
