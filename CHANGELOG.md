@@ -2,8 +2,8 @@
 
 ## Unreleased
 
-- **Take `@quillmark/wasm` 0.124.0, `@quillmark/quiver` 0.35.0 and `quillkit`
-  0.15.0.** Every quill, example and template renders as before. Under 0.122
+- **Take `@quillmark/wasm` 0.124.0, `@quillmark/quiver` 0.36.0 and `quillkit`
+  0.16.0.** Every quill, example and template renders as before. Under 0.122
   only `true` and `false` are YAML booleans, so an unquoted `yes`, `no`, `on`,
   `off`, `y` or `n` reads as text, and fails validation under a `boolean`
   field; no quill, example or template writes one. Under 0.124 a
