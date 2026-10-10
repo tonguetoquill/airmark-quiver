@@ -116,6 +116,18 @@ python3 design/usaf_memo/check_continuation_note.py
 TYPST=/path/to/typst python3 design/usaf_memo/check_continuation_note.py
 ```
 
+A third: a table under a subparagraph hangs under that subparagraph's text, and
+a table that ends the body keeps the signature block off a page of its own. The
+check reads the table's left rule against the text it hangs under, beside a
+label wider than the next letter's, and sweeps a table of multi-line rows
+across a page of body lengths in USAF and DAF style.
+
+```sh
+# run from the repo root; needs a typst binary and pymupdf
+python3 design/usaf_memo/check_table_signature.py
+TYPST=/path/to/typst python3 design/usaf_memo/check_table_signature.py
+```
+
 ## usaf_letter
 
 Fixtures and a layout check for the `usaf_letter` quill.

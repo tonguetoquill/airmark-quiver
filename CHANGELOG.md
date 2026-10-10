@@ -16,6 +16,21 @@
 - **`usaf_memo` places a table where its `<qm-table align>` says**, centered
   or right, where the memo set every table flush left.
 
+- **A table inside a subparagraph of `usaf_memo@0.3.0` hangs under that
+  subparagraph's text** (#186), where it printed at the left margin. It takes
+  the offset a block quote there takes, in USAF and DAF style alike, and a
+  top-level table stays flush left. The table, its `<qm-table>` placement and
+  its `widths` measure against the width left beside the offset, so a weighted
+  or wide table stays inside the text column. A memo with a table under a
+  subparagraph reflows; one without renders as before.
+
+- **What hangs under a paragraph in `usaf_memo@0.3.0` lines up with its
+  text**, per AFH 33-337: its subparagraphs, continuation paragraphs, block
+  quotes and tables. Each was measured against the label of the paragraph
+  after it, so under `9.` they sat a digit's width right of the text, under
+  `h.` 2.7pt left and under `l.` 6.2pt right. A memo moves where a label and
+  the next one differ in width.
+
 - **A paragraph after a table, list, block quote or code block in
   `usaf_letter@0.1.0` sits a blank line below it**, where it ran into the
   block's last line.

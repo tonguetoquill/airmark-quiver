@@ -12,10 +12,20 @@
   paragraph-config.numbering-formats.at(level, default: "i.")
 }
 
+/// The number of the paragraph last emitted at a level. `level-counts` holds
+/// the number the next one takes, so this is one less, and 1 before any.
+///
+/// - level (int): Paragraph nesting level (0-based)
+/// - level-counts (dictionary): Maps level index strings to the next number at each level
+/// -> int
+#let emitted-number(level, level-counts) = {
+  calc.max(1, level-counts.at(str(level), default: 1) - 1)
+}
+
 /// Calculates indentation for USAF-style paragraphs from explicit counter values.
 ///
 /// - level (int): Paragraph nesting level (0-based)
-/// - level-counts (dictionary): Maps level index strings to their current counter values
+/// - level-counts (dictionary): Maps level index strings to the next number at each level
 /// -> length
 #let calculate-indent-from-counts(level, level-counts) = {
   if level == 0 {
@@ -23,7 +33,7 @@
   }
   let total-indent = 0pt
   for ancestor-level in range(level) {
-    let ancestor-value = level-counts.at(str(ancestor-level), default: 1)
+    let ancestor-value = emitted-number(ancestor-level, level-counts)
     let ancestor-format = get-paragraph-numbering-format(ancestor-level)
     let ancestor-number = numbering(ancestor-format, ancestor-value)
     total-indent += measure([#ancestor-number#"  "]).width
@@ -56,18 +66,18 @@
 /// the width of the number label that precedes it.
 ///
 /// This is where a later block of the same paragraph — a continuation, a block
-/// quote — lines up, so the two callers share one measurement rather than each
-/// spelling it. A top-level paragraph carries no indent and its label is the
+/// quote, a table — lines up, so the callers share one measurement rather than
+/// each spelling it. A top-level paragraph carries no indent and its label is the
 /// left margin itself, so the offset is zero.
 ///
 /// - level (int): Nesting level (0-based)
-/// - level-counts (dictionary): Current counter values per level
+/// - level-counts (dictionary): Maps level index strings to the next number at each level
 /// - indent-fn (function): `(level, level-counts) -> length`
 /// -> length
 #let paragraph-text-offset(level, level-counts, indent-fn) = {
   if level <= 0 { return 0pt }
-  let current-value = level-counts.at(str(level), default: 1)
-  let number-text = numbering(get-paragraph-numbering-format(level), current-value)
+  let number = emitted-number(level, level-counts)
+  let number-text = numbering(get-paragraph-numbering-format(level), number)
   indent-fn(level, level-counts) + measure([#number-text#"  "]).width
 }
 
@@ -145,11 +155,14 @@
       p
     }
     // Tables are buffered whole; nothing inside one takes a paragraph number.
+    // The nesting level rides along, as a block quote's does, so a table
+    // inside a list item lines up with that item's text.
     show table: t => context {
+      let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
       PAR_BUFFER.update(pars => {
         pars.push((
           content: t,
-          nest-level: -1,
+          nest-level: nest-level,
           kind: "table",
         ))
         pars
@@ -157,18 +170,20 @@
       t
     }
     // A `qm-table` wrapper's `align` places its table from outside it, so the
-    // placement is buffered with the table, and the emission spans the text
-    // width for it to place the table across.
+    // placement is buffered with the table, and the emission spans the width
+    // left beside its indent for it to place the table across.
     show align: a => if a.body.func() == table {
-      PAR_BUFFER.update(pars => {
-        pars.push((
-          content: a,
-          nest-level: -1,
-          kind: "table",
-        ))
-        pars
-      })
-      none
+      context {
+        let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
+        PAR_BUFFER.update(pars => {
+          pars.push((
+            content: a,
+            nest-level: nest-level,
+            kind: "table",
+          ))
+          pars
+        })
+      }
     } else { a }
     // AFH 33-337 numbers paragraphs and letters subparagraphs, and a body
     // sometimes has to hold lines that are neither: a roster of names, a quoted
@@ -245,7 +260,7 @@
   //
   // PAR_BUFFER item dictionary layout:
   //   item.content    — the paragraph body, table element, or block-quote body
-  //   item.nest-level — nesting depth (−1 for tables)
+  //   item.nest-level — nesting depth (0-based)
   //   item.kind       — "par", "heading", "table", "continuation", or "quote"
   context {
     let heading-buffer = none
@@ -279,15 +294,14 @@
       // A buffered heading runs into this element only when the two belong to
       // the same item: a later block of this list item ("continuation"), or,
       // at top level, the next paragraph. The first block of the *next* item,
-      // a table (nest-level −1, so the level test alone excludes it), a block
+      // a table (a block, with no line for a heading to run into), a block
       // quote (verbatim: a heading prepended to it would be ink the author did
       // not put inside the quote), and another heading all fail the test, and
       // each would otherwise carry the heading's text somewhere it was not
-      // authored. Those emit the heading on its own line, the treatment a
-      // heading before a table takes.
+      // authored. Those emit the heading on its own line.
       if heading-buffer != none {
         let runs-in = (
-          kind not in ("heading", "quote")
+          kind not in ("heading", "quote", "table")
             and item.nest-level == heading-level
             and (heading-level == 0 or kind == "continuation")
         )
@@ -318,7 +332,12 @@
       }
       let final-par = {
         if kind == "table" {
-          block(width: 100%, render-memo-table(item-content))
+          // Hangs under the text of the paragraph it sits in, as a block quote
+          // does. Its placement and `widths` measure against the width left
+          // beside the offset, so it stays inside the text column.
+          let placed = block(width: 100%, render-memo-table(item-content))
+          let offset = paragraph-text-offset(nest-level, level-counts, indent-fn)
+          if offset == 0pt { placed } else { pad(left: offset, placed) }
         } else if kind == "quote" {
           // A block quote is the body's unlabeled block: no number, no letter,
           // no bullet — the author's lines as written. It is placed, not
@@ -351,7 +370,6 @@
         } else if kind == "continuation" {
           // Continuation block within a multi-block list item:
           // indent to align with preceding numbered paragraph's text, no new number.
-          // level-counts still holds the value of the preceding numbered paragraph.
           if memo-style == "daf" and nest-level == 0 {
             item-content
           } else {
