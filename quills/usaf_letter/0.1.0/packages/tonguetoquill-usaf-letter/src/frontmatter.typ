@@ -80,6 +80,12 @@
     none
   }
 
+  let tag-line = if falsey(footer-tag-line) {
+    none
+  } else {
+    align(center, text(fill: LETTERHEAD_COLOR, font: "Spectral SC", size: 15pt)[#footer-tag-line])
+  }
+
   set par(leading: spacing.line, spacing: spacing.line, justify: false)
   set block(above: spacing.line, below: 0em, spacing: 0em)
   set text(font: body-font, size: font-size, fallback: true)
@@ -126,14 +132,11 @@
         )
       }
 
-      if not falsey(footer-tag-line) {
-        place(
-          bottom + center,
-          dy: -0.625in,
-          align(center)[
-            #text(fill: LETTERHEAD_COLOR, font: "Spectral SC", size: 15pt)[#footer-tag-line]
-          ],
-        )
+      // Page 1's tag line rides the indicator block's float when there is one.
+      if tag-line != none {
+        context if cui-indicator == none or here().page() > 1 {
+          place(bottom + center, dy: -0.625in, tag-line)
+        }
       }
     },
   )
@@ -142,7 +145,8 @@
   // corner, dropped into the 0.5in page-edge band. Emitted as a bottom float so
   // it (1) reserves flow space, raising page 1's effective bottom margin so body
   // text never overlaps it, and (2) stays pinned to page 1 — as the first flow
-  // content it can never be bumped to page 2.
+  // content it can never be bumped to page 2. Page 1's tag line stands above the
+  // block in the same float, since both claim the band.
   if cui-indicator != none {
     context {
       // The box shrink-wraps to its widest line; `set align(left)` keeps the
@@ -154,24 +158,35 @@
         set align(left)
         cui-indicator
       })
-      // Reserve only the part of the block inside the text area (`reserved`):
-      // float a box of that height, then `place` the full block inside it pushed
-      // down by `overhang` so the surplus overflows into the edge band. (A bare
+      let block-height = measure(indicator-box).height
+      let tag-gap = 0.125in
+      let stack-height = if tag-line == none {
+        block-height
+      } else {
+        block-height + tag-gap + measure(tag-line, width: page.width - 2 * spacing.margin).height
+      }
+      // Reserve only the part of the stack inside the text area (`reserved`):
+      // float a box of that height, then `place` the stack inside it pushed down
+      // by `overhang` so the surplus overflows into the edge band. (A bare
       // `box(height: reserved, indicator-box)` overflows *upward* into the body
-      // instead.) The inner `place` adds no size, so the box stays `reserved`
+      // instead.) The inner `place`s add no size, so the box stays `reserved`
       // tall and the block's bottom lands 0.5in from the page edge.
       let overhang = spacing.margin - 0.5in
-      let reserved = measure(indicator-box).height - overhang
+      let reserved = stack-height - overhang
       place(
-        bottom + right,
+        bottom,
         float: true,
-        // Slide the right edge into the page-edge band, 0.5in from the border;
-        // the inner place right-aligns the block to that edge.
-        dx: spacing.margin - 0.5in,
         // Minimum gap to the body's last line; the actual gap is larger when the
         // next paragraph can't fit above the block and breaks to the next page.
         clearance: spacing.line,
-        box(height: reserved, place(bottom + right, dy: overhang, indicator-box)),
+        box(width: 100%, height: reserved, {
+          // Slide the block's right edge into the page-edge band, 0.5in from
+          // the border.
+          place(bottom + right, dx: spacing.margin - 0.5in, dy: overhang, indicator-box)
+          if tag-line != none {
+            place(bottom + center, dy: overhang - block-height - tag-gap, tag-line)
+          }
+        }),
       )
     }
   }
