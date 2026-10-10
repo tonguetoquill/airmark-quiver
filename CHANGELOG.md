@@ -2,11 +2,23 @@
 
 ## Unreleased
 
-- **Take `@quillmark/wasm` 0.122.0, `@quillmark/quiver` 0.34.0 and `quillkit`
-  0.14.0.** Every quill, example and template renders as before. Under 0.122
+- **Take `@quillmark/wasm` 0.124.0, `@quillmark/quiver` 0.35.0 and `quillkit`
+  0.15.0.** Every quill, example and template renders as before. Under 0.122
   only `true` and `false` are YAML booleans, so an unquoted `yes`, `no`, `on`,
   `off`, `y` or `n` reads as text, and fails validation under a `boolean`
-  field; no quill, example or template writes one.
+  field; no quill, example or template writes one. Under 0.124 a
+  `<qm-table>` wrapper's `widths` and `headless`, a `<qm-cell>`'s alignment,
+  task-list boxes and typed spaces render in every Typst quill.
+
+- **A headless table's first row is set in body weight** in `usaf_memo` and
+  `usaf_letter`: only a table with a header row bolds its first row.
+
+- **`usaf_memo` places a table where its `<qm-table align>` says**, centered
+  or right, where the memo set every table flush left.
+
+- **A paragraph after a table, list, block quote or code block in
+  `usaf_letter@0.1.0` sits a blank line below it**, where it ran into the
+  block's last line.
 
 - **A signature-block line that runs long wraps under its third character**
   in `usaf_memo@0.3.0` and `usaf_letter@0.1.0`, per AFH 33-337: the overflow

@@ -145,6 +145,20 @@
       })
       t
     }
+    // A `qm-table` wrapper's `align` places its table from outside it, so the
+    // placement is buffered with the table, and the emission spans the text
+    // width for it to place the table across.
+    show align: a => if a.body.func() == table {
+      PAR_BUFFER.update(pars => {
+        pars.push((
+          content: a,
+          nest_level: -1,
+          kind: "table",
+        ))
+        pars
+      })
+      none
+    } else { a }
     {
       show heading: h => {
         IS_HEADING.update(true)
@@ -268,7 +282,7 @@
       }
       let final_par = {
         if kind == "table" {
-          render-memo-table(item_content)
+          block(width: 100%, render-memo-table(item_content))
         } else if kind == "continuation" {
           // Continuation block within a multi-block list item:
           // indent to align with preceding numbered paragraph's text, no new number.
