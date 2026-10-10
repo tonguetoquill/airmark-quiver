@@ -14,6 +14,10 @@ date: today
 signature_block:
   - Subject's FIRST M. LAST, Rank, USAF
   - Duty Title
+$ext:
+  editor:
+    tips:
+      - Start a line with `- ` to make a lettered subparagraph (a., b., c.). Press Tab to nest one under the subparagraph above it, as (1), (2), (3).
 ~~~
 
 <!-----------------------------------------------------

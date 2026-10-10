@@ -18,12 +18,16 @@ date: today
 signature_block:
   - FIRST M. LAST, Rank, USSF
 tag_line: Semper Supra
+$ext:
+  editor:
+    tips:
+      - Start a line with `- ` to make a lettered subparagraph (a., b., c.). Press Tab to nest one under the subparagraph above it, as (1), (2), (3).
 ~~~
 
 Write your paragraphs here.
 
-- Use bullets to nest paragraphs.
-  - Indent to go deeper.
+- Bullets become lettered subparagraphs: a., b., c.
+  - Tab nests a bullet under the one above it: (1), (2), (3).
 
 You can also **bold**, _italicize_, `code`, ~~strikethrough~~,
 and [link](https://example.com/) your text.
