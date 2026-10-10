@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.35.7 - 2026-10-10
 
 - **Take `@quillmark/wasm` 0.124.0, `@quillmark/quiver` 0.36.0 and `quillkit`
   0.16.0.** Every quill, example and template renders as before. Under 0.122
