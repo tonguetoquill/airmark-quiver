@@ -156,6 +156,20 @@
       })
       t
     }
+    // A `qm-table` wrapper's `align` places its table from outside it, so the
+    // placement is buffered with the table, and the emission spans the text
+    // width for it to place the table across.
+    show align: a => if a.body.func() == table {
+      PAR_BUFFER.update(pars => {
+        pars.push((
+          content: a,
+          nest-level: -1,
+          kind: "table",
+        ))
+        pars
+      })
+      none
+    } else { a }
     // AFH 33-337 numbers paragraphs and letters subparagraphs, and a body
     // sometimes has to hold lines that are neither: a roster of names, a quoted
     // passage, an address. The block quote is where an author says so — its
@@ -304,7 +318,7 @@
       }
       let final-par = {
         if kind == "table" {
-          render-memo-table(item-content)
+          block(width: 100%, render-memo-table(item-content))
         } else if kind == "quote" {
           // A block quote is the body's unlabeled block: no number, no letter,
           // no bullet — the author's lines as written. It is placed, not

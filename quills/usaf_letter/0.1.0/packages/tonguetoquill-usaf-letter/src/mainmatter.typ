@@ -76,7 +76,7 @@
   NESTED.update(n => n + 1)
   context {
     let last = BLOCKS.get() == BLOCKS.final()
-    block(above: par.spacing, sticky: last and keeps-signature(it), it)
+    block(above: par.spacing, below: par.spacing, sticky: last and keeps-signature(it), it)
   }
   NESTED.update(n => n - 1)
 }

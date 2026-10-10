@@ -358,7 +358,11 @@
 #let render-memo-table(it) = {
   // AFH 33-337 does not specify table formatting, so we follow the general
   // aesthetic principles of the standard: bold headers for clarity.
-  show table.cell.where(y: 0): set text(weight: "bold")
+  // A headless table's first row is a body row, which Typst also numbers 0.
+  show table: t => if t.children.any(c => c.func() == table.header) {
+    show table.cell.where(y: 0): set text(weight: "bold")
+    t
+  } else { t }
   set table(
     stroke: 0.5pt + black,
     inset: (x: 0.5em, y: 0.4em),
