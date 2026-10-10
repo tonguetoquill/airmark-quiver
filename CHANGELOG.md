@@ -29,12 +29,13 @@
   rewritten** around a new sample person, Philip J. Fry, and open with a
   Summary card; the schema is unchanged.
 
-- **The USAF Memo, USSF Memo and Rebuttal templates open on a tip naming
-  subparagraphs**: a line started with `- ` is a lettered subparagraph (a., b.,
-  c.), and Tab nests one under the subparagraph above it as (1), (2), (3). It
-  is the USAF Memo's first tip and the only tip the USSF Memo and Rebuttal
-  carry. The bullet example in the USAF and USSF Memo bodies names what it
-  prints.
+- **The bullet example in the USAF and USSF Memo bodies names what it
+  prints**: "Bullets become lettered subparagraphs: a., b., c." and "Tab nests
+  a bullet under the one above it: (1), (2), (3)."
+
+- **The Rebuttal template opens on a tip naming subparagraphs**: a line
+  started with `- ` is a lettered subparagraph (a., b., c.), and Tab nests one
+  under the subparagraph above it as (1), (2), (3).
 
 ## v0.35.6 - 2026-10-01
 

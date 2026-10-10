@@ -17,7 +17,6 @@ tag_line: Aim High
 $ext:
   editor:
     tips:
-      - Start a line with `- ` to make a lettered subparagraph (a., b., c.). Press Tab to nest one under the subparagraph above it, as (1), (2), (3).
       - Click "Add Card" below to add an indorsement.
       - Type `/` for bullets, tables, and more.
       - Deeply customize the document in form fields above the body.
