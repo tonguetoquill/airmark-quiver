@@ -8,6 +8,11 @@
   `off`, `y` or `n` reads as text, and fails validation under a `boolean`
   field; no quill, example or template writes one.
 
+- **A signature-block line that runs long wraps under its third character**
+  in `usaf_memo@0.3.0` and `usaf_letter@0.1.0`, per AFH 33-337: the overflow
+  indents by the width of the line's first two characters. Only a long name
+  line shifts the block left; a long duty title wraps in place at 4.5 in.
+
 - **The Classic Resume template and `classic_resume@0.1.0`'s example are
   rewritten** around a new sample person, Philip J. Fry, and open with a
   Summary card; the schema is unchanged.
