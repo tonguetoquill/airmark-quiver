@@ -44,6 +44,13 @@
   rewritten** around a new sample person, Philip J. Fry, and open with a
   Summary card; the schema is unchanged.
 
+- **A CUI document's tag line stands above the CUI designation indicator
+  block on page 1** in `usaf_memo@0.3.0`, `usaf_memo@0.2.0` and
+  `usaf_letter@0.1.0`, where the two printed through each other. Page 1's
+  body ends above the pair, so it can break a few lines sooner; the tag line
+  keeps its place on every later page, and a document without both renders as
+  before.
+
 ## v0.35.6 - 2026-10-01
 
 - Remove pass request template
