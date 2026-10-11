@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
+  preview.** A click on the name, the dates, the year group, a timeline year,
+  a tour's title or length, a constraint's year, a stratification's year or
+  a qualification's box opens that field in the editor, where most
+  reached nothing. A click on a tour or constraint bar opens its row, and one on the
+  current assignment opens `move_year`. The page renders as before.
+
 ## v0.35.7 - 2026-10-10
 
 - **Take `@quillmark/wasm` 0.124.0, `@quillmark/quiver` 0.36.0 and `quillkit`
