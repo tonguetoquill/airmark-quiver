@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.35.8 - 2026-10-11
+
+- **Ship a Cyber Career Plan template.** `templates/cyber_career_plan.md` is a
+  filled-in `cyber_career_plan@0.1` chart whose three vectors are named
+  Vector 1, Vector 2 and Vector 3, listed in `templates.json` as
+  `cyber-career-plan`. Every quill renders as before.
+
+- **Take `quillkit` 0.16.1.** Its studio client pins `prosemirror-view` 1.42.6,
+  which closes the paste-handling XSS of GHSA-c8x8-7fp4-3x9w. The package's
+  assets are unchanged.
+
 ## v0.35.7 - 2026-10-10
 
 - **Take `@quillmark/wasm` 0.124.0, `@quillmark/quiver` 0.36.0 and `quillkit`
