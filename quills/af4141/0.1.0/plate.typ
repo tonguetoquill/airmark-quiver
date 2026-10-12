@@ -1,11 +1,11 @@
-#import "@local/quillmark-helper:0.1.0": data
+#import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/typst-af4141:0.1.0": form
 
 #set text(font: "NimbusRomNo9L")
 
 // A `type: date` field arrives as a native `datetime`, blank as `none`. The
 // form's cells are strings, so a date is formatted here rather than placed as
-// ink: `display` would give the glyphs a schema address, but the form draws
+// ink: `qm.ink` would give the glyphs a schema address, but the form draws
 // each cell into a fixed box it builds itself, which takes a `str`.
 #let form-cell(v) = {
   let pattern = "[month padding:none]/[day padding:none]/[year]"
@@ -29,10 +29,10 @@
 #let vals = (:)
 
 // --- Admin fields (page 1 header) ---
-#if data.name != "" { vals.insert("commonforms_text_p1_1", data.name) }
-#if data.unit != "" { vals.insert("commonforms_text_p1_2", data.unit) }
-#if data.grade != "" { vals.insert("commonforms_text_p1_3", data.grade) }
-#if data.commanders_auth != "" { vals.insert("commonforms_text_p1_116", data.commanders_auth) }
+#if qm.data.name != "" { vals.insert("commonforms_text_p1_1", qm.data.name) }
+#if qm.data.unit != "" { vals.insert("commonforms_text_p1_2", qm.data.unit) }
+#if qm.data.grade != "" { vals.insert("commonforms_text_p1_3", qm.data.grade) }
+#if qm.data.commanders_auth != "" { vals.insert("commonforms_text_p1_116", qm.data.commanders_auth) }
 
 // --- Experience table rows from CARDS ---
 // The form supports 16 rows on page 1 and 21 rows on page 2 (37 total).
@@ -40,7 +40,7 @@
 #let max-rows = 37
 #{
   let row = 0
-  for card in data.at("$cards") {
+  for card in qm.data.at("$cards") {
     if card.at("$kind", default: none) == "experience" {
       if row < max-rows {
         for (col, key) in col-keys.enumerate() {

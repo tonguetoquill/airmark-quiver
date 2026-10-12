@@ -1,17 +1,17 @@
-#import "@local/quillmark-helper:0.1.0": data, signature-field
+#import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/tonguetoquill-usaf-memo:3.0.0": backmatter, frontmatter, indorsement, mainmatter
 
 // Frontmatter configuration
 #show: frontmatter.with(
   // Letterhead configuration
-  letterhead_title: data.letterhead_title,
-  letterhead_caption: data.letterhead_caption,
-  letterhead_seal_subtitle: data.letterhead_seal_subtitle,
+  letterhead_title: qm.data.letterhead_title,
+  letterhead_caption: qm.data.letterhead_caption,
+  letterhead_seal_subtitle: qm.data.letterhead_seal_subtitle,
   // Enum blank is `""`, not a seal. Omit so the package renders none rather
   // than treating the blank as DoW.
-  ..if data.letterhead_seal != "" {
+  ..if qm.data.letterhead_seal != "" {
     (letterhead_seal: image(
-      if data.letterhead_seal == "dod" {
+      if qm.data.letterhead_seal == "dod" {
         "assets/dod_seal.png"
       } else {
         "assets/dow_seal.png"
@@ -20,40 +20,40 @@
   },
 
   // Date
-  date: data.date,
+  date: qm.data.date,
 
   // Receiver information
-  memo_for: data.memo_for,
+  memo_for: qm.data.memo_for,
 
   // Sender information (omitted for Memorandum for Record)
-  ..if data.memo_from.len() > 0 { (memo_from: data.memo_from) },
+  ..if qm.data.memo_from.len() > 0 { (memo_from: qm.data.memo_from) },
 
   // Subject line
-  subject: data.subject,
+  subject: qm.data.subject,
 
   // Optional references
-  ..if data.references.len() > 0 { (references: data.references) },
+  ..if qm.data.references.len() > 0 { (references: qm.data.references) },
 
   // Optional footer tag line
-  footer_tag_line: data.tag_line,
+  footer_tag_line: qm.data.tag_line,
 
   // Optional classification level
-  ..if data.classification != "" { (classification_level: data.classification) },
+  ..if qm.data.classification != "" { (classification_level: qm.data.classification) },
 
-  ..if data.dissemination != "" { (dissemination: data.dissemination) },
+  ..if qm.data.dissemination != "" { (dissemination: qm.data.dissemination) },
 
   // CUI designation indicator block fields (DoDM 5200.48)
-  ..if data.cui_controlled_by != "" { (cui_controlled_by: data.cui_controlled_by) },
-  ..if data.cui_category != "" { (cui_category: data.cui_category) },
-  ..if data.cui_limited_dissemination != "" { (cui_limited_dissemination: data.cui_limited_dissemination) },
-  ..if data.cui_poc != "" { (cui_poc: data.cui_poc) },
+  ..if qm.data.cui_controlled_by != "" { (cui_controlled_by: qm.data.cui_controlled_by) },
+  ..if qm.data.cui_category != "" { (cui_category: qm.data.cui_category) },
+  ..if qm.data.cui_limited_dissemination != "" { (cui_limited_dissemination: qm.data.cui_limited_dissemination) },
+  ..if qm.data.cui_poc != "" { (cui_poc: qm.data.cui_poc) },
 
   // USAF vs DAF memorandum style (date format, body indentation). Blank
   // falls through to the package's `"usaf"` default.
-  ..if data.memo_style != "" { (memo_style: data.memo_style) },
+  ..if qm.data.memo_style != "" { (memo_style: qm.data.memo_style) },
 
   // Font size
-  font_size: data.font_size * 1pt,
+  font_size: qm.data.font_size * 1pt,
 
   // List recipients in vertical list
   memo_for_cols: 1,
@@ -64,27 +64,27 @@
 // auto-numbering), but the rebuilt glyphs keep their spans, which is what
 // the backend reads regions from.
 #mainmatter[
-  #data.at("$body")
+  #qm.data.at("$body")
 ]
 
 // Backmatter
 #backmatter(
   // Signature block
-  signature_block: data.signature_block,
-  signing_field: signature-field("Signature", field: "signature_block"),
+  signature_block: qm.data.signature_block,
+  signing_field: qm.signature-field("Signature", field: "signature_block"),
 
   // Optional cc
-  ..if data.cc.len() > 0 { (cc: data.cc) },
+  ..if qm.data.cc.len() > 0 { (cc: qm.data.cc) },
 
   // Optional distribution
-  ..if data.distribution.len() > 0 { (distribution: data.distribution) },
+  ..if qm.data.distribution.len() > 0 { (distribution: qm.data.distribution) },
 
   // Optional attachments
-  ..if data.attachments.len() > 0 { (attachments: data.attachments) },
+  ..if qm.data.attachments.len() > 0 { (attachments: qm.data.attachments) },
 )
 
 // Indorsements - iterate through CARDS array and filter by CARD tag
-#for (i, card) in data.at("$cards").enumerate() {
+#for (i, card) in qm.data.at("$cards").enumerate() {
   if card.at("$kind", default: none) == "indorsement" {
     // The quillmark helper leaves an unset/whitespace-only markdown body as
     // the empty string `""`; only non-empty bodies are eval'd into content.
@@ -112,7 +112,7 @@
       from: card.at("from", default: ""),
       to: card.at("for", default: ""),
       signature_block: card.signature_block,
-      signing_field: signature-field(
+      signing_field: qm.signature-field(
         "Ind_" + str(i) + "_Signature",
         field: card.at("$path") + "signature_block",
       ),

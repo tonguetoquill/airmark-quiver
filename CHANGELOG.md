@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- **Take `@quillmark/wasm` 0.125.0, `@quillmark/quiver` 0.37.0 and `quillkit`
+  0.17.0.** Every quill, example and template renders as before, pixel for
+  pixel, and a click in the preview reaches the same fields: a document saved
+  against any quill here opens and renders unchanged. Every plate imports the
+  helper as `qm` at 0.2.0, and `cyber_career_plan@0.1.0` prints `move_cycle`
+  through `qm.ink` and claims its stratifications table, which 0.125 no longer
+  regions on its own. Every `Quill.yaml` puts its grouped fields under
+  `sections:`, where it spelled `ui.group`; each quill's schema and blueprint
+  are equal to 0.124's, so the editor draws the same panels in the same order.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

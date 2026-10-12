@@ -12,53 +12,47 @@ typst:
 # are the section's own, so an entry cannot land under the wrong heading.
 main:
   description: "Your name and contact details go at the top. Add a card for each section, in the order you want them."
-  ui:
-    groups: [identity, page]
   # Everything prints under a section heading, so main carries no body: a
   # summary is a Summary card.
   body:
     enabled: false
-  fields:
-    name:
-      type: string
-      ui:
-        group: identity
-      description: "Your name as you want it read. It also names the PDF."
+  sections:
+    identity:
+      fields:
+        name:
+          type: string
+          description: "Your name as you want it read. It also names the PDF."
 
-    contacts:
-      type: array
-      items:
-        type: string
-      ui:
-        group: identity
-      description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
+        contacts:
+          type: array
+          items:
+            type: string
+          description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
+    page:
+      fields:
+        paper:
+          type: enum
+          values:
+            - us-letter
+            - a4
+          default: us-letter
+          ui:
+            compact: true
+          description: "Page size."
 
-    paper:
-      type: enum
-      values:
-        - us-letter
-        - a4
-      default: us-letter
-      ui:
-        group: page
-        compact: true
-      description: "Page size."
+        font_size:
+          type: number
+          default: 12
+          ui:
+            compact: true
+          description: "Body text size in points. To fit one page, try a half point smaller before cutting content."
 
-    font_size:
-      type: number
-      default: 12
-      ui:
-        group: page
-        compact: true
-      description: "Body text size in points. To fit one page, try a half point smaller before cutting content."
-
-    margin:
-      type: number
-      default: 0.5
-      ui:
-        group: page
-        compact: true
-      description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
+        margin:
+          type: number
+          default: 0.5
+          ui:
+            compact: true
+          description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
 
 
 # Each kind opens with the heading it prints. Its `default:` is the usual one,

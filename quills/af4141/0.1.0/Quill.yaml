@@ -35,60 +35,50 @@ card_kinds:
   experience:
     title: Record of Experience
     description: One row of the Record of Experience. The form holds up to 37 rows across two pages.
-    ui:
-      groups: [record]
     body:
       enabled: false
-    fields:
-      date:
-        type: date
-        default: ""
-        ui:
-          group: record
-        description: The date of the action.
+    sections:
+      record:
+        fields:
+          date:
+            type: date
+            default: ""
+            description: The date of the action.
 
-      action:
-        type: string
-        default: ""
-        ui:
-          group: record
-        description: The action taken. Use one row per type of action.
+          action:
+            type: string
+            default: ""
+            description: The action taken. Use one row per type of action.
 
-      written_grade:
-        type: string
-        default: ""
-        ui:
-          group: record
-          compact: true
-        description: The written grade, if any, for example 3.
+          written_grade:
+            type: string
+            default: ""
+            ui:
+              compact: true
+            description: The written grade, if any, for example 3.
 
-      written_grade_date:
-        type: date
-        default: ""
-        ui:
-          group: record
-          compact: true
-        description: The date of the written grade.
+          written_grade_date:
+            type: date
+            default: ""
+            ui:
+              compact: true
+            description: The date of the written grade.
 
-      positional_grade:
-        type: string
-        default: ""
-        ui:
-          group: record
-          compact: true
-        description: The positional grade, if any, for example 2.
+          positional_grade:
+            type: string
+            default: ""
+            ui:
+              compact: true
+            description: The positional grade, if any, for example 2.
 
-      positional_grade_date:
-        type: date
-        default: ""
-        ui:
-          group: record
-          compact: true
-        description: The date of the positional grade.
+          positional_grade_date:
+            type: date
+            default: ""
+            ui:
+              compact: true
+            description: The date of the positional grade.
 
-      auth_or_remarks:
-        type: string
-        default: ""
-        ui:
-          group: record
-        description: Authenticating initials, for example J.A.D., or remarks.
+          auth_or_remarks:
+            type: string
+            default: ""
+            description: Authenticating initials, for example J.A.D., or remarks.
