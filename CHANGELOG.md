@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **A USAF talking paper quill is added.** `usaf_talking_paper@0.1.0` typesets
+  the paper in AFH 33-337 (27 May 2015), p. 225: the point-paper page, dash
+  bullets, and short phrases for one issue. `talking_paper.md`, listed as
+  `talking-paper`, is the starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

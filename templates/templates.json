@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "talking-paper",
+    "name": "Talking Paper",
+    "description": "Official U.S. Air Force talking paper",
+    "file": "talking_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",
