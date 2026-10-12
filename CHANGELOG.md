@@ -18,10 +18,10 @@
   paper's page. The first paragraph states the position and the last restates
   it. `position_paper.md`, listed as `position-paper`, is the starter.
 
-- **A trip report starter is added.** `trip_report.md`, listed as
-  `trip-report`, is an official memorandum with the five headings in AFH
-  33-337 (27 May 2015), p. 188: purpose, travelers, itinerary, discussion,
-  and conclusions or recommendations.
+- **A formal trip report starter is added.** `trip_report.md`, listed as
+  `trip-report`, is the official memorandum in AFH 33-337 (27 May 2015),
+  p. 186. Purpose, travelers, itinerary, discussion, and conclusions or
+  recommendations each lead their numbered paragraph, followed by a colon.
 
 - **A USAF bullet background paper quill is added.** `usaf_bbp@0.1.0` typesets
   the paper in AFH 33-337 (27 May 2015), pp. 226–227: a centered title, hyphen
