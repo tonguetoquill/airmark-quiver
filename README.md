@@ -13,6 +13,7 @@ and aligned to the current Quillmark spec.
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
 | `usaf_bbp`           | 0.1.0   | USAF Bullet Background Paper (AFH 33-337)                                        |
+| `afam_citation`     | 0.1.0   | Air Force Achievement Medal citation                                             |
 | `af4141`             | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment) |
 | `daf1206`            | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |
 | `daf4392`            | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |

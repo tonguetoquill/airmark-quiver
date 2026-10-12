@@ -1,0 +1,57 @@
+quill:
+  name: afam_citation
+  version: 0.1.0
+  backend: typst
+  description: "Air Force Achievement Medal citation"
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The Air Force Achievement Medal certificate."
+  body:
+    enabled: false
+  fields:
+    rank:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The recipient's grade, as it prints under the award line."
+
+    service:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "What the medal recognizes, such as meritorious service."
+
+    period_from:
+      type: date
+      default: ""
+      description: "The first day of the period. It prints as 11 OCTOBER 2024."
+
+    period_to:
+      type: date
+      default: ""
+      description: "The last day of the period. It prints as 12 OCTOBER 2026."
+
+    accomplishments:
+      type: richtext
+      default: ""
+      description: "The citation paragraph."
+
+    signed_on:
+      type: date
+      default: ""
+      description: "The date the certificate is given. It prints as the 13th day of October 2026."
+
+    commander_name:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The approving official, for example ANDREW P. GRIFFITH, Colonel, USAF."
+
+    commander_title:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The approving official's duty title."

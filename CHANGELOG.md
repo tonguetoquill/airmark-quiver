@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **An Air Force Achievement Medal citation quill is added.** `afam_citation@0.1.0`
+  typesets the certificate: the medal, the citation lines, the accomplishments
+  paragraph, and the approving official's signature with the seal.
+  `af_achievement_medal.md`, listed as `af-achievement-medal`, is the starter.
+
 - **A USAF bullet background paper quill is added.** `usaf_bbp@0.1.0` typesets
   the paper in AFH 33-337 (27 May 2015), pp. 226–227: a centered title, hyphen
   bullets single-spaced within an item and double-spaced between items, the
