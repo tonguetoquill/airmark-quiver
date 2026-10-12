@@ -106,43 +106,38 @@ card_kinds:
   itinerary:
     title: Proposed Travel Itinerary
     description: "One leg of your trip. The form holds up to 10."
-    ui:
-      groups: [itinerary_entry]
     body:
       enabled: false
-    fields:
-      date:
-        type: date
-        default: ""
-        ui:
-          group: itinerary_entry
-          compact: true
-        description: "The date of this leg."
-      departure_point:
-        type: string
-        default: ""
-        ui:
-          group: itinerary_entry
-          compact: true
-        description: "Where this leg starts."
-      arrival_point:
-        type: string
-        default: ""
-        ui:
-          group: itinerary_entry
-          compact: true
-        description: "Where this leg ends."
-      rest_length:
-        type: string
-        default: ""
-        ui:
-          group: itinerary_entry
-          compact: true
-        description: "How long you'll stay."
-      mileage:
-        type: string
-        default: ""
-        ui:
-          group: itinerary_entry
-          compact: true
-        description: "Approximate miles for this leg. Leave blank for flights."
+    sections:
+      itinerary_entry:
+        fields:
+          date:
+            type: date
+            default: ""
+            ui:
+              compact: true
+            description: "The date of this leg."
+          departure_point:
+            type: string
+            default: ""
+            ui:
+              compact: true
+            description: "Where this leg starts."
+          arrival_point:
+            type: string
+            default: ""
+            ui:
+              compact: true
+            description: "Where this leg ends."
+          rest_length:
+            type: string
+            default: ""
+            ui:
+              compact: true
+            description: "How long you'll stay."
+          mileage:
+            type: string
+            default: ""
+            ui:
+              compact: true
+            description: "Approximate miles for this leg. Leave blank for flights."
