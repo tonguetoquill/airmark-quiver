@@ -102,7 +102,14 @@
   if shown == none { [] } else { upper(shown) }
 }
 
+#let choice(key) = {
+  let field = data.at(key)
+  let value = if type(field) == str { field } else { field.value }
+  if value == none { "" } else { value }
+}
+
 #citation((
+  oak_leaf_cluster: choice("oak_leaf_cluster"),
   rank: ink("rank"),
   service: ink("service"),
   period_from: shown-date("period_from"),

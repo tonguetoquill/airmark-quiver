@@ -24,21 +24,28 @@
   place(center + top, dy: 164.8pt, text(size: 21.5pt, weight: "bold")[DEPARTMENT OF THE AIR FORCE])
   place(center + top, dy: 224.6pt, text(size: 11.7pt, weight: "bold")[THIS IS TO CERTIFY THAT])
   place(center + top, dy: 252.2pt, text(size: 15.6pt, weight: "bold")[THE AIR FORCE ACHIEVEMENT MEDAL])
-  place(center + top, dy: 282.0pt, text(size: 11.7pt, weight: "bold")[HAS BEEN AWARDED TO])
-  place(center + top, dy: 306.6pt, text(size: 9.8pt, upper(f.rank)))
-  place(center + top, dy: 340.5pt, text(size: 11.7pt, weight: "bold")[FOR])
-  place(center + top, dy: 363.9pt, text(size: 11.7pt, upper(f.service)))
-  place(center + top, dy: 390.8pt, text(size: 9.8pt)[#f.period_from #h(8pt) TO #h(8pt) #f.period_to])
-  place(center + top, dy: 413.8pt, text(size: 11.7pt, weight: "bold")[ACCOMPLISHMENTS])
+  // A later award centers the cluster under the medal name. Basic prints no line.
+  let cluster = if blank(f.oak_leaf_cluster) or f.oak_leaf_cluster == "Basic" { none } else { upper(f.oak_leaf_cluster) }
+  let drop = if cluster == none { 0pt } else { 16pt }
+  if cluster != none {
+    place(center + top, dy: 271pt, text(size: 11.7pt, weight: "bold", cluster))
+  }
+  place(center + top, dy: 282.0pt + drop, text(size: 11.7pt, weight: "bold")[HAS BEEN AWARDED TO])
+  place(center + top, dy: 306.6pt + drop, text(size: 9.8pt, upper(f.rank)))
+  place(center + top, dy: 340.5pt + drop, text(size: 11.7pt, weight: "bold")[FOR])
+  place(center + top, dy: 363.9pt + drop, text(size: 11.7pt, upper(f.service)))
+  place(center + top, dy: 390.8pt + drop, text(size: 9.8pt)[#f.period_from #h(8pt) TO #h(8pt) #f.period_to])
+  place(center + top, dy: 413.8pt + drop, text(size: 11.7pt, weight: "bold")[ACCOMPLISHMENTS])
   let story = block(width: 451.6pt, text(size: 9.8pt, f.accomplishments))
-  place(top + left, dx: 82.7pt, dy: 437pt, story)
+  let story-dy = 437pt + drop
+  place(top + left, dx: 82.7pt, dy: story-dy, story)
 
   context {
     let story-h = measure(story).height
-    let text-bottom = 437pt + story-h
-    let given-dy = calc.max(493.3pt, text-bottom + 16pt)
-    let sign-dy = calc.max(584pt, given-dy + 56pt)
-    let seal-dy = if text-bottom > 520pt { sign-dy - 8pt } else { 536pt }
+    let text-bottom = story-dy + story-h
+    let given-dy = calc.max(493.3pt + drop, text-bottom + 16pt)
+    let sign-dy = calc.max(584pt + drop, given-dy + 56pt)
+    let seal-dy = if text-bottom > 520pt + drop { sign-dy - 8pt } else { 536pt + drop }
 
     place(top + left, dx: 464.7pt, dy: seal-dy, image("seal.png", width: 69.5pt))
     place(top + left, dx: 82.7pt, dy: given-dy, text(size: 11.7pt)[

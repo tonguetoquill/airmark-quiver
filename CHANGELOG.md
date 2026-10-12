@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **The Air Force Achievement Medal certificate has an oak leaf cluster
+  selection.** Basic prints no cluster line. A later award prints the cluster,
+  in capitals, under the medal name.
+
 - **The Air Force Achievement Medal accomplishments paragraph is 1350
   characters, including spaces.** Text past that cap is left off the page.
 

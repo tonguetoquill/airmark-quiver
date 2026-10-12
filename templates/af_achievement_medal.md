@@ -1,6 +1,7 @@
 ~~~card-yaml
 $quill: afam_citation@0.1
 $kind: main
+oak_leaf_cluster: Basic
 rank: Staff Sergeant
 service: Meritorious Service
 period_from: 2024-10-11

@@ -12,6 +12,23 @@ main:
   body:
     enabled: false
   fields:
+    oak_leaf_cluster:
+      type: enum
+      default: Basic
+      values:
+        - Basic
+        - First Oak Leaf Cluster
+        - Second Oak Leaf Cluster
+        - Third Oak Leaf Cluster
+        - Fourth Oak Leaf Cluster
+        - Fifth Oak Leaf Cluster
+        - Sixth Oak Leaf Cluster
+        - Seventh Oak Leaf Cluster
+        - Eighth Oak Leaf Cluster
+        - Ninth Oak Leaf Cluster
+        - Tenth Oak Leaf Cluster
+      description: "Basic prints no cluster. A later award prints the cluster, in capitals, under the medal name."
+
     rank:
       type: plaintext
       inline: true
