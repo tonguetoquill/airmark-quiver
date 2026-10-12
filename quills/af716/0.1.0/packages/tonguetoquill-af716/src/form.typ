@@ -12,7 +12,7 @@
 #let e9-grades = ("CMSgt", "CMSgt Select")
 #let e78-grades = ("SMSgt", "SMSgt Select", "MSgt", "MSgt Select")
 #let select-grades = ("SSgt Select", "TSgt Select")
-#let e16-grades = ("TSgt", "SSgt", "SrA", "A1C")
+#let e16-grades = ("TSgt", "SSgt", "SrA", "A1C", "Amn", "AB")
 
 #let blank(v) = v == none or v == false or v == [] or v == ""
 
@@ -87,7 +87,7 @@
   let title = if e9 {
     [Enlisted Performance Brief (E9)]
   } else if e78 {
-    [Enlisted Performance Brief (E7–E8)]
+    [Enlisted Performance Brief]
   } else if e16 {
     [Enlisted Performance Brief (E1–E6)]
   } else {
@@ -119,7 +119,11 @@
   set text(font: font, size: 8pt, hyphenate: false)
   set par(leading: 0.45em, spacing: 0.35em, justify: false)
   set block(spacing: 0pt)
-  set list(indent: 0.5em, body-indent: 0.35em, spacing: 0.15em, marker: [–])
+  // Performance statements are paragraphs, so a list marker does not print.
+  show list: it => it.children.map(item => par(item.body)).join()
+  show enum: it => it.children.map(item => par(item.body)).join()
+  show list.item: it => par(it.body)
+  show enum.item: it => par(it.body)
 
   align(center, text(size: 11pt, weight: "bold", title))
   v(3pt)

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **AF Form 716 prints Enlisted Performance Brief for an E7–E8 grade.** Amn
+  and AB are grades, and they take the E1–E6 review block. Performance
+  statements print as paragraphs.
+
 - **AF Form 716 limits the narrative boxes to the form's character counts.**
   Duty description is 450 characters. Executing the mission, leading people,
   managing resources, and improving the unit are 350 each. The higher-level

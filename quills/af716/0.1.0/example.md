@@ -16,17 +16,13 @@ duty_description: Leads the operations section of 48 Airmen and plans the squadr
 ratee_signature: RIVERA, ALEX R.
 referral_report: "NO"
 executing_mission: |-
-  - Scheduled 2,400 training sorties for four flights; every line flew its monthly requirement.
-  - Rebuilt the daily flying schedule after a runway closure; recovered 96 percent of the week's sorties in six days.
+  Scheduled 2,400 training sorties for four flights; every line flew its monthly requirement. Rebuilt the daily flying schedule after a runway closure; recovered 96 percent of the week's sorties in six days.
 leading_people: |-
-  - Mentored three TSgts through upgrade training; all certified on the first evaluation.
-  - Stood up a weekend duty roster the section could sustain; overtime fell by a third with no gap in coverage.
+  Mentored three TSgts through upgrade training; all certified on the first evaluation. Stood up a weekend duty roster the section could sustain; overtime fell by a third with no gap in coverage.
 managing_resources: |-
-  - Managed a $1.2M equipment account; the annual inventory of 640 items closed with zero discrepancies.
-  - Turned in 18 excess radios and put the credit toward four replacement sets the flights were short.
+  Managed a $1.2M equipment account; the annual inventory of 640 items closed with zero discrepancies. Turned in 18 excess radios and put the credit toward four replacement sets the flights were short.
 improving_unit: |-
-  - Wrote the squadron's severe-weather recall drill; the first run closed accountability in 22 minutes.
-  - Replaced the paper pre-mission checklist with a shared one; late step-offs dropped from six a month to one.
+  Wrote the squadron's severe-weather recall drill; the first run closed accountability in 22 minutes. Replaced the paper pre-mission checklist with a shared one; late step-offs dropped from six a month to one.
 mandatory_comments_required: "NO"
 mandatory_fitness_comments: "PFA: 95.0; Excellent; Exemptions: None."
 rater_name: Jordan P. Hale, SMSgt, USAF
