@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **A `test@0.0.1` draft renders a one-page document.** It carries a title,
+  an author, a date, a note, a body, and item cards, so the quiver can
+  render a document that is not an official form.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

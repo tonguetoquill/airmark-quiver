@@ -1,0 +1,53 @@
+quill:
+  name: test
+  version: 0.0.1
+  backend: typst
+  description: One-page document for exercising the quiver
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "A title and who wrote it, then the page."
+  ui:
+    groups: [heading, note]
+  fields:
+    title:
+      type: string
+      ui:
+        group: heading
+      description: "The title at the top of the page. It also names the PDF."
+
+    author:
+      type: string
+      ui:
+        group: heading
+      description: "Who wrote it."
+
+    date:
+      type: date
+      default: ""
+      ui:
+        group: heading
+        compact: true
+      description: "The date under the title."
+
+    note:
+      type: plaintext
+      default: ""
+      ui:
+        group: note
+      description: "A remark set apart from the body, under it."
+
+card_kinds:
+  item:
+    title: Item
+    description: "A labeled block. Add one for each thing the page should call out."
+    seed:
+      label: Item
+      $body: What this item is.
+    fields:
+      label:
+        type: plaintext
+        inline: true
+        description: "The heading above the item."
