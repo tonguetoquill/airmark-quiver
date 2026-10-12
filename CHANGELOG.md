@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- **The Air and Space Achievement Medal certificate has an oak leaf cluster
+  selection.** Basic prints no cluster line. A later award prints the cluster,
+  in capitals, under the medal name.
+
+- **The Air and Space Achievement Medal accomplishments paragraph is 1350
+  characters, including spaces.** Text past that cap is left off the page.
+
+- **An Air and Space Achievement Medal citation quill is added.** `asam_citation@0.1.0`
+  typesets the certificate: the medal, the citation lines, the accomplishments
+  paragraph, and the approving official's signature with the seal.
+  `air_and_space_achievement_medal.md`, listed as `air-and-space-achievement-medal`, is the starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

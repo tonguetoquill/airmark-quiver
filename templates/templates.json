@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "air-and-space-achievement-medal",
+    "name": "Air and Space Achievement Medal",
+    "description": "Air and Space Achievement Medal citation",
+    "file": "air_and_space_achievement_medal.md",
+    "tags": ["air-force", "decoration", "citation"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",
