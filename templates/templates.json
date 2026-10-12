@@ -28,6 +28,13 @@
     "tags": ["discipline", "lor", "loc"]
   },
   {
+    "id": "af-form-716",
+    "name": "AF Form 716",
+    "description": "Enlisted Performance Brief",
+    "file": "af716.md",
+    "tags": ["air-force", "evaluation", "enlisted"]
+  },
+  {
     "id": "af-form-4141",
     "name": "AF Form 4141",
     "description": "Individual's Record of Duties and Experience, Ground Environment Personnel",

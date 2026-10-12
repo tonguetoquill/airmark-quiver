@@ -1,0 +1,616 @@
+quill:
+  name: af716
+  version: 0.1.0
+  backend: typst
+  description: "AF Form 716 — Enlisted Performance Brief"
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The grade sets the title and the higher-level review block. Write each performance area in the box it names."
+  body:
+    enabled: false
+  ui:
+    groups: [ratee, narrative, rater, reviewer, back]
+  fields:
+    grade:
+      type: enum
+      default: ""
+      values:
+        - CMSgt
+        - CMSgt Select
+        - SMSgt
+        - SMSgt Select
+        - MSgt
+        - MSgt Select
+        - TSgt
+        - TSgt Select
+        - SSgt
+        - SSgt Select
+        - SrA
+        - A1C
+      ui:
+        group: ratee
+      description: "The ratee's grade. E9 prints higher responsibility, E7–E8 a stratification, and E1–E6 a promotion recommendation."
+
+    name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "The ratee's name as LAST, FIRST MI."
+
+    dodid:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The ratee's DoD ID number."
+
+    duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "The duty title for this period."
+
+    dafsc:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The duty Air Force specialty code."
+
+    reason:
+      type: enum
+      default: ""
+      values:
+        - Dir by HQ USAF
+        - Dir by Commander
+        - Annual
+        - First Annual
+        - First Biennial
+        - Biennial
+      ui:
+        group: ratee
+        compact: true
+      description: "Why the brief was written."
+
+    period_from:
+      type: date
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The first day of the reporting period. It prints as 1 Apr 2025."
+
+    period_thru:
+      type: date
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The last day of the reporting period."
+
+    days_supervised:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "How many days the rater supervised the ratee during the period."
+
+    days_non_rated:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "How many days in the period were non-rated."
+
+    organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "The ratee's organization and command."
+
+    location:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "Where the ratee is assigned."
+
+    duty_description:
+      type: richtext
+      default: ""
+      ui:
+        group: ratee
+      description: "What the ratee does in this duty."
+
+    ratee_acknowledgment:
+      type: enum
+      default: ""
+      values:
+        - Member unable to sign
+        - Member declined to sign
+      ui:
+        group: ratee
+      description: "Member unable to sign, or Member declined to sign. Leave it blank when the ratee signs."
+
+    ratee_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: ratee
+        compact: true
+      description: "Digital or Manual. The signature block prints the name."
+
+    ratee_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "The ratee's name in the signature block."
+
+    referral_report:
+      type: enum
+      default: ""
+      values: ["YES", "NO"]
+      ui:
+        group: narrative
+        compact: true
+      description: "Whether the rater's brief is a referral. YES prints the referral on the back."
+
+    executing_mission:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "Comments for Executing the Mission."
+
+    leading_people:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "Comments for Leading People."
+
+    managing_resources:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "Comments for Managing Resources."
+
+    improving_unit:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "Comments for Improving the Unit."
+
+    mandatory_comments_required:
+      type: enum
+      default: ""
+      values: ["YES", "NO"]
+      ui:
+        group: narrative
+        compact: true
+      description: "Whether fitness, housing, or voting comments are required. YES opens the comments."
+
+    mandatory_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "The fitness, housing, or voting comments. They print when the answer above is YES."
+
+    mandatory_fitness_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "The fitness score, category, and exemptions. Leave out duty as a fitness representative."
+
+    rater_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater's name, grade, and branch, for example HALE, JORDAN P., SMSgt, USAF."
+
+    rater_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater's duty title."
+
+    rater_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater's organization and command."
+
+    rater_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: rater
+        compact: true
+      description: "Digital or Manual."
+
+    rater_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater's name in the signature block."
+
+    future_role_1:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "A role the ratee could fill. On an E9 brief the form's list is Squadron Superintendent, MAJCOM Functional Manager, Command CMSgt (CCM), Group Superintendent, Career Field Manager, or Other."
+
+    future_role_2:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "A second future role."
+
+    future_role_3:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "A third future role."
+
+    ccm_number:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "When a future role is Command CMSgt, where the ratee ranks among assigned CMSgts."
+
+    ccm_assigned:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "How many CMSgts are assigned. It prints with the number above as '2 of 11 Assigned CMSgts'."
+
+    hlr_assessment:
+      type: richtext
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's assessment."
+
+    stratification:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The stratification. It prints on an E7–E8 brief."
+
+    higher_responsibility:
+      type: enum
+      default: ""
+      values:
+        - READY NOW
+        - ON-TRACK
+        - CURRENT ASSIGNMENT
+        - GROOM
+        - DO NOT RETAIN
+      ui:
+        group: reviewer
+      description: "The recommendation for higher responsibility. It prints on an E9 brief."
+
+    promotion_recommendation:
+      type: enum
+      default: ""
+      values:
+        - Promote Now
+        - Must Promote
+        - Promote
+        - Not Ready Now
+      ui:
+        group: reviewer
+      description: "The promotion recommendation. It prints on an E1–E6 brief, except SSgt Select and TSgt Select."
+
+    concur:
+      type: enum
+      default: ""
+      values: [CONCUR, NON-CONCUR]
+      ui:
+        group: reviewer
+        compact: true
+      description: "Whether the higher-level reviewer concurs with the rater."
+
+    hlr_referral:
+      type: enum
+      default: ""
+      values: ["YES", "NO"]
+      ui:
+        group: reviewer
+        compact: true
+      description: "Whether the higher-level reviewer makes the brief a referral. YES prints the referral on the back."
+
+    hlr_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's name, grade, and branch."
+
+    hlr_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's duty title."
+
+    hlr_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's organization and command."
+
+    hlr_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: reviewer
+        compact: true
+      description: "Digital or Manual."
+
+    hlr_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's name in the signature block."
+
+    functional_examiner:
+      type: boolean
+      default: false
+      ui:
+        group: back
+        compact: true
+      description: "Add a functional examiner on the back."
+
+    fe_comments_kind:
+      type: enum
+      default: ""
+      values: [Comments, "No comments"]
+      ui:
+        group: back
+        compact: true
+      description: "Whether the functional examiner adds comments."
+
+    fe_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's comments. They print when Comments is selected."
+
+    fe_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's name, grade, and branch."
+
+    fe_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's duty title."
+
+    fe_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's organization and command."
+
+    fe_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital or Manual."
+
+    fe_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's name in the signature block."
+
+    air_force_advisor:
+      type: boolean
+      default: false
+      ui:
+        group: back
+        compact: true
+      description: "Add an Air Force advisor on the back."
+
+    afa_comments_kind:
+      type: enum
+      default: ""
+      values: [Comments, "No comments"]
+      ui:
+        group: back
+        compact: true
+      description: "Whether the Air Force advisor adds comments."
+
+    afa_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's comments. They print when Comments is selected."
+
+    afa_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's name, grade, and branch."
+
+    afa_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's duty title."
+
+    afa_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's organization and command."
+
+    afa_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital or Manual."
+
+    afa_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's name in the signature block."
+
+    referral_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: back
+      description: "The comments that make the brief a referral. They print on the back when either referral answer is YES."
+
+    referring_evaluator_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The referring evaluator's name, grade, and branch."
+
+    referring_evaluator_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The referring evaluator's duty title."
+
+    referring_evaluator_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital or Manual."
+
+    referring_evaluator_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The referring evaluator's name in the signature block."
+
+    referring_evaluator_date:
+      type: date
+      default: ""
+      ui:
+        group: back
+        compact: true
+      description: "The date the referring evaluator signed. It prints as 01 Apr 2026."
+
+    referral_ratee_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital or Manual."
+
+    referral_ratee_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The ratee's name acknowledging the referral."
+
+    referral_ratee_date:
+      type: date
+      default: ""
+      ui:
+        group: back
+        compact: true
+      description: "The date the ratee acknowledged the referral."

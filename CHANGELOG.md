@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **An AF Form 716 quill is added.** `af716@0.1.0` typesets the Enlisted
+  Performance Brief (edition 20260326, prescribed by DAFI 36-2406). The grade
+  selects the title and the higher-level review block: a promotion
+  recommendation for E1–E6, a stratification for E7–E8, and higher
+  responsibility for E9. A referral, a functional examiner, or an Air Force
+  advisor prints on the back with the privacy act statement.
+  `af716.md`, listed as `af-form-716`, is the starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

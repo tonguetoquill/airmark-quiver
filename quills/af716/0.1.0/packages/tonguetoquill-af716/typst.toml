@@ -1,0 +1,12 @@
+[package]
+name = "tonguetoquill-af716"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "AF Form 716, Enlisted Performance Brief (20260326), prescribed by DAFI 36-2406."
+keywords = ["USAF", "Air Force", "AF Form 716", "enlisted performance brief", "EPB", "DAFI 36-2406"]
+categories = ["office"]
+disciplines = ["politics", "business", "education"]
