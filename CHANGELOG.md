@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- **An Air Force Commendation Medal citation quill is added.** `afcm_citation@0.1.0`
+  typesets the certificate: the medal, the citation lines, an oak leaf cluster
+  when the award is a later one, the accomplishments paragraph (1350 characters,
+  including spaces), and the approving official's signature with the seal.
+  `af_commendation_medal.md`, listed as `af-commendation-medal`, is the starter.
+
+- **A Meritorious Service Medal citation quill is added.** `msm_citation@0.1.0`
+  typesets the certificate: the presidential heading, the medal, an oak leaf
+  cluster when the award is a later one, the accomplishments paragraph (1350
+  characters, including spaces), and the approving official's name, grade, and
+  duty title with the seal. `meritorious_service_medal.md`, listed as
+  `meritorious-service-medal`, is the starter.
+
 - **The Air Force Achievement Medal certificate has an oak leaf cluster
   selection.** Basic prints no cluster line. A later award prints the cluster,
   in capitals, under the medal name.

@@ -1,0 +1,12 @@
+[package]
+name = "tonguetoquill-afcm-citation"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Air Force Commendation Medal citation certificate."
+keywords = ["USAF", "Air Force", "commendation medal", "citation", "decoration"]
+categories = ["office"]
+disciplines = ["politics", "business", "education"]

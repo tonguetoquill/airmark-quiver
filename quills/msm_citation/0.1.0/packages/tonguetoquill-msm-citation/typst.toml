@@ -1,0 +1,12 @@
+[package]
+name = "tonguetoquill-msm-citation"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Meritorious Service Medal citation certificate."
+keywords = ["USAF", "Air Force", "meritorious service medal", "citation", "decoration"]
+categories = ["office"]
+disciplines = ["politics", "business", "education"]

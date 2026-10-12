@@ -35,6 +35,20 @@
     "tags": ["air-force", "decoration", "citation"]
   },
   {
+    "id": "af-commendation-medal",
+    "name": "Air Force Commendation Medal",
+    "description": "Air Force Commendation Medal citation",
+    "file": "af_commendation_medal.md",
+    "tags": ["air-force", "decoration", "citation"]
+  },
+  {
+    "id": "meritorious-service-medal",
+    "name": "Meritorious Service Medal",
+    "description": "Meritorious Service Medal citation",
+    "file": "meritorious_service_medal.md",
+    "tags": ["air-force", "decoration", "citation"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",
