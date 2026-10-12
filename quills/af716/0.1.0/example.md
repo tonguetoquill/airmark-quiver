@@ -10,7 +10,7 @@ period_from: 2025-04-01
 period_thru: 2026-03-31
 days_supervised: "365"
 days_non_rated: "0"
-organization: 123d Example Squadron, Air Combat Command
+organization: 123d Example Squadron (ACC)
 location: Example AFB, FL
 duty_description: Leads the operations section of 48 Airmen and plans the squadron flying schedule.
 ratee_signature: RIVERA, ALEX R.
@@ -28,19 +28,19 @@ improving_unit: |-
   - Wrote the squadron's severe-weather recall drill; the first run closed accountability in 22 minutes.
   - Replaced the paper pre-mission checklist with a shared one; late step-offs dropped from six a month to one.
 mandatory_comments_required: "NO"
-mandatory_fitness_comments: Excellent, 95.0, 12 Oct 2025. No exemptions.
-rater_name: HALE, JORDAN P., SMSgt, USAF
+mandatory_fitness_comments: "PFA: 95.0; Excellent; Exemptions: None."
+rater_name: Jordan P. Hale, SMSgt, USAF
 rater_duty_title: Senior Enlisted Leader
-rater_organization: 123d Example Squadron, Air Combat Command
-rater_signature: HALE, JORDAN P.
-future_role_1: Squadron Superintendent
-future_role_2: Group Superintendent
-hlr_assessment: MSgt Rivera is the squadron's strongest operations superintendent and is ready for a larger flight.
-stratification: "#1 of 4 MSgts"
+rater_organization: 123d Example Squadron (ACC)
+rater_signature: Jordan P. Hale
+future_role_1: Flight Chief
+future_role_2: Section Chief
+hlr_assessment: MSgt Rivera led the operations section through a runway closure and kept every flight at its monthly sortie requirement.
+stratification: "#1 of 4"
 concur: CONCUR
 hlr_referral: "NO"
-hlr_name: COLE, RILEY J., Lt Col, USAF
+hlr_name: Riley J. Cole, Lt Col, USAF
 hlr_duty_title: Commander
-hlr_organization: 123d Example Squadron, Air Combat Command
-hlr_signature: COLE, RILEY J.
+hlr_organization: 123d Example Squadron (ACC)
+hlr_signature: Riley J. Cole
 ~~~

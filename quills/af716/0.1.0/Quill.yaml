@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "The grade sets the title and the higher-level review block. Write each performance area in the box it names."
+  description: "Fill the brief as Table 4.9 of AFI 36-2406 directs. A performance statement is one sentence with the action and its result. The grade sets the title and the higher-level review block."
   body:
     enabled: false
   ui:
@@ -32,7 +32,7 @@ main:
         - A1C
       ui:
         group: ratee
-      description: "The ratee's grade. E9 prints higher responsibility, E7–E8 a stratification, and E1–E6 a promotion recommendation."
+      description: "The grade as of the close-out date. A select grade uses the Select choice. E9 prints higher responsibility, E7–E8 a stratification, and E1–E6 a promotion recommendation."
 
     name:
       type: plaintext
@@ -40,7 +40,7 @@ main:
       default: ""
       ui:
         group: ratee
-      description: "The ratee's name as LAST, FIRST MI."
+      description: "LAST, FIRST, MIDDLE INITIAL, and any suffix, in capitals, for example DOE, MATTHEW A. Use NMI when there is no middle initial."
 
     dodid:
       type: plaintext
@@ -49,7 +49,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "The ratee's DoD ID number."
+      description: "The full DoD ID number."
 
     duty_title:
       type: plaintext
@@ -57,7 +57,7 @@ main:
       default: ""
       ui:
         group: ratee
-      description: "The duty title for this period."
+      description: "The approved duty title as of the close-out date. Spell out an abbreviation that is not clear."
 
     dafsc:
       type: plaintext
@@ -66,7 +66,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "The duty Air Force specialty code."
+      description: "The DAFSC as of the close-out date, including a prefix or suffix."
 
     reason:
       type: enum
@@ -81,7 +81,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "Why the brief was written."
+      description: "The reason on the evaluation notice: Annual, Biennial, First Annual, First Biennial, directed by the commander, or directed by HAF."
 
     period_from:
       type: date
@@ -89,7 +89,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "The first day of the reporting period. It prints as 1 Apr 2025."
+      description: "The day after the previous evaluation closed. It prints as 1 Apr 2025."
 
     period_thru:
       type: date
@@ -97,7 +97,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "The last day of the reporting period."
+      description: "The close-out date. On an annual brief it is the static close-out for the grade."
 
     days_supervised:
       type: plaintext
@@ -106,7 +106,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "How many days the rater supervised the ratee during the period."
+      description: "Days the rater supervised the ratee during the period."
 
     days_non_rated:
       type: plaintext
@@ -115,7 +115,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "How many days in the period were non-rated."
+      description: "Non-rated days in the period. Leave blank when there are none."
 
     organization:
       type: plaintext
@@ -123,7 +123,7 @@ main:
       default: ""
       ui:
         group: ratee
-      description: "The ratee's organization and command."
+      description: "The unit as of the close-out date, with the command in parentheses, for example 123d Fighter Squadron (ACC)."
 
     location:
       type: plaintext
@@ -132,14 +132,14 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "Where the ratee is assigned."
+      description: "The duty location as of the close-out date, for example JB Langley-Eustis, VA."
 
     duty_description:
       type: richtext
       default: ""
       ui:
         group: ratee
-      description: "What the ratee does in this duty."
+      description: "The job in plain sentences: the responsibility, the people supervised, and the resources. Required."
 
     ratee_acknowledgment:
       type: enum
@@ -149,7 +149,7 @@ main:
         - Member declined to sign
       ui:
         group: ratee
-      description: "Member unable to sign, or Member declined to sign. Leave it blank when the ratee signs."
+      description: "Leave blank when the ratee signs. Member unable to sign, or Member declined to sign, when they cannot or will not. A signature acknowledges receipt."
 
     ratee_signature_type:
       type: enum
@@ -158,7 +158,7 @@ main:
       ui:
         group: ratee
         compact: true
-      description: "Digital or Manual. The signature block prints the name."
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used. Sign on or after the close-out date."
 
     ratee_signature:
       type: plaintext
@@ -175,35 +175,35 @@ main:
       ui:
         group: narrative
         compact: true
-      description: "Whether the rater's brief is a referral. YES prints the referral on the back."
+      description: "Yes when the brief is a referral. Do Not Retain is a referral. Not Ready Now is a referral when the brief has negative comments. Yes prints the referral on the back."
 
     executing_mission:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "Comments for Executing the Mission."
+      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
 
     leading_people:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "Comments for Leading People."
+      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
 
     managing_resources:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "Comments for Managing Resources."
+      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
 
     improving_unit:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "Comments for Improving the Unit."
+      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
 
     mandatory_comments_required:
       type: enum
@@ -212,21 +212,21 @@ main:
       ui:
         group: narrative
         compact: true
-      description: "Whether fitness, housing, or voting comments are required. YES opens the comments."
+      description: "Yes when the ratee oversaw privatized housing or served as a voting assistance officer during the period. Yes opens the comments."
 
     mandatory_comments:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "The fitness, housing, or voting comments. They print when the answer above is YES."
+      description: "Housing uses \"The Ratee exercised effective oversight of military privatized housing.\" or \"The Ratee was not effective in oversight of military privatized housing.\" Voting needs a performance statement on that duty."
 
     mandatory_fitness_comments:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "The fitness score, category, and exemptions. Leave out duty as a fitness representative."
+      description: "The current fitness assessment, as PFA: 91.7; Excellent; Exemptions: None. A combat AFSC also adds the combat fitness test after a slash. Leave out duty as a fitness representative."
 
     rater_name:
       type: plaintext
@@ -234,7 +234,7 @@ main:
       default: ""
       ui:
         group: rater
-      description: "The rater's name, grade, and branch, for example HALE, JORDAN P., SMSgt, USAF."
+      description: "The rater as of the close-out date, for example Jordan P. Hale, SMSgt, USAF."
 
     rater_duty_title:
       type: plaintext
@@ -242,7 +242,7 @@ main:
       default: ""
       ui:
         group: rater
-      description: "The rater's duty title."
+      description: "The rater's duty title as of the close-out date."
 
     rater_organization:
       type: plaintext
@@ -250,7 +250,7 @@ main:
       default: ""
       ui:
         group: rater
-      description: "The rater's organization and command."
+      description: "The rater's unit as of the close-out date, with the command in parentheses."
 
     rater_signature_type:
       type: enum
@@ -259,7 +259,7 @@ main:
       ui:
         group: rater
         compact: true
-      description: "Digital or Manual."
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     rater_signature:
       type: plaintext
@@ -267,7 +267,7 @@ main:
       default: ""
       ui:
         group: rater
-      description: "The rater's name in the signature block."
+      description: "The rater's signed name. Sign on or after the close-out date."
 
     future_role_1:
       type: plaintext
@@ -275,7 +275,7 @@ main:
       default: ""
       ui:
         group: rater
-      description: "A role the ratee could fill. On an E9 brief the form's list is Squadron Superintendent, MAJCOM Functional Manager, Command CMSgt (CCM), Group Superintendent, Career Field Manager, or Other."
+      description: "A role the member is eligible for at the current grade or the next one. On an E9 brief the list is Squadron Superintendent, MAJCOM Functional Manager, Command CMSgt (CCM), Group Superintendent, Career Field Manager, or Other, and at most two roles."
 
     future_role_2:
       type: plaintext
@@ -284,7 +284,7 @@ main:
       ui:
         group: rater
         compact: true
-      description: "A second future role."
+      description: "A second future role. Leave it blank on an E9 brief when the recommendation is Do Not Retain."
 
     future_role_3:
       type: plaintext
@@ -293,7 +293,7 @@ main:
       ui:
         group: rater
         compact: true
-      description: "A third future role."
+      description: "A third future role. Leave it blank on an E9 brief."
 
     ccm_number:
       type: plaintext
@@ -302,7 +302,7 @@ main:
       ui:
         group: rater
         compact: true
-      description: "When a future role is Command CMSgt, where the ratee ranks among assigned CMSgts."
+      description: "For a Command Chief nomination, where this CMSgt stands among all CMSgts the senior rater rates. The nomination requires Ready Now."
 
     ccm_assigned:
       type: plaintext
@@ -311,14 +311,14 @@ main:
       ui:
         group: rater
         compact: true
-      description: "How many CMSgts are assigned. It prints with the number above as '2 of 11 Assigned CMSgts'."
+      description: "How many CMSgts the senior rater rates, excluding CMSgt selects. It prints with the number above as 2 of 11 Assigned CMSgts."
 
     hlr_assessment:
       type: richtext
       default: ""
       ui:
         group: reviewer
-      description: "The higher-level reviewer's assessment."
+      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
 
     stratification:
       type: plaintext
@@ -326,7 +326,7 @@ main:
       default: ""
       ui:
         group: reviewer
-      description: "The stratification. It prints on an E7–E8 brief."
+      description: "On an E7–E8 brief, #1 of 12 or Top 25% of MSgts. If you are not stratifying, enter THIS SECTION NOT USED."
 
     higher_responsibility:
       type: enum
@@ -339,7 +339,7 @@ main:
         - DO NOT RETAIN
       ui:
         group: reviewer
-      description: "The recommendation for higher responsibility. It prints on an E9 brief."
+      description: "The CMSgt's next level of responsibility. It prints on an E9 brief. Do Not Retain makes the brief a referral."
 
     promotion_recommendation:
       type: enum
@@ -351,7 +351,7 @@ main:
         - Not Ready Now
       ui:
         group: reviewer
-      description: "The promotion recommendation. It prints on an E1–E6 brief, except SSgt Select and TSgt Select."
+      description: "Only when the member is eligible. It prints on an E1–E6 brief. SSgt Select and TSgt Select have no promotion recommendation. Not Ready Now is a referral when the brief has negative comments."
 
     concur:
       type: enum
@@ -360,7 +360,7 @@ main:
       ui:
         group: reviewer
         compact: true
-      description: "Whether the higher-level reviewer concurs with the rater."
+      description: "Whether the higher-level reviewer agrees with the rater's assessment."
 
     hlr_referral:
       type: enum
@@ -369,7 +369,7 @@ main:
       ui:
         group: reviewer
         compact: true
-      description: "Whether the higher-level reviewer makes the brief a referral. YES prints the referral on the back."
+      description: "Yes when the higher-level reviewer makes the brief a referral. Yes prints the referral on the back."
 
     hlr_name:
       type: plaintext
@@ -377,7 +377,7 @@ main:
       default: ""
       ui:
         group: reviewer
-      description: "The higher-level reviewer's name, grade, and branch."
+      description: "The higher-level reviewer. Use the close-out date when they were assigned by then; otherwise use the date they sign."
 
     hlr_duty_title:
       type: plaintext
@@ -385,7 +385,7 @@ main:
       default: ""
       ui:
         group: reviewer
-      description: "The higher-level reviewer's duty title."
+      description: "The higher-level reviewer's duty title as of the close-out date, or as of the date signed if assigned after close-out."
 
     hlr_organization:
       type: plaintext
@@ -393,7 +393,7 @@ main:
       default: ""
       ui:
         group: reviewer
-      description: "The higher-level reviewer's organization and command."
+      description: "The higher-level reviewer's unit, with the command in parentheses."
 
     hlr_signature_type:
       type: enum
@@ -402,7 +402,7 @@ main:
       ui:
         group: reviewer
         compact: true
-      description: "Digital or Manual."
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     hlr_signature:
       type: plaintext
@@ -410,7 +410,7 @@ main:
       default: ""
       ui:
         group: reviewer
-      description: "The higher-level reviewer's name in the signature block."
+      description: "The higher-level reviewer's signed name. Sign on or after the close-out date."
 
     functional_examiner:
       type: boolean
@@ -418,7 +418,7 @@ main:
       ui:
         group: back
         compact: true
-      description: "Add a functional examiner on the back."
+      description: "Turn on for a functional examiner review. Mark it as well when that person is also the Air Force advisor."
 
     fe_comments_kind:
       type: enum
@@ -427,14 +427,14 @@ main:
       ui:
         group: back
         compact: true
-      description: "Whether the functional examiner adds comments."
+      description: "Comments, or No comments. Comments are optional."
 
     fe_comments:
       type: richtext
       default: ""
       ui:
         group: back
-      description: "The functional examiner's comments. They print when Comments is selected."
+      description: "Clarification of functional or acquisition matters. Comments are not a place for more accomplishments, and they leave the rater's statements as written."
 
     fe_name:
       type: plaintext
@@ -442,7 +442,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The functional examiner's name, grade, and branch."
+      description: "The functional examiner as of the close-out date, for example Chioma A. Okonkwo, Maj, USAF."
 
     fe_duty_title:
       type: plaintext
@@ -450,7 +450,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The functional examiner's duty title."
+      description: "The functional examiner's duty title as of the close-out date."
 
     fe_organization:
       type: plaintext
@@ -458,7 +458,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The functional examiner's organization and command."
+      description: "The functional examiner's unit as of the close-out date, with the command in parentheses."
 
     fe_signature_type:
       type: enum
@@ -467,7 +467,7 @@ main:
       ui:
         group: back
         compact: true
-      description: "Digital or Manual."
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     fe_signature:
       type: plaintext
@@ -475,7 +475,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The functional examiner's name in the signature block."
+      description: "The functional examiner's signed name. Sign on or after the close-out date."
 
     air_force_advisor:
       type: boolean
@@ -483,7 +483,7 @@ main:
       ui:
         group: back
         compact: true
-      description: "Add an Air Force advisor on the back."
+      description: "Turn on for an Air Force advisor review, including when that person is also the functional examiner."
 
     afa_comments_kind:
       type: enum
@@ -492,14 +492,14 @@ main:
       ui:
         group: back
         compact: true
-      description: "Whether the Air Force advisor adds comments."
+      description: "Comments, or No comments. Comments are optional."
 
     afa_comments:
       type: richtext
       default: ""
       ui:
         group: back
-      description: "The Air Force advisor's comments. They print when Comments is selected."
+      description: "Clarification that the brief meets Air Force standards in a joint environment. Comments are not a place for more accomplishments."
 
     afa_name:
       type: plaintext
@@ -507,7 +507,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The Air Force advisor's name, grade, and branch."
+      description: "The Air Force advisor as of the close-out date."
 
     afa_duty_title:
       type: plaintext
@@ -515,7 +515,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The Air Force advisor's duty title."
+      description: "The Air Force advisor's duty title as of the close-out date."
 
     afa_organization:
       type: plaintext
@@ -523,7 +523,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The Air Force advisor's organization and command."
+      description: "The Air Force advisor's unit as of the close-out date, with the command in parentheses."
 
     afa_signature_type:
       type: enum
@@ -532,7 +532,7 @@ main:
       ui:
         group: back
         compact: true
-      description: "Digital or Manual."
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     afa_signature:
       type: plaintext
@@ -540,14 +540,14 @@ main:
       default: ""
       ui:
         group: back
-      description: "The Air Force advisor's name in the signature block."
+      description: "The Air Force advisor's signed name. Sign on or after the close-out date."
 
     referral_comments:
       type: richtext
       default: ""
       ui:
         group: back
-      description: "The comments that make the brief a referral. They print on the back when either referral answer is YES."
+      description: "The referral comments. They print on the back when either referral answer is Yes."
 
     referring_evaluator_name:
       type: plaintext
@@ -555,7 +555,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The referring evaluator's name, grade, and branch."
+      description: "The referring evaluator as of the close-out date."
 
     referring_evaluator_duty_title:
       type: plaintext
@@ -563,7 +563,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The referring evaluator's duty title."
+      description: "The referring evaluator's duty title as of the close-out date."
 
     referring_evaluator_signature_type:
       type: enum
@@ -572,7 +572,7 @@ main:
       ui:
         group: back
         compact: true
-      description: "Digital or Manual."
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     referring_evaluator_signature:
       type: plaintext
@@ -580,7 +580,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The referring evaluator's name in the signature block."
+      description: "The referring evaluator's signed name. Sign on or after the close-out date."
 
     referring_evaluator_date:
       type: date
@@ -588,7 +588,7 @@ main:
       ui:
         group: back
         compact: true
-      description: "The date the referring evaluator signed. It prints as 01 Apr 2026."
+      description: "The date the referring evaluator signed. It prints as 02 Apr 2026."
 
     referral_ratee_signature_type:
       type: enum
@@ -597,7 +597,7 @@ main:
       ui:
         group: back
         compact: true
-      description: "Digital or Manual."
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     referral_ratee_signature:
       type: plaintext
@@ -605,7 +605,7 @@ main:
       default: ""
       ui:
         group: back
-      description: "The ratee's name acknowledging the referral."
+      description: "The ratee's signed name on the referral. A signature acknowledges receipt."
 
     referral_ratee_date:
       type: date
@@ -613,4 +613,4 @@ main:
       ui:
         group: back
         compact: true
-      description: "The date the ratee acknowledged the referral."
+      description: "The date the ratee signed the referral. The rater gives three duty days, or 30 calendar days for the Air Force Reserve."

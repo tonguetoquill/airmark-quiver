@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **AF Form 716 is filled the way AFI 36-2406, Table 4.9, directs.** Each
+  performance area asks for one sentence with the action and the result.
+  Fitness prints as `PFA: 91.7; Excellent; Exemptions: None.` An E7–E8
+  stratification is `#1 of 12` or `Top 25% of MSgts`, and `THIS SECTION NOT
+  USED` is the entry when a required section is not used. Examiner and advisor
+  comments follow the 7 August 2026 guidance memorandum: they clarify the
+  brief and leave the rater's statements as written.
+
 - **An AF Form 716 quill is added.** `af716@0.1.0` typesets the Enlisted
   Performance Brief (edition 20260326, prescribed by DAFI 36-2406). The grade
   selects the title and the higher-level review block: a promotion
