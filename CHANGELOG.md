@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **A Meritorious Service Medal citation quill is added.** `msm_citation@0.1.0`
+  typesets the certificate: the presidential heading, the medal, an oak leaf
+  cluster when the award is a later one, the accomplishments paragraph (1350
+  characters, including spaces), and the approving official's name, grade, and
+  duty title with the seal. `meritorious_service_medal.md`, listed as
+  `meritorious-service-medal`, is the starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "meritorious-service-medal",
+    "name": "Meritorious Service Medal",
+    "description": "Meritorious Service Medal citation",
+    "file": "meritorious_service_medal.md",
+    "tags": ["air-force", "decoration", "citation"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",
