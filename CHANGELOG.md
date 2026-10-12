@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- **AF Form 716 prints Enlisted Performance Brief for an E7–E8 grade.** Amn
+- **AF Form 716 is titled Enlisted Performance Brief on every grade.** Amn
   and AB are grades, and they take the E1–E6 review block. Performance
   statements print as paragraphs.
 

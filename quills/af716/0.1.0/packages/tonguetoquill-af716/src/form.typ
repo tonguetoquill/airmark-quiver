@@ -1,10 +1,10 @@
 // AF Form 716, 20260326, Enlisted Performance Brief, prescribed by DAFI 36-2406.
 //
-// The grade selects the title and the higher-level review block. E1–E6 prints a
-// promotion recommendation, E7–E8 a stratification, and E9 a higher responsibility
-// recommendation plus the future-role list. SSgt Select and TSgt Select keep the
-// plain title and print none of those blocks: the form's grade script matches
-// them before the E1–E6 branch.
+// The grade selects the higher-level review block. E1–E6 prints a promotion
+// recommendation, E7–E8 a stratification, and E9 a higher responsibility
+// recommendation plus the future-role list. SSgt Select and TSgt Select print
+// none of those blocks: the form's grade script matches them before the E1–E6
+// branch. The title carries no grade band.
 
 #let font = "Liberation Sans"
 #let rule = 0.7pt + black
@@ -84,15 +84,7 @@
   let e9 = grade in e9-grades
   let e78 = grade in e78-grades
   let e16 = grade in e16-grades
-  let title = if e9 {
-    [Enlisted Performance Brief (E9)]
-  } else if e78 {
-    [Enlisted Performance Brief]
-  } else if e16 {
-    [Enlisted Performance Brief (E1–E6)]
-  } else {
-    [ENLISTED PERFORMANCE BRIEF]
-  }
+  let title = [Enlisted Performance Brief]
 
   set page(
     paper: "us-letter",

@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "Fill the brief as Table 4.9 of AFI 36-2406 directs. A performance statement is one sentence with the action and its result. Duty description is 450 characters, each performance area 350, and the higher-level assessment 250, including spaces. The grade sets the title and the higher-level review block."
+  description: "Fill the brief as Table 4.9 of AFI 36-2406 directs. A performance statement is one sentence with the action and its result. Duty description is 450 characters, each performance area 350, and the higher-level assessment 250, including spaces. The grade sets the higher-level review block."
   body:
     enabled: false
   ui:
