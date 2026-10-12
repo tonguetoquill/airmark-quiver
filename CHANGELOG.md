@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+- **A USAF talking paper quill is added.** `usaf_talking_paper@0.1.0` typesets
+  the paper in AFH 33-337 (27 May 2015), p. 225: the point-paper page, dash
+  bullets, and short phrases for one issue. `talking_paper.md`, listed as
+  `talking-paper`, is the starter.
+
+- **A USAF background paper quill is added.** `usaf_background_paper@0.1.0`
+  typesets the paper in AFH 33-337 (27 May 2015), pp. 228–229: the same page
+  as the other Air Force papers, with paragraphs numbered as in the official
+  memorandum. `background_paper.md`, listed as `background-paper`, is the
+  starter.
+
+- **A USAF position paper quill is added.** `usaf_position_paper@0.1.0`
+  typesets the paper in AFH 33-337 (27 May 2015), p. 230, on the background
+  paper's page. The first paragraph states the position and the last restates
+  it. `position_paper.md`, listed as `position-paper`, is the starter.
+
+- **A trip report starter is added.** `trip_report.md`, listed as
+  `trip-report`, is an official memorandum with the five headings in AFH
+  33-337 (27 May 2015), p. 188: purpose, travelers, itinerary, discussion,
+  and conclusions or recommendations.
+
 - **A USAF bullet background paper quill is added.** `usaf_bbp@0.1.0` typesets
   the paper in AFH 33-337 (27 May 2015), pp. 226–227: a centered title, hyphen
   bullets single-spaced within an item and double-spaced between items, the
