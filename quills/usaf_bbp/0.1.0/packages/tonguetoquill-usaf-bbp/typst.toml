@@ -1,0 +1,21 @@
+[package]
+name = "tonguetoquill-usaf-bbp"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Typeset USAF bullet background papers per AFH 33-337 'The Tongue and Quill'."
+keywords = [
+    "USAF",
+    "Air Force",
+    "bullet background paper",
+    "BBP",
+    "military",
+    "AFH 33-337",
+    "official",
+    "staff paper",
+]
+categories = ["office"]
+disciplines = ["politics", "business", "education"]

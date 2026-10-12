@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **A USAF bullet background paper quill is added.** `usaf_bbp@0.1.0` typesets
+  the paper in AFH 33-337 (27 May 2015), pp. 226–227: a centered title, hyphen
+  bullets single-spaced within an item and double-spaced between items, the
+  identification line on the first page, and the page number from page 2.
+  `bullet_background_paper.md`, listed as `bullet-background-paper`, is the
+  starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

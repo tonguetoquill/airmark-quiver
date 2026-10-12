@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "bullet-background-paper",
+    "name": "Bullet Background Paper",
+    "description": "Official U.S. Air Force bullet background paper",
+    "file": "bullet_background_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",

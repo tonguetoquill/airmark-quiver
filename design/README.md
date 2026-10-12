@@ -128,6 +128,36 @@ python3 design/usaf_memo/check_table_signature.py
 TYPST=/path/to/typst python3 design/usaf_memo/check_table_signature.py
 ```
 
+## usaf_bbp
+
+Fixtures and a layout check for the `usaf_bbp` quill.
+
+```sh
+# render a fixture (run from the repo root)
+node design/usaf_bbp/render_fixture.mjs design/usaf_bbp/fixtures/minimal.md /tmp/min.pdf
+
+# with no fixture, renders the blueprint the schema seeds
+node design/usaf_bbp/render_fixture.mjs /tmp/seed.pdf
+
+# check the rendered PDF against AFH 33-337, pp. 226–227
+python3 design/usaf_bbp/validate_bbp.py design/usaf_bbp/fixtures/minimal.md /tmp/min.pdf
+```
+
+`validate_bbp.py` needs `pymupdf` and `pyyaml`.
+
+AFH 33-337 places the title an inch from the top, single-spaces a wrapped item
+and double-spaces the next one, and pins the identification line to page 1.
+`quillkit test` renders the example without reading any of those. The check
+reads them off the baselines.
+
+`minimal.md` is one page: a subject that wraps, a paragraph that wraps, and
+bullets at three levels, one of which wraps, so the hanging indent and both
+spacings are on the page. `multipage.md` runs onto a second page, which is
+where the page number is exercised and where the identification line must not
+follow. `cui.md` carries a designation block and a banner and is long enough
+that the block has to hold the body off itself. `blank_date.md` leaves the
+date empty, so the identification line ends in a fillable field.
+
 ## usaf_letter
 
 Fixtures and a layout check for the `usaf_letter` quill.

@@ -1,0 +1,124 @@
+quill:
+  name: usaf_bbp
+  version: 0.1.0
+  backend: typst
+  description: U.S. Air Force Bullet Background Paper
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "Open with a paragraph that states the point of the paper, then use bullets. A line of its own, such as PURPOSE or RECOMMENDATION, is a heading. Each bullet level adds a dash."
+  ui:
+    groups: [heading, identification, classification, additional]
+  fields:
+    subject:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: heading
+      description: "The subject, in title case. It prints in capitals under ON. A long subject wraps, centered, on the next line."
+
+    originator:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: identification
+      description: "Your rank and name, for example 'MSgt Alex R. Rivera'. It leads the identification line."
+
+    organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: identification
+        compact: true
+      description: "Your organization, for example '123 ES'."
+
+    office_symbol:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: identification
+        compact: true
+      description: "Your office symbol, for example '123 ES/DO'."
+
+    phone:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: identification
+        compact: true
+      description: "Your phone number, for example 'DSN 555-0142'."
+
+    typist:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: identification
+        compact: true
+      description: "The typist's initials. Leave blank to leave them off the line."
+
+    date:
+      type: date
+      default: ""
+      ui:
+        group: identification
+        compact: true
+      description: "The date you prepare the paper. It prints as 12 Oct 26. Leave blank to add a fillable date on the PDF."
+
+    classification:
+      type: enum
+      values:
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified paper."
+      variants:
+        CUI:
+          controlled_by:
+            type: plaintext
+            inline: true
+            description: "The office that designated this information as CUI, for example 'SAF/AA'."
+          poc:
+            type: plaintext
+            inline: true
+            description: "Who to contact with questions about this CUI, with phone and email, for example 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'."
+          category:
+            type: plaintext
+            inline: true
+            default: ""
+            description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
+          limited_dissemination:
+            type: plaintext
+            inline: true
+            default: ""
+            description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
+
+    dissemination:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
+
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: additional
+        compact: true
+      description: "Body text size in points. The standard is 12."
