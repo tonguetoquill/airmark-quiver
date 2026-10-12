@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.36.0 - 2026-10-12
+
+- **v0.35.8 re-cut as a minor release.** Its contents are unchanged: the move
+  to `@quillmark/wasm` 0.125.0 and the click coverage in
+  `cyber_career_plan@0.1.0` change every plate and `Quill.yaml`, which a patch
+  number undersold. Every quill, example, template and saved document renders
+  as under v0.35.8.
+
 ## v0.35.8 - 2026-10-12
 
 - **A click on a label or milestone in `cyber_career_plan@0.1.0` opens its
