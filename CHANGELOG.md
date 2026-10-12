@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **An Air and Space Commendation Medal citation quill is added.** `ascom_citation@0.1.0`
+  typesets the certificate: the medal, the citation lines, an oak leaf cluster
+  when the award is a later one, the accomplishments paragraph (1350 characters,
+  including spaces), and the approving official's signature with the seal.
+  `air_and_space_commendation_medal.md`, listed as `air-and-space-commendation-medal`, is the starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

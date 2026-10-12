@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "air-and-space-commendation-medal",
+    "name": "Air and Space Commendation Medal",
+    "description": "Air and Space Commendation Medal citation",
+    "file": "air_and_space_commendation_medal.md",
+    "tags": ["air-force", "decoration", "citation"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",

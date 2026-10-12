@@ -1,0 +1,74 @@
+quill:
+  name: ascom_citation
+  version: 0.1.0
+  backend: typst
+  description: "Air and Space Commendation Medal citation"
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The Air and Space Commendation Medal certificate. The accomplishments paragraph is 1350 characters, including spaces."
+  body:
+    enabled: false
+  fields:
+    oak_leaf_cluster:
+      type: enum
+      default: Basic
+      values:
+        - Basic
+        - First Oak Leaf Cluster
+        - Second Oak Leaf Cluster
+        - Third Oak Leaf Cluster
+        - Fourth Oak Leaf Cluster
+        - Fifth Oak Leaf Cluster
+        - Sixth Oak Leaf Cluster
+        - Seventh Oak Leaf Cluster
+        - Eighth Oak Leaf Cluster
+        - Ninth Oak Leaf Cluster
+        - Tenth Oak Leaf Cluster
+      description: "Basic prints no cluster. A later award prints the cluster, in capitals, under the medal name."
+
+    rank:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The recipient's grade, as it prints under the award line."
+
+    service:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "What the medal recognizes, such as meritorious service."
+
+    period_from:
+      type: date
+      default: ""
+      description: "The first day of the period. It prints as 11 OCTOBER 2024."
+
+    period_to:
+      type: date
+      default: ""
+      description: "The last day of the period. It prints as 12 OCTOBER 2026."
+
+    accomplishments:
+      type: richtext
+      default: ""
+      description: "The citation paragraph. 1350 characters, including spaces."
+
+    signed_on:
+      type: date
+      default: ""
+      description: "The date the certificate is given. It prints as 12 OCTOBER 2026."
+
+    commander_name:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The approving official, for example ANDREW P. GRIFFITH, Colonel, USAF."
+
+    commander_title:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The approving official's duty title."
