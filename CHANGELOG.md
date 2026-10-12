@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased
+## v0.35.8 - 2026-10-12
+
+- **A click on a label or milestone in `cyber_career_plan@0.1.0` opens its
+  field.** A fact's caption opens that fact, and a record row's label (Constraints,
+  Stratifications, Awards, each qualification group, Certifications,
+  Deployments, Notes) opens the field the row prints. A course milestone or
+  the IDE or SDE window opens the qualification tick that marks it done, and a
+  board, the Eligibility label or the count of milestones past the window opens
+  the year group. Every click that reached a field still reaches it, and the
+  page renders as before.
 
 - **Take `@quillmark/wasm` 0.125.0, `@quillmark/quiver` 0.37.0 and `quillkit`
   0.17.0.** Every quill, example and template renders as before, pixel for
@@ -18,6 +27,15 @@
   a qualification's box opens that field in the editor, where most
   reached nothing. A click on a tour or constraint bar opens its row, and one on the
   current assignment opens `move_year`. The page renders as before.
+
+- **Ship a Cyber Career Plan template.** `templates/cyber_career_plan.md` is a
+  filled-in `cyber_career_plan@0.1` chart whose three vectors are named
+  Vector 1, Vector 2 and Vector 3, listed in `templates.json` as
+  `cyber-career-plan`. Every quill renders as before.
+
+- **The studio client pins `prosemirror-view` 1.42.6**, through `quillkit`
+  0.16.1 and on into 0.17.0, which closes the paste-handling XSS of
+  GHSA-c8x8-7fp4-3x9w. The package's assets are unchanged.
 
 ## v0.35.7 - 2026-10-10
 

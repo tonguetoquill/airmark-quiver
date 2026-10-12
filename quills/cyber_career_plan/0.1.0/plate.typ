@@ -150,14 +150,18 @@
 // A board prints heaviest, since it is a date you are ranked against; a course
 // is a seat, and prints plain. A board holds to one line: at eighteen years
 // "Lt Col board" runs a little into YG+13, which the ladder leaves empty.
+// A click on a gate opens the tick that marks it done, or, on a board, the
+// year group it counts from.
+#let gate-field(by) = if by.len() > 0 { quals.at("$path") + "education." + by.first() } else { yg-field }
 #let gate-mark(g) = {
-  let plain-mark(body, ..style) = box(inset: (x: 0.5pt, y: 2pt), text(size: mark-size, ..style, body))
+  let claim(body) = qm.region(gate-field(g.by), body)
+  let plain-mark(body, ..style) = box(inset: (x: 0.5pt, y: 2pt), text(size: mark-size, ..style, claim(body)))
   if g.overdue {
     plain-mark([#g.name, due #g.year], weight: 600, style: "italic")
   } else if g.done {
     plain-mark(strike(stroke: 0.5pt + mute, g.name), fill: mute)
   } else if g.board {
-    box(fill: ink, inset: (x: mark-inset, y: 2pt), text(size: mark-size, weight: 700, fill: white, g.name.replace(" ", "\u{a0}")))
+    claim(box(fill: ink, inset: (x: mark-inset, y: 2pt), text(size: mark-size, weight: 700, fill: white, g.name.replace(" ", "\u{a0}"))))
   } else {
     plain-mark(g.name, fill: mute)
   }
@@ -166,7 +170,7 @@
 // A window is one span over its looks in the chart, split by year and named
 // once. Looks already past are history and the span opens at the left edge;
 // looks past the window run it open into the right.
-#let window-mark(w, shown) = {
+#let window-mark(w, shown) = qm.region(gate-field(w.by), {
   let paint = if w.done { mute } else { ink }
   let edge = 0.5pt + paint
   box(
@@ -187,7 +191,7 @@
       }),
     ),
   )
-}
+})
 
 // ─── vectors ─────────────────────────────────────────────────────────────────
 #let ranks = ("Primary", "Alternate", "Backup")
@@ -355,7 +359,7 @@
   align: (_, y) => if y == 0 { bottom } else { top },
   // Raised clear of the line under it by the depth of its descenders.
   qm.region("name", pad(bottom: 3pt, text(size: display, weight: 800, tracking: -0.3pt)[#officer])),
-  ..facts.map(((name, ..)) => eyebrow(name)),
+  ..facts.map(((name, field, ..)) => qm.region(field, eyebrow(name))),
   identity,
   ..facts.map(((_, field, value, note)) => qm.region(field, stack(
     spacing: 3pt,
@@ -394,7 +398,7 @@
 // on past its end, on one line, over nothing; one too long for that as well is
 // cut at whichever edge leaves more of it, the bar's end or the page's.
 #for (i, c) in constraints.enumerate() {
-  rows.push(if i == 0 { row-label[Constraints] } else { table.cell[] })
+  rows.push(if i == 0 { row-label(qm.region("constraints")[Constraints]) } else { table.cell[] })
   let note = [#text(size: micro, weight: 600)[#c.note]#qm.region(c.path + "through", text(size: micro, fill: mute)[#(" · through " + str(c.through))])]
   // The first stands clear of the axis, which would otherwise close its top.
   rows.push(table.cell(colspan: c.end, inset: (x: 1pt, top: if i == 0 { 3pt } else { 0.5pt }, bottom: 0.5pt))[
@@ -421,7 +425,7 @@
 #let lanes = if spans.len() > 0 { 2 } else { 1 }
 #rows.push(table.cell(rowspan: lanes, align: left + horizon, stack(
   spacing: 3pt,
-  rail-label[Eligibility],
+  qm.region(yg-field, rail-label[Eligibility]),
   ..gates.filter(g => g.overdue).map(gate-mark),
 )))
 #for i in range(years) {
@@ -552,7 +556,7 @@
   block(above: 5pt, pad(left: rail, grid(
     columns: (1fr, auto),
     text(size: micro, fill: mute, legend.join(h(12pt), default: [])),
-    if ahead > 0 { text(size: micro, fill: mute)[#ahead more milestone#if ahead > 1 [s] past #window-end] },
+    if ahead > 0 { qm.region(yg-field, text(size: micro, fill: mute)[#ahead more milestone#if ahead > 1 [s] past #window-end]) },
   )))
 }
 
@@ -568,10 +572,10 @@
 // open boxes say what has not been done yet as plainly as the filled ones say
 // what has. What is held leads its row, and a member holds together on its line.
 #let vocabulary = (
-  ("Leadership & command", qm.roster(quals, "command")),
-  ("Operations", qm.roster(quals, "operations")),
-  ("Staff & functional", qm.roster(quals, "staff")),
-  ("Education & PME", qm.roster(quals, "education")),
+  ("Leadership & command", "command"),
+  ("Operations", "operations"),
+  ("Staff & functional", "staff"),
+  ("Education & PME", "education"),
 )
 #let member(m) = qm.region(m.path, box[
   #let detail = if m.held { m.value.detail } else { "" }
@@ -607,13 +611,18 @@
 
 // The two things a board reads first, the stratifications and the awards,
 // lead; the experience follows.
-#let listed(name, lines) = if lines.len() > 0 { (([#name], lines.map(trim).join[ · ]),) }
+// Each row's label claims the field the row prints, so a click on it opens that
+// field as a click on the row does.
+#let listed(name, field) = {
+  let lines = qm.data.at(field)
+  if lines.len() > 0 { (([#name], field, lines.map(trim).join[ · ]),) }
+}
 #let record = (
-  ..if strats.len() > 0 { (([Stratifications], qm.region("stratifications", strats-table)),) },
-  ..listed("Awards", qm.data.awards),
-  ..vocabulary.map(((name, members)) => ([#name], members-row(members))),
-  ..listed("Certifications", qm.data.certifications),
-  ..listed("Deployments", qm.data.deployments),
+  ..if strats.len() > 0 { (([Stratifications], "stratifications", qm.region("stratifications", strats-table)),) },
+  ..listed("Awards", "awards"),
+  ..vocabulary.map(((name, key)) => ([#name], quals.at("$path") + key, members-row(qm.roster(quals, key)))),
+  ..listed("Certifications", "certifications"),
+  ..listed("Deployments", "deployments"),
 )
 
 #divider(14pt)
@@ -622,7 +631,7 @@
   grid(
     columns: (rail, 1fr),
     row-gutter: 7pt,
-    ..record.map(((name, body)) => (rail-label(name), body)).flatten(),
+    ..record.map(((name, field, body)) => (rail-label(qm.region(field, name)), body)).flatten(),
   )
 }
 
@@ -686,7 +695,7 @@
   block(breakable: false, width: 100%, height: calc.max(room, need), {
     grid(
       columns: (rail, 1fr),
-      on-ruling(rail-label[Notes]),
+      on-ruling(qm.region("$body", rail-label[Notes])),
       block(width: 100%, { ruling(rules); notes }),
     )
     place(bottom + left, signature)
