@@ -9,152 +9,127 @@ typst:
 
 main:
   description: "Add a card for each section of the agreement. Sections print in DoDI 4000.19 order, whatever order you add them in."
-  ui:
-    groups: [parties, correspondence, terms, financial_details, signatures]
   body:
     enabled: false
-  fields:
-    first_party_name:
-      type: plaintext
-      inline: true
-      ui:
-        group: parties
-      description: "Full name and acronym of the organization proposing the agreement."
+  sections:
+    parties:
+      fields:
+        first_party_name:
+          type: plaintext
+          inline: true
+          description: "Full name and acronym of the organization proposing the agreement."
 
-    second_party_name:
-      type: plaintext
-      inline: true
-      ui:
-        group: parties
-      description: "Full name and acronym of the other organization."
+        second_party_name:
+          type: plaintext
+          inline: true
+          description: "Full name and acronym of the other organization."
 
-    second_party_is_non_government:
-      type: boolean
-      default: false
-      ui:
-        group: parties
-        compact: true
-      description: "Whether the second party is outside the government. If so, its mailing address appears in the opening paragraph."
+        second_party_is_non_government:
+          type: boolean
+          default: false
+          ui:
+            compact: true
+          description: "Whether the second party is outside the government. If so, its mailing address appears in the opening paragraph."
 
-    subject:
-      type: plaintext
-      inline: true
-      ui:
-        group: parties
-      description: "What the agreement covers. It follows 'FOR' in the title."
+        subject:
+          type: plaintext
+          inline: true
+          description: "What the agreement covers. It follows 'FOR' in the title."
 
-    agreement_number:
-      type: plaintext
-      inline: true
-      ui:
-        group: parties
-      description: The agreement's identification number.
+        agreement_number:
+          type: plaintext
+          inline: true
+          description: The agreement's identification number.
+    correspondence:
+      fields:
+        second_party_mailing_address:
+          type: array
+          items:
+            type: plaintext
+          default: []
+          description: "The second party's mailing address for correspondence."
+    terms:
+      fields:
+        reimbursable:
+          type: boolean
+          default: false
+          ui:
+            compact: true
+          description: "Whether the parties reimburse each other. If so, fill in Financial Details, which prints as Attachment A."
+    financial_details:
+      fields:
+        reimbursable_support:
+          type: richtext
+          inline: true
+          default: ""
+          description: "The support being reimbursed."
 
-    second_party_mailing_address:
-      type: array
-      items:
-        type: plaintext
-      default: []
-      ui:
-        group: correspondence
-      description: "The second party's mailing address for correspondence."
+        estimated_amount:
+          type: plaintext
+          inline: true
+          default: ""
+          ui:
+            compact: true
+          description: "Estimated amount to be reimbursed, for example $50,000."
 
-    reimbursable:
-      type: boolean
-      default: false
-      ui:
-        group: terms
-        compact: true
-      description: "Whether the parties reimburse each other. If so, fill in Financial Details, which prints as Attachment A."
+        appropriation_fy:
+          type: plaintext
+          inline: true
+          default: ""
+          ui:
+            compact: true
+          description: "Fiscal year of the appropriation, for example 2027."
 
-    reimbursable_support:
-      type: richtext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-      description: "The support being reimbursed."
+        cost_center_provider:
+          type: plaintext
+          inline: true
+          default: ""
+          ui:
+            compact: true
+          description: "The provider's cost center number, if required."
 
-    estimated_amount:
-      type: plaintext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-        compact: true
-      description: "Estimated amount to be reimbursed, for example $50,000."
+        cost_center_receiver:
+          type: plaintext
+          inline: true
+          default: ""
+          ui:
+            compact: true
+          description: "The receiver's cost center number, if required."
 
-    appropriation_fy:
-      type: plaintext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-        compact: true
-      description: "Fiscal year of the appropriation, for example 2027."
+        financial_poc_provider:
+          type: plaintext
+          inline: true
+          default: ""
+          description: "The provider's financial point of contact."
 
-    cost_center_provider:
-      type: plaintext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-        compact: true
-      description: "The provider's cost center number, if required."
+        financial_poc_receiver:
+          type: plaintext
+          inline: true
+          default: ""
+          description: "The receiver's financial point of contact."
 
-    cost_center_receiver:
-      type: plaintext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-        compact: true
-      description: "The receiver's cost center number, if required."
+        financial_additional_info:
+          type: richtext
+          inline: true
+          default: ""
+          description: "Any other financial terms the agreement needs."
+    signatures:
+      fields:
+        first_party_signatory:
+          type: plaintext
+          inline: true
+          description: "Name and title of the first party's approving official."
 
-    financial_poc_provider:
-      type: plaintext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-      description: "The provider's financial point of contact."
+        second_party_signatory:
+          type: plaintext
+          inline: true
+          description: "Name and title of the second party's approving official."
 
-    financial_poc_receiver:
-      type: plaintext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-      description: "The receiver's financial point of contact."
-
-    financial_additional_info:
-      type: richtext
-      inline: true
-      default: ""
-      ui:
-        group: financial_details
-      description: "Any other financial terms the agreement needs."
-
-    first_party_signatory:
-      type: plaintext
-      inline: true
-      ui:
-        group: signatures
-      description: "Name and title of the first party's approving official."
-
-    second_party_signatory:
-      type: plaintext
-      inline: true
-      ui:
-        group: signatures
-      description: "Name and title of the second party's approving official."
-
-    mid_point_review_due_date:
-      type: date
-      ui:
-        group: signatures
-        compact: true
-      description: "When the mid-point review of the agreement is due."
+        mid_point_review_due_date:
+          type: date
+          ui:
+            compact: true
+          description: "When the mid-point review of the agreement is due."
 
 card_kinds:
   background:
@@ -252,16 +227,14 @@ card_kinds:
   attachment:
     title: Attachment
     description: "An attachment on its own page, lettered from B. Attachment A is reserved for financial details and is added for you when the agreement is reimbursable."
-    ui:
-      groups: [attachment]
     seed:
       title: "[Insert Attachment Title]"
       $body: |
         [Describe the attachment's content here.]
-    fields:
-      title:
-        type: plaintext
-        inline: true
-        ui:
-          group: attachment
-        description: "The attachment's title."
+    sections:
+      attachment:
+        fields:
+          title:
+            type: plaintext
+            inline: true
+            description: "The attachment's title."

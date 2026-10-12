@@ -1,4 +1,4 @@
-#import "@local/quillmark-helper:0.1.0": data, ink
+#import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/ttq-classic-resume:0.1.0": (
   auto-link, default-config, entry, item-grid, resume, resume-header, section-header,
 )
@@ -43,9 +43,9 @@
 
 #show: resume.with(
   // An enum's blank is authorable even where the schema declares a default.
-  paper: if data.paper != "" { data.paper } else { "us-letter" },
-  size: data.font_size * 1pt,
-  margin: data.margin * 1in,
+  paper: if qm.data.paper != "" { qm.data.paper } else { "us-letter" },
+  size: qm.data.font_size * 1pt,
+  margin: qm.data.margin * 1in,
 
   // The package's stack names two families to fall back to; only the one this
   // quill bundles is in the render's font book, and naming the absent two
@@ -74,10 +74,10 @@
 )
 
 #resume-header(
-  name: if data.name.trim() != "" { ink(data).name },
-  title: data.name.trim(),
-  author: data.name.trim(),
-  contacts: data.contacts.zip(ink(data).contacts)
+  name: if qm.data.name.trim() != "" { qm.ink(qm.data, "name") },
+  title: qm.data.name.trim(),
+  author: qm.data.name.trim(),
+  contacts: qm.data.contacts.zip(qm.ink(qm.data, "contacts"))
     .map(((contact, printed)) => linked(contact, printed))
     .filter(contact => contact != none),
 )
@@ -103,7 +103,7 @@
 
 // The rows an author filled in. A row left wholly blank, as a new one is, would
 // print as an empty gap.
-#let filled(rows) = rows.filter(row => row.values().any(value => {
+#let filled(rows) = rows.filter(row => row.pairs().filter(((key, _)) => not key.starts-with("$")).any(((_, value)) => {
   or-none(if type(value) == str { value.trim() } else { value }) != none
 }))
 
@@ -126,7 +126,7 @@
     entry(
       heading: trim-inline(project.name),
       form: "linked",
-      url: linked(project.link, ink(project).link),
+      url: linked(project.link, qm.ink(project, "link")),
       body: under-entry(project.details),
     )
   },
@@ -139,7 +139,7 @@
   },
 )
 
-#for card in data.at("$cards") {
+#for card in qm.data.at("$cards") {
   let kind = card.at("$kind", default: none)
   if type(kind) == str and kind in rows {
     let title = or-none(card.title)
