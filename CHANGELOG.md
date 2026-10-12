@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **A formal trip report starter is added.** `trip_report.md`, listed as
+  `trip-report`, is the official memorandum in AFH 33-337 (27 May 2015),
+  p. 186. Purpose, travelers, itinerary, discussion, and conclusions or
+  recommendations each lead their numbered paragraph, followed by a colon.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

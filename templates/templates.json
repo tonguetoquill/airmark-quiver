@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "trip-report",
+    "name": "Formal Trip Report",
+    "description": "Official U.S. Air Force formal trip report",
+    "file": "trip_report.md",
+    "tags": ["air-force", "staff-paper", "memorandum"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",
