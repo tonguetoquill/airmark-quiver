@@ -20,7 +20,6 @@
   set par(leading: 4.5pt, spacing: 0pt)
 
   place(top + left, dx: 187pt, dy: 32.6pt, image("medal.png", width: 242.9pt))
-  place(top + left, dx: 464.7pt, dy: 536pt, image("seal.png", width: 69.5pt))
 
   place(center + top, dy: 164.8pt, text(size: 21.5pt, weight: "bold")[DEPARTMENT OF THE AIR FORCE])
   place(center + top, dy: 224.6pt, text(size: 11.7pt, weight: "bold")[THIS IS TO CERTIFY THAT])
@@ -31,21 +30,30 @@
   place(center + top, dy: 363.9pt, text(size: 11.7pt, upper(f.service)))
   place(center + top, dy: 390.8pt, text(size: 9.8pt)[#f.period_from #h(8pt) TO #h(8pt) #f.period_to])
   place(center + top, dy: 413.8pt, text(size: 11.7pt, weight: "bold")[ACCOMPLISHMENTS])
-  place(top + left, dx: 82.7pt, dy: 437pt, block(width: 451.6pt, text(size: 9.8pt, f.accomplishments)))
+  let story = block(width: 451.6pt, text(size: 9.8pt, f.accomplishments))
+  place(top + left, dx: 82.7pt, dy: 437pt, story)
 
-  place(top + left, dx: 82.7pt, dy: 493.3pt, text(size: 11.7pt)[
-    GIVEN UNDER MY HAND THIS
-    #h(12pt)
-    #if type(f.signed_on) == datetime {
-      ordinal(f.signed_on.day())
-      h(12pt)
-      [DAY OF]
-      h(12pt)
-      month-year(f.signed_on)
-    }
-  ])
+  context {
+    let story-h = measure(story).height
+    let text-bottom = 437pt + story-h
+    let given-dy = calc.max(493.3pt, text-bottom + 16pt)
+    let sign-dy = calc.max(584pt, given-dy + 56pt)
+    let seal-dy = if text-bottom > 520pt { sign-dy - 8pt } else { 536pt }
 
-  place(top + left, dx: 82.7pt, dy: 584pt, line(length: 211pt, stroke: 0.6pt))
-  place(top + left, dx: 82.7pt, dy: 599.4pt, text(size: 11.7pt, f.commander_name))
-  place(top + left, dx: 82.7pt, dy: 612.9pt, text(size: 11.7pt, f.commander_title))
+    place(top + left, dx: 464.7pt, dy: seal-dy, image("seal.png", width: 69.5pt))
+    place(top + left, dx: 82.7pt, dy: given-dy, text(size: 11.7pt)[
+      GIVEN UNDER MY HAND THIS
+      #h(12pt)
+      #if type(f.signed_on) == datetime {
+        ordinal(f.signed_on.day())
+        h(12pt)
+        [DAY OF]
+        h(12pt)
+        month-year(f.signed_on)
+      }
+    ])
+    place(top + left, dx: 82.7pt, dy: sign-dy, line(length: 211pt, stroke: 0.6pt))
+    place(top + left, dx: 82.7pt, dy: sign-dy + 15.4pt, text(size: 11.7pt, f.commander_name))
+    place(top + left, dx: 82.7pt, dy: sign-dy + 28.9pt, text(size: 11.7pt, f.commander_title))
+  }
 }

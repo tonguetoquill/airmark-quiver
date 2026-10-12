@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "The Air Force Achievement Medal certificate."
+  description: "The Air Force Achievement Medal certificate. The accomplishments paragraph is 1350 characters, including spaces."
   body:
     enabled: false
   fields:
@@ -37,7 +37,7 @@ main:
     accomplishments:
       type: richtext
       default: ""
-      description: "The citation paragraph."
+      description: "The citation paragraph. 1350 characters, including spaces."
 
     signed_on:
       type: date

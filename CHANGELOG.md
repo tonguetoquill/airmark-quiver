@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- **The Air Force Achievement Medal accomplishments paragraph is 1350
+  characters, including spaces.** Text past that cap is left off the page.
+
 - **An Air Force Achievement Medal citation quill is added.** `afam_citation@0.1.0`
   typesets the certificate: the medal, the citation lines, the accomplishments
   paragraph, and the approving official's signature with the seal.
