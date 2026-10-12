@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **AF Form 716 limits the narrative boxes to the form's character counts.**
+  Duty description is 450 characters. Executing the mission, leading people,
+  managing resources, and improving the unit are 350 each. The higher-level
+  assessment is 250. Spaces count.
+
 - **AF Form 716 is filled the way AFI 36-2406, Table 4.9, directs.** Each
   performance area asks for one sentence with the action and the result.
   Fitness prints as `PFA: 91.7; Excellent; Exemptions: None.` An E7–E8

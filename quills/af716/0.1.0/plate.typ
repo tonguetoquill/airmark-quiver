@@ -16,6 +16,86 @@
   if v == none or v == "" or v == [] { [] } else { v }
 }
 
+// AF Form 716 maxChars on the narrative boxes. A space counts.
+#let counted(c) = {
+  c == [ ] or c.func() == linebreak or c.func() == parbreak or c.func() == smartquote
+}
+
+#let char-count(c) = {
+  if type(c) == str { return c.clusters().len() }
+  if type(c) != content { return 0 }
+  if counted(c) { return 1 }
+  if c.has("text") and type(c.at("text")) == str { return c.text.clusters().len() }
+  if c.has("children") { return c.children.map(char-count).sum(default: 0) }
+  if c.has("body") { return char-count(c.body) }
+  if c.has("child") { return char-count(c.child) }
+  0
+}
+
+// Returns (kept content or none, characters still available).
+#let take-chars(c, left) = {
+  if left <= 0 { return (none, 0) }
+  if type(c) == str {
+    let clusters = c.clusters()
+    if clusters.len() <= left { return (c, left - clusters.len()) }
+    return (clusters.slice(0, left).join(), 0)
+  }
+  if type(c) != content { return (c, left) }
+  if counted(c) { return (c, left - 1) }
+  if c.has("text") and type(c.at("text")) == str {
+    let clusters = c.text.clusters()
+    if clusters.len() <= left { return (c, left - clusters.len()) }
+    let kept = clusters.slice(0, left).join()
+    let fields = c.fields()
+    fields.remove("text")
+    let out = if fields.len() == 0 { text(kept) } else { text(..fields, kept) }
+    return (out, 0)
+  }
+  if c.has("children") {
+    let kept = ()
+    let rest = left
+    for k in c.children {
+      if rest <= 0 { break }
+      let (piece, next) = take-chars(k, rest)
+      rest = next
+      if piece != none { kept.push(piece) }
+    }
+    if kept.len() == 0 { return (none, rest) }
+    let out = if c.fields().keys() == ("children",) {
+      kept.sum(default: [])
+    } else {
+      let fields = c.fields()
+      fields.remove("children")
+      c.func()(..fields, children: kept)
+    }
+    return (out, rest)
+  }
+  if c.has("body") {
+    let (piece, rest) = take-chars(c.body, left)
+    if piece == none { return (none, rest) }
+    let fields = c.fields()
+    fields.remove("body")
+    let out = if fields.len() == 0 { c.func()(piece) } else { c.func()(..fields, piece) }
+    return (out, rest)
+  }
+  if c.has("child") {
+    let (piece, rest) = take-chars(c.child, left)
+    if piece == none { return (none, rest) }
+    let fields = c.fields()
+    fields.remove("child")
+    let out = if fields.len() == 0 { c.func()(piece) } else { c.func()(..fields, piece) }
+    return (out, rest)
+  }
+  (c, left)
+}
+
+#let capped(body, limit) = {
+  if type(body) != content { return body }
+  if char-count(body) <= limit { return body }
+  let (out, _) = take-chars(body, limit)
+  if out == none { [] } else { out }
+}
+
 #let choice(key) = {
   let field = data.at(key)
   let value = if type(field) == str { field } else { field.value }
@@ -46,12 +126,12 @@
   ratee_signature: ink("ratee_signature"),
   organization: ink("organization"),
   location: ink("location"),
-  duty_description: ink("duty_description"),
+  duty_description: capped(ink("duty_description"), 450),
   referral: choice("referral_report"),
-  executing_mission: ink("executing_mission"),
-  leading_people: ink("leading_people"),
-  managing_resources: ink("managing_resources"),
-  improving_unit: ink("improving_unit"),
+  executing_mission: capped(ink("executing_mission"), 350),
+  leading_people: capped(ink("leading_people"), 350),
+  managing_resources: capped(ink("managing_resources"), 350),
+  improving_unit: capped(ink("improving_unit"), 350),
   mandatory_comments_required: choice("mandatory_comments_required"),
   mandatory_comments: ink("mandatory_comments"),
   mandatory_fitness_comments: ink("mandatory_fitness_comments"),
@@ -65,7 +145,7 @@
   future_role_3: ink("future_role_3"),
   ccm_number: ink("ccm_number"),
   ccm_assigned: ink("ccm_assigned"),
-  hlr_assessment: ink("hlr_assessment"),
+  hlr_assessment: capped(ink("hlr_assessment"), 250),
   stratification: ink("stratification"),
   higher_responsibility: choice("higher_responsibility"),
   promotion_recommendation: choice("promotion_recommendation"),

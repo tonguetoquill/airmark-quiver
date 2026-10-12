@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "Fill the brief as Table 4.9 of AFI 36-2406 directs. A performance statement is one sentence with the action and its result. The grade sets the title and the higher-level review block."
+  description: "Fill the brief as Table 4.9 of AFI 36-2406 directs. A performance statement is one sentence with the action and its result. Duty description is 450 characters, each performance area 350, and the higher-level assessment 250, including spaces. The grade sets the title and the higher-level review block."
   body:
     enabled: false
   ui:
@@ -139,7 +139,7 @@ main:
       default: ""
       ui:
         group: ratee
-      description: "The job in plain sentences: the responsibility, the people supervised, and the resources. Required."
+      description: "The job in plain sentences: the responsibility, the people supervised, and the resources. Required. 450 characters, including spaces."
 
     ratee_acknowledgment:
       type: enum
@@ -182,28 +182,28 @@ main:
       default: ""
       ui:
         group: narrative
-      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
+      description: "At least one performance statement: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
 
     leading_people:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
+      description: "At least one performance statement: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
 
     managing_resources:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
+      description: "At least one performance statement: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
 
     improving_unit:
       type: richtext
       default: ""
       ui:
         group: narrative
-      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
+      description: "At least one performance statement: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
 
     mandatory_comments_required:
       type: enum
@@ -318,7 +318,7 @@ main:
       default: ""
       ui:
         group: reviewer
-      description: "At least one performance statement: the action, and its result. THIS SECTION NOT USED meets the requirement."
+      description: "At least one performance statement: the action, and its result. 250 characters, including spaces. THIS SECTION NOT USED meets the requirement."
 
     stratification:
       type: plaintext
