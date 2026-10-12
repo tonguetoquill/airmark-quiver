@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "background-paper",
+    "name": "Background Paper",
+    "description": "Official U.S. Air Force background paper",
+    "file": "background_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",

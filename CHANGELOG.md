@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **A USAF background paper quill is added.** `usaf_background_paper@0.1.0`
+  typesets the paper in AFH 33-337 (27 May 2015), pp. 228–229: the same page
+  as the other Air Force papers, with paragraphs numbered as in the official
+  memorandum. `background_paper.md`, listed as `background-paper`, is the
+  starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or
