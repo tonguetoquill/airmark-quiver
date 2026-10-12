@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "position-paper",
+    "name": "Position Paper",
+    "description": "Official U.S. Air Force position paper",
+    "file": "position_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",

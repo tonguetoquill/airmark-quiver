@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **A USAF position paper quill is added.** `usaf_position_paper@0.1.0`
+  typesets the paper in AFH 33-337 (27 May 2015), p. 230, on the background
+  paper's page. The first paragraph states the position and the last restates
+  it. `position_paper.md`, listed as `position-paper`, is the starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or
