@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- **A click on a label or milestone in `cyber_career_plan@0.1.0` opens its
+  field.** A fact's caption opens that fact, and a record row's label (Constraints,
+  Stratifications, Awards, each qualification group, Certifications,
+  Deployments, Notes) opens the field the row prints. A course milestone or
+  the IDE or SDE window opens the qualification tick that marks it done, and a
+  board, the Eligibility label or the count of milestones past the window opens
+  the year group. Every click that reached a field still reaches it, and the
+  page renders as before.
+
 - **Take `@quillmark/wasm` 0.125.0, `@quillmark/quiver` 0.37.0 and `quillkit`
   0.17.0.** Every quill, example and template renders as before, pixel for
   pixel, and a click in the preview reaches the same fields: a document saved
