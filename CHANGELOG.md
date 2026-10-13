@@ -29,6 +29,31 @@
   `sections:`, where it spelled `ui.group`; each quill's schema and blueprint
   are equal to 0.124's, so the editor draws the same panels in the same order.
 
+- **AF Form 716 is titled Enlisted Performance Brief on every grade.** Amn
+  and AB are grades, and they take the E1–E6 review block. Performance
+  statements print as paragraphs.
+
+- **AF Form 716 limits the narrative boxes to the form's character counts.**
+  Duty description is 450 characters. Executing the mission, leading people,
+  managing resources, and improving the unit are 350 each. The higher-level
+  assessment is 250. Spaces count.
+
+- **AF Form 716 is filled the way AFI 36-2406, Table 4.9, directs.** Each
+  performance area asks for one sentence with the action and the result.
+  Fitness prints as `PFA: 91.7; Excellent; Exemptions: None.` An E7–E8
+  stratification is `#1 of 12` or `Top 25% of MSgts`, and `THIS SECTION NOT
+  USED` is the entry when a required section is not used. Examiner and advisor
+  comments follow the 7 August 2026 guidance memorandum: they clarify the
+  brief and leave the rater's statements as written.
+
+- **An AF Form 716 quill is added.** `af716@0.1.0` typesets the Enlisted
+  Performance Brief (edition 20260326, prescribed by DAFI 36-2406). The grade
+  selects the title and the higher-level review block: a promotion
+  recommendation for E1–E6, a stratification for E7–E8, and higher
+  responsibility for E9. A referral, a functional examiner, or an Air Force
+  advisor prints on the back with the privacy act statement.
+  `af716.md`, listed as `af-form-716`, is the starter.
+
 - **Every field `cyber_career_plan@0.1.0` prints is click-to-edit in the
   preview.** A click on the name, the dates, the year group, a timeline year,
   a tour's title or length, a constraint's year, a stratification's year or

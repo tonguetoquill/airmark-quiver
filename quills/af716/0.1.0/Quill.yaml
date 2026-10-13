@@ -1,0 +1,618 @@
+quill:
+  name: af716
+  version: 0.1.0
+  backend: typst
+  description: "AF Form 716 — Enlisted Performance Brief"
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "Fill the brief as Table 4.9 of AFI 36-2406 directs. A performance statement is one sentence with the action and its result. Duty description is 450 characters, each performance area 350, and the higher-level assessment 250, including spaces. The grade sets the higher-level review block."
+  body:
+    enabled: false
+  ui:
+    groups: [ratee, narrative, rater, reviewer, back]
+  fields:
+    grade:
+      type: enum
+      default: ""
+      values:
+        - CMSgt
+        - CMSgt Select
+        - SMSgt
+        - SMSgt Select
+        - MSgt
+        - MSgt Select
+        - TSgt
+        - TSgt Select
+        - SSgt
+        - SSgt Select
+        - SrA
+        - A1C
+        - Amn
+        - AB
+      ui:
+        group: ratee
+      description: "The grade as of the close-out date. A select grade uses the Select choice. E9 prints higher responsibility, E7–E8 a stratification, and E1–E6 a promotion recommendation."
+
+    name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "LAST, FIRST, MIDDLE INITIAL, and any suffix, in capitals, for example DOE, MATTHEW A. Use NMI when there is no middle initial."
+
+    dodid:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The full DoD ID number."
+
+    duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "The approved duty title as of the close-out date. Spell out an abbreviation that is not clear."
+
+    dafsc:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The DAFSC as of the close-out date, including a prefix or suffix."
+
+    reason:
+      type: enum
+      default: ""
+      values:
+        - Dir by HQ USAF
+        - Dir by Commander
+        - Annual
+        - First Annual
+        - First Biennial
+        - Biennial
+      ui:
+        group: ratee
+        compact: true
+      description: "The reason on the evaluation notice: Annual, Biennial, First Annual, First Biennial, directed by the commander, or directed by HAF."
+
+    period_from:
+      type: date
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The day after the previous evaluation closed. It prints as 1 Apr 2025."
+
+    period_thru:
+      type: date
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The close-out date. On an annual brief it is the static close-out for the grade."
+
+    days_supervised:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "Days the rater supervised the ratee during the period."
+
+    days_non_rated:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "Non-rated days in the period. Leave blank when there are none."
+
+    organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "The unit as of the close-out date, with the command in parentheses, for example 123d Fighter Squadron (ACC)."
+
+    location:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+        compact: true
+      description: "The duty location as of the close-out date, for example JB Langley-Eustis, VA."
+
+    duty_description:
+      type: richtext
+      default: ""
+      ui:
+        group: ratee
+      description: "The job in plain sentences: the responsibility, the people supervised, and the resources. Required. 450 characters, including spaces."
+
+    ratee_acknowledgment:
+      type: enum
+      default: ""
+      values:
+        - Member unable to sign
+        - Member declined to sign
+      ui:
+        group: ratee
+      description: "Leave blank when the ratee signs. Member unable to sign, or Member declined to sign, when they cannot or will not. A signature acknowledges receipt."
+
+    ratee_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: ratee
+        compact: true
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used. Sign on or after the close-out date."
+
+    ratee_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: ratee
+      description: "The ratee's name in the signature block."
+
+    referral_report:
+      type: enum
+      default: ""
+      values: ["YES", "NO"]
+      ui:
+        group: narrative
+        compact: true
+      description: "Yes when the brief is a referral. Do Not Retain is a referral. Not Ready Now is a referral when the brief has negative comments. Yes prints the referral on the back."
+
+    executing_mission:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "At least one performance statement, written as a paragraph: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
+
+    leading_people:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "At least one performance statement, written as a paragraph: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
+
+    managing_resources:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "At least one performance statement, written as a paragraph: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
+
+    improving_unit:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "At least one performance statement, written as a paragraph: the action, and its result. 350 characters, including spaces. THIS SECTION NOT USED meets the requirement."
+
+    mandatory_comments_required:
+      type: enum
+      default: ""
+      values: ["YES", "NO"]
+      ui:
+        group: narrative
+        compact: true
+      description: "Yes when the ratee oversaw privatized housing or served as a voting assistance officer during the period. Yes opens the comments."
+
+    mandatory_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "Housing uses \"The Ratee exercised effective oversight of military privatized housing.\" or \"The Ratee was not effective in oversight of military privatized housing.\" Voting needs a performance statement on that duty."
+
+    mandatory_fitness_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: narrative
+      description: "The current fitness assessment, as PFA: 91.7; Excellent; Exemptions: None. A combat AFSC also adds the combat fitness test after a slash. Leave out duty as a fitness representative."
+
+    rater_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater as of the close-out date, for example Jordan P. Hale, SMSgt, USAF."
+
+    rater_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater's duty title as of the close-out date."
+
+    rater_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater's unit as of the close-out date, with the command in parentheses."
+
+    rater_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: rater
+        compact: true
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
+
+    rater_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "The rater's signed name. Sign on or after the close-out date."
+
+    future_role_1:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+      description: "A role the member is eligible for at the current grade or the next one. On an E9 brief the list is Squadron Superintendent, MAJCOM Functional Manager, Command CMSgt (CCM), Group Superintendent, Career Field Manager, or Other, and at most two roles."
+
+    future_role_2:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "A second future role. Leave it blank on an E9 brief when the recommendation is Do Not Retain."
+
+    future_role_3:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "A third future role. Leave it blank on an E9 brief."
+
+    ccm_number:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "For a Command Chief nomination, where this CMSgt stands among all CMSgts the senior rater rates. The nomination requires Ready Now."
+
+    ccm_assigned:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: rater
+        compact: true
+      description: "How many CMSgts the senior rater rates, excluding CMSgt selects. It prints with the number above as 2 of 11 Assigned CMSgts."
+
+    hlr_assessment:
+      type: richtext
+      default: ""
+      ui:
+        group: reviewer
+      description: "At least one performance statement, written as a paragraph: the action, and its result. 250 characters, including spaces. THIS SECTION NOT USED meets the requirement."
+
+    stratification:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "On an E7–E8 brief, #1 of 12 or Top 25% of MSgts. If you are not stratifying, enter THIS SECTION NOT USED."
+
+    higher_responsibility:
+      type: enum
+      default: ""
+      values:
+        - READY NOW
+        - ON-TRACK
+        - CURRENT ASSIGNMENT
+        - GROOM
+        - DO NOT RETAIN
+      ui:
+        group: reviewer
+      description: "The CMSgt's next level of responsibility. It prints on an E9 brief. Do Not Retain makes the brief a referral."
+
+    promotion_recommendation:
+      type: enum
+      default: ""
+      values:
+        - Promote Now
+        - Must Promote
+        - Promote
+        - Not Ready Now
+      ui:
+        group: reviewer
+      description: "Only when the member is eligible. It prints on an E1–E6 brief. SSgt Select and TSgt Select have no promotion recommendation. Not Ready Now is a referral when the brief has negative comments."
+
+    concur:
+      type: enum
+      default: ""
+      values: [CONCUR, NON-CONCUR]
+      ui:
+        group: reviewer
+        compact: true
+      description: "Whether the higher-level reviewer agrees with the rater's assessment."
+
+    hlr_referral:
+      type: enum
+      default: ""
+      values: ["YES", "NO"]
+      ui:
+        group: reviewer
+        compact: true
+      description: "Yes when the higher-level reviewer makes the brief a referral. Yes prints the referral on the back."
+
+    hlr_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer. Use the close-out date when they were assigned by then; otherwise use the date they sign."
+
+    hlr_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's duty title as of the close-out date, or as of the date signed if assigned after close-out."
+
+    hlr_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's unit, with the command in parentheses."
+
+    hlr_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: reviewer
+        compact: true
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
+
+    hlr_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: reviewer
+      description: "The higher-level reviewer's signed name. Sign on or after the close-out date."
+
+    functional_examiner:
+      type: boolean
+      default: false
+      ui:
+        group: back
+        compact: true
+      description: "Turn on for a functional examiner review. Mark it as well when that person is also the Air Force advisor."
+
+    fe_comments_kind:
+      type: enum
+      default: ""
+      values: [Comments, "No comments"]
+      ui:
+        group: back
+        compact: true
+      description: "Comments, or No comments. Comments are optional."
+
+    fe_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: back
+      description: "Clarification of functional or acquisition matters. Comments are not a place for more accomplishments, and they leave the rater's statements as written."
+
+    fe_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner as of the close-out date, for example Chioma A. Okonkwo, Maj, USAF."
+
+    fe_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's duty title as of the close-out date."
+
+    fe_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's unit as of the close-out date, with the command in parentheses."
+
+    fe_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
+
+    fe_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The functional examiner's signed name. Sign on or after the close-out date."
+
+    air_force_advisor:
+      type: boolean
+      default: false
+      ui:
+        group: back
+        compact: true
+      description: "Turn on for an Air Force advisor review, including when that person is also the functional examiner."
+
+    afa_comments_kind:
+      type: enum
+      default: ""
+      values: [Comments, "No comments"]
+      ui:
+        group: back
+        compact: true
+      description: "Comments, or No comments. Comments are optional."
+
+    afa_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: back
+      description: "Clarification that the brief meets Air Force standards in a joint environment. Comments are not a place for more accomplishments."
+
+    afa_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor as of the close-out date."
+
+    afa_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's duty title as of the close-out date."
+
+    afa_organization:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's unit as of the close-out date, with the command in parentheses."
+
+    afa_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
+
+    afa_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The Air Force advisor's signed name. Sign on or after the close-out date."
+
+    referral_comments:
+      type: richtext
+      default: ""
+      ui:
+        group: back
+      description: "The referral comments. They print on the back when either referral answer is Yes."
+
+    referring_evaluator_name:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The referring evaluator as of the close-out date."
+
+    referring_evaluator_duty_title:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The referring evaluator's duty title as of the close-out date."
+
+    referring_evaluator_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
+
+    referring_evaluator_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The referring evaluator's signed name. Sign on or after the close-out date."
+
+    referring_evaluator_date:
+      type: date
+      default: ""
+      ui:
+        group: back
+        compact: true
+      description: "The date the referring evaluator signed. It prints as 02 Apr 2026."
+
+    referral_ratee_signature_type:
+      type: enum
+      default: Digital
+      values: [Digital, Manual]
+      ui:
+        group: back
+        compact: true
+      description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
+
+    referral_ratee_signature:
+      type: plaintext
+      inline: true
+      default: ""
+      ui:
+        group: back
+      description: "The ratee's signed name on the referral. A signature acknowledges receipt."
+
+    referral_ratee_date:
+      type: date
+      default: ""
+      ui:
+        group: back
+        compact: true
+      description: "The date the ratee signed the referral. The rater gives three duty days, or 30 calendar days for the Air Force Reserve."
