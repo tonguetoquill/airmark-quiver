@@ -1,7 +1,7 @@
 #import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/typst-af4141:0.1.0": form
 
-#set text(font: "NimbusRomNo9L")
+#set text(font: "TeX Gyre Termes")
 
 // A `type: date` field arrives as a native `datetime`, blank as `none`. The
 // form's cells are strings, so a date is formatted here rather than placed as

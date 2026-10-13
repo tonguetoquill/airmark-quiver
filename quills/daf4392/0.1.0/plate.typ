@@ -1,7 +1,7 @@
 #import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/daf4392page2-pkg:0.1.0": form
 
-#set text(font: "NimbusRomNo9L")
+#set text(font: "TeX Gyre Termes")
 
 // Map snake_case Quill `data` keys to generated `form.typ` parameter names.
 #let vals = (:)
