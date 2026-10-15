@@ -36,6 +36,16 @@
   [#marks#h(0.33em)]
 }
 
+// Bullets and numbered items share one nesting depth, so an item gets one more
+// dash than the item it sits under, whichever kind either one is.
+#let list-depth = state("talking-paper-list-depth", 0)
+#let nested(it) = {
+  list-depth.update(d => d + 1)
+  it
+  list-depth.update(d => d - 1)
+}
+#let depth-dashes = context dashes(list-depth.get() - 1)
+
 #let line-stride() = {
   let one = measure(par(spacing: 0pt)[x]).height
   measure(par(spacing: 0pt)[x#linebreak()x]).height - one
@@ -345,9 +355,11 @@
     } else {
       set par(leading: single-leading, spacing: item-gap)
       set block(above: item-gap, below: item-gap, spacing: item-gap)
-      set list(marker: dashes, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
+      show list: nested
+      show enum: nested
+      set list(marker: depth-dashes, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
       set enum(
-        numbering: (..nums) => dashes(nums.pos().len() - 1),
+        numbering: (..) => depth-dashes,
         indent: 0pt,
         body-indent: 0pt,
         spacing: item-gap,
