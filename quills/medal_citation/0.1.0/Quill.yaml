@@ -28,8 +28,7 @@ main:
             title: Signed on
             description: "The date the certificate is given. It prints as the 13th day of October 2026."
           commander_name: &named-with-grade
-            type: plaintext
-            inline: true
+            type: text
             default: "NAME, Rank, USAF"
             title: Commander name
             description: "The approving official, for example ANDREW P. GRIFFITH, Colonel, USAF."
@@ -40,14 +39,12 @@ main:
             title: Signed on
             description: "The date the certificate is given. It prints as 12 OCTOBER 2026."
           msm_commander_name:
-            type: plaintext
-            inline: true
+            type: text
             default: NAME
             title: Commander name
             description: "The approving official's name, for example ANDREW P. GRIFFITH."
           commander_grade:
-            type: plaintext
-            inline: true
+            type: text
             default: "Rank, USAF"
             title: Commander grade
             description: "The approving official's grade, for example Major General, USAF."
@@ -73,14 +70,12 @@ main:
       description: "Basic prints no cluster. A later award prints the cluster, in capitals, under the medal name."
 
     rank:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       description: "The recipient's grade, as it prints under the award line."
 
     service:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       description: "What the medal recognizes, such as meritorious service."
 
@@ -96,12 +91,11 @@ main:
 
     accomplishments:
       type: richtext
-      inline: true
+      multiline: false
       default: ""
       description: "The citation paragraph. 1350 characters, including spaces."
 
     commander_title:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       description: "The approving official's duty title."

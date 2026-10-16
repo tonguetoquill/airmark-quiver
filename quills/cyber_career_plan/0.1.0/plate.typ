@@ -29,13 +29,13 @@
 #set block(spacing: 0pt)
 #set par(spacing: 0pt)
 
-#let officer = qm.data.at("name", default: "").trim()
+#let officer = qm.str(qm.data.name).trim()
 #set document(
   title: if officer == "" { "Career Plan" } else { "Career Plan — " + officer },
   author: officer,
 )
 
-// A `plaintext` field lowers to content padded with a space on each side, which
+// A `text` field lowers to content padded with a space on each side, which
 // would print inside a bold run and defeat an emptiness test.
 #let trim(v) = {
   if type(v) != content { return v }
