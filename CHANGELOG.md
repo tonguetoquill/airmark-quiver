@@ -7,7 +7,7 @@
   and Space Commendation Medal. Medal picks which. The accomplishments
   paragraph is 1350 characters, including spaces. Basic prints no oak leaf
   cluster; a later award prints the cluster, in capitals, under the medal
-  name. Each citation opens on its own starter. The citation text is 12pt.
+  name. Each citation opens on its own starter. The citation text is 15pt.
   On the Air and Space Achievement Medal the accomplishments wrap in the
   certificate's text block, 72pt inset and 468pt wide. `medal_citation.md`,
   listed as `medal-citation`, is the starter.
