@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "usaf-paper",
+    "name": "Air Force Paper",
+    "description": "Talking paper, bullet background paper, background paper, position paper, or formal trip report",
+    "file": "usaf_paper.md",
+    "tags": ["air-force", "staff-paper", "memorandum"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",

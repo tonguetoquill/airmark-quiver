@@ -1,0 +1,23 @@
+[package]
+name = "tonguetoquill-usaf-paper"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Typeset USAF point papers per AFH 33-337 'The Tongue and Quill'."
+keywords = [
+    "USAF",
+    "Air Force",
+    "talking paper",
+    "background paper",
+    "bullet background paper",
+    "position paper",
+    "military",
+    "AFH 33-337",
+    "official",
+    "staff paper",
+]
+categories = ["office"]
+disciplines = ["politics", "business", "education"]
