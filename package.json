@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@quillmark/quiver": "0.37.0",
-    "@quillmark/wasm": "^0.125.0",
+    "@quillmark/wasm": "^0.126.0",
     "quillkit": "0.17.0"
   },
   "scripts": {
