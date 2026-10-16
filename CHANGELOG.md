@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+- **A medal citation quill is added.** `medal_citation@0.1.0` typesets the
+  Air and Space Achievement Medal, the Meritorious Service Medal, and the Air
+  and Space Commendation Medal. Medal picks which. The accomplishments
+  paragraph is 1350 characters, including spaces. Basic prints no oak leaf
+  cluster; a later award prints the cluster, in capitals, under the medal
+  name. Each citation opens on its own starter. The citation text is 15pt.
+  On each medal the accomplishments wrap in the certificate's text block,
+  36pt inset and 540pt wide, 26pt below the heading, and the paragraph stays
+  on the page. The signature and the seal sit at the bottom of the page. The accomplishments field is one
+  wrapping paragraph. `medal_citation.md`,
+  listed as `medal-citation`, is the starter.
+
 ## v0.36.0 - 2026-10-12
 
 - **v0.35.8 re-cut as a minor release.** Its contents are unchanged: the move

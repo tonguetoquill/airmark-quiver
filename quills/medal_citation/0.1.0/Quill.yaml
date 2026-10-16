@@ -1,0 +1,107 @@
+quill:
+  name: medal_citation
+  version: 0.1.0
+  backend: typst
+  description: "Air and Space Achievement, Meritorious Service, and Air and Space Commendation Medal citations"
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The certificate. Medal picks which. The accomplishments paragraph is 1350 characters, including spaces."
+  body:
+    enabled: false
+  fields:
+    medal:
+      type: enum
+      default: Air and Space Achievement Medal
+      values:
+        - Air and Space Achievement Medal
+        - Meritorious Service Medal
+        - Air and Space Commendation Medal
+      description: "Which citation. The Meritorious Service Medal prints the approving official's grade on its own line."
+      variants:
+        Air and Space Achievement Medal:
+          afam_signed_on:
+            type: date
+            default: "2026-10-13"
+            title: Signed on
+            description: "The date the certificate is given. It prints as the 13th day of October 2026."
+          commander_name: &named-with-grade
+            type: plaintext
+            inline: true
+            default: "NAME, Rank, USAF"
+            title: Commander name
+            description: "The approving official, for example ANDREW P. GRIFFITH, Colonel, USAF."
+        Meritorious Service Medal:
+          signed_on: &shown-date
+            type: date
+            default: "2026-10-12"
+            title: Signed on
+            description: "The date the certificate is given. It prints as 12 OCTOBER 2026."
+          msm_commander_name:
+            type: plaintext
+            inline: true
+            default: NAME
+            title: Commander name
+            description: "The approving official's name, for example ANDREW P. GRIFFITH."
+          commander_grade:
+            type: plaintext
+            inline: true
+            default: "Rank, USAF"
+            title: Commander grade
+            description: "The approving official's grade, for example Major General, USAF."
+        Air and Space Commendation Medal:
+          signed_on: *shown-date
+          commander_name: *named-with-grade
+
+    oak_leaf_cluster:
+      type: enum
+      default: Basic
+      values:
+        - Basic
+        - First Oak Leaf Cluster
+        - Second Oak Leaf Cluster
+        - Third Oak Leaf Cluster
+        - Fourth Oak Leaf Cluster
+        - Fifth Oak Leaf Cluster
+        - Sixth Oak Leaf Cluster
+        - Seventh Oak Leaf Cluster
+        - Eighth Oak Leaf Cluster
+        - Ninth Oak Leaf Cluster
+        - Tenth Oak Leaf Cluster
+      description: "Basic prints no cluster. A later award prints the cluster, in capitals, under the medal name."
+
+    rank:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The recipient's grade, as it prints under the award line."
+
+    service:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "What the medal recognizes, such as meritorious service."
+
+    period_from:
+      type: date
+      default: ""
+      description: "The first day of the period. It prints as 11 OCTOBER 2024."
+
+    period_to:
+      type: date
+      default: ""
+      description: "The last day of the period. It prints as 12 OCTOBER 2026."
+
+    accomplishments:
+      type: richtext
+      inline: true
+      default: ""
+      description: "The citation paragraph. 1350 characters, including spaces."
+
+    commander_title:
+      type: plaintext
+      inline: true
+      default: ""
+      description: "The approving official's duty title."
