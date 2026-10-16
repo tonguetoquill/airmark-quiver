@@ -4,7 +4,7 @@
 
 #let citation(f) = {
   set page(paper: "us-letter", margin: 0pt)
-  set text(font: font, size: 11pt, fill: black, hyphenate: false)
+  set text(font: font, size: 12pt, fill: black, hyphenate: false)
   set par(leading: 4.5pt, spacing: 0pt)
 
   // Headings sit 2.4pt right of the page center, matching the certificate.

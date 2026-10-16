@@ -16,7 +16,7 @@
 
 #let citation(f) = {
   set page(paper: "us-letter", margin: 0pt)
-  set text(font: font, size: 11pt, fill: black, hyphenate: false)
+  set text(font: font, size: 12pt, fill: black, hyphenate: false)
   set par(leading: 4.5pt, spacing: 0pt)
 
   place(top + left, dx: 187pt, dy: 32.6pt, image("medal-afam.png", width: 242.9pt))
