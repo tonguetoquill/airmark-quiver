@@ -39,7 +39,7 @@
   // The seal is 69.5pt tall and stays on the page, so the signature stops here.
   let sign-dy = 716pt
   let given-dy = sign-dy - 16pt
-  let story-dy = 388.7pt + drop
+  let story-dy = 406.7pt + drop
   let story-h = given-dy - 8pt - story-dy
   // Half an inch keeps the 15pt lines off the page edge.
   let side = 36pt

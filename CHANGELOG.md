@@ -9,9 +9,8 @@
   cluster; a later award prints the cluster, in capitals, under the medal
   name. Each citation opens on its own starter. The citation text is 15pt.
   On the Air and Space Achievement Medal the accomplishments wrap in the
-  certificate's text block, 36pt inset and 540pt wide, 8pt below the
-  heading. A pasted line break in the accomplishments field keeps the
-  field's leading. `medal_citation.md`,
+  certificate's text block, 36pt inset and 540pt wide, 26pt below the
+  heading. The accomplishments field is one wrapping paragraph. `medal_citation.md`,
   listed as `medal-citation`, is the starter.
 
 ## v0.36.0 - 2026-10-12

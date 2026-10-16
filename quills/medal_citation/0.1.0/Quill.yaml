@@ -95,7 +95,8 @@ main:
       description: "The last day of the period. It prints as 12 OCTOBER 2026."
 
     accomplishments:
-      type: plaintext
+      type: richtext
+      inline: true
       default: ""
       description: "The citation paragraph. 1350 characters, including spaces."
 
