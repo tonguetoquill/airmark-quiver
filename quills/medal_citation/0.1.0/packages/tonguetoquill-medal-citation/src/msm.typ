@@ -4,7 +4,7 @@
 
 #let citation(f) = {
   set page(paper: "us-letter", margin: 0pt)
-  set text(font: font, fill: black, hyphenate: false)
+  set text(font: font, size: 11pt, fill: black, hyphenate: false)
   set par(leading: 4.5pt, spacing: 0pt)
 
   // Headings sit 2.4pt right of the page center, matching the certificate.
@@ -32,7 +32,7 @@
   heading(403.5pt, 11.7pt, "regular", upper(f.service))
   heading(416.2pt, 9.8pt, "regular")[#f.period_from #h(8pt) TO #h(8pt) #f.period_to]
   heading(442.4pt, 12.7pt, "bold")[ACCOMPLISHMENTS]
-  let story = block(width: 451.5pt, text(size: 9.8pt, f.accomplishments))
+  let story = block(width: 451.5pt, f.accomplishments)
   let story-dy = 468.8pt
   place(top + left, dx: 82.7pt, dy: story-dy, story)
 
