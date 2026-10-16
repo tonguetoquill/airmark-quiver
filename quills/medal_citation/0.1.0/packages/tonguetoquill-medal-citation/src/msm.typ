@@ -28,28 +28,26 @@
   }
   heading(314.9pt, 12.7pt, "bold")[TO]
   heading(339.9pt, 9.8pt, "regular", upper(f.rank))
-  heading(376.5pt, 12.7pt, "bold")[FOR]
-  heading(403.5pt, 11.7pt, "regular", upper(f.service))
-  heading(416.2pt, 9.8pt, "regular")[#f.period_from #h(8pt) TO #h(8pt) #f.period_to]
-  heading(442.4pt, 12.7pt, "bold")[ACCOMPLISHMENTS]
-  let story = block(width: 451.5pt, f.accomplishments)
-  let story-dy = 468.8pt
-  place(top + left, dx: 82.7pt, dy: story-dy, story)
+  heading(352pt, 12.7pt, "bold")[FOR]
+  heading(366pt, 11.7pt, "regular", upper(f.service))
+  heading(379pt, 9.8pt, "regular")[#f.period_from #h(8pt) TO #h(8pt) #f.period_to]
+  heading(391pt, 12.7pt, "bold")[ACCOMPLISHMENTS]
+  let side = 36pt
+  let story-w = 612pt - side - side
+  let story-dy = 429pt
+  let story = block(width: story-w, {
+    set par(justify: true, leading: 0.5em, spacing: 0.65em)
+    show linebreak: [ ]
+    show parbreak: [ ]
+    f.accomplishments
+  })
+  place(top + left, dx: side, dy: story-dy, story)
 
-  context {
-    let story-h = measure(story).height
-    let text-bottom = story-dy + story-h
-    let given-dy = calc.max(512.6pt, text-bottom + 12pt)
-    let date-dy = given-dy + 11pt
-    let sign-dy = calc.max(568.1pt, date-dy + 36pt)
-    let seal-dy = sign-dy + 13.1pt
-
-    heading(given-dy, 9.8pt, "regular")[GIVEN UNDER MY HAND]
-    heading(date-dy, 9.8pt, "regular", f.signed_on)
-    place(top + left, dx: 82.7pt, dy: sign-dy + 8.8pt, line(length: 158pt, stroke: 0.6pt))
-    place(top + left, dx: 271.8pt, dy: seal-dy, image("seal.png", width: 69.6pt))
-    place(top + left, dx: 82.7pt, dy: sign-dy + 14.8pt, text(size: 11.7pt, f.commander_name))
-    place(top + left, dx: 82.7pt, dy: sign-dy + 28.2pt, text(size: 11.7pt, f.commander_grade))
-    place(top + left, dx: 82.7pt, dy: sign-dy + 41.6pt, text(size: 11.7pt, f.commander_title))
-  }
+  heading(694pt, 9.8pt, "regular")[GIVEN UNDER MY HAND]
+  heading(706pt, 9.8pt, "regular", f.signed_on)
+  place(top + left, dx: 82.7pt, dy: 726pt, line(length: 158pt, stroke: 0.6pt))
+  place(top + left, dx: 271.8pt, dy: 718pt, image("seal.png", width: 69.6pt))
+  place(top + left, dx: 82.7pt, dy: 734pt, text(size: 11.7pt, f.commander_name))
+  place(top + left, dx: 82.7pt, dy: 748pt, text(size: 11.7pt, f.commander_grade))
+  place(top + left, dx: 82.7pt, dy: 762pt, text(size: 11.7pt, f.commander_title))
 }

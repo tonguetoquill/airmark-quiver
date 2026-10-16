@@ -8,9 +8,10 @@
   paragraph is 1350 characters, including spaces. Basic prints no oak leaf
   cluster; a later award prints the cluster, in capitals, under the medal
   name. Each citation opens on its own starter. The citation text is 15pt.
-  On the Air and Space Achievement Medal the accomplishments wrap in the
-  certificate's text block, 36pt inset and 540pt wide, 26pt below the
-  heading. The accomplishments field is one wrapping paragraph. `medal_citation.md`,
+  On each medal the accomplishments wrap in the certificate's text block,
+  36pt inset and 540pt wide, 26pt below the heading, and the paragraph stays
+  on the page. The signature and the seal sit at the bottom of the page. The accomplishments field is one
+  wrapping paragraph. `medal_citation.md`,
   listed as `medal-citation`, is the starter.
 
 ## v0.36.0 - 2026-10-12

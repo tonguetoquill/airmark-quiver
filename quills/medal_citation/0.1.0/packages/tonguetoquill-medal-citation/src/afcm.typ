@@ -28,23 +28,21 @@
   heading(359.6pt, 11.7pt, "regular", upper(f.service))
   heading(383.4pt, 9.8pt, "regular")[#f.period_from #h(8pt) TO #h(8pt) #f.period_to]
   heading(408.4pt, 13.7pt, "bold")[ACCOMPLISHMENTS]
-  let story = block(width: 452.5pt, f.accomplishments)
-  let story-dy = 434.9pt
-  place(top + left, dx: 82.8pt, dy: story-dy, story)
+  let side = 36pt
+  let story-w = 612pt - side - side
+  let story-dy = 447pt
+  let story = block(width: story-w, {
+    set par(justify: true, leading: 0.5em, spacing: 0.65em)
+    show linebreak: [ ]
+    show parbreak: [ ]
+    f.accomplishments
+  })
+  place(top + left, dx: side, dy: story-dy, story)
 
-  context {
-    let story-h = measure(story).height
-    let text-bottom = story-dy + story-h
-    let given-dy = calc.max(489.2pt, text-bottom + 12pt)
-    let date-dy = given-dy + 22pt
-    let seal-dy = calc.max(538.4pt, date-dy + 16pt)
-    let sign-dy = calc.max(602.4pt, seal-dy + 64pt)
-
-    place(top + left, dx: 465.6pt, dy: seal-dy, image("seal.png", width: 69.7pt))
-    heading(given-dy, 9.8pt, "regular")[GIVEN UNDER MY HAND]
-    heading(date-dy, 9.8pt, "regular", f.signed_on)
-    place(top + left, dx: 82.8pt, dy: sign-dy + 8.8pt, line(length: 200pt, stroke: 0.6pt))
-    place(top + left, dx: 82.8pt, dy: sign-dy + 14.7pt, text(size: 11.7pt, f.commander_name))
-    place(top + left, dx: 82.8pt, dy: sign-dy + 28.2pt, text(size: 11.7pt, f.commander_title))
-  }
+  heading(716pt, 9.8pt, "regular")[GIVEN UNDER MY HAND]
+  heading(730pt, 9.8pt, "regular", f.signed_on)
+  place(top + left, dx: 465.6pt, dy: 720pt, image("seal.png", width: 69.7pt))
+  place(top + left, dx: 82.8pt, dy: 746pt, line(length: 200pt, stroke: 0.6pt))
+  place(top + left, dx: 82.8pt, dy: 754pt, text(size: 11.7pt, f.commander_name))
+  place(top + left, dx: 82.8pt, dy: 768pt, text(size: 11.7pt, f.commander_title))
 }
