@@ -21,12 +21,39 @@ main:
         - Air and Space Commendation Medal
       description: "Which citation. The Meritorious Service Medal prints the approving official's grade on its own line."
       variants:
+        Air and Space Achievement Medal:
+          afam_signed_on:
+            type: date
+            default: "2026-10-13"
+            title: Signed on
+            description: "The date the certificate is given. It prints as the 13th day of October 2026."
+          commander_name: &named-with-grade
+            type: plaintext
+            inline: true
+            default: "NAME, Rank, USAF"
+            title: Commander name
+            description: "The approving official, for example ANDREW P. GRIFFITH, Colonel, USAF."
         Meritorious Service Medal:
+          signed_on: &shown-date
+            type: date
+            default: "2026-10-12"
+            title: Signed on
+            description: "The date the certificate is given. It prints as 12 OCTOBER 2026."
+          msm_commander_name:
+            type: plaintext
+            inline: true
+            default: NAME
+            title: Commander name
+            description: "The approving official's name, for example ANDREW P. GRIFFITH."
           commander_grade:
             type: plaintext
             inline: true
-            default: ""
+            default: "Rank, USAF"
+            title: Commander grade
             description: "The approving official's grade, for example Major General, USAF."
+        Air and Space Commendation Medal:
+          signed_on: *shown-date
+          commander_name: *named-with-grade
 
     oak_leaf_cluster:
       type: enum
@@ -71,17 +98,6 @@ main:
       type: richtext
       default: ""
       description: "The citation paragraph. 1350 characters, including spaces."
-
-    signed_on:
-      type: date
-      default: ""
-      description: "The date the certificate is given. The Air and Space Achievement Medal prints it as the 13th day of October 2026. The Meritorious Service Medal and the Air and Space Commendation Medal print it as 12 OCTOBER 2026."
-
-    commander_name:
-      type: plaintext
-      inline: true
-      default: ""
-      description: "The approving official. On the Air and Space Achievement Medal and the Air and Space Commendation Medal, include the grade, for example ANDREW P. GRIFFITH, Colonel, USAF. On the Meritorious Service Medal, the name only, for example ANDREW P. GRIFFITH."
 
     commander_title:
       type: plaintext

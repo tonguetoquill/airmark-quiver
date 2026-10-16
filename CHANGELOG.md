@@ -7,7 +7,8 @@
   and Space Commendation Medal. Medal picks which. The accomplishments
   paragraph is 1350 characters, including spaces. Basic prints no oak leaf
   cluster; a later award prints the cluster, in capitals, under the medal
-  name. `medal_citation.md`, listed as `medal-citation`, is the starter.
+  name. Each citation opens on its own starter. `medal_citation.md`,
+  listed as `medal-citation`, is the starter.
 
 ## v0.36.0 - 2026-10-12
 

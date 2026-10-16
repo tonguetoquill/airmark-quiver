@@ -120,24 +120,26 @@
   period_from: shown-date("period_from"),
   period_to: shown-date("period_to"),
   accomplishments: capped(ink("accomplishments"), 1350),
-  commander_name: ink("commander_name"),
   commander_title: ink("commander_title"),
 )
 
 #if medal == "Air and Space Achievement Medal" {
   afam((
     ..common,
-    signed_on: qm.data.at("signed_on"),
+    signed_on: medal-field.at("afam_signed_on"),
+    commander_name: ink-value(medal-field.commander_name),
   ))
 } else if medal == "Meritorious Service Medal" {
   msm((
     ..common,
-    signed_on: shown-date("signed_on"),
+    signed_on: shown-date("medal.signed_on"),
+    commander_name: ink-value(medal-field.msm_commander_name),
     commander_grade: ink-value(medal-field.commander_grade),
   ))
 } else if medal == "Air and Space Commendation Medal" {
   afcm((
     ..common,
-    signed_on: shown-date("signed_on"),
+    signed_on: shown-date("medal.signed_on"),
+    commander_name: ink-value(medal-field.commander_name),
   ))
 }
