@@ -41,14 +41,17 @@
   let given-dy = sign-dy - 16pt
   let story-dy = 380.7pt + drop
   let story-h = given-dy - 8pt - story-dy
-  let story = block(width: 468pt, {
+  // Half an inch keeps the 15pt lines off the page edge.
+  let side = 36pt
+  let story-w = 612pt - side - side
+  let story = block(width: story-w, {
     set par(justify: true, leading: 0.5em, spacing: 0.65em)
     // A pasted line break reflows across the block.
     show linebreak: [ ]
     show parbreak: [ ]
     f.accomplishments
   })
-  place(top + left, dx: 72pt, dy: story-dy, block(width: 468pt, height: story-h, clip: true, story))
+  place(top + left, dx: side, dy: story-dy, block(width: story-w, height: story-h, clip: true, story))
 
   place(top + left, dx: 464.7pt, dy: sign-dy - 8pt, image("seal.png", width: 69.5pt))
   place(top + left, dx: 82.7pt, dy: given-dy, text(size: 11.7pt)[
