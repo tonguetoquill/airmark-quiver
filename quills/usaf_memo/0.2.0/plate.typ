@@ -1,12 +1,16 @@
 #import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/tonguetoquill-usaf-memo:3.0.0": backmatter, frontmatter, indorsement, mainmatter
 
+// The package computes with these as strings (`upper`, joins, emptiness), so
+// each `text` field reaches it through `qm.str`.
+#let strs(values) = values.map(qm.str)
+
 // Frontmatter configuration
 #show: frontmatter.with(
   // Letterhead configuration
-  letterhead_title: qm.data.letterhead_title,
-  letterhead_caption: qm.data.letterhead_caption,
-  letterhead_seal_subtitle: qm.data.letterhead_seal_subtitle,
+  letterhead_title: qm.str(qm.data.letterhead_title),
+  letterhead_caption: strs(qm.data.letterhead_caption),
+  letterhead_seal_subtitle: qm.str(qm.data.letterhead_seal_subtitle),
   // Enum blank is `""`, not a seal. Omit so the package renders none rather
   // than treating the blank as DoW.
   ..if qm.data.letterhead_seal != "" {
@@ -23,13 +27,13 @@
   date: qm.data.date,
 
   // Receiver information
-  memo_for: qm.data.memo_for,
+  memo_for: strs(qm.data.memo_for),
 
   // Sender information (omitted for Memorandum for Record)
-  ..if qm.data.memo_from.len() > 0 { (memo_from: qm.data.memo_from) },
+  ..if qm.data.memo_from.len() > 0 { (memo_from: strs(qm.data.memo_from)) },
 
   // Subject line
-  subject: qm.data.subject,
+  subject: qm.str(qm.data.subject),
 
   // Optional references
   ..if qm.data.references.len() > 0 { (references: qm.data.references) },
@@ -40,13 +44,13 @@
   // Optional classification level
   ..if qm.data.classification != "" { (classification_level: qm.data.classification) },
 
-  ..if qm.data.dissemination != "" { (dissemination: qm.data.dissemination) },
+  ..if qm.data.dissemination != "" { (dissemination: qm.str(qm.data.dissemination)) },
 
   // CUI designation indicator block fields (DoDM 5200.48)
-  ..if qm.data.cui_controlled_by != "" { (cui_controlled_by: qm.data.cui_controlled_by) },
-  ..if qm.data.cui_category != "" { (cui_category: qm.data.cui_category) },
-  ..if qm.data.cui_limited_dissemination != "" { (cui_limited_dissemination: qm.data.cui_limited_dissemination) },
-  ..if qm.data.cui_poc != "" { (cui_poc: qm.data.cui_poc) },
+  ..if qm.data.cui_controlled_by != "" { (cui_controlled_by: qm.str(qm.data.cui_controlled_by)) },
+  ..if qm.data.cui_category != "" { (cui_category: qm.str(qm.data.cui_category)) },
+  ..if qm.data.cui_limited_dissemination != "" { (cui_limited_dissemination: qm.str(qm.data.cui_limited_dissemination)) },
+  ..if qm.data.cui_poc != "" { (cui_poc: qm.str(qm.data.cui_poc)) },
 
   // USAF vs DAF memorandum style (date format, body indentation). Blank
   // falls through to the package's `"usaf"` default.
@@ -70,17 +74,17 @@
 // Backmatter
 #backmatter(
   // Signature block
-  signature_block: qm.data.signature_block,
+  signature_block: strs(qm.data.signature_block),
   signing_field: qm.signature-field("Signature", field: "signature_block"),
 
   // Optional cc
-  ..if qm.data.cc.len() > 0 { (cc: qm.data.cc) },
+  ..if qm.data.cc.len() > 0 { (cc: strs(qm.data.cc)) },
 
   // Optional distribution
-  ..if qm.data.distribution.len() > 0 { (distribution: qm.data.distribution) },
+  ..if qm.data.distribution.len() > 0 { (distribution: strs(qm.data.distribution)) },
 
   // Optional attachments
-  ..if qm.data.attachments.len() > 0 { (attachments: qm.data.attachments) },
+  ..if qm.data.attachments.len() > 0 { (attachments: strs(qm.data.attachments)) },
 )
 
 // Indorsements - iterate through CARDS array and filter by CARD tag
@@ -109,9 +113,9 @@
     // spans through the package rebuild, per-card because each card's body
     // has its own backend-generated eval site.
     indorsement(
-      from: card.at("from", default: ""),
-      to: card.at("for", default: ""),
-      signature_block: card.signature_block,
+      from: qm.str(card.from),
+      to: qm.str(card.at("for")),
+      signature_block: strs(card.signature_block),
       signing_field: qm.signature-field(
         "Ind_" + str(i) + "_Signature",
         field: card.at("$path") + "signature_block",
