@@ -7,6 +7,7 @@ paper:
   organization: ORG
   office_symbol: ORG/SYMBOL
   phone: DSN 555-0100
+  typist: ABC
 date: today
 $ext:
   editor:

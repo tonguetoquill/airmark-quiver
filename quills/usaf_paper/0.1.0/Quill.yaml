@@ -61,10 +61,11 @@ main:
                 typist:
                   type: plaintext
                   inline: true
+                  title: Initials
                   default: ""
                   ui:
                     compact: true
-                  description: "The typist's initials. Leave blank to leave them off the line."
+                  description: "Three-letter initials. Leave blank to leave them off the line."
               talking:
                 type: richtext
                 title: Body

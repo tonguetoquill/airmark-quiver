@@ -7,7 +7,8 @@
   paper (pp. 226–227), the background paper (pp. 228–229), and the position
   paper (p. 230). Paper picks which. The formal trip report (p. 186) is the
   official memorandum on the same quill. Each paper opens on its own
-  starter. `usaf_paper.md`, listed as `usaf-paper`, is the starter.
+  starter. The initials field is labeled Initials, and its sample is ABC.
+  `usaf_paper.md`, listed as `usaf-paper`, is the starter.
 
 ## v0.36.0 - 2026-10-12
 

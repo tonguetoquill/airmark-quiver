@@ -7,7 +7,7 @@ paper:
   organization: 123 ES
   office_symbol: 123 ES/DO
   phone: DSN 555-0142
-  typist: arr
+  typist: ABC
   talking: |
     The 123d Example Squadron moves unit physical training to three mornings a week on 2 November 2026.
 
