@@ -58,8 +58,23 @@
 )
 #let spec = point.at(paper-value, default: none)
 
-#let body = qm.data.at("$body")
-#let body-content = if type(body) == str { [] } else { body }
+#let written = qm.data.at("$body", default: "")
+#let written-body = if type(written) == str { none } else { written }
+
+#let sample = if paper-value == "Talking Paper" {
+  paper-field.talking
+} else if paper-value == "Bullet Background Paper" {
+  paper-field.bullet_background
+} else if paper-value == "Background Paper" {
+  paper-field.background
+} else if paper-value == "Position Paper" {
+  paper-field.position
+} else if paper-value == "Formal Trip Report" {
+  paper-field.trip
+} else {
+  []
+}
+#let body-content = if written-body != none { written-body } else { sample }
 
 #if paper-value == "Formal Trip Report" [
   #let memo-style = if paper-field.memo_style != "" { paper-field.memo_style } else { "usaf" }
@@ -80,7 +95,7 @@
     date-field: memo-date-slot,
     memo-for: paper-field.memo_for,
     ..if paper-field.memo_from.len() > 0 { (memo-from: paper-field.memo_from) },
-    subject: qm.data.subject,
+    subject: paper-field.trip_subject,
     ..if paper-field.references.len() > 0 { (references: paper-field.references) },
     footer-tag-line: paper-field.tag_line,
     classification-level: qm.data.classification.value,
@@ -97,7 +112,7 @@
     font-size: body-font-size,
     memo-for-cols: 1,
   )
-  #mainmatter(body-content)
+  #mainmatter(if written-body != none { written-body } else { paper-field.trip })
   #backmatter(
     authority-line: paper-field.authority_line,
     signature-block: paper-field.signature_block,
@@ -135,7 +150,7 @@
   #show: paper.with(
     document-title: title,
     narrative: narrative,
-    subject: qm.data.subject,
+    subject: if spec == none { none } else { paper-field.subject },
     originator: if spec == none { none } else { paper-field.originator },
     organization: if spec == none { none } else { paper-field.organization },
     office-symbol: if spec == none { none } else { paper-field.office_symbol },
@@ -154,7 +169,7 @@
       )
     },
   )
-  #if body != "" {
-    body
+  #if body-content != none and body-content != [] {
+    body-content
   }
 ]
