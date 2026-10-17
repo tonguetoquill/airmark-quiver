@@ -37,13 +37,20 @@ card_kinds:
     description: One row of the Record of Experience. The form holds up to 37 rows across two pages.
     body:
       enabled: false
+    ui:
+      groups:
+        record: {}
     fields:
       date:
+        ui:
+          group: record
         type: date
         default: ""
         description: The date of the action.
 
       action:
+        ui:
+          group: record
         type: text
         default: ""
         description: The action taken. Use one row per type of action.
@@ -52,6 +59,7 @@ card_kinds:
         type: text
         default: ""
         ui:
+          group: record
           compact: true
         description: The written grade, if any, for example 3.
 
@@ -59,6 +67,7 @@ card_kinds:
         type: date
         default: ""
         ui:
+          group: record
           compact: true
         description: The date of the written grade.
 
@@ -66,6 +75,7 @@ card_kinds:
         type: text
         default: ""
         ui:
+          group: record
           compact: true
         description: The positional grade, if any, for example 2.
 
@@ -73,10 +83,13 @@ card_kinds:
         type: date
         default: ""
         ui:
+          group: record
           compact: true
         description: The date of the positional grade.
 
       auth_or_remarks:
+        ui:
+          group: record
         type: text
         default: ""
         description: Authenticating initials, for example J.A.D., or remarks.

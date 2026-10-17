@@ -9,12 +9,19 @@ typst:
 
 main:
   description: "Write the letter as plain paragraphs; they aren't numbered. Use a block quote for lines that should stay as written, like an address. You can close with your phone number and email."
+  ui:
+    groups:
+      addressing: {}
+      letterhead: {}
+      classification: {}
+      additional: {}
   fields:
     letter_from:
       type: array
       items:
         type: text
       ui:
+        group: addressing
         compact: true
       description: "Your rank and full name, then your duty title and mailing address, one per line. Don't put a comma between city and state."
 
@@ -23,12 +30,14 @@ main:
       items:
         type: text
       ui:
+        group: addressing
         compact: true
       description: "The recipient's rank and full name, then their duty title and mailing address, one per line. Don't put a comma between city and state."
 
     salutation:
       type: text
       ui:
+        group: addressing
         compact: true
       description: "The greeting, for example 'Dear Major Smith', with no punctuation after the name."
 
@@ -36,6 +45,7 @@ main:
       type: date
       default: ""
       ui:
+        group: addressing
         compact: true
       description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
 
@@ -43,6 +53,7 @@ main:
       type: text
       default: Sincerely
       ui:
+        group: addressing
         compact: true
       description: "The closing above your signature. 'Sincerely' suits most letters."
 
@@ -51,9 +62,12 @@ main:
       items:
         type: text
       ui:
+        group: addressing
         compact: true
       description: "Your name in uppercase, grade, and service, for example 'FIRST M. LAST, Col, USAF'. A personal letter leaves out the duty title."
     letterhead_title:
+      ui:
+        group: letterhead
       type: array
       items:
         type: text
@@ -68,6 +82,7 @@ main:
         - dod
       default: dow
       ui:
+        group: letterhead
         compact: true
       description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
 
@@ -75,6 +90,7 @@ main:
       type: text
       default: ""
       ui:
+        group: letterhead
         compact: true
       description: "An optional line in bold capitals under the seal."
 
@@ -83,6 +99,7 @@ main:
       multiline: false
       default: ""
       ui:
+        group: letterhead
         compact: true
       description: "Your unit's motto, centered at the bottom of every page."
     classification:
@@ -95,6 +112,7 @@ main:
         - TOP SECRET
       default: ""
       ui:
+        group: classification
         compact: true
       description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
       variants:
@@ -118,9 +136,12 @@ main:
       type: text
       default: ""
       ui:
+        group: classification
         compact: true
       description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
     cc:
+      ui:
+        group: additional
       type: array
       items:
         type: text
@@ -128,6 +149,8 @@ main:
       description: Offices or people receiving a courtesy copy, one per line.
 
     attachments:
+      ui:
+        group: additional
       type: array
       items:
         type: richtext
@@ -139,5 +162,6 @@ main:
       type: number
       default: 12
       ui:
+        group: additional
         compact: true
       description: "Body text size in points. The standard is 12."

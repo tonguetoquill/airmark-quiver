@@ -9,12 +9,19 @@ typst:
 
 main:
   description: Top-level body paragraphs are numbered and nested bullets lettered automatically; do not number them by hand.
+  ui:
+    groups:
+      addressing: {}
+      letterhead: {}
+      classification: {}
+      additional: {}
   fields:
     memo_for:
       type: array
       items:
         type: text
       ui:
+        group: addressing
         compact: true
       description: "Organization/office symbol in UPPERCASE. To address a specific person, add their rank and name in parentheses (e.g., 'ORG/SYMBOL (LT COL JANE DOE)'). For many recipients, enter 'SEE DISTRIBUTION' and list them in the Distribution field."
 
@@ -24,10 +31,13 @@ main:
         type: text
       default: []
       ui:
+        group: addressing
         compact: true
       description: "If recipients are on the same installation, use only the office symbol. For recipients on other installations, include the full mailing address, one line each, ending 'City ST 12345-6789', to enable return correspondence. Omit entirely to produce a Memorandum for Record (no MEMO FROM line)."
 
     subject:
+      ui:
+        group: addressing
       type: text
       description: Be brief and clear. Capitalize the first letter of each word except articles, prepositions, and conjunctions. Include suspense dates in parentheses if applicable.
 
@@ -36,14 +46,19 @@ main:
       items:
         type: text
       ui:
+        group: addressing
         compact: true
       description: "Line 1: Name in UPPERCASE as signed, grade, and service, as in 'FIRST M. LAST, Capt, USAF'. Line 2: Duty title."
     letterhead_title:
+      ui:
+        group: letterhead
       type: text
       default: DEPARTMENT OF THE AIR FORCE
       description: Change only for Joint Commands or DoW agencies.
 
     letterhead_caption:
+      ui:
+        group: letterhead
       type: array
       items:
         type: text
@@ -56,6 +71,7 @@ main:
         - dod
       default: dow
       ui:
+        group: letterhead
         compact: true
       description: Department of War (DoW) or Department of Defense (DoD) seal shown in the letterhead.
 
@@ -63,6 +79,7 @@ main:
       type: text
       default: ""
       ui:
+        group: letterhead
         compact: true
       description: Bold-caps line below the seal; blank to omit.
 
@@ -71,6 +88,7 @@ main:
       multiline: false
       default: ""
       ui:
+        group: letterhead
         compact: true
       description: "Organizational motto at the bottom of the page. Supports Markdown emphasis (e.g. *italics*, **bold**)."
     classification:
@@ -83,6 +101,7 @@ main:
         - TOP SECRET
       default: ""
       ui:
+        group: classification
         compact: true
       description: "Select the classification marking shown in the header and footer banner. Unclassified documents typically omit this banner entirely — leave blank unless the document is CUI or classified. Mark per DAFI 16-1404 (DoDM 5200.48 for CUI) and applicable DoD guidance."
 
@@ -90,6 +109,7 @@ main:
       type: text
       default: ""
       ui:
+        group: classification
         compact: true
       description: "Banner dissemination suffix appended after double slash (e.g. 'NF' renders as CUI//NF in the header/footer). Leave blank for no suffix."
 
@@ -97,6 +117,7 @@ main:
       type: text
       default: ""
       ui:
+        group: classification
         compact: true
       description: "Office or organization that designated this information as CUI (e.g., 'SAF/AA'). Required by DoDM 5200.48 when classification is CUI."
 
@@ -104,6 +125,7 @@ main:
       type: text
       default: ""
       ui:
+        group: classification
         compact: true
       description: "CUI category from the DoD CUI Registry (e.g., 'Privacy/MED', 'CTI', 'PRVCY'). Leave blank to omit."
 
@@ -111,6 +133,7 @@ main:
       type: text
       default: ""
       ui:
+        group: classification
         compact: true
       description: "Limited dissemination control shown in the indicator block (e.g., 'FEDONLY', 'NOFORN'). Independent from the banner suffix above."
 
@@ -118,9 +141,12 @@ main:
       type: text
       default: ""
       ui:
+        group: classification
         compact: true
       description: "Point of contact for CUI questions (e.g., 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'). Required by DoDM 5200.48 when classification is CUI."
     references:
+      ui:
+        group: additional
       type: array
       items:
         type: richtext
@@ -129,6 +155,8 @@ main:
       description: "References, auto-lettered (a), (b), (c) per AFH 33-337. Cite each by organization, type, date, and title; italicize publication titles with *asterisks* (standard Markdown emphasis)."
 
     cc:
+      ui:
+        group: additional
       type: array
       items:
         type: text
@@ -136,6 +164,8 @@ main:
       description: List office symbols of recipients to receive copies; for a person, 'Rank and Name, ORG/SYMBOL'.
 
     distribution:
+      ui:
+        group: additional
       type: array
       items:
         type: text
@@ -143,6 +173,8 @@ main:
       description: Complete list of recipients if 'SEE DISTRIBUTION' is used in the 'Memo For' field.
 
     attachments:
+      ui:
+        group: additional
       type: array
       items:
         type: text
@@ -156,6 +188,7 @@ main:
         - daf
       default: usaf
       ui:
+        group: additional
         compact: true
       description: "USAF memorandum or DAF headquarters memorandum; DAF changes date format and body paragraph layout per AFH 33-337."
 
@@ -163,6 +196,7 @@ main:
       type: number
       default: 12
       ui:
+        group: additional
         compact: true
       description: Body text size in points; decimals allowed (e.g. 11.5).
 
@@ -170,6 +204,7 @@ main:
       type: date
       default: ""
       ui:
+        group: additional
         compact: true
       description: YYYY-MM-DD. Leave blank to use today's date.
 
@@ -177,15 +212,21 @@ card_kinds:
   indorsement:
     title: Routing indorsement
     description: Chain of routing endorsements. Each endorsement block adds an official response or forwarding action to the original memo.
+    ui:
+      groups:
+        addressing: {}
+        additional: {}
     fields:
       from:
         type: text
         ui:
+          group: addressing
           compact: true
         description: Office symbol or Rank Name of the endorsing official.
       for:
         type: text
         ui:
+          group: addressing
           compact: true
         description: Office symbol or organization receiving the endorsed memo.
       signature_block:
@@ -193,6 +234,7 @@ card_kinds:
         items:
           type: text
         ui:
+          group: addressing
           compact: true
         description: "Line 1: Name in UPPERCASE as signed, grade, and service, as in 'FIRST M. LAST, Capt, USAF'. Line 2: Duty title."
       format:
@@ -203,6 +245,7 @@ card_kinds:
           - separate_page
         default: standard
         ui:
+          group: additional
           compact: true
         description: "'standard' (formal, same page), 'informal' (less formal routing), or 'separate_page' (begins on a new page)."
       action:
@@ -216,11 +259,13 @@ card_kinds:
           - nonconcur
         default: ""
         ui:
+          group: additional
           compact: true
         description: "Decision taken by the endorser, shown as an either/or line with the choice circled. Leave blank to hide the line entirely. Approval authority: 'approve' or 'disapprove' (use 'undecided' to print Approve/Disapprove for the endorser to circle by hand). Coordinating official: 'concur' or 'nonconcur' (use 'undecided_concur' to print Concur/Nonconcur unmarked)."
       date:
         type: date
         default: ""
         ui:
+          group: additional
           compact: true
         description: "YYYY-MM-DD. Date the endorser signs/forwards the memo (per AFH 33-337 Ch. 14, this is distinct from the originating memo's date). Leave blank to render a fill-in line for the endorser to date by hand when signing."
