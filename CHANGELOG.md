@@ -2,19 +2,22 @@
 
 ## Unreleased
 
-- **Take `@quillmark/wasm` 0.126.0.** Every quill, example, template and
-  design fixture renders as before, byte for byte, and every field keeps its
-  address: a document saved against any quill here opens and renders
-  unchanged. Every `Quill.yaml` spells its text fields as `text` or
-  `richtext` with `multiline:`, where it spelled `string`, `plaintext` and
-  `inline:`, and groups its fields with `ui.group` in one flat `fields:` map,
-  where it grouped them under `sections:`, which 0.126 refuses; the editor
-  draws the same sections, and each quill loads with
-  `quill::deprecated_groups`. A plate
-  that computes with a former `string` value (`af4141`, `daf1206`, `daf4392`,
-  `classic_resume`, `cyber_career_plan`, `usaf_memo@0.2.0`) reads it through
-  `qm.str`, so the form cells, the PDF author and the memo package see the
-  strings they saw.
+- **Take `@quillmark/wasm` 0.126.1.** Every quill, example, template and
+  design fixture renders the same pages as before, and every field keeps its
+  address. A stored value of a former `string` field holding a line break,
+  other than `daf4392`'s `notes`, renders the break as a space and warns
+  `validation::line_break_folded`; `quillmark check --strict` lists each one.
+  Every `Quill.yaml` spells its text
+  fields as `text` or `richtext` with `multiline:`, where it spelled
+  `string`, `plaintext` and `inline:`. The eight quills that grouped their
+  fields under `sections:`, which 0.126 refuses, group them with `ui.group`
+  in one flat `fields:` map, so the editor draws the same sections, and load
+  with `quill::deprecated_groups`. A plate that computes with a former
+  `string` value (`af4141`, `daf1206`, `daf4392`, `classic_resume`,
+  `cyber_career_plan`, `usaf_memo@0.2.0`) reads it through `qm.str`, so the
+  form cells, the PDF author and the memo package see the strings they saw.
+  The studio and the site build on quillkit 0.18.0, which carries 0.126.1,
+  and the quiver on `@quillmark/quiver` 0.38.0.
 
 - **A medal citation quill is added.** `medal_citation@0.1.0` typesets the
   Air and Space Achievement Medal, the Meritorious Service Medal, and the Air
