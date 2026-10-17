@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.37.0 - 2026-10-17
 
 - **Take `@quillmark/wasm` 0.126.1.** Every quill, example, template and
   design fixture renders the same pages as before, and every field keeps its
