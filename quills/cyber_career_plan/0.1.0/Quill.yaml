@@ -15,17 +15,30 @@ main:
   # The chart's one piece of prose. It is set on the ruled notes area at the
   # foot of the page, and a rater goes on writing below it during the discussion.
   description: "What you want from this discussion: goals, preferences, assignments you'd turn down, questions for your rater. Put constraints that end in a known year under Constraints instead, so they show on the timeline."
+  ui:
+    groups:
+      officer: {}
+      plan: {}
+      record: {}
+      qualifications:
+        title: Qualifications & experience
   fields:
     name:
+      ui:
+        group: officer
       type: text
       description: "Your grade and name, for example 'Capt John A. Snuffy'. It also names the PDF."
 
     duty_title:
+      ui:
+        group: officer
       type: text
       default: ""
       description: "Your current job, for example Instructor or Flight Commander."
 
     unit:
+      ui:
+        group: officer
       type: text
       default: ""
       description: "Your unit and base, for example '333 TRS, Keesler AFB'."
@@ -34,18 +47,21 @@ main:
       type: text
       default: ""
       ui:
+        group: officer
         compact: true
       description: "Your AFSC with its skill level and any prefix, for example 17S3 or K17D3."
 
     commissioning_yg:
       type: integer
       ui:
+        group: officer
         compact: true
       description: "Your commissioning year group. Every milestone on the timeline is counted from it."
 
     adjusted_yg:
       type: integer?
       ui:
+        group: officer
         compact: true
       description: "Your adjusted year group, if a board or a break in service changed it. Leave blank if it hasn't."
 
@@ -53,6 +69,7 @@ main:
       type: date
       default: ""
       ui:
+        group: officer
         compact: true
       description: "Date of rank in your current grade."
 
@@ -60,16 +77,20 @@ main:
       type: date
       default: ""
       ui:
+        group: officer
         compact: true
       description: "When you arrived at your current station."
 
     timeline_start_year:
       type: integer
       ui:
+        group: officer
         compact: true
       description: "The first year on the timeline, usually this year."
 
     advanced_degree:
+      ui:
+        group: officer
       type: text
       default: ""
       description: "Your advanced degree, for example 'MS Cyber Operations, AFIT'. Add '(in progress)' if you're still working on it."
@@ -77,12 +98,14 @@ main:
       type: integer
       default: 12
       ui:
+        group: plan
         compact: true
       description: "How many years the timeline covers, up to 18. Twelve takes a Captain past the Lt Col board; go wider to bring the SDE boards into view."
 
     move_year:
       type: integer?
       ui:
+        group: plan
         compact: true
       description: "The year you expect to leave your current assignment. Every vector starts from this move. To stay longer on one vector, make the extension its first tour."
 
@@ -91,6 +114,7 @@ main:
       values: [Summer, Winter]
       default: Summer
       ui:
+        group: plan
         compact: true
       description: "The VML cycle you expect to move on."
 
@@ -98,6 +122,7 @@ main:
       type: array
       max: 3
       ui:
+        group: plan
         layout: table
       items:
         type: object
@@ -114,6 +139,8 @@ main:
       description: "Anything that limits where or when you can move and ends in a known year, like a join-spouse assignment or a degree in progress. Each shows as a bar across the timeline."
 
     vectors:
+      ui:
+        group: plan
       type: array
       max: 3
       items:
@@ -153,6 +180,7 @@ main:
       type: array
       max: 3
       ui:
+        group: record
         layout: table
       items:
         type: object
@@ -174,6 +202,8 @@ main:
       description: "Your stratifications from the last three years."
 
     awards:
+      ui:
+        group: record
       type: array
       items:
         type: text
@@ -181,6 +211,8 @@ main:
       description: "Major awards, one per line, strongest first. Wing level and above is worth the space."
 
     certifications:
+      ui:
+        group: record
       type: array
       items:
         type: text
@@ -188,6 +220,8 @@ main:
       description: "Certifications a board would recognize, one per line. Mark PME and the Cyber 200 and 300 courses under Qualifications instead."
 
     deployments:
+      ui:
+        group: record
       type: array
       items:
         type: text
@@ -201,6 +235,7 @@ main:
     qualifications:
       type: object
       ui:
+        group: qualifications
         layout: flat
       description: "Mark what you've done. The page lists every qualification and marks the ones you hold. Marking a course or school also marks its milestone done on the timeline."
       properties:

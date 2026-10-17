@@ -9,12 +9,19 @@ typst:
 
 main:
   description: "Write the body as plain paragraphs. They're numbered for you, and bullets become lettered subparagraphs. Use a block quote for lines that shouldn't be numbered, like a list of names."
+  ui:
+    groups:
+      addressing: {}
+      letterhead: {}
+      classification: {}
+      additional: {}
   fields:
     memo_for:
       type: array
       items:
         type: text
       ui:
+        group: addressing
         compact: true
       description: "Each recipient's office symbol, one per line. To address a person, add their rank and name in parentheses, for example 'ORG/SYMBOL (LT COL JANE DOE)'. For a long list, enter 'SEE DISTRIBUTION' and list everyone under Distribution."
 
@@ -24,10 +31,13 @@ main:
         type: text
       default: []
       ui:
+        group: addressing
         compact: true
       description: "Your office symbol. If any recipient is off your installation, add your full mailing address below it. Leave blank for a memorandum for record."
 
     subject:
+      ui:
+        group: addressing
       type: richtext
       multiline: false
       description: "A brief subject in title case. Put any suspense date in parentheses at the end."
@@ -36,6 +46,7 @@ main:
       type: date
       default: ""
       ui:
+        group: addressing
         compact: true
       description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
       
@@ -43,6 +54,7 @@ main:
       type: text
       default: ""
       ui:
+        group: addressing
         compact: true
       description: "Usually blank. When you sign on the commander's behalf or state the headquarters' position, enter 'FOR THE COMMANDER'. It prints above the signature block."
 
@@ -51,9 +63,12 @@ main:
       items:
         type: text
       ui:
+        group: addressing
         compact: true
       description: "Your name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Your duty title on the second."
     letterhead_title:
+      ui:
+        group: letterhead
       type: array
       items:
         type: text
@@ -68,6 +83,7 @@ main:
         - dod
       default: dow
       ui:
+        group: letterhead
         compact: true
       description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
 
@@ -75,6 +91,7 @@ main:
       type: text
       default: ""
       ui:
+        group: letterhead
         compact: true
       description: "An optional line in bold capitals under the seal."
 
@@ -83,6 +100,7 @@ main:
       multiline: false
       default: ""
       ui:
+        group: letterhead
         compact: true
       description: "Your unit's motto, centered at the bottom of every page."
     classification:
@@ -95,6 +113,7 @@ main:
         - TOP SECRET
       default: ""
       ui:
+        group: classification
         compact: true
       description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
       variants:
@@ -118,9 +137,12 @@ main:
       type: text
       default: ""
       ui:
+        group: classification
         compact: true
       description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
     references:
+      ui:
+        group: additional
       type: array
       items:
         type: richtext
@@ -129,6 +151,8 @@ main:
       description: "Cite each by organization, type, date, and title. One reference prints after the subject; two or more print as a lettered list."
 
     cc:
+      ui:
+        group: additional
       type: array
       items:
         type: text
@@ -136,6 +160,8 @@ main:
       description: Offices or people receiving a courtesy copy, one per line.
 
     distribution:
+      ui:
+        group: additional
       type: array
       items:
         type: text
@@ -143,6 +169,8 @@ main:
       description: "Everyone the memo goes to, when Memo For says 'SEE DISTRIBUTION'."
 
     attachments:
+      ui:
+        group: additional
       type: array
       items:
         type: richtext
@@ -157,6 +185,7 @@ main:
         - daf
       default: usaf
       ui:
+        group: additional
         compact: true
       description: "USAF for most memos, DAF for headquarters memos. DAF style dates as 'September 15, 2026' and indents paragraphs instead of numbering them."
 
@@ -164,6 +193,7 @@ main:
       type: number
       default: 12
       ui:
+        group: additional
         compact: true
       description: "Body text size in points. The standard is 12."
 
@@ -177,27 +207,35 @@ card_kinds:
       signature_block:
         - FIRST M. LAST, Rank, USAF
         - Duty Title
+    ui:
+      groups:
+        addressing: {}
+        additional: {}
     fields:
       from:
         type: text
         ui:
+          group: addressing
           compact: true
         description: "The endorser's office symbol."
       for:
         type: text
         ui:
+          group: addressing
           compact: true
         description: "The office the indorsement goes to."
       date:
         type: date
         default: ""
         ui:
+          group: addressing
           compact: true
         description: "The date the endorser signs. Leave blank to add a fillable date field to the PDF instead."
       authority_line:
         type: text
         default: ""
         ui:
+          group: addressing
           compact: true
         description: "Usually blank. When the endorser signs on the commander's behalf, enter 'FOR THE COMMANDER'."
       signature_block:
@@ -205,6 +243,7 @@ card_kinds:
         items:
           type: text
         ui:
+          group: addressing
           compact: true
         description: "The endorser's name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Their duty title on the second."
       format:
@@ -215,6 +254,7 @@ card_kinds:
           - separate_page
         default: standard
         ui:
+          group: additional
           compact: true
         description: "Standard continues on the same page and moves to a new one if it doesn't fit. Separate page always starts a new page. Informal leaves out the header."
       action:
@@ -225,5 +265,6 @@ card_kinds:
           - disapprove
         default: ""
         ui:
+          group: additional
           compact: true
         description: "The endorser's decision. The last indorsement prints Approve/Disapprove and earlier ones print Concur/Nonconcur, with the choice underlined. Choose undecided to mark it by hand, or leave blank to omit."

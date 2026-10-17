@@ -109,34 +109,42 @@ card_kinds:
     description: "One leg of your trip. The form holds up to 10."
     body:
       enabled: false
+    ui:
+      groups:
+        itinerary_entry: {}
     fields:
       date:
         type: date
         default: ""
         ui:
+          group: itinerary_entry
           compact: true
         description: "The date of this leg."
       departure_point:
         type: text
         default: ""
         ui:
+          group: itinerary_entry
           compact: true
         description: "Where this leg starts."
       arrival_point:
         type: text
         default: ""
         ui:
+          group: itinerary_entry
           compact: true
         description: "Where this leg ends."
       rest_length:
         type: text
         default: ""
         ui:
+          group: itinerary_entry
           compact: true
         description: "How long you'll stay."
       mileage:
         type: text
         default: ""
         ui:
+          group: itinerary_entry
           compact: true
         description: "Approximate miles for this leg. Leave blank for flights."

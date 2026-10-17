@@ -7,9 +7,10 @@
   address: a document saved against any quill here opens and renders
   unchanged. Every `Quill.yaml` spells its text fields as `text` or
   `richtext` with `multiline:`, where it spelled `string`, `plaintext` and
-  `inline:`, and declares its fields in one flat `fields:` map, where it
-  grouped them under `sections:`, which 0.126 refuses; the editor draws each
-  card as one panel, the fields in the order the sections held them. A plate
+  `inline:`, and groups its fields with `ui.group` in one flat `fields:` map,
+  where it grouped them under `sections:`, which 0.126 refuses; the editor
+  draws the same sections, and each quill loads with
+  `quill::deprecated_groups`. A plate
   that computes with a former `string` value (`af4141`, `daf1206`, `daf4392`,
   `classic_resume`, `cyber_career_plan`, `usaf_memo@0.2.0`) reads it through
   `qm.str`, so the form cells, the PDF author and the memo package see the

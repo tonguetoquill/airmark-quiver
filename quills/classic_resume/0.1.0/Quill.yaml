@@ -16,12 +16,20 @@ main:
   # summary is a Summary card.
   body:
     enabled: false
+  ui:
+    groups:
+      identity: {}
+      page: {}
   fields:
     name:
+      ui:
+        group: identity
       type: text
       description: "Your name as you want it read. It also names the PDF."
 
     contacts:
+      ui:
+        group: identity
       type: array
       items:
         type: text
@@ -33,6 +41,7 @@ main:
         - a4
       default: us-letter
       ui:
+        group: page
         compact: true
       description: "Page size."
 
@@ -40,6 +49,7 @@ main:
       type: number
       default: 12
       ui:
+        group: page
         compact: true
       description: "Body text size in points. To fit one page, try a half point smaller before cutting content."
 
@@ -47,6 +57,7 @@ main:
       type: number
       default: 0.5
       ui:
+        group: page
         compact: true
       description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
 
