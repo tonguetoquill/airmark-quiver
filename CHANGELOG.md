@@ -5,7 +5,8 @@
 - **Take `@quillmark/wasm` 0.126.2, and cap `medal_citation`'s
   accomplishments at 1350 characters.** The field declares `max: 1350`, so an
   editor on `@quillmark/svelte` with the cap takes no keystroke past it and a
-  longer stored paragraph warns `validation::over_length` and still renders.
+  longer stored paragraph warns `validation::over_length` and renders whole,
+  where the plate cut it at 1350.
   A host loading the quiver on `@quillmark/wasm` before 0.126.2 fails to load
   `medal_citation@0.1.0`, which 0.126.1 refuses `max:` on.
 
