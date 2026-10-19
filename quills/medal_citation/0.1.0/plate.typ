@@ -1,5 +1,5 @@
 #import "@local/quillmark-helper:0.2.0" as qm
-#import "@local/tonguetoquill-medal-citation:0.1.0": afam, afcm, msm, ordinal-suffix
+#import "@local/tonguetoquill-medal-citation:0.1.0": afam, afcm, msm
 
 #let trim(v) = {
   if type(v) != content { return v }
@@ -18,9 +18,9 @@
 
 #let ink(key) = ink-value(qm.data.at(key))
 
-#let period-pattern = "[day padding:none] [month repr:long] [year]"
+#let date-pattern = "[day padding:none] [month repr:long] [year]"
 #let shown-date(key) = {
-  let shown = qm.ink(qm.data, key, period-pattern)
+  let shown = qm.ink(qm.data, key, date-pattern)
   if shown == none { [] } else { upper(shown) }
 }
 
@@ -32,6 +32,14 @@
 
 #let medal-field = qm.data.medal
 #let medal = if type(medal-field) == str { medal-field } else { medal-field.value }
+
+// "NAME, Rank, USAF" prints as the name, then the grade on the line below.
+#let name-and-grade(key) = {
+  let full = qm.str(medal-field.at(key))
+  let (name, ..grade) = if full == none { ("",) } else { full.split(",") }
+  let part(s) = if s.trim() == "" { [] } else { qm.region("medal." + key, s.trim()) }
+  (commander_name: part(name), commander_grade: part(grade.join(",", default: "")))
+}
 
 #let signing-field(width, height) = qm.signature-field(
   "Signature",
@@ -51,22 +59,11 @@
   signing_field: signing-field,
 )
 
-#let afam-given() = {
-  let key = "medal.afam_signed_on"
-  let day = qm.ink(qm.data, key, "[day padding:none]")
-  [GIVEN UNDER MY HAND THIS #h(12pt)]
-  if day != none {
-    let signed = medal-field.afam_signed_on
-    [#day#ordinal-suffix(signed.day()) #h(12pt) DAY OF #h(12pt)]
-    upper(qm.ink(qm.data, key, "[month repr:long] [year]"))
-  }
-}
-
 #if medal == "Air and Space Achievement Medal" {
   afam((
     ..common,
-    given: afam-given(),
-    commander_name: ink-value(medal-field.commander_name),
+    ..name-and-grade("commander_name"),
+    signed_on: shown-date("medal.afam_signed_on"),
   ))
 } else if medal == "Meritorious Service Medal" {
   msm((
@@ -78,7 +75,7 @@
 } else if medal == "Air and Space Commendation Medal" {
   afcm((
     ..common,
+    ..name-and-grade("commander_name"),
     signed_on: shown-date("medal.signed_on"),
-    commander_name: ink-value(medal-field.commander_name),
   ))
 }

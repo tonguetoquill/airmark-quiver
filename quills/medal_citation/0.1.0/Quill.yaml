@@ -19,19 +19,19 @@ main:
         - Air and Space Achievement Medal
         - Meritorious Service Medal
         - Air and Space Commendation Medal
-      description: "Which citation. The Meritorious Service Medal prints the approving official's grade on its own line."
+      description: "Which citation. The Meritorious Service Medal takes the approving official's name and grade as two fields."
       variants:
         Air and Space Achievement Medal:
           afam_signed_on:
             type: date
             default: "2026-10-13"
             title: Signed on
-            description: "The date the certificate is given. It prints as the 13th day of October 2026."
+            description: "The date the certificate is given. It prints as 13 OCTOBER 2026."
           commander_name: &named-with-grade
             type: text
             default: "NAME, Rank, USAF"
             title: Commander name
-            description: "The approving official, for example ANDREW P. GRIFFITH, Colonel, USAF."
+            description: "The approving official's name, then grade after a comma, for example ANDREW P. GRIFFITH, Colonel, USAF. The grade prints on its own line under the name."
         Meritorious Service Medal:
           signed_on: &shown-date
             type: date
@@ -72,7 +72,7 @@ main:
     rank:
       type: text
       default: ""
-      description: "The recipient's grade, as it prints under the award line."
+      description: "The recipient's grade and name, for example Staff Sergeant Jane A. Doe. It prints in capitals under the award line."
 
     service:
       type: text

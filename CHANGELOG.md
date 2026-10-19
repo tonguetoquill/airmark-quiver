@@ -7,16 +7,23 @@
   `max:` on a `richtext` field the 0.126.1 that quillkit 0.18.0 carried
   refused.
 
-- **`medal_citation`'s three certificates share one layout.** Each sets the
-  same heading rhythm, accomplishments block and closing; a medal keeps its own
-  image, wording and date line. The date line stands 44pt above the signature
-  rule, leaving room to sign, with a signature field over that space, and the
-  seal centers on the rule. The accomplishments paragraph sets at 15pt and
-  steps down to fit its space, so a 1350-character paragraph no longer runs
-  into the date line on the Commendation or Meritorious Service Medal, and a
-  later award's oak leaf cluster prints in the gap under the medal name.
-  The Achievement Medal's date prints click-to-edit in the editor preview, as
-  the other two medals' dates do.
+- **`medal_citation`'s three certificates follow an issued Air and Space
+  Achievement Medal.** Each sets in TeX Gyre Termes, as the quiver's other
+  Times quills do, where it set in Liberation Serif, and keeps its own image
+  and wording. The headings print in regular weight; the recipient, the
+  service and its period print in bold. Rank takes the recipient's grade and
+  name. The accomplishments paragraph sets at 10pt, justified 1in from each
+  edge, and steps down to 8pt to fit its space, so a 1350-character paragraph
+  fits on every medal, with or without an oak leaf cluster. A later award's
+  cluster prints under the medal name. Every medal closes on GIVEN UNDER MY
+  HAND with the date in bold beneath it, as 13 OCTOBER 2026, where the
+  Achievement Medal printed "THIS 13th DAY OF OCTOBER 2026". The approving
+  official signs in a signature field above a 2.5in rule. The name prints in
+  bold under the rule, with the grade and duty title beneath, and the seal
+  stands to the right. On the Achievement and Commendation Medals, the
+  commander name's text after its first comma prints as the grade line. The
+  Achievement Medal's date prints click-to-edit in the editor preview, as the
+  other two medals' dates do.
 
 ## v0.38.0 - 2026-10-19
 

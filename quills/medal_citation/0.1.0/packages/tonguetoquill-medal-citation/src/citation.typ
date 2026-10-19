@@ -2,55 +2,54 @@
 #import "primitives.typ": *
 
 // One certificate. A medal supplies its image, its title, the lines between the
-// title and the medal's name, the line that names the recipient, and the date
-// line; everything else is shared.
+// title and the medal's name, and the line that names the recipient; everything
+// else is shared.
 //
 // - f (dictionary): oak_leaf_cluster, rank, service, period_from, period_to,
-//   accomplishments, commander_title.
-// - given (array): the date line, one entry per printed line.
-// - signer (array): the lines under the rule; a blank entry prints no line.
-// - signing-field (function): (width, height) => the widget over the signing space.
+//   accomplishments, signed_on, commander_name, commander_grade,
+//   commander_title, and signing_field, a function (width, height) => the
+//   widget over the signing space.
+// - preamble (array): lines at `preamble-size`, a line apart.
 #let citation(
   f,
   image-file: none,
   title: none,
   preamble: (),
+  preamble-size: size.certify,
   medal-name: none,
   awarded: none,
-  given: (),
-  signer: (),
-  signing-field: none,
 ) = {
   set page(paper: "us-letter", margin: 0pt)
   set text(font: font, size: size.line, fill: black, hyphenate: false)
-  set par(leading: 0.35em, spacing: 0pt)
+  set par(spacing: 0pt)
 
-  let signer = signer.filter(l => not blank(l))
-  closing-block(given, signer, signing-field: signing-field)
+  let signer = (
+    if not blank(f.commander_name) { text(weight: "bold", f.commander_name) },
+    f.commander_grade,
+    f.commander_title,
+  ).filter(l => not blank(l))
+  closing-block(f.signed_on, signer, signing-field: f.signing_field)
 
   v(medal-image.top)
   align(center, image(image-file, height: medal-image.height))
-  v(20pt)
-  heading-line(title, size: size.title, bold: true)
-  v(24pt)
-  for l in preamble {
-    l
-    v(7pt)
+  heading-line(title, above: pitch.title, size: size.title)
+  for (i, l) in preamble.enumerate() {
+    let above = if i == 0 { pitch.preamble * preamble-size } else { pitch.single }
+    heading-line(l, above: above, size: preamble-size)
   }
-  heading-line(medal-name, size: size.medal, bold: true)
-  block(width: 100%, height: 32pt, align(horizon, cluster-line(f.oak_leaf_cluster)))
-  heading-line(awarded, bold: true)
-  v(10pt)
-  heading-line(upper(f.rank), size: size.small)
-  v(9pt)
-  heading-line(bold: true)[FOR]
-  v(10pt)
-  heading-line(upper(f.service))
-  v(9pt)
-  heading-line(size: size.small)[#f.period_from #h(8pt) TO #h(8pt) #f.period_to]
-  v(20pt)
-  heading-line(bold: true)[ACCOMPLISHMENTS]
-  v(18pt)
+  heading-line(medal-name, above: pitch.medal, size: size.medal)
+  let cluster = f.oak_leaf_cluster
+  if not blank(cluster) and cluster != "Basic" {
+    heading-line(upper(cluster), above: pitch.cluster, size: size.heading)
+  }
+  heading-line(awarded, above: pitch.awarded, size: size.heading)
+  heading-line(upper(f.rank), above: pitch.rank, bold: true)
+  heading-line([FOR], above: pitch.for-line)
+  heading-line(upper(f.service), above: pitch.service, bold: true)
+  let period = if not (blank(f.period_from) and blank(f.period_to)) [#f.period_from TO #f.period_to]
+  heading-line(period, above: pitch.single, bold: true)
+  heading-line([ACCOMPLISHMENTS], above: pitch.accomplishments, size: size.heading)
+  v(accomplishments.gap)
 
-  accomplishments-block(f.accomplishments, given-top(signer.len(), given.len()) - 8pt)
+  accomplishments-block(f.accomplishments, closing.given - closing.clearance)
 }

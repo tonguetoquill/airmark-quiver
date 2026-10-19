@@ -1,34 +1,55 @@
 // Type and geometry every citation shares, in points on a us-letter page.
 
-#let font = "Liberation Serif"
+#let font = "TeX Gyre Termes"
 
 #let size = (
-  title: 21.5pt,
-  medal: 15.6pt,
-  line: 11.7pt,
-  small: 9.8pt,
+  title: 22pt,
+  medal: 18pt,
+  certify: 16pt,
+  heading: 14pt,
+  line: 12pt,
 )
+
+// Baseline to baseline, from the line above; `title` from the medal image's foot,
+// and `preamble` a multiple of the preamble's size.
+#let pitch = (
+  title: 17.5pt,
+  preamble: 2.7,
+  medal: 32pt,
+  cluster: 18pt,
+  awarded: 30.5pt,
+  rank: 28pt,
+  for-line: 29.5pt,
+  service: 27.5pt,
+  accomplishments: 27pt,
+  single: 14pt,
+)
+
+#let medal-image = (top: 76pt, height: 136pt)
 
 // The paragraph sets at the largest size that fits its space, down to `min`.
 #let accomplishments = (
-  max: 15pt,
-  min: 11pt,
-  step: 0.5pt,
-  side: 36pt,
+  max: 10pt,
+  min: 8pt,
+  step: 0.25pt,
+  side: 72pt,
+  pitch: 1.01em,
+  // The clip's top stands `gap` below the ACCOMPLISHMENTS baseline, and the first
+  // baseline `top-edge` below the clip's top, room for an accented capital.
+  gap: 2.5pt,
+  top-edge: 0.9em,
 )
 
-#let medal-image = (top: 32pt, height: 96pt)
-
 #let closing = (
-  // The signer column's left edge: the date line, the rule, and the signer's lines.
-  column: 82.7pt,
-  rule: 211pt,
-  // The signer writes between the date line and the rule.
-  signing-gap: 44pt,
-  line-pitch: 13.5pt,
-  name-drop: 15.4pt,
-  // The signer's last line starts here, so its descenders stay on the page.
-  last-line: 769pt,
-  seal-x: 464.7pt,
-  seal: 69.5pt,
+  // The baseline of GIVEN UNDER MY HAND; the date's is a line below it.
+  given: 637pt,
+  // The paragraph ends this far above the "GIVEN UNDER MY HAND" baseline.
+  clearance: 20pt,
+  rule: 693pt,
+  column: 72pt,
+  rule-length: 180pt,
+  // The signer writes in the space this tall above the rule.
+  signing: 38pt,
+  name-drop: 13.5pt,
+  seal: (x: 459pt, y: 654pt, size: 68pt),
 )

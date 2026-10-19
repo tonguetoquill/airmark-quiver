@@ -2,30 +2,21 @@
 
 #let blank(v) = v == none or v == [] or v == ""
 
-#let ordinal-suffix(n) = {
-  let mod = calc.rem(n, 10)
-  let teen = calc.rem(n, 100) >= 11 and calc.rem(n, 100) <= 13
-  if teen or mod == 0 or mod >= 4 { "th" }
-  else if mod == 1 { "st" }
-  else if mod == 2 { "nd" }
-  else { "rd" }
-}
-
-#let heading-line(body, size: size.line, bold: false) = align(center, text(
-  size: size,
-  weight: if bold { "bold" } else { "regular" },
-  body,
-))
-
-#let cluster-line(oak-leaf-cluster) = {
-  if blank(oak-leaf-cluster) or oak-leaf-cluster == "Basic" { return none }
-  heading-line(upper(oak-leaf-cluster), bold: true)
+// A line set with no height, so `above` is its baseline's drop from the line
+// above it.
+#let heading-line(body, above: 0pt, size: size.line, bold: false) = {
+  v(above)
+  align(center, text(
+    size: size,
+    weight: if bold { "bold" } else { "regular" },
+    top-edge: "baseline",
+    body,
+  ))
 }
 
 #let paragraph(body, text-size) = block(width: 100%, {
-  // The first line's ascenders stand inside the clip.
-  set text(size: text-size, top-edge: "ascender")
-  set par(justify: true, leading: 0.5em, spacing: 0.65em)
+  set text(size: text-size, top-edge: accomplishments.top-edge)
+  set par(justify: true, leading: accomplishments.pitch - accomplishments.top-edge)
   // A pasted line break reflows across the block.
   show linebreak: [ ]
   show parbreak: [ ]
@@ -47,29 +38,19 @@
   pad(x: accomplishments.side, block(height: height, clip: true, paragraph(body, text-size)))
 }
 
-// The signer's lines stand on the page bottom; the rule, the signing space and
-// the date line rise above them, and the seal centers on the rule.
-#let rule-top(signer-lines) = (
-  closing.last-line - (signer-lines - 1) * closing.line-pitch - closing.name-drop
-)
-
-#let given-top(signer-lines, given-lines) = (
-  rule-top(signer-lines) - closing.signing-gap - (given-lines - 1) * closing.line-pitch
-)
-
-#let closing-block(given, signer, signing-field: none) = {
-  let rule-dy = rule-top(signer.len())
-  let given-dy = given-top(signer.len(), given.len())
+#let closing-block(date, signer, signing-field: none) = {
   let at(dy, body) = place(top + left, dx: closing.column, dy: dy, body)
-  set text(size: size.line)
-  for (i, l) in given.enumerate() { at(given-dy + i * closing.line-pitch, l) }
+  let centered(dy, body) = place(top + left, dy: dy, block(width: 100%, body))
+  set text(size: size.line, top-edge: "baseline")
+  centered(closing.given, heading-line(size: size.heading)[GIVEN UNDER MY HAND])
+  centered(closing.given + pitch.single, heading-line(date, bold: true))
   if signing-field != none {
-    let height = closing.signing-gap - closing.line-pitch
-    at(rule-dy - height, signing-field(closing.rule, height))
+    at(closing.rule - closing.signing, signing-field(closing.rule-length, closing.signing))
   }
-  at(rule-dy, line(length: closing.rule, stroke: 0.6pt))
+  at(closing.rule, line(length: closing.rule-length, stroke: 0.6pt))
   for (i, l) in signer.enumerate() {
-    at(rule-dy + closing.name-drop + i * closing.line-pitch, l)
+    at(closing.rule + closing.name-drop + i * pitch.single, l)
   }
-  place(top + left, dx: closing.seal-x, dy: rule-dy - closing.seal / 2, image("seal.png", width: closing.seal))
+  let seal = closing.seal
+  place(top + left, dx: seal.x, dy: seal.y, image("seal.png", width: seal.size))
 }
