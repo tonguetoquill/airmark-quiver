@@ -1,5 +1,42 @@
 # Changelog
 
+## Unreleased
+
+- **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
+  `@quillmark/wasm` 0.126.2, so it loads `medal_citation@0.1.0`, whose
+  `max:` on a `richtext` field the 0.126.1 that quillkit 0.18.0 carried
+  refused.
+
+- **`medal_citation`'s three certificates follow an issued Air and Space
+  Achievement Medal.** Each sets in TeX Gyre Termes, as the quiver's other
+  Times quills do, where it set in Liberation Serif, and keeps its own image
+  and wording. The headings print in regular weight; the recipient, the
+  reason and its period print in bold. The accomplishments paragraph sets at 10pt, justified 1in from each
+  edge, and steps down to 8pt to fit its space, so a 1350-character paragraph
+  fits on every medal, with or without an oak leaf cluster. A later award's
+  cluster prints under the medal name. Every medal closes on GIVEN UNDER MY
+  HAND with the date in bold beneath it, as 13 OCTOBER 2026, where the
+  Achievement Medal printed "THIS 13th DAY OF OCTOBER 2026". The approving
+  official signs in a signature field above a 2.5in rule. The name prints in
+  bold under the rule, with the grade and duty title beneath, and the seal
+  stands to the right. Every medal takes the same fields, named for what
+  they hold: `medal` is a plain choice listed in order of precedence;
+  `recipient` takes the grade and name, where `rank` did; `reason` takes what
+  follows FOR, where `service` did; and `signed_on`, `signer_name`,
+  `signer_grade` and `signer_title` are shared, where the Achievement Medal
+  took `afam_signed_on` and a "NAME, Rank, USAF" `commander_name`, the
+  Meritorious Service Medal took `msm_commander_name`, and the others took
+  `commander_name`, `commander_grade` and `commander_title`. The date and
+  approving official default to blank, where NAME, Rank, USAF and 13 October
+  2026 printed when left alone. A document saved with the old fields warns
+  that they are unknown and prints no recipient, reason, date or approving
+  official until they are re-entered. `oak_leaf_cluster` is a count: 0 prints
+  none and 3 prints THIRD OAK LEAF CLUSTER, where it was a choice from Basic
+  to Tenth Oak Leaf Cluster. Four new fields, `special_order`, `condition`,
+  `pas` and `rdp`, print the certificate's foot line, as "Special Order:
+  G-12214", "Condition: 4", "PAS: DM1LFHS2" and "RDP: 19 AUG 2025"; a blank
+  field prints no entry.
+
 ## v0.38.0 - 2026-10-19
 
 - **Take `@quillmark/wasm` 0.126.2, and cap `medal_citation`'s
