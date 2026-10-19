@@ -1,0 +1,138 @@
+{
+  "schema": "quillmark/form@0.2.0",
+  "fields": [
+    {
+      "name": "p1.PageArea1.form1.Page1.award",
+      "schema_field": "award",
+      "page": 0,
+      "rect": {
+        "x": 21.73,
+        "y": 31.799999999999955,
+        "w": 284.59,
+        "h": 14.019999999999982
+      },
+      "tooltip": "AWARD"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.category",
+      "schema_field": "category_if_applicable",
+      "page": 0,
+      "rect": {
+        "x": 310.52,
+        "y": 31.799999999999955,
+        "w": 112.02000000000004,
+        "h": 14.019999999999982
+      },
+      "tooltip": "CATEGORY (If Applicable)"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.awardPeriod",
+      "schema_field": "award_period",
+      "page": 0,
+      "rect": {
+        "x": 425.52,
+        "y": 31.799999999999955,
+        "w": 167.83000000000004,
+        "h": 14.019999999999982
+      },
+      "tooltip": "AWARD PERIOD"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.rankName",
+      "schema_field": "rankname_of_nominee",
+      "page": 0,
+      "rect": {
+        "x": 21.73,
+        "y": 54.72000000000003,
+        "w": 326.3,
+        "h": 14.019999999999982
+      },
+      "tooltip": "RANK/NAME OF NOMINEE (First, Middle Initial, Last)"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.majcom_foa_dru",
+      "schema_field": "majcom_fldcom_foa_or_dru",
+      "page": 0,
+      "rect": {
+        "x": 351.11,
+        "y": 54.72000000000003,
+        "w": 242.22000000000003,
+        "h": 14.019999999999982
+      },
+      "tooltip": "MAJCOM, FOA, OR DRU"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.DAFSC",
+      "schema_field": "dafsc_duty_title",
+      "page": 0,
+      "rect": {
+        "x": 21.73,
+        "y": 78.48000000000002,
+        "w": 263.69,
+        "h": 14.019999999999982
+      },
+      "tooltip": "DAFSC/DUTY TITLE"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.nomineeTelephone",
+      "schema_field": "nominees_telephone_dsn_commercial",
+      "page": 0,
+      "rect": {
+        "x": 288.11,
+        "y": 78.48000000000002,
+        "w": 305.22,
+        "h": 14.019999999999982
+      },
+      "tooltip": "NOMINEE'S TELEPHONE  (DSN & Commercial)"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.officeAddress",
+      "schema_field": "unit_office_symbol_street_address_base_state_zip",
+      "page": 0,
+      "rect": {
+        "x": 21.73,
+        "y": 102.05999999999995,
+        "w": 570.83,
+        "h": 12.879999999999995
+      },
+      "tooltip": "UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.rank",
+      "schema_field": "unit_commander_rank_name_and_telephone",
+      "page": 0,
+      "rect": {
+        "x": 21.73,
+        "y": 124.29999999999995,
+        "w": 571.11,
+        "h": 14.019999999999982
+      },
+      "tooltip": "RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last)/COMMANDER'S TELEPHONE (DSN & Commercial)"
+    },
+    {
+      "name": "p1.PageArea1.form1.Page1.specificAccomplishments",
+      "schema_field": "accomplishments",
+      "page": 0,
+      "rect": {
+        "x": 20.84,
+        "y": 148.44000000000005,
+        "w": 573.5,
+        "h": 618.56
+      },
+      "tooltip": "SPECIFIC ACCOMPLISHMENTS (Use single-spaced, bullet format)"
+    },
+    {
+      "name": "p2.PageArea1.form1.Page2.p2SpecificAccomplishments",
+      "schema_field": "accomplishments_continued",
+      "page": 1,
+      "rect": {
+        "x": 20.84,
+        "y": 63.690000000000055,
+        "w": 573.5,
+        "h": 704.72
+      },
+      "tooltip": "SPECIFIC ACCOMPLISHMENTS (Use single-spaced, bullet format) (Continued)"
+    }
+  ],
+  "widgets": []
+}

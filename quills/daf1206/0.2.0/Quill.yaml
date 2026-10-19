@@ -1,0 +1,69 @@
+quill:
+  name: "daf1206"
+  version: 0.2.0
+  backend: acroform
+  description: "DAF Form 1206, Nomination for Award."
+
+main:
+  body:
+    enabled: false
+  fields:
+    "award":
+      title: "Award"
+      type: text
+      default: ""
+      description: "The award program or board the nomination goes to, written as the award announcement names it."
+    "category_if_applicable":
+      title: "Category (if applicable)"
+      type: text
+      default: ""
+      description: "The award category the nominee competes in. Leave it blank when the award has no categories."
+    "award_period":
+      title: "Award period"
+      type: text
+      default: ""
+      description: "The dates the nomination covers, as the award announcement sets them."
+    "rankname_of_nominee":
+      title: "Rank/name of nominee (first, middle initial, last)"
+      type: text
+      default: ""
+      description: "The nominee's rank, then first name, middle initial and last name. The form repeats it at the top of page 2."
+    "majcom_fldcom_foa_or_dru":
+      title: "MAJCOM, FLDCOM, FOA or DRU"
+      type: text
+      default: ""
+      description: "The nominee's major command, field command, field operating agency or direct reporting unit, by its abbreviation."
+    "dafsc_duty_title":
+      title: "DAFSC/duty title"
+      type: text
+      default: ""
+      description: "The nominee's duty AFSC and duty title, separated by a slash."
+    "nominees_telephone_dsn_commercial":
+      title: "Nominee's telephone (DSN & commercial)"
+      type: text
+      default: ""
+      description: "The nominee's DSN and commercial phone numbers."
+    "unit_office_symbol_street_address_base_state_zip":
+      title: "Unit/office symbol/street address/base/state/ZIP code"
+      type: text
+      default: ""
+      description: "The nominee's unit and office symbol, then street address, base, state and ZIP code, all on one line."
+    "unit_commander_rank_name_and_telephone":
+      title: "Rank/name of unit commander (first, middle initial, last)/commander's telephone (DSN & commercial)"
+      type: text
+      default: ""
+      description: "The unit commander's rank and name (first, middle initial, last), followed by the commander's DSN and commercial numbers."
+    "accomplishments":
+      title: "Specific accomplishments (use performance statements IAW DAFMAN 36-2806)"
+      type: array
+      items:
+        type: text
+      default: []
+      description: "The nominee's accomplishments during the award period, as performance statements IAW DAFMAN 36-2806, one per line, within any limit the award announcement sets."
+    "accomplishments_continued":
+      title: "Specific accomplishments (use performance statements IAW DAFMAN 36-2806) (continued)"
+      type: array
+      items:
+        type: text
+      default: []
+      description: "Performance statements that do not fit on page 1, in the same format, one per line. Leave it empty when page 1 holds them all."

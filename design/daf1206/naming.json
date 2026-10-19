@@ -1,0 +1,114 @@
+{
+  "name": "daf1206",
+  "description": "DAF Form 1206, Nomination for Award.",
+  "fields": [
+    {
+      "id": "p1.PageArea1.form1.Page1.award",
+      "keep": true,
+      "name": "award",
+      "title": "Award",
+      "description": "The award program or board the nomination goes to, written as the award announcement names it.",
+      "example": "CY2025 Wing Annual Awards",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.category",
+      "keep": true,
+      "name": "category_if_applicable",
+      "title": "Category (if applicable)",
+      "description": "The award category the nominee competes in. Leave it blank when the award has no categories.",
+      "example": "NCO of the Year",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.awardPeriod",
+      "keep": true,
+      "name": "award_period",
+      "title": "Award period",
+      "description": "The dates the nomination covers, as the award announcement sets them.",
+      "example": "1 Jan 2025 - 31 Dec 2025",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.rankName",
+      "keep": true,
+      "name": "rankname_of_nominee",
+      "title": "Rank/name of nominee (first, middle initial, last)",
+      "description": "The nominee's rank, then first name, middle initial and last name. The form repeats it at the top of page 2.",
+      "example": "SSgt Jordan A. Example",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.majcom_foa_dru",
+      "keep": true,
+      "name": "majcom_fldcom_foa_or_dru",
+      "title": "MAJCOM, FLDCOM, FOA or DRU",
+      "description": "The nominee's major command, field command, field operating agency or direct reporting unit, by its abbreviation.",
+      "example": "ACC",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.DAFSC",
+      "keep": true,
+      "name": "dafsc_duty_title",
+      "title": "DAFSC/duty title",
+      "description": "The nominee's duty AFSC and duty title, separated by a slash.",
+      "example": "3D052/Cyber Systems Operations Journeyman",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.nomineeTelephone",
+      "keep": true,
+      "name": "nominees_telephone_dsn_commercial",
+      "title": "Nominee's telephone (DSN & commercial)",
+      "description": "The nominee's DSN and commercial phone numbers.",
+      "example": "DSN 555-0123, Comm (555) 555-0123",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.officeAddress",
+      "keep": true,
+      "name": "unit_office_symbol_street_address_base_state_zip",
+      "title": "Unit/office symbol/street address/base/state/ZIP code",
+      "description": "The nominee's unit and office symbol, then street address, base, state and ZIP code, all on one line.",
+      "example": "123 CS/SCOO, 100 Example Ave, Notional AFB, CO 80000",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.rank",
+      "keep": true,
+      "name": "unit_commander_rank_name_and_telephone",
+      "title": "Rank/name of unit commander (first, middle initial, last)/commander's telephone (DSN & commercial)",
+      "description": "The unit commander's rank and name (first, middle initial, last), followed by the commander's DSN and commercial numbers.",
+      "example": "Lt Col Casey B. Sample, DSN 555-0100, Comm (555) 555-0100",
+      "text": "line"
+    },
+    {
+      "id": "p1.PageArea1.form1.Page1.specificAccomplishments",
+      "keep": true,
+      "name": "accomplishments",
+      "title": "Specific accomplishments (use performance statements IAW DAFMAN 36-2806)",
+      "description": "The nominee's accomplishments during the award period, as performance statements IAW DAFMAN 36-2806, one per line, within any limit the award announcement sets.",
+      "example": "Led an 8-member team that rebuilt the base network core, restoring service to 2,100 users in six hours.",
+      "text": "lines"
+    },
+    {
+      "id": "p2.PageArea1.form1.Page2.p2Name",
+      "keep": false,
+      "name": "rankname_of_nominee_page_2",
+      "title": "Rank/name of nominee (first, middle initial, last)",
+      "description": "Repeats the nominee's rank and name from page 1 at the top of the continuation page.",
+      "example": "SSgt Jordan A. Example",
+      "text": "line"
+    },
+    {
+      "id": "p2.PageArea1.form1.Page2.p2SpecificAccomplishments",
+      "keep": true,
+      "name": "accomplishments_continued",
+      "title": "Specific accomplishments (use performance statements IAW DAFMAN 36-2806) (continued)",
+      "description": "Performance statements that do not fit on page 1, in the same format, one per line. Leave it empty when page 1 holds them all.",
+      "example": "Mentored four Airmen on CCAF requirements; all four completed their degrees during the period.",
+      "text": "lines"
+    }
+  ]
+}
