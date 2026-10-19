@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
+  `@quillmark/wasm` 0.126.2, so it loads `medal_citation@0.1.0`, whose
+  `max:` on a `richtext` field the 0.126.1 that quillkit 0.18.0 carried
+  refused.
+
 - **`medal_citation`'s three certificates share one layout.** Each sets the
   same heading rhythm, accomplishments block and closing; a medal keeps its own
   image, wording and date line. The date line stands 44pt above the signature
