@@ -2,20 +2,18 @@
 $quill: medal_citation@0.1
 $kind: main
 medal: Air and Space Achievement Medal
-oak_leaf_cluster: 0
-recipient: Staff Sergeant
-reason: Meritorious Service
-period_from: 2024-10-11
-period_to: 2026-10-12
-accomplishments: The citation paragraph.
-signer_name: NAME
+recipient: Rank First M. Last
+reason: Outstanding Achievement
+period_from: 2026-01-01
+period_to: 2026-12-31
+accomplishments: Rank First M. Last distinguished himself or herself by outstanding achievement as Duty Title, Unit Name, Base, State. During this period, Rank Last accomplished one specific thing with its result. The distinctive accomplishments of Rank Last reflect credit upon himself or herself and the United States Air Force.
+signer_name: FIRST M. LAST
 signer_grade: Rank, USAF
 signer_title: Duty Title
 $ext:
   editor:
     tips:
-      - Medal switches the certificate; every field carries across.
+      - The reason follows FOR. Write Outstanding Achievement or Meritorious Service to match the citation's first sentence.
       - The accomplishments paragraph is 1350 characters, including spaces.
-      - Oak leaf cluster counts later awards of the same medal; 0 prints none, 3 prints THIRD OAK LEAF CLUSTER.
-      - The approving official's name prints in bold, with the grade and duty title on the lines beneath.
+      - Set Oak leaf cluster to 1 or more for a later award of the same medal, and the foot line fields when the special order is cut.
 ~~~
