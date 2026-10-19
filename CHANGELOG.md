@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.38.0 - 2026-10-19
 
 - **Take `@quillmark/wasm` 0.126.2, and cap `medal_citation`'s
   accomplishments at 1350 characters.** The field declares `max: 1350`, so an
