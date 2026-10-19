@@ -54,3 +54,11 @@
   let seal = closing.seal
   place(top + left, dx: seal.x, dy: seal.y, image("seal.png", width: seal.size))
 }
+
+// `entries` pairs each label with its value; a blank value prints no entry.
+#let footer-block(entries) = {
+  set text(size: footer.size, weight: "bold", top-edge: "baseline")
+  for ((label, value), stop) in entries.zip(footer.stops) {
+    if not blank(value) { place(top + left, dx: stop, dy: footer.baseline)[#label: #value] }
+  }
+}

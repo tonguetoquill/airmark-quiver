@@ -24,6 +24,11 @@
   if shown == none { [] } else { upper(shown) }
 }
 
+#let short-date(key) = {
+  let shown = qm.ink(qm.data, key, "[day padding:none] [month repr:short] [year]")
+  if shown == none { [] } else { upper(shown) }
+}
+
 #let choice(key) = {
   let field = qm.data.at(key)
   let value = if type(field) == str { field } else { field.value }
@@ -57,6 +62,12 @@
   accomplishments: ink("accomplishments"),
   commander_title: ink("commander_title"),
   signing_field: signing-field,
+  footer: (
+    ("Special Order", ink("special_order")),
+    ("Condition", ink("condition")),
+    ("PAS", ink("pas")),
+    ("RDP", short-date("rdp")),
+  ),
 )
 
 #if medal == "Air and Space Achievement Medal" {

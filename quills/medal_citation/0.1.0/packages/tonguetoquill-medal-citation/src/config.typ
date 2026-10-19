@@ -53,3 +53,11 @@
   name-drop: 13.5pt,
   seal: (x: 459pt, y: 654pt, size: 68pt),
 )
+
+// The administrative line at the page foot: each entry's left edge, in the order
+// Special Order, Condition, PAS, RDP.
+#let footer = (
+  baseline: 751.5pt,
+  size: 8pt,
+  stops: (139pt, 251pt, 328pt, 467pt),
+)

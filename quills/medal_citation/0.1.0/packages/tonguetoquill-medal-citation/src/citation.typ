@@ -7,8 +7,9 @@
 //
 // - f (dictionary): oak_leaf_cluster, rank, service, period_from, period_to,
 //   accomplishments, signed_on, commander_name, commander_grade,
-//   commander_title, and signing_field, a function (width, height) => the
-//   widget over the signing space.
+//   commander_title, footer, an array of (label, value) pairs, and
+//   signing_field, a function (width, height) => the widget over the signing
+//   space.
 // - preamble (array): lines at `preamble-size`, a line apart.
 #let citation(
   f,
@@ -29,6 +30,7 @@
     f.commander_title,
   ).filter(l => not blank(l))
   closing-block(f.signed_on, signer, signing-field: f.signing_field)
+  footer-block(f.footer)
 
   v(medal-image.top)
   align(center, image(image-file, height: medal-image.height))

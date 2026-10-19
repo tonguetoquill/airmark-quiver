@@ -23,7 +23,10 @@
   stands to the right. On the Achievement and Commendation Medals, the
   commander name's text after its first comma prints as the grade line. The
   Achievement Medal's date prints click-to-edit in the editor preview, as the
-  other two medals' dates do.
+  other two medals' dates do. Four new fields, `special_order`, `condition`,
+  `pas` and `rdp`, print the certificate's foot line, as "Special Order:
+  G-12214", "Condition: 4", "PAS: DM1LFHS2" and "RDP: 19 AUG 2025"; a blank
+  field prints no entry.
 
 ## v0.38.0 - 2026-10-19
 
