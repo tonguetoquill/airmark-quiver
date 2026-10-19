@@ -92,6 +92,7 @@ main:
     accomplishments:
       type: richtext
       multiline: false
+      max: 1350
       default: ""
       description: "The citation paragraph. 1350 characters, including spaces."
 
