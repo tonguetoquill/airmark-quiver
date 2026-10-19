@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- **`medal_citation`'s Air and Space Achievement Medal leaves room to sign.**
+  The "GIVEN UNDER MY HAND" line sits 48pt above the signature rule, where it
+  sat 16pt above it with no space for a signature. A later award's oak leaf
+  cluster prints in the gap under the medal name, as on the other two
+  medals, so a 1350-character paragraph fits whole with or without one.
+
 ## v0.38.0 - 2026-10-19
 
 - **Take `@quillmark/wasm` 0.126.2, and cap `medal_citation`'s
