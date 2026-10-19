@@ -35,15 +35,15 @@
   if value == none { "" } else { value }
 }
 
-#let medal-field = qm.data.medal
-#let medal = if type(medal-field) == str { medal-field } else { medal-field.value }
+#let medal = choice("medal")
 
-// "NAME, Rank, USAF" prints as the name, then the grade on the line below.
-#let name-and-grade(key) = {
-  let full = qm.str(medal-field.at(key))
-  let (name, ..grade) = if full == none { ("",) } else { full.split(",") }
-  let part(s) = if s.trim() == "" { [] } else { qm.region("medal." + key, s.trim()) }
-  (commander_name: part(name), commander_grade: part(grade.join(",", default: "")))
+#let cluster-line(n) = {
+  if n == none or n <= 0 { return "" }
+  let words = ("FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH", "EIGHTH", "NINTH", "TENTH")
+  let suffix = if calc.rem(n, 100) in (11, 12, 13) { "TH" } else {
+    ("TH", "ST", "ND", "RD", "TH", "TH", "TH", "TH", "TH", "TH").at(calc.rem(n, 10))
+  }
+  words.at(n - 1, default: str(n) + suffix) + " OAK LEAF CLUSTER"
 }
 
 #let signing-field(width, height) = qm.signature-field(
@@ -54,12 +54,15 @@
 )
 
 #let common = (
-  oak_leaf_cluster: choice("oak_leaf_cluster"),
+  oak_leaf_cluster: cluster-line(qm.data.oak_leaf_cluster),
   rank: ink("rank"),
   service: ink("service"),
   period_from: shown-date("period_from"),
   period_to: shown-date("period_to"),
   accomplishments: ink("accomplishments"),
+  signed_on: shown-date("signed_on"),
+  commander_name: ink("commander_name"),
+  commander_grade: ink("commander_grade"),
   commander_title: ink("commander_title"),
   signing_field: signing-field,
   footer: (
@@ -71,22 +74,9 @@
 )
 
 #if medal == "Air and Space Achievement Medal" {
-  afam((
-    ..common,
-    ..name-and-grade("commander_name"),
-    signed_on: shown-date("medal.afam_signed_on"),
-  ))
+  afam(common)
 } else if medal == "Meritorious Service Medal" {
-  msm((
-    ..common,
-    signed_on: shown-date("medal.signed_on"),
-    commander_name: ink-value(medal-field.msm_commander_name),
-    commander_grade: ink-value(medal-field.commander_grade),
-  ))
+  msm(common)
 } else if medal == "Air and Space Commendation Medal" {
-  afcm((
-    ..common,
-    ..name-and-grade("commander_name"),
-    signed_on: shown-date("medal.signed_on"),
-  ))
+  afcm(common)
 }

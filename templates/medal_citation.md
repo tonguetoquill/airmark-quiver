@@ -2,7 +2,7 @@
 $quill: medal_citation@0.1
 $kind: main
 medal: Air and Space Achievement Medal
-oak_leaf_cluster: Basic
+oak_leaf_cluster: 0
 rank: Staff Sergeant
 service: Meritorious Service
 period_from: 2024-10-11
@@ -12,8 +12,8 @@ commander_title: Duty Title
 $ext:
   editor:
     tips:
-      - Medal switches the certificate. Each citation opens on its own starter.
+      - Medal switches the certificate; every field carries across.
       - The accomplishments paragraph is 1350 characters, including spaces.
-      - Basic prints no cluster. A later award prints the cluster, in capitals, under the medal name.
-      - On the Meritorious Service Medal, the approving official's grade is its own line, and the name leaves the grade off.
+      - Oak leaf cluster counts later awards of the same medal; 0 prints none, 3 prints THIRD OAK LEAF CLUSTER.
+      - The approving official's name prints in bold, with the grade and duty title on the lines beneath.
 ~~~

@@ -19,55 +19,14 @@ main:
         - Air and Space Achievement Medal
         - Meritorious Service Medal
         - Air and Space Commendation Medal
-      description: "Which citation. The Meritorious Service Medal takes the approving official's name and grade as two fields."
-      variants:
-        Air and Space Achievement Medal:
-          afam_signed_on:
-            type: date
-            default: "2026-10-13"
-            title: Signed on
-            description: "The date the certificate is given. It prints as 13 OCTOBER 2026."
-          commander_name: &named-with-grade
-            type: text
-            default: "NAME, Rank, USAF"
-            title: Commander name
-            description: "The approving official's name, then grade after a comma, for example ANDREW P. GRIFFITH, Colonel, USAF. The grade prints on its own line under the name."
-        Meritorious Service Medal:
-          signed_on: &shown-date
-            type: date
-            default: "2026-10-12"
-            title: Signed on
-            description: "The date the certificate is given. It prints as 12 OCTOBER 2026."
-          msm_commander_name:
-            type: text
-            default: NAME
-            title: Commander name
-            description: "The approving official's name, for example ANDREW P. GRIFFITH."
-          commander_grade:
-            type: text
-            default: "Rank, USAF"
-            title: Commander grade
-            description: "The approving official's grade, for example Major General, USAF."
-        Air and Space Commendation Medal:
-          signed_on: *shown-date
-          commander_name: *named-with-grade
+      description: "Which certificate."
 
     oak_leaf_cluster:
-      type: enum
-      default: Basic
-      values:
-        - Basic
-        - First Oak Leaf Cluster
-        - Second Oak Leaf Cluster
-        - Third Oak Leaf Cluster
-        - Fourth Oak Leaf Cluster
-        - Fifth Oak Leaf Cluster
-        - Sixth Oak Leaf Cluster
-        - Seventh Oak Leaf Cluster
-        - Eighth Oak Leaf Cluster
-        - Ninth Oak Leaf Cluster
-        - Tenth Oak Leaf Cluster
-      description: "Basic prints no cluster. A later award prints the cluster, in capitals, under the medal name."
+      type: integer
+      default: 0
+      ui:
+        compact: true
+      description: "How many oak leaf clusters, for a later award of the same medal. 0 prints none; 3 prints THIRD OAK LEAF CLUSTER under the medal name."
 
     rank:
       type: text
@@ -95,6 +54,22 @@ main:
       max: 1350
       default: ""
       description: "The citation paragraph. 1350 characters, including spaces."
+
+    signed_on:
+      type: date
+      default: "2026-10-13"
+      title: Signed on
+      description: "The date the certificate is given. It prints as 13 OCTOBER 2026."
+
+    commander_name:
+      type: text
+      default: NAME
+      description: "The approving official's name, for example ANDREW P. GRIFFITH. It prints in bold under the signature."
+
+    commander_grade:
+      type: text
+      default: "Rank, USAF"
+      description: "The approving official's grade, for example Colonel, USAF. It prints under the name."
 
     commander_title:
       type: text

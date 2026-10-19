@@ -20,10 +20,15 @@
   Achievement Medal printed "THIS 13th DAY OF OCTOBER 2026". The approving
   official signs in a signature field above a 2.5in rule. The name prints in
   bold under the rule, with the grade and duty title beneath, and the seal
-  stands to the right. On the Achievement and Commendation Medals, the
-  commander name's text after its first comma prints as the grade line. The
-  Achievement Medal's date prints click-to-edit in the editor preview, as the
-  other two medals' dates do. Four new fields, `special_order`, `condition`,
+  stands to the right. Every medal takes the same fields: `medal` is a plain
+  choice, and `signed_on`, `commander_name`, `commander_grade` and
+  `commander_title` are shared, where the Achievement Medal took
+  `afam_signed_on` and a "NAME, Rank, USAF" `commander_name`, and the
+  Meritorious Service Medal took `msm_commander_name`. A document saved with
+  those fields warns that they are unknown and prints no date or approving
+  official until they are re-entered. `oak_leaf_cluster` is a count: 0 prints
+  none and 3 prints THIRD OAK LEAF CLUSTER, where it was a choice from Basic
+  to Tenth Oak Leaf Cluster. Four new fields, `special_order`, `condition`,
   `pas` and `rdp`, print the certificate's foot line, as "Special Order:
   G-12214", "Condition: 4", "PAS: DM1LFHS2" and "RDP: 19 AUG 2025"; a blank
   field prints no entry.

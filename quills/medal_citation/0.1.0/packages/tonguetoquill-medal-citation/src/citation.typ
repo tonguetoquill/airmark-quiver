@@ -41,8 +41,8 @@
   }
   heading-line(medal-name, above: pitch.medal, size: size.medal)
   let cluster = f.oak_leaf_cluster
-  if not blank(cluster) and cluster != "Basic" {
-    heading-line(upper(cluster), above: pitch.cluster, size: size.heading)
+  if not blank(cluster) {
+    heading-line(cluster, above: pitch.cluster, size: size.heading)
   }
   heading-line(awarded, above: pitch.awarded, size: size.heading)
   heading-line(upper(f.rank), above: pitch.rank, bold: true)
