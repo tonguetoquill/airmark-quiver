@@ -48,22 +48,22 @@
 
 #let signing-field(width, height) = qm.signature-field(
   "Signature",
-  field: "commander_title",
+  field: "signer_title",
   width: width,
   height: height,
 )
 
 #let common = (
   oak_leaf_cluster: cluster-line(qm.data.oak_leaf_cluster),
-  rank: ink("rank"),
-  service: ink("service"),
+  recipient: ink("recipient"),
+  reason: ink("reason"),
   period_from: shown-date("period_from"),
   period_to: shown-date("period_to"),
   accomplishments: ink("accomplishments"),
   signed_on: shown-date("signed_on"),
-  commander_name: ink("commander_name"),
-  commander_grade: ink("commander_grade"),
-  commander_title: ink("commander_title"),
+  signer_name: ink("signer_name"),
+  signer_grade: ink("signer_grade"),
+  signer_title: ink("signer_title"),
   signing_field: signing-field,
   footer: (
     ("Special Order", ink("special_order")),

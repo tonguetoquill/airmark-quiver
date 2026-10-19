@@ -18,9 +18,9 @@
   medal: 32pt,
   cluster: 18pt,
   awarded: 30.5pt,
-  rank: 28pt,
+  recipient: 28pt,
   for-line: 29.5pt,
-  service: 27.5pt,
+  reason: 27.5pt,
   accomplishments: 27pt,
   single: 14pt,
 )

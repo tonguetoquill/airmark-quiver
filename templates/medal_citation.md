@@ -3,12 +3,14 @@ $quill: medal_citation@0.1
 $kind: main
 medal: Air and Space Achievement Medal
 oak_leaf_cluster: 0
-rank: Staff Sergeant
-service: Meritorious Service
+recipient: Staff Sergeant
+reason: Meritorious Service
 period_from: 2024-10-11
 period_to: 2026-10-12
 accomplishments: The citation paragraph.
-commander_title: Duty Title
+signer_name: NAME
+signer_grade: Rank, USAF
+signer_title: Duty Title
 $ext:
   editor:
     tips:

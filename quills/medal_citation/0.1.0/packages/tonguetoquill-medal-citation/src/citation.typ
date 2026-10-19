@@ -5,9 +5,9 @@
 // title and the medal's name, and the line that names the recipient; everything
 // else is shared.
 //
-// - f (dictionary): oak_leaf_cluster, rank, service, period_from, period_to,
-//   accomplishments, signed_on, commander_name, commander_grade,
-//   commander_title, footer, an array of (label, value) pairs, and
+// - f (dictionary): oak_leaf_cluster, recipient, reason, period_from, period_to,
+//   accomplishments, signed_on, signer_name, signer_grade,
+//   signer_title, footer, an array of (label, value) pairs, and
 //   signing_field, a function (width, height) => the widget over the signing
 //   space.
 // - preamble (array): lines at `preamble-size`, a line apart.
@@ -25,9 +25,9 @@
   set par(spacing: 0pt)
 
   let signer = (
-    if not blank(f.commander_name) { text(weight: "bold", f.commander_name) },
-    f.commander_grade,
-    f.commander_title,
+    if not blank(f.signer_name) { text(weight: "bold", f.signer_name) },
+    f.signer_grade,
+    f.signer_title,
   ).filter(l => not blank(l))
   closing-block(f.signed_on, signer, signing-field: f.signing_field)
   footer-block(f.footer)
@@ -45,9 +45,9 @@
     heading-line(cluster, above: pitch.cluster, size: size.heading)
   }
   heading-line(awarded, above: pitch.awarded, size: size.heading)
-  heading-line(upper(f.rank), above: pitch.rank, bold: true)
+  heading-line(upper(f.recipient), above: pitch.recipient, bold: true)
   heading-line([FOR], above: pitch.for-line)
-  heading-line(upper(f.service), above: pitch.service, bold: true)
+  heading-line(upper(f.reason), above: pitch.reason, bold: true)
   let period = if not (blank(f.period_from) and blank(f.period_to)) [#f.period_from TO #f.period_to]
   heading-line(period, above: pitch.single, bold: true)
   heading-line([ACCOMPLISHMENTS], above: pitch.accomplishments, size: size.heading)

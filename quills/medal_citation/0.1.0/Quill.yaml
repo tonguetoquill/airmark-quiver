@@ -17,8 +17,8 @@ main:
       default: Air and Space Achievement Medal
       values:
         - Air and Space Achievement Medal
-        - Meritorious Service Medal
         - Air and Space Commendation Medal
+        - Meritorious Service Medal
       description: "Which certificate."
 
     oak_leaf_cluster:
@@ -28,15 +28,15 @@ main:
         compact: true
       description: "How many oak leaf clusters, for a later award of the same medal. 0 prints none; 3 prints THIRD OAK LEAF CLUSTER under the medal name."
 
-    rank:
+    recipient:
       type: text
       default: ""
       description: "The recipient's grade and name, for example Staff Sergeant Jane A. Doe. It prints in capitals under the award line."
 
-    service:
+    reason:
       type: text
       default: ""
-      description: "What the medal recognizes, such as meritorious service."
+      description: "What the medal recognizes, for example Outstanding Achievement or Meritorious Service. It prints in capitals under FOR."
 
     period_from:
       type: date
@@ -57,24 +57,23 @@ main:
 
     signed_on:
       type: date
-      default: "2026-10-13"
-      title: Signed on
+      default: ""
       description: "The date the certificate is given. It prints as 13 OCTOBER 2026."
 
-    commander_name:
-      type: text
-      default: NAME
-      description: "The approving official's name, for example ANDREW P. GRIFFITH. It prints in bold under the signature."
-
-    commander_grade:
-      type: text
-      default: "Rank, USAF"
-      description: "The approving official's grade, for example Colonel, USAF. It prints under the name."
-
-    commander_title:
+    signer_name:
       type: text
       default: ""
-      description: "The approving official's duty title."
+      description: "The approving official's name, for example ANDREW P. GRIFFITH. It prints in bold under the signature."
+
+    signer_grade:
+      type: text
+      default: ""
+      description: "The approving official's grade, for example Colonel, USAF. It prints under the name."
+
+    signer_title:
+      type: text
+      default: ""
+      description: "The approving official's duty title, for example Commander, 3d Wing. It prints under the grade."
 
     special_order:
       type: text
@@ -89,7 +88,7 @@ main:
     pas:
       type: text
       default: ""
-      description: "The recipient's personnel accounting symbol, for example DM1LFHS2. It prints at the foot of the certificate; blank prints nothing."
+      description: "The personnel accounting symbol of the recipient's unit, for example DM1LFHS2. It prints at the foot of the certificate; blank prints nothing."
 
     rdp:
       type: date

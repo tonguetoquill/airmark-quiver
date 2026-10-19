@@ -11,8 +11,7 @@
   Achievement Medal.** Each sets in TeX Gyre Termes, as the quiver's other
   Times quills do, where it set in Liberation Serif, and keeps its own image
   and wording. The headings print in regular weight; the recipient, the
-  service and its period print in bold. Rank takes the recipient's grade and
-  name. The accomplishments paragraph sets at 10pt, justified 1in from each
+  reason and its period print in bold. The accomplishments paragraph sets at 10pt, justified 1in from each
   edge, and steps down to 8pt to fit its space, so a 1350-character paragraph
   fits on every medal, with or without an oak leaf cluster. A later award's
   cluster prints under the medal name. Every medal closes on GIVEN UNDER MY
@@ -20,12 +19,17 @@
   Achievement Medal printed "THIS 13th DAY OF OCTOBER 2026". The approving
   official signs in a signature field above a 2.5in rule. The name prints in
   bold under the rule, with the grade and duty title beneath, and the seal
-  stands to the right. Every medal takes the same fields: `medal` is a plain
-  choice, and `signed_on`, `commander_name`, `commander_grade` and
-  `commander_title` are shared, where the Achievement Medal took
-  `afam_signed_on` and a "NAME, Rank, USAF" `commander_name`, and the
-  Meritorious Service Medal took `msm_commander_name`. A document saved with
-  those fields warns that they are unknown and prints no date or approving
+  stands to the right. Every medal takes the same fields, named for what
+  they hold: `medal` is a plain choice listed in order of precedence;
+  `recipient` takes the grade and name, where `rank` did; `reason` takes what
+  follows FOR, where `service` did; and `signed_on`, `signer_name`,
+  `signer_grade` and `signer_title` are shared, where the Achievement Medal
+  took `afam_signed_on` and a "NAME, Rank, USAF" `commander_name`, the
+  Meritorious Service Medal took `msm_commander_name`, and the others took
+  `commander_name`, `commander_grade` and `commander_title`. The date and
+  approving official default to blank, where NAME, Rank, USAF and 13 October
+  2026 printed when left alone. A document saved with the old fields warns
+  that they are unknown and prints no recipient, reason, date or approving
   official until they are re-entered. `oak_leaf_cluster` is a count: 0 prints
   none and 3 prints THIRD OAK LEAF CLUSTER, where it was a choice from Basic
   to Tenth Oak Leaf Cluster. Four new fields, `special_order`, `condition`,
