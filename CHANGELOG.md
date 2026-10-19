@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.39.0 - 2026-10-19
 
 - **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
   `@quillmark/wasm` 0.126.2, so it loads `medal_citation@0.1.0`, whose
