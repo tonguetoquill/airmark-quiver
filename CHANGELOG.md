@@ -2,11 +2,16 @@
 
 ## Unreleased
 
-- **`medal_citation`'s Air and Space Achievement Medal leaves room to sign.**
-  The "GIVEN UNDER MY HAND" line sits 48pt above the signature rule, where it
-  sat 16pt above it with no space for a signature. A later award's oak leaf
-  cluster prints in the gap under the medal name, as on the other two
-  medals, so a 1350-character paragraph fits whole with or without one.
+- **`medal_citation`'s three certificates share one layout.** Each sets the
+  same heading rhythm, accomplishments block and closing; a medal keeps its own
+  image, wording and date line. The date line stands 44pt above the signature
+  rule, leaving room to sign, with a signature field over that space, and the
+  seal centers on the rule. The accomplishments paragraph sets at 15pt and
+  steps down to fit its space, so a 1350-character paragraph no longer runs
+  into the date line on the Commendation or Meritorious Service Medal, and a
+  later award's oak leaf cluster prints in the gap under the medal name.
+  The Achievement Medal's date prints click-to-edit in the editor preview, as
+  the other two medals' dates do.
 
 ## v0.38.0 - 2026-10-19
 

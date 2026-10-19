@@ -1,5 +1,5 @@
 #import "@local/quillmark-helper:0.2.0" as qm
-#import "@local/tonguetoquill-medal-citation:0.1.0": afam, afcm, msm
+#import "@local/tonguetoquill-medal-citation:0.1.0": afam, afcm, msm, ordinal-suffix
 
 #let trim(v) = {
   if type(v) != content { return v }
@@ -33,6 +33,13 @@
 #let medal-field = qm.data.medal
 #let medal = if type(medal-field) == str { medal-field } else { medal-field.value }
 
+#let signing-field(width, height) = qm.signature-field(
+  "Signature",
+  field: "commander_title",
+  width: width,
+  height: height,
+)
+
 #let common = (
   oak_leaf_cluster: choice("oak_leaf_cluster"),
   rank: ink("rank"),
@@ -41,12 +48,24 @@
   period_to: shown-date("period_to"),
   accomplishments: ink("accomplishments"),
   commander_title: ink("commander_title"),
+  signing_field: signing-field,
 )
+
+#let afam-given() = {
+  let key = "medal.afam_signed_on"
+  let day = qm.ink(qm.data, key, "[day padding:none]")
+  [GIVEN UNDER MY HAND THIS #h(12pt)]
+  if day != none {
+    let signed = medal-field.afam_signed_on
+    [#day#ordinal-suffix(signed.day()) #h(12pt) DAY OF #h(12pt)]
+    upper(qm.ink(qm.data, key, "[month repr:long] [year]"))
+  }
+}
 
 #if medal == "Air and Space Achievement Medal" {
   afam((
     ..common,
-    signed_on: medal-field.at("afam_signed_on"),
+    given: afam-given(),
     commander_name: ink-value(medal-field.commander_name),
   ))
 } else if medal == "Meritorious Service Medal" {
