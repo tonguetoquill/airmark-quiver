@@ -186,8 +186,10 @@
     blank-line()
     grid(
       columns: (auto, auto, 1fr),
-      // Spread the entries as enum items lettered "(a) (b) (c)" per AFH 33-337.
-      "References:", "  ", enum(..references, numbering: "(a) ", body-indent: 0pt),
+      // AFH 33-337 lays each entry and its wrapped lines on one left edge, the
+      // "(" of its own letter, so the letter is text rather than an enum marker.
+      "References:", "  ",
+      references.enumerate().map(((i, entry)) => [#numbering("(a)", i + 1) #entry]).join(linebreak()),
     )
   }
 }
