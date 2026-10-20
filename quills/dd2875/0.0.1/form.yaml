@@ -1,0 +1,979 @@
+{
+  "schema": "quillmark/form@0.2.0",
+  "fields": [
+    {
+      "name": "p1.Page1.cui_list",
+      "schema_field": "classification",
+      "page": 0,
+      "rect": {
+        "x": 252,
+        "y": 10.5,
+        "w": 108,
+        "h": 14.389999999999986
+      },
+      "tooltip": "Select Classification from drop-down list."
+    },
+    {
+      "name": "p1.Page1.form1.page1.TypeRequest.type_of_request",
+      "schema_field": "type_of_request",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 153.73000000000002,
+        "w": 242.64000000000004,
+        "h": 16.309999999999945
+      },
+      "tooltip": "Type of request - select from drop-down list"
+    },
+    {
+      "name": "p1.Page1.form1.page1.TypeRequest.user_id",
+      "schema_field": "user_id",
+      "page": 0,
+      "rect": {
+        "x": 305.22,
+        "y": 146.48000000000002,
+        "w": 199.52999999999997,
+        "h": 24.58000000000004
+      },
+      "tooltip": "User ID"
+    },
+    {
+      "name": "p1.Page1.form1.page1.typeReqDate",
+      "schema_field": "request_date",
+      "page": 0,
+      "rect": {
+        "x": 508.67,
+        "y": 156.73000000000002,
+        "w": 84.22999999999996,
+        "h": 15.080000000000041
+      },
+      "tooltip": "DATE (YYYYMMDD)"
+    },
+    {
+      "name": "p1.Page1.form1.page1.SystemLocation.System_Name",
+      "schema_field": "system_name",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 183.97000000000003,
+        "w": 357.84000000000003,
+        "h": 16.629999999999995
+      },
+      "tooltip": "Enter system name (Platform or Applications)."
+    },
+    {
+      "name": "p1.Page1.form1.page1.SystemLocation.Location",
+      "schema_field": "location",
+      "page": 0,
+      "rect": {
+        "x": 379.08,
+        "y": 183.97000000000003,
+        "w": 213.83999999999997,
+        "h": 16.629999999999995
+      },
+      "tooltip": "Enter location (Physical Location of System)."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.name1",
+      "schema_field": "name",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 230.15999999999997,
+        "w": 285.84000000000003,
+        "h": 13.629999999999995
+      },
+      "tooltip": "PART I (To be completed by Requester) - 1. NAME (Last, First, Middle Initial)"
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Organization2",
+      "schema_field": "organization",
+      "page": 0,
+      "rect": {
+        "x": 307.08,
+        "y": 230.15999999999997,
+        "w": 285.84,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter organization."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Office_Symbol3",
+      "schema_field": "office_symbol_department",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 258.95000000000005,
+        "w": 285.84000000000003,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter office symbol/department."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Phone4",
+      "schema_field": "phone",
+      "page": 0,
+      "rect": {
+        "x": 307.08,
+        "y": 258.95000000000005,
+        "w": 285.84,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter phone number (DSN or Commercial)."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Email_Address5",
+      "schema_field": "official_email_address",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 287.75,
+        "w": 285.84000000000003,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter office email address."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Job_Title6",
+      "schema_field": "job_title_and_grade_rank",
+      "page": 0,
+      "rect": {
+        "x": 307.08,
+        "y": 287.75,
+        "w": 285.84,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter job title and grade/rank."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Mailing_Address7",
+      "schema_field": "official_mailing_address",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 316.55,
+        "w": 285.84000000000003,
+        "h": 30.909999999999968
+      },
+      "tooltip": "Enter official mailing address."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.US8",
+      "schema_field": "citizenship_us",
+      "page": 0,
+      "rect": {
+        "x": 314.58,
+        "y": 318.12,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "8. CITIZENSHIP - Select for \"United States\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.FN8",
+      "schema_field": "citizenship_fn",
+      "page": 0,
+      "rect": {
+        "x": 386.58,
+        "y": 318.12,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "8. CITIZENSHIP - Select for \"foreign national.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.other8",
+      "schema_field": "citizenship_other",
+      "page": 0,
+      "rect": {
+        "x": 314.58,
+        "y": 335.38,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "8. CITIZENSHIP - Select for \"Other.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.DesigPerson.Checklist.mil9",
+      "schema_field": "designation_of_person_military",
+      "page": 0,
+      "rect": {
+        "x": 458.58,
+        "y": 318.12,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "9. DESIGNATION OF PERSON - Select for \"military.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.DesigPerson.Checklist.civ9",
+      "schema_field": "designation_of_person_civilian",
+      "page": 0,
+      "rect": {
+        "x": 530.58,
+        "y": 318.12,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "9. DESIGNATION OF PERSON - Select for \"civilian.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.DesigPerson.Checklist.ctr9",
+      "schema_field": "designation_of_person_contractor",
+      "page": 0,
+      "rect": {
+        "x": 458.58,
+        "y": 335.38,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "9. DESIGNATION OF PERSON - Select for \"contractor.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Annual_IAT.annual_IAT10",
+      "schema_field": "completed_annual_cyber_awareness_training",
+      "page": 0,
+      "rect": {
+        "x": 31.63,
+        "y": 367.44,
+        "w": 11.000000000000004,
+        "h": 11
+      },
+      "tooltip": "10. IA TRAINING AND AWARENESS CERTIFICATION REQUIREMENTS (Complete as required for user or functional level access.) - Select for \"I have completed the Annual Cyber Awareness Training.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.Annual_IAT.IATdate10",
+      "schema_field": "annual_cyber_awareness_training_date",
+      "page": 0,
+      "rect": {
+        "x": 357.98,
+        "y": 365.02,
+        "w": 79.94,
+        "h": 15.840000000000032
+      },
+      "tooltip": "10. IA TRAINING AND AWARENESS CERTIFICATION REQUIREMENTS - Enter date in format YYYYMMDD."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part1.userSig.signedDate12",
+      "schema_field": "user_signature_date",
+      "page": 0,
+      "rect": {
+        "x": 451.08,
+        "y": 395.02,
+        "w": 141.83999999999997,
+        "h": 20.83000000000004
+      },
+      "tooltip": "Enter date of signature"
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Justification_for_access13",
+      "schema_field": "justification_for_access",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 449.63,
+        "w": 573.84,
+        "h": 70.63
+      },
+      "tooltip": "PART II ENDORSEMENT OF ACCESS BY INFORMATION OWNER, USER SUPERVISOR OR GOVERNMENT SPONSOR \r(If individual is a contractor - provide company name, contract number, and date of contract expiration in Block 16.) - 13. JUSTIFICATION FOR ACCESS"
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Type_of_access_requested.auth14",
+      "schema_field": "type_of_access_authorized",
+      "page": 0,
+      "rect": {
+        "x": 35.22,
+        "y": 538.43,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "14. TYPE OF ACCESS REQUESTED - Select for \"authorized.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Type_of_access_requested.priv14",
+      "schema_field": "type_of_access_privileged",
+      "page": 0,
+      "rect": {
+        "x": 121.61,
+        "y": 538.43,
+        "w": 11.000000000000014,
+        "h": 11
+      },
+      "tooltip": "14. TYPE OF ACCESS REQUESTED - Select for \"privileged.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.UserAccess.unclssfd15",
+      "schema_field": "access_to_unclassified",
+      "page": 0,
+      "rect": {
+        "x": 164.83,
+        "y": 552.84,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "15. USER REQUIRES ACCESS TO: - Select for \"user requires access to unclassified.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.UserAccess.classfd15",
+      "schema_field": "access_to_classified",
+      "page": 0,
+      "rect": {
+        "x": 251.22,
+        "y": 552.84,
+        "w": 11.000000000000028,
+        "h": 11
+      },
+      "tooltip": "15. USER REQUIRES ACCESS TO: - Select for \"user requires access to classified."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.UserAccess.ClassifiedCategory15",
+      "schema_field": "classified_category",
+      "page": 0,
+      "rect": {
+        "x": 379.06,
+        "y": 552.22,
+        "w": 213.83999999999997,
+        "h": 12.230000000000018
+      },
+      "tooltip": "15. USER REQUIRES ACCESS TO: Specify classified category."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.UserAccess.other15",
+      "schema_field": "access_to_other",
+      "page": 0,
+      "rect": {
+        "x": 35.22,
+        "y": 569.03,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "15. USER REQUIRES ACCESS TO: - Select for \"user requires access to other.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.UserAccess.Other_fill_in15",
+      "schema_field": "other_access",
+      "page": 0,
+      "rect": {
+        "x": 87.47,
+        "y": 566.61,
+        "w": 505.43999999999994,
+        "h": 14.769999999999982
+      },
+      "tooltip": "15. USER REQUIRES ACCESS TO: enter specification for \"Other\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Verification.certify16",
+      "schema_field": "verification_of_need_to_know",
+      "page": 0,
+      "rect": {
+        "x": 35.22,
+        "y": 603.22,
+        "w": 11,
+        "h": 11
+      },
+      "tooltip": "16. VERIFICATION OF NEED TO KNOW - Select for \"I certify that this user requires access as requested.\""
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Access_expiration16a",
+      "schema_field": "access_expiration_date",
+      "page": 0,
+      "rect": {
+        "x": 235.08,
+        "y": 605.61,
+        "w": 357.8399999999999,
+        "h": 11.830000000000041
+      },
+      "tooltip": "Enter access expiration date (Contractors must specify Company Name, Contract Number, Expiration Date. Use Block 27 if needed.)"
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Supervisor.Name17",
+      "schema_field": "supervisor_name",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 632.61,
+        "w": 213.83999999999997,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter supervisor's printed name."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Supervisor.email17",
+      "schema_field": "supervisor_email_address",
+      "page": 0,
+      "rect": {
+        "x": 235.08,
+        "y": 632.61,
+        "w": 213.84,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter supervisor's email address."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Supervisor.phone17",
+      "schema_field": "supervisor_phone_number",
+      "page": 0,
+      "rect": {
+        "x": 451.08,
+        "y": 632.61,
+        "w": 141.83999999999997,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Enter supervisor's phone number."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Supervisor.supervisor_organization17",
+      "schema_field": "supervisor_organization_department",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 661.41,
+        "w": 213.83999999999997,
+        "h": 20.83000000000004
+      },
+      "tooltip": "Enter supervisor's organization/department."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Supervisor.signedDate17",
+      "schema_field": "supervisor_signature_date",
+      "page": 0,
+      "rect": {
+        "x": 451.08,
+        "y": 661.41,
+        "w": 141.83999999999997,
+        "h": 20.83000000000004
+      },
+      "tooltip": "Enter date in format YYYYMMDD (when item 18 is signed, this is auto filled with the date signed)."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.ioOPR.IOphone18",
+      "schema_field": "information_owner_opr_phone_number",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 697.41,
+        "w": 213.83999999999997,
+        "h": 17.950000000000045
+      },
+      "tooltip": "Enter information owner/OPR phone number."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.ioOPR.signedDate18",
+      "schema_field": "information_owner_opr_signature_date",
+      "page": 0,
+      "rect": {
+        "x": 451.08,
+        "y": 697.41,
+        "w": 141.83999999999997,
+        "h": 17.950000000000045
+      },
+      "tooltip": "Enter date in format YYYYMMDD (when item 21 is signed, this is auto filled with the date signed)."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.IA.OrgPhone.Org19",
+      "schema_field": "isso_organization_department",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 730.52,
+        "w": 213.83999999999997,
+        "h": 10.029999999999973
+      },
+      "tooltip": "Enter ISSO organization/department."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.IA.OrgPhone.phone19",
+      "schema_field": "isso_phone_number",
+      "page": 0,
+      "rect": {
+        "x": 105.08,
+        "y": 743.7,
+        "w": 127.83999999999999,
+        "h": 10.799999999999955
+      },
+      "tooltip": "19a. ISSO ORGANIZATION/DEPARTMENT - PHONE NUMBER"
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.IA.signedDate19",
+      "schema_field": "isso_signature_date",
+      "page": 0,
+      "rect": {
+        "x": 451.08,
+        "y": 730.52,
+        "w": 141.83999999999997,
+        "h": 23
+      },
+      "tooltip": "Enter date in format YYYYMMDD (when item 22 is signed, this is auto filled with the date signed)."
+    },
+    {
+      "name": "p2.Page2.form1.page2.OptInfo21",
+      "schema_field": "optional_information",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 70.65999999999997,
+        "w": 573.84,
+        "h": 247.26999999999992
+      },
+      "tooltip": "Enter optional information."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.Type_of_investigation22",
+      "schema_field": "type_of_investigation",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 344.48,
+        "w": 285.84000000000003,
+        "h": 27.439999999999998
+      },
+      "tooltip": "PART III - SECURITY MANAGER VALIDATES THE BACKGROUND INVESTIGATION OR CLEARANCE INFORMATION - 22. TYPE OF INVESTIGATION"
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.InvestigationDate22",
+      "schema_field": "investigation_date",
+      "page": 1,
+      "rect": {
+        "x": 307.08,
+        "y": 344.48,
+        "w": 285.84,
+        "h": 27.439999999999998
+      },
+      "tooltip": "Enter date in format YYYYMMDD."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.cv22",
+      "schema_field": "continuous_vetting_enrollment_date",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 384.08,
+        "w": 285.84000000000003,
+        "h": 16.629999999999995
+      },
+      "tooltip": "22b. CONTINUOUS VETTING (CV) ENROLLMENT DATE (YYYYMMDD)"
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.access22",
+      "schema_field": "access_level",
+      "page": 1,
+      "rect": {
+        "x": 307.08,
+        "y": 384.08,
+        "w": 285.84,
+        "h": 16.629999999999995
+      },
+      "tooltip": "Enter access level"
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.SecurityManager.Verified_by23",
+      "schema_field": "verified_by",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 412.88,
+        "w": 134.64,
+        "h": 23.829999999999984
+      },
+      "tooltip": "Enter the printed name of the verifier."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.SecurityManager.phone24",
+      "schema_field": "security_manager_phone_number",
+      "page": 1,
+      "rect": {
+        "x": 155.88,
+        "y": 412.88,
+        "w": 98.64000000000001,
+        "h": 23.829999999999984
+      },
+      "tooltip": "Enter security manager telephone number."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.SecurityManager.signedDate26",
+      "schema_field": "verification_date",
+      "page": 1,
+      "rect": {
+        "x": 494.27,
+        "y": 421.88,
+        "w": 98.63999999999999,
+        "h": 14.829999999999984
+      },
+      "tooltip": "26. VERIFICATION DATE (YYYYMMDD)"
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row1.Title_1",
+      "schema_field": "system_title",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 466.28,
+        "w": 141.84000000000003,
+        "h": 20.829999999999984
+      },
+      "tooltip": "PART IV - COMPLETION BY AUTHORIZED STAFF PREPARING ACCOUNT INFORMATION - Enter title, line 1."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row1.System",
+      "schema_field": "system",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 466.28,
+        "w": 213.84,
+        "h": 20.829999999999984
+      },
+      "tooltip": "Enter system for line 1."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row1.Account_code_1",
+      "schema_field": "system_account_code",
+      "page": 1,
+      "rect": {
+        "x": 379.08,
+        "y": 466.28,
+        "w": 213.83999999999997,
+        "h": 20.829999999999984
+      },
+      "tooltip": "Enter account code, line 1."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row2.Title_2",
+      "schema_field": "domain_title",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 490.28,
+        "w": 141.84000000000003,
+        "h": 33.84000000000003
+      },
+      "tooltip": "PART IV - COMPLETION BY AUTHORIZED STAFF PREPARING ACCOUNT INFORMATION - Enter title, line 2."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row2.Domain",
+      "schema_field": "domain",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 502.28,
+        "w": 213.84,
+        "h": 20.829999999999927
+      },
+      "tooltip": "Enter domain for line 2."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row2.Account_code_2",
+      "schema_field": "domain_account_code",
+      "page": 1,
+      "rect": {
+        "x": 379.08,
+        "y": 490.28,
+        "w": 213.83999999999997,
+        "h": 33.84000000000003
+      },
+      "tooltip": "Enter account code, line 2."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row3.Title_3",
+      "schema_field": "server_title",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 526.28,
+        "w": 141.84000000000003,
+        "h": 33.84000000000003
+      },
+      "tooltip": "PART IV - COMPLETION BY AUTHORIZED STAFF PREPARING ACCOUNT INFORMATION - Enter title, line 3."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row3.Server",
+      "schema_field": "server",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 538.28,
+        "w": 213.84,
+        "h": 20.829999999999927
+      },
+      "tooltip": "Enter server for line 3."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row3.Account_code_3",
+      "schema_field": "server_account_code",
+      "page": 1,
+      "rect": {
+        "x": 379.08,
+        "y": 526.28,
+        "w": 213.83999999999997,
+        "h": 33.84000000000003
+      },
+      "tooltip": "Enter account code, line 3."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row4.Title_4",
+      "schema_field": "application_title",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 562.28,
+        "w": 141.84000000000003,
+        "h": 33.84000000000003
+      },
+      "tooltip": "PART IV - COMPLETION BY AUTHORIZED STAFF PREPARING ACCOUNT INFORMATION - Enter title, line 4."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row4.Application",
+      "schema_field": "application",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 574.28,
+        "w": 213.84,
+        "h": 20.829999999999927
+      },
+      "tooltip": "Enter application for line 4."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row4.Account_code_4",
+      "schema_field": "application_account_code",
+      "page": 1,
+      "rect": {
+        "x": 379.08,
+        "y": 562.28,
+        "w": 213.83999999999997,
+        "h": 33.84000000000003
+      },
+      "tooltip": "Enter account code, line 4."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row5.Title_5",
+      "schema_field": "files_title",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 598.28,
+        "w": 141.84000000000003,
+        "h": 33.84000000000003
+      },
+      "tooltip": "PART IV - COMPLETION BY AUTHORIZED STAFF PREPARING ACCOUNT INFORMATION - Enter title, line 5."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row5.Files",
+      "schema_field": "files",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 610.28,
+        "w": 213.84,
+        "h": 20.829999999999927
+      },
+      "tooltip": "Enter files for line 5."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row5.Account_code_5",
+      "schema_field": "files_account_code",
+      "page": 1,
+      "rect": {
+        "x": 379.08,
+        "y": 598.28,
+        "w": 213.83999999999997,
+        "h": 33.84000000000003
+      },
+      "tooltip": "Enter account code, line 5."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row6.Title_6",
+      "schema_field": "datasets_title",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 634.28,
+        "w": 141.84000000000003,
+        "h": 33.84000000000003
+      },
+      "tooltip": "PART IV - COMPLETION BY AUTHORIZED STAFF PREPARING ACCOUNT INFORMATION - Enter title, line 6."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row6.Datasets",
+      "schema_field": "datasets",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 646.28,
+        "w": 213.84,
+        "h": 20.829999999999927
+      },
+      "tooltip": "Enter datasets for line 6."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Row6.Account_code_6",
+      "schema_field": "datasets_account_code",
+      "page": 1,
+      "rect": {
+        "x": 379.08,
+        "y": 634.28,
+        "w": 213.83999999999997,
+        "h": 33.84000000000003
+      },
+      "tooltip": "Enter account code, line 6."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Processed.DateProcessed",
+      "schema_field": "date_processed",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 684.28,
+        "w": 141.84000000000003,
+        "h": 26.029999999999973
+      },
+      "tooltip": "Date processed in format YYYYMMDD."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Processed.ProcessedBy.NameProcessed",
+      "schema_field": "processed_by",
+      "page": 1,
+      "rect": {
+        "x": 299.08,
+        "y": 670.28,
+        "w": 293.84,
+        "h": 12.230000000000018
+      },
+      "tooltip": "Print name of who processed account information."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Processed.ProcessedBy.ProcessedsignedDate",
+      "schema_field": "processed_by_signature_date",
+      "page": 1,
+      "rect": {
+        "x": 494.27,
+        "y": 696.67,
+        "w": 98.63999999999999,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Date of signature in format YYYYMMDD."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Revalidated.DateRevalidated",
+      "schema_field": "date_revalidated",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 727.47,
+        "w": 141.84000000000003,
+        "h": 26.029999999999973
+      },
+      "tooltip": "Date revalidated in format YYYYMMDD."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Revalidated.RevalidatedBy.NameRevalidated",
+      "schema_field": "revalidated_by",
+      "page": 1,
+      "rect": {
+        "x": 305.08,
+        "y": 713.47,
+        "w": 287.84,
+        "h": 12.230000000000018
+      },
+      "tooltip": "Print name of who o revalidated account information."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Revalidated.RevalidatedBy.RevalidatedsignedDate",
+      "schema_field": "revalidated_by_signature_date",
+      "page": 1,
+      "rect": {
+        "x": 494.27,
+        "y": 739.86,
+        "w": 98.63999999999999,
+        "h": 13.629999999999995
+      },
+      "tooltip": "Date of signature in format YYYYMMDD."
+    }
+  ],
+  "widgets": [
+    {
+      "name": "p1.Page1.form1.page1.Part1.userSig.userSig",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 19.08,
+        "y": 395.02,
+        "w": 429.84000000000003,
+        "h": 20.83000000000004
+      },
+      "tooltip": "Enter user signature."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.Supervisor.Sig17",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 235.08,
+        "y": 661.41,
+        "w": 213.84,
+        "h": 20.83000000000004
+      },
+      "tooltip": "Enter supervisor's signature."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.ioOPR.Sig18",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 235.08,
+        "y": 697.41,
+        "w": 213.84,
+        "h": 17.950000000000045
+      },
+      "tooltip": "Enter signature of information owner/OPR."
+    },
+    {
+      "name": "p1.Page1.form1.page1.Part2.IA.Sig19",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 235.08,
+        "y": 730.52,
+        "w": 213.84,
+        "h": 23
+      },
+      "tooltip": "Enter signature of ISSO or appointee."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part3.SecurityManager.Sig25",
+      "type": "signature",
+      "page": 1,
+      "rect": {
+        "x": 256.67,
+        "y": 412.88,
+        "w": 235.44,
+        "h": 23.829999999999984
+      },
+      "tooltip": "Enter security manager signature."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Processed.ProcessedBy.ProcessedSig",
+      "type": "signature",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 684.67,
+        "w": 329.03,
+        "h": 26.639999999999986
+      },
+      "tooltip": "Signature of who processed account information."
+    },
+    {
+      "name": "p2.Page2.form1.page2.Part4.Revalidated.RevalidatedBy.RevalidatedSig",
+      "type": "signature",
+      "page": 1,
+      "rect": {
+        "x": 163.08,
+        "y": 727.86,
+        "w": 329.03,
+        "h": 26.639999999999986
+      },
+      "tooltip": "Signature of who revalidated account information."
+    }
+  ]
+}

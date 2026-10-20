@@ -1,0 +1,408 @@
+quill:
+  name: "dd2875"
+  version: 0.0.1
+  backend: acroform
+  description: "DD Form 2875, System Authorization Access Request (SAAR)."
+
+main:
+  body:
+    enabled: false
+  fields:
+    "classification":
+      title: "Classification"
+      type: enum
+      values:
+        - "UNCLASSIFIED"
+        - "CUI"
+      default: ""
+      description: "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2; this quill fills the top of page 1."
+    "type_of_request":
+      title: "Type of request"
+      type: enum
+      values:
+        - "INITIAL"
+        - "MODIFICATION"
+        - "DEACTIVATE"
+      default: ""
+      description: "Whether the request opens an account, changes one, or closes one."
+    "user_id":
+      title: "User ID"
+      type: text
+      default: ""
+      description: "The user ID the account has, or is to have. Leave it blank on an initial request when the system assigns one."
+    "request_date":
+      title: "Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date of the request, as YYYYMMDD."
+    "system_name":
+      title: "System name (platform or applications)"
+      type: text
+      default: ""
+      description: "The system, platform or application the request is for."
+    "location":
+      title: "Location (physical location of system)"
+      type: text
+      default: ""
+      description: "Where the system is physically located."
+    "name":
+      title: "1. Name (last, first, middle initial)"
+      type: text
+      default: ""
+      description: "The user's last name, first name and middle initial."
+    "organization":
+      title: "2. Organization"
+      type: text
+      default: ""
+      description: "The user's current organization (e.g. DISA, SDI, DoD and government agency or commercial firm)."
+    "office_symbol_department":
+      title: "3. Office symbol/department"
+      type: text
+      default: ""
+      description: "The office symbol within the user's current organization."
+    "phone":
+      title: "4. Phone (DSN or commercial)"
+      type: text
+      default: ""
+      description: "The user's DSN number, or a commercial number when the user has no DSN."
+    "official_email_address":
+      title: "5. Official e-mail address"
+      type: text
+      default: ""
+      description: "The user's official e-mail address."
+    "job_title_and_grade_rank":
+      title: "6. Job title and grade/rank"
+      type: text
+      default: ""
+      description: "The user's job title and civilian grade or military rank, or \"CTR\" for a contractor."
+    "official_mailing_address":
+      title: "7. Official mailing address"
+      type: text
+      default: ""
+      multiline: true
+      description: "The user's official mailing address, one line per line of the address."
+    "citizenship_us":
+      title: "8. Citizenship: US"
+      type: boolean
+      default: false
+      description: "Checked when the user is a US citizen."
+    "citizenship_fn":
+      title: "8. Citizenship: FN"
+      type: boolean
+      default: false
+      description: "Checked when the user is a foreign national."
+    "citizenship_other":
+      title: "8. Citizenship: Other"
+      type: boolean
+      default: false
+      description: "Checked when the user's citizenship is neither US nor foreign national."
+    "designation_of_person_military":
+      title: "9. Designation of person: Military"
+      type: boolean
+      default: false
+      description: "Checked when the user is a service member."
+    "designation_of_person_civilian":
+      title: "9. Designation of person: Civilian"
+      type: boolean
+      default: false
+      description: "Checked when the user is a government civilian employee."
+    "designation_of_person_contractor":
+      title: "9. Designation of person: Contractor"
+      type: boolean
+      default: false
+      description: "Checked when the user is a contractor."
+    "completed_annual_cyber_awareness_training":
+      title: "10. I have completed the Annual Cyber Awareness Training"
+      type: boolean
+      default: false
+      description: "Checked when the user has completed the Annual Cyber Awareness Training."
+    "annual_cyber_awareness_training_date":
+      title: "10. Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the user completed the Annual Cyber Awareness Training, as YYYYMMDD."
+    "user_signature_date":
+      title: "12. Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the user signs the form, as YYYYMMDD."
+    "justification_for_access":
+      title: "13. Justification for access"
+      type: text
+      default: ""
+      multiline: true
+      description: "A brief statement of why the user needs the user ID, or the change to it."
+    "type_of_access_authorized":
+      title: "14. Type of access requested: Authorized"
+      type: boolean
+      default: false
+      description: "Checked for normal access."
+    "type_of_access_privileged":
+      title: "14. Type of access requested: Privileged"
+      type: boolean
+      default: false
+      description: "Checked for access that can amend or change the system's configuration, parameters or settings."
+    "access_to_unclassified":
+      title: "15. User requires access to: Unclassified"
+      type: boolean
+      default: false
+      description: "Checked when the user needs access to unclassified information."
+    "access_to_classified":
+      title: "15. User requires access to: Classified"
+      type: boolean
+      default: false
+      description: "Checked when the user needs access to classified information. Name the category beside it."
+    "classified_category":
+      title: "15. Classified (specify category)"
+      type: text
+      default: ""
+      description: "The classified category the user needs access to."
+    "access_to_other":
+      title: "15. User requires access to: Other"
+      type: boolean
+      default: false
+      description: "Checked when the user needs access to something other than unclassified or classified information. Say what beside it."
+    "other_access":
+      title: "15. Other"
+      type: text
+      default: ""
+      description: "What the user needs access to, when it is neither unclassified nor classified information."
+    "verification_of_need_to_know":
+      title: "16. Verification of need to know: I certify that this user requires access as requested"
+      type: boolean
+      default: false
+      description: "Checked when the supervisor or sponsor certifies the user requires the access requested."
+    "access_expiration_date":
+      title: "16a. Access expiration date"
+      type: text
+      default: ""
+      description: "The date the access expires, when it is less than a year away. A contractor gives the company name, contract number and the contract's expiration date, continuing in block 21 if needed."
+    "supervisor_name":
+      title: "17. Supervisor's name (print name)"
+      type: text
+      default: ""
+      description: "The printed name of the supervisor or representative who verifies the information above."
+    "supervisor_email_address":
+      title: "17a. Supervisor's email address"
+      type: text
+      default: ""
+      description: "The supervisor's e-mail address."
+    "supervisor_phone_number":
+      title: "17b. Phone number"
+      type: text
+      default: ""
+      description: "The supervisor's phone number."
+    "supervisor_organization_department":
+      title: "17c. Supervisor's organization/department"
+      type: text
+      default: ""
+      description: "The supervisor's organization and department."
+    "supervisor_signature_date":
+      title: "17e. Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the supervisor signs the form, as YYYYMMDD."
+    "information_owner_opr_phone_number":
+      title: "18. Information owner/OPR phone number"
+      type: text
+      default: ""
+      description: "The functional appointee's phone number."
+    "information_owner_opr_signature_date":
+      title: "18b. Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the functional appointee signs the form, as YYYYMMDD."
+    "isso_organization_department":
+      title: "19. ISSO organization/department"
+      type: text
+      default: ""
+      description: "The ISSO's organization and department."
+    "isso_phone_number":
+      title: "19a. Phone number"
+      type: text
+      default: ""
+      description: "The ISSO's phone number."
+    "isso_signature_date":
+      title: "19c. Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the ISSO or appointee signs the form, as YYYYMMDD."
+    "optional_information":
+      title: "21. Optional information"
+      type: text
+      default: ""
+      multiline: true
+      description: "Anything more the request needs, such as a contractor's details continued from block 16a."
+    "type_of_investigation":
+      title: "22. Type of investigation"
+      type: text
+      default: ""
+      description: "The user's last type of background investigation (i.e. Tier 3, Tier 5)."
+    "investigation_date":
+      title: "22a. Investigation date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date of the user's last investigation, as YYYYMMDD."
+    "continuous_vetting_enrollment_date":
+      title: "22b. Continuous vetting (CV) enrollment date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the user enrolled in continuous vetting, as YYYYMMDD. Leave it blank when the user is not enrolled."
+    "access_level":
+      title: "22c. Access level"
+      type: text
+      default: ""
+      description: "The access level the sponsoring agency or service grants the user (i.e. Secret, Top Secret)."
+    "verified_by":
+      title: "23. Verified by (printed name)"
+      type: text
+      default: ""
+      description: "The printed name of the security manager or representative who verifies the clearance and investigation."
+    "security_manager_phone_number":
+      title: "24. Phone number"
+      type: text
+      default: ""
+      description: "The security manager's phone number."
+    "verification_date":
+      title: "26. Verification date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the security manager verified the background investigation and clearance, as YYYYMMDD."
+    "system_title":
+      title: "Title (system line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The title of the system account, on Part IV's system line."
+    "system":
+      title: "System"
+      type: text
+      default: ""
+      multiline: true
+      description: "The system the user is given access to."
+    "system_account_code":
+      title: "Account code (system line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The account code for the system line."
+    "domain_title":
+      title: "Title (domain line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The title of the domain account, on Part IV's domain line."
+    "domain":
+      title: "Domain"
+      type: text
+      default: ""
+      multiline: true
+      description: "The domain the user is given access to."
+    "domain_account_code":
+      title: "Account code (domain line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The account code for the domain line."
+    "server_title":
+      title: "Title (server line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The title of the server account, on Part IV's server line."
+    "server":
+      title: "Server"
+      type: text
+      default: ""
+      multiline: true
+      description: "The server the user is given access to."
+    "server_account_code":
+      title: "Account code (server line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The account code for the server line."
+    "application_title":
+      title: "Title (application line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The title of the application account, on Part IV's application line."
+    "application":
+      title: "Application"
+      type: text
+      default: ""
+      multiline: true
+      description: "The application the user is given access to."
+    "application_account_code":
+      title: "Account code (application line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The account code for the application line."
+    "files_title":
+      title: "Title (files line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The title of the files account, on Part IV's files line."
+    "files":
+      title: "Files"
+      type: text
+      default: ""
+      multiline: true
+      description: "The files the user is given access to."
+    "files_account_code":
+      title: "Account code (files line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The account code for the files line."
+    "datasets_title":
+      title: "Title (datasets line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The title of the datasets account, on Part IV's datasets line."
+    "datasets":
+      title: "Datasets"
+      type: text
+      default: ""
+      multiline: true
+      description: "The datasets the user is given access to."
+    "datasets_account_code":
+      title: "Account code (datasets line)"
+      type: text
+      default: ""
+      multiline: true
+      description: "The account code for the datasets line."
+    "date_processed":
+      title: "Date processed (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the account information was processed, as YYYYMMDD."
+    "processed_by":
+      title: "Processed by (print name and sign)"
+      type: text
+      default: ""
+      description: "The printed name of whoever processed the account information."
+    "processed_by_signature_date":
+      title: "Processed by: Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date whoever processed the account information signs, as YYYYMMDD."
+    "date_revalidated":
+      title: "Date revalidated (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date the account information was revalidated, as YYYYMMDD."
+    "revalidated_by":
+      title: "Revalidated by (print name and sign)"
+      type: text
+      default: ""
+      description: "The printed name of whoever revalidated the account information."
+    "revalidated_by_signature_date":
+      title: "Revalidated by: Date (YYYYMMDD)"
+      type: text
+      default: ""
+      description: "The date whoever revalidated the account information signs, as YYYYMMDD."
