@@ -16,43 +16,50 @@ main:
   # summary is a Summary card.
   body:
     enabled: false
-  sections:
-    identity:
-      fields:
-        name:
-          type: string
-          description: "Your name as you want it read. It also names the PDF."
+  ui:
+    groups:
+      identity: {}
+      page: {}
+  fields:
+    name:
+      ui:
+        group: identity
+      type: text
+      description: "Your name as you want it read. It also names the PDF."
 
-        contacts:
-          type: array
-          items:
-            type: string
-          description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
-    page:
-      fields:
-        paper:
-          type: enum
-          values:
-            - us-letter
-            - a4
-          default: us-letter
-          ui:
-            compact: true
-          description: "Page size."
+    contacts:
+      ui:
+        group: identity
+      type: array
+      items:
+        type: text
+      description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
+    paper:
+      type: enum
+      values:
+        - us-letter
+        - a4
+      default: us-letter
+      ui:
+        group: page
+        compact: true
+      description: "Page size."
 
-        font_size:
-          type: number
-          default: 12
-          ui:
-            compact: true
-          description: "Body text size in points. To fit one page, try a half point smaller before cutting content."
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: page
+        compact: true
+      description: "Body text size in points. To fit one page, try a half point smaller before cutting content."
 
-        margin:
-          type: number
-          default: 0.5
-          ui:
-            compact: true
-          description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
+    margin:
+      type: number
+      default: 0.5
+      ui:
+        group: page
+        compact: true
+      description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
 
 
 # Each kind opens with the heading it prints. Its `default:` is the usual one,
@@ -66,8 +73,7 @@ card_kinds:
       $body: An engineer. Likes climbing rocks and making useful things.
     fields:
       title:
-        type: plaintext
-        inline: true
+        type: text
         default: Summary
         description: "The section heading. Leave blank to omit it; a summary at the top then sits right under your name."
 
@@ -84,8 +90,7 @@ card_kinds:
             - What you did, and what it changed.
     fields:
       title:
-        type: plaintext
-        inline: true
+        type: text
         default: Work Experience
         description: &title_description "The section heading. Leave blank to omit it."
       jobs:
@@ -94,26 +99,23 @@ card_kinds:
           type: object
           properties:
             company:
-              type: plaintext
-              inline: true
+              type: text
               description: "The employer's name."
             dates: &dates
-              type: plaintext
-              inline: true
+              type: text
               default: ""
               description: "Written as you want it to read, for example 'August 2024 – Present'. Use the same style throughout."
             role:
-              type: plaintext
-              inline: true
+              type: text
               default: ""
               description: "Your job title."
             location: &location
-              type: plaintext
-              inline: true
+              type: text
               default: ""
               description: "Where it was, for example 'Pittsburgh, PA' or 'Remote'."
             details: &details
               type: richtext
+              multiline: true
               default: ""
               description: "What you did, usually as short bullets with the strongest first."
         description: "One entry per job."
@@ -129,8 +131,7 @@ card_kinds:
           location: City, ST
     fields:
       title:
-        type: plaintext
-        inline: true
+        type: text
         default: Education
         description: *title_description
       schools:
@@ -139,13 +140,11 @@ card_kinds:
           type: object
           properties:
             school:
-              type: plaintext
-              inline: true
+              type: text
               description: "The school's name."
             dates: *dates
             degree:
-              type: plaintext
-              inline: true
+              type: text
               default: ""
               description: "Degree and field of study."
             location: *location
@@ -163,8 +162,7 @@ card_kinds:
           items: Skill, Skill, Skill
     fields:
       title:
-        type: plaintext
-        inline: true
+        type: text
         default: Skills
         description: *title_description
       skills:
@@ -175,12 +173,10 @@ card_kinds:
           type: object
           properties:
             label:
-              type: plaintext
-              inline: true
+              type: text
               description: "The group's name, for example 'Languages'. Leave blank to list the skills alone."
             items:
-              type: plaintext
-              inline: true
+              type: text
               description: "The skills in this group, separated by commas."
         description: "One group per row."
       columns: &columns
@@ -201,8 +197,7 @@ card_kinds:
             - What it does, and your part in it.
     fields:
       title:
-        type: plaintext
-        inline: true
+        type: text
         default: Projects
         description: *title_description
       projects:
@@ -211,11 +206,10 @@ card_kinds:
           type: object
           properties:
             name:
-              type: plaintext
-              inline: true
+              type: text
               description: "The project's name."
             link:
-              type: string
+              type: text
               default: ""
               description: "Where to see it, for example github.com/you/project. It prints as written, so leave off https://."
             details: *details
@@ -229,15 +223,14 @@ card_kinds:
         - Certification (ABBREVIATION)
     fields:
       title:
-        type: plaintext
-        inline: true
+        type: text
         default: Certifications
         description: *title_description
       items:
         type: array
         items:
           type: richtext
-          inline: true
+          multiline: false
         description: "One per line, short enough to fit its column."
       columns: *columns
 
@@ -252,8 +245,7 @@ card_kinds:
             - What it was, and what came of it.
     fields:
       title:
-        type: plaintext
-        inline: true
+        type: text
         description: "The section heading."
       entries:
         type: array
@@ -261,13 +253,11 @@ card_kinds:
           type: object
           properties:
             heading:
-              type: plaintext
-              inline: true
+              type: text
               description: "The entry's name, such as an organization or publication."
             dates: *dates
             subtitle:
-              type: plaintext
-              inline: true
+              type: text
               default: ""
               description: "A second line, such as your role."
             location: *location

@@ -1,5 +1,83 @@
 # Changelog
 
+## v0.39.0 - 2026-10-19
+
+- **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
+  `@quillmark/wasm` 0.126.2, so it loads `medal_citation@0.1.0`, whose
+  `max:` on a `richtext` field the 0.126.1 that quillkit 0.18.0 carried
+  refused.
+
+- **`medal_citation`'s three certificates follow an issued Air and Space
+  Achievement Medal.** Each sets in TeX Gyre Termes, as the quiver's other
+  Times quills do, where it set in Liberation Serif, and keeps its own image
+  and wording. The headings print in regular weight; the recipient, the
+  reason and its period print in bold. The accomplishments paragraph sets at 10pt, justified 1in from each
+  edge, and steps down to 8pt to fit its space, so a 1350-character paragraph
+  fits on every medal, with or without an oak leaf cluster. A later award's
+  cluster prints under the medal name. Every medal closes on GIVEN UNDER MY
+  HAND with the date in bold beneath it, as 13 OCTOBER 2026, where the
+  Achievement Medal printed "THIS 13th DAY OF OCTOBER 2026". The approving
+  official signs in a signature field above a 2.5in rule. The name prints in
+  bold under the rule, with the grade and duty title beneath, and the seal
+  stands to the right. Every medal takes the same fields, named for what
+  they hold: `medal` is a plain choice listed in order of precedence;
+  `recipient` takes the grade and name, where `rank` did; `reason` takes what
+  follows FOR, where `service` did; and `signed_on`, `signer_name`,
+  `signer_grade` and `signer_title` are shared, where the Achievement Medal
+  took `afam_signed_on` and a "NAME, Rank, USAF" `commander_name`, the
+  Meritorious Service Medal took `msm_commander_name`, and the others took
+  `commander_name`, `commander_grade` and `commander_title`. The date and
+  approving official default to blank, where NAME, Rank, USAF and 13 October
+  2026 printed when left alone. A document saved with the old fields warns
+  that they are unknown and prints no recipient, reason, date or approving
+  official until they are re-entered. `oak_leaf_cluster` is a count: 0 prints
+  none and 3 prints THIRD OAK LEAF CLUSTER, where it was a choice from Basic
+  to Tenth Oak Leaf Cluster. Four new fields, `special_order`, `condition`,
+  `pas` and `rdp`, print the certificate's foot line, as "Special Order:
+  G-12214", "Condition: 4", "PAS: DM1LFHS2" and "RDP: 19 AUG 2025"; a blank
+  field prints no entry.
+
+## v0.38.0 - 2026-10-19
+
+- **Take `@quillmark/wasm` 0.126.2, and cap `medal_citation`'s
+  accomplishments at 1350 characters.** The field declares `max: 1350`, so an
+  editor on `@quillmark/svelte` with the cap takes no keystroke past it and a
+  longer stored paragraph warns `validation::over_length` and renders whole,
+  where the plate cut it at 1350.
+  A host loading the quiver on `@quillmark/wasm` before 0.126.2 fails to load
+  `medal_citation@0.1.0`, which 0.126.1 refuses `max:` on.
+
+## v0.37.0 - 2026-10-17
+
+- **Take `@quillmark/wasm` 0.126.1.** Every quill, example, template and
+  design fixture renders the same pages as before, and every field keeps its
+  address. A stored value of a former `string` field holding a line break,
+  other than `daf4392`'s `notes`, renders the break as a space and warns
+  `validation::line_break_folded`; `quillmark check --strict` lists each one.
+  Every `Quill.yaml` spells its text
+  fields as `text` or `richtext` with `multiline:`, where it spelled
+  `string`, `plaintext` and `inline:`. The eight quills that grouped their
+  fields under `sections:`, which 0.126 refuses, group them with `ui.group`
+  in one flat `fields:` map, so the editor draws the same sections, and load
+  with `quill::deprecated_groups`. A plate that computes with a former
+  `string` value (`af4141`, `daf1206`, `daf4392`, `classic_resume`,
+  `cyber_career_plan`, `usaf_memo@0.2.0`) reads it through `qm.str`, so the
+  form cells, the PDF author and the memo package see the strings they saw.
+  The studio and the site build on quillkit 0.18.0, which carries 0.126.1,
+  and the quiver on `@quillmark/quiver` 0.38.0.
+
+- **A medal citation quill is added.** `medal_citation@0.1.0` typesets the
+  Air and Space Achievement Medal, the Meritorious Service Medal, and the Air
+  and Space Commendation Medal. Medal picks which. The accomplishments
+  paragraph is 1350 characters, including spaces. Basic prints no oak leaf
+  cluster; a later award prints the cluster, in capitals, under the medal
+  name. Each citation opens on its own starter. The citation text is 15pt.
+  On each medal the accomplishments wrap in the certificate's text block,
+  36pt inset and 540pt wide, 26pt below the heading, and the paragraph stays
+  on the page. The signature and the seal sit at the bottom of the page. The accomplishments field is one
+  wrapping paragraph. `medal_citation.md`,
+  listed as `medal-citation`, is the starter.
+
 ## v0.36.0 - 2026-10-12
 
 - **v0.35.8 re-cut as a minor release.** Its contents are unchanged: the move

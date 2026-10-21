@@ -3,7 +3,7 @@
   attachment, attachment-card, backmatter, date-pattern, frontmatter, mainmatter, trim-inline,
 )
 
-// Every text field is `plaintext`/`richtext`, so it arrives as content carrying
+// Every text field is `text`/`richtext`, so it arrives as content carrying
 // a space element on each side. `trim-inline` strips those once, here, so the
 // package can interpolate a field straight into prose without it printing as
 // "the Foo  and" or "(NASA) ." — and without boxing, which would stop a long
