@@ -1,0 +1,733 @@
+{
+  "name": "dd2875",
+  "description": "DD Form 2875, System Authorization Access Request (SAAR).",
+  "fields": [
+    {
+      "id": "p1.Page1.Footer.cui_list",
+      "keep": true,
+      "name": "classification",
+      "title": "Classification",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
+      "example": "UNCLASSIFIED"
+    },
+    {
+      "id": "p1.Page1.cui_list",
+      "keep": true,
+      "name": "classification",
+      "title": "Classification",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
+      "example": "UNCLASSIFIED"
+    },
+    {
+      "id": "p1.Page1.form1.page1.TypeRequest.type_of_request",
+      "keep": true,
+      "name": "type_of_request",
+      "title": "Type of request",
+      "description": "Whether the request opens an account, changes one, or closes one.",
+      "example": "INITIAL"
+    },
+    {
+      "id": "p1.Page1.form1.page1.TypeRequest.user_id",
+      "keep": true,
+      "name": "user_id",
+      "title": "User ID",
+      "description": "The user ID the account has, or is to have. Leave it blank on an initial request when the system assigns one.",
+      "example": "EXAMPLE.USER01",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.typeReqDate",
+      "keep": true,
+      "name": "request_date",
+      "title": "Date (YYYYMMDD)",
+      "description": "The date of the request, as YYYYMMDD.",
+      "example": "20260105",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.SystemLocation.System_Name",
+      "keep": true,
+      "name": "system_name",
+      "title": "System name (platform or applications)",
+      "description": "The system, platform or application the request is for.",
+      "example": "Notional Training Portal",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.SystemLocation.Location",
+      "keep": true,
+      "name": "location",
+      "title": "Location (physical location of system)",
+      "description": "Where the system is physically located.",
+      "example": "Notional AFB, CO",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.name1",
+      "keep": true,
+      "name": "name",
+      "title": "1. Name (last, first, middle initial)",
+      "description": "The user's last name, first name and middle initial. The form repeats it in block 20 at the top of page 2, and this quill prints it in both.",
+      "example": "Example, Jordan A.",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Organization2",
+      "keep": true,
+      "name": "organization",
+      "title": "2. Organization",
+      "description": "The user's current organization (e.g. DISA, another DoD or government agency, or a commercial firm).",
+      "example": "123rd Example Squadron",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Office_Symbol3",
+      "keep": true,
+      "name": "office_symbol_department",
+      "title": "3. Office symbol/department",
+      "description": "The office symbol within the user's current organization.",
+      "example": "123 XS/SCX",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Phone4",
+      "keep": true,
+      "name": "phone",
+      "title": "4. Phone (DSN or commercial)",
+      "description": "The user's DSN number, or a commercial number when the user has no DSN.",
+      "example": "DSN 555-0123",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Email_Address5",
+      "keep": true,
+      "name": "official_email_address",
+      "title": "5. Official e-mail address",
+      "description": "The user's official e-mail address.",
+      "example": "jordan.example@example.com",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Job_Title6",
+      "keep": true,
+      "name": "job_title_and_grade_rank",
+      "title": "6. Job title and grade/rank",
+      "description": "The user's job title and civilian grade or military rank, or \"CTR\" for a contractor.",
+      "example": "Cyber Systems Operations Journeyman, SSgt",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Mailing_Address7",
+      "keep": true,
+      "name": "official_mailing_address",
+      "title": "7. Official mailing address",
+      "description": "The user's official mailing address, one line per line of the address.",
+      "example": "123 XS/SCX, 100 Example Ave\nNotional AFB, CO 80000",
+      "text": "paragraph"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.US8",
+      "keep": true,
+      "name": "citizenship_us",
+      "title": "8. Citizenship: US",
+      "description": "Checked when the user is a US citizen.",
+      "example": "true"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.FN8",
+      "keep": true,
+      "name": "citizenship_foreign_national",
+      "title": "8. Citizenship: FN",
+      "description": "Checked when the user is a foreign national."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.other8",
+      "keep": true,
+      "name": "citizenship_other",
+      "title": "8. Citizenship: Other",
+      "description": "Checked when the user's citizenship is neither US nor foreign national."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.DesigPerson.Checklist.mil9",
+      "keep": true,
+      "name": "designation_of_person_military",
+      "title": "9. Designation of person: Military",
+      "description": "Checked when the user is a service member.",
+      "example": "true"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.DesigPerson.Checklist.civ9",
+      "keep": true,
+      "name": "designation_of_person_civilian",
+      "title": "9. Designation of person: Civilian",
+      "description": "Checked when the user is a government civilian employee."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.DesigPerson.Checklist.ctr9",
+      "keep": true,
+      "name": "designation_of_person_contractor",
+      "title": "9. Designation of person: Contractor",
+      "description": "Checked when the user is a contractor."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Annual_IAT.annual_IAT10",
+      "keep": true,
+      "name": "cyber_awareness_training_completed",
+      "title": "10. I have completed the Annual Cyber Awareness Training",
+      "description": "Checked when the user has completed the Annual Cyber Awareness Training.",
+      "example": "true"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.Annual_IAT.IATdate10",
+      "keep": true,
+      "name": "cyber_awareness_training_date",
+      "title": "10. Date (YYYYMMDD)",
+      "description": "The date the user completed the Annual Cyber Awareness Training, as YYYYMMDD.",
+      "example": "20251201",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.userSig.signedDate12",
+      "keep": true,
+      "name": "user_signature_date",
+      "title": "12. Date (YYYYMMDD)",
+      "description": "The date the user signs the form, as YYYYMMDD.",
+      "example": "20260105",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Justification_for_access13",
+      "keep": true,
+      "name": "justification_for_access",
+      "title": "13. Justification for access",
+      "description": "A brief statement of why the user needs the user ID, or the change to it.",
+      "example": "Needs access to the Notional Training Portal to schedule and record unit training.",
+      "text": "paragraph"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Type_of_access_requested.auth14",
+      "keep": true,
+      "name": "type_of_access_authorized",
+      "title": "14. Type of access requested: Authorized",
+      "description": "Checked for normal access.",
+      "example": "true"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Type_of_access_requested.priv14",
+      "keep": true,
+      "name": "type_of_access_privileged",
+      "title": "14. Type of access requested: Privileged",
+      "description": "Checked for access that can amend or change the system's configuration, parameters or settings."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.UserAccess.unclssfd15",
+      "keep": true,
+      "name": "access_to_unclassified",
+      "title": "15. User requires access to: Unclassified",
+      "description": "Checked when the user needs access to unclassified information."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.UserAccess.classfd15",
+      "keep": true,
+      "name": "access_to_classified",
+      "title": "15. User requires access to: Classified",
+      "description": "Checked when the user needs access to classified information. Name the category beside it.",
+      "example": "true"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.UserAccess.ClassifiedCategory15",
+      "keep": true,
+      "name": "classified_category",
+      "title": "15. Classified (specify category)",
+      "description": "The classified category the user needs access to.",
+      "example": "Secret",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.UserAccess.other15",
+      "keep": true,
+      "name": "access_to_other",
+      "title": "15. User requires access to: Other",
+      "description": "Checked when the user needs access to something other than unclassified or classified information. Say what beside it.",
+      "example": "true"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.UserAccess.Other_fill_in15",
+      "keep": true,
+      "name": "access_to_other_details",
+      "title": "15. Other",
+      "description": "What the user needs access to, when it is neither unclassified nor classified information.",
+      "example": "Notional training records only",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Verification.certify16",
+      "keep": true,
+      "name": "verification_of_need_to_know",
+      "title": "16. Verification of need to know: I certify that this user requires access as requested",
+      "description": "Checked when the supervisor or sponsor certifies the user requires the access requested.",
+      "example": "true"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Access_expiration16a",
+      "keep": true,
+      "name": "access_expiration_date",
+      "title": "16a. Access expiration date",
+      "description": "The date the access expires, when it is less than a year away. A contractor gives the company name, contract number and the contract's expiration date, continuing in block 21 if needed.",
+      "example": "20261231",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Supervisor.Name17",
+      "keep": true,
+      "name": "supervisor_name",
+      "title": "17. Supervisor's name (print name)",
+      "description": "The printed name of the supervisor or representative who verifies the information above.",
+      "example": "Sample, Casey B.",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Supervisor.email17",
+      "keep": true,
+      "name": "supervisor_email_address",
+      "title": "17a. Supervisor's email address",
+      "description": "The supervisor's e-mail address.",
+      "example": "casey.sample@example.com",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Supervisor.phone17",
+      "keep": true,
+      "name": "supervisor_phone_number",
+      "title": "17b. Phone number",
+      "description": "The supervisor's phone number.",
+      "example": "DSN 555-0100",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Supervisor.supervisor_organization17",
+      "keep": true,
+      "name": "supervisor_organization_department",
+      "title": "17c. Supervisor's organization/department",
+      "description": "The supervisor's organization and department.",
+      "example": "123 XS/CC",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Supervisor.signedDate17",
+      "keep": true,
+      "name": "supervisor_signature_date",
+      "title": "17e. Date (YYYYMMDD)",
+      "description": "The date the supervisor signs the form, as YYYYMMDD.",
+      "example": "20260106",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.ioOPR.IOphone18",
+      "keep": true,
+      "name": "information_owner_opr_phone_number",
+      "title": "18. Information owner/OPR phone number",
+      "description": "The functional appointee's phone number.",
+      "example": "DSN 555-0110",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.ioOPR.signedDate18",
+      "keep": true,
+      "name": "information_owner_opr_signature_date",
+      "title": "18b. Date (YYYYMMDD)",
+      "description": "The date the functional appointee signs the form, as YYYYMMDD.",
+      "example": "20260107",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.IA.OrgPhone.Org19",
+      "keep": true,
+      "name": "isso_organization_department",
+      "title": "19. ISSO organization/department",
+      "description": "The ISSO's organization and department.",
+      "example": "123 XS/SCXS",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.IA.OrgPhone.phone19",
+      "keep": true,
+      "name": "isso_phone_number",
+      "title": "19a. Phone number",
+      "description": "The ISSO's phone number.",
+      "example": "DSN 555-0120",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.IA.signedDate19",
+      "keep": true,
+      "name": "isso_signature_date",
+      "title": "19c. Date (YYYYMMDD)",
+      "description": "The date the ISSO or appointee signs the form, as YYYYMMDD.",
+      "example": "20260108",
+      "text": "line"
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part1.userSig.userSig",
+      "keep": true,
+      "name": "user_signature",
+      "title": "11. User signature",
+      "description": "The user signs, accepting responsibility and accountability for their password and access to the system."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.Supervisor.Sig17",
+      "keep": true,
+      "name": "supervisor_signature",
+      "title": "17d. Supervisor signature",
+      "description": "The supervisor or the endorser's representative signs."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.ioOPR.Sig18",
+      "keep": true,
+      "name": "information_owner_opr_signature",
+      "title": "18a. Information owner/OPR signature",
+      "description": "The information owner, or the functional appointee of the office approving access, signs."
+    },
+    {
+      "id": "p1.Page1.form1.page1.Part2.IA.Sig19",
+      "keep": true,
+      "name": "isso_or_appointee_signature",
+      "title": "19b. ISSO or appointee signature",
+      "description": "The ISSO, or the appointee of the office approving access, signs."
+    },
+    {
+      "id": "p2.Page2.cui_list",
+      "keep": true,
+      "name": "classification",
+      "title": "Classification",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
+      "example": "UNCLASSIFIED"
+    },
+    {
+      "id": "p2.Page2.cui_list#2",
+      "keep": true,
+      "name": "classification",
+      "title": "Classification",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
+      "example": "UNCLASSIFIED"
+    },
+    {
+      "id": "p2.Page2.form1.page2.name1",
+      "keep": true,
+      "name": "name",
+      "title": "1. Name (last, first, middle initial)",
+      "description": "The user's last name, first name and middle initial. The form repeats it in block 20 at the top of page 2, and this quill prints it in both.",
+      "example": "Example, Jordan A.",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.OptInfo21",
+      "keep": true,
+      "name": "optional_information",
+      "title": "21. Optional information",
+      "description": "Anything more the request needs, such as a contractor's details continued from block 16a.",
+      "example": "Requested for the user's appointment as unit training manager.",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.Type_of_investigation22",
+      "keep": true,
+      "name": "type_of_investigation",
+      "title": "22. Type of investigation",
+      "description": "The user's last type of background investigation (e.g. Tier 3, Tier 5).",
+      "example": "Tier 5",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.InvestigationDate22",
+      "keep": true,
+      "name": "investigation_date",
+      "title": "22a. Investigation date (YYYYMMDD)",
+      "description": "The date of the user's last investigation, as YYYYMMDD.",
+      "example": "20240301",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.cv22",
+      "keep": true,
+      "name": "continuous_vetting_enrollment_date",
+      "title": "22b. Continuous vetting (CV) enrollment date (YYYYMMDD)",
+      "description": "The date the user enrolled in continuous vetting, as YYYYMMDD. Leave it blank when the user is not enrolled.",
+      "example": "20240415",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.access22",
+      "keep": true,
+      "name": "access_level",
+      "title": "22c. Access level",
+      "description": "The access level the sponsoring agency or service grants the user (e.g. Secret, Top Secret).",
+      "example": "Secret",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.SecurityManager.Verified_by23",
+      "keep": true,
+      "name": "verified_by",
+      "title": "23. Verified by (printed name)",
+      "description": "The printed name of the security manager or representative who verifies the clearance and investigation.",
+      "example": "Notional, Riley C.",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.SecurityManager.phone24",
+      "keep": true,
+      "name": "security_manager_phone_number",
+      "title": "24. Phone number",
+      "description": "The security manager's phone number.",
+      "example": "DSN 555-0130",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.SecurityManager.signedDate26",
+      "keep": true,
+      "name": "verification_date",
+      "title": "26. Verification date (YYYYMMDD)",
+      "description": "The date the security manager verified the background investigation and clearance, as YYYYMMDD.",
+      "example": "20260109",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row1.Title_1",
+      "keep": true,
+      "name": "system_title",
+      "title": "Title (system line)",
+      "description": "The title of the system account, on Part IV's system line.",
+      "example": "Training Scheduler",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row1.System",
+      "keep": true,
+      "name": "system",
+      "title": "System",
+      "description": "The system the user is given access to.",
+      "example": "Notional Training Portal",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row1.Account_code_1",
+      "keep": true,
+      "name": "system_account_code",
+      "title": "Account code (system line)",
+      "description": "The account code for the system line.",
+      "example": "EXAMPLE-SYS-0001",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row2.Title_2",
+      "keep": true,
+      "name": "domain_title",
+      "title": "Title (domain line)",
+      "description": "The title of the domain account, on Part IV's domain line.",
+      "example": "Standard User",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row2.Domain",
+      "keep": true,
+      "name": "domain",
+      "title": "Domain",
+      "description": "The domain the user is given access to.",
+      "example": "EXAMPLE.LOCAL",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row2.Account_code_2",
+      "keep": true,
+      "name": "domain_account_code",
+      "title": "Account code (domain line)",
+      "description": "The account code for the domain line.",
+      "example": "EXAMPLE-DOM-0002",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row3.Title_3",
+      "keep": true,
+      "name": "server_title",
+      "title": "Title (server line)",
+      "description": "The title of the server account, on Part IV's server line.",
+      "example": "Read Only",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row3.Server",
+      "keep": true,
+      "name": "server",
+      "title": "Server",
+      "description": "The server the user is given access to.",
+      "example": "EXAMPLE-SRV-01",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row3.Account_code_3",
+      "keep": true,
+      "name": "server_account_code",
+      "title": "Account code (server line)",
+      "description": "The account code for the server line.",
+      "example": "EXAMPLE-SRV-0003",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row4.Title_4",
+      "keep": true,
+      "name": "application_title",
+      "title": "Title (application line)",
+      "description": "The title of the application account, on Part IV's application line.",
+      "example": "Records Viewer",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row4.Application",
+      "keep": true,
+      "name": "application",
+      "title": "Application",
+      "description": "The application the user is given access to.",
+      "example": "Notional Records App",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row4.Account_code_4",
+      "keep": true,
+      "name": "application_account_code",
+      "title": "Account code (application line)",
+      "description": "The account code for the application line.",
+      "example": "EXAMPLE-APP-0004",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row5.Title_5",
+      "keep": true,
+      "name": "files_title",
+      "title": "Title (files line)",
+      "description": "The title of the files account, on Part IV's files line.",
+      "example": "Unit Share",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row5.Files",
+      "keep": true,
+      "name": "files",
+      "title": "Files",
+      "description": "The files the user is given access to.",
+      "example": "Notional Unit Training Share",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row5.Account_code_5",
+      "keep": true,
+      "name": "files_account_code",
+      "title": "Account code (files line)",
+      "description": "The account code for the files line.",
+      "example": "EXAMPLE-FIL-0005",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row6.Title_6",
+      "keep": true,
+      "name": "datasets_title",
+      "title": "Title (datasets line)",
+      "description": "The title of the datasets account, on Part IV's datasets line.",
+      "example": "Read Only",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row6.Datasets",
+      "keep": true,
+      "name": "datasets",
+      "title": "Datasets",
+      "description": "The datasets the user is given access to.",
+      "example": "Notional Training Records",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Row6.Account_code_6",
+      "keep": true,
+      "name": "datasets_account_code",
+      "title": "Account code (datasets line)",
+      "description": "The account code for the datasets line.",
+      "example": "EXAMPLE-DAT-0006",
+      "text": "paragraph"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Processed.DateProcessed",
+      "keep": true,
+      "name": "date_processed",
+      "title": "Date processed (YYYYMMDD)",
+      "description": "The date the account information was processed, as YYYYMMDD.",
+      "example": "20260112",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Processed.ProcessedBy.NameProcessed",
+      "keep": true,
+      "name": "processed_by",
+      "title": "Processed by (print name and sign)",
+      "description": "The printed name of whoever processed the account information.",
+      "example": "Placeholder, Morgan D.",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Processed.ProcessedBy.ProcessedsignedDate",
+      "keep": true,
+      "name": "processed_by_signature_date",
+      "title": "Processed by: Date (YYYYMMDD)",
+      "description": "The date whoever processed the account information signs, as YYYYMMDD.",
+      "example": "20260112",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Revalidated.DateRevalidated",
+      "keep": true,
+      "name": "date_revalidated",
+      "title": "Date revalidated (YYYYMMDD)",
+      "description": "The date the account information was revalidated, as YYYYMMDD.",
+      "example": "20270111",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Revalidated.RevalidatedBy.NameRevalidated",
+      "keep": true,
+      "name": "revalidated_by",
+      "title": "Revalidated by (print name and sign)",
+      "description": "The printed name of whoever revalidated the account information.",
+      "example": "Placeholder, Morgan D.",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Revalidated.RevalidatedBy.RevalidatedsignedDate",
+      "keep": true,
+      "name": "revalidated_by_signature_date",
+      "title": "Revalidated by: Date (YYYYMMDD)",
+      "description": "The date whoever revalidated the account information signs, as YYYYMMDD.",
+      "example": "20270111",
+      "text": "line"
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part3.SecurityManager.Sig25",
+      "keep": true,
+      "name": "security_manager_signature",
+      "title": "25. Security manager signature",
+      "description": "The security manager or designated representative signs that the clearance and investigation are verified."
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Processed.ProcessedBy.ProcessedSig",
+      "keep": true,
+      "name": "processed_by_signature",
+      "title": "Processed by: Signature",
+      "description": "Whoever processed the account information signs."
+    },
+    {
+      "id": "p2.Page2.form1.page2.Part4.Revalidated.RevalidatedBy.RevalidatedSig",
+      "keep": true,
+      "name": "revalidated_by_signature",
+      "title": "Revalidated by: Signature",
+      "description": "Whoever revalidated the account information signs."
+    }
+  ]
+}
