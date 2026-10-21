@@ -1,5 +1,5 @@
 // render_fixture.mjs — render an MOA fixture markdown file to PDF using the
-// real quillmark engine (@quillmark/wasm + @quillmark/quiver), the same
+// real `Engine` (@quillmark/wasm) and @quillmark/quiver, the same
 // pipeline `npx quillkit test` uses.
 //
 // Usage: node design/afmc_moa/render_fixture.mjs <fixture.md> <output.pdf>

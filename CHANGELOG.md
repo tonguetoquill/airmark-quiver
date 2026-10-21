@@ -1,6 +1,111 @@
 # Changelog
 
-## Unreleased
+## v0.39.0 - 2026-10-19
+
+- **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
+  `@quillmark/wasm` 0.126.2, so it loads `medal_citation@0.1.0`, whose
+  `max:` on a `richtext` field the 0.126.1 that quillkit 0.18.0 carried
+  refused.
+
+- **`medal_citation`'s three certificates follow an issued Air and Space
+  Achievement Medal.** Each sets in TeX Gyre Termes, as the quiver's other
+  Times quills do, where it set in Liberation Serif, and keeps its own image
+  and wording. The headings print in regular weight; the recipient, the
+  reason and its period print in bold. The accomplishments paragraph sets at 10pt, justified 1in from each
+  edge, and steps down to 8pt to fit its space, so a 1350-character paragraph
+  fits on every medal, with or without an oak leaf cluster. A later award's
+  cluster prints under the medal name. Every medal closes on GIVEN UNDER MY
+  HAND with the date in bold beneath it, as 13 OCTOBER 2026, where the
+  Achievement Medal printed "THIS 13th DAY OF OCTOBER 2026". The approving
+  official signs in a signature field above a 2.5in rule. The name prints in
+  bold under the rule, with the grade and duty title beneath, and the seal
+  stands to the right. Every medal takes the same fields, named for what
+  they hold: `medal` is a plain choice listed in order of precedence;
+  `recipient` takes the grade and name, where `rank` did; `reason` takes what
+  follows FOR, where `service` did; and `signed_on`, `signer_name`,
+  `signer_grade` and `signer_title` are shared, where the Achievement Medal
+  took `afam_signed_on` and a "NAME, Rank, USAF" `commander_name`, the
+  Meritorious Service Medal took `msm_commander_name`, and the others took
+  `commander_name`, `commander_grade` and `commander_title`. The date and
+  approving official default to blank, where NAME, Rank, USAF and 13 October
+  2026 printed when left alone. A document saved with the old fields warns
+  that they are unknown and prints no recipient, reason, date or approving
+  official until they are re-entered. `oak_leaf_cluster` is a count: 0 prints
+  none and 3 prints THIRD OAK LEAF CLUSTER, where it was a choice from Basic
+  to Tenth Oak Leaf Cluster. Four new fields, `special_order`, `condition`,
+  `pas` and `rdp`, print the certificate's foot line, as "Special Order:
+  G-12214", "Condition: 4", "PAS: DM1LFHS2" and "RDP: 19 AUG 2025"; a blank
+  field prints no entry.
+
+## v0.38.0 - 2026-10-19
+
+- **Take `@quillmark/wasm` 0.126.2, and cap `medal_citation`'s
+  accomplishments at 1350 characters.** The field declares `max: 1350`, so an
+  editor on `@quillmark/svelte` with the cap takes no keystroke past it and a
+  longer stored paragraph warns `validation::over_length` and renders whole,
+  where the plate cut it at 1350.
+  A host loading the quiver on `@quillmark/wasm` before 0.126.2 fails to load
+  `medal_citation@0.1.0`, which 0.126.1 refuses `max:` on.
+
+## v0.37.0 - 2026-10-17
+
+- **Take `@quillmark/wasm` 0.126.1.** Every quill, example, template and
+  design fixture renders the same pages as before, and every field keeps its
+  address. A stored value of a former `string` field holding a line break,
+  other than `daf4392`'s `notes`, renders the break as a space and warns
+  `validation::line_break_folded`; `quillmark check --strict` lists each one.
+  Every `Quill.yaml` spells its text
+  fields as `text` or `richtext` with `multiline:`, where it spelled
+  `string`, `plaintext` and `inline:`. The eight quills that grouped their
+  fields under `sections:`, which 0.126 refuses, group them with `ui.group`
+  in one flat `fields:` map, so the editor draws the same sections, and load
+  with `quill::deprecated_groups`. A plate that computes with a former
+  `string` value (`af4141`, `daf1206`, `daf4392`, `classic_resume`,
+  `cyber_career_plan`, `usaf_memo@0.2.0`) reads it through `qm.str`, so the
+  form cells, the PDF author and the memo package see the strings they saw.
+  The studio and the site build on quillkit 0.18.0, which carries 0.126.1,
+  and the quiver on `@quillmark/quiver` 0.38.0.
+
+- **A medal citation quill is added.** `medal_citation@0.1.0` typesets the
+  Air and Space Achievement Medal, the Meritorious Service Medal, and the Air
+  and Space Commendation Medal. Medal picks which. The accomplishments
+  paragraph is 1350 characters, including spaces. Basic prints no oak leaf
+  cluster; a later award prints the cluster, in capitals, under the medal
+  name. Each citation opens on its own starter. The citation text is 15pt.
+  On each medal the accomplishments wrap in the certificate's text block,
+  36pt inset and 540pt wide, 26pt below the heading, and the paragraph stays
+  on the page. The signature and the seal sit at the bottom of the page. The accomplishments field is one
+  wrapping paragraph. `medal_citation.md`,
+  listed as `medal-citation`, is the starter.
+
+## v0.36.0 - 2026-10-12
+
+- **v0.35.8 re-cut as a minor release.** Its contents are unchanged: the move
+  to `@quillmark/wasm` 0.125.0 and the click coverage in
+  `cyber_career_plan@0.1.0` change every plate and `Quill.yaml`, which a patch
+  number undersold. Every quill, example, template and saved document renders
+  as under v0.35.8.
+
+## v0.35.8 - 2026-10-12
+
+- **A click on a label or milestone in `cyber_career_plan@0.1.0` opens its
+  field.** A fact's caption opens that fact, and a record row's label (Constraints,
+  Stratifications, Awards, each qualification group, Certifications,
+  Deployments, Notes) opens the field the row prints. A course milestone or
+  the IDE or SDE window opens the qualification tick that marks it done, and a
+  board, the Eligibility label or the count of milestones past the window opens
+  the year group. Every click that reached a field still reaches it, and the
+  page renders as before.
+
+- **Take `@quillmark/wasm` 0.125.0, `@quillmark/quiver` 0.37.0 and `quillkit`
+  0.17.0.** Every quill, example and template renders as before, pixel for
+  pixel, and a click in the preview reaches the same fields: a document saved
+  against any quill here opens and renders unchanged. Every plate imports the
+  helper as `qm` at 0.2.0, and `cyber_career_plan@0.1.0` prints `move_cycle`
+  through `qm.ink` and claims its stratifications table, which 0.125 no longer
+  regions on its own. Every `Quill.yaml` puts its grouped fields under
+  `sections:`, where it spelled `ui.group`; each quill's schema and blueprint
+  are equal to 0.124's, so the editor draws the same panels in the same order.
 
 - **A USAF talking paper quill is added.** `usaf_talking_paper@0.1.0` typesets
   the paper in AFH 33-337 (27 May 2015), p. 225: the point-paper page, dash
@@ -13,6 +118,15 @@
   a qualification's box opens that field in the editor, where most
   reached nothing. A click on a tour or constraint bar opens its row, and one on the
   current assignment opens `move_year`. The page renders as before.
+
+- **Ship a Cyber Career Plan template.** `templates/cyber_career_plan.md` is a
+  filled-in `cyber_career_plan@0.1` chart whose three vectors are named
+  Vector 1, Vector 2 and Vector 3, listed in `templates.json` as
+  `cyber-career-plan`. Every quill renders as before.
+
+- **The studio client pins `prosemirror-view` 1.42.6**, through `quillkit`
+  0.16.1 and on into 0.17.0, which closes the paste-handling XSS of
+  GHSA-c8x8-7fp4-3x9w. The package's assets are unchanged.
 
 ## v0.35.7 - 2026-10-10
 

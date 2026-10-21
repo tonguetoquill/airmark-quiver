@@ -10,27 +10,28 @@ typst:
 main:
   description: "Speaking notes for one issue, usually a single page. Open with the point, then short phrases. A line of its own, such as PURPOSE, is a heading. Each bullet level adds a dash."
   ui:
-    groups: [heading, identification, classification, additional]
+    groups:
+      heading: {}
+      identification: {}
+      classification: {}
+      additional: {}
   fields:
     subject:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: heading
       description: "The subject, in title case. It prints in capitals under ON. A long subject wraps, centered, on the next line."
 
     originator:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: identification
       description: "Your rank and name, for example 'MSgt Alex R. Rivera'. It leads the identification line."
 
     organization:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: identification
@@ -38,8 +39,7 @@ main:
       description: "Your organization, for example '123 ES'."
 
     office_symbol:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: identification
@@ -47,8 +47,7 @@ main:
       description: "Your office symbol, for example '123 ES/DO'."
 
     phone:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: identification
@@ -56,8 +55,7 @@ main:
       description: "Your phone number, for example 'DSN 555-0142'."
 
     typist:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: identification
@@ -88,27 +86,22 @@ main:
       variants:
         CUI:
           controlled_by:
-            type: plaintext
-            inline: true
+            type: text
             description: "The office that designated this information as CUI, for example 'SAF/AA'."
           poc:
-            type: plaintext
-            inline: true
+            type: text
             description: "Who to contact with questions about this CUI, with phone and email, for example 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'."
           category:
-            type: plaintext
-            inline: true
+            type: text
             default: ""
             description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
           limited_dissemination:
-            type: plaintext
-            inline: true
+            type: text
             default: ""
             description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
 
     dissemination:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: classification

@@ -1,0 +1,96 @@
+quill:
+  name: medal_citation
+  version: 0.1.0
+  backend: typst
+  description: "Air and Space Achievement, Meritorious Service, and Air and Space Commendation Medal citations"
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The certificate. Medal picks which. The accomplishments paragraph is 1350 characters, including spaces."
+  body:
+    enabled: false
+  fields:
+    medal:
+      type: enum
+      default: Air and Space Achievement Medal
+      values:
+        - Air and Space Achievement Medal
+        - Air and Space Commendation Medal
+        - Meritorious Service Medal
+      description: "Which certificate."
+
+    oak_leaf_cluster:
+      type: integer
+      default: 0
+      ui:
+        compact: true
+      description: "How many oak leaf clusters, for a later award of the same medal. 0 prints none; 3 prints THIRD OAK LEAF CLUSTER under the medal name."
+
+    recipient:
+      type: text
+      default: ""
+      description: "The recipient's grade and name, for example Staff Sergeant Jane A. Doe. It prints in capitals under the award line."
+
+    reason:
+      type: text
+      default: ""
+      description: "What the medal recognizes, for example Outstanding Achievement or Meritorious Service. It prints in capitals under FOR."
+
+    period_from:
+      type: date
+      default: ""
+      description: "The first day of the period. It prints as 11 OCTOBER 2024."
+
+    period_to:
+      type: date
+      default: ""
+      description: "The last day of the period. It prints as 12 OCTOBER 2026."
+
+    accomplishments:
+      type: richtext
+      multiline: false
+      max: 1350
+      default: ""
+      description: "The citation paragraph. 1350 characters, including spaces."
+
+    signed_on:
+      type: date
+      default: ""
+      description: "The date the certificate is given. It prints as 13 OCTOBER 2026."
+
+    signer_name:
+      type: text
+      default: ""
+      description: "The approving official's name, for example ANDREW P. GRIFFITH. It prints in bold under the signature."
+
+    signer_grade:
+      type: text
+      default: ""
+      description: "The approving official's grade, for example Colonel, USAF. It prints under the name."
+
+    signer_title:
+      type: text
+      default: ""
+      description: "The approving official's duty title, for example Commander, 3d Wing. It prints under the grade."
+
+    special_order:
+      type: text
+      default: ""
+      description: "The special order number, for example G-12214. It prints at the foot of the certificate; blank prints nothing."
+
+    condition:
+      type: text
+      default: ""
+      description: "The decoration's condition code, for example 4. It prints at the foot of the certificate; blank prints nothing."
+
+    pas:
+      type: text
+      default: ""
+      description: "The personnel accounting symbol of the recipient's unit, for example DM1LFHS2. It prints at the foot of the certificate; blank prints nothing."
+
+    rdp:
+      type: date
+      default: ""
+      description: "The date of the Recommendation for Decoration Printout. It prints at the foot of the certificate as 19 AUG 2025; blank prints nothing."

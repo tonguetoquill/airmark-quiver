@@ -1,4 +1,4 @@
-#import "@local/quillmark-helper:0.1.0": data, field-region, ink as ink-of, roster
+#import "@local/quillmark-helper:0.2.0" as qm
 
 // ─── tokens ──────────────────────────────────────────────────────────────────
 // Grays only, and none lighter than a copier holds: the chart is read from a
@@ -29,13 +29,13 @@
 #set block(spacing: 0pt)
 #set par(spacing: 0pt)
 
-#let officer = data.at("name", default: "").trim()
+#let officer = qm.str(qm.data.name).trim()
 #set document(
   title: if officer == "" { "Career Plan" } else { "Career Plan — " + officer },
   author: officer,
 )
 
-// A `plaintext` field lowers to content padded with a space on each side, which
+// A `text` field lowers to content padded with a space on each side, which
 // would print inside a bold run and defeat an emptiness test.
 #let trim(v) = {
   if type(v) != content { return v }
@@ -68,10 +68,10 @@
 #let show-date(d) = if d == none { none } else { d.display("[day padding:none] [month repr:short] [year]") }
 
 // ─── inputs ──────────────────────────────────────────────────────────────────
-#let quals = data.qualifications
-#let comm-yg = data.commissioning_yg
+#let quals = qm.data.qualifications
+#let comm-yg = qm.data.commissioning_yg
 // 0 is read as blank: it was this field's blank before the field took `?`.
-#let adj-yg = { let v = data.at("adjusted_yg", default: none); if v == 0 { none } else { v } }
+#let adj-yg = { let v = qm.data.at("adjusted_yg", default: none); if v == 0 { none } else { v } }
 #let adjusted = adj-yg != none and adj-yg != comm-yg
 #let board-yg = if adjusted { adj-yg } else { comm-yg }
 #let yg-field = if adjusted { "adjusted_yg" } else { "commissioning_yg" }
@@ -80,13 +80,13 @@
 // from YG+0 and prints no calendar years rather than the years 0 to 11. With a
 // start year but no year group there is nothing to count the ladder from, so
 // the axis prints calendar years alone and no milestone is drawn.
-#let start-year = if data.timeline_start_year == 0 { board-yg } else { data.timeline_start_year }
+#let start-year = if qm.data.timeline_start_year == 0 { board-yg } else { qm.data.timeline_start_year }
 #let dated = start-year != 0
 #let laddered = board-yg != 0 or not dated
 #let yg-offset(k) = if k < 0 [YG#k] else [YG+#k]
 // Eighteen is the widest the marks hold their columns at, and the schema cannot
 // bound an integer, so a wider window draws at eighteen.
-#let years = calc.clamp(data.timeline_years, 1, 18)
+#let years = calc.clamp(qm.data.timeline_years, 1, 18)
 #let cols = years * 2
 #let last-year = start-year + years - 1
 #let window-end = if dated [#last-year] else { yg-offset(last-year - board-yg) }
@@ -102,17 +102,17 @@
 #let cycle-of(col) = if calc.rem(col, 2) == 0 { "Winter" } else { "Summer" }
 #let col-of(year, cycle) = (year - start-year) * 2 + if cycle == "Winter" { 0 } else { 1 }
 
-#let afsc = or-none(data.afsc)
-#let duty = or-none(data.duty_title)
-#let unit = or-none(data.unit)
-#let move-year = data.at("move_year", default: none)
+#let afsc = or-none(qm.data.afsc)
+#let duty = or-none(qm.data.duty_title)
+#let unit = or-none(qm.data.unit)
+#let move-year = qm.data.at("move_year", default: none)
 
 // Where the vectors branch. Everything left of it is the assignment you hold
 // now, which is the same on every row, so it is drawn once across all of them.
 // A move before the window is kept where it falls, so the tours after it are
 // laid from their real start and cut at the left edge rather than shifted.
-#let move-col = if move-year == none { 0 } else { col-of(move-year, data.move_cycle) }
-#let current-span = if data.vectors.len() == 0 { 0 } else { calc.clamp(move-col, 0, cols) }
+#let move-col = if move-year == none { 0 } else { col-of(move-year, qm.data.move_cycle) }
+#let current-span = if qm.data.vectors.len() == 0 { 0 } else { calc.clamp(move-col, 0, cols) }
 
 // ─── the ladder ──────────────────────────────────────────────────────────────
 // Every 17X board and school gate, as an offset from the year group, counted
@@ -150,14 +150,18 @@
 // A board prints heaviest, since it is a date you are ranked against; a course
 // is a seat, and prints plain. A board holds to one line: at eighteen years
 // "Lt Col board" runs a little into YG+13, which the ladder leaves empty.
+// A click on a gate opens the tick that marks it done, or, on a board, the
+// year group it counts from.
+#let gate-field(by) = if by.len() > 0 { quals.at("$path") + "education." + by.first() } else { yg-field }
 #let gate-mark(g) = {
-  let plain-mark(body, ..style) = box(inset: (x: 0.5pt, y: 2pt), text(size: mark-size, ..style, body))
+  let claim(body) = qm.region(gate-field(g.by), body)
+  let plain-mark(body, ..style) = box(inset: (x: 0.5pt, y: 2pt), text(size: mark-size, ..style, claim(body)))
   if g.overdue {
     plain-mark([#g.name, due #g.year], weight: 600, style: "italic")
   } else if g.done {
     plain-mark(strike(stroke: 0.5pt + mute, g.name), fill: mute)
   } else if g.board {
-    box(fill: ink, inset: (x: mark-inset, y: 2pt), text(size: mark-size, weight: 700, fill: white, g.name.replace(" ", "\u{a0}")))
+    claim(box(fill: ink, inset: (x: mark-inset, y: 2pt), text(size: mark-size, weight: 700, fill: white, g.name.replace(" ", "\u{a0}"))))
   } else {
     plain-mark(g.name, fill: mute)
   }
@@ -166,7 +170,7 @@
 // A window is one span over its looks in the chart, split by year and named
 // once. Looks already past are history and the span opens at the left edge;
 // looks past the window run it open into the right.
-#let window-mark(w, shown) = {
+#let window-mark(w, shown) = qm.region(gate-field(w.by), {
   let paint = if w.done { mute } else { ink }
   let edge = 0.5pt + paint
   box(
@@ -187,7 +191,7 @@
       }),
     ),
   )
-}
+})
 
 // ─── vectors ─────────────────────────────────────────────────────────────────
 #let ranks = ("Primary", "Alternate", "Backup")
@@ -225,7 +229,7 @@
   })
 }
 
-#let vectors = data.vectors.enumerate().map(((i, v)) => (
+#let vectors = qm.data.vectors.enumerate().map(((i, v)) => (
   rank: ranks.at(i, default: "Vector " + str(i + 1)),
   path: v.at("$path"),
   track: or-none(v.track),
@@ -260,7 +264,7 @@
   let words = plain(title).split(" ").filter(x => x != "")
   let face(s, body) = {
     let run = text(size: s, weight: 600, ..style, body)
-    if field == none { run } else { field-region(field, run) }
+    if field == none { run } else { qm.region(field, run) }
   }
   // The title in lines no wider than `room`, or in one line given none.
   let lines(s, room) = words.fold((), (out, x) => {
@@ -303,7 +307,7 @@
   if calc.rem(span, 2) == 0 { [#int(years) yr] } else { [#years yr] }
 }
 
-#let constraints = data.constraints.map(c => (
+#let constraints = qm.data.constraints.map(c => (
   path: c.at("$path"),
   note: trim(c.note),
   through: c.through,
@@ -334,13 +338,13 @@
   }
 })
 #let facts = (
-  ("Year group", yg-field, if board-yg != 0 [#board-yg], if adjusted { field-region("commissioning_yg")[adjusted from #comm-yg] }),
-  ("Date of rank", "date_of_rank", show-date(data.date_of_rank), none),
-  ("Arrived station", "date_arrived_station", show-date(data.date_arrived_station), none),
+  ("Year group", yg-field, if board-yg != 0 [#board-yg], if adjusted { qm.region("commissioning_yg")[adjusted from #comm-yg] }),
+  ("Date of rank", "date_of_rank", show-date(qm.data.date_of_rank), none),
+  ("Arrived station", "date_arrived_station", show-date(qm.data.date_arrived_station), none),
   // A degree marked "(in progress)" says so in a note under it, as the year
   // group's adjustment does, rather than breaking inside the parenthesis.
   {
-    let degree = or-none(data.advanced_degree)
+    let degree = or-none(qm.data.advanced_degree)
     let flat = plain(degree).trim()
     let mark = "(in progress)"
     if degree != none and flat.ends-with(mark) and flat.len() > mark.len() {
@@ -354,10 +358,10 @@
   row-gutter: 3pt,
   align: (_, y) => if y == 0 { bottom } else { top },
   // Raised clear of the line under it by the depth of its descenders.
-  field-region("name", pad(bottom: 3pt, text(size: display, weight: 800, tracking: -0.3pt)[#officer])),
-  ..facts.map(((name, ..)) => eyebrow(name)),
+  qm.region("name", pad(bottom: 3pt, text(size: display, weight: 800, tracking: -0.3pt)[#officer])),
+  ..facts.map(((name, field, ..)) => qm.region(field, eyebrow(name))),
   identity,
-  ..facts.map(((_, field, value, note)) => field-region(field, stack(
+  ..facts.map(((_, field, value, note)) => qm.region(field, stack(
     spacing: 3pt,
     text(size: lead, weight: 500, top-edge: hang, if value == none { dash } else [#value]),
     ..if note != none { (text(size: micro, fill: mute, note),) },
@@ -374,8 +378,8 @@
 // the axis
 #rows.push(table.cell[])
 #for i in range(years) {
-  let offset = field-region(yg-field, yg-offset(start-year + i - board-yg))
-  let year = field-region(
+  let offset = qm.region(yg-field, yg-offset(start-year + i - board-yg))
+  let year = qm.region(
     if i == years - 1 { "timeline_years" } else { "timeline_start_year" },
     text(weight: 700)[#(start-year + i)],
   )
@@ -394,11 +398,11 @@
 // on past its end, on one line, over nothing; one too long for that as well is
 // cut at whichever edge leaves more of it, the bar's end or the page's.
 #for (i, c) in constraints.enumerate() {
-  rows.push(if i == 0 { row-label[Constraints] } else { table.cell[] })
-  let note = [#text(size: micro, weight: 600)[#c.note]#field-region(c.path + "through", text(size: micro, fill: mute)[#(" · through " + str(c.through))])]
+  rows.push(if i == 0 { row-label(qm.region("constraints")[Constraints]) } else { table.cell[] })
+  let note = [#text(size: micro, weight: 600)[#c.note]#qm.region(c.path + "through", text(size: micro, fill: mute)[#(" · through " + str(c.through))])]
   // The first stands clear of the axis, which would otherwise close its top.
   rows.push(table.cell(colspan: c.end, inset: (x: 1pt, top: if i == 0 { 3pt } else { 0.5pt }, bottom: 0.5pt))[
-    #field-region(c.path.slice(0, -1), layout(size => {
+    #qm.region(c.path.slice(0, -1), layout(size => {
       // A bar that runs past the window is left open at its end, since the
       // window's edge is not where it stops.
       let open = c.through > last-year
@@ -421,7 +425,7 @@
 #let lanes = if spans.len() > 0 { 2 } else { 1 }
 #rows.push(table.cell(rowspan: lanes, align: left + horizon, stack(
   spacing: 3pt,
-  rail-label[Eligibility],
+  qm.region(yg-field, rail-label[Eligibility]),
   ..gates.filter(g => g.overdue).map(gate-mark),
 )))
 #for i in range(years) {
@@ -444,7 +448,7 @@
 // hold the way one does; with nothing left, the header still names the job. The
 // unit is left to the header throughout. A move past the window leaves the
 // block open at the window's edge, as a tour the window cuts is.
-#let current-block = field-region("move_year", block(
+#let current-block = qm.region("move_year", block(
   width: 100%,
   height: 100%,
   stroke: (
@@ -456,7 +460,7 @@
   inset: (x: 3pt, y: 2pt),
   block-text(
     if duty != none { duty } else { [Current assignment] },
-    ([Current · to #data.move_cycle #move-year], [to #data.move_cycle #move-year]),
+    ([Current · to #qm.ink(qm.data, "move_cycle") #move-year], [to #qm.ink(qm.data, "move_cycle") #move-year]),
     field: "duty_title",
   ),
 ))
@@ -472,7 +476,7 @@
   if beyond.len() > 0 { sub.push([+#beyond.len() past #window-end]) }
 
   rows.push(table.cell(stroke: top-rule, inset: (right: 5pt, y: 3pt))[
-    #field-region(v.path + "track", block(width: 100%, height: 100%, track-label(
+    #qm.region(v.path + "track", block(width: 100%, height: 100%, track-label(
       if v.track != none { v.track } else { [#v.rank] },
       if sub.len() > 0 { sub.join[ · ] },
     )))
@@ -498,7 +502,7 @@
       // The block is drawn inside its cell rather than as the cell's fill, so
       // adjacent tours part by a gap and an edge. A tour the window cuts runs
       // to the window's edge with that end open.
-      #field-region(p.tour.path.slice(0, -1), block(
+      #qm.region(p.tour.path.slice(0, -1), block(
         width: 100%,
         height: 100%,
         fill: if p.tour.school { none } else { shade },
@@ -511,7 +515,7 @@
         inset: (x: 3pt, y: 2pt),
         block-text(
           p.tour.title,
-          range(notes.len(), 0, step: -1).map(n => field-region(p.tour.path + "years", notes.slice(0, n).join[ · ])),
+          range(notes.len(), 0, step: -1).map(n => qm.region(p.tour.path + "years", notes.slice(0, n).join[ · ])),
           field: p.tour.path + "title",
           style: if p.tour.school { "italic" } else { "normal" },
         ),
@@ -552,7 +556,7 @@
   block(above: 5pt, pad(left: rail, grid(
     columns: (1fr, auto),
     text(size: micro, fill: mute, legend.join(h(12pt), default: [])),
-    if ahead > 0 { text(size: micro, fill: mute)[#ahead more milestone#if ahead > 1 [s] past #window-end] },
+    if ahead > 0 { qm.region(yg-field, text(size: micro, fill: mute)[#ahead more milestone#if ahead > 1 [s] past #window-end]) },
   )))
 }
 
@@ -568,12 +572,12 @@
 // open boxes say what has not been done yet as plainly as the filled ones say
 // what has. What is held leads its row, and a member holds together on its line.
 #let vocabulary = (
-  ("Leadership & command", roster(quals, "command")),
-  ("Operations", roster(quals, "operations")),
-  ("Staff & functional", roster(quals, "staff")),
-  ("Education & PME", roster(quals, "education")),
+  ("Leadership & command", "command"),
+  ("Operations", "operations"),
+  ("Staff & functional", "staff"),
+  ("Education & PME", "education"),
 )
-#let member(m) = field-region(m.path, box[
+#let member(m) = qm.region(m.path, box[
   #let detail = if m.held { m.value.detail } else { "" }
   #if m.held { held-mark } else { open-mark }#h(3pt)#text(
     weight: if m.held { 600 } else { 400 },
@@ -589,9 +593,9 @@
 // Reviewer strat on any row, that column goes rather than printing empty. The
 // rows are set at the record's size, so the table reads as one of its rows. A
 // year not yet filled in arrives as 0, sorts last and prints a dash.
-#let strats = data.stratifications.sorted(key: s => -s.year)
+#let strats = qm.data.stratifications.sorted(key: s => -s.year)
 #let any-hlr = strats.any(s => not blank(s.hlr))
-#let strat-cell(s, key) = field-region(s.at("$path") + key, if blank(s.at(key)) { dash } else { trim(s.at(key)) })
+#let strat-cell(s, key) = qm.region(s.at("$path") + key, if blank(s.at(key)) { dash } else { trim(s.at(key)) })
 #let strats-table = table(
   columns: (auto,) * (if any-hlr { 3 } else { 2 }),
   column-gutter: 16pt,
@@ -599,7 +603,7 @@
   stroke: none,
   table.header([], eyebrow[Rater], ..if any-hlr { (eyebrow[HLR],) }),
   ..strats.map(s => (
-    field-region(s.at("$path") + "year", if s.year == 0 { dash } else { text(weight: 700, ink-of(s).year) }),
+    qm.region(s.at("$path") + "year", if s.year == 0 { dash } else { text(weight: 700, qm.ink(s, "year")) }),
     strat-cell(s, "rater"),
     ..if any-hlr { (strat-cell(s, "hlr"),) },
   )).flatten(),
@@ -607,13 +611,18 @@
 
 // The two things a board reads first, the stratifications and the awards,
 // lead; the experience follows.
-#let listed(name, lines) = if lines.len() > 0 { (([#name], lines.map(trim).join[ · ]),) }
+// Each row's label claims the field the row prints, so a click on it opens that
+// field as a click on the row does.
+#let listed(name, field) = {
+  let lines = qm.data.at(field)
+  if lines.len() > 0 { (([#name], field, lines.map(trim).join[ · ]),) }
+}
 #let record = (
-  ..if strats.len() > 0 { (([Stratifications], strats-table),) },
-  ..listed("Awards", data.awards),
-  ..vocabulary.map(((name, members)) => ([#name], members-row(members))),
-  ..listed("Certifications", data.certifications),
-  ..listed("Deployments", data.deployments),
+  ..if strats.len() > 0 { (([Stratifications], "stratifications", qm.region("stratifications", strats-table)),) },
+  ..listed("Awards", "awards"),
+  ..vocabulary.map(((name, key)) => ([#name], quals.at("$path") + key, members-row(qm.roster(quals, key)))),
+  ..listed("Certifications", "certifications"),
+  ..listed("Deployments", "deployments"),
 )
 
 #divider(14pt)
@@ -622,7 +631,7 @@
   grid(
     columns: (rail, 1fr),
     row-gutter: 7pt,
-    ..record.map(((name, body)) => (rail-label(name), body)).flatten(),
+    ..record.map(((name, field, body)) => (rail-label(qm.region(field, name)), body)).flatten(),
   )
 }
 
@@ -645,7 +654,7 @@
 // Every line box is exactly one pitch tall with its baseline at the same drop,
 // so the typed notes land on the rules however many lines they run to, and the
 // rail's label sits on the first.
-#let typed = data.at("$body", default: "")
+#let typed = qm.data.at("$body", default: "")
 #let on-ruling(body) = {
   set text(top-edge: baseline-drop, bottom-edge: baseline-drop - pitch)
   set par(leading: 0pt, spacing: 0pt)
@@ -686,7 +695,7 @@
   block(breakable: false, width: 100%, height: calc.max(room, need), {
     grid(
       columns: (rail, 1fr),
-      on-ruling(rail-label[Notes]),
+      on-ruling(qm.region("$body", rail-label[Notes])),
       block(width: 100%, { ruling(rules); notes }),
     )
     place(bottom + left, signature)
