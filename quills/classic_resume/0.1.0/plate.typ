@@ -1,9 +1,9 @@
-#import "@local/quillmark-helper:0.1.0": data, ink
+#import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/ttq-classic-resume:0.1.0": (
   auto-link, default-config, entry, item-grid, resume, resume-header, section-header,
 )
 
-// `plaintext`/`richtext` fields lower to content carrying a space element on
+// `text`/`richtext` fields lower to content carrying a space element on
 // each side, so a filled one would print its padding inside a bold run or an
 // italic one. A blank one lowers to "".
 #let trim-inline(v) = {
@@ -32,20 +32,20 @@
   if type(body) == str { none } else { body }
 }
 
-// A `string` field is text to compute with: a contact or a project link is read
-// to find its target, and the name reaches `set document(author:)`, which takes
-// no content. What prints is the field's ink twin, `printed`, which keeps the
-// click target a value computed with loses.
+// A contact or a project link is read as a `str` to find its target, and the
+// name reaches `set document(author:)`, which takes no content. What prints is
+// the field's ink twin, `printed`, which keeps the click target a value
+// computed with loses.
 #let linked(value, printed) = {
-  let value = value.trim()
+  let value = qm.str(value).trim()
   if value == "" { none } else { auto-link(value, body: printed) }
 }
 
 #show: resume.with(
   // An enum's blank is authorable even where the schema declares a default.
-  paper: if data.paper != "" { data.paper } else { "us-letter" },
-  size: data.font_size * 1pt,
-  margin: data.margin * 1in,
+  paper: if qm.data.paper != "" { qm.data.paper } else { "us-letter" },
+  size: qm.data.font_size * 1pt,
+  margin: qm.data.margin * 1in,
 
   // The package's stack names two families to fall back to; only the one this
   // quill bundles is in the render's font book, and naming the absent two
@@ -73,12 +73,13 @@
   indent: 0em,
 )
 
+#let name = qm.str(qm.data.name).trim()
 #resume-header(
-  name: if data.name.trim() != "" { ink(data).name },
-  title: data.name.trim(),
-  author: data.name.trim(),
-  contacts: data.contacts.zip(ink(data).contacts)
-    .map(((contact, printed)) => linked(contact, printed))
+  name: if name != "" { qm.ink(qm.data, "name") },
+  title: name,
+  author: name,
+  contacts: qm.data.contacts.zip(qm.ink(qm.data, "contacts"))
+    .map(((contact, printed)) => linked(contact, trim-inline(printed)))
     .filter(contact => contact != none),
 )
 
@@ -103,7 +104,7 @@
 
 // The rows an author filled in. A row left wholly blank, as a new one is, would
 // print as an empty gap.
-#let filled(rows) = rows.filter(row => row.values().any(value => {
+#let filled(rows) = rows.filter(row => row.pairs().filter(((key, _)) => not key.starts-with("$")).any(((_, value)) => {
   or-none(if type(value) == str { value.trim() } else { value }) != none
 }))
 
@@ -126,7 +127,7 @@
     entry(
       heading: trim-inline(project.name),
       form: "linked",
-      url: linked(project.link, ink(project).link),
+      url: linked(project.link, trim-inline(qm.ink(project, "link"))),
       body: under-entry(project.details),
     )
   },
@@ -139,7 +140,7 @@
   },
 )
 
-#for card in data.at("$cards") {
+#for card in qm.data.at("$cards") {
   let kind = card.at("$kind", default: none)
   if type(kind) == str and kind in rows {
     let title = or-none(card.title)

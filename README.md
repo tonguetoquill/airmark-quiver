@@ -13,6 +13,7 @@ and aligned to the current Quillmark spec.
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
 | `usaf_talking_paper` | 0.1.0   | USAF Talking Paper (AFH 33-337)                                                  |
+| `medal_citation`     | 0.1.0   | Achievement, Meritorious Service, and Commendation Medal citations               |
 | `af4141`             | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment) |
 | `daf1206`            | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |
 | `daf4392`            | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |
@@ -177,7 +178,7 @@ holds `pages: write`.
 `vercel.json` deploys the same layout to Vercel, where a pull request gets a
 preview URL instead of an artifact to download. It carries the build, the output
 directory and the one cache rule a host owes this layout — `assets/*` immutable,
-which is the engine, and everything else already right by default. Importing the
+which is studio's own bundle, and everything else already right by default. Importing the
 repository is the rest of the setup. Both deploys run off `main` and neither
 knows about the other.
 
