@@ -1,4 +1,4 @@
-// Formalizer Engine – rendering engine
+// Formalizer: a Typst package for PDF form replicas
 // Renders pixel-perfect PDF form replicas from a PyMuPDF-extracted schema.
 
 /// Global configuration for text rendering.

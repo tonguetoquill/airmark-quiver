@@ -1,5 +1,5 @@
 // render_fixture.mjs — render a cyber_career_plan fixture through the real
-// engine (@quillmark/wasm + @quillmark/quiver), the pipeline `quillkit test`
+// `Engine` (@quillmark/wasm) and @quillmark/quiver, the pipeline `quillkit test`
 // uses. With no fixture, renders the blueprint the schema seeds.
 //
 // Usage: node design/cyber_career_plan/render_fixture.mjs [fixture.md] <out.pdf|out.png>
