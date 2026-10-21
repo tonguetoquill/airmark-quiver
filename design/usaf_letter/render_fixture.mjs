@@ -1,5 +1,5 @@
 // render_fixture.mjs — render a usaf_letter fixture to PDF through the real
-// engine (@quillmark/wasm + @quillmark/quiver), the pipeline `quillkit test`
+// `Engine` (@quillmark/wasm) and @quillmark/quiver, the pipeline `quillkit test`
 // uses. With no fixture, renders the blueprint the schema seeds.
 //
 // Usage: node design/usaf_letter/render_fixture.mjs [fixture.md] <output.pdf>

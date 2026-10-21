@@ -178,7 +178,7 @@ holds `pages: write`.
 `vercel.json` deploys the same layout to Vercel, where a pull request gets a
 preview URL instead of an artifact to download. It carries the build, the output
 directory and the one cache rule a host owes this layout — `assets/*` immutable,
-which is the engine, and everything else already right by default. Importing the
+which is studio's own bundle, and everything else already right by default. Importing the
 repository is the rest of the setup. Both deploys run off `main` and neither
 knows about the other.
 
