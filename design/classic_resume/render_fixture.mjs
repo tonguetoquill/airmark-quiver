@@ -1,5 +1,5 @@
-// render_fixture.mjs — render a classic_resume fixture to PDF through real
-// Quillmark (@quillmark/wasm + @quillmark/quiver), the pipeline `quillkit test`
+// render_fixture.mjs — render a classic_resume fixture to PDF through the real
+// engine (@quillmark/wasm + @quillmark/quiver), the pipeline `quillkit test`
 // uses. With no fixture, renders the blueprint the schema seeds.
 //
 // Usage: node design/classic_resume/render_fixture.mjs [fixture.md] <output.pdf>
