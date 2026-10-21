@@ -12,22 +12,22 @@ main:
     enabled: false
   fields:
     name:
-      type: string
+      type: text
       default: ""
       description: Your name as Last, First, Middle Initial.
 
     unit:
-      type: string
+      type: text
       default: ""
       description: Your unit of assignment.
 
     grade:
-      type: string
+      type: text
       default: ""
       description: Your current grade or CCC level.
 
     commanders_auth:
-      type: string
+      type: text
       default: ""
       description: The commander's authentication on page 1.
 
@@ -35,27 +35,28 @@ card_kinds:
   experience:
     title: Record of Experience
     description: One row of the Record of Experience. The form holds up to 37 rows across two pages.
-    ui:
-      groups: [record]
     body:
       enabled: false
+    ui:
+      groups:
+        record: {}
     fields:
       date:
-        type: date
-        default: ""
         ui:
           group: record
+        type: date
+        default: ""
         description: The date of the action.
 
       action:
-        type: string
-        default: ""
         ui:
           group: record
+        type: text
+        default: ""
         description: The action taken. Use one row per type of action.
 
       written_grade:
-        type: string
+        type: text
         default: ""
         ui:
           group: record
@@ -71,7 +72,7 @@ card_kinds:
         description: The date of the written grade.
 
       positional_grade:
-        type: string
+        type: text
         default: ""
         ui:
           group: record
@@ -87,8 +88,8 @@ card_kinds:
         description: The date of the positional grade.
 
       auth_or_remarks:
-        type: string
-        default: ""
         ui:
           group: record
+        type: text
+        default: ""
         description: Authenticating initials, for example J.A.D., or remarks.

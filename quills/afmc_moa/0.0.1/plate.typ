@@ -1,28 +1,28 @@
-#import "@local/quillmark-helper:0.1.0": data, display, signature-field
+#import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/typst-afmc-moa:0.1.0": (
   attachment, attachment-card, backmatter, date-pattern, frontmatter, mainmatter, trim-inline,
 )
 
-// Every text field is `plaintext`/`richtext`, so it arrives as content carrying
+// Every text field is `text`/`richtext`, so it arrives as content carrying
 // a space element on each side. `trim-inline` strips those once, here, so the
 // package can interpolate a field straight into prose without it printing as
 // "the Foo  and" or "(NASA) ." — and without boxing, which would stop a long
 // party name from wrapping.
-#let text-field(key) = trim-inline(data.at(key))
+#let text-field(key) = trim-inline(qm.data.at(key))
 
 // Resolve optional fields with defaults; required fields are read directly
 // since Quill.yaml enforces their presence.
 #let resolved = (
   first_party_name: text-field("first_party_name"),
   second_party_name: text-field("second_party_name"),
-  second_party_is_non_government: data.second_party_is_non_government,
+  second_party_is_non_government: qm.data.second_party_is_non_government,
   subject: text-field("subject"),
   agreement_number: text-field("agreement_number"),
 
   // Joined inline by the package, which trims each line itself.
-  second_party_mailing_address: data.second_party_mailing_address,
+  second_party_mailing_address: qm.data.second_party_mailing_address,
 
-  reimbursable: data.reimbursable,
+  reimbursable: qm.data.reimbursable,
   reimbursable_support: text-field("reimbursable_support"),
   estimated_amount: text-field("estimated_amount"),
   appropriation_fy: text-field("appropriation_fy"),
@@ -36,10 +36,10 @@
   second_party_signatory: text-field("second_party_signatory"),
   // `data.mid_point_review_due_date` is the native `datetime` and would render
   // identically, but its ink would be born inside the package and carry no
-  // schema address. `display` places the field's content projection instead, so
+  // schema address. `qm.ink` places the field's content projection instead, so
   // the printed date stays click-to-edit; a blank one yields `none`, which
   // `format-date` renders as nothing.
-  mid_point_review_due_date: display("mid_point_review_due_date", date-pattern),
+  mid_point_review_due_date: qm.ink(qm.data, "mid_point_review_due_date", date-pattern),
 )
 
 // ── Frontmatter: page setup, title block, intro paragraph ──────────────────
@@ -59,7 +59,7 @@
 // each kind is used.
 #let card-body(kind) = {
   let bodies = ()
-  for card in data.at("$cards") {
+  for card in qm.data.at("$cards") {
     if card.at("$kind", default: none) == kind and "$body" in card {
       bodies.push(card.at("$body"))
     }
@@ -95,8 +95,8 @@
   first_party_signatory: resolved.first_party_signatory,
   second_party_signatory: resolved.second_party_signatory,
   mid_point_review_due_date: resolved.mid_point_review_due_date,
-  first_signing_field: signature-field("first_party_signature"),
-  second_signing_field: signature-field("second_party_signature"),
+  first_signing_field: qm.signature-field("first_party_signature"),
+  second_signing_field: qm.signature-field("second_party_signature"),
 )
 
 // ── Attachment A: only for reimbursable MOAs ────────────────────────────────
@@ -106,7 +106,7 @@
 // by their position among *attachments*. The standard sections above are also
 // cards in the same `$cards` array, so enumerating the array as a whole would
 // letter the first attachment by its global index (J, not B).
-#let attachment_cards = data.at("$cards").filter(card => card.at("$kind", default: none) == "attachment")
+#let attachment_cards = qm.data.at("$cards").filter(card => card.at("$kind", default: none) == "attachment")
 #for (i, card) in attachment_cards.enumerate() {
   // The quillmark helper leaves an unset/whitespace-only markdown body as
   // the empty string `""`; only non-empty bodies are eval'd into content.

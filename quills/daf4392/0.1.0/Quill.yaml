@@ -25,33 +25,34 @@ main:
       description: "The day you leave."
 
     final_destination:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
       description: "Where you're going, for example Denver, CO."
 
     dept_flight_num:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
       description: "Your departure flight number, if you're flying. A tentative number is fine."
 
     arrival_flight_num:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
       description: "Your arrival flight number, if you're flying. A tentative number is fine."
 
     notes:
-      type: string
+      type: text
+      multiline: true
       default: ""
       description: "Anything else about your trip."
 
     organization:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
@@ -65,40 +66,40 @@ main:
       description: "The date of the briefing."
 
     briefee_name:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
       description: "Your name as Last, First."
 
     briefee_grade:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
       description: "Your grade."
 
     briefer_name:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
       description: "The briefer's name as Last, First."
 
     briefer_grade:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
       description: "The briefer's grade."
 
     emergency_contact_name:
-      type: string
+      type: text
       default: ""
       description: "Who to contact in an emergency."
 
     emergency_contact_phone:
-      type: string
+      type: text
       default: ""
       description: "Your emergency contact's phone number."
 
@@ -106,10 +107,11 @@ card_kinds:
   itinerary:
     title: Proposed Travel Itinerary
     description: "One leg of your trip. The form holds up to 10."
-    ui:
-      groups: [itinerary_entry]
     body:
       enabled: false
+    ui:
+      groups:
+        itinerary_entry: {}
     fields:
       date:
         type: date
@@ -119,28 +121,28 @@ card_kinds:
           compact: true
         description: "The date of this leg."
       departure_point:
-        type: string
+        type: text
         default: ""
         ui:
           group: itinerary_entry
           compact: true
         description: "Where this leg starts."
       arrival_point:
-        type: string
+        type: text
         default: ""
         ui:
           group: itinerary_entry
           compact: true
         description: "Where this leg ends."
       rest_length:
-        type: string
+        type: text
         default: ""
         ui:
           group: itinerary_entry
           compact: true
         description: "How long you'll stay."
       mileage:
-        type: string
+        type: text
         default: ""
         ui:
           group: itinerary_entry

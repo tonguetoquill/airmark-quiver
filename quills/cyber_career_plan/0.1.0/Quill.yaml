@@ -12,48 +12,39 @@ typst:
 # vectors branching from it over the years the boards and schools fall in. The
 # bottom half is the record that makes the plan credible.
 main:
+  # The chart's one piece of prose. It is set on the ruled notes area at the
+  # foot of the page, and a rater goes on writing below it during the discussion.
+  description: "What you want from this discussion: goals, preferences, assignments you'd turn down, questions for your rater. Put constraints that end in a known year under Constraints instead, so they show on the timeline."
   ui:
-    # The editor opens one group at a time, starting with the first, so each is a
-    # task finished without looking at another: who you are, where you are
-    # going, what you have done. The checklist is apart from the record because
-    # most visits skip it whole. The timeline's start year sits with the officer
-    # so every required field is in the group that opens.
     groups:
       officer: {}
       plan: {}
       record: {}
-      qualifications: { title: "Qualifications & experience" }
-  # The chart's one piece of prose. It is set on the ruled notes area at the
-  # foot of the page, and a rater goes on writing below it during the discussion.
-  description: "What you want from this discussion: goals, preferences, assignments you'd turn down, questions for your rater. Put constraints that end in a known year under Constraints instead, so they show on the timeline."
+      qualifications:
+        title: Qualifications & experience
   fields:
     name:
-      # Read as `string` rather than `plaintext`: it reaches
-      # `set document(author:)`, which takes no content.
-      type: string
       ui:
         group: officer
+      type: text
       description: "Your grade and name, for example 'Capt John A. Snuffy'. It also names the PDF."
 
     duty_title:
-      type: plaintext
-      inline: true
-      default: ""
       ui:
         group: officer
+      type: text
+      default: ""
       description: "Your current job, for example Instructor or Flight Commander."
 
     unit:
-      type: plaintext
-      inline: true
-      default: ""
       ui:
         group: officer
+      type: text
+      default: ""
       description: "Your unit and base, for example '333 TRS, Keesler AFB'."
 
     afsc:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: officer
@@ -98,14 +89,11 @@ main:
       description: "The first year on the timeline, usually this year."
 
     advanced_degree:
-      type: plaintext
-      inline: true
-      default: ""
       ui:
         group: officer
+      type: text
+      default: ""
       description: "Your advanced degree, for example 'MS Cyber Operations, AFIT'. Add '(in progress)' if you're still working on it."
-
-
     timeline_years:
       type: integer
       default: 12
@@ -140,8 +128,7 @@ main:
         type: object
         properties:
           note:
-            type: plaintext
-            inline: true
+            type: text
             title: Constraint
             description: "What limits the plan, kept short, for example 'Join-spouse, no OCONUS'."
           through:
@@ -152,16 +139,15 @@ main:
       description: "Anything that limits where or when you can move and ends in a known year, like a join-spouse assignment or a degree in progress. Each shows as a bar across the timeline."
 
     vectors:
-      type: array
-      max: 3
       ui:
         group: plan
+      type: array
+      max: 3
       items:
         type: object
         properties:
           track:
-            type: plaintext
-            inline: true
+            type: text
             default: ""
             description: "What this path is for, for example 'Command track' or 'Joint'."
           tours:
@@ -172,8 +158,7 @@ main:
               type: object
               properties:
                 title:
-                  type: plaintext
-                  inline: true
+                  type: text
                   title: Assignment
                   description: "The assignment, for example '333 TRS/DO' or 'Joint Staff J6'. Keep it short: about 12 characters per year fits."
                 years:
@@ -191,7 +176,6 @@ main:
         - { track: "", tours: [] }
         - { track: "", tours: [] }
       description: "Up to three career paths after your current assignment: primary, alternate, and backup, in that order."
-
     stratifications:
       type: array
       max: 3
@@ -205,14 +189,12 @@ main:
             type: integer
             description: "The reporting year."
           rater:
-            type: plaintext
-            inline: true
+            type: text
             default: ""
             title: Rater
             description: "Your rater's stratification as written, for example '#1/14 Capts'."
           hlr:
-            type: plaintext
-            inline: true
+            type: text
             default: ""
             title: Higher Level Reviewer
             description: "Your higher level reviewer's stratification, for example '#1/45 CGOs'. Leave blank if you didn't get one."
@@ -220,35 +202,31 @@ main:
       description: "Your stratifications from the last three years."
 
     awards:
-      type: array
-      items:
-        type: plaintext
-        inline: true
-      default: []
       ui:
         group: record
+      type: array
+      items:
+        type: text
+      default: []
       description: "Major awards, one per line, strongest first. Wing level and above is worth the space."
 
     certifications:
-      type: array
-      items:
-        type: plaintext
-        inline: true
-      default: []
       ui:
         group: record
+      type: array
+      items:
+        type: text
+      default: []
       description: "Certifications a board would recognize, one per line. Mark PME and the Cyber 200 and 300 courses under Qualifications instead."
 
     deployments:
-      type: array
-      items:
-        type: plaintext
-        inline: true
-      default: []
       ui:
         group: record
+      type: array
+      items:
+        type: text
+      default: []
       description: "Deployments and short tours, one per line, with the month you returned."
-
     # The page prints every member in four rows and marks the held ones, so an
     # empty box is as much of the chart as a filled one. A row is a property
     # here rather than a heading in the plate, so the partition is in the value
@@ -275,8 +253,7 @@ main:
             squadron_cc: Squadron CC
           properties: &detail
             detail:
-              type: plaintext
-              inline: true
+              type: text
               default: ""
               description: "The unit, year, or distinction behind it, for example '23 IOS' or 'DG'. Optional."
         operations:

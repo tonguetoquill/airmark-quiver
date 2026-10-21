@@ -21,6 +21,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "medal-citation",
+    "name": "Medal Citation",
+    "description": "Air and Space Achievement Medal, Meritorious Service Medal, or Air and Space Commendation Medal",
+    "file": "medal_citation.md",
+    "tags": ["air-force", "award", "citation"]
+  },
+  {
     "id": "rebuttal",
     "name": "Rebuttal",
     "description": "Rebuttal template for LOC",
