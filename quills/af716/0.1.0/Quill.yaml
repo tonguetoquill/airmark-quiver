@@ -37,16 +37,14 @@ main:
       description: "The grade as of the close-out date. A select grade uses the Select choice. E9 prints higher responsibility, E7–E8 a stratification, and E1–E6 a promotion recommendation."
 
     name:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
       description: "LAST, FIRST, MIDDLE INITIAL, and any suffix, in capitals, for example DOE, MATTHEW A. Use NMI when there is no middle initial."
 
     dodid:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
@@ -54,16 +52,14 @@ main:
       description: "The full DoD ID number."
 
     duty_title:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
       description: "The approved duty title as of the close-out date. Spell out an abbreviation that is not clear."
 
     dafsc:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
@@ -102,8 +98,7 @@ main:
       description: "The close-out date. On an annual brief it is the static close-out for the grade."
 
     days_supervised:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
@@ -111,8 +106,7 @@ main:
       description: "Days the rater supervised the ratee during the period."
 
     days_non_rated:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
@@ -120,16 +114,14 @@ main:
       description: "Non-rated days in the period. Leave blank when there are none."
 
     organization:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
       description: "The unit as of the close-out date, with the command in parentheses, for example 123d Fighter Squadron (ACC)."
 
     location:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
@@ -138,6 +130,7 @@ main:
 
     duty_description:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: ratee
@@ -163,8 +156,7 @@ main:
       description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used. Sign on or after the close-out date."
 
     ratee_signature:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: ratee
@@ -181,6 +173,7 @@ main:
 
     executing_mission:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: narrative
@@ -188,6 +181,7 @@ main:
 
     leading_people:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: narrative
@@ -195,6 +189,7 @@ main:
 
     managing_resources:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: narrative
@@ -202,6 +197,7 @@ main:
 
     improving_unit:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: narrative
@@ -218,6 +214,7 @@ main:
 
     mandatory_comments:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: narrative
@@ -225,30 +222,28 @@ main:
 
     mandatory_fitness_comments:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: narrative
       description: "The current fitness assessment, as PFA: 91.7; Excellent; Exemptions: None. A combat AFSC also adds the combat fitness test after a slash. Leave out duty as a fitness representative."
 
     rater_name:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
       description: "The rater as of the close-out date, for example Jordan P. Hale, SMSgt, USAF."
 
     rater_duty_title:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
       description: "The rater's duty title as of the close-out date."
 
     rater_organization:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
@@ -264,24 +259,21 @@ main:
       description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     rater_signature:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
       description: "The rater's signed name. Sign on or after the close-out date."
 
     future_role_1:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
       description: "A role the member is eligible for at the current grade or the next one. On an E9 brief the list is Squadron Superintendent, MAJCOM Functional Manager, Command CMSgt (CCM), Group Superintendent, Career Field Manager, or Other, and at most two roles."
 
     future_role_2:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
@@ -289,8 +281,7 @@ main:
       description: "A second future role. Leave it blank on an E9 brief when the recommendation is Do Not Retain."
 
     future_role_3:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
@@ -298,8 +289,7 @@ main:
       description: "A third future role. Leave it blank on an E9 brief."
 
     ccm_number:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
@@ -307,8 +297,7 @@ main:
       description: "For a Command Chief nomination, where this CMSgt stands among all CMSgts the senior rater rates. The nomination requires Ready Now."
 
     ccm_assigned:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: rater
@@ -317,14 +306,14 @@ main:
 
     hlr_assessment:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: reviewer
       description: "At least one performance statement, written as a paragraph: the action, and its result. 250 characters, including spaces. THIS SECTION NOT USED meets the requirement."
 
     stratification:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: reviewer
@@ -374,24 +363,21 @@ main:
       description: "Yes when the higher-level reviewer makes the brief a referral. Yes prints the referral on the back."
 
     hlr_name:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: reviewer
       description: "The higher-level reviewer. Use the close-out date when they were assigned by then; otherwise use the date they sign."
 
     hlr_duty_title:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: reviewer
       description: "The higher-level reviewer's duty title as of the close-out date, or as of the date signed if assigned after close-out."
 
     hlr_organization:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: reviewer
@@ -407,8 +393,7 @@ main:
       description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     hlr_signature:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: reviewer
@@ -433,30 +418,28 @@ main:
 
     fe_comments:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: back
       description: "Clarification of functional or acquisition matters. Comments are not a place for more accomplishments, and they leave the rater's statements as written."
 
     fe_name:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
       description: "The functional examiner as of the close-out date, for example Chioma A. Okonkwo, Maj, USAF."
 
     fe_duty_title:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
       description: "The functional examiner's duty title as of the close-out date."
 
     fe_organization:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
@@ -472,8 +455,7 @@ main:
       description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     fe_signature:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
@@ -498,30 +480,28 @@ main:
 
     afa_comments:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: back
       description: "Clarification that the brief meets Air Force standards in a joint environment. Comments are not a place for more accomplishments."
 
     afa_name:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
       description: "The Air Force advisor as of the close-out date."
 
     afa_duty_title:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
       description: "The Air Force advisor's duty title as of the close-out date."
 
     afa_organization:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
@@ -537,8 +517,7 @@ main:
       description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     afa_signature:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
@@ -546,22 +525,21 @@ main:
 
     referral_comments:
       type: richtext
+      multiline: true
       default: ""
       ui:
         group: back
       description: "The referral comments. They print on the back when either referral answer is Yes."
 
     referring_evaluator_name:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
       description: "The referring evaluator as of the close-out date."
 
     referring_evaluator_duty_title:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
@@ -577,8 +555,7 @@ main:
       description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     referring_evaluator_signature:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back
@@ -602,8 +579,7 @@ main:
       description: "Digital is the normal signature. Manual is a typed name when a digital signature cannot be used."
 
     referral_ratee_signature:
-      type: plaintext
-      inline: true
+      type: text
       default: ""
       ui:
         group: back

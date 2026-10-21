@@ -1,4 +1,4 @@
-#import "@local/quillmark-helper:0.1.0": data, display
+#import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/tonguetoquill-af716:0.1.0": brief
 
 #let trim(v) = {
@@ -12,7 +12,7 @@
 }
 
 #let ink(key) = {
-  let v = trim(data.at(key))
+  let v = trim(qm.data.at(key))
   if v == none or v == "" or v == [] { [] } else { v }
 }
 
@@ -97,7 +97,7 @@
 }
 
 #let choice(key) = {
-  let field = data.at(key)
+  let field = qm.data.at(key)
   let value = if type(field) == str { field } else { field.value }
   if value == none { "" } else { value }
 }
@@ -106,7 +106,7 @@
 #let period-pattern = "[day padding:none] [month repr:short] [year]"
 #let signed-pattern = "[day padding:zero] [month repr:short] [year]"
 #let shown-date(key, pattern) = {
-  let shown = display(key, pattern)
+  let shown = qm.ink(qm.data, key, pattern)
   if shown == none { [] } else { shown }
 }
 
@@ -156,7 +156,7 @@
   hlr_organization: ink("hlr_organization"),
   hlr_signature_type: choice("hlr_signature_type"),
   hlr_signature: ink("hlr_signature"),
-  functional_examiner: data.functional_examiner,
+  functional_examiner: qm.data.functional_examiner,
   fe_comments_kind: choice("fe_comments_kind"),
   fe_comments: ink("fe_comments"),
   fe_name: ink("fe_name"),
@@ -164,7 +164,7 @@
   fe_organization: ink("fe_organization"),
   fe_signature_type: choice("fe_signature_type"),
   fe_signature: ink("fe_signature"),
-  air_force_advisor: data.air_force_advisor,
+  air_force_advisor: qm.data.air_force_advisor,
   afa_comments_kind: choice("afa_comments_kind"),
   afa_comments: ink("afa_comments"),
   afa_name: ink("afa_name"),
