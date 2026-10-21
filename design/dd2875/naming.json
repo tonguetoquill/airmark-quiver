@@ -130,12 +130,13 @@
       "keep": true,
       "name": "citizenship_us",
       "title": "8. Citizenship: US",
-      "description": "Checked when the user is a US citizen."
+      "description": "Checked when the user is a US citizen.",
+      "example": "true"
     },
     {
       "id": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.FN8",
       "keep": true,
-      "name": "citizenship_fn",
+      "name": "citizenship_foreign_national",
       "title": "8. Citizenship: FN",
       "description": "Checked when the user is a foreign national."
     },
@@ -151,7 +152,8 @@
       "keep": true,
       "name": "designation_of_person_military",
       "title": "9. Designation of person: Military",
-      "description": "Checked when the user is a service member."
+      "description": "Checked when the user is a service member.",
+      "example": "true"
     },
     {
       "id": "p1.Page1.form1.page1.Part1.DesigPerson.Checklist.civ9",
@@ -170,14 +172,15 @@
     {
       "id": "p1.Page1.form1.page1.Part1.Annual_IAT.annual_IAT10",
       "keep": true,
-      "name": "completed_annual_cyber_awareness_training",
+      "name": "cyber_awareness_training_completed",
       "title": "10. I have completed the Annual Cyber Awareness Training",
-      "description": "Checked when the user has completed the Annual Cyber Awareness Training."
+      "description": "Checked when the user has completed the Annual Cyber Awareness Training.",
+      "example": "true"
     },
     {
       "id": "p1.Page1.form1.page1.Part1.Annual_IAT.IATdate10",
       "keep": true,
-      "name": "annual_cyber_awareness_training_date",
+      "name": "cyber_awareness_training_date",
       "title": "10. Date (YYYYMMDD)",
       "description": "The date the user completed the Annual Cyber Awareness Training, as YYYYMMDD.",
       "example": "20251201",
@@ -206,7 +209,8 @@
       "keep": true,
       "name": "type_of_access_authorized",
       "title": "14. Type of access requested: Authorized",
-      "description": "Checked for normal access."
+      "description": "Checked for normal access.",
+      "example": "true"
     },
     {
       "id": "p1.Page1.form1.page1.Part2.Type_of_access_requested.priv14",
@@ -227,7 +231,8 @@
       "keep": true,
       "name": "access_to_classified",
       "title": "15. User requires access to: Classified",
-      "description": "Checked when the user needs access to classified information. Name the category beside it."
+      "description": "Checked when the user needs access to classified information. Name the category beside it.",
+      "example": "true"
     },
     {
       "id": "p1.Page1.form1.page1.Part2.UserAccess.ClassifiedCategory15",
@@ -243,12 +248,13 @@
       "keep": true,
       "name": "access_to_other",
       "title": "15. User requires access to: Other",
-      "description": "Checked when the user needs access to something other than unclassified or classified information. Say what beside it."
+      "description": "Checked when the user needs access to something other than unclassified or classified information. Say what beside it.",
+      "example": "true"
     },
     {
       "id": "p1.Page1.form1.page1.Part2.UserAccess.Other_fill_in15",
       "keep": true,
-      "name": "other_access",
+      "name": "access_to_other_details",
       "title": "15. Other",
       "description": "What the user needs access to, when it is neither unclassified nor classified information.",
       "example": "Notional training records only",
@@ -259,7 +265,8 @@
       "keep": true,
       "name": "verification_of_need_to_know",
       "title": "16. Verification of need to know: I certify that this user requires access as requested",
-      "description": "Checked when the supervisor or sponsor certifies the user requires the access requested."
+      "description": "Checked when the supervisor or sponsor certifies the user requires the access requested.",
+      "example": "true"
     },
     {
       "id": "p1.Page1.form1.page1.Part2.Access_expiration16a",

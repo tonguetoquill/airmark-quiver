@@ -175,5 +175,5 @@ done
 
 `naming.json` gives each field of the published DD Form 2875 its name, title,
 description and example, and `source.json` records the file quillify read.
-quillify main `6a8eccd` built `quills/dd2875/0.0.2/` from the two, and a later
+quillify 0.8.0 built `quills/dd2875/0.0.1/` from the two, and a later
 quillify can build it again from them.

@@ -183,7 +183,7 @@
     },
     {
       "name": "p1.Page1.form1.page1.Part1.Citizenship.Checklist.FN8",
-      "schema_field": "citizenship_fn",
+      "schema_field": "citizenship_foreign_national",
       "page": 0,
       "rect": {
         "x": 386.58,
@@ -243,7 +243,7 @@
     },
     {
       "name": "p1.Page1.form1.page1.Part1.Annual_IAT.annual_IAT10",
-      "schema_field": "completed_annual_cyber_awareness_training",
+      "schema_field": "cyber_awareness_training_completed",
       "page": 0,
       "rect": {
         "x": 31.63,
@@ -255,7 +255,7 @@
     },
     {
       "name": "p1.Page1.form1.page1.Part1.Annual_IAT.IATdate10",
-      "schema_field": "annual_cyber_awareness_training_date",
+      "schema_field": "cyber_awareness_training_date",
       "page": 0,
       "rect": {
         "x": 357.98,
@@ -363,7 +363,7 @@
     },
     {
       "name": "p1.Page1.form1.page1.Part2.UserAccess.Other_fill_in15",
-      "schema_field": "other_access",
+      "schema_field": "access_to_other_details",
       "page": 0,
       "rect": {
         "x": 87.47,

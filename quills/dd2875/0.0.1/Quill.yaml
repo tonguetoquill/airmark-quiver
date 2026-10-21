@@ -1,6 +1,6 @@
 quill:
   name: "dd2875"
-  version: 0.0.2
+  version: 0.0.1
   backend: acroform
   requires: ">=0.127"
   description: "DD Form 2875, System Authorization Access Request (SAAR)."
@@ -87,7 +87,7 @@ main:
       type: boolean
       default: false
       description: "Checked when the user is a US citizen."
-    "citizenship_fn":
+    "citizenship_foreign_national":
       title: "8. Citizenship: FN"
       type: boolean
       default: false
@@ -112,12 +112,12 @@ main:
       type: boolean
       default: false
       description: "Checked when the user is a contractor."
-    "completed_annual_cyber_awareness_training":
+    "cyber_awareness_training_completed":
       title: "10. I have completed the Annual Cyber Awareness Training"
       type: boolean
       default: false
       description: "Checked when the user has completed the Annual Cyber Awareness Training."
-    "annual_cyber_awareness_training_date":
+    "cyber_awareness_training_date":
       title: "10. Date (YYYYMMDD)"
       type: text
       default: ""
@@ -163,7 +163,7 @@ main:
       type: boolean
       default: false
       description: "Checked when the user needs access to something other than unclassified or classified information. Say what beside it."
-    "other_access":
+    "access_to_other_details":
       title: "15. Other"
       type: text
       default: ""

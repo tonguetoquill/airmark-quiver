@@ -13,11 +13,18 @@ $quill: "dd2875"
 "official_email_address": "jordan.example@example.com"
 "job_title_and_grade_rank": "Cyber Systems Operations Journeyman, SSgt"
 "official_mailing_address": "123 XS/SCX, 100 Example Ave\nNotional AFB, CO 80000"
-"annual_cyber_awareness_training_date": "20251201"
+"citizenship_us": true
+"designation_of_person_military": true
+"cyber_awareness_training_completed": true
+"cyber_awareness_training_date": "20251201"
 "user_signature_date": "20260105"
 "justification_for_access": "Needs access to the Notional Training Portal to schedule and record unit training."
+"type_of_access_authorized": true
+"access_to_classified": true
 "classified_category": "Secret"
-"other_access": "Notional training records only"
+"access_to_other": true
+"access_to_other_details": "Notional training records only"
+"verification_of_need_to_know": true
 "access_expiration_date": "20261231"
 "supervisor_name": "Sample, Casey B."
 "supervisor_email_address": "casey.sample@example.com"
