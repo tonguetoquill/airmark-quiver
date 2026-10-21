@@ -15,285 +15,291 @@ main:
   # The chart's one piece of prose. It is set on the ruled notes area at the
   # foot of the page, and a rater goes on writing below it during the discussion.
   description: "What you want from this discussion: goals, preferences, assignments you'd turn down, questions for your rater. Put constraints that end in a known year under Constraints instead, so they show on the timeline."
-  # The editor opens one section at a time, starting with the first, so each is
-  # a task finished without looking at another: who you are, where you are
-  # going, what you have done. The checklist is apart from the record because
-  # most visits skip it whole. The timeline's start year sits with the officer
-  # so every required field is in the section that opens.
-  sections:
-    officer:
-      fields:
-        name:
-          # Read as `string` rather than `plaintext`: it reaches
-          # `set document(author:)`, which takes no content.
-          type: string
-          description: "Your grade and name, for example 'Capt John A. Snuffy'. It also names the PDF."
+  ui:
+    groups:
+      officer: {}
+      plan: {}
+      record: {}
+      qualifications:
+        title: Qualifications & experience
+  fields:
+    name:
+      ui:
+        group: officer
+      type: text
+      description: "Your grade and name, for example 'Capt John A. Snuffy'. It also names the PDF."
 
-        duty_title:
-          type: plaintext
-          inline: true
-          default: ""
-          description: "Your current job, for example Instructor or Flight Commander."
+    duty_title:
+      ui:
+        group: officer
+      type: text
+      default: ""
+      description: "Your current job, for example Instructor or Flight Commander."
 
-        unit:
-          type: plaintext
-          inline: true
-          default: ""
-          description: "Your unit and base, for example '333 TRS, Keesler AFB'."
+    unit:
+      ui:
+        group: officer
+      type: text
+      default: ""
+      description: "Your unit and base, for example '333 TRS, Keesler AFB'."
 
-        afsc:
-          type: plaintext
-          inline: true
-          default: ""
-          ui:
-            compact: true
-          description: "Your AFSC with its skill level and any prefix, for example 17S3 or K17D3."
+    afsc:
+      type: text
+      default: ""
+      ui:
+        group: officer
+        compact: true
+      description: "Your AFSC with its skill level and any prefix, for example 17S3 or K17D3."
 
-        commissioning_yg:
-          type: integer
-          ui:
-            compact: true
-          description: "Your commissioning year group. Every milestone on the timeline is counted from it."
+    commissioning_yg:
+      type: integer
+      ui:
+        group: officer
+        compact: true
+      description: "Your commissioning year group. Every milestone on the timeline is counted from it."
 
-        adjusted_yg:
-          type: integer?
-          ui:
-            compact: true
-          description: "Your adjusted year group, if a board or a break in service changed it. Leave blank if it hasn't."
+    adjusted_yg:
+      type: integer?
+      ui:
+        group: officer
+        compact: true
+      description: "Your adjusted year group, if a board or a break in service changed it. Leave blank if it hasn't."
 
-        date_of_rank:
-          type: date
-          default: ""
-          ui:
-            compact: true
-          description: "Date of rank in your current grade."
+    date_of_rank:
+      type: date
+      default: ""
+      ui:
+        group: officer
+        compact: true
+      description: "Date of rank in your current grade."
 
-        date_arrived_station:
-          type: date
-          default: ""
-          ui:
-            compact: true
-          description: "When you arrived at your current station."
+    date_arrived_station:
+      type: date
+      default: ""
+      ui:
+        group: officer
+        compact: true
+      description: "When you arrived at your current station."
 
-        timeline_start_year:
-          type: integer
-          ui:
-            compact: true
-          description: "The first year on the timeline, usually this year."
+    timeline_start_year:
+      type: integer
+      ui:
+        group: officer
+        compact: true
+      description: "The first year on the timeline, usually this year."
 
-        advanced_degree:
-          type: plaintext
-          inline: true
-          default: ""
-          description: "Your advanced degree, for example 'MS Cyber Operations, AFIT'. Add '(in progress)' if you're still working on it."
-    plan:
-      fields:
-        timeline_years:
-          type: integer
-          default: 12
-          ui:
-            compact: true
-          description: "How many years the timeline covers, up to 18. Twelve takes a Captain past the Lt Col board; go wider to bring the SDE boards into view."
+    advanced_degree:
+      ui:
+        group: officer
+      type: text
+      default: ""
+      description: "Your advanced degree, for example 'MS Cyber Operations, AFIT'. Add '(in progress)' if you're still working on it."
+    timeline_years:
+      type: integer
+      default: 12
+      ui:
+        group: plan
+        compact: true
+      description: "How many years the timeline covers, up to 18. Twelve takes a Captain past the Lt Col board; go wider to bring the SDE boards into view."
 
-        move_year:
-          type: integer?
-          ui:
-            compact: true
-          description: "The year you expect to leave your current assignment. Every vector starts from this move. To stay longer on one vector, make the extension its first tour."
+    move_year:
+      type: integer?
+      ui:
+        group: plan
+        compact: true
+      description: "The year you expect to leave your current assignment. Every vector starts from this move. To stay longer on one vector, make the extension its first tour."
 
-        move_cycle:
-          type: enum
-          values: [Summer, Winter]
-          default: Summer
-          ui:
-            compact: true
-          description: "The VML cycle you expect to move on."
+    move_cycle:
+      type: enum
+      values: [Summer, Winter]
+      default: Summer
+      ui:
+        group: plan
+        compact: true
+      description: "The VML cycle you expect to move on."
 
-        constraints:
-          type: array
-          max: 3
-          ui:
-            layout: table
-          items:
-            type: object
-            properties:
-              note:
-                type: plaintext
-                inline: true
-                title: Constraint
-                description: "What limits the plan, kept short, for example 'Join-spouse, no OCONUS'."
-              through:
-                type: integer
-                title: Through
-                description: "The last year it applies."
-          default: []
-          description: "Anything that limits where or when you can move and ends in a known year, like a join-spouse assignment or a degree in progress. Each shows as a bar across the timeline."
+    constraints:
+      type: array
+      max: 3
+      ui:
+        group: plan
+        layout: table
+      items:
+        type: object
+        properties:
+          note:
+            type: text
+            title: Constraint
+            description: "What limits the plan, kept short, for example 'Join-spouse, no OCONUS'."
+          through:
+            type: integer
+            title: Through
+            description: "The last year it applies."
+      default: []
+      description: "Anything that limits where or when you can move and ends in a known year, like a join-spouse assignment or a degree in progress. Each shows as a bar across the timeline."
 
-        vectors:
-          type: array
-          max: 3
-          items:
-            type: object
-            properties:
-              track:
-                type: plaintext
-                inline: true
-                default: ""
-                description: "What this path is for, for example 'Command track' or 'Joint'."
-              tours:
-                type: array
-                ui:
-                  layout: table
-                items:
-                  type: object
-                  properties:
-                    title:
-                      type: plaintext
-                      inline: true
-                      title: Assignment
-                      description: "The assignment, for example '333 TRS/DO' or 'Joint Staff J6'. Keep it short: about 12 characters per year fits."
-                    years:
-                      type: number
-                      default: 2
-                      title: Years
-                      description: "Length in years, from 0.5 to 4 in half-year steps."
-                    school:
-                      type: boolean
-                      default: false
-                      description: "Whether this is a school, such as IDE, SDE, or Weapons School, rather than a job."
-                description: "The assignments on this path, in order. Each starts when the one before it ends."
-          default:
-            - { track: "", tours: [] }
-            - { track: "", tours: [] }
-            - { track: "", tours: [] }
-          description: "Up to three career paths after your current assignment: primary, alternate, and backup, in that order."
-    record:
-      fields:
-        stratifications:
-          type: array
-          max: 3
-          ui:
-            layout: table
-          items:
-            type: object
-            properties:
-              year:
-                type: integer
-                description: "The reporting year."
-              rater:
-                type: plaintext
-                inline: true
-                default: ""
-                title: Rater
-                description: "Your rater's stratification as written, for example '#1/14 Capts'."
-              hlr:
-                type: plaintext
-                inline: true
-                default: ""
-                title: Higher Level Reviewer
-                description: "Your higher level reviewer's stratification, for example '#1/45 CGOs'. Leave blank if you didn't get one."
-          default: []
-          description: "Your stratifications from the last three years."
+    vectors:
+      ui:
+        group: plan
+      type: array
+      max: 3
+      items:
+        type: object
+        properties:
+          track:
+            type: text
+            default: ""
+            description: "What this path is for, for example 'Command track' or 'Joint'."
+          tours:
+            type: array
+            ui:
+              layout: table
+            items:
+              type: object
+              properties:
+                title:
+                  type: text
+                  title: Assignment
+                  description: "The assignment, for example '333 TRS/DO' or 'Joint Staff J6'. Keep it short: about 12 characters per year fits."
+                years:
+                  type: number
+                  default: 2
+                  title: Years
+                  description: "Length in years, from 0.5 to 4 in half-year steps."
+                school:
+                  type: boolean
+                  default: false
+                  description: "Whether this is a school, such as IDE, SDE, or Weapons School, rather than a job."
+            description: "The assignments on this path, in order. Each starts when the one before it ends."
+      default:
+        - { track: "", tours: [] }
+        - { track: "", tours: [] }
+        - { track: "", tours: [] }
+      description: "Up to three career paths after your current assignment: primary, alternate, and backup, in that order."
+    stratifications:
+      type: array
+      max: 3
+      ui:
+        group: record
+        layout: table
+      items:
+        type: object
+        properties:
+          year:
+            type: integer
+            description: "The reporting year."
+          rater:
+            type: text
+            default: ""
+            title: Rater
+            description: "Your rater's stratification as written, for example '#1/14 Capts'."
+          hlr:
+            type: text
+            default: ""
+            title: Higher Level Reviewer
+            description: "Your higher level reviewer's stratification, for example '#1/45 CGOs'. Leave blank if you didn't get one."
+      default: []
+      description: "Your stratifications from the last three years."
 
-        awards:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          default: []
-          description: "Major awards, one per line, strongest first. Wing level and above is worth the space."
+    awards:
+      ui:
+        group: record
+      type: array
+      items:
+        type: text
+      default: []
+      description: "Major awards, one per line, strongest first. Wing level and above is worth the space."
 
-        certifications:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          default: []
-          description: "Certifications a board would recognize, one per line. Mark PME and the Cyber 200 and 300 courses under Qualifications instead."
+    certifications:
+      ui:
+        group: record
+      type: array
+      items:
+        type: text
+      default: []
+      description: "Certifications a board would recognize, one per line. Mark PME and the Cyber 200 and 300 courses under Qualifications instead."
 
-        deployments:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          default: []
-          description: "Deployments and short tours, one per line, with the month you returned."
+    deployments:
+      ui:
+        group: record
+      type: array
+      items:
+        type: text
+      default: []
+      description: "Deployments and short tours, one per line, with the month you returned."
+    # The page prints every member in four rows and marks the held ones, so an
+    # empty box is as much of the chart as a filled one. A row is a property
+    # here rather than a heading in the plate, so the partition is in the value
+    # and the address as well as on the page. The plate repeats each `title` as
+    # its row's label, since the data carries only the members.
     qualifications:
-      title: "Qualifications & experience"
-      fields:
-        # The page prints every member in four rows and marks the held ones, so an
-        # empty box is as much of the chart as a filled one. A row is a property
-        # here rather than a heading in the plate, so the partition is in the value
-        # and the address as well as on the page. The plate repeats each `title` as
-        # its row's label, since the data carries only the members.
-        qualifications:
-          type: object
+      type: object
+      ui:
+        group: qualifications
+        layout: flat
+      description: "Mark what you've done. The page lists every qualification and marks the ones you hold. Marking a course or school also marks its milestone done on the timeline."
+      properties:
+        command:
+          type: matrix
+          title: Leadership & command
           ui:
-            layout: flat
-          description: "Mark what you've done. The page lists every qualification and marks the ones you hold. Marking a course or school also marks its milestone done on the timeline."
-          properties:
-            command:
-              type: matrix
-              title: Leadership & command
-              ui:
-                compact: true
-              members:
-                sq_cc_candidate: Sq/CC Candidate
-                do_det_cc_candidate: DO / Det CC Candidate
-                flight_cc: Flight CC
-                director_of_operations: Director of Operations
-                detachment_cc: Detachment CC
-                squadron_cc: Squadron CC
-              properties: &detail
-                detail:
-                  type: plaintext
-                  inline: true
-                  default: ""
-                  description: "The unit, year, or distinction behind it, for example '23 IOS' or 'DG'. Optional."
-            operations:
-              type: matrix
-              title: Operations
-              ui:
-                compact: true
-              members:
-                dodin_ops: DODIN Ops
-                dco: DCO (Defensive)
-                oco: OCO (Offensive)
-                crew_cc: Crew CC
-                cyber_engineer: Cyber Engineer
-                team_lead: Team Lead (MDT / CPT)
-                expeditionary_comms: Expeditionary Comms
-                mission_cc: Mission CC
-              properties: *detail
-            staff:
-              type: matrix
-              title: Staff & functional
-              ui:
-                compact: true
-              members:
-                exec_aide_cag: Exec / Aide / CAG
-                haf_staff: HAF Staff
-                majcom_naf_staff: MAJCOM / NAF Staff
-                joint_staff: Joint Staff
-                instructor: Instructor
-                jqo: Joint Qualified Officer (JQO)
-              properties: *detail
-            # Completion and distinction are one tick and its detail, so SOS held
-            # with detail DG reads as both. Candidate and graduate are two ticks:
-            # they are different rungs, and a board reads them differently.
-            education:
-              type: matrix
-              title: Education & PME
-              ui:
-                compact: true
-              members:
-                commissioning_dg: Commissioning Source DG
-                sos: SOS
-                cyber_200: Cyber 200
-                cyber_300: Cyber 300
-                ide_candidate: IDE Candidate
-                ide_graduate: IDE Graduate
-                sde_candidate: SDE Candidate
-                sde_graduate: SDE Graduate
-                weapons_school: Weapons School / WIC DG
-              properties: *detail
+            compact: true
+          members:
+            sq_cc_candidate: Sq/CC Candidate
+            do_det_cc_candidate: DO / Det CC Candidate
+            flight_cc: Flight CC
+            director_of_operations: Director of Operations
+            detachment_cc: Detachment CC
+            squadron_cc: Squadron CC
+          properties: &detail
+            detail:
+              type: text
+              default: ""
+              description: "The unit, year, or distinction behind it, for example '23 IOS' or 'DG'. Optional."
+        operations:
+          type: matrix
+          title: Operations
+          ui:
+            compact: true
+          members:
+            dodin_ops: DODIN Ops
+            dco: DCO (Defensive)
+            oco: OCO (Offensive)
+            crew_cc: Crew CC
+            cyber_engineer: Cyber Engineer
+            team_lead: Team Lead (MDT / CPT)
+            expeditionary_comms: Expeditionary Comms
+            mission_cc: Mission CC
+          properties: *detail
+        staff:
+          type: matrix
+          title: Staff & functional
+          ui:
+            compact: true
+          members:
+            exec_aide_cag: Exec / Aide / CAG
+            haf_staff: HAF Staff
+            majcom_naf_staff: MAJCOM / NAF Staff
+            joint_staff: Joint Staff
+            instructor: Instructor
+            jqo: Joint Qualified Officer (JQO)
+          properties: *detail
+        # Completion and distinction are one tick and its detail, so SOS held
+        # with detail DG reads as both. Candidate and graduate are two ticks:
+        # they are different rungs, and a board reads them differently.
+        education:
+          type: matrix
+          title: Education & PME
+          ui:
+            compact: true
+          members:
+            commissioning_dg: Commissioning Source DG
+            sos: SOS
+            cyber_200: Cyber 200
+            cyber_300: Cyber 300
+            ide_candidate: IDE Candidate
+            ide_graduate: IDE Graduate
+            sde_candidate: SDE Candidate
+            sde_graduate: SDE Graduate
+            weapons_school: Weapons School / WIC DG
+          properties: *detail

@@ -11,45 +11,45 @@ main:
   description: List the nominee's specific accomplishments in the body, one bullet each.
   fields:
     award:
-      type: string
+      type: text
       default: ""
     category_if_applicable:
-      type: string
+      type: text
       default: ""
       ui:
         compact: true
     award_period:
-      type: string
+      type: text
       default: ""
       description: The period the award covers, for example 1 Jan 2026 – 31 Mar 2026.
       ui:
         compact: true
     rankname_of_nominee:
-      type: string
+      type: text
       default: ""
       description: The nominee's rank and name, for example MSgt JANE A. DOE.
       ui:
         compact: true
     majcom_fldcom_foa_or_dru:
-      type: string
+      type: text
       default: ""
       description: The abbreviation, for example ACC.
       ui:
         compact: true
     dafsc_duty_title:
-      type: string
+      type: text
       default: ""
       description: The nominee's DAFSC and duty title.
     nominees_telephone_dsn_commercial:
-      type: string
+      type: text
       default: ""
       description: DSN and commercial numbers, for example DSN 555-1234 / (555) 555-1234.
     unit_office_symbol_street_address_base_state_zip:
-      type: string
+      type: text
       default: ""
       description: Unit, office symbol, and full address on one line.
     unit_commander_rank_name_and_telephone:
-      type: string
+      type: text
       default: ""
       description: The commander's rank, name, and phone number.
 

@@ -3,7 +3,7 @@
   auto-link, default-config, entry, item-grid, resume, resume-header, section-header,
 )
 
-// `plaintext`/`richtext` fields lower to content carrying a space element on
+// `text`/`richtext` fields lower to content carrying a space element on
 // each side, so a filled one would print its padding inside a bold run or an
 // italic one. A blank one lowers to "".
 #let trim-inline(v) = {
@@ -32,12 +32,12 @@
   if type(body) == str { none } else { body }
 }
 
-// A `string` field is text to compute with: a contact or a project link is read
-// to find its target, and the name reaches `set document(author:)`, which takes
-// no content. What prints is the field's ink twin, `printed`, which keeps the
-// click target a value computed with loses.
+// A contact or a project link is read as a `str` to find its target, and the
+// name reaches `set document(author:)`, which takes no content. What prints is
+// the field's ink twin, `printed`, which keeps the click target a value
+// computed with loses.
 #let linked(value, printed) = {
-  let value = value.trim()
+  let value = qm.str(value).trim()
   if value == "" { none } else { auto-link(value, body: printed) }
 }
 
@@ -73,12 +73,13 @@
   indent: 0em,
 )
 
+#let name = qm.str(qm.data.name).trim()
 #resume-header(
-  name: if qm.data.name.trim() != "" { qm.ink(qm.data, "name") },
-  title: qm.data.name.trim(),
-  author: qm.data.name.trim(),
+  name: if name != "" { qm.ink(qm.data, "name") },
+  title: name,
+  author: name,
   contacts: qm.data.contacts.zip(qm.ink(qm.data, "contacts"))
-    .map(((contact, printed)) => linked(contact, printed))
+    .map(((contact, printed)) => linked(contact, trim-inline(printed)))
     .filter(contact => contact != none),
 )
 
@@ -126,7 +127,7 @@
     entry(
       heading: trim-inline(project.name),
       form: "linked",
-      url: linked(project.link, qm.ink(project, "link")),
+      url: linked(project.link, trim-inline(qm.ink(project, "link"))),
       body: under-entry(project.details),
     )
   },

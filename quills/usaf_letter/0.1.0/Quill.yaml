@@ -9,156 +9,159 @@ typst:
 
 main:
   description: "Write the letter as plain paragraphs; they aren't numbered. Use a block quote for lines that should stay as written, like an address. You can close with your phone number and email."
-  sections:
-    addressing:
-      fields:
-        letter_from:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          ui:
-            compact: true
-          description: "Your rank and full name, then your duty title and mailing address, one per line. Don't put a comma between city and state."
+  ui:
+    groups:
+      addressing: {}
+      letterhead: {}
+      classification: {}
+      additional: {}
+  fields:
+    letter_from:
+      type: array
+      items:
+        type: text
+      ui:
+        group: addressing
+        compact: true
+      description: "Your rank and full name, then your duty title and mailing address, one per line. Don't put a comma between city and state."
 
-        letter_for:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          ui:
-            compact: true
-          description: "The recipient's rank and full name, then their duty title and mailing address, one per line. Don't put a comma between city and state."
+    letter_for:
+      type: array
+      items:
+        type: text
+      ui:
+        group: addressing
+        compact: true
+      description: "The recipient's rank and full name, then their duty title and mailing address, one per line. Don't put a comma between city and state."
 
-        salutation:
-          type: plaintext
-          inline: true
-          ui:
-            compact: true
-          description: "The greeting, for example 'Dear Major Smith', with no punctuation after the name."
+    salutation:
+      type: text
+      ui:
+        group: addressing
+        compact: true
+      description: "The greeting, for example 'Dear Major Smith', with no punctuation after the name."
 
-        date:
-          type: date
-          default: ""
-          ui:
-            compact: true
-          description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
+    date:
+      type: date
+      default: ""
+      ui:
+        group: addressing
+        compact: true
+      description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
 
-        complimentary_close:
-          type: plaintext
-          inline: true
-          default: Sincerely
-          ui:
-            compact: true
-          description: "The closing above your signature. 'Sincerely' suits most letters."
+    complimentary_close:
+      type: text
+      default: Sincerely
+      ui:
+        group: addressing
+        compact: true
+      description: "The closing above your signature. 'Sincerely' suits most letters."
 
-        signature_block:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          ui:
-            compact: true
-          description: "Your name in uppercase, grade, and service, for example 'FIRST M. LAST, Col, USAF'. A personal letter leaves out the duty title."
-    letterhead:
-      fields:
-        letterhead_title:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          default:
-            - DEPARTMENT OF THE AIR FORCE
-          description: "The letterhead, in uppercase. Keep the first line unless you work for a joint command or a DoW agency, and add your unit's full name on the lines below it."
+    signature_block:
+      type: array
+      items:
+        type: text
+      ui:
+        group: addressing
+        compact: true
+      description: "Your name in uppercase, grade, and service, for example 'FIRST M. LAST, Col, USAF'. A personal letter leaves out the duty title."
+    letterhead_title:
+      ui:
+        group: letterhead
+      type: array
+      items:
+        type: text
+      default:
+        - DEPARTMENT OF THE AIR FORCE
+      description: "The letterhead, in uppercase. Keep the first line unless you work for a joint command or a DoW agency, and add your unit's full name on the lines below it."
 
-        letterhead_seal:
-          type: enum
-          values:
-            - dow
-            - dod
-          default: dow
-          ui:
-            compact: true
-          description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
+    letterhead_seal:
+      type: enum
+      values:
+        - dow
+        - dod
+      default: dow
+      ui:
+        group: letterhead
+        compact: true
+      description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
 
-        letterhead_seal_subtitle:
-          type: plaintext
-          inline: true
-          default: ""
-          ui:
-            compact: true
-          description: "An optional line in bold capitals under the seal."
+    letterhead_seal_subtitle:
+      type: text
+      default: ""
+      ui:
+        group: letterhead
+        compact: true
+      description: "An optional line in bold capitals under the seal."
 
-        tag_line:
-          type: richtext
-          inline: true
-          default: ""
-          ui:
-            compact: true
-          description: "Your unit's motto, centered at the bottom of every page."
+    tag_line:
+      type: richtext
+      multiline: false
+      default: ""
+      ui:
+        group: letterhead
+        compact: true
+      description: "Your unit's motto, centered at the bottom of every page."
     classification:
-      fields:
-        classification:
-          type: enum
-          values:
-            - UNCLASSIFIED
-            - CUI
-            - CONFIDENTIAL
-            - SECRET
-            - TOP SECRET
-          default: ""
-          ui:
-            compact: true
-          description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
-          variants:
-            CUI:
-              controlled_by:
-                type: plaintext
-                inline: true
-                description: "The office that designated this information as CUI, for example 'SAF/AA'."
-              poc:
-                type: plaintext
-                inline: true
-                description: "Who to contact with questions about this CUI, with phone and email, for example 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'."
-              category:
-                type: plaintext
-                inline: true
-                default: ""
-                description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
-              limited_dissemination:
-                type: plaintext
-                inline: true
-                default: ""
-                description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
+      type: enum
+      values:
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
+      variants:
+        CUI:
+          controlled_by:
+            type: text
+            description: "The office that designated this information as CUI, for example 'SAF/AA'."
+          poc:
+            type: text
+            description: "Who to contact with questions about this CUI, with phone and email, for example 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'."
+          category:
+            type: text
+            default: ""
+            description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
+          limited_dissemination:
+            type: text
+            default: ""
+            description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
 
-        dissemination:
-          type: plaintext
-          inline: true
-          default: ""
-          ui:
-            compact: true
-          description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
-    additional:
-      fields:
-        cc:
-          type: array
-          items:
-            type: plaintext
-            inline: true
-          default: []
-          description: Offices or people receiving a courtesy copy, one per line.
+    dissemination:
+      type: text
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
+    cc:
+      ui:
+        group: additional
+      type: array
+      items:
+        type: text
+      default: []
+      description: Offices or people receiving a courtesy copy, one per line.
 
-        attachments:
-          type: array
-          items:
-            type: richtext
-            inline: true
-          default: []
-          description: "Attachments in the order the letter mentions them. Describe each briefly and include its date. Don't write 'as stated'."
+    attachments:
+      ui:
+        group: additional
+      type: array
+      items:
+        type: richtext
+        multiline: false
+      default: []
+      description: "Attachments in the order the letter mentions them. Describe each briefly and include its date. Don't write 'as stated'."
 
-        font_size:
-          type: number
-          default: 12
-          ui:
-            compact: true
-          description: "Body text size in points. The standard is 12."
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: additional
+        compact: true
+      description: "Body text size in points. The standard is 12."
