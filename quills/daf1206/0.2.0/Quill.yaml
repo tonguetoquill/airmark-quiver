@@ -2,6 +2,7 @@ quill:
   name: "daf1206"
   version: 0.2.0
   backend: acroform
+  requires: ">=0.127"
   description: "DAF Form 1206, Nomination for Award."
 
 main:

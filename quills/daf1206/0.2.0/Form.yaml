@@ -122,6 +122,18 @@
       "tooltip": "SPECIFIC ACCOMPLISHMENTS (Use single-spaced, bullet format)"
     },
     {
+      "name": "p2.PageArea1.form1.Page2.p2Name",
+      "schema_field": "rankname_of_nominee",
+      "page": 1,
+      "rect": {
+        "x": 21.73,
+        "y": 39.639999999999986,
+        "w": 571.61,
+        "h": 14.019999999999982
+      },
+      "tooltip": "RANK/NAME OF NOMINEE (First, Middle Initial, Last)"
+    },
+    {
       "name": "p2.PageArea1.form1.Page2.p2SpecificAccomplishments",
       "schema_field": "accomplishments_continued",
       "page": 1,

@@ -94,8 +94,8 @@
     },
     {
       "id": "p2.PageArea1.form1.Page2.p2Name",
-      "keep": false,
-      "name": "rankname_of_nominee_page_2",
+      "keep": true,
+      "name": "rankname_of_nominee",
       "title": "Rank/name of nominee (first, middle initial, last)",
       "description": "Repeats the nominee's rank and name from page 1 at the top of the continuation page.",
       "example": "SSgt Jordan A. Example",
