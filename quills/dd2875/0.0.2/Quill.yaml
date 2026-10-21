@@ -1,7 +1,8 @@
 quill:
   name: "dd2875"
-  version: 0.0.1
+  version: 0.0.2
   backend: acroform
+  requires: ">=0.127"
   description: "DD Form 2875, System Authorization Access Request (SAAR)."
 
 main:
@@ -15,7 +16,7 @@ main:
         - "UNCLASSIFIED"
         - "CUI"
       default: ""
-      description: "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2; this quill fills the top of page 1."
+      description: "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places."
     "type_of_request":
       title: "Type of request"
       type: enum
@@ -49,7 +50,7 @@ main:
       title: "1. Name (last, first, middle initial)"
       type: text
       default: ""
-      description: "The user's last name, first name and middle initial."
+      description: "The user's last name, first name and middle initial. The form repeats it in block 20 at the top of page 2, and this quill prints it in both."
     "organization":
       title: "2. Organization"
       type: text

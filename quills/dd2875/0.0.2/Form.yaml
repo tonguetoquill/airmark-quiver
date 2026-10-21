@@ -2,6 +2,18 @@
   "schema": "quillmark/form@0.2.0",
   "fields": [
     {
+      "name": "p1.Page1.Footer.cui_list",
+      "schema_field": "classification",
+      "page": 0,
+      "rect": {
+        "x": 252,
+        "y": 756.55,
+        "w": 108,
+        "h": 14.389999999999986
+      },
+      "tooltip": "Select Classification from drop-down list."
+    },
+    {
       "name": "p1.Page1.cui_list",
       "schema_field": "classification",
       "page": 0,
@@ -504,6 +516,42 @@
         "h": 23
       },
       "tooltip": "Enter date in format YYYYMMDD (when item 22 is signed, this is auto filled with the date signed)."
+    },
+    {
+      "name": "p2.Page2.cui_list",
+      "schema_field": "classification",
+      "page": 1,
+      "rect": {
+        "x": 251.61,
+        "y": 759.52,
+        "w": 108,
+        "h": 14.389999999999986
+      },
+      "tooltip": "Select Classification from drop-down list."
+    },
+    {
+      "name": "p2.Page2.cui_list#2",
+      "schema_field": "classification",
+      "page": 1,
+      "rect": {
+        "x": 253.16,
+        "y": 7.690000000000055,
+        "w": 108.00000000000003,
+        "h": 14.389999999999986
+      },
+      "tooltip": "Select Classification from drop-down list."
+    },
+    {
+      "name": "p2.Page2.form1.page2.name1",
+      "schema_field": "name",
+      "page": 1,
+      "rect": {
+        "x": 19.08,
+        "y": 38.26999999999998,
+        "w": 573.84,
+        "h": 17.230000000000018
+      },
+      "tooltip": "Enter name (Last, First, Middle Initial- this field is auto-filled with the value of item 1."
     },
     {
       "name": "p2.Page2.form1.page2.OptInfo21",

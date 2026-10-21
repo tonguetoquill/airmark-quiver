@@ -4,17 +4,18 @@
   "fields": [
     {
       "id": "p1.Page1.Footer.cui_list",
-      "keep": false,
-      "name": "classification_page_1_bottom",
-      "title": "Classification (page 1, bottom)",
-      "description": "Repeats the classification marking at the foot of page 1."
+      "keep": true,
+      "name": "classification",
+      "title": "Classification",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
+      "example": "UNCLASSIFIED"
     },
     {
       "id": "p1.Page1.cui_list",
       "keep": true,
       "name": "classification",
       "title": "Classification",
-      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2; this quill fills the top of page 1.",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
       "example": "UNCLASSIFIED"
     },
     {
@@ -66,7 +67,7 @@
       "keep": true,
       "name": "name",
       "title": "1. Name (last, first, middle initial)",
-      "description": "The user's last name, first name and middle initial.",
+      "description": "The user's last name, first name and middle initial. The form repeats it in block 20 at the top of page 2, and this quill prints it in both.",
       "example": "Example, Jordan A.",
       "text": "line"
     },
@@ -389,24 +390,28 @@
     },
     {
       "id": "p2.Page2.cui_list",
-      "keep": false,
-      "name": "classification_page_2_bottom",
-      "title": "Classification (page 2, bottom)",
-      "description": "Repeats the classification marking at the foot of page 2."
+      "keep": true,
+      "name": "classification",
+      "title": "Classification",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
+      "example": "UNCLASSIFIED"
     },
     {
       "id": "p2.Page2.cui_list#2",
-      "keep": false,
-      "name": "classification_page_2_top",
-      "title": "Classification (page 2, top)",
-      "description": "Repeats the classification marking at the top of page 2."
+      "keep": true,
+      "name": "classification",
+      "title": "Classification",
+      "description": "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places.",
+      "example": "UNCLASSIFIED"
     },
     {
       "id": "p2.Page2.form1.page2.name1",
-      "keep": false,
-      "name": "name_page_2",
-      "title": "20. Name (last, first, middle initial)",
-      "description": "Repeats the user's name from block 1 at the top of page 2."
+      "keep": true,
+      "name": "name",
+      "title": "1. Name (last, first, middle initial)",
+      "description": "The user's last name, first name and middle initial. The form repeats it in block 20 at the top of page 2, and this quill prints it in both.",
+      "example": "Example, Jordan A.",
+      "text": "line"
     },
     {
       "id": "p2.Page2.form1.page2.OptInfo21",
