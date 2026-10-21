@@ -18,12 +18,11 @@
 
 #let band(body) = block(width: 100%, stroke: rule, above: 0pt, below: -0.7pt, body)
 
-#let labeled(title, body, min: 12pt) = pad(x: 3pt, y: 2.5pt)[
+#let labeled(title, body) = pad(x: 3pt, y: 2.5pt)[
   #block(spacing: 0pt, text(size: 5.7pt, weight: "bold", tracking: 0.12pt)[#title])
   #v(3pt)
   #set text(size: 8pt)
-  #body
-  #v(min, weak: true)
+  #box(width: 0pt, hide[X])#body
 ]
 
 // The performance boxes on the form are a fixed band. Long comments grow the
@@ -69,13 +68,13 @@
 
 #let person(name-label, name, duty-label, duty, org-label, org, type-label, sig-type, sig-label, sig) = {
   row((1.55fr, 1fr), (
-    labeled(name-label, name, min: 12pt),
-    labeled(duty-label, duty, min: 12pt),
+    labeled(name-label, name),
+    labeled(duty-label, duty),
   ))
   row((1.45fr, 0.7fr, 1.15fr), (
-    labeled(org-label, org, min: 12pt),
-    labeled(type-label, sig-type, min: 12pt),
-    labeled(sig-label, sig, min: 12pt),
+    labeled(org-label, org),
+    labeled(type-label, sig-type),
+    labeled(sig-label, sig),
   ))
 }
 

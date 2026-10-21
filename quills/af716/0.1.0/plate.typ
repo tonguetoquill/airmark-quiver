@@ -47,7 +47,7 @@
     if clusters.len() <= left { return (c, left - clusters.len()) }
     let kept = clusters.slice(0, left).join()
     let fields = c.fields()
-    fields.remove("text")
+    let _ = fields.remove("text")
     let out = if fields.len() == 0 { text(kept) } else { text(..fields, kept) }
     return (out, 0)
   }
@@ -65,7 +65,7 @@
       kept.sum(default: [])
     } else {
       let fields = c.fields()
-      fields.remove("children")
+      let _ = fields.remove("children")
       c.func()(..fields, children: kept)
     }
     return (out, rest)
@@ -74,7 +74,7 @@
     let (piece, rest) = take-chars(c.body, left)
     if piece == none { return (none, rest) }
     let fields = c.fields()
-    fields.remove("body")
+    let _ = fields.remove("body")
     let out = if fields.len() == 0 { c.func()(piece) } else { c.func()(..fields, piece) }
     return (out, rest)
   }
@@ -82,7 +82,7 @@
     let (piece, rest) = take-chars(c.child, left)
     if piece == none { return (none, rest) }
     let fields = c.fields()
-    fields.remove("child")
+    let _ = fields.remove("child")
     let out = if fields.len() == 0 { c.func()(piece) } else { c.func()(..fields, piece) }
     return (out, rest)
   }
