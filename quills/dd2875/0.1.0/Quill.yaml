@@ -55,7 +55,7 @@ main:
       title: "2. Organization"
       type: text
       default: ""
-      description: "The user's current organization (e.g. DISA, SDI, DoD and government agency or commercial firm)."
+      description: "The user's current organization (e.g. DISA, another DoD or government agency, or a commercial firm)."
     "office_symbol_department":
       title: "3. Office symbol/department"
       type: text
@@ -238,7 +238,7 @@ main:
       title: "22. Type of investigation"
       type: text
       default: ""
-      description: "The user's last type of background investigation (i.e. Tier 3, Tier 5)."
+      description: "The user's last type of background investigation (e.g. Tier 3, Tier 5)."
     "investigation_date":
       title: "22a. Investigation date (YYYYMMDD)"
       type: text
@@ -253,7 +253,7 @@ main:
       title: "22c. Access level"
       type: text
       default: ""
-      description: "The access level the sponsoring agency or service grants the user (i.e. Secret, Top Secret)."
+      description: "The access level the sponsoring agency or service grants the user (e.g. Secret, Top Secret)."
     "verified_by":
       title: "23. Verified by (printed name)"
       type: text

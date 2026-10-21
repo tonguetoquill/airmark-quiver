@@ -76,7 +76,7 @@
       "keep": true,
       "name": "organization",
       "title": "2. Organization",
-      "description": "The user's current organization (e.g. DISA, SDI, DoD and government agency or commercial firm).",
+      "description": "The user's current organization (e.g. DISA, another DoD or government agency, or a commercial firm).",
       "example": "123rd Example Squadron",
       "text": "line"
     },
@@ -426,7 +426,7 @@
       "name": "optional_information",
       "title": "21. Optional information",
       "description": "Anything more the request needs, such as a contractor's details continued from block 16a.",
-      "example": "Contract continued from block 16a: Notional Systems Inc., contract EXAMPLE-0000-0000, expires 20261231.",
+      "example": "Requested for the user's appointment as unit training manager.",
       "text": "paragraph"
     },
     {
@@ -434,7 +434,7 @@
       "keep": true,
       "name": "type_of_investigation",
       "title": "22. Type of investigation",
-      "description": "The user's last type of background investigation (i.e. Tier 3, Tier 5).",
+      "description": "The user's last type of background investigation (e.g. Tier 3, Tier 5).",
       "example": "Tier 5",
       "text": "line"
     },
@@ -461,7 +461,7 @@
       "keep": true,
       "name": "access_level",
       "title": "22c. Access level",
-      "description": "The access level the sponsoring agency or service grants the user (i.e. Secret, Top Secret).",
+      "description": "The access level the sponsoring agency or service grants the user (e.g. Secret, Top Secret).",
       "example": "Secret",
       "text": "line"
     },
