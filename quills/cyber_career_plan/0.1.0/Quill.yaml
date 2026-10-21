@@ -236,7 +236,6 @@ main:
       type: object
       ui:
         group: qualifications
-        layout: flat
       description: "Mark what you've done. The page lists every qualification and marks the ones you hold. Marking a course or school also marks its milestone done on the timeline."
       properties:
         command:
