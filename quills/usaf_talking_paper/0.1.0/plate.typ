@@ -1,7 +1,7 @@
-#import "@local/quillmark-helper:0.1.0": data, display, form-field
+#import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/tonguetoquill-usaf-talking-paper:0.1.0": date-pattern, paper
 
-#let body-font-size = data.font_size * 1pt
+#let body-font-size = qm.data.font_size * 1pt
 
 // A blank date is filled in on the PDF. The slot is about as wide as
 // "30 Sep 26" and sits on the line, so the identification line does not grow
@@ -10,7 +10,7 @@
 #let date-slot = context box(
   width: date-slot-width,
   height: measure[0].height,
-  place(horizon + left, form-field(
+  place(horizon + left, qm.form-field(
     "Date",
     type: "text",
     width: date-slot-width,
@@ -24,9 +24,9 @@
 
 #let filled(v) = v != none and v != "" and v != []
 
-#let authored-date = display("date", date-pattern)
+#let authored-date = qm.ink(qm.data, "date", date-pattern)
 #let any-id = (
-  data.originator, data.organization, data.office_symbol, data.phone, data.typist,
+  qm.data.originator, qm.data.organization, qm.data.office_symbol, qm.data.phone, qm.data.typist,
 ).any(filled)
 #let date-ink = if authored-date != none {
   authored-date
@@ -39,28 +39,28 @@
 #show: paper.with(
   document-title: [TALKING PAPER],
   narrative: false,
-  subject: data.subject,
-  originator: data.originator,
-  organization: data.organization,
-  office-symbol: data.office_symbol,
-  phone: data.phone,
-  typist: data.typist,
+  subject: qm.data.subject,
+  originator: qm.data.originator,
+  organization: qm.data.organization,
+  office-symbol: qm.data.office_symbol,
+  phone: qm.data.phone,
+  typist: qm.data.typist,
   date: date-ink,
   font-size: body-font-size,
 
-  classification-level: data.classification.value,
-  dissemination: data.dissemination,
+  classification-level: qm.data.classification.value,
+  dissemination: qm.data.dissemination,
 
-  ..if data.classification.value == "CUI" {
+  ..if qm.data.classification.value == "CUI" {
     (
-      cui-controlled-by: data.classification.controlled_by,
-      cui-category: data.classification.category,
-      cui-limited-dissemination: data.classification.limited_dissemination,
-      cui-poc: data.classification.poc,
+      cui-controlled-by: qm.data.classification.controlled_by,
+      cui-category: qm.data.classification.category,
+      cui-limited-dissemination: qm.data.classification.limited_dissemination,
+      cui-poc: qm.data.classification.poc,
     )
   },
 )
 
-#if data.at("$body") != "" {
-  data.at("$body")
+#if qm.data.at("$body") != "" {
+  qm.data.at("$body")
 }
