@@ -48,4 +48,4 @@ Each unit completes the checklist this month.
 
 Each unit completes the checklist this month.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones@example.com.

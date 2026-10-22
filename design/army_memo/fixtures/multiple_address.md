@@ -31,4 +31,4 @@ This memorandum announces a modification to the records management support contr
 
 The modification adds two records technicians for the annual review period.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones@example.com.

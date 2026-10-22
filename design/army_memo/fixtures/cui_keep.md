@@ -4,7 +4,7 @@ $kind: main
 classification:
   value: CUI
   controlled_by: HQDA DCS G-2
-  poc: "MAJ J. Smith, 555-123-4567, john.smith@army.mil"
+  poc: "MAJ J. Smith, 555-123-4567, john.smith@example.com"
 dissemination: FEDCON
 addressing:
   memo_for:

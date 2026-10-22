@@ -41,4 +41,4 @@ The holding area staff may inspect the boxes before they are accepted. Boxes tha
 
 After the transfer, the battalion keeps a copy of every signed transfer form in its own files and updates its file plan to show where each group of records is held.
 
-The battalion appreciates the support of the garrison records team throughout this transfer and during the annual records review that precedes it. Questions about the transfer or the records involved may be directed to the battalion records manager, Mr. Robert L. Jones, at 915-555-0123 or robert.l.jones.civ@army.mil, who coordinates every move with the garrison staff.
+The battalion appreciates the support of the garrison records team throughout this transfer and during the annual records review that precedes it. Questions about the transfer or the records involved may be directed to the battalion records manager, Mr. Robert L. Jones, at 915-555-0123 or robert.l.jones@example.com, who coordinates every move with the garrison staff.

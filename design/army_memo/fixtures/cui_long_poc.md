@@ -4,7 +4,7 @@ $kind: main
 classification:
   value: CUI
   controlled_by: HQDA DCS G-2
-  poc: "Mr. Robert L. Jones, Records Manager, 915-555-0123, robert.l.jones.civ@army.mil"
+  poc: "Mr. Robert L. Jones, Records Manager, 915-555-0123, robert.l.jones@example.com"
   category: PRVCY
   limited_dissemination: FEDCON
 dissemination: FEDCON
@@ -48,4 +48,4 @@ A custodian who finds a cabinet unlocked or a box unsealed reports it to the sec
 
 The battalion destroys records that reach the end of their retention period by shredding, under the supervision of the records custodian, and records each destruction in the holding area register.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones@example.com.

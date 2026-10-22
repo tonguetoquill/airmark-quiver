@@ -30,4 +30,4 @@ Each company records custodian confirms two things for each office of record it 
 - The file plan lists every record series the office keeps, with its ARIMS record number and its disposition instructions.
 - Records past their cutoff are staged for retirement to the Army Electronic Archive or for destruction, as the disposition instructions direct.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones@example.com.

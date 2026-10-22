@@ -39,4 +39,4 @@ The signature matrix at the enclosure lists what each officer signs. Each signs 
 
 I may cancel this delegation at any time, and a new commander reviews it on assuming command. The S-1 files it under record number 25-50a, as reference 1b requires.
 
-The point of contact is CPT Maria L. Garcia, Battalion Adjutant, 1234 Example Avenue, Room 210, at 915-555-0123 or maria.l.garcia.mil@army.mil.
+The point of contact is CPT Maria L. Garcia, Battalion Adjutant, 1234 Example Avenue, Room 210, at 915-555-0123 or maria.l.garcia@example.com.

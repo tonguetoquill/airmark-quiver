@@ -39,4 +39,4 @@ additional:
 
 This memorandum announces the annual records management review for every unit on the distribution list. Each unit reviews its offices of record by 13 November 2026.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones@example.com.

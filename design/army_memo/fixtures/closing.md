@@ -36,4 +36,4 @@ additional:
 
 The self-inspection checklist, the file plan and the records inventory for each office of record are at enclosures 1 through 3.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones@example.com.

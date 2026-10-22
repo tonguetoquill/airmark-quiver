@@ -45,4 +45,4 @@ Inventory
 |---|---|
 | SAAL_ZR_FY2026_RECORDS_HOLDING_AREA_INVENTORY_AND_DISPOSITION_SCHEDULE_FOR_THE_BATTALION.pdf | Current |
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones@example.com.
