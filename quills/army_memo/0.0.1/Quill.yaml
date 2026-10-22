@@ -10,41 +10,6 @@ typst:
 main:
   description: "Write the body as plain paragraphs, without typing their numbers or letters. They're numbered for you, and bullets become lettered subparagraphs. Use a block quote for lines that shouldn't be numbered. End with a paragraph naming the point of contact by grade or civilian prefix and name, with their position, office address, phone and email."
   fields:
-    classification:
-      type: enum
-      values:
-        - UNCLASSIFIED
-        - CUI
-        - CONFIDENTIAL
-        - SECRET
-        - TOP SECRET
-      default: ""
-      description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
-      variants:
-        CUI:
-          controlled_by:
-            type: text
-            description: "The office that designated this information as CUI, for example 'HQDA DCS G-2'."
-          poc:
-            title: POC
-            type: text
-            description: "Who to contact with questions about this CUI, with phone and email, for example 'MAJ J. Smith, 555-123-4567, john.smith@example.com'."
-          category:
-            type: text
-            default: ""
-            description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
-          limited_dissemination:
-            type: text
-            default: ""
-            description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
-
-    dissemination:
-      type: text
-      default: ""
-      ui:
-        compact: true
-      description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
-
     addressing:
       type: object
       properties:
@@ -135,6 +100,44 @@ main:
           ui:
             compact: true
           description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
+
+    classification:
+      type: object
+      properties:
+        level:
+          type: enum
+          values:
+            - UNCLASSIFIED
+            - CUI
+            - CONFIDENTIAL
+            - SECRET
+            - TOP SECRET
+          default: ""
+          description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
+          variants:
+            CUI:
+              controlled_by:
+                type: text
+                description: "The office that designated this information as CUI, for example 'HQDA DCS G-2'."
+              poc:
+                title: POC
+                type: text
+                description: "Who to contact with questions about this CUI, with phone and email, for example 'MAJ J. Smith, 555-123-4567, john.smith@example.com'."
+              category:
+                type: text
+                default: ""
+                description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
+              limited_dissemination:
+                type: text
+                default: ""
+                description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
+
+        dissemination:
+          type: text
+          default: ""
+          ui:
+            compact: true
+          description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF. An unclassified or blank banner takes none."
 
     additional:
       type: object

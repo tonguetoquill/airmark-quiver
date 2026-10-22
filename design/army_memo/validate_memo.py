@@ -233,14 +233,15 @@ class Memo:
         self.distribution = items("additional", "distribution")
         self.cf = items("additional", "cf")
         self.cf_without = bool(value("additional", "cf_without_enclosures", False))
-        classification = data.get("classification")
+        marking = data.get("classification") or {}
+        classification = marking.get("level")
         if isinstance(classification, dict):
             self.cui = {k: norm(v) for k, v in classification.items() if k != "value" and v is not None}
             classification = classification.get("value")
         else:
             self.cui = {}
         self.classification = norm(classification or "")
-        self.dissemination = norm(data.get("dissemination") or "")
+        self.dissemination = norm(marking.get("dissemination") or "") if self.classification not in ("", "UNCLASSIFIED") else ""
         self.body = body
         self.source = norm(source)
         self.has_table = bool(re.search(r"^\|.*\|\s*$", body, re.M))

@@ -20,7 +20,9 @@
   last two lines of the text, or the last two rows of a table the text ends
   in. Continuation pages repeat the office symbol and subject and are numbered
   at the foot. Classification banners and the CUI block are `usaf_memo`'s, in
-  black.
+  black, set from a `classification` section holding the `level` and the
+  banner's `dissemination` control, which a blank or UNCLASSIFIED banner
+  drops.
 
 ## v0.39.0 - 2026-10-19
 

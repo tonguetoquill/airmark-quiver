@@ -2,10 +2,11 @@
 $quill: army_memo@0.0
 $kind: main
 classification:
-  value: CUI
-  controlled_by: HQDA DCS G-2
-  poc: "MAJ J. Smith, 555-123-4567, john.smith@example.com"
-dissemination: FEDCON
+  level:
+    value: CUI
+    controlled_by: HQDA DCS G-2
+    poc: "MAJ J. Smith, 555-123-4567, john.smith@example.com"
+  dissemination: FEDCON
 addressing:
   memo_for:
     - Commander, 1st Armored Division

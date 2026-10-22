@@ -4,6 +4,8 @@
 #let addressing = qm.data.addressing
 #let letterhead = qm.data.letterhead
 #let additional = qm.data.additional
+#let classification = qm.data.classification
+#let level = classification.level
 
 #let body_font_size = additional.font_size * 1pt
 
@@ -80,15 +82,15 @@
     ),
   )),
   subject: addressing.subject,
-  classification-level: qm.data.classification.value,
-  dissemination: qm.data.dissemination,
+  classification-level: level.value,
+  dissemination: if level.value in ("", "UNCLASSIFIED") { none } else { classification.dissemination },
   // The CUI cells exist only where the classification reads CUI.
-  ..if qm.data.classification.value == "CUI" {
+  ..if level.value == "CUI" {
     (
-      cui-controlled-by: qm.data.classification.controlled_by,
-      cui-category: qm.data.classification.category,
-      cui-limited-dissemination: qm.data.classification.limited_dissemination,
-      cui-poc: qm.data.classification.poc,
+      cui-controlled-by: level.controlled_by,
+      cui-category: level.category,
+      cui-limited-dissemination: level.limited_dissemination,
+      cui-poc: level.poc,
     )
   },
   font-size: body_font_size,
