@@ -61,7 +61,7 @@ main:
           items:
             type: text
           default: []
-          description: "Each office that comments on the memo before it reaches the addressee, in order, one per line. Each gets a comment box and a signature field at the end of its address. Enter the final addressee under Memo For."
+          description: "To route the memo for endorsement, list each office that endorses or comments on it before it reaches the addressee, in order, one per line. Each gets a comment box and a signature field at the end of its address. Enter the final addressee under Memo For."
 
         office_symbol:
           type: text
