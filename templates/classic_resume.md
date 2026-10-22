@@ -97,7 +97,7 @@ title: Projects
 projects:
   - name: Quillmark
     link: github.com/borb-sh/quillmark
-    details: "- Schema-driven document framework that delivers typeset documents from Markdown, this resume included."
+    details: "- Document framework that delivers typeset documents, this resume included."
   - name: Holophonor Opera
     details: "- Wrote and performed an opera about Leela on the holophonor, using the Robot Devil's hands."
 ~~~
