@@ -44,4 +44,4 @@ Each unit completes the checklist this month.
 
 Each unit completes the checklist this month.
 
-The point of contact for this memorandum is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil, and he answers questions about the checklist, the file plan, the records inventory and the transfer schedule for every office of record in the battalion during duty hours each weekday morning and afternoon.
+The point of contact for this memorandum is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones@example.com, and he answers questions about the checklist, the file plan, the records inventory and the transfer schedule for every office of record in the battalion during duty hours each weekday morning and afternoon.

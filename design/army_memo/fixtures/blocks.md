@@ -41,4 +41,4 @@ The custodian's guide says:
 >
 > Log the box number on the transfer form.
 
-The note on the door read 'Closed.' Then the clerk left. The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The note on the door read 'Closed.' Then the clerk left. The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones@example.com.

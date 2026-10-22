@@ -7,7 +7,7 @@ addressing:
   office_symbol: SAAL-ZR
   subject: Recommended Credentials and Continuous Learning Points for the Business – Financial Management Acquisition Functional Area
   signature_block:
-    - KIRSTEN L. TAYLOR
+    - JANE M. ROE
     - "Deputy Assistant Secretary of the Army (Plans, Programs and Resources)"
 letterhead:
   letterhead_title:

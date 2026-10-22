@@ -54,4 +54,4 @@ The battalion packs each group in standard records boxes, labeled with the recor
 
 The battalion packs each group in standard records boxes, labeled with the record number and the disposition date.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones@example.com.

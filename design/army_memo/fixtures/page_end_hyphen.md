@@ -47,4 +47,4 @@ The S-3 notes that each office each office each office each office each office e
 
 The S-3 notes that each office each office each office each office each office each office each office each office each office each office agrees. The battalion schedules a follow-up review with the long-term storage staff and the well-known records decision-making board, and the after-action report lists every cross-reference and self-inspection result for the follow-up visit, so the record-keeping staff can track each long-term action item and the self-inspection follow-up.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones@example.com.

@@ -45,4 +45,4 @@ The battalion packs each group in standard records boxes, labeled with the recor
 
 The battalion moves many many many many many many many many boxes with its own vehicles. Each box is sealed. The custodian logs it. Staff check the seal. The S-4 signs the form. The truck leaves at 0800. Boxes go to bay 3. The clerk files the receipt. Then the team returns. The log is closed. The S-3 reviews the log. The commander is told. Each box is sealed. The custodian logs it. Staff check the seal. The S-4 signs the form. The truck leaves at 0800. Boxes go to bay 3. The clerk files the receipt. Then the team returns. The log is closed. The S-3 reviews the log. The commander is told. 
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones@example.com.

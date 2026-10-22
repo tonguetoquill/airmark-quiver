@@ -28,7 +28,7 @@ main:
           poc:
             title: POC
             type: text
-            description: "Who to contact with questions about this CUI, with phone and email, for example 'MAJ J. Smith, 555-123-4567, john.smith@army.mil'."
+            description: "Who to contact with questions about this CUI, with phone and email, for example 'MAJ J. Smith, 555-123-4567, john.smith@example.com'."
           category:
             type: text
             default: ""

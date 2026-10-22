@@ -25,4 +25,4 @@ letterhead:
 2. Each company sends its boxes on the first Monday of the month.
    - The custodian seals and labels each box before the move.
    - The S-4 signs the transfer form at the holding area.
-3. The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+3. The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones@example.com.
