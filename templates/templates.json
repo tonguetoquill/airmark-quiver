@@ -14,13 +14,6 @@
     "tags": ["space-force"]
   },
   {
-    "id": "army-default",
-    "name": "Army Memo",
-    "description": "Official U.S. Army memorandum template",
-    "file": "army_template.md",
-    "tags": ["army"]
-  },
-  {
     "id": "usaf-letter",
     "name": "USAF Personal Letter",
     "description": "Official U.S. Air Force personal letter template",

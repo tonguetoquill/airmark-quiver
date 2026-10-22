@@ -18,7 +18,7 @@ letterhead:
     - HEADQUARTERS, 123D SIGNAL BATTALION
     - 1ST ARMORED DIVISION
     - 1234 EXAMPLE AVENUE
-    - FORT BLISS, TX 79916-6812
+    - FORT BLISS, TX  79916-6812
 additional:
   references:
     - AR 25-50 (Preparing and Managing Correspondence)
@@ -29,11 +29,11 @@ additional:
     - Memorandum, USALSA, 5 Feb 19
     - Standing Operating Procedure for Records Management and Retention of Signal Battalion Files, 16 March 2026
   cf:
-    - Commander, 1st Armored Division
+    - Commander, 2d Brigade Combat Team
     - Director, Network Enterprise Center
   cf_without_enclosures: true
 ~~~
 
 The self-inspection checklist, the file plan and the records inventory for each office of record are at enclosures 1 through 3.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.

@@ -33,7 +33,7 @@
 #let plain-text(it) = {
   if type(it) == str { return it }
   if type(it) != content { return "" }
-  if it.func() == [ ].func() { return " " }
+  if it.func() in ([ ].func(), linebreak, parbreak) { return " " }
   if it.has("text") { return plain-text(it.text) }
   if it.has("children") { return it.children.map(plain-text).join(default: "") }
   if it.has("body") { return plain-text(it.body) }

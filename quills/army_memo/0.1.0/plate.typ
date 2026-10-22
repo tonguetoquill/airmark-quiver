@@ -47,6 +47,7 @@
   ),
   office-symbol: addressing.office_symbol,
   record-number: addressing.record_number,
+  office-symbol-info: addressing.office_symbol_info,
   // `qm.ink` keeps a printed date click-to-edit. A blank date is left for the
   // signer to fill in.
   date: qm.ink(addressing, "date", date-pattern()),

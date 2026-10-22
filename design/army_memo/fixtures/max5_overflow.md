@@ -24,9 +24,9 @@ letterhead:
     - 1ST ARMORED DIVISION
     - BUILDING 1234
     - 1234 EXAMPLE AVENUE
-    - FORT BLISS, TX 79916-6812
+    - FORT BLISS, TX  79916-6812
 ~~~
 
 This memorandum has six addresses and a six-line letterhead, one more of each than the memorandum holds.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.

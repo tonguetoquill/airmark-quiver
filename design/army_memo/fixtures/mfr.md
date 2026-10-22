@@ -16,7 +16,7 @@ letterhead:
     - HEADQUARTERS, 123D SIGNAL BATTALION
     - 1ST ARMORED DIVISION
     - 1234 EXAMPLE AVENUE
-    - FORT BLISS, TX 79916-6812
+    - FORT BLISS, TX  79916-6812
 ~~~
 
 The battalion records manager inspected the records holding area on 9 October 2026 and found it meets the storage standard, with three exceptions:

@@ -18,7 +18,7 @@ letterhead:
     - HEADQUARTERS, 123D SIGNAL BATTALION
     - 1ST ARMORED DIVISION
     - 1234 EXAMPLE AVENUE
-    - FORT BLISS, TX 79916-6812
+    - FORT BLISS, TX  79916-6812
 ~~~
 
 This memorandum sets the battalion standard for organizing written guidance. It applies to every staff section and company, and to every document a section publishes for others to follow, whatever its form or the office that signs it.

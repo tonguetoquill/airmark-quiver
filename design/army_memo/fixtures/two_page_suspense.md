@@ -3,7 +3,7 @@ $quill: army_memo@0.1
 $kind: main
 addressing:
   memo_for:
-    - Commander, U.S. Army Garrison Fort Bliss (IMBL-ZA/Ms. Jane Doe), Fort Bliss, TX 79916-6812
+    - Commander, U.S. Army Garrison Fort Bliss (IMBL-ZA/Ms. Jane Doe), Fort Bliss, TX  79916-6812
   office_symbol: AFZC-SC
   record_number: 25-50a
   subject: Transfer of Inactive Battalion Records to the Garrison Records Holding Area Before Fiscal Year Closeout
@@ -20,7 +20,7 @@ letterhead:
     - HEADQUARTERS, 123D SIGNAL BATTALION
     - 1ST ARMORED DIVISION
     - 1234 EXAMPLE AVENUE
-    - FORT BLISS, TX 79916-6812
+    - FORT BLISS, TX  79916-6812
 ~~~
 
 This memorandum requests space in the garrison records holding area for the inactive records of the 123d Signal Battalion. The battalion retires these records before the fiscal year closes, and the holding area is the only space on the installation that meets the storage standard for them.

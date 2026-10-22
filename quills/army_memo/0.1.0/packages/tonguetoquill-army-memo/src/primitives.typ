@@ -14,10 +14,13 @@
     place(top + left, dx: LETTERHEAD.seal-left, dy: LETTERHEAD.seal-top, seal)
   }
   for (i, line) in ensure-array(lines).enumerate() {
+    let fixed = LETTERHEAD.line-baselines
     let (size, baseline) = if i == 0 {
       (LETTERHEAD.title-size, LETTERHEAD.title-baseline)
+    } else if i <= fixed.len() {
+      (LETTERHEAD.line-size, fixed.at(i - 1))
     } else {
-      (LETTERHEAD.line-size, LETTERHEAD.line-baseline + (i - 1) * LETTERHEAD.line-pitch)
+      (LETTERHEAD.line-size, fixed.last() + (i - fixed.len()) * LETTERHEAD.line-pitch)
     }
     place(
       top + center,
@@ -43,18 +46,28 @@
   )
 }
 
-// AR 25-50 2-4a(1)-(3): the office symbol and its ARIMS record number at the
-// left margin, wrapping flush left; the date on the same line, flush right.
-#let render-office-symbol-row(office-symbol, record-number, date) = {
+// AR 25-50 2-4a(1)-(3): the office symbol, then one space and its ARIMS
+// record number in parentheses, then any other information, at the left
+// margin; the date on the same line, flush right. Other information that
+// does not fit beside the symbol starts the second line, flush left.
+#let render-office-symbol-row(office-symbol, record-number, info, date) = {
   let symbol = if blank(record-number) {
     [#office-symbol]
   } else {
-    [#office-symbol (#box(record-number))]
+    [#office-symbol~#box[(#record-number)]]
+  }
+  let left = if blank(info) {
+    par(symbol)
+  } else {
+    layout(size => {
+      let line = [#symbol #info]
+      par(if measure(line).width <= size.width { line } else [#symbol#linebreak()#info])
+    })
   }
   grid(
     columns: (1fr, DATE_WIDTH),
     column-gutter: DATE_GUTTER,
-    par(symbol), align(right, box(date)),
+    left, align(right, box(date)),
   )
 }
 
@@ -74,10 +87,10 @@
 }
 
 // One THRU address with its comment and signature boxes at the right margin,
-// each spanning the address's lines.
+// each spanning the address's lines and the blank line below them.
 #let render-thru-address(address, fields) = context {
   let body = block(width: THRU.text-width, address)
-  let height = measure(body).height + LEADING.to-absolute()
+  let height = measure(body).height + LEADING.to-absolute() + LINE.to-absolute() - THRU.box-clear
   let comment-x = THRU.text-width + THRU.box-gap
   let signature-x = comment-x + THRU.box-width + THRU.box-gap
   block({
@@ -107,7 +120,10 @@
       render-thru-address(par[MEMORANDUM THRU #upper(thru.at(0).address)], thru.at(0).fields)
     } else {
       par[MEMORANDUM THRU]
-      for entry in thru { render-thru-address(hanging-address(entry.address), entry.fields) }
+      for (k, entry) in thru.enumerate() {
+        if k > 0 { blank-line() }
+        render-thru-address(hanging-address(entry.address), entry.fields)
+      }
     }
     if memo-for.len() > 0 {
       blank-line()
@@ -134,6 +150,25 @@
 // 4-2b): it prints "as".
 #let as-stated(entry) = lower(plain-text(entry).trim()) in ("as", "as stated")
 
+// AR 25-50 4-2c(1): a listed enclosure begins with a capital letter.
+#let capitalize(it) = {
+  if type(it) == str {
+    return if it == "" { it } else { upper(it.first()) + it.slice(it.first().len()) }
+  }
+  if type(it) != content { return it }
+  if it.func() == text { return text(capitalize(it.text)) }
+  if it.has("child") and it.has("styles") { return (it.func())(capitalize(it.child), it.styles) }
+  if it.func() in (strong, emph) { return (it.func())(capitalize(it.body)) }
+  if it.has("children") {
+    let children = it.children
+    let first = children.position(c => plain-text(c).trim() != "")
+    if first == none { return it }
+    children.at(first) = capitalize(children.at(first))
+    return children.join()
+  }
+  it
+}
+
 // A numbered line whose wrapped lines hang under its text.
 #let numbered-line(label, body) = context {
   let lead = [#label#PERIOD_GAP]
@@ -153,7 +188,7 @@
     par(if count == 1 [Encl] else [Encls])
   } else if count == 1 {
     par[Encl]
-    par(entries.at(0))
+    par(capitalize(entries.at(0)))
   } else {
     par[#str(count) Encls]
     let i = 0
@@ -165,7 +200,7 @@
         numbered-line(label, [as])
         i = j + 1
       } else {
-        numbered-line(str(i + 1) + ".", entries.at(i))
+        numbered-line(str(i + 1) + ".", capitalize(entries.at(i)))
         i += 1
       }
     }
@@ -180,8 +215,9 @@
   }
 }
 
-// The authority line, the signature block and the enclosure listing: one unit
-// that never breaks across pages (AR 25-50 2-5c(4)).
+// The authority line, the signature block, the enclosure listing and `tail`,
+// the start of the list below them: one unit that never breaks across pages
+// (AR 25-50 2-5c(4)).
 //
 // AR 25-50 2-4c(1)-(3): the authority line at the left margin on the second
 // line below the text; the signature block on the fifth line below the
@@ -194,6 +230,7 @@
   signature-blank-lines: 4,
   signing-field: none,
   enclosures: (),
+  tail: none,
 ) = {
   let authority = format-authority-line(authority-line)
   let listing = render-enclosures(enclosures)
@@ -217,6 +254,7 @@
         render-signature-lines(signature-lines)
       },
     )
+    tail
   })
 }
 
@@ -227,7 +265,7 @@
 /// -> content
 #let memo-table-style(it) = {
   set table(
-    stroke: 0.5pt + black,
+    stroke: TABLE_STROKE + black,
     inset: (x: 0.5em, y: 0.4em),
     fill: none,
   )
@@ -247,32 +285,88 @@
 }
 
 
-// A labelled list below the closing, one entry per line, flush left. The
-// label keeps its first entry, and the rest may continue on the next page
-// (AR 25-50 2-4a(5)(c)).
-#let render-listing(label, entries) = {
-  let entries = ensure-array(entries).filter(e => not blank(e))
-  if entries.len() == 0 { return none }
-  blank-line()
-  block(breakable: false, {
-    par(label)
-    par(entries.at(0))
-  })
-  for entry in entries.slice(1) { par(entry) }
+// AR 25-50 2-4a(5): addresses take one case throughout, and the heading's
+// are in capitals, so the DISTRIBUTION and CF entries are too.
+#let listing-entries(entries) = ensure-array(entries).filter(e => not blank(e)).map(upper)
+
+// How far below the closing's last line the bottom of the list's head lies,
+// in lines: the head is what the closing keeps on its page.
+#let listing-head-lines(distribution, cf, width) = {
+  if distribution.len() > 0 { return 2 }
+  if cf.len() > 0 { return 2 + line-count(par(cf.first()), width) }
+  0
 }
 
-// AR 25-50 2-4a(5)(c), 2-4c(4) and 2-4c(5): DISTRIBUTION: on the second line
-// below the signature block or enclosure listing, then CF: on the second line
-// below the lowest element above it.
+// AR 25-50 2-4a(5)(c): DISTRIBUTION: on the closing's page, on the second line
+// below the signature block or enclosure listing. When its first entry does
+// not fit below it there, the label reads "DISTRIBUTION: (see next page)" and
+// the list starts the next page.
+#let render-distribution-label(first-entry) = context {
+  let line = LINE.to-absolute()
+  let at = here().position()
+  let reserve = if at.page == 1 {
+    query(<army-memo-page-one-reserve>).map(m => m.value).sum(default: 0pt)
+  } else { 0pt }
+  let limit = page.height - MARGIN - reserve
+  let baseline = at.y + CAP_HEIGHT.to-absolute()
+  let entry-lines = line-count(par(first-entry), page.width - 2 * MARGIN)
+  let fits = baseline + entry-lines * line <= limit + 0.01pt
+  par(if fits [DISTRIBUTION:] else [DISTRIBUTION: (see next page)])
+  [#metadata(fits)<army-memo-distribution-fits>]
+}
+
+// The lists below the closing, as `(head, rest)`: the head is what
+// `render-closing` keeps on its page, and the rest may continue on the next.
+// CF: follows the closing, or the distribution list, on the second line below
+// it (AR 25-50 2-4c(5)).
 #let render-distribution-and-copies(
   distribution: (),
   cf: (),
   cf-without-enclosures: false,
   has-enclosures: false,
 ) = {
-  render-listing([DISTRIBUTION:], distribution)
-  render-listing(
-    if cf-without-enclosures and has-enclosures [CF: (w/o encls)] else [CF:],
-    cf,
-  )
+  let cf-label = if cf-without-enclosures and has-enclosures [CF: (w/o encls)] else [CF:]
+  if distribution.len() > 0 {
+    let head = {
+      blank-line()
+      render-distribution-label(distribution.first())
+    }
+    // CF: keeps the distribution list's last entry on its page.
+    let cf-head = if cf.len() > 0 {
+      blank-line()
+      par(cf-label)
+      par(cf.first())
+    }
+    let last = distribution.len() - 1
+    let rest = {
+      // A first entry that does not fit below the label starts the next page
+      // under the label again.
+      context {
+        let fits = query(<army-memo-distribution-fits>).all(m => m.value)
+        block(breakable: false, {
+          if not fits { par[DISTRIBUTION:] }
+          par(distribution.first())
+          if last == 0 { cf-head }
+        })
+      }
+      for entry in distribution.slice(1, calc.max(1, last)) { par(entry) }
+      if last > 0 {
+        block(breakable: false, {
+          par(distribution.at(last))
+          cf-head
+        })
+      }
+      for entry in cf.slice(calc.min(1, cf.len())) { par(entry) }
+    }
+    (head: head, rest: rest)
+  } else if cf.len() > 0 {
+    let head = {
+      blank-line()
+      par(cf-label)
+      par(cf.first())
+    }
+    (head: head, rest: { for entry in cf.slice(1) { par(entry) } })
+  } else {
+    (head: none, rest: none)
+  }
 }

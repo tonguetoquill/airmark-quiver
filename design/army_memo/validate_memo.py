@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Measures a rendered army_memo PDF against the build spec's checklist (C01-C58)
-and prints PASS, FAIL or SKIP per item, with the measurements behind each FAIL.
-Exits 1 when any item fails.
+"""Measures a rendered army_memo PDF against AR 25-50's layout, item by item
+(C01-C59), and prints PASS, FAIL or SKIP per item, with the measurements
+behind each FAIL. Exits 1 when any item fails.
 
     python3 -I design/army_memo/validate_memo.py [-v] <fixture.md | seed> <rendered.pdf> [YYYY-MM-DD]
 
@@ -9,7 +9,7 @@ Exits 1 when any item fails.
 the schema's blueprint instead. The date is the one the PDF was rendered with
 (default 2026-10-13), which `date: today` prints. The script renders the
 fixture once more through render_fixture.mjs, beside the PDF, to read the
-quill, document and render warnings (C57, C58, G4).
+quill, document and render warnings (C57, C58, C59).
 """
 
 import datetime as dt
@@ -32,10 +32,13 @@ POS, RECT, GAP, LU_TOL = 0.25, 0.5, 0.10, 0.01
 WORD_GAP = 1.2
 SEGMENT_GAP = 12.0
 LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl"}
-NOT_SENTENCE_ENDS = set(
-    "mr mrs ms dr jr sr st no nos vol fig figs para paras encl gen col lt capt maj sgt ft vs approx "
-    "jan feb mar apr jun jul aug sep sept oct nov dec".split()
-)
+TITLES = set("mr mrs ms dr jr sr st gen col lt capt maj sgt ft vs".split())
+NUMBER_LEADS = set("no nos vol fig figs para paras encl approx jan feb mar apr jun jul aug sep sept oct nov dec".split())
+LETTER_LABELS = set("tab annex appendix enclosure exhibit figure table phase plan option section part company battery troop team".split())
+ZIP = re.compile(r"^\d{5}(-\d{4})?$")
+STATE = re.compile(r"^[A-Z]{2}$")
+LETTERHEAD_BASELINES = [46.25, 56.16, 65.40, 74.40, 83.76]
+CUI_LAST_BASELINE = 792 - 27 - 13.8
 INITIALS = re.compile(r"^(?:[^\W\d_]\.)*[^\W\d_]$")
 DESIGNATORS = [
     (1, re.compile(r"^\d+\.$")),
@@ -104,7 +107,7 @@ CHECKS = [
     ("C56", "Scaling"),
     ("C57", "Cardinality"),
     ("C58", "Load warnings"),
-    ("G4", "Render warnings"),
+    ("C59", "Render warnings"),
 ]
 
 
@@ -205,6 +208,7 @@ class Memo:
         self.memo_thru = items("addressing", "memo_thru")
         self.office_symbol = norm(value("addressing", "office_symbol", ""))
         self.record_number = norm(value("addressing", "record_number", ""))
+        self.office_symbol_info = norm(value("addressing", "office_symbol_info", ""))
         self.subject = norm(value("addressing", "subject", ""))
         self.date = self.print_date(value("addressing", "date"), today)
         self.suspense = self.print_date(value("addressing", "suspense"), today)
@@ -230,7 +234,10 @@ class Memo:
         self.has_table = bool(re.search(r"^\|.*\|\s*$", body, re.M))
         blocks = [b for b in re.split(r"\n\s*\n", body.strip()) if b.strip()]
         self.top_paragraphs = [
-            b for b in blocks if not re.match(r"^(\s|[-*+>|#<]|\d+\.|~~~)", b)
+            b for b in blocks if not re.match(r"^(\s|[-*+]\s|[>|#<]|\d+\.\s|~~~)", b)
+        ]
+        self.quotes = [
+            norm(re.sub(r"^>\s?", "", b.split("\n")[0])) for b in blocks if b.startswith(">")
         ]
 
     @staticmethod
@@ -264,7 +271,7 @@ class Memo:
         if all(as_):
             return ("Encl" if n == 1 else "Encls"), []
         if n == 1:
-            return "Encl", [(None, norm(entries[0]))]
+            return "Encl", [(None, capitalize(norm(entries[0])))]
         items, i = [], 0
         while i < n:
             if as_[i]:
@@ -274,7 +281,7 @@ class Memo:
                 items.append((f"{i + 1}." if i == j else f"{i + 1}–{j + 1}.", "as"))
                 i = j + 1
             else:
-                items.append((f"{i + 1}.", norm(entries[i])))
+                items.append((f"{i + 1}.", capitalize(norm(entries[i]))))
                 i += 1
         return f"{n} Encls", items
 
@@ -521,7 +528,7 @@ def designator(seg):
     return None
 
 
-def ends_sentence(token, nxt):
+def ends_sentence(token, nxt, before=""):
     if not nxt or not (nxt[0].isupper() or nxt[0].isdigit() or nxt[0] in "\"“‘("):
         return False
     core = token.rstrip("\"”’)")
@@ -529,8 +536,19 @@ def ends_sentence(token, nxt):
         return True
     if not core.endswith("."):
         return False
-    word = re.sub(r"^[^\w]+", "", core[:-1])
-    return not (INITIALS.match(word) or word.lower() in NOT_SENTENCE_ENDS)
+    word = re.sub(r"^[^\w]+", "", core[:-1]).lower()
+    if INITIALS.match(word):
+        return len(word) == 1 and before.lower() in LETTER_LABELS
+    if word in TITLES:
+        return False
+    if word in NUMBER_LEADS:
+        return not nxt[0].isdigit()
+    return True
+
+
+def word_gap(prev, nxt, space):
+    """One space between words; two before a ZIP code (AR 25-50 5-10b)."""
+    return 2 * space if ZIP.match(nxt) and STATE.match(prev.rstrip(",")) else space
 
 
 def join(text, line):
@@ -650,7 +668,7 @@ def validate(fixture_arg, pdf_path, today):
     lh = sorted(p1.letterhead, key=lambda r: r.base)
     for k, want_text in enumerate(memo.letterhead):
         cid = "C10" if k == 0 else "C11"
-        want_base = 46.25 if k == 0 else 56.16 + 9.20 * (k - 1)
+        want_base = LETTERHEAD_BASELINES[k] if k < 5 else LETTERHEAD_BASELINES[-1] + 9.20 * (k - 4)
         row = next((r for r in lh if abs(r.base - want_base) <= 1), None)
         if not rep.expect(cid, row is not None, f"line {k + 1} missing at {want_base:.2f}"):
             continue
@@ -677,8 +695,11 @@ def validate(fixture_arg, pdf_path, today):
             rep.near("C13", "baseline", seg.base, memo.os)
             rep.near("C13", "x0", seg.x0, 72.0)
             text = " ".join(r.left(420)[0].text for r in symbol_rows)
-            want = memo.office_symbol + (f" ({memo.record_number})" if memo.record_number else "")
+            head = memo.office_symbol + (f" ({memo.record_number})" if memo.record_number else "")
+            want = head + (f" {memo.office_symbol_info}" if memo.office_symbol_info else "")
             rep.expect("C13", text == want, f"text {text!r} (want {want!r})")
+            first = symbol_rows[0].left(420)[0].text
+            rep.expect("C13", first in (head, want), f"first line {first!r} (want {head!r}, or the whole line)")
             for r in symbol_rows[1:]:
                 rep.near("C13", "turnover x0", r.x0, 72.0)
             for r in symbol_rows:
@@ -731,9 +752,11 @@ def validate(fixture_arg, pdf_path, today):
     address_rows = [r for r in flow1[: subj_i] if r.base > last_os + 0.5]
     for r in address_rows:
         for seg in r.left(350):
-            for g in seg.gaps:
-                if abs(g - memo.space) > GAP:
-                    rep.expect("C19", False, f"word gap {g:.2f} in {seg.text!r}")
+            toks = seg.tokens
+            for k, g in enumerate(seg.gaps):
+                want = word_gap(toks[k], toks[k + 1], memo.space)
+                if abs(g - want) > GAP:
+                    rep.expect("C19", False, f"word gap {g:.2f} between {toks[k]!r} and {toks[k + 1]!r} (want {want:.2f})")
     if address_rows:
         rep.steps("C18", "first address line", last_os, address_rows[0].base, 3, lu)
     upper = lambda k, s: s.upper()
@@ -759,16 +782,28 @@ def validate(fixture_arg, pdf_path, today):
             for a, b in zip(rows, rows[1:]):
                 rep.steps("C21", "address line", a.base, b.base, 1, lu)
     else:
-        thru_block = run_of(address_rows, 0, lu) if address_rows else []
-        for_rows = address_rows[len(thru_block) :]
+        for_i = next((k for k, r in enumerate(address_rows) if k > 0 and re.match(r"^FOR( |$)", r.text)), len(address_rows))
+        thru_block = address_rows[:for_i]
+        for_rows = address_rows[for_i:]
         cid = "C23" if len(memo.memo_thru) == 1 else "C24"
         if len(memo.memo_thru) == 1:
             groups, problems = match_lines(thru_block, ["MEMORANDUM THRU " + memo.memo_thru[0]], 72.0, 72.0, transform=upper)
             thru_groups = [rows for _, rows in groups]
+            for a, b in zip(thru_block, thru_block[1:]):
+                rep.steps(cid, "THRU line", a.base, b.base, 1, lu)
         else:
             rep.expect(cid, thru_block and thru_block[0].text == "MEMORANDUM THRU", f"lead {thru_block[0].text if thru_block else None!r}")
             groups, problems = match_lines(thru_block[1:], memo.memo_thru, 72.0, 90.0, transform=upper)
             thru_groups = [rows for _, rows in groups]
+            # One blank line between THRU addresses, none inside one or after the lead.
+            if thru_groups and thru_groups[0]:
+                rep.steps(cid, "first THRU address", thru_block[0].base, thru_groups[0][0].base, 1, lu)
+            for rows in thru_groups:
+                for a, b in zip(rows, rows[1:]):
+                    rep.steps(cid, "THRU turnover", a.base, b.base, 1, lu)
+            for a, b in zip(thru_groups, thru_groups[1:]):
+                if a and b:
+                    rep.steps(cid, "next THRU address", a[-1].base, b[0].base, 2, lu)
         rep.expect(cid, not problems, "; ".join(problems) or "THRU addresses")
         for r in thru_block:
             rep.expect(cid, max(s.end for s in r.segs) <= 348 + 0.01, f"THRU line ends at {max(s.end for s in r.segs):.2f}")
@@ -788,7 +823,7 @@ def validate(fixture_arg, pdf_path, today):
             if not rows:
                 continue
             b1, bn = rows[0].base, rows[-1].base
-            top, bottom = b1 - (memo.cap + 3), bn + (0.488 * size - 3)
+            top, bottom = b1 - (memo.cap + 3), bn + (0.488 * size - 3) + lu - 2
             for name, x0, x1 in ((f"Thru_{k}_Signature", 450, 540), (f"Thru_{k}_Comment", 354, 444)):
                 found = [w for w in widgets if w[1] == name]
                 if rep.expect("C25", len(found) == 1, f"{name}: {len(found)} widgets"):
@@ -920,7 +955,7 @@ def validate(fixture_arg, pdf_path, today):
             rep.near("C29", f"{seg.tokens[0]} x0", seg.x0, x_by_level[level])
             want_gap = 2 * memo.space if level <= 2 else 18.0
             rep.near("C30", f"gap after {seg.tokens[0]}", seg.gaps[0], want_gap, GAP)
-        elif numbered and first.x0 <= 72 + POS:
+        elif numbered and first.x0 <= 72 + POS and not any(norm(first.text).startswith(strip_md(q)[:20]) for q in memo.quotes):
             rep.expect("C29", False, f"numbered memo paragraph without a designator: {first!r}")
         for r in para[1:]:
             rep.near("C31", f"turnover {r!r} x0", r.x0, 72.0)
@@ -934,20 +969,27 @@ def validate(fixture_arg, pdf_path, today):
         for r in subs:
             rep.near("C32", f"{r.segs[0].tokens[0]} x0", r.x0, 90.0)
 
-    # C33 sentence gaps.
+    # C33 sentence gaps, in the text and in table cells.
+    def sentence_gaps(toks, gaps, before, skip_first=False, max_gap=None):
+        for k, g in enumerate(gaps):
+            if (k == 0 and skip_first) or (max_gap and g > max_gap):
+                continue
+            wide = ends_sentence(toks[k], toks[k + 1], toks[k - 1] if k else before)
+            want = 2 * memo.space if wide else word_gap(toks[k], toks[k + 1], memo.space)
+            ok = abs(g - want) <= GAP
+            if wide or toks[k].endswith((".", "?", ".,", ".)", '."', ".\u201d", "?\u201d")) or not ok:
+                rep.expect("C33", ok, f"{g:.2f} between {toks[k]!r} and {toks[k + 1]!r} (want {want:.2f})")
+
     for para in text_paragraphs:
+        before = ""
         for j, r in enumerate(para):
             seg = r.segs[0]
-            toks, gaps = seg.tokens, seg.gaps
-            skip_first = j == 0 and designator(seg) is not None
-            for k, g in enumerate(gaps):
-                if k == 0 and skip_first:
-                    continue
-                wide = ends_sentence(toks[k], toks[k + 1])
-                want = 2 * memo.space if wide else memo.space
-                ok = abs(g - want) <= GAP
-                if wide or toks[k].endswith((".", "?", ".,", ".)", '."', ".\u201d", "?\u201d")) or not ok:
-                    rep.expect("C33", ok, f"{g:.2f} between {toks[k]!r} and {toks[k + 1]!r} (want {want:.2f})")
+            sentence_gaps(seg.tokens, seg.gaps, before, skip_first=j == 0 and designator(seg) is not None)
+            before = seg.tokens[-1]
+    for pg in pages:
+        for r in rows_of(pg.table_glyphs, pg.index) if pg.table_glyphs else []:
+            for seg in r.segs:
+                sentence_gaps(seg.tokens, seg.gaps, "", max_gap=9)
 
     # C34, C35 references.
     para_text = [norm(" ".join(r.text for r in p)) for p in text_paragraphs]
@@ -977,12 +1019,27 @@ def validate(fixture_arg, pdf_path, today):
         tables = [t for pg in pages for t in pg.tables]
         rep.expect("C36", tables, "no table rules")
         for t in tables:
-            rep.expect("C36", t[0] >= 72 - 0.01 and t[2] <= 540 + 0.01, f"table x {t[0]:.2f} to {t[2]:.2f}")
+            half = max((d.get("width") or 0) for d in t[4]) / 2
+            rep.expect("C36", t[0] - half >= 72 - 0.01 and t[2] + half <= 540 + 0.01,
+                       f"table rule ink x {t[0] - half:.2f} to {t[2] + half:.2f}")
             for d in t[4]:
                 rep.expect("C36", d.get("fill") is None, f"filled path at {fmt(list(d['rect']))}")
                 if d.get("color") is not None:
                     rep.expect("C36", abs((d.get("width") or 0) - 0.5) < 0.01, f"stroke width {d.get('width')}")
                     rep.expect("C36", tuple(d["color"]) == (0, 0, 0), f"stroke color {d['color']}")
+        # A Markdown table's first row is its header, and only the header is bold.
+        for pg in pages:
+            for t in pg.tables:
+                rules = sorted({round(it[1].y, 2) for d in t[4] for it in d["items"]
+                                if it[0] == "l" and abs(it[1].y - it[2].y) < 0.01})
+                if len(rules) < 3:
+                    continue
+                band = lambda lo, hi: [g for g in pg.table_glyphs if t[0] <= g.x <= t[2] and lo < g.y < hi]
+                head, row = band(rules[0], rules[1]), band(rules[1], rules[2])
+                rep.expect("C36", head and all("Bold" in g.font for g in head),
+                           f"page {pg.index + 1} table header fonts {sorted({g.font for g in head})}")
+                rep.expect("C36", row and not all("Bold" in g.font for g in row),
+                           f"page {pg.index + 1} table first body row is all bold")
     for pg in pages:
         if not memo.has_table and pg.tables:
             rep.expect("C36", False, f"page {pg.index + 1} has drawings {fmt(pg.tables[0][:4])}")
@@ -1108,18 +1165,38 @@ def validate(fixture_arg, pdf_path, today):
         if not rep.expect(cid, li < len(listing_rows), f"no {label} line"):
             return
         lab = listing_rows[li]
-        rep.expect(cid, lab.text == label, f"label {lab.text!r} (want {label!r})")
         rep.near(cid, f"{label} x0", lab.x0, 72.0)
-        if lab.page == last_closing[0]:
+        # The label sits on the second line below the line above it, on its page.
+        if rep.expect(cid, lab.page == last_closing[0], f"{label} on page {lab.page + 1}, the line above on page {last_closing[0] + 1}"):
             rep.steps(cid, f"{label} below the closing", last_closing[1], lab.base, 2, lu)
         li += 1
-        start = li
+        see_next = label == "DISTRIBUTION:" and lab.text == "DISTRIBUTION: (see next page)"
+        see_row = lab
+        if see_next:
+            nxt = listing_rows[li] if li < len(listing_rows) else None
+            if rep.expect(cid, nxt is not None and nxt.text == label and nxt.page == lab.page + 1,
+                          f"no {label} at the top of page {lab.page + 2}"):
+                rep.near(cid, f"{label} x0 on page {nxt.page + 1}", nxt.x0, 72.0)
+                hdr = pages[nxt.page].header
+                if hdr:
+                    rep.steps(cid, f"{label} below the header", hdr[-1].base, nxt.base, 3, lu)
+                lab = nxt
+                li += 1
+        else:
+            rep.expect(cid, lab.text == label, f"label {lab.text!r} (want {label!r})")
         got_rows = []
-        while li < len(listing_rows) and not listing_rows[li].text in ("DISTRIBUTION:",) and not listing_rows[li].text.startswith("CF:"):
+        while li < len(listing_rows) and not listing_rows[li].text.startswith(("DISTRIBUTION:", "CF:")):
             got_rows.append(listing_rows[li])
             li += 1
-        _, problems = match_lines(got_rows, entries, 72.0, 72.0)
+        groups, problems = match_lines(got_rows, entries, 72.0, 72.0, transform=upper)
         rep.expect(cid, not problems, "; ".join(problems) or f"{label} entries")
+        if see_next and groups and groups[0][1]:
+            limit = 720.0
+            if see_row.page == 0 and p1.cui:
+                limit = min(limit, p1.cui[0].base - 0.662 * 10 - 0.488 * size)
+            first_lines = len(groups[0][1])
+            rep.expect(cid, see_row.base + first_lines * lu > limit - 0.01,
+                       "(see next page) though the first entry fits below the label")
         seq = [lab] + got_rows
         for a, b in zip(seq, seq[1:]):
             if a.page == b.page:
@@ -1183,7 +1260,7 @@ def validate(fixture_arg, pdf_path, today):
         has = pg.flow or pg.tables
         rep.expect("C48", has, f"page {pg.index + 1} has no body or closing text")
     if Path(fixture_arg).stem == "clp_example2":
-        rep.expect("C48", len(pages) == 2, f"{len(pages)} pages (want 2)")
+        rep.expect("C48", len(pages) == 3, f"{len(pages)} pages (want 3)")
 
     # C49 widows and orphans; C50 the closing keeps two lines.
     for para in text_paragraphs:
@@ -1266,7 +1343,10 @@ def validate(fixture_arg, pdf_path, today):
         rep.expect("C54", [r.text for r in rows] == cui_lines, f"lines {[r.text for r in rows]} (want {cui_lines})")
         if rows:
             rep.near("C54", "right edge", max(r.segs[-1].end for r in rows), 576.0)
-            rep.near("C54", "last baseline", rows[-1].base, 756.0)
+            rep.near("C54", "last baseline", rows[-1].base, CUI_LAST_BASELINE)
+            banner_top = 765.0 - 0.662 * 12
+            rep.expect("C54", rows[-1].base + 0.22 * 10 < banner_top - 2,
+                       f"descenders at {rows[-1].base + 2.2:.2f} meet the banner's cap top {banner_top:.2f}")
             rep.expect("C54", all(s.sizes == {10.0} for r in rows for s in r.segs), "not 10pt")
             body_bottom = max((r.base for r in p1.flow), default=0)
             rep.expect("C54", body_bottom < rows[0].base - 10, f"body at {body_bottom:.2f} meets the CUI block at {rows[0].base:.2f}")
@@ -1297,10 +1377,10 @@ def validate(fixture_arg, pdf_path, today):
         for pg in pages[1:]:
             rep.near("C56", "continuation office symbol", pg.header[0].base if pg.header else None, 72 + memo.cap)
 
-    # C57 cardinality, C58 load warnings, G4 render warnings.
+    # C57 cardinality, C58 load warnings, C59 render warnings.
     warnings = render_warnings(fixture_arg, pdf_path, today)
     if warnings is None:
-        rep.expect("G4", False, "render_fixture.mjs failed")
+        rep.expect("C59", False, "render_fixture.mjs failed")
     else:
         quill_w = [w for w in warnings if w.startswith("quill warning:")]
         rep.expect("C58", not quill_w, "; ".join(quill_w) or "no quill warnings")
@@ -1318,9 +1398,14 @@ def validate(fixture_arg, pdf_path, today):
             got = norm(" ".join(r.text for r in rows))
             rep.expect("C57", got == norm(" ".join(memo.memo_for)).upper(), f"addresses {got!r}")
             rep.expect("C57", len(p1.letterhead) == len(memo.letterhead), f"{len(p1.letterhead)} letterhead lines")
-        rep.expect("G4", overflow or not other, "; ".join(other) or "no warnings")
+        rep.expect("C59", overflow or not other, "; ".join(other) or "no warnings")
 
     return rep, doc
+
+
+def capitalize(s):
+    """AR 25-50 4-2c(1): a listed enclosure begins with a capital letter."""
+    return re.sub(r"^([\W_]*)([^\W_])", lambda m: m.group(1) + m.group(2).upper(), s)
 
 
 def strip_md(s):
@@ -1337,15 +1422,15 @@ def sentence_split(before, after):
     """The words on each side of a sentence that spans a page break, or None
     when a sentence ends at the break."""
     bt, at = before.segs[0].tokens, after.segs[0].tokens
-    if ends_sentence(bt[-1], at[0]):
+    if ends_sentence(bt[-1], at[0], bt[-2] if len(bt) > 1 else ""):
         return None
     tail = len(bt)
     for k in range(len(bt) - 1):
-        if ends_sentence(bt[k], bt[k + 1]):
+        if ends_sentence(bt[k], bt[k + 1], bt[k - 1] if k else ""):
             tail = len(bt) - 1 - k
     head = len(at)
     for k in range(len(at) - 1):
-        if ends_sentence(at[k], at[k + 1]):
+        if ends_sentence(at[k], at[k + 1], at[k - 1] if k else bt[-1]):
             head = k + 1
             break
     return tail, head

@@ -6,6 +6,9 @@
 #let frontmatter(
   office-symbol: "",
   record-number: "",
+  // What AR 25-50 2-4a(1) lets follow the office symbol: a name, a contract
+  // or bill of lading number. Page 1 only.
+  office-symbol-info: "",
   date: none,
   // The fill-in widget printed in the date's place when `date` is none.
   date-field: none,
@@ -51,6 +54,14 @@
     if not falsey(cui-limited-dissemination) { lines.push([LDC: #upper(cui-limited-dissemination)]) }
     if not falsey(cui-poc) { lines.push([POC: #cui-poc]) }
     if lines.len() > 0 { lines.join(linebreak()) }
+  }
+  let cui-block = if cui-indicator != none {
+    block(width: CUI_BLOCK.max-width, align(right, box({
+      set text(font: DEFAULT_BODY_FONTS, size: 10pt, top-edge: "cap-height", bottom-edge: "baseline")
+      set par(leading: 0.4em, spacing: 0pt)
+      set align(left)
+      cui-indicator
+    })))
   }
 
   set text(
@@ -105,34 +116,26 @@
       background: context if here().page() == 1 {
         render-letterhead(letterhead-title, seal: letterhead-seal)
         render-suspense(suspense, font-size)
+        if cui-block != none {
+          place(bottom + right, dx: -CUI_BLOCK.right, dy: -CUI_BLOCK.bottom, cui-block)
+        }
       },
     )
 
-    // A bottom float on page 1, so the body never runs under the block. Only
-    // the part above the bottom margin is reserved; the rest overhangs into
-    // the half-inch band at the page edge.
-    if cui-indicator != none {
-      let indicator-box = box({
-        set text(font: DEFAULT_BODY_FONTS, size: 10pt, top-edge: "cap-height")
-        set par(leading: 0.4em, spacing: 0pt)
-        set align(left)
-        cui-indicator
-      })
-      let overhang = MARGIN - 0.5in
-      let reserved = measure(indicator-box).height - overhang
-      place(
-        bottom,
-        float: true,
-        clearance: LEADING,
-        box(width: 100%, height: reserved, {
-          place(bottom + right, dx: MARGIN - 0.5in, dy: overhang, indicator-box)
-        }),
-      )
-      [#metadata(reserved + LEADING.to-absolute())<army-memo-page-one-reserve>]
+    // The CUI block sits in the page-1 background, below the text area or
+    // reaching into it. A bottom float keeps the body a paragraph gap above
+    // the part that reaches in.
+    if cui-block != none {
+      let top = page.height - CUI_BLOCK.bottom - measure(cui-block).height
+      let reserved = page.height - MARGIN - top + LEADING.to-absolute()
+      if reserved > 0pt {
+        place(bottom, float: true, clearance: 0pt, box(height: reserved))
+        [#metadata(reserved)<army-memo-page-one-reserve>]
+      }
     }
 
     v(office-symbol-top - top-margin)
-    render-office-symbol-row(office-symbol, record-number, printed-date)
+    render-office-symbol-row(office-symbol, record-number, office-symbol-info, printed-date)
     // AR 25-50 2-4a(5): the address on the third line below the office symbol.
     blank-lines(2)
     render-address-section(memo-for, memo-thru, thru-fields)

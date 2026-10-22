@@ -18,7 +18,7 @@ letterhead:
     - HEADQUARTERS, 123D SIGNAL BATTALION
     - 1ST ARMORED DIVISION
     - 1234 EXAMPLE AVENUE
-    - FORT BLISS, TX 79916-6812
+    - FORT BLISS, TX  79916-6812
 additional:
   enclosures:
     - as
@@ -27,4 +27,4 @@ additional:
 
 The results of the records management self-inspection are enclosed.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.

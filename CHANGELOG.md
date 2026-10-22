@@ -4,19 +4,21 @@
 
 - **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.
   Army memorandum to AR 25-50: the DA letterhead and seal in black ink, the
-  office symbol with its ARIMS record number, the date or a fillable `Date`
-  field on the second line below the seal, a bold suspense date above it, and
-  MEMORANDUM FOR one to five addresses, SEE DISTRIBUTION or RECORD. MEMORANDUM
-  THRU gives each routing office a signature and a comment field beside its
-  address. The body numbers `1.`, `a.`, `(1)`, `(a)`, a quarter inch in per
-  level, with two spaces after each sentence, and prints the references as its
-  first paragraph. The closing carries the authority line, the signature block
-  at the center of the page beside the enclosure listing in AR 25-50's forms,
-  and the DISTRIBUTION and CF lists, and never starts a page without the last
-  two lines of the text. Continuation pages repeat the office symbol and
-  subject and are numbered at the foot. Classification banners and the CUI
-  block are `usaf_memo`'s, in black. `army_template.md`, listed as
-  `army-default`, is the starter.
+  office symbol with its ARIMS record number and any other information, such
+  as a contract number, the date or a fillable `Date` field on the second line
+  below the seal, a bold suspense date above it, and MEMORANDUM FOR one to
+  five addresses, SEE DISTRIBUTION or RECORD. MEMORANDUM THRU gives each
+  routing office a signature and a comment field beside its address. The body
+  numbers `1.`, `a.`, `(1)`, `(a)`, a quarter inch in per level, with two
+  spaces after each sentence, and prints the references as its first
+  paragraph. The closing carries the authority line, the signature block at
+  the center of the page beside the enclosure listing in AR 25-50's forms, and
+  the DISTRIBUTION and CF lists in capitals, as the addresses are; a
+  distribution list that starts the next page is marked `(see next page)` on
+  this one. The closing never starts a page without the last two lines of the
+  text. Continuation pages repeat the office symbol and subject and are
+  numbered at the foot. Classification banners and the CUI block are
+  `usaf_memo`'s, in black.
 
 ## v0.39.0 - 2026-10-19
 

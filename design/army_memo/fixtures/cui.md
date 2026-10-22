@@ -25,7 +25,7 @@ letterhead:
     - HEADQUARTERS, 123D SIGNAL BATTALION
     - 1ST ARMORED DIVISION
     - 1234 EXAMPLE AVENUE
-    - FORT BLISS, TX 79916-6812
+    - FORT BLISS, TX  79916-6812
 ~~~
 
 This memorandum reports the Privacy Act records the battalion holds in its records holding area and the steps the battalion takes to protect them while they await retirement.
@@ -48,4 +48,4 @@ A custodian who finds a cabinet unlocked or a box unsealed reports it to the sec
 
 The battalion destroys records that reach the end of their retention period by shredding, under the supervision of the records custodian, and records each destruction in the holding area register.
 
-The point of contact is Mr. Robert L. Jones, Records Manager, at 915-555-0123 or robert.l.jones.civ@army.mil.
+The point of contact is Mr. Robert L. Jones, Records Manager, 1234 Example Avenue, at 915-555-0123 or robert.l.jones.civ@army.mil.
