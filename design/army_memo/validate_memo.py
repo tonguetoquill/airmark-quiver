@@ -32,14 +32,23 @@ POS, RECT, GAP, LU_TOL = 0.25, 0.5, 0.10, 0.01
 WORD_GAP = 1.2
 SEGMENT_GAP = 12.0
 LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl"}
-TITLES = set("mr mrs ms dr st gen col lt capt maj sgt ft vs".split())
+TITLES = set("mr mrs ms messrs mmes dr prof rev fr hon pres sen rep gov supt st mt gen adm brig col lt capt cmdr maj sgt ft vs".split())
 NUMBER_LEADS = set("approx jan feb mar apr jun jul aug sep sept oct nov dec".split())
-DESIGNATOR_LEADS = set("no nos vol fig figs para paras encl app art sec ch pt ref pg bldg rm ste apt ext tel".split())
+DESIGNATOR_LEADS = set("no nos vol fig figs para paras encl app art sec ch pt pp ref pg bldg rm ste apt ext tel".split())
 DESIGNATOR = re.compile(r"^(\d|[IVXLCDM]+(?![^\W\d_])|[A-Z](-?\d|(?![^\W\d_])))")
 DESCENDER = 0.218
-LETTER_LABELS = set("tab annex appendix enclosure exhibit figure table phase plan option section part company battery troop team".split())
-ZIP = re.compile(r"^\d{5}(-\d{4})?$")
-STATE = re.compile(r"^[A-Z]{2}$")
+LETTER_LABELS = set("""tab annex appendix attachment enclosure exhibit figure table chart map schedule phase stage step
+    plan option section part paragraph subparagraph item line column row box level grade class category type model
+    version series group company battery troop team unit gate area zone sector range site lot block building room
+    objective""".split())
+RULE = re.compile(r"\s*([-*_])(?:\s*\1){2,}\s*")
+ITEM = re.compile(r"^( *)(?:[-*+]|\d+[.)])\s+(?:\[[ xX]\]\s+)?", re.M)
+ZIP = re.compile(r"^\d{5}(-\d{4})?[.,;:)]*$")
+STATE_NAMES = """alabama alaska arizona arkansas california colorado connecticut delaware florida georgia hawaii idaho
+    illinois indiana iowa kansas kentucky louisiana maine maryland massachusetts michigan minnesota mississippi
+    missouri montana nebraska nevada hampshire jersey mexico york carolina dakota ohio oklahoma oregon pennsylvania
+    island tennessee texas utah vermont virginia washington wisconsin wyoming columbia rico guam samoa islands""".split()
+STATE = re.compile(r"^([A-Z]{2}|(?i:" + "|".join(STATE_NAMES) + r"))$")
 LETTERHEAD_BASELINES = [46.25, 56.16, 65.40, 74.40, 83.76]
 CUI_LAST_BASELINE = 792 - 27 - 13.8
 INITIALS = re.compile(r"^(?:[^\W\d_]\.)*[^\W\d_]$")
@@ -210,7 +219,7 @@ class Memo:
         self.memo_for = items("addressing", "memo_for")
         self.memo_thru = items("addressing", "memo_thru")
         self.office_symbol = norm(value("addressing", "office_symbol", ""))
-        self.record_number = norm(value("addressing", "record_number", ""))
+        self.record_number = re.sub(r"^\((.*)\)$", r"\1", norm(value("addressing", "record_number", ""))).strip()
         self.office_symbol_info = norm(value("addressing", "office_symbol_info", ""))
         self.subject = norm(value("addressing", "subject", ""))
         self.date = self.print_date(value("addressing", "date"), today)
@@ -236,12 +245,22 @@ class Memo:
         self.source = norm(source)
         self.has_table = bool(re.search(r"^\|.*\|\s*$", body, re.M))
         blocks = [b for b in re.split(r"\n\s*\n", body.strip()) if b.strip()]
-        plain = lambda b: not re.match(r"^(\s|[-*+]\s|[>|#<]|\d+\.\s|~~~|```)", b)
+        plain = lambda b: not re.match(r"^(\s|[-*+]\s|[>|#<]|\d+\.\s|~~~|```|\$\$)", b) and not RULE.fullmatch(b)
         # A heading runs into the paragraph after it, or stands as a paragraph.
         self.top_paragraphs = [
             b for i, b in enumerate(blocks)
             if plain(b) or (b.startswith("#") and not (i + 1 < len(blocks) and plain(blocks[i + 1])))
         ]
+        # A body typed as a list numbers its outermost items, and their
+        # further paragraphs, as its paragraphs.
+        marks = [m for b in blocks for m in ITEM.finditer(b)]
+        if marks and all(re.match(r"^(\s|[-*+]\s|\d+[.)]\s)", b) for b in blocks):
+            base = min(len(m.group(1)) for m in marks)
+            content = min(len(m.group(0)) for m in marks if len(m.group(1)) == base)
+            indent = lambda b: len(b) - len(b.lstrip(" "))
+            self.top_paragraphs = [m.group(0) for m in marks if len(m.group(1)) == base] + [
+                b for b in blocks if not ITEM.match(b) and indent(b) <= content
+            ]
         # Each paragraph of a block quote, and each line of a code block, by
         # its first line's text: an unnumbered line of its own.
         quoted = "\n".join(l for l in body.split("\n") if l.startswith(">"))
@@ -270,12 +289,12 @@ class Memo:
     def authority_text(self):
         if not self.authority:
             return None
-        return self.authority.upper().rstrip(":").rstrip() + ":"
+        return re.sub(r"[\s.,;:]+$", "", self.authority.upper()) + ":"
 
     def enclosure_listing(self):
         """(header, [(label or None, text)]) per AR 25-50 2-4c(3) and 4-2c."""
         entries = self.enclosures
-        as_ = [norm(e).lower() in ("as", "as stated") for e in entries]
+        as_ = [norm(e).lower().rstrip(". ") in ("as", "as stated") for e in entries]
         n = len(entries)
         if n == 0:
             return None, []
@@ -486,6 +505,16 @@ class Page:
         self.tables = table_boxes(page)
         glyphs = page_glyphs(page)
         self.glyphs = glyphs
+        # A thematic break: a full-width rule centred in a line of its own,
+        # framed as that line's cap top and baseline.
+        self.rules = [
+            [72.0, it[1].y - memo.cap / 2, 540.0, it[1].y + memo.cap / 2, [d]]
+            for d in page.get_drawings() for it in d["items"]
+            if it[0] == "l" and abs(it[1].y - it[2].y) < 0.01
+            and abs(min(it[1].x, it[2].x) - 72) < 0.5 and abs(max(it[1].x, it[2].x) - 540) < 0.5
+            and not any(t[1] - 1 <= it[1].y <= t[3] + 1 for t in self.tables)
+            and not any(abs(g.y - it[1].y) < memo.lu - memo.cap / 2 for g in glyphs)
+        ]
         in_table = lambda g: any(t[0] - 1 <= g.x <= t[2] + 1 and t[1] - 1 <= g.y <= t[3] + 1 for t in self.tables)
         self.table_glyphs = [g for g in glyphs if in_table(g)]
         rows = rows_of([g for g in glyphs if not in_table(g)], index)
@@ -556,12 +585,14 @@ def ends_sentence(token, nxt, before=""):
         return not nxt[0].isdigit()
     if word in DESIGNATOR_LEADS:
         return not DESIGNATOR.match(nxt)
+    if word == "al" and before.lower() == "et":
+        return not (nxt[0] == "(" or nxt[0].isdigit())
     return True
 
 
 def word_gap(prev, nxt, space):
     """One space between words; two before a ZIP code (AR 25-50 5-10b)."""
-    return 2 * space if ZIP.match(nxt) and STATE.match(prev.rstrip(",")) else space
+    return 2 * space if ZIP.match(nxt) and STATE.match(prev) else space
 
 
 def join(text, line):
@@ -912,7 +943,7 @@ def validate(fixture_arg, pdf_path, today):
         elif closing_page is not None and pg.index == closing_page:
             items = [it for it in items if it[1] < closing_start - 0.5]
         if closing_page is None or pg.index <= closing_page:
-            items += [("table", t[1], t) for t in pg.tables if t[1] > start]
+            items += [("table", t[1], t) for t in pg.tables + pg.rules if t[1] > start]
         items.sort(key=lambda it: it[1])
         body.append(items)
 
@@ -995,6 +1026,10 @@ def validate(fixture_arg, pdf_path, today):
             rep.expect("C29", False, f"numbered memo paragraph without a designator: {first!r}")
         for r in para[1:]:
             rep.near("C31", f"turnover {r!r} x0", r.x0, 72.0)
+    if numbered:
+        tops = [p[0].segs[0].tokens[0] for p in text_paragraphs if designator(p[0].segs[0]) == 1]
+        want = [f"{i + 1}." for i in range(len(memo.top_paragraphs) + (1 if memo.references else 0))]
+        rep.expect("C29", tops == want, f"paragraph numbers {tops} (want {want})")
 
     # C32 one-paragraph memo.
     if not numbered and text_paragraphs:
@@ -1080,6 +1115,17 @@ def validate(fixture_arg, pdf_path, today):
                            f"page {pg.index + 1} table header fonts {sorted({g.font for g in head})}")
                 rep.expect("C36", row and not all("Bold" in g.font for g in row),
                            f"page {pg.index + 1} table first body row is all bold")
+        # A row never splits across pages: each page's frame repeats the
+        # header, and the frames hold the source's body rows once each.
+        source_rows = sum(m.group(0).strip().count("\n") - 1
+                          for m in re.finditer(r"(?:^\|.*\|[ \t]*(?:\n|$))+", memo.body, re.M))
+        printed = 0
+        for pg in pages:
+            for t in pg.tables:
+                rules = {round(it[1].y, 2) for d in t[4] for it in d["items"]
+                         if it[0] == "l" and abs(it[1].y - it[2].y) < 0.01}
+                printed += max(len(rules) - 2, 0)
+        rep.expect("C36", printed == source_rows, f"{printed} table rows printed for the source's {source_rows}")
     for pg in pages:
         if not memo.has_table and pg.tables:
             rep.expect("C36", False, f"page {pg.index + 1} has drawings {fmt(pg.tables[0][:4])}")
@@ -1346,6 +1392,11 @@ def validate(fixture_arg, pdf_path, today):
             if tok.endswith(("-", "‐")) and len(tok) > 1:
                 nxt = next((s for s in b.segs if abs(s.x0 - seg.x0) < 250), b.segs[0]).tokens[0]
                 rep.expect("C51", (tok + nxt) in source, f"{tok}|{nxt} is hyphenated")
+    # AR 25-50 2-5c(3): no page ends in a divided word.
+    for a, b in zip(pages, pages[1:]):
+        if a.flow and b.flow:
+            tok = a.flow[-1].segs[-1].tokens[-1]
+            rep.expect("C51", not (tok.endswith(("-", "‐")) and len(tok) > 1), f"page {a.index + 1} ends on {tok!r}")
     rep.expect("C51", True, "hyphenation")
 
     # C52-C54 classification.

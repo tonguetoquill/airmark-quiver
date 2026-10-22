@@ -1,5 +1,5 @@
 #import "@local/quillmark-helper:0.2.0" as qm
-#import "@local/tonguetoquill-army-memo:0.1.0": backmatter, date-pattern, frontmatter, mainmatter
+#import "@local/tonguetoquill-army-memo:0.1.0": backmatter, date-pattern, frontmatter, mainmatter, render-task
 
 #let addressing = qm.data.addressing
 #let letterhead = qm.data.letterhead
@@ -39,6 +39,8 @@
   )),
 )
 
+#qm.tasks.update(_ => render-task)
+
 #let thru_path(i) = addressing.at("$path") + "memo_thru." + str(i)
 
 #show: frontmatter.with(
@@ -68,6 +70,7 @@
       font: "times",
       size: 8pt,
       align: "left",
+      multiline: true,
     ),
     signature: height => qm.signature-field(
       "Thru_" + str(i + 1) + "_Signature",

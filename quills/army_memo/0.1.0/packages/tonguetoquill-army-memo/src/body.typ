@@ -4,183 +4,7 @@
 #import "config.typ": *
 #import "utils.typ": *
 #import "primitives.typ": memo-table-style, render-memo-table
-
-// AR 25-50 1-39b(9): two spaces after a sentence's closing period or question
-// mark. A run of tokens ending in "." or "?", the word before it and the
-// character after it, so "Tab A. The" and "Fig. 5. The" are read whole.
-#let SENTENCE_RUN = regex("(?:\S+ )?(?:\S*?[.?][\"'”’)]{0,2} )+\S")
-#let SENTENCE_START = regex("^[\p{Lu}\p{N}\"'“‘(]")
-#let INITIALS = regex("^(\p{L}\.)*\p{L}$")
-// Abbreviations that stand before a name.
-#let TITLES = (
-  "mr", "mrs", "ms", "dr", "st", "gen", "col", "lt", "capt", "maj", "sgt", "ft",
-  "vs",
-)
-// Abbreviations that stand before a number, and end a sentence before a word.
-#let NUMBER_LEADS = (
-  "approx", "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct",
-  "nov", "dec",
-)
-// Abbreviations that stand before a number or a designator such as "II", "A"
-// or "A-1", and end a sentence before a word.
-#let DESIGNATOR_LEADS = (
-  "no", "nos", "vol", "fig", "figs", "para", "paras", "encl", "app", "art", "sec",
-  "ch", "pt", "ref", "pg", "bldg", "rm", "ste", "apt", "ext", "tel",
-)
-#let DESIGNATOR = regex("^(\p{N}|[IVXLCDM]+(\P{L}|$)|\p{Lu}(-?\p{N}|\P{L}|$))")
-// Words a single letter labels: "Tab A." ends a sentence where "John A." does not.
-#let LETTER_LABELS = (
-  "tab", "annex", "appendix", "enclosure", "exhibit", "figure", "table", "phase",
-  "plan", "option", "section", "part", "company", "battery", "troop", "team",
-)
-
-/// Whether the space after `token` ends a sentence, given the word before it
-/// and the one after.
-///
-/// - token (str): The word before the space
-/// - next (str): The word after the space
-/// - before (str): The word before `token`, or `""`
-/// -> bool
-#let ends-sentence(token, next, before: "") = {
-  if next.match(SENTENCE_START) == none { return false }
-  let core = token.trim(regex("[\"'”’)]+"), at: end)
-  if core.ends-with("?") { return true }
-  if not core.ends-with(".") { return false }
-  let word = lower(core.slice(0, -1).trim(regex("^[^\p{L}\p{N}]+"), at: start))
-  if word.match(INITIALS) != none {
-    return word.clusters().len() == 1 and lower(before) in LETTER_LABELS
-  }
-  if word in TITLES { return false }
-  if word in NUMBER_LEADS { return next.match(regex("^\p{N}")) == none }
-  if word in DESIGNATOR_LEADS { return next.match(DESIGNATOR) == none }
-  true
-}
-
-// The zero-width characters the first pass appends to a run.
-#let JOINERS = regex("[\u{200B}\u{2060}]")
-
-#let tokens(text) = text.replace(JOINERS, "").split(regex("\s+")).filter(t => t != "")
-
-// The text a gap's decision reads, with each paragraph and table cell ended
-// by U+2029.
-#let flat(it) = {
-  if type(it) == str { return it }
-  if type(it) != content { return "" }
-  let f = it.func()
-  if f in (parbreak, table, table.header, table.footer, table.cell) { return "\u{2029}" }
-  if f in ([ ].func(), linebreak) { return " " }
-  if f == smartquote { return if it.at("double", default: true) { "\"" } else { "'" } }
-  if it.has("text") { return flat(it.text) }
-  if it.has("children") { return it.children.map(flat).join(default: "") }
-  if it.has("body") { return flat(it.body) }
-  if it.has("child") { return flat(it.child) }
-  ""
-}
-
-// How the gap between `before` and `after` sets: "wide", two spaces where a
-// sentence ends (AR 25-50 1-39b(9)); "glue", unbreakable, after a sentence's
-// first word and before its last, so that a sentence divided between pages
-// keeps two words on each (2-5c(2)); or none, a plain space.
-#let gap-kind(before, after, glue) = {
-  let b = tokens(before.split("\u{2029}").last())
-  let a = tokens(after.split("\u{2029}").first())
-  if b.len() == 0 or a.len() == 0 { return none }
-  let token = b.last()
-  let next = a.first()
-  if ends-sentence(token, next, before: b.at(-2, default: "")) { return "wide" }
-  if not glue { return none }
-  let opens = b.len() == 1 or ends-sentence(b.at(-2), token, before: b.at(-3, default: ""))
-  let closes = a.len() == 1 or ends-sentence(next, a.at(1), before: token)
-  if opens or closes { "glue" } else { none }
-}
-
-// Elements whose body is running text, rebuilt around their spaced body.
-#let SPANS = (strong, emph, underline, overline, strike, highlight, smallcaps, link)
-
-#let rebuild(it, body) = {
-  let fields = it.fields()
-  let _ = fields.remove("body")
-  let _ = fields.remove("label", default: none)
-  if it.func() == link { link(fields.remove("dest"), ..fields, body) } else { (it.func())(..fields, body) }
-}
-
-/// Sets every gap between words per `gap-kind`, reading the sentence around
-/// each across bold, italic, links and the other runs of a paragraph. Table
-/// cells take the sentence spacing only: a table breaks between rows.
-///
-/// - it (content): A paragraph, block quote or table
-/// - glue (bool): Whether to keep sentences' first and last two words together
-/// - before (str): The paragraph's text before `it`
-/// - after (str): The paragraph's text after `it`
-/// -> content
-#let space-sentences(it, glue: true, before: "", after: "") = {
-  if type(it) != content { return it }
-  let f = it.func()
-  let walk = (child, b, a) => space-sentences(child, glue: glue, before: b, after: a)
-  if f == [ ].func() {
-    let kind = gap-kind(before, after, glue)
-    return if kind == "wide" { [#"  "] } else if kind == "glue" { [#"\u{a0}"] } else { it }
-  }
-  if f == text {
-    let s = it.text
-    if not s.contains(" ") { return it }
-    let out = ""
-    let at = 0
-    for m in s.matches(regex("\s+")) {
-      out += s.slice(at, m.start)
-      let run = m.text
-      let kind = if run.contains(" ") {
-        gap-kind(before + s.slice(0, m.start), s.slice(m.end) + after, glue)
-      }
-      out += if kind == "wide" {
-        if run.clusters().len() >= 2 { run } else { "  " }
-      } else if kind == "glue" { run.replace(" ", "\u{a0}") } else { run }
-      at = m.end
-    }
-    return [#(out + s.slice(at))]
-  }
-  if it.has("child") and it.has("styles") {
-    return f(walk(it.child, before, after), it.styles)
-  }
-  if f in (table, table.header, table.footer, table.cell) {
-    let fields = it.fields()
-    let key = if f == table.cell { "body" } else { "children" }
-    let inner = fields.remove(key)
-    let _ = fields.remove("label", default: none)
-    let cell = c => space-sentences(c, glue: false)
-    return if key == "body" { table.cell(..fields, cell(inner)) } else { f(..fields, ..inner.map(cell)) }
-  }
-  if f == align { return align(it.alignment, walk(it.body, before, after)) }
-  if f in SPANS { return rebuild(it, walk(it.body, before, after)) }
-  if f == [*a* b].func() {
-    let children = it.children
-    let texts = children.map(flat)
-    let out = ()
-    for (i, child) in children.enumerate() {
-      out.push(walk(
-        child,
-        before + texts.slice(0, i).join(default: ""),
-        texts.slice(i + 1).join(default: "") + after,
-      ))
-    }
-    return out.join(default: [])
-  }
-  it
-}
-
-#let sentence-spacing(body, glue: true) = {
-  show SENTENCE_RUN: it => {
-    let parts = it.text.split(" ")
-    let out = parts.at(0)
-    for i in range(1, parts.len()) {
-      let before = if i > 1 { parts.at(i - 2) } else { "" }
-      out += if ends-sentence(parts.at(i - 1), parts.at(i), before: before) { "  " } else { " " }
-      out += parts.at(i)
-    }
-    out
-  }
-  space-sentences(body, glue: glue)
-}
+#import "spacing.typ": *
 
 /// Content cut at its `n`th breakable gap, a space between words: the part
 /// before the gap and the part after it, or `tail: none` and the gaps still
@@ -228,27 +52,92 @@
   whole(n)
 }
 
-/// A paragraph's content split before its last `count` lines, at the gap
-/// where the greedy line breaking of a ragged-right paragraph ends the line
-/// above them. Reads layout.
+/// The last gap a paragraph's content can be cut at with the part before it
+/// setting in `keep` lines or fewer, at `width`; zero when there is none.
+/// Ragged-right lines break greedily, so the part after it sets as the
+/// paragraph's remaining lines do. Reads layout.
 ///
 /// - body (content): The paragraph's content
-/// - lines (int): Its line count
-/// - count (int): The lines to split off
+/// - keep (int): The lines the part before the gap may take
 /// - width (length): The width it sets at
-/// -> dictionary | none: `head` and `tail`, or none with no gap to cut at
-#let split-last-lines(body, lines, count, width) = {
-  let keep = lines - count
+/// -> int
+#let gap-after-lines(body, keep, width) = {
   let gaps = 1000000 - cut-at-gap(body, 1000000).left
-  if gaps < 1 { return none }
   let fits = k => line-count(par(cut-at-gap(body, k).head), width) <= keep
+  if gaps < 1 or not fits(1) { return 0 }
   let (lo, hi) = (1, gaps)
   while lo < hi {
     let mid = calc.quo(lo + hi + 1, 2)
     if fits(mid) { lo = mid } else { hi = mid - 1 }
   }
-  let parts = cut-at-gap(body, lo)
-  (head: parts.head, tail: parts.tail)
+  lo
+}
+
+// AR 25-50 2-5c(2): a sentence divided between pages has at least two words
+// on each. Whether a cut at gap `g` leaves one word of a sentence alone.
+#let parts-sentence(body, g) = {
+  let parts = cut-at-gap(body, g)
+  let b = tokens(flat(parts.head).split("\u{2029}").last())
+  let a = tokens(flat(parts.tail).split("\u{2029}").first())
+  if b.len() == 0 or a.len() == 0 { return false }
+  let t = b + a
+  let c = b.len()
+  let ends = i => ends-sentence(t.at(i), t.at(i + 1), before: if i > 0 { t.at(i - 1) } else { "" })
+  if ends(c - 1) { return false }
+  let first = c - 1
+  while first > 0 and not ends(first - 1) { first -= 1 }
+  let last = c
+  while last < t.len() - 1 and not ends(last) { last += 1 }
+  c - first < 2 or last - c + 1 < 2
+}
+
+// The gap at or before `g` that leaves two words of a sentence on each side.
+#let sentence-safe-gap(body, g) = {
+  while g >= 1 and parts-sentence(body, g) { g -= 1 }
+  g
+}
+
+// AR 25-50 2-5c(1),(2): a paragraph of more than three lines may divide
+// between pages, keeping two lines and two words of a sentence on each.
+// Where the page's last line falls inside it, the paragraph is cut there,
+// at the gap before a sentence's first word or after its second-to-last,
+// and sets as two blocks whose lines stand as one paragraph's would.
+#let emit-paragraph(flow-text, lines, width, sticky: false) = {
+  if lines <= 3 { return block(breakable: false, sticky: sticky, par(flow-text)) }
+  context {
+    let start = here().position()
+    let reserve = if start.page == 1 {
+      query(<army-memo-page-one-reserve>).map(m => m.value).sum(default: 0pt)
+    } else { 0pt }
+    let room = page.height - BOTTOM.to-absolute() - reserve - start.y - CAP_HEIGHT.to-absolute()
+    let fit = if room < -0.01pt { 0 } else { calc.floor(room / LINE.to-absolute() + 0.001) + 1 }
+    let keep = calc.min(fit, lines - 2)
+    let g = if fit < lines and keep >= 2 {
+      sentence-safe-gap(flow-text, gap-after-lines(flow-text, keep, width))
+    } else { 0 }
+    let parts = if g >= 1 { cut-at-gap(flow-text, g) }
+    let head-lines = if g >= 1 { line-count(par(parts.head), width) } else { 0 }
+    if head-lines < 2 or lines - head-lines < 2 {
+      block(breakable: true, sticky: sticky, par(flow-text))
+    } else {
+      block(breakable: head-lines > 3, sticky: sticky, par(parts.head))
+      block(breakable: lines - head-lines > 3, par(parts.tail))
+    }
+  }
+}
+
+// Content without the spaces it begins with.
+#let trim-start(it) = {
+  if type(it) != content { return it }
+  if it.func() == [ ].func() { return [] }
+  if it.func() == text { return [#it.text.trim(at: start)] }
+  if it.has("children") and it.children.len() > 0 {
+    let rest = it.children.slice(1)
+    let first = trim-start(it.children.first())
+    return if first == [] { trim-start(rest.join(default: [])) } else { ((first,) + rest).join() }
+  }
+  if it.has("child") and it.has("styles") { return (it.func())(trim-start(it.child), it.styles) }
+  it
 }
 
 // AR 25-50 2-4b(4)(b) and 1-39b(9): a run-in heading takes a period unless it
@@ -381,8 +270,8 @@
 
 // Rendering takes two passes. The first lays the content out hidden, so that
 // Typst's own show rules resolve, and buffers each paragraph, table, block
-// quote and code block with its nesting level. The second emits the buffer
-// in document order, numbering as it goes.
+// quote, code block, display equation and rule with its nesting level. The
+// second emits the buffer in document order, numbering as it goes.
 #let render-body(content, references: ()) = {
   let PAR_BUFFER = state("PAR_BUFFER")
   PAR_BUFFER.update(())
@@ -401,11 +290,12 @@
     pars.push(item)
     pars
   })
+  let nesting() = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
 
   let first-pass = {
     show: memo-table-style
     show par: p => context {
-      let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
+      let nest-level = nesting()
       let first = nest-level > 0 and ITEM_FIRST_PAR.get()
       let kind = if IS_HEADING.get() { "heading" } else if nest-level > 0 and not first { "continuation" } else { "par" }
       buffer((content: text([#p.body]), nest-level: nest-level, kind: kind, first: first))
@@ -415,22 +305,31 @@
       p
     }
     show table: t => context {
-      buffer((content: t, nest-level: NEST_DOWN.get().at(0) - NEST_UP.get().at(0), kind: "table"))
+      buffer((content: t, nest-level: nesting(), kind: "table"))
       t
     }
     // A `qm-table` wrapper's `align` places its table from outside it.
     show align: a => if a.body.func() == table {
-      context buffer((content: a, nest-level: NEST_DOWN.get().at(0) - NEST_UP.get().at(0), kind: "table"))
+      context buffer((content: a, nest-level: nesting(), kind: "table"))
     } else { a }
     // A block quote is the body's unnumbered block: its lines reach the page
-    // as written. A code block reaches it unnumbered too. Returning `none`
-    // keeps their paragraphs from the `show par` above.
+    // as written. A code block, a display equation and a rule reach it
+    // unnumbered too. Returning `none` keeps their paragraphs from the
+    // `show par` above.
     show quote.where(block: true): q => context {
-      buffer((content: q.body, nest-level: NEST_DOWN.get().at(0) - NEST_UP.get().at(0), kind: "quote"))
+      buffer((content: q.body, nest-level: nesting(), kind: "quote"))
       none
     }
     show raw.where(block: true): r => context {
-      buffer((content: r, nest-level: NEST_DOWN.get().at(0) - NEST_UP.get().at(0), kind: "code"))
+      buffer((content: r, nest-level: nesting(), kind: "code"))
+      none
+    }
+    show math.equation.where(block: true): e => context {
+      buffer((content: e, nest-level: nesting(), kind: "display"))
+      none
+    }
+    show line: l => context {
+      buffer((content: l, nest-level: nesting(), kind: "rule"))
       none
     }
     {
@@ -438,6 +337,14 @@
         IS_HEADING.update(true)
         [#parbreak()#h.body#parbreak()]
         IS_HEADING.update(false)
+      }
+      // A term and its description are one paragraph, the term run in as a
+      // heading is.
+      show terms: it => {
+        for item in it.children {
+          let lead = run-in(item.term)
+          [#parbreak()#lead.label#lead.gap#trim-start(item.description)#parbreak()]
+        }
       }
       // No `context` wrapper: one here fails to converge on a body with many
       // list items.
@@ -456,10 +363,13 @@
       {
         // `show par` does not capture an element that fills its paragraph
         // whole, so a word joiner follows each wrapper; it adds no break.
+        // Inline code's face and size reach the paragraph as its own text's.
         show strong: it => [#it#sym.wj]
         show emph: it => [#it#sym.wj]
         show underline: it => [#it#sym.wj]
-        show raw.where(block: false): it => [#it#sym.wj]
+        show strike: it => [#it#sym.wj]
+        show link: it => [#it#sym.wj]
+        show raw.where(block: false): it => context [#text(font: DEFAULT_MONO_FONTS, size: text.size, it.text)#sym.wj]
         [#content#parbreak()]
       }
     }
@@ -468,9 +378,20 @@
 
   context {
     let width = page.width - 2 * MARGIN
+    show LONG_TOKEN: break-long(width)
     let authored = PAR_BUFFER.get().filter(item =>
-      item.kind == "table" or measure(item.content).width > 0pt
+      item.kind in ("table", "display", "rule") or measure(item.content).width > 0pt
     )
+    // A body typed as a list, its paragraphs' numbers typed as Markdown's,
+    // has no paragraph above its items: they are its paragraphs.
+    if authored.len() > 0 and authored.all(item => item.nest-level > 0) {
+      let base = calc.min(..authored.map(item => item.nest-level))
+      authored = authored.map(item => {
+        item.nest-level -= base
+        if item.nest-level == 0 and item.kind == "continuation" { item.kind = "par" }
+        item
+      })
+    }
     // AR 25-50 2-4b(1)(a): references are the first paragraph, lettered when
     // there are two or more.
     let references = ensure-array(references).filter(r => not blank(r))
@@ -530,8 +451,12 @@
         let offset = text-offset(level, level-counts)
         if offset == 0pt { placed } else { pad(left: offset, placed) }
       }
-      let spaced = sentence-spacing(item.content)
-      let flow-text = if kind in ("table", "quote", "code") { none } else if kind == "continuation" {
+      // A block quote's paragraphs keep each sentence's first and last two
+      // words together; a paragraph is cut where a page divides it.
+      let spaced = if kind in ("code", "display", "rule") { item.content } else {
+        sentence-spacing(item.content, glue: kind == "quote")
+      }
+      let flow-text = if kind in ("table", "quote", "code", "display", "rule") { none } else if kind == "continuation" {
         [#h(text-offset(level, level-counts))#spaced]
       } else if numbered or level > 0 {
         let number = level-counts.at(str(level), default: 1)
@@ -539,16 +464,27 @@
         level-counts = reset-levels-from(level-counts, level + 1)
         [#h(INDENT_STEP * level)#designator(level, number)#spaced]
       } else { spaced }
-      // A code block sets in the mono face at the body's size and pitch, in
-      // black, without highlighting.
+      let offset = text-offset(level, level-counts)
       let indent(body) = {
-        let offset = text-offset(level, level-counts)
+        show LONG_TOKEN: break-long(width - offset)
         if offset == 0pt { body } else { pad(left: offset, body) }
       }
-      let code(source) = indent({
+      // A code block sets in the mono face at the body's size and pitch, in
+      // black, without highlighting. A word wider than the column breaks.
+      let code(source) = indent(context {
+        set text(font: DEFAULT_MONO_FONTS, size: text.size, fill: black)
+        let lines = source.split("\n").map(line => line.replace(LONG_TOKEN, m => {
+          let word = text(font: DEFAULT_MONO_FONTS, m.text)
+          if measure(word).width <= width - offset { m.text } else { m.text.clusters().join("\u{200B}") }
+        }))
         show raw: set text(font: DEFAULT_MONO_FONTS, size: text.size, fill: black)
-        raw(source, block: true)
+        raw(lines.join("\n"), block: true)
       })
+      // A rule stands in a line of its own.
+      let rule(it) = indent(block(width: 100%, height: CAP_HEIGHT, {
+        set line(stroke: TABLE_STROKE + black)
+        place(horizon + left, it)
+      }))
       let emitted = if kind == "table" {
         place-table(spaced)
       } else if kind == "code" {
@@ -556,6 +492,14 @@
       } else if kind == "quote" {
         set par(spacing: LEADING + LINE)
         indent(spaced)
+      } else if kind == "display" {
+        // Typst's math face, centered, as an equation sets where it is written.
+        indent(block(width: 100%, {
+          set text(font: "New Computer Modern Math")
+          align(center, spaced)
+        }))
+      } else if kind == "rule" {
+        rule(spaced)
       } else { par(flow-text) }
 
       // AR 25-50 2-4b(2): one blank line between paragraphs and subparagraphs.
@@ -593,11 +537,12 @@
         // AR 25-50 2-5c(4): the closing never starts a page without the last
         // two lines of the text above it. They are a block of their own that
         // sticks to the closing; the lines above may still divide (2-5c(1)).
-        let parts = split-last-lines(flow-text, lines, 2, width)
-        if parts == none {
+        let g = sentence-safe-gap(flow-text, gap-after-lines(flow-text, lines - 2, width))
+        if g < 1 {
           block(breakable: true, emitted)
         } else {
-          block(breakable: lines > 5, par(parts.head))
+          let parts = cut-at-gap(flow-text, g)
+          emit-paragraph(parts.head, line-count(par(parts.head), width), width)
           block(breakable: false, sticky: true, par(parts.tail))
         }
       } else if last and kind == "code" and item.content.text.split("\n").len() > 3 {
@@ -610,10 +555,12 @@
         block(breakable: true, emitted)
       } else if last {
         block(breakable: false, sticky: true, emitted)
-      } else {
-        // AR 25-50 2-5c(1): a paragraph of three lines or fewer never splits.
+      } else if kind in ("par", "continuation") {
         // A heading standing as a paragraph keeps with what follows it.
-        block(breakable: lines > 3, sticky: item.at("heading", default: false), emitted)
+        emit-paragraph(flow-text, lines, width, sticky: item.at("heading", default: false))
+      } else {
+        // AR 25-50 2-5c(1): a block of three lines or fewer never splits.
+        block(breakable: lines > 3, emitted)
       }
     }
   }

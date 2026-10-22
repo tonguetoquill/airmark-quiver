@@ -13,7 +13,7 @@ addressing:
   signature_block:
     - JOHN A. SMITH
     - LTC, SC
-    - Commanding
+    - Executive Officer
 letterhead:
   letterhead_title:
     - DEPARTMENT OF THE ARMY

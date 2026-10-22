@@ -55,8 +55,9 @@ The fixtures, by what each reaches that the others do not:
 - `basic.md`: the anchors every position is measured from, from the office
   symbol to the signature block, and the single space after `Mr.` and `L.`.
 - `two_page_suspense.md`: a suspense date, a wrapped address and subject, an
-  authority line typed in lowercase without its colon, and a last paragraph
-  that splits two lines and two so the closing never starts a page alone.
+  authority line typed in lowercase without its colon over a staff officer's
+  signature, and a last paragraph that splits two lines and two so the closing
+  never starts a page alone.
 - `thru_single.md`, `thru_multiple.md`: one and two THRU offices a blank line
   apart, each with a signature and a comment field spanning its address and the
   blank line below, and a blank date's `Date` field.
@@ -106,6 +107,20 @@ The fixtures, by what each reaches that the others do not:
 - `distribution_one_cf.md`: a one-entry distribution list whose entry fits
   below the label while the `CF:` bound to it does not, so the list starts the
   next page.
+- `typed_spacing.md`: double spaces typed in the body, a reference, a quote
+  and a table cell; titles, `Class A.`, `et al.` and `pp.`; a subject whose
+  date turns over whole; a spelled-out State one space from its ZIP code; a
+  record number typed in parentheses, an authority line and an enclosure
+  typed with closing periods.
+- `body_constructs.md`: a thematic break, a list of a link, a strike and code
+  alone, a paragraph that is all link and one all strike, a definition, a task
+  list, and a file name wider than the column in the text and in a cell.
+- `list_body.md`: a body typed as a numbered Markdown list, numbered as the
+  memo's paragraphs with its nested items lettered.
+- `page_end_hyphen.md`: a page break that falls inside a paragraph of
+  hyphenated words, which never ends the page on a hyphen.
+- `table_row_keep.md`: a table whose four-line row does not fit the page, so
+  it moves whole under the repeated header.
 
 `make_black_seal.py` writes the quill's black-ink seals from `usaf_memo`'s
 color ones (AR 25-50 1-16b(3)); run it from the repo root to regenerate them.

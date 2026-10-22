@@ -3,6 +3,7 @@
 
 #import "config.typ": *
 #import "utils.typ": *
+#import "spacing.typ": LONG_TOKEN, break-long, keep-together, sentence-spacing
 
 // A text line placed so its baseline lands on a page position.
 #let baselined(body) = text(top-edge: "baseline", bottom-edge: "baseline", body)
@@ -47,21 +48,23 @@
 }
 
 // AR 25-50 2-4a(1)-(3): the office symbol, then one space and its ARIMS
-// record number in parentheses, then any other information, at the left
-// margin; the date on the same line, flush right. Other information that
-// does not fit beside the symbol starts the second line, flush left.
+// record number in one pair of parentheses, then any other information, at
+// the left margin; the date on the same line, flush right. Other information
+// that does not fit beside the symbol starts the second line, flush left.
 #let render-office-symbol-row(office-symbol, record-number, info, date) = {
-  let symbol = if blank(record-number) {
+  let record = plain-text(record-number).trim()
+  if record.starts-with("(") and record.ends-with(")") { record = record.slice(1, -1).trim() }
+  let symbol = if record == "" {
     [#office-symbol]
   } else {
-    [#office-symbol~#box[(#record-number)]]
+    [#office-symbol~#box[(#record)]]
   }
   let left = if blank(info) {
     par(symbol)
   } else {
     layout(size => {
-      let line = [#symbol #info]
-      par(if measure(line).width <= size.width { line } else [#symbol#linebreak()#info])
+      let line = [#symbol #keep-together(info)]
+      par(if measure(line).width <= size.width { line } else [#symbol#linebreak()#keep-together(info)])
     })
   }
   grid(
@@ -71,18 +74,12 @@
   )
 }
 
-// AR 25-50 5-10b: the ZIP code two spaces after the State, on the State's
-// line. The engine sets two typed spaces as a no-break space and a space.
-#let STATE_ZIP = regex("\b\p{L}{2}[\u{a0} ]{1,2}\d{5}(?:[-\u{2013}]\d{4})?\b")
-
-/// An address in capitals, its State and ZIP code kept on one line.
+/// An address in capitals, its State and ZIP code two spaces apart on one
+/// line (AR 25-50 5-10b), and each date on one line (1-25c).
 ///
 /// - address (str | content)
 /// -> content
-#let address-text(address) = {
-  show STATE_ZIP: box
-  upper(address)
-}
+#let address-text(address) = keep-together(upper(address))
 
 // An address line set flush left, its turnover indented a quarter inch
 // (AR 25-50 2-4a(5)(b)).
@@ -146,8 +143,9 @@
 }
 
 // AR 25-50 2-4a(6): SUBJECT: on the second line below the address, its
-// turnover flush with the left margin.
-#let subject-line(subject) = [SUBJECT: #subject]
+// turnover flush with the left margin, its sentences and dates spaced as the
+// text's are (1-39b(9), 1-25c).
+#let subject-line(subject) = [SUBJECT: #sentence-spacing(subject)]
 
 /// The authority line uppercased and ending in one colon (AR 25-50 2-4c(1)).
 /// Blank is no line.
@@ -156,12 +154,13 @@
 /// -> content | none
 #let format-authority-line(value) = {
   if blank(value) { return none }
-  if plain-text(value).trim().ends-with(":") { upper(value) } else { [#upper(value):] }
+  [#upper(plain-text(value).trim().trim(regex("[\s.,;:]+"), at: end)):]
 }
 
-// Whether an enclosure entry stands for one the body identifies (AR 25-50
-// 4-2b): it prints "as".
-#let as-stated(entry) = lower(plain-text(entry).trim()) in ("as", "as stated")
+// Whether an enclosure entry stands for one the body identifies: the listing
+// reads "Encl" or "Encls" alone, or "as" for its number (AR 25-50 4-2c(4),
+// (6)).
+#let as-stated(entry) = lower(plain-text(entry).trim().trim(regex("[\s.]+"), at: end)) in ("as", "as stated")
 
 // AR 25-50 4-2c(1): a listed enclosure begins with a capital letter.
 #let capitalize(it) = {
@@ -201,7 +200,7 @@
     par(if count == 1 [Encl] else [Encls])
   } else if count == 1 {
     par[Encl]
-    par(capitalize(entries.at(0)))
+    par(keep-together(capitalize(entries.at(0))))
   } else {
     par[#str(count) Encls]
     let i = 0
@@ -213,7 +212,7 @@
         numbered-line(label, [as])
         i = j + 1
       } else {
-        numbered-line(str(i + 1) + ".", capitalize(entries.at(i)))
+        numbered-line(str(i + 1) + ".", keep-together(capitalize(entries.at(i))))
         i += 1
       }
     }
@@ -285,16 +284,43 @@
   it
 }
 
-/// Prints a table's header row bold, when it has one.
+/// Prints a table's header row bold, when it has one. A row moves to the
+/// next page whole, so a sentence in a cell never divides between pages
+/// (AR 25-50 2-5c(2)), and a word wider than its cell breaks.
 ///
 /// - it (content): The table element to render
 /// -> content
 #let render-memo-table(it) = {
+  set table.cell(breakable: false)
+  show table.cell: cell => layout(size => {
+    show LONG_TOKEN: break-long(size.width - 2 * TABLE_INSET.x.to-absolute())
+    cell
+  })
   show table: t => if t.children.any(c => c.func() == table.header) {
     show table.cell.where(y: 0): set text(weight: "bold")
     t
   } else { t }
   it
+}
+
+/// A task list item: its box sits on the baseline and stands no taller than
+/// a capital, so the line keeps the text's pitch.
+///
+/// - done (bool)
+/// - body (content)
+/// -> content
+#let render-task(done, body) = {
+  let s = CAP_HEIGHT - 0.06em
+  box(width: s, height: s, stroke: 0.06em, if done {
+    place(curve(
+      stroke: 0.1em,
+      curve.move((0.18 * s, 0.52 * s)),
+      curve.line((0.42 * s, 0.76 * s)),
+      curve.line((0.84 * s, 0.22 * s)),
+    ))
+  })
+  h(0.4em)
+  body
 }
 
 
