@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.
+- **An Army memorandum quill is added.** `army_memo@0.0.1` typesets a U.S.
   Army memorandum to AR 25-50: the DA letterhead and seal in black ink, the
   office symbol with its ARIMS record number and any other information, such
   as a contract number, the date or a fillable `Date` field on the second line

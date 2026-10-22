@@ -181,7 +181,7 @@ def node(args):
 def blueprint():
     script = (
         'import { init } from "@quillmark/wasm"; import { fromDir } from "@quillmark/quiver/node";'
-        "await init(); const q = await (await fromDir(process.cwd())).getQuill('army_memo@0.1.0');"
+        "await init(); const q = await (await fromDir(process.cwd())).getQuill('army_memo@0.0.1');"
         "process.stdout.write(q.blueprint);"
     )
     out = node(["--input-type=module", "-e", script])

@@ -13,7 +13,7 @@ from pathlib import Path
 from PIL import Image
 
 SOURCE = Path("quills/usaf_memo/0.3.0/assets")
-TARGET = Path("quills/army_memo/0.1.0/assets")
+TARGET = Path("quills/army_memo/0.0.1/assets")
 INK_LUMA = 0.2126 * 0x35 + 0.7152 * 0x5E + 0.0722 * 0x93
 
 

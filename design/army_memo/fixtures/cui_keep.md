@@ -1,5 +1,5 @@
 ~~~
-$quill: army_memo@0.1
+$quill: army_memo@0.0
 $kind: main
 classification:
   value: CUI

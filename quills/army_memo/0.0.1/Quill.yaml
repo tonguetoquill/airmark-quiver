@@ -1,6 +1,6 @@
 quill:
   name: army_memo
-  version: 0.1.0
+  version: 0.0.1
   backend: typst
   description: U.S. Army Memorandum
 
