@@ -1,7 +1,7 @@
 # @airmark/quiver
 
-A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force
-and DAF official-document quills, sourced from
+A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force,
+DAF and Army official-document quills, sourced from
 [tonguetoquill-collection](https://github.com/nibsbin/tonguetoquill-collection)
 and aligned to the current Quillmark spec.
 
@@ -12,6 +12,7 @@ and aligned to the current Quillmark spec.
 | `usaf_memo`          | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                      |
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
+| `army_memo`          | 0.0.1   | U.S. Army Memorandum (AR 25-50)                                                  |
 | `medal_citation`     | 0.1.0   | Achievement, Meritorious Service, and Commendation Medal citations               |
 | `af4141`             | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment) |
 | `daf1206`            | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |

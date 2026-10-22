@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased
+
+- **An Army memorandum quill is added.** `army_memo@0.0.1` typesets a U.S.
+  Army memorandum to AR 25-50: the DA letterhead and seal in black ink, the
+  office symbol with its ARIMS record number and any other information, such
+  as a contract number, the date or a fillable `Date` field on the second line
+  below the seal, a bold suspense date above it, and MEMORANDUM FOR one to
+  five addresses, SEE DISTRIBUTION or RECORD. MEMORANDUM THRU gives each
+  routing office a signature and a comment field beside its address. The body
+  numbers `1.`, `a.`, `(1)`, `(a)`, a quarter inch in per level, with two
+  spaces after each sentence and at least two of a sentence's words on each
+  side of a page break, and prints the references as its first paragraph and a
+  code block as unnumbered lines. The closing carries the authority line, the
+  signature block at the center of the page beside the enclosure listing in
+  AR 25-50's forms, and the DISTRIBUTION and CF lists in capitals, as the
+  addresses are; a distribution list that starts the next page is marked
+  `(see next page)` on this one. The closing never starts a page without the
+  last two lines of the text, or the last two rows of a table the text ends
+  in. Continuation pages repeat the office symbol and subject and are numbered
+  at the foot. Classification banners and the CUI block are `usaf_memo`'s, in
+  black.
+
 ## v0.39.0 - 2026-10-19
 
 - **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
