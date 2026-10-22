@@ -19,21 +19,29 @@ main:
       type: text
       default: ""
       description: "The award category the nominee competes in. Leave it blank when the award has no categories."
+      ui:
+        compact: true
     "award_period":
       title: "Award period"
       type: text
       default: ""
       description: "The dates the nomination covers, as the award announcement sets them."
+      ui:
+        compact: true
     "rankname_of_nominee":
       title: "Rank/name of nominee (first, middle initial, last)"
       type: text
       default: ""
       description: "The nominee's rank, then first name, middle initial and last name. The form repeats it at the top of page 2."
+      ui:
+        compact: true
     "majcom_fldcom_foa_or_dru":
       title: "MAJCOM, FLDCOM, FOA or DRU"
       type: text
       default: ""
       description: "The nominee's major command, field command, field operating agency or direct reporting unit, by its abbreviation."
+      ui:
+        compact: true
     "dafsc_duty_title":
       title: "DAFSC/duty title"
       type: text
@@ -60,7 +68,7 @@ main:
       items:
         type: text
       default: []
-      description: "The nominee's accomplishments during the award period, as performance statements IAW DAFMAN 36-2806, one per line, within any limit the award announcement sets."
+      description: "The nominee's accomplishments during the award period, as performance statements IAW DAFMAN 36-2806, one per line, within any limit the award announcement sets. A line of its own can head a category, such as LEADERSHIP & JOB PERFORMANCE IN PRIMARY DUTY."
     "accomplishments_continued":
       title: "Specific accomplishments (use performance statements IAW DAFMAN 36-2806) (continued)"
       type: array
