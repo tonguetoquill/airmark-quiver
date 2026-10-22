@@ -20,12 +20,13 @@
 #let DEFAULT_BODY_FONTS = ("TeX Gyre Termes",)
 #let DEFAULT_MONO_FONTS = ("Liberation Mono",)
 
-// AR 25-50 2-4b(3) indents subparagraphs as figure 2-1 shows; a quarter inch
-// per level is the AR's indent unit (2-4a(5), 6-4c).
+// AR 25-50 2-4b(3) indents subparagraphs as figure 2-1 shows: a quarter inch
+// per level, the AR's indent unit (2-4a(5), 6-4c), and no further than the
+// second subdivision, so `(a)` stands under `(1)`.
 #let INDENT_STEP = 0.25in
-// AR 25-50 1-39b(10): a quarter inch after the parenthesis of `(1)` and `(a)`.
-#let PAREN_GAP = 0.25in
+#let INDENT_LEVELS = 2
 // AR 25-50 1-39b(9): two spaces after a period, as after `1.` and `a.`.
+// Figure 2-1 sets the same two spaces after `(1)` and `(a)`.
 #let PERIOD_GAP = "  "
 
 #let numbering-formats = ("1.", "a.", "(1)", "(a)", n => underline(str(n)), n => underline(str(n)))
