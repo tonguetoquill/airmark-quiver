@@ -1,0 +1,9 @@
+{
+  "form": "DAF Form 1206, Nomination for Award",
+  "edition": "20240313",
+  "url": "https://static.e-publishing.af.mil/production/1/af_a1/form/daf1206/daf1206.pdf",
+  "published_sha256": "1d05c2686346c22477070dc0220f12c79bc2b9d58ad21ce5e4f95f59bd7e296c",
+  "read": "tonguetoquill/quillify test/fixtures/DAF1206_Nomination_for_Award.pdf, the published file with the author's ID and the contact's name blanked",
+  "read_sha256": "84aa35ed390b3a3443c34f718b44378e4b4696c60a5093465132a44883aae14a",
+  "quillify": "0.8.0"
+}

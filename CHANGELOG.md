@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+- **`daf1206` 0.2.0 is the published DAF Form 1206 (20240313), filled where
+  the form puts its fields.** quillify 0.8.0 built it: an AcroForm quill whose
+  two pages are the form's own, redrawn, with eleven fields stamped in twelve
+  boxes (the nominee's rank and name prints at the top of both pages). It
+  needs Quillmark 0.127. The nine fields 0.1.0 has keep their names, and the
+  accomplishments are two fields of lines, `accomplishments` and
+  `accomplishments_continued`, where 0.1.0 takes them in the body and an
+  `accomplishments_continued` card; a line of its own heads a category.
+  Category, award period, rank/name and MAJCOM share rows in the editor, as
+  in 0.1.0. 0.1.0 stays, and the `daf1206` template
+  stays on `@0.1`. A document that names `daf1206` with no version now gets
+  0.2.0.
+
 ## v0.39.0 - 2026-10-19
 
 - **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries

@@ -170,3 +170,10 @@ for f in config utils primitives; do
       quills/usaf_letter/0.1.0/packages/tonguetoquill-usaf-letter/src/$f.typ
 done
 ```
+
+## daf1206
+
+`naming.json` gives each field of the published DAF Form 1206 its name, title,
+description and example, and `source.json` records the file quillify read.
+quillify 0.8.0 built `quills/daf1206/0.2.0/` from the two, and a later quillify
+can build it again from them.
