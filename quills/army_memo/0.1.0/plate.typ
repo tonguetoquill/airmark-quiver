@@ -18,17 +18,20 @@
 
 // A blank date's fill-in slot: an AcroForm text box the signer types the date
 // into, flush right where a printed date would sit. It claims a cap height,
-// the extent of a printed date, and the widget overhangs it about the line's
-// middle.
+// the extent of a printed date, and the widget overhangs the line. At one and
+// a half times the font size tall, a viewer's border inset leaves a typed
+// date's descenders whole. Its bottom sits 0.44 of the font size below the
+// baseline, where PDFium and MuPDF center a typed date within 0.12pt of the
+// office symbol's baseline.
 #let date_slot_width = body_font_size * 8.5
 #let date_slot(name, field) = context box(
   width: date_slot_width,
   height: measure[0].height,
-  place(horizon + left, qm.form-field(
+  place(bottom + left, dy: body_font_size * 0.44, qm.form-field(
     name,
     type: "text",
     width: date_slot_width,
-    height: body_font_size,
+    height: body_font_size * 1.5,
     field: field,
     font: "times",
     size: body_font_size,
@@ -95,7 +98,7 @@
 #backmatter(
   authority-line: addressing.authority_line,
   signature-block: addressing.signature_block,
-  // 200pt by two and a half lines, ending 3pt above the name.
+  // 200pt by two and a half times the font size, ending 3pt above the name.
   signing-field: qm.signature-field(
     "Signature",
     field: addressing.at("$path") + "signature_block",

@@ -46,7 +46,7 @@
     text(12pt, font: DEFAULT_BODY_FONTS, weight: "bold", fill: black, top-edge: "cap-height")[#classification-marking]
   }
 
-  // DoDM 5200.48: the CUI designation indicator block, page 1 only.
+  // DoDI 5200.48: the CUI designation indicator block, page 1 only.
   let cui-indicator = if type(classification-level) == str and classification-level.trim().starts-with("CUI") {
     let lines = ()
     if not falsey(cui-controlled-by) { lines.push([Controlled By: #cui-controlled-by]) }
@@ -91,7 +91,7 @@
     let office-symbol-top = office-symbol-baseline(font-size) - CAP_HEIGHT.to-absolute()
 
     set page(
-      margin: (left: MARGIN, right: MARGIN, bottom: MARGIN, top: top-margin),
+      margin: (left: MARGIN, right: MARGIN, bottom: BOTTOM.to-absolute(), top: top-margin),
       header: {
         context if here().page() > 1 {
           place(top + left, dy: MARGIN, block(width: 100%, {
@@ -127,7 +127,7 @@
     // the part that reaches in.
     if cui-block != none {
       let top = page.height - CUI_BLOCK.bottom - measure(cui-block).height
-      let reserved = page.height - MARGIN - top + LEADING.to-absolute()
+      let reserved = page.height - BOTTOM.to-absolute() - top + LEADING.to-absolute()
       if reserved > 0pt {
         place(bottom, float: true, clearance: 0pt, box(height: reserved))
         [#metadata(reserved)<army-memo-page-one-reserve>]

@@ -15,7 +15,7 @@ letterhead:
     - OFFICE OF THE ASSISTANT SECRETARY OF THE ARMY
     - ACQUISITION, LOGISTICS AND TECHNOLOGY
     - 103 ARMY PENTAGON
-    - WASHINGTON DC 20310-0103
+    - WASHINGTON, DC  20310-0103
 additional:
   references:
     - "Department of Defense Instruction 5000.66 (Acquisition Workforce Education, Training, Experience, and Career Development Program)."

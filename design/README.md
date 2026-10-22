@@ -93,6 +93,19 @@ The fixtures, by what each reaches that the others do not:
   that end against bold, italic, a link and code, a block quote and a table of
   several sentences, and the label, title and number-lead cases of the
   sentence rule.
+- `blocks.md`: a heading followed by bullets, which takes its own number and
+  letters the bullets under it, a fenced code block in the monospace face, a
+  block quote of two paragraphs, and a sentence ending in `'Closed.'`.
+- `sentence_straddle.md`: a paragraph of short sentences that the page break
+  divides with two of a sentence's words on each page.
+- `final_paragraph_split.md`, `final_table.md`: a last paragraph that spans a
+  page on its own, and a last table that runs onto the next page; each keeps
+  its last two lines or rows with the closing.
+- `authority_wrapped.md`: an authority line that wraps, under a last paragraph
+  that splits two lines and two.
+- `distribution_one_cf.md`: a one-entry distribution list whose entry fits
+  below the label while the `CF:` bound to it does not, so the list starts the
+  next page.
 
 `make_black_seal.py` writes the quill's black-ink seals from `usaf_memo`'s
 color ones (AR 25-50 1-16b(3)); run it from the repo root to regenerate them.

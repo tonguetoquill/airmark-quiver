@@ -1,5 +1,5 @@
-// Geometry and typography of an AR 25-50 memorandum. Lengths in pt are page
-// positions measured from the top-left corner of a US Letter page.
+// Geometry and typography of an AR 25-50 memorandum on a US Letter page. A
+// position is measured from the page's top-left corner.
 
 // Termes' cap height. Every text line's top edge sits here, so a bold or
 // italic run never grows its line.
@@ -12,6 +12,10 @@
 
 // AR 25-50 2-3c: 1-inch margins on the left, right and bottom.
 #let MARGIN = 1in
+// Termes' descender depth. The text area ends this far above the bottom
+// margin, so a last line's descenders stay out of it.
+#let DESCENDER = 0.218em
+#let BOTTOM = MARGIN + DESCENDER
 
 #let DEFAULT_BODY_FONTS = ("TeX Gyre Termes",)
 #let DEFAULT_MONO_FONTS = ("Liberation Mono",)
@@ -75,6 +79,7 @@
 // Table rules sit half their width inside the text column, so their ink
 // stays within the margins.
 #let TABLE_STROKE = 0.5pt
+#let TABLE_INSET = (x: 0.5em, y: 0.4em)
 
 // The CUI designation indicator block: its right edge half an inch from the
 // page edge, its last line a single-spaced 12pt line above the bottom

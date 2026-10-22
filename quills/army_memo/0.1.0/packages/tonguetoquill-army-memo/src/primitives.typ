@@ -71,15 +71,28 @@
   )
 }
 
+// AR 25-50 5-10b: the ZIP code two spaces after the State, on the State's
+// line. The engine sets two typed spaces as a no-break space and a space.
+#let STATE_ZIP = regex("\b\p{L}{2}[\u{a0} ]{1,2}\d{5}(?:[-\u{2013}]\d{4})?\b")
+
+/// An address in capitals, its State and ZIP code kept on one line.
+///
+/// - address (str | content)
+/// -> content
+#let address-text(address) = {
+  show STATE_ZIP: box
+  upper(address)
+}
+
 // An address line set flush left, its turnover indented a quarter inch
 // (AR 25-50 2-4a(5)(b)).
-#let hanging-address(address) = par(hanging-indent: TURNOVER, upper(address))
+#let hanging-address(address) = par(hanging-indent: TURNOVER, address-text(address))
 
 // "<lead> <address>" for one address, or the lead alone with the addresses on
 // the lines below it.
 #let render-addresses(lead, addresses) = {
   if addresses.len() == 1 {
-    par[#lead #upper(addresses.at(0))]
+    par[#lead #address-text(addresses.at(0))]
   } else {
     par(lead)
     for address in addresses { hanging-address(address) }
@@ -117,7 +130,7 @@
     render-addresses([MEMORANDUM FOR], memo-for)
   } else {
     if thru.len() == 1 {
-      render-thru-address(par[MEMORANDUM THRU #upper(thru.at(0).address)], thru.at(0).fields)
+      render-thru-address(par[MEMORANDUM THRU #address-text(thru.at(0).address)], thru.at(0).fields)
     } else {
       par[MEMORANDUM THRU]
       for (k, entry) in thru.enumerate() {
@@ -222,7 +235,7 @@
 // AR 25-50 2-4c(1)-(3): the authority line at the left margin on the second
 // line below the text; the signature block on the fifth line below the
 // authority line, or below the text without one; the enclosure listing on
-// the signature block's first line. The signing field covers the blank
+// the signature block's first line. The signing field sits in the blank
 // lines, ending 3pt above the name.
 #let render-closing(
   signature-lines,
@@ -266,7 +279,7 @@
 #let memo-table-style(it) = {
   set table(
     stroke: TABLE_STROKE + black,
-    inset: (x: 0.5em, y: 0.4em),
+    inset: TABLE_INSET,
     fill: none,
   )
   it
@@ -287,7 +300,7 @@
 
 // AR 25-50 2-4a(5): addresses take one case throughout, and the heading's
 // are in capitals, so the DISTRIBUTION and CF entries are too.
-#let listing-entries(entries) = ensure-array(entries).filter(e => not blank(e)).map(upper)
+#let listing-entries(entries) = ensure-array(entries).filter(e => not blank(e)).map(address-text)
 
 // How far below the closing's last line the bottom of the list's head lies,
 // in lines: the head is what the closing keeps on its page.
@@ -298,18 +311,20 @@
 }
 
 // AR 25-50 2-4a(5)(c): DISTRIBUTION: on the closing's page, on the second line
-// below the signature block or enclosure listing. When its first entry does
-// not fit below it there, the label reads "DISTRIBUTION: (see next page)" and
-// the list starts the next page.
-#let render-distribution-label(first-entry) = context {
+// below the signature block or enclosure listing. When its first entry, with
+// the CF: lines a lone entry keeps, does not fit below it there, the label
+// reads "DISTRIBUTION: (see next page)" and the list starts the next page.
+#let render-distribution-label(first-entry, bound: none) = context {
   let line = LINE.to-absolute()
+  let width = page.width - 2 * MARGIN
   let at = here().position()
   let reserve = if at.page == 1 {
     query(<army-memo-page-one-reserve>).map(m => m.value).sum(default: 0pt)
   } else { 0pt }
-  let limit = page.height - MARGIN - reserve
+  let limit = page.height - BOTTOM.to-absolute() - reserve
   let baseline = at.y + CAP_HEIGHT.to-absolute()
-  let entry-lines = line-count(par(first-entry), page.width - 2 * MARGIN)
+  let entry-lines = line-count(par(first-entry), width)
+  if bound != none { entry-lines += 2 + line-count(par(bound), width) }
   let fits = baseline + entry-lines * line <= limit + 0.01pt
   par(if fits [DISTRIBUTION:] else [DISTRIBUTION: (see next page)])
   [#metadata(fits)<army-memo-distribution-fits>]
@@ -329,7 +344,7 @@
   if distribution.len() > 0 {
     let head = {
       blank-line()
-      render-distribution-label(distribution.first())
+      render-distribution-label(distribution.first(), bound: if distribution.len() == 1 { cf.at(0, default: none) })
     }
     // CF: keeps the distribution list's last entry on its page.
     let cf-head = if cf.len() > 0 {

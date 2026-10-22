@@ -32,8 +32,11 @@ POS, RECT, GAP, LU_TOL = 0.25, 0.5, 0.10, 0.01
 WORD_GAP = 1.2
 SEGMENT_GAP = 12.0
 LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl"}
-TITLES = set("mr mrs ms dr jr sr st gen col lt capt maj sgt ft vs".split())
-NUMBER_LEADS = set("no nos vol fig figs para paras encl approx jan feb mar apr jun jul aug sep sept oct nov dec".split())
+TITLES = set("mr mrs ms dr st gen col lt capt maj sgt ft vs".split())
+NUMBER_LEADS = set("approx jan feb mar apr jun jul aug sep sept oct nov dec".split())
+DESIGNATOR_LEADS = set("no nos vol fig figs para paras encl app art sec ch pt ref pg bldg rm ste apt ext tel".split())
+DESIGNATOR = re.compile(r"^(\d|[IVXLCDM]+(?![^\W\d_])|[A-Z](-?\d|(?![^\W\d_])))")
+DESCENDER = 0.218
 LETTER_LABELS = set("tab annex appendix enclosure exhibit figure table phase plan option section part company battery troop team".split())
 ZIP = re.compile(r"^\d{5}(-\d{4})?$")
 STATE = re.compile(r"^[A-Z]{2}$")
@@ -52,7 +55,7 @@ CHECKS = [
     ("C01", "Page size"),
     ("C02", "Measured LU"),
     ("C03", "Advance ends within 540"),
-    ("C04", "Body and closing baselines within 720"),
+    ("C04", "Body and closing ink above 720"),
     ("C05", "Span colors black"),
     ("C06", "Fonts"),
     ("C07", "Seal image rect"),
@@ -233,12 +236,20 @@ class Memo:
         self.source = norm(source)
         self.has_table = bool(re.search(r"^\|.*\|\s*$", body, re.M))
         blocks = [b for b in re.split(r"\n\s*\n", body.strip()) if b.strip()]
+        plain = lambda b: not re.match(r"^(\s|[-*+]\s|[>|#<]|\d+\.\s|~~~|```)", b)
+        # A heading runs into the paragraph after it, or stands as a paragraph.
         self.top_paragraphs = [
-            b for b in blocks if not re.match(r"^(\s|[-*+]\s|[>|#<]|\d+\.\s|~~~)", b)
+            b for i, b in enumerate(blocks)
+            if plain(b) or (b.startswith("#") and not (i + 1 < len(blocks) and plain(blocks[i + 1])))
         ]
+        # Each paragraph of a block quote, and each line of a code block, by
+        # its first line's text: an unnumbered line of its own.
+        quoted = "\n".join(l for l in body.split("\n") if l.startswith(">"))
         self.quotes = [
-            norm(re.sub(r"^>\s?", "", b.split("\n")[0])) for b in blocks if b.startswith(">")
+            norm(re.sub(r"^>\s?", "", q.strip().split("\n")[0], flags=re.M))
+            for q in re.split(r"^>\s*$", quoted, flags=re.M) if q.strip()
         ]
+        self.quotes += [norm(l) for c in re.findall(r"^```[^\n]*\n(.*?)^```", body, re.S | re.M) for l in c.split("\n") if l.strip()]
 
     @staticmethod
     def print_date(v, today):
@@ -262,7 +273,7 @@ class Memo:
         return self.authority.upper().rstrip(":").rstrip() + ":"
 
     def enclosure_listing(self):
-        """(header, [(label or None, text)]) per R47."""
+        """(header, [(label or None, text)]) per AR 25-50 2-4c(3) and 4-2c."""
         entries = self.enclosures
         as_ = [norm(e).lower() in ("as", "as stated") for e in entries]
         n = len(entries)
@@ -529,9 +540,9 @@ def designator(seg):
 
 
 def ends_sentence(token, nxt, before=""):
-    if not nxt or not (nxt[0].isupper() or nxt[0].isdigit() or nxt[0] in "\"“‘("):
+    if not nxt or not (nxt[0].isupper() or nxt[0].isdigit() or nxt[0] in "\"'“‘("):
         return False
-    core = token.rstrip("\"”’)")
+    core = token.rstrip("\"'”’)")
     if core.endswith("?"):
         return True
     if not core.endswith("."):
@@ -543,6 +554,8 @@ def ends_sentence(token, nxt, before=""):
         return False
     if word in NUMBER_LEADS:
         return not nxt[0].isdigit()
+    if word in DESIGNATOR_LEADS:
+        return not DESIGNATOR.match(nxt)
     return True
 
 
@@ -623,7 +636,8 @@ def validate(fixture_arg, pdf_path, today):
     for pg in pages:
         bases = [r.base for r in pg.header + pg.flow] + [g.y for g in pg.table_glyphs]
         if bases:
-            rep.expect("C04", max(bases) <= 720 + 0.01, f"page {pg.index + 1} lowest baseline {max(bases):.2f}")
+            limit = 720 - DESCENDER * size
+            rep.expect("C04", max(bases) <= limit + 0.01, f"page {pg.index + 1} lowest baseline {max(bases):.2f} (descenders reach {max(bases) + DESCENDER * size:.2f})")
 
     # Page 1 heading.
     flow1 = p1.flow
@@ -678,6 +692,11 @@ def validate(fixture_arg, pdf_path, today):
         rep.near(cid, f"line {k + 1} baseline", seg.base, want_base)
         rep.near(cid, f"line {k + 1} center", (seg.x0 + seg.end) / 2, 306.0)
         rep.expect(cid, seg.end - seg.x0 <= 360 + 0.01, f"line {k + 1} width {seg.end - seg.x0:.2f}")
+        if seg.end - seg.x0 < 359:
+            space = 0.25 * (11.0 if k == 0 else 8.0)
+            for t, (before, after) in enumerate(zip(seg.tokens, seg.tokens[1:])):
+                zip_gap = re.fullmatch(r"[A-Z]{2}", before) and re.fullmatch(r"\d{5}(-\d{4})?", after)
+                rep.near(cid, f"line {k + 1} gap before {after!r}", seg.gaps[t], 2 * space if zip_gap else space, GAP)
 
     # C12 continuation pages are plain.
     for pg in pages[1:]:
@@ -722,7 +741,7 @@ def validate(fixture_arg, pdf_path, today):
         rep.expect("C16", not date_widgets, "Date widget present with a printed date")
     else:
         rep.expect("C15", not os_right, f"text in the date slot: {[s.text for s in os_right]}")
-        want = [540 - 8.5 * size, memo.os - 0.831 * size, 540, memo.os + 0.169 * size]
+        want = [540 - 8.5 * size, memo.os - 1.06 * size, 540, memo.os + 0.44 * size]
         if rep.expect("C16", len(date_widgets) == 1, f"{len(date_widgets)} Date widgets"):
             pg, _, kind, rect, xref = date_widgets[0]
             got = list(rect)
@@ -845,6 +864,7 @@ def validate(fixture_arg, pdf_path, today):
 
     # The body and closing, page by page.
     name_row = auth_row = None
+    auth_rows = []
     closing_page = None
     if memo.signature:
         want_name = norm(memo.signature[0]).upper()
@@ -863,12 +883,25 @@ def validate(fixture_arg, pdf_path, today):
         search = [pages[closing_page]] if closing_page is not None else pages
         for pg in search:
             for r in pg.flow:
-                if r.text == memo.authority_text or norm(r.text).upper().startswith(memo.authority_text.rstrip(":")):
+                t = norm(r.text)
+                if t == memo.authority_text or (len(t) >= min(8, len(memo.authority_text)) and memo.authority_text.startswith(t)) \
+                        or t.upper().startswith(memo.authority_text.rstrip(":")):
                     if name_row is None or (r.base < name_row.base):
                         auth_row = r
             if auth_row:
                 closing_page = pg.index
-    closing_start = auth_row.base if auth_row else name_row.base if name_row else None
+        # An authority line wider than the text turns over at the margin.
+        if auth_row:
+            flow = pages[closing_page].flow
+            auth_rows = [auth_row]
+            for r in flow[flow.index(auth_row) + 1:]:
+                joined = norm(" ".join(a.text for a in auth_rows))
+                if (len(joined) >= len(memo.authority_text) or abs(r.x0 - 72) > POS
+                        or abs(r.base - auth_rows[-1].base - lu) > LU_TOL * lu or r is name_row):
+                    break
+                auth_rows.append(r)
+            auth_row = auth_rows[-1]
+    closing_start = auth_rows[0].base if auth_rows else name_row.base if name_row else None
 
     body = []  # (page, rows and tables in order)
     for pg in pages:
@@ -890,6 +923,9 @@ def validate(fixture_arg, pdf_path, today):
         b = it[1] + memo.cap if it[0] == "table" else it[1]
         rep.steps("C27", "first body line below SUBJECT", subject_rows[-1].base, b, 3, lu)
 
+    def opens_quote(row):
+        return any(norm(row.text).startswith(strip_md(q)[:20]) for q in memo.quotes)
+
     # Paragraphs.
     paragraphs = []  # each: list of rows (and possibly ("table",...))
     pitches = []
@@ -906,7 +942,7 @@ def validate(fixture_arg, pdf_path, today):
                 prev = (kind, y, obj)
                 continue
             if prev is None:
-                cont = bool(paragraphs) and paragraphs[-1][-1][0] == "row" and not starts_paragraph(obj)
+                cont = bool(paragraphs) and paragraphs[-1][-1][0] == "row" and not starts_paragraph(obj) and not opens_quote(obj)
                 if cont:
                     paragraphs[-1].append(("row", obj))
                 else:
@@ -955,7 +991,7 @@ def validate(fixture_arg, pdf_path, today):
             rep.near("C29", f"{seg.tokens[0]} x0", seg.x0, x_by_level[level])
             want_gap = 2 * memo.space if level <= 2 else 18.0
             rep.near("C30", f"gap after {seg.tokens[0]}", seg.gaps[0], want_gap, GAP)
-        elif numbered and first.x0 <= 72 + POS and not any(norm(first.text).startswith(strip_md(q)[:20]) for q in memo.quotes):
+        elif numbered and first.x0 <= 72 + POS and not opens_quote(first):
             rep.expect("C29", False, f"numbered memo paragraph without a designator: {first!r}")
         for r in para[1:]:
             rep.near("C31", f"turnover {r!r} x0", r.x0, 72.0)
@@ -984,7 +1020,11 @@ def validate(fixture_arg, pdf_path, today):
         before = ""
         for j, r in enumerate(para):
             seg = r.segs[0]
-            sentence_gaps(seg.tokens, seg.gaps, before, skip_first=j == 0 and designator(seg) is not None)
+            if all(g.font.startswith("LiberationMono") for g in seg.glyphs):
+                continue
+            # Levels 5 and 6 are an underlined number or letter.
+            deep = seg.x0 > 140 and re.fullmatch(r"\d+|[a-z]", seg.tokens[0])
+            sentence_gaps(seg.tokens, seg.gaps, before, skip_first=j == 0 and (designator(seg) is not None or deep))
             before = seg.tokens[-1]
     for pg in pages:
         for r in rows_of(pg.table_glyphs, pg.index) if pg.table_glyphs else []:
@@ -1045,17 +1085,19 @@ def validate(fixture_arg, pdf_path, today):
             rep.expect("C36", False, f"page {pg.index + 1} has drawings {fmt(pg.tables[0][:4])}")
 
     # The last body line above the closing.
-    last_body = None
-    if closing_page is not None:
-        rows = [obj for kind, _, obj in body[closing_page] if kind == "row"]
-        last_body = rows[-1].base if rows else None
+    last_body = last_item = None
+    if closing_page is not None and body[closing_page]:
+        last_item = body[closing_page][-1]
+        last_body = last_item[2].base if last_item[0] == "row" else last_item[2][3]
 
     # C37 authority line.
     if memo.authority_text:
         if rep.expect("C37", auth_row is not None, "no authority line"):
-            rep.expect("C37", auth_row.text == memo.authority_text, f"text {auth_row.text!r} (want {memo.authority_text!r})")
-            rep.near("C37", "x0", auth_row.x0, 72.0)
-            rep.steps("C37", "below the text", last_body, auth_row.base, 2, lu)
+            text = norm(" ".join(r.text for r in auth_rows))
+            rep.expect("C37", text == memo.authority_text, f"text {text!r} (want {memo.authority_text!r})")
+            for r in auth_rows:
+                rep.near("C37", "x0", r.x0, 72.0)
+            rep.steps("C37", "below the text", last_body, auth_rows[0].base, 2, lu)
     elif auth_row:
         rep.expect("C37", False, f"unexpected authority line {auth_row!r}")
 
@@ -1191,10 +1233,16 @@ def validate(fixture_arg, pdf_path, today):
         groups, problems = match_lines(got_rows, entries, 72.0, 72.0, transform=upper)
         rep.expect(cid, not problems, "; ".join(problems) or f"{label} entries")
         if see_next and groups and groups[0][1]:
-            limit = 720.0
+            limit = 720.0 - DESCENDER * size
             if see_row.page == 0 and p1.cui:
                 limit = min(limit, p1.cui[0].base - 0.662 * 10 - 0.488 * size)
             first_lines = len(groups[0][1])
+            # A lone entry keeps the CF label and first CF entry with it.
+            if len(entries) == 1 and memo.cf:
+                k = next((j for j in range(li, len(listing_rows)) if listing_rows[j].text.startswith("CF:")), None)
+                if k is not None:
+                    cf_groups, _ = match_lines(listing_rows[k + 1:], memo.cf, 72.0, 72.0, transform=upper)
+                    first_lines += 2 + (len(cf_groups[0][1]) if cf_groups and cf_groups[0][1] else 1)
             rep.expect(cid, see_row.base + first_lines * lu > limit - 0.01,
                        "(see next page) though the first entry fits below the label")
         seq = [lab] + got_rows
@@ -1278,7 +1326,12 @@ def validate(fixture_arg, pdf_path, today):
                     rep.expect("C49", min(split) >= 2, f"sentence split {split[0]} | {split[1]} words across pages {a + 1}-{b + 1}")
     if len(pages) > 1 and text_paragraphs:
         rep.expect("C49", True, "page breaks")
-    if closing_page is not None and text_paragraphs:
+    if last_item and last_item[0] == "table":
+        t = last_item[2]
+        rows = {round(g.y, 1) for g in pages[closing_page].table_glyphs
+                if t[0] <= g.x <= t[2] and t[1] < g.y < t[3] and "Bold" not in g.font}
+        rep.expect("C50", len(rows) >= 2, f"{len(rows)} table row(s) above the closing on page {closing_page + 1}")
+    elif closing_page is not None and text_paragraphs:
         last_para = text_paragraphs[-1]
         above = [r for r in last_para if r.page == closing_page]
         ok = len(above) >= 2 or (len(last_para) == 1 and above)
@@ -1368,7 +1421,7 @@ def validate(fixture_arg, pdf_path, today):
         rep.near("C56", "office symbol baseline", symbol_rows[0].base if symbol_rows else None, 100.95 + 26.37 * size / 12)
         if date_widgets:
             r = date_widgets[0][3]
-            rep.near("C56", "Date widget height", r.y1 - r.y0, size, RECT)
+            rep.near("C56", "Date widget height", r.y1 - r.y0, 1.5 * size, RECT)
         for para in text_paragraphs:
             seg = para[0].segs[0]
             level = designator(seg)

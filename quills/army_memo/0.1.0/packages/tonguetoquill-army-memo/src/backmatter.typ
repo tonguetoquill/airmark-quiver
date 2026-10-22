@@ -4,7 +4,8 @@
 
 #let backmatter(
   signature-block: (),
-  // "FOR THE COMMANDER" where the signer acts for the commander. Blank is no line.
+  // "FOR THE COMMANDER", or "FOR THE" another head, where the signer acts for
+  // them. Blank is no line.
   authority-line: none,
   signature-blank-lines: 4,
   signing-field: none,
@@ -39,7 +40,8 @@
       line-count(render-enclosures(enclosures), ENCLOSURE_WIDTH),
       1,
     )
-    let lead = if format-authority-line(authority-line) == none { 0 } else { 2 }
+    let authority = format-authority-line(authority-line)
+    let lead = if authority == none { 0 } else { 1 + line-count(par(authority), width) }
     let head = listing-head-lines(distribution, cf, width)
     [#metadata((lead + signature-blank-lines + rows + head) * line)<army-memo-closing-need>]
   }

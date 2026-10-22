@@ -2,16 +2,16 @@
 $quill: army_memo
 addressing:
   memo_for:
-    - Commander, 1st Armored Division (AFZC-XO), Fort Bliss, TX  79916-6812
+    - Executive Officer, 123d Signal Battalion (AFZC-SC-XO)
+    - Operations Officer, 123d Signal Battalion (AFZC-SC-OP)
   office_symbol: AFZC-SC
   record_number: 25-50a
-  subject: Annual Records Management Review
+  subject: Delegation of Signature Authority
   date: today
-  authority_line: FOR THE COMMANDER
   signature_block:
-    - JOHN A. SMITH
-    - MAJ, SC
-    - Executive Officer
+    - ROBERT T. JONES
+    - LTC, SC
+    - Commanding
 letterhead:
   letterhead_title:
     - DEPARTMENT OF THE ARMY
@@ -21,22 +21,22 @@ letterhead:
     - FORT BLISS, TX  79916-6812
 additional:
   references:
-    - "AR 25-400-2 (The Army Records Information Management System (ARIMS))"
     - "AR 25-50 (Preparing and Managing Correspondence)"
+    - "AR 25-400-2 (The Army Records Information Management System (ARIMS))"
   enclosures:
     - as
-    - as
   cf:
-    - Director, Network Enterprise Center
+    - Company Commanders, 123d Signal Battalion
 ~~~
 
-This memorandum directs the annual review of every office of record in the battalion. Each company completes its review by 13 November 2026.
+Under reference 1a, I delegate to the battalion executive officer and the battalion operations officer the authority to sign for me, with the authority line FOR THE COMMANDER:
 
-Each records custodian checks the company's offices of record against the Records Management Self-Inspection Checklist at enclosure 1:
+- Correspondence that carries out approved battalion policy.
+- Taskings to the companies within their assigned missions.
+- Replies to inquiries from the division staff.
 
-- Confirm that the Battalion File Plan at enclosure 2 lists every record series the office keeps.
-- Stage each file past its cutoff for retirement or destruction, as its disposition directs.
+The signature matrix at the enclosure lists what each officer signs. Each signs with his or her own signature block and title. Correspondence that sets policy comes to me for signature.
 
-Custodians who need help can attend a workshop in the battalion conference room at 0900 on 27 October 2026. Every Soldier and Civilian who keeps records is welcome.
+I may cancel this delegation at any time, and a new commander reviews it on assuming command. The S-1 files it under record number 25-50a, as reference 1b requires.
 
-The point of contact is CPT Maria L. Garcia, Battalion Records Manager, 1234 Example Avenue, Room 210, at 915-555-0123 or maria.l.garcia.mil@army.mil.
+The point of contact is CPT Maria L. Garcia, Battalion Adjutant, 1234 Example Avenue, Room 210, at 915-555-0123 or maria.l.garcia.mil@army.mil.
