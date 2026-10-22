@@ -24,6 +24,10 @@
   banner's `dissemination` control, which a blank or UNCLASSIFIED banner
   drops.
 
+- **`cyber_career_plan@0.1.0` moves the Maj board to YG+9.** A 2018 year
+  group meets its board in 2027. The board shares its column with Cyber 300,
+  printed above it, and no longer with IDE 1st look.
+
 ## v0.39.0 - 2026-10-19
 
 - **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
