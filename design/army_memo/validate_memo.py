@@ -1014,15 +1014,14 @@ def validate(fixture_arg, pdf_path, today):
     numbered = len(memo.top_paragraphs) + (1 if memo.references else 0) > 1
 
     # C29, C30, C31 designators and turnovers.
-    x_by_level = {1: 72.0, 2: 90.0, 3: 108.0, 4: 126.0}
+    x_by_level = {1: 72.0, 2: 90.0, 3: 108.0, 4: 108.0}
     for para in text_paragraphs:
         first = para[0]
         seg = first.segs[0]
         level = designator(seg)
         if level and (numbered or level > 1):
             rep.near("C29", f"{seg.tokens[0]} x0", seg.x0, x_by_level[level])
-            want_gap = 2 * memo.space if level <= 2 else 18.0
-            rep.near("C30", f"gap after {seg.tokens[0]}", seg.gaps[0], want_gap, GAP)
+            rep.near("C30", f"gap after {seg.tokens[0]}", seg.gaps[0], 2 * memo.space, GAP)
         elif numbered and first.x0 <= 72 + POS and not opens_quote(first):
             rep.expect("C29", False, f"numbered memo paragraph without a designator: {first!r}")
         for r in para[1:]:

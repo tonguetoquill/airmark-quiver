@@ -9,12 +9,12 @@
   below the seal, a bold suspense date above it, and MEMORANDUM FOR one to
   five addresses, SEE DISTRIBUTION or RECORD. MEMORANDUM THRU gives each
   routing office a signature and a comment field beside its address. The body
-  numbers `1.`, `a.`, `(1)`, `(a)`, a quarter inch in per level, with two
-  spaces after each sentence and at least two of a sentence's words on each
-  side of a page break, and prints the references as its first paragraph and a
-  code block as unnumbered lines. The closing carries the authority line, the
-  signature block at the center of the page beside the enclosure listing in
-  AR 25-50's forms, and the DISTRIBUTION and CF lists in capitals, as the
+  numbers `1.`, `a.`, `(1)`, `(a)`, a quarter inch in per level to `(1)`,
+  with `(a)` under `(1)`, two spaces after each designator and sentence, and
+  at least two of a sentence's words on each side of a page break, and prints
+  the references as its first paragraph and a code block as unnumbered lines.
+  The closing carries the authority line, the signature block at the center of
+  the page beside the enclosure listing in AR 25-50's forms, and the DISTRIBUTION and CF lists in capitals, as the
   addresses are; a distribution list that starts the next page is marked
   `(see next page)` on this one. The closing never starts a page without the
   last two lines of the text, or the last two rows of a table the text ends

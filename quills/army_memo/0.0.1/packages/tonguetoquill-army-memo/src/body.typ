@@ -156,14 +156,11 @@
 
 #let label-for(level, number) = numbering(numbering-formats.at(level, default: "i."), number)
 
-// AR 25-50 2-4b(3) and 1-39b(9),(10): the designator a quarter inch in per
-// level, two spaces after one ending in a period, a quarter inch after one
-// ending in a parenthesis.
-#let designator(level, number) = {
-  let label = label-for(level, number)
-  let gap = if type(label) == str and label.ends-with(")") { h(PAREN_GAP) } else { PERIOD_GAP }
-  [#label#gap]
-}
+// AR 25-50 2-4b(3) and figure 2-1: the designator a quarter inch in per
+// level to the second subdivision, two spaces after it.
+#let designator(level, number) = [#label-for(level, number)#PERIOD_GAP]
+
+#let designator-indent(level) = INDENT_STEP * calc.min(level, INDENT_LEVELS)
 
 #let reset-levels-from(level-counts, start) = {
   for child in range(start, numbering-formats.len()) {
@@ -182,7 +179,7 @@
 #let text-offset(level, level-counts) = {
   if level <= 0 { return 0pt }
   let number = calc.max(1, level-counts.at(str(level), default: 1) - 1)
-  INDENT_STEP * level + measure(designator(level, number)).width
+  designator-indent(level) + measure(designator(level, number)).width
 }
 
 // AR 25-50 2-5c(4): the closing never starts a page without the end of the
@@ -462,7 +459,7 @@
         let number = level-counts.at(str(level), default: 1)
         level-counts.insert(str(level), number + 1)
         level-counts = reset-levels-from(level-counts, level + 1)
-        [#h(INDENT_STEP * level)#designator(level, number)#spaced]
+        [#h(designator-indent(level))#designator(level, number)#spaced]
       } else { spaced }
       let offset = text-offset(level, level-counts)
       let indent(body) = {
