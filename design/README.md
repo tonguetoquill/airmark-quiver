@@ -23,6 +23,69 @@ python3 design/afmc_moa/validate_moa.py design/afmc_moa/fixtures/maximal.md /tmp
 reimbursable one with two card-driven attachments, so it exercises the
 Attachment A/B/C lettering.
 
+## army_memo
+
+Fixtures, a render helper, and a layout check for the `army_memo` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/army_memo/render_fixture.mjs design/army_memo/fixtures/basic.md /tmp/basic.pdf 2026-10-13
+
+# with no fixture, renders the blueprint the schema seeds
+node design/army_memo/render_fixture.mjs /tmp/seed.pdf 2026-10-13
+
+# measure the rendered PDF against AR 25-50 (`seed` in place of a fixture
+# measures a blueprint render)
+python3 -I design/army_memo/validate_memo.py design/army_memo/fixtures/basic.md /tmp/basic.pdf
+```
+
+`validate_memo.py` needs `pymupdf` and `pyyaml`, and `node` for a render of its
+own that it reads for the quill, document and render warnings. It prints PASS,
+FAIL or SKIP for each item of the layout checklist, C01 to C58, and G4 for the
+render warnings; `-v` lists every measurement behind them. AR 25-50 places each
+element a stated number of lines below the one before it, so the check reads
+those offsets in lines, 1.15 times the font size, and everything else in points
+on the page. It measures glyph by glyph: the gap after a sentence's period is
+read against AR 25-50's rule for where a sentence ends, not against a list of
+the fixture's sentences.
+
+The fixtures, by what each reaches that the others do not:
+
+- `basic.md`: the anchors every position is measured from, from the office
+  symbol to the signature block, and the single space after `Mr.` and `L.`.
+- `two_page_suspense.md`: a suspense date, a wrapped address and subject, an
+  authority line typed in lowercase without its colon, and a last paragraph
+  that splits two lines and two so the closing never starts a page alone.
+- `thru_single.md`, `thru_multiple.md`: one and two THRU offices, each with a
+  signature and a comment field the height of its address, and a blank date's
+  `Date` field.
+- `multiple_address.md`: five addresses under a two-line office symbol, with
+  the DoD seal.
+- `max5_overflow.md`: six addresses and six letterhead lines, which warn
+  `validation::cardinality` and still render.
+- `see_distribution.md`: SEE DISTRIBUTION, an eight-entry distribution list,
+  two described enclosures and a CF list.
+- `mfr.md`: a memorandum for record whose one paragraph is unnumbered and whose
+  subparagraphs are lettered.
+- `closing.md`: a single reference, a civilian signature block that wraps, a
+  mixed enclosure listing (`1–3.  as`), and `CF: (w/o encls)`.
+- `encl_one_as.md`, `encl_two_as.md`, `encl_one_described.md`,
+  `encl_many_described.md`: the other enclosure forms, `Encl`, `Encls`, `Encl`
+  over its description, and `4 Encls` numbered.
+- `deep_nesting.md`: four levels of subparagraph, a `10.`, and every case the
+  sentence rule decides, each inside a line where its gap can be measured.
+- `cui.md`, `secret_banner.md`: black banners, and the CUI block as a page-1
+  float the text stops above.
+- `font11.md`: `basic.md` at 11pt, where the line and the office symbol's
+  position scale and the letterhead does not.
+- `clp_example2.md`: the second example memorandum's content, a table among it.
+  The table sets in the 12pt body face, taller than the example's small link
+  text, so the memo takes three pages where C48 asks for the example's two.
+
+`make_black_seal.py` writes the quill's black-ink seals from `usaf_memo`'s
+color ones (AR 25-50 1-16b(3)); run it from the repo root to regenerate them.
+
 ## cyber_career_plan
 
 Fixtures, a render helper, and a check for the `cyber_career_plan` quill.

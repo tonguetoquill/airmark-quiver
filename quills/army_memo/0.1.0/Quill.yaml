@@ -1,0 +1,184 @@
+quill:
+  name: army_memo
+  version: 0.1.0
+  backend: typst
+  description: U.S. Army Memorandum
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "Write the body as plain paragraphs. They're numbered for you, and bullets become lettered subparagraphs. Use a block quote for lines that shouldn't be numbered. End with a paragraph naming the point of contact, with phone and email."
+  fields:
+    classification:
+      type: enum
+      values:
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        compact: true
+      description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
+      variants:
+        CUI:
+          controlled_by:
+            type: text
+            description: "The office that designated this information as CUI, for example 'HQDA DCS G-2'."
+          poc:
+            type: text
+            description: "Who to contact with questions about this CUI, with phone and email, for example 'MAJ J. Smith, 555-123-4567, john.smith@army.mil'."
+          category:
+            type: text
+            default: ""
+            description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
+          limited_dissemination:
+            type: text
+            default: ""
+            description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
+
+    dissemination:
+      type: text
+      default: ""
+      ui:
+        compact: true
+      description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
+
+    addressing:
+      type: object
+      properties:
+        memo_for:
+          type: array
+          items:
+            type: text
+          default: []
+          max: 5
+          ui:
+            compact: true
+          description: "Each addressee's office and address, one per line. To send it to someone's attention, add their office symbol and name in parentheses after the office. For more than five, enter 'SEE DISTRIBUTION' and list them under Distribution. Leave blank for a memorandum for record."
+
+        memo_thru:
+          type: array
+          items:
+            type: text
+          default: []
+          ui:
+            compact: true
+          description: "Each office that comments on the memo before it reaches the addressee, in order, one per line. Each gets a signature field at the end of its line."
+
+        office_symbol:
+          type: text
+          ui:
+            compact: true
+          description: "Your office symbol, for example 'AFZC-SC'. Add a contract or other number after it if the memo needs one."
+
+        record_number:
+          type: text
+          ui:
+            compact: true
+          description: "The ARIMS record number of the file this memo goes in, for example '25-50a'. It prints in parentheses after your office symbol."
+
+        subject:
+          type: richtext
+          multiline: false
+          description: "A subject of ten words or fewer, in title case and without abbreviations."
+
+        date:
+          type: date
+          default: ""
+          ui:
+            compact: true
+          description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
+
+        suspense:
+          type: date
+          default: ""
+          ui:
+            compact: true
+          description: "The date you need a reply by. It prints in bold above the date, so give it in the body too. Leave blank when no reply is due."
+
+        authority_line:
+          type: text
+          default: ""
+          ui:
+            compact: true
+          description: "Usually blank. When you sign for the commander, enter 'FOR THE COMMANDER'. Leave blank when the commander or office head signs."
+
+        signature_block:
+          type: array
+          items:
+            type: text
+          ui:
+            compact: true
+          description: "Your name in capitals on the first line, for example 'JOHN A. SMITH'. Your grade and branch on the second, for example 'COL, GS', and your title on the third. Civilians put their title on the second line."
+
+    letterhead:
+      type: object
+      properties:
+        letterhead_title:
+          type: array
+          items:
+            type: text
+          default:
+            - DEPARTMENT OF THE ARMY
+          max: 5
+          description: "The letterhead, in uppercase. Keep the first line, then add your organization's name and its full mailing address, ending with the nine-digit ZIP code, for example 'FORT BLISS, TX 79916-6812'."
+
+        letterhead_seal:
+          type: enum
+          values:
+            - dow
+            - dod
+          default: dow
+          ui:
+            compact: true
+          description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
+
+    additional:
+      type: object
+      properties:
+        references:
+          type: array
+          items:
+            type: richtext
+            multiline: false
+          default: []
+          description: "Cite each by number and title, for example 'AR 25-50 (Preparing and Managing Correspondence)', in the order the memo mentions them. They print as the first paragraph."
+
+        enclosures:
+          type: array
+          items:
+            type: richtext
+            multiline: false
+          default: []
+          description: "Each enclosure in the order the memo mentions it, described briefly with its date, for example 'Memorandum, OTJAG, 15 Feb 19'. Enter 'as' for one the body already describes."
+
+        distribution:
+          type: array
+          items:
+            type: text
+          default: []
+          description: "Everyone the memo goes to, one per line, when Memo For says 'SEE DISTRIBUTION'."
+
+        cf:
+          type: array
+          items:
+            type: text
+          default: []
+          description: "Offices that get a copy for their information, one per line."
+
+        cf_without_enclosures:
+          type: boolean
+          default: false
+          ui:
+            compact: true
+          description: "Turn on when the offices on the CF list don't get the enclosures."
+
+        font_size:
+          type: number
+          default: 12
+          ui:
+            compact: true
+          description: "Body text size in points. The standard is 12."

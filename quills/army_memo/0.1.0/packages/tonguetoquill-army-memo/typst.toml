@@ -1,0 +1,21 @@
+[package]
+name = "tonguetoquill-army-memo"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Typeset U.S. Army memorandums per AR 25-50."
+keywords = [
+    "Army",
+    "memorandum",
+    "memo",
+    "military",
+    "AR 25-50",
+    "official",
+    "correspondence",
+    "formatting",
+]
+categories = ["office", "report"]
+disciplines = ["politics", "law", "business", "engineering", "education"]
