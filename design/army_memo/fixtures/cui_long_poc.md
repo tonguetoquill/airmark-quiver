@@ -2,12 +2,13 @@
 $quill: army_memo@0.0
 $kind: main
 classification:
-  value: CUI
-  controlled_by: HQDA DCS G-2
-  poc: "Mr. Robert L. Jones, Records Manager, 915-555-0123, robert.l.jones@example.com"
-  category: PRVCY
-  limited_dissemination: FEDCON
-dissemination: FEDCON
+  level:
+    value: CUI
+    controlled_by: HQDA DCS G-2
+    poc: "Mr. Robert L. Jones, Records Manager, 915-555-0123, robert.l.jones@example.com"
+    category: PRVCY
+    limited_dissemination: FEDCON
+  dissemination: FEDCON
 addressing:
   memo_for:
     - Commander, 1st Armored Division

@@ -1,7 +1,8 @@
 ~~~
 $quill: army_memo@0.0
 $kind: main
-classification: SECRET
+classification:
+  level: SECRET
 addressing:
   memo_for:
     - Commander, 1st Armored Division
