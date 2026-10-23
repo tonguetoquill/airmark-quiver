@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- **An Army memorandum quill is added.** `army_memo@0.0.1` typesets a U.S.
+- **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.
   Army memorandum to AR 25-50: the DA letterhead and seal in black ink, the
   office symbol with its ARIMS record number and any other information, such
   as a contract number, the date or a fillable `Date` field on the second line
@@ -22,7 +22,10 @@
   at the foot. Classification banners and the CUI block are `usaf_memo`'s, in
   black, set from a `classification` section holding the `level` and the
   banner's `dissemination` control, which a blank or UNCLASSIFIED banner
-  drops.
+  drops. It is released at `0.1.0`, past the `0.0.x` draft tier, so a
+  deployment without `--drafts` serves it. The Army Memo template pins
+  `@0.1` and carries a record number placeholder, since AR 25-50 2-4a(2)
+  requires one on every memorandum.
 
 - **`cyber_career_plan@0.1.0` moves the Maj board to YG+9.** A 2018 year
   group meets its board in 2027. The board shares its column with Cyber 300,

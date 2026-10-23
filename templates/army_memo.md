@@ -1,9 +1,10 @@
 ~~~
-$quill: army_memo@0.0
+$quill: army_memo@0.1
 addressing:
   memo_for:
     - Office, Organization (OFFICE-SYMBOL)
   office_symbol: OFFICE-SYMBOL
+  record_number: RECORD-NUMBER
   subject: Your Subject Here
   date: today
   signature_block:

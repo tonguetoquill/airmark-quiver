@@ -1,5 +1,5 @@
 ~~~
-$quill: army_memo@0.0
+$quill: army_memo@0.1
 $kind: main
 addressing:
   office_symbol: AFZC-SC
