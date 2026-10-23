@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.40.0 - 2026-10-23
 
 - **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.
   Army memorandum to AR 25-50: the DA letterhead and seal in black ink, the
@@ -30,6 +30,12 @@
 - **`cyber_career_plan@0.1.0` moves the Maj board to YG+9.** A 2018 year
   group meets its board in 2027. The board shares its column with Cyber 300,
   printed above it, and no longer with IDE 1st look.
+
+- **A reference that wraps sets its second line under its own letter** in
+  `usaf_memo@0.3.0` and `usaf_letter@0.1.0`.
+
+- **The Cyber Career Plan template is removed.** `cyber_career_plan@0.1.0`
+  stays in the quiver; only its starter leaves `templates.json`.
 
 ## v0.39.0 - 2026-10-19
 
