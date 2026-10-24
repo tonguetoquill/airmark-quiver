@@ -3,12 +3,11 @@
 ## Unreleased
 
 - **An Air Force paper quill is added.** `usaf_paper@0.1.0` typesets the
-  talking paper (AFH 33-337, 27 May 2015, p. 225), the bullet background
-  paper (pp. 226–227), the background paper (pp. 228–229), and the position
-  paper (p. 230). Paper picks which. The formal trip report (p. 186) is the
-  official memorandum on the same quill. Each paper opens on its own
-  starter. The initials field is labeled Initials, and its sample is ABC.
-  `usaf_paper.md`, listed as `usaf-paper`, is the starter.
+  talking, bullet background, background and position papers (AFH 33-337,
+  27 May 2015, pp. 224–230). The title field prints the paper's name. A
+  bulleted list prints dashes, and a numbered list prints `1.`/`a.`/`(1)`/`(a)`.
+  Each paper has its own template. The formal trip report is a `usaf_memo`
+  template (p. 186).
 
 ## v0.40.0 - 2026-10-23
 

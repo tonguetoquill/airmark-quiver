@@ -1,7 +1,6 @@
-// Air Force papers: AFH 33-337 (27 May 2015). The page setup is the point
-// paper's (p. 224). The talking paper (p. 225) uses it with dash bullets.
-// The background paper (pp. 228–229) and the position paper (p. 230) use it
-// with the memorandum's paragraph numbering.
+// Air Force papers: AFH 33-337 (27 May 2015), pp. 224–230. The page is the
+// point paper's. A bulleted list prints dashes, one more per level. A
+// numbered list prints 1. / a. / (1) / (a). A plain paragraph is not numbered.
 
 #import "config.typ": *
 
@@ -72,147 +71,16 @@
   parts.map(p => [#p]).intersperse([/]).sum()
 }
 
-// pp. 228–229: paragraphs are numbered as in the official memorandum, 1. / a. /
-// (1) / (a). A single paragraph is not numbered. A bullet is a subparagraph.
+// Numbered-list depth, the same sequence the official memorandum uses.
 #let narrative-formats = ("1.", "a.", "(1)", "(a)")
-
-#let narrative-skip(c) = {
-  if c == none or c == [] { return true }
-  if type(c) != content { return false }
-  c == [ ] or c.func() == parbreak or c.func() == linebreak
-}
 
 #let narrative-prefix(level, n) = {
   let fmt = narrative-formats.at(calc.min(level, narrative-formats.len() - 1))
   [#numbering(fmt, n)#h(0.5em)]
 }
 
-#let narrative-indent(level) = {
-  if level <= 0 { return 0pt }
-  range(level).map(l => measure(narrative-prefix(l, 1)).width).sum()
-}
-
-#let narrative-block(node) = {
-  if type(node) != content or node == [ ] { return false }
-  let f = node.func()
-  (
-    f == parbreak or f == heading or f == list or f == enum
-      or f == list.item or f == enum.item or f == quote or f == table or f == par
-  )
-}
-
-// The body arrives as runs of text split by smart quotes, with a paragraph
-// break between paragraphs and list items beside them. Group each run into
-// one paragraph. A bullet is a subparagraph one level down.
-#let narrative-read(nodes, level, item-mode) = {
-  let out = ()
-  let inline = ()
-  let opened = false
-  for child in nodes {
-    let boundary = (
-      type(child) == content
-        and (
-          child.func() == parbreak
-            or child.func() == heading
-            or child.func() == list
-            or child.func() == enum
-            or child.func() == list.item
-            or child.func() == enum.item
-            or child.func() == quote
-            or child.func() == par
-            or (child.has("child") and child.has("styles"))
-            or (
-              child.has("children")
-                and not child.has("text")
-                and not child.has("body")
-                and not narrative-block(child)
-            )
-        )
-    )
-    if boundary or narrative-block(child) {
-      if inline.any(n => not narrative-skip(n)) {
-        let kind = if not item-mode { "par" } else if opened { "cont" } else { "item" }
-        out.push((level: level, kind: kind, body: inline.sum()))
-        opened = true
-      }
-      inline = ()
-      if type(child) != content or child.func() == parbreak {
-        // A paragraph break only separates runs.
-      } else if child.has("child") and child.has("styles") {
-        out += narrative-read((child.child,), level, item-mode)
-      } else if child.func() == list or child.func() == enum {
-        for item in child.children {
-          out += narrative-read((item,), level + 1, true)
-        }
-      } else if child.func() == list.item or child.func() == enum.item {
-        let body = child.at("body")
-        let nested = (
-          type(body) == content
-            and body.has("children")
-            and not body.has("text")
-            and body.func() != text
-        )
-        if nested {
-          out += narrative-read(body.children, level + 1, true)
-        } else {
-          out += narrative-read((body,), level + 1, true)
-        }
-      } else if child.func() == heading {
-        out.push((level: level, kind: "heading", body: child.body))
-      } else if child.func() == quote {
-        out.push((level: level, kind: "quote", body: child.body))
-      } else if child.func() == par {
-        out.push((level: level, kind: "par", body: child.body))
-      } else if child.has("children") and not child.has("text") and not child.has("body") {
-        out += narrative-read(child.children, level, item-mode)
-      } else {
-        out.push((level: level, kind: "par", body: child))
-      }
-    } else {
-      inline.push(child)
-    }
-  }
-  if inline.any(n => not narrative-skip(n)) {
-    let kind = if not item-mode { "par" } else if opened { "cont" } else { "item" }
-    out.push((level: level, kind: kind, body: inline.sum()))
-  }
-  out
-}
-
-#let narrative-gather(node, level) = {
-  if type(node) != content { return () }
-  narrative-read((node,), level, false)
-}
-
-#let narrative-body(body, item-gap) = {
-  let entries = narrative-gather(body, 0)
-  if entries.len() == 0 { return body }
-  let number-pars = entries.filter(e => e.kind == "par" and e.level == 0).len() > 1
-  let counts = (0, 0, 0, 0)
-  let first = true
-  for entry in entries {
-    let level = entry.level
-    let kind = entry.kind
-    let numbered = kind == "item" or (kind == "par" and (level > 0 or number-pars))
-    if numbered {
-      counts.at(level) = counts.at(level) + 1
-      for deeper in range(level + 1, counts.len()) { counts.at(deeper) = 0 }
-    }
-    let prefix = if numbered { narrative-prefix(level, counts.at(level)) } else { none }
-    let pad-left = narrative-indent(level)
-    if kind == "cont" { pad-left += measure(narrative-prefix(level, 1)).width }
-    if not first { v(item-gap, weak: true) }
-    first = false
-    block(width: 100%, breakable: true, spacing: 0pt, above: 0pt, below: 0pt)[
-      #set par(leading: single-leading, spacing: 0pt)
-      #pad(left: pad-left)[#prefix#entry.body]
-    ]
-  }
-}
-
 #let paper(
   document-title: [BULLET BACKGROUND PAPER],
-  narrative: false,
   subject: none,
   originator: none,
   organization: none,
@@ -340,25 +208,25 @@
       )
     }
 
-    if narrative {
-      narrative-body(it, item-gap)
-    } else {
-      set par(leading: single-leading, spacing: item-gap)
-      set block(above: item-gap, below: item-gap, spacing: item-gap)
-      set list(marker: dashes, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
-      set enum(
-        numbering: (..nums) => dashes(nums.pos().len() - 1),
-        indent: 0pt,
-        body-indent: 0pt,
-        spacing: item-gap,
-        tight: false,
-      )
-      show heading: heading => {
-        set text(size: font-size, weight: "regular")
-        block(heading.body)
-      }
-      show quote.where(block: true): q => pad(left: 0.5in, q.body)
-      it
+    set par(leading: single-leading, spacing: item-gap)
+    set block(above: item-gap, below: item-gap, spacing: item-gap)
+    set list(marker: dashes, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
+    // `full` hands the function every ancestor number. The prefix prints only
+    // this depth, and it already holds the gap after the designator. The body
+    // hangs beside that prefix, so a nested item starts at its parent's text.
+    set enum(
+      numbering: (..nums) => narrative-prefix(nums.pos().len() - 1, nums.pos().last()),
+      full: true,
+      indent: 0pt,
+      body-indent: 0pt,
+      spacing: item-gap,
+      tight: false,
+    )
+    show heading: heading => {
+      set text(size: font-size, weight: "regular")
+      block(heading.body)
     }
+    show quote.where(block: true): q => pad(left: 0.5in, q.body)
+    it
   }
 }
