@@ -3,7 +3,7 @@
 // Imported by path rather than as `@local/…`, so the check reads the working
 // tree and needs no package cache.
 
-#import "../../../quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/src/lib.typ": (
+#import "../../../quills/usaf_memo/0.4.0/packages/tonguetoquill-usaf-memo/src/lib.typ": (
   backmatter, frontmatter, indorsement, mainmatter,
 )
 

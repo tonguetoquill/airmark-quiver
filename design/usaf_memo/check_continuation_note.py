@@ -32,7 +32,7 @@ except ImportError as exc:
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-PACKAGE = REPO_ROOT / "quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo"
+PACKAGE = REPO_ROOT / "quills/usaf_memo/0.4.0/packages/tonguetoquill-usaf-memo"
 FONTS = PACKAGE / "fonts"
 TYPST = os.environ.get("TYPST", "typst")
 
@@ -46,7 +46,7 @@ COMBINATIONS = [
     if attachments or cc or distribution
 ]
 
-FIXTURE = """#import "/quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/src/lib.typ": (
+FIXTURE = """#import "/quills/usaf_memo/0.4.0/packages/tonguetoquill-usaf-memo/src/lib.typ": (
   backmatter, frontmatter, mainmatter,
 )
 

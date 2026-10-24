@@ -1,5 +1,5 @@
 ~~~
-$quill: usaf_letter@0.1
+$quill: usaf_letter@0.2
 $kind: main
 date: 2026-09-15
 letterhead_title: ["DEPARTMENT OF THE AIR FORCE", "123D EXAMPLE SQUADRON"]

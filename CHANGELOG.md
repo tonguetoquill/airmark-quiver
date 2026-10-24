@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- **The memo and the letter take a body font.** `usaf_memo@0.4.0` and
+  `usaf_letter@0.2.0` add a `body_font` choice of TeX Gyre Termes, the
+  AFH 33-337 standard and the default, Liberation Sans or Carlito. The quills
+  still ship TeX Gyre Termes alone: the other two set the body where the app's
+  font library supplies them, and elsewhere the body stays in TeX Gyre Termes
+  without a warning. A blank date's fill-in sets its value in Helvetica under
+  a sans body. The templates pin the new versions; `usaf_memo@0.3.0` and
+  `usaf_letter@0.1.0` stay for the documents pinned to them. Both new versions
+  read the session's families from the helper's `qm.font-families`, which
+  `@quillmark/wasm` 0.131.0 adds.
+
 ## v0.40.0 - 2026-10-23
 
 - **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.

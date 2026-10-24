@@ -25,7 +25,7 @@ const repoRoot = resolve(here, "../..");
 // root has to span both.
 const fonts = join(
   repoRoot,
-  "quills/usaf_memo/0.3.0/packages/tonguetoquill-usaf-memo/fonts",
+  "quills/usaf_memo/0.4.0/packages/tonguetoquill-usaf-memo/fonts",
 );
 const typst = process.env.TYPST ?? "typst";
 
