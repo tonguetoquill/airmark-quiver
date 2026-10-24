@@ -28,6 +28,41 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "talking-paper",
+    "name": "Talking Paper",
+    "description": "Talking paper. Bullets print dashes, one more per level (AFH 33-337)",
+    "file": "talking_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "bullet-background-paper",
+    "name": "Bullet Background Paper",
+    "description": "Bullet background paper. An opening paragraph, then dashes (AFH 33-337)",
+    "file": "bullet_background_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "background-paper",
+    "name": "Background Paper",
+    "description": "Background paper. A numbered list prints 1., a., (1), (a) (AFH 33-337)",
+    "file": "background_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "position-paper",
+    "name": "Position Paper",
+    "description": "Position paper. The first paragraph states the position (AFH 33-337)",
+    "file": "position_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "trip-report",
+    "name": "Formal Trip Report",
+    "description": "Formal trip report as an official memorandum (AFH 33-337)",
+    "file": "trip_report.md",
+    "tags": ["air-force", "memorandum", "travel"]
+  },
+  {
     "id": "medal-citation",
     "name": "Medal Citation",
     "description": "Air and Space Achievement Medal, Meritorious Service Medal, or Air and Space Commendation Medal",
