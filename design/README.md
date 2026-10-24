@@ -23,6 +23,108 @@ python3 design/afmc_moa/validate_moa.py design/afmc_moa/fixtures/maximal.md /tmp
 reimbursable one with two card-driven attachments, so it exercises the
 Attachment A/B/C lettering.
 
+## army_memo
+
+Fixtures, a render helper, and a layout check for the `army_memo` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/army_memo/render_fixture.mjs design/army_memo/fixtures/basic.md /tmp/basic.pdf 2026-10-13
+
+# with no fixture, renders the blueprint the schema seeds
+node design/army_memo/render_fixture.mjs /tmp/seed.pdf 2026-10-13
+
+# measure the rendered PDF against AR 25-50 (`seed` in place of a fixture
+# measures a blueprint render)
+python3 -I design/army_memo/validate_memo.py design/army_memo/fixtures/basic.md /tmp/basic.pdf
+```
+
+`validate_memo.py` needs `pymupdf` and `pyyaml`, and `node` for a render of its
+own that it reads for the quill, document and render warnings. It prints PASS,
+FAIL or SKIP for each item of the layout checklist, C01 to C59; `-v` lists
+every measurement behind them. AR 25-50 places each
+element a stated number of lines below the one before it, so the check reads
+those offsets in lines, 1.15 times the font size, and everything else in points
+on the page. It measures glyph by glyph: the gap after a sentence's period is
+read against AR 25-50's rule for where a sentence ends, not against a list of
+the fixture's sentences.
+
+The fixtures, by what each reaches that the others do not:
+
+- `basic.md`: the anchors every position is measured from, from the office
+  symbol to the signature block, and the single space after `Mr.` and `L.`.
+- `two_page_suspense.md`: a suspense date, a wrapped address and subject, an
+  authority line typed in lowercase without its colon over a staff officer's
+  signature, and a last paragraph that splits two lines and two so the closing
+  never starts a page alone.
+- `thru_single.md`, `thru_multiple.md`: one and two THRU offices a blank line
+  apart, each with a signature and a comment field spanning its address and the
+  blank line below, and a blank date's `Date` field.
+- `multiple_address.md`: five addresses under an office-symbol line whose
+  contract number does not fit beside the symbol and takes the second line,
+  with the DoD seal.
+- `max5_overflow.md`: six addresses and six letterhead lines, which warn
+  `validation::cardinality` and still render.
+- `see_distribution.md`: SEE DISTRIBUTION, an eight-entry distribution list,
+  two described enclosures and a CF list, all printed in capitals.
+- `distribution_next_page.md`: a body long enough that `DISTRIBUTION:` fits
+  under the closing and its first entry does not, so the label reads
+  `DISTRIBUTION: (see next page)` and the list starts the next page.
+- `mfr.md`: a memorandum for record whose one paragraph is unnumbered and whose
+  subparagraphs are lettered.
+- `closing.md`: a single reference, a civilian signature block that wraps, a
+  mixed enclosure listing (`1–3.  as`), and `CF: (w/o encls)`.
+- `encl_one_as.md`, `encl_two_as.md`, `encl_one_described.md`,
+  `encl_many_described.md`: the other enclosure forms, `Encl`, `Encls`, `Encl`
+  over its description, and `4 Encls` numbered.
+- `deep_nesting.md`: four levels of subparagraph, a `10.`, and every case the
+  sentence rule decides, each inside a line where its gap can be measured.
+- `cui.md`, `secret_banner.md`: black banners, and the CUI block on page 1,
+  which the text stops above.
+- `cui_keep.md`, `cui_long_poc.md`: a short CUI block over a closing that
+  carries two lines of the last paragraph to page 2, and a POC wide enough that
+  the block's last line would meet the bottom banner at `usaf_memo`'s height.
+- `font11.md`: `basic.md` at 11pt, where the line and the office symbol's
+  position scale and the letterhead does not.
+- `clp_example2.md`: the second example memorandum's content, a table among it.
+  The table sets in the 12pt body face, taller than the example's small link
+  text, so the memo takes three pages, the count C48 asks for.
+- `sentence_markup.md`: run-in headings ending in `.`, `?` and `:`, sentences
+  that end against bold, italic, a link and code, a block quote and a table of
+  several sentences, and the label, title and number-lead cases of the
+  sentence rule.
+- `blocks.md`: a heading followed by bullets, which takes its own number and
+  letters the bullets under it, a fenced code block in the monospace face, a
+  block quote of two paragraphs, and a sentence ending in `'Closed.'`.
+- `sentence_straddle.md`: a paragraph of short sentences that the page break
+  divides with two of a sentence's words on each page.
+- `final_paragraph_split.md`, `final_table.md`: a last paragraph that spans a
+  page on its own, and a last table that runs onto the next page; each keeps
+  its last two lines or rows with the closing.
+- `authority_wrapped.md`: an authority line that wraps, under a last paragraph
+  that splits two lines and two.
+- `distribution_one_cf.md`: a one-entry distribution list whose entry fits
+  below the label while the `CF:` bound to it does not, so the list starts the
+  next page.
+- `typed_spacing.md`: double spaces typed in the body, a reference, a quote
+  and a table cell; titles, `Class A.`, `et al.` and `pp.`; a subject whose
+  date turns over whole; a spelled-out State one space from its ZIP code; a
+  record number typed in parentheses, an authority line and an enclosure
+  typed with closing periods.
+- `body_constructs.md`: a thematic break, a list of a link, a strike and code
+  alone, a paragraph that is all link and one all strike, a definition, a task
+  list, and a file name wider than the column in the text and in a cell.
+- `list_body.md`: a body typed as a numbered Markdown list, numbered as the
+  memo's paragraphs with its nested items lettered.
+- `page_end_hyphen.md`: a page break that falls inside a paragraph of
+  hyphenated words, which never ends the page on a hyphen.
+- `table_row_keep.md`: a table whose four-line row does not fit the page, so
+  it moves whole under the repeated header.
+
+`make_black_seal.py` writes the quill's black-ink seals from `usaf_memo`'s
+color ones (AR 25-50 1-16b(3)); run it from the repo root to regenerate them.
+
 ## cyber_career_plan
 
 Fixtures, a render helper, and a check for the `cyber_career_plan` quill.

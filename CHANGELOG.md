@@ -10,6 +10,43 @@
   starter. The initials field is labeled Initials, and its sample is ABC.
   `usaf_paper.md`, listed as `usaf-paper`, is the starter.
 
+## v0.40.0 - 2026-10-23
+
+- **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.
+  Army memorandum to AR 25-50: the DA letterhead and seal in black ink, the
+  office symbol with its ARIMS record number and any other information, such
+  as a contract number, the date or a fillable `Date` field on the second line
+  below the seal, a bold suspense date above it, and MEMORANDUM FOR one to
+  five addresses, SEE DISTRIBUTION or RECORD. MEMORANDUM THRU gives each
+  routing office a signature and a comment field beside its address. The body
+  numbers `1.`, `a.`, `(1)`, `(a)`, a quarter inch in per level to `(1)`,
+  with `(a)` under `(1)`, two spaces after each designator and sentence, and
+  at least two of a sentence's words on each side of a page break, and prints
+  the references as its first paragraph and a code block as unnumbered lines.
+  The closing carries the authority line, the signature block at the center of
+  the page beside the enclosure listing in AR 25-50's forms, and the DISTRIBUTION and CF lists in capitals, as the
+  addresses are; a distribution list that starts the next page is marked
+  `(see next page)` on this one. The closing never starts a page without the
+  last two lines of the text, or the last two rows of a table the text ends
+  in. Continuation pages repeat the office symbol and subject and are numbered
+  at the foot. Classification banners and the CUI block are `usaf_memo`'s, in
+  black, set from a `classification` section holding the `level` and the
+  banner's `dissemination` control, which a blank or UNCLASSIFIED banner
+  drops. It is released at `0.1.0`, past the `0.0.x` draft tier, so a
+  deployment without `--drafts` serves it. The Army Memo template pins
+  `@0.1` and carries a record number placeholder, since AR 25-50 2-4a(2)
+  requires one on every memorandum.
+
+- **`cyber_career_plan@0.1.0` moves the Maj board to YG+9.** A 2018 year
+  group meets its board in 2027. The board shares its column with Cyber 300,
+  printed above it, and no longer with IDE 1st look.
+
+- **A reference that wraps sets its second line under its own letter** in
+  `usaf_memo@0.3.0` and `usaf_letter@0.1.0`.
+
+- **The Cyber Career Plan template is removed.** `cyber_career_plan@0.1.0`
+  stays in the quiver; only its starter leaves `templates.json`.
+
 ## v0.39.0 - 2026-10-19
 
 - **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries
