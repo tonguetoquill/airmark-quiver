@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Template tags follow one taxonomy.** Each template is tagged on service,
+  document type and purpose. Templates built on DAF guidance carry both
+  `air-force` and `space-force`, memo-based templates carry `memo`, forms carry
+  `form`, and the point, talking and background papers carry `briefing`.
+  `memorandum` becomes `memo`, and DAF Form 1206 trades `promotion` for
+  `nomination`.
+
 - **An Air Force paper quill is added.** `usaf_paper@0.1.0` typesets the
   point, talking, bullet background, background and position papers
   (AFH 33-337, 27 May 2015, chapter 16). The title field prints the paper's
