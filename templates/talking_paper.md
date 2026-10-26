@@ -3,7 +3,7 @@ $quill: usaf_paper@0.1
 $kind: main
 title: Talking Paper
 subject: Subject of the Paper
-originator: Rank Last
+contact: Rank Last
 office_symbol: ORG/SYMBOL
 phone: DSN 555-0100
 typist: abc
@@ -11,21 +11,25 @@ date: today
 $ext:
   editor:
     tips:
-      - The title prints in capitals above ON. The subject prints in capitals under ON, and a long subject wraps on its own.
-      - A bulleted list prints dashes, one more per level. A numbered list prints 1., a., (1), (a). A plain paragraph prints as written.
-      - A heading prints in capitals, flush left. Headings are optional: drop them to save space, or lead a bullet with a run-in label such as "Format:".
+      - Type `/` for bullets, tables, and more.
+      - Headings print in capitals and are optional. Drop them to save space, or start a bullet with a label like "Format:".
+      - Deeply customize the document in form fields above the body.
       - The identification line prints on the first page only. Clear the date to fill it in on the PDF.
 ~~~
 # Purpose
 
-- The point the listener should leave with
-- A second point, in a short phrase
+- Open with the issue and why it matters to your audience
 
-# Discussion
+# Key Points
 
-- The fact that supports the point
-  - A detail under that fact
+- The first point you will talk through
+  - The fact, figure, or position that backs it
+- The second point
+
+# Anticipated Questions
+
+- A question you expect, with a short answer
 
 # Recommendation
 
-- The action you want, stated so it can be approved as written
+- Close with the action you want, or restate your main point

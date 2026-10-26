@@ -3,7 +3,7 @@ $quill: usaf_paper@0.1
 $kind: main
 title: Background Paper
 subject: Subject of the Paper
-originator: Rank Last
+contact: Rank Last
 office_symbol: ORG/SYMBOL
 phone: DSN 555-0100
 typist: abc
@@ -11,16 +11,17 @@ date: today
 $ext:
   editor:
     tips:
-      - The title prints in capitals above ON. The subject prints in capitals under ON, and a long subject wraps on its own.
-      - A bulleted list prints dashes, one more per level. A numbered list prints 1., a., (1), (a). A plain paragraph prints as written.
-      - A paper with one paragraph isn't numbered. Write it as a plain paragraph.
+      - Number each paragraph `1.`, and indent to letter subparagraphs `a.`. A paper with one paragraph isn't numbered.
+      - Deeply customize the document in form fields above the body.
       - The identification line prints on the first page only. Clear the date to fill it in on the PDF.
 ~~~
-1. State the purpose of the paper and the outline of what follows. This paragraph is numbered when the paper has more than one.
+1. State the purpose of the paper, then give a road map of what follows.
 
-2. Give the background the reader needs, in the order that makes the conclusion follow. One paragraph, one idea.
+2. Give the background in the order the reader needs it. Keep each paragraph to one idea.
 
-   1. A fact that belongs under the paragraph above
-   2. A second fact
+   1. A fact or event that belongs under the paragraph above.
+   2. A second one.
 
-3. Close with the conclusion. Say what the background adds up to, and what decision or action it sits in front of.
+3. Discuss what the background means: the issue as it stands today, and what is at stake.
+
+4. Conclude with what it adds up to, and the decision or action it leads to.

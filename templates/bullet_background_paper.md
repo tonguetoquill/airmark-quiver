@@ -3,7 +3,7 @@ $quill: usaf_paper@0.1
 $kind: main
 title: Bullet Background Paper
 subject: Subject of the Paper
-originator: Rank Last
+contact: Rank Last
 office_symbol: ORG/SYMBOL
 phone: DSN 555-0100
 typist: abc
@@ -11,29 +11,26 @@ date: today
 $ext:
   editor:
     tips:
-      - The title prints in capitals above ON. The subject prints in capitals under ON, and a long subject wraps on its own.
-      - A bulleted list prints dashes, one more per level. A numbered list prints 1., a., (1), (a). A plain paragraph prints as written.
-      - A heading prints in capitals, flush left. Use one level of heading, and show what falls under it with dashes.
+      - Type `/` for bullets, tables, and more.
+      - Headings print in capitals. Start with PURPOSE, and indent bullets to go deeper.
+      - Deeply customize the document in form fields above the body.
       - The identification line prints on the first page only. Clear the date to fill it in on the PDF.
 ~~~
 # Purpose
 
-State the point of the paper in a sentence or a short paragraph. Say what the reader should take from it.
+State the purpose of the paper in a sentence. Say what the reader should take from it.
 
 # Background
 
-- One fact the reader needs, written as its own bullet
-- A second fact
-  - A detail that belongs under the fact above it
-    - A further detail, indented one more level
+- Give the history in the order it happened
+  - A date, decision, or fact under it
+- The next event
 
 # Discussion
 
-- The main point, which may run past one line when the reader needs the reason and not only the claim
-  - What supports it
+- Where things stand now, and why it matters
   - What it costs, changes, or puts at risk
 
-# Recommendation
+# Conclusion
 
-- The action you want, stated so the reader can approve it as written
-  - Who does it, and by when
+- What the background adds up to, or the action you recommend

@@ -272,3 +272,34 @@ for f in config utils primitives; do
       quills/usaf_letter/0.1.0/packages/tonguetoquill-usaf-letter/src/$f.typ
 done
 ```
+
+## usaf_paper
+
+Fixtures and a render helper for the `usaf_paper` quill.
+
+```sh
+# render a fixture to PDF (run from the repo root)
+node design/usaf_paper/render_fixture.mjs design/usaf_paper/fixtures/cui.md /tmp/cui.pdf
+
+# with no fixture, renders the blueprint the schema seeds
+node design/usaf_paper/render_fixture.mjs /tmp/seed.pdf
+```
+
+`quillkit test` renders the one-page example and the templates, none of which
+wraps a subject, leaves a page, or carries a banner. The fixtures, by what each
+reaches that the others do not:
+
+- `long_subject.md`: a point paper whose subject wraps, centered, to a second
+  line under ON.
+- `no_subject.md`: a blank subject, which prints the title alone without ON,
+  and a blank date beside a filled identification line, which leaves the
+  fillable date field.
+- `multipage_background.md`: a background paper of numbered paragraphs four
+  levels deep, `1.` to `(a)`, each wrapping to the left margin, that runs onto
+  a second page: the page number prints from page 2 and the identification
+  line on page 1 only.
+- `cui.md`: CUI banners with a dissemination control, and the CUI block over
+  the identification line on page 1; the identification line is the
+  Chapter 16 sample's.
+- `secret.md`: SECRET banners, which move the identification line up to one
+  inch from the bottom.

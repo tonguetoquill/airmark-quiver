@@ -11,7 +11,8 @@ main:
   description: "A heading prints in capitals, flush left. A bulleted list prints dashes, one more per level. A numbered list prints 1., a., (1), (a). Plain paragraphs print as written."
   ui:
     groups:
-      document: {}
+      paper: {}
+      identification: {}
       classification: {}
       additional: {}
   fields:
@@ -19,49 +20,51 @@ main:
       type: text
       default: Talking Paper
       ui:
-        group: document
-      description: "The kind of paper, for example Talking Paper. It prints in capitals at the top, above ON."
+        group: paper
+      description: "The kind of paper, for example 'Talking Paper'. It prints in capitals at the top, above ON."
     subject:
       type: text
       default: Subject of the Paper
       ui:
-        group: document
-      description: "The subject, in title case. It prints in capitals under ON, and a long subject wraps, centered, on the next line."
-    originator:
+        group: paper
+      description: "A brief subject in title case. It prints in capitals under ON, and a long subject wraps, centered, on the next line. Leave blank to print the title alone."
+    contact:
       type: text
+      title: Point of Contact
       default: ""
       ui:
-        group: document
-      description: "Your rank and last name, for example 'MSgt Rivera'. It leads the identification line."
+        group: identification
+        compact: true
+      description: "Your rank and last name, for example 'MSgt Rivera'. It leads the identification line at the bottom of the first page."
     office_symbol:
       type: text
       default: ""
       ui:
-        group: document
+        group: identification
         compact: true
-      description: "Your office symbol, for example '123 ES/DO'."
+      description: "Your organization and office symbol, for example '123 ES/DO'."
     phone:
       type: text
       default: ""
       ui:
-        group: document
+        group: identification
         compact: true
-      description: "Your phone number, for example 'DSN 555-0142'."
+      description: "Your full DSN or 10-digit commercial number, for example 'DSN 555-0142'."
     typist:
       type: text
       title: Initials
       default: ""
       ui:
-        group: document
+        group: identification
         compact: true
       description: "The typist's initials in lowercase, for example 'arr'. Leave blank to leave them off the line."
     date:
       type: date
       default: ""
       ui:
-        group: document
+        group: identification
         compact: true
-      description: "The date you prepare the paper. It prints as 12 Oct 26. Leave blank to add a fillable date on the PDF."
+      description: "The date you prepare the paper. It prints as DD Mmm YY, for example 12 Oct 26. Leave blank to add a fillable date field to the PDF instead."
     classification:
       type: enum
       values:
