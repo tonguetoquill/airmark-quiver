@@ -1,12 +1,12 @@
 # Changelog
 
-## Unreleased
+## v0.41.0 - 2026-10-26
 
-- **The studio deploy no longer offers the templates.** quillkit 0.20 drops
-  studio's template picker, so the Pages and Vercel deploys open quills only.
-  `npm test` still renders every template, and the package still ships
-  `templates/`. `npm run site` is `npm run build`, writing `dist/`, and
-  `npm run dev` is `quillkit serve`.
+- **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
+  no longer offers the templates: quillkit 0.20 drops studio's template picker,
+  so the Pages and Vercel deploys open quills only. `npm test` still renders
+  every template, and the package still ships `templates/`. `npm run site` is
+  `npm run build`, writing `dist/`, and `npm run dev` is `quillkit serve`.
 
 - **Template tags follow one taxonomy.** Each template is tagged on service,
   document type and purpose. Templates built on DAF guidance carry both
