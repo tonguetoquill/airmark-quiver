@@ -27,7 +27,7 @@ jobs:
         run: npm test
 
       - name: Build the studio site
-        run: npm run site
+        run: npm run build
 
       # A fork PR cannot deploy to Pages, so the site it would have been served
       # at rides out as an artifact: unzip it, serve the directory, same client.
@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: studio-site
-          path: site/
+          path: dist/

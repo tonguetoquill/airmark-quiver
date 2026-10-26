@@ -1,4 +1,4 @@
-# Deploy the quiver's studio to Pages on every push to main. `quillkit site`
+# Deploy the quiver's studio to Pages on every push to main. `quillkit build`
 # writes the arrangement a deploy serves — the client at a root, a built quiver
 # at `quiver/` beneath it — and asserts both halves, so the build is one command
 # and the deploy stays here: nothing outside this repository holds `pages: write`.
@@ -33,7 +33,7 @@ jobs:
       - name: Install
         run: npm ci
 
-      # `quillkit site` packs files and opens none of them — it stats each
+      # `quillkit build` packs files and opens none of them — it stats each
       # `Quill.yaml` as a sentinel and never parses it — so a quill that does not
       # compile packs cleanly and reports itself in the client. That is what the
       # author's loop wants and what a deploy does not, and nothing makes this
@@ -42,11 +42,11 @@ jobs:
         run: npm test
 
       - name: Build the studio site
-        run: npm run site
+        run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: dist
 
   deploy:
     needs: build
