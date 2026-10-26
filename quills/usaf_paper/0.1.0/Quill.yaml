@@ -33,20 +33,13 @@ main:
       ui:
         group: document
       description: "Your rank and last name, for example 'MSgt Rivera'. It leads the identification line."
-    organization:
-      type: text
-      default: ""
-      ui:
-        group: document
-        compact: true
-      description: "Your organization, for example '123 ES'."
     office_symbol:
       type: text
       default: ""
       ui:
         group: document
         compact: true
-      description: "Your office symbol, for example 'DO'. It follows the organization: 123 ES/DO."
+      description: "Your office symbol, for example '123 ES/DO'."
     phone:
       type: text
       default: ""

@@ -3,8 +3,7 @@ $quill: usaf_paper
 title: Talking Paper
 subject: Squadron Physical Training Schedule
 originator: MSgt Rivera
-organization: 123 ES
-office_symbol: DO
+office_symbol: 123 ES/DO
 phone: DSN 555-0142
 typist: arr
 date: today

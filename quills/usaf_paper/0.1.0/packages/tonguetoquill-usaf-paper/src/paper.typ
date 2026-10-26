@@ -64,8 +64,8 @@
   if lines.len() == 0 { none } else { lines.join(linebreak()) }
 }
 
-#let identification-line(originator, organization, office-symbol, phone, typist, date) = {
-  let parts = (originator, organization, office-symbol, phone, typist).map(trim-inline).filter(p => not falsey(p))
+#let identification-line(originator, office-symbol, phone, typist, date) = {
+  let parts = (originator, office-symbol, phone, typist).map(trim-inline).filter(p => not falsey(p))
   if not falsey(date) { parts.push(date) }
   if parts.len() == 0 { return none }
   parts.map(p => [#p]).intersperse([/]).sum()
@@ -96,7 +96,6 @@
   document-title: [BULLET BACKGROUND PAPER],
   subject: none,
   originator: none,
-  organization: none,
   office-symbol: none,
   phone: none,
   typist: none,
@@ -120,7 +119,7 @@
   } else {
     none
   }
-  let id-line = identification-line(originator, organization, office-symbol, phone, typist, date)
+  let id-line = identification-line(originator, office-symbol, phone, typist, date)
   // The sample places the line in the footer, half an inch up. A bottom banner
   // occupies that band, so a marked paper uses the other placement the page
   // states: one inch from the bottom.

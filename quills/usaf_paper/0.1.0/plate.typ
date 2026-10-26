@@ -27,7 +27,6 @@
 #let authored-date = qm.ink(qm.data, "date", paper-date-pattern)
 #let any-id = (
   qm.data.originator,
-  qm.data.organization,
   qm.data.office_symbol,
   qm.data.phone,
   qm.data.typist,
@@ -44,7 +43,6 @@
   document-title: upper(qm.data.title),
   subject: qm.data.subject,
   originator: qm.data.originator,
-  organization: qm.data.organization,
   office-symbol: qm.data.office_symbol,
   phone: qm.data.phone,
   typist: qm.data.typist,

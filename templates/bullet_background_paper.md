@@ -4,8 +4,7 @@ $kind: main
 title: Bullet Background Paper
 subject: Subject of the Paper
 originator: Rank Last
-organization: ORG
-office_symbol: SYMBOL
+office_symbol: ORG/SYMBOL
 phone: DSN 555-0100
 typist: abc
 date: today
