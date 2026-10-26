@@ -19,13 +19,13 @@
   },
   "devDependencies": {
     "@quillmark/quiver": "0.38.1",
-    "@quillmark/wasm": "^0.129.0",
-    "quillkit": "0.19.3"
+    "@quillmark/wasm": "0.130.0",
+    "quillkit": "0.20.0"
   },
   "scripts": {
-    "test": "quillkit test && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
-    "site": "quillkit site --out site --drafts --templates templates",
-    "dev": "quillkit studio --templates templates"
+    "test": "quillkit check && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
+    "build": "quillkit build --drafts",
+    "dev": "quillkit serve"
   },
   "keywords": [
     "quillmark",
