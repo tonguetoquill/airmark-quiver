@@ -12,7 +12,7 @@ main:
   ui:
     groups:
       paper: {}
-      identification: {}
+      author: {}
       classification: {}
       additional: {}
   fields:
@@ -33,21 +33,21 @@ main:
       title: Point of Contact
       default: ""
       ui:
-        group: identification
+        group: author
         compact: true
       description: "Your rank and last name, for example 'MSgt Rivera'. It leads the identification line at the bottom of the first page."
     office_symbol:
       type: text
       default: ""
       ui:
-        group: identification
+        group: author
         compact: true
       description: "Your organization and office symbol, for example '123 ES/DO'."
     phone:
       type: text
       default: ""
       ui:
-        group: identification
+        group: author
         compact: true
       description: "Your full DSN or 10-digit commercial number, for example 'DSN 555-0142'."
     typist:
@@ -55,14 +55,14 @@ main:
       title: Initials
       default: ""
       ui:
-        group: identification
+        group: author
         compact: true
       description: "The typist's initials in lowercase, for example 'arr'. Leave blank to leave them off the line."
     date:
       type: date
       default: ""
       ui:
-        group: identification
+        group: author
         compact: true
       description: "The date you prepare the paper. It prints as DD Mmm YY, for example 12 Oct 26. Leave blank to add a fillable date field to the PDF instead."
     classification:
