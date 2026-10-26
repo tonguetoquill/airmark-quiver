@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+- **An Air Force paper quill is added.** `usaf_paper@0.1.0` typesets the
+  point, talking, bullet background, background and position papers
+  (AFH 33-337, 27 May 2015, chapter 16). The title field prints the paper's
+  name. A heading prints in capitals, flush left. A bulleted list prints
+  dashes, and a numbered list prints `1.`/`a.`/`(1)`/`(a)` with each paragraph
+  wrapping to the left margin. The identification line at the foot of the
+  first page prints the point of contact, office symbol, phone, typist's
+  initials and date, and a blank subject leaves off ON as well. Each paper
+  has its own template, which walks through that paper's flow, and the
+  template picker says when to use each. The formal trip report is a
+  `usaf_memo` template (p. 186).
+
 ## v0.40.0 - 2026-10-23
 
 - **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.

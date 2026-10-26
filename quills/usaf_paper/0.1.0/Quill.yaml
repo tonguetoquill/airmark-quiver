@@ -1,0 +1,110 @@
+quill:
+  name: usaf_paper
+  version: 0.1.0
+  backend: typst
+  description: U.S. Air Force Paper
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "A heading prints in capitals, flush left. A bulleted list prints dashes, one more per level. A numbered list prints 1., a., (1), (a). Plain paragraphs print as written."
+  ui:
+    groups:
+      paper: {}
+      author: {}
+      classification: {}
+      additional: {}
+  fields:
+    title:
+      type: text
+      default: Talking Paper
+      ui:
+        group: paper
+      description: "The kind of paper, for example 'Talking Paper'. It prints in capitals at the top, above ON."
+    subject:
+      type: text
+      default: Subject of the Paper
+      ui:
+        group: paper
+      description: "A brief subject in title case. It prints in capitals under ON, and a long subject wraps, centered, on the next line. Leave blank to print the title alone."
+    contact:
+      type: text
+      title: Point of Contact
+      default: ""
+      ui:
+        group: author
+        compact: true
+      description: "Your rank and last name, for example 'MSgt Rivera'. It leads the identification line at the bottom of the first page."
+    office_symbol:
+      type: text
+      default: ""
+      ui:
+        group: author
+        compact: true
+      description: "Your organization and office symbol, for example '123 ES/DO'."
+    phone:
+      type: text
+      default: ""
+      ui:
+        group: author
+        compact: true
+      description: "Your full DSN or 10-digit commercial number, for example 'DSN 555-0142'."
+    typist:
+      type: text
+      title: Initials
+      default: ""
+      ui:
+        group: author
+        compact: true
+      description: "The typist's initials in lowercase, for example 'arr'. Leave blank to leave them off the line."
+    date:
+      type: date
+      default: ""
+      ui:
+        group: author
+        compact: true
+      description: "The date you prepare the paper. It prints as DD Mmm YY, for example 12 Oct 26. Leave blank to add a fillable date field to the PDF instead."
+    classification:
+      type: enum
+      values:
+        - UNCLASSIFIED
+        - CUI
+        - CONFIDENTIAL
+        - SECRET
+        - TOP SECRET
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
+      variants:
+        CUI:
+          controlled_by:
+            type: text
+            description: "The office that designated this information as CUI, for example 'SAF/AA'."
+          poc:
+            type: text
+            description: "Who to contact with questions about this CUI, with phone and email, for example 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'."
+          category:
+            type: text
+            default: ""
+            description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
+          limited_dissemination:
+            type: text
+            default: ""
+            description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
+    dissemination:
+      type: text
+      default: ""
+      ui:
+        group: classification
+        compact: true
+      description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
+    font_size:
+      type: number
+      default: 12
+      ui:
+        group: additional
+        compact: true
+      description: "Body text size in points. The standard is 12."

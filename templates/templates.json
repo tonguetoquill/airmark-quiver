@@ -28,6 +28,48 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "point-paper",
+    "name": "Point Paper",
+    "description": "Brief one issue quickly, on no notice, from a single page of bullets (AFH 33-337)",
+    "file": "point_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "talking-paper",
+    "name": "Talking Paper",
+    "description": "Speak to one issue at a scheduled briefing, with notes that also stand alone (AFH 33-337)",
+    "file": "talking_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "bullet-background-paper",
+    "name": "Bullet Background Paper",
+    "description": "Give the background of a program, policy, or problem in concise bullets (AFH 33-337)",
+    "file": "bullet_background_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "background-paper",
+    "name": "Background Paper",
+    "description": "Condense a complex issue in numbered paragraphs for a briefing or decision maker (AFH 33-337)",
+    "file": "background_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "position-paper",
+    "name": "Position Paper",
+    "description": "Circulate, evaluate, or advocate a proposal for a new program or policy (AFH 33-337)",
+    "file": "position_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
+    "id": "trip-report",
+    "name": "Formal Trip Report",
+    "description": "Formal trip report as an official memorandum (AFH 33-337)",
+    "file": "trip_report.md",
+    "tags": ["air-force", "memorandum", "travel"]
+  },
+  {
     "id": "medal-citation",
     "name": "Medal Citation",
     "description": "Air and Space Achievement Medal, Meritorious Service Medal, or Air and Space Commendation Medal",
