@@ -28,6 +28,13 @@
     "tags": ["air-force", "letter"]
   },
   {
+    "id": "point-paper",
+    "name": "Point Paper",
+    "description": "Point paper. One page of short bullets on a single issue (AFH 33-337)",
+    "file": "point_paper.md",
+    "tags": ["air-force", "staff-paper"]
+  },
+  {
     "id": "talking-paper",
     "name": "Talking Paper",
     "description": "Talking paper. Bullets print dashes, one more per level (AFH 33-337)",

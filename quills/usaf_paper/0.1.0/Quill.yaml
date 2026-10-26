@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "A bulleted list prints dashes, one more per level. A numbered list prints 1., a., (1), (a). Plain paragraphs print as written."
+  description: "A heading prints in capitals, flush left. A bulleted list prints dashes, one more per level. A numbered list prints 1., a., (1), (a). Plain paragraphs print as written."
   ui:
     groups:
       document: {}
@@ -32,7 +32,7 @@ main:
       default: ""
       ui:
         group: document
-      description: "Your rank and name, for example 'MSgt Alex R. Rivera'. It leads the identification line."
+      description: "Your rank and last name, for example 'MSgt Rivera'. It leads the identification line."
     organization:
       type: text
       default: ""
@@ -46,7 +46,7 @@ main:
       ui:
         group: document
         compact: true
-      description: "Your office symbol, for example '123 ES/DO'."
+      description: "Your office symbol, for example 'DO'. It follows the organization: 123 ES/DO."
     phone:
       type: text
       default: ""
@@ -61,7 +61,7 @@ main:
       ui:
         group: document
         compact: true
-      description: "Three-letter initials. Leave blank to leave them off the line."
+      description: "The typist's initials in lowercase, for example 'arr'. Leave blank to leave them off the line."
     date:
       type: date
       default: ""

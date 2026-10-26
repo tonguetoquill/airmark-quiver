@@ -1,11 +1,13 @@
 // Spacing, typography, and banner colors for the Air Force point papers.
 
 #let spacing = (
-  // AFH 33-337 (27 May 2015), p. 226: "Margins: One (1) inch all around".
+  // AFH 33-337 (27 May 2015), p. 227, ¶5.b: "All pages use a one (1) inch
+  // margin all around".
   margin: 1in,
 )
 
-// AFH 33-337 §5: "Use 12 point Times New Roman font for text". TeX Gyre Termes is
+// Chapter 16 sets no font, so the papers take the memorandum's, AFH 33-337 §5:
+// "Use 12 point Times New Roman font for text". TeX Gyre Termes is
 // a metric-compatible clone of it; Liberation Mono, which sets raw text, is one
 // of Courier New and carries its regular weight alone.
 #let DEFAULT_BODY_FONTS = ("TeX Gyre Termes",)

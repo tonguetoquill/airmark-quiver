@@ -1,6 +1,6 @@
-// Air Force papers: AFH 33-337 (27 May 2015), pp. 224–230. The page is the
-// point paper's. A bulleted list prints dashes, one more per level. A
-// numbered list prints 1. / a. / (1) / (a). A plain paragraph is not numbered.
+// Air Force papers: AFH 33-337 (27 May 2015), chapter 16, pp. 222–228. The
+// page is the point paper's. A bulleted list prints dashes, one more per level.
+// A numbered list prints 1. / a. / (1) / (a). A plain paragraph is not numbered.
 
 #import "config.typ": *
 
@@ -74,9 +74,22 @@
 // Numbered-list depth, the same sequence the official memorandum uses.
 #let narrative-formats = ("1.", "a.", "(1)", "(a)")
 
-#let narrative-prefix(level, n) = {
+// p. 227, ¶5.c: a numbered paragraph wraps flush with the left margin. A
+// subparagraph's number sits under its parent's text, as in the memorandum.
+#let narrative-list(it, level, indent) = {
   let fmt = narrative-formats.at(calc.min(level, narrative-formats.len() - 1))
-  [#numbering(fmt, n)#h(0.5em)]
+  let n = if type(it.start) == int { it.start } else { 1 }
+  for item in it.children {
+    let given = item.at("number", default: none)
+    if type(given) == int { n = given }
+    let label = [#numbering(fmt, n)#"  "]
+    block(context {
+      let offset = indent + measure(label).width
+      show enum: inner => narrative-list(inner, level + 1, offset)
+      [#h(indent)#label#item.body]
+    })
+    n += 1
+  }
 }
 
 #let paper(
@@ -112,9 +125,9 @@
   // occupies that band, so a marked paper uses the other placement the page
   // states: one inch from the bottom.
   let id-from-bottom = if marked { 1in } else { 0.5in }
-  // Clearance for the identification line when it sits on the one-inch line,
-  // inside the text area a one-inch margin would otherwise fill.
-  let bottom-margin = if marked { spacing.margin + 2 * font-size } else { spacing.margin }
+  // On the one-inch line the identification line stands at the foot of the
+  // first page's text area, which keeps this much clear above the margin.
+  let id-clearance = if marked and id-line != none { 2 * font-size } else { 0pt }
 
   set text(font: DEFAULT_BODY_FONTS, size: font-size, fallback: true, hyphenate: false)
   set par(justify: false, leading: single-leading)
@@ -122,7 +135,7 @@
 
   set page(
     paper: "us-letter",
-    margin: (x: spacing.margin, top: spacing.margin, bottom: bottom-margin),
+    margin: spacing.margin,
     header: {
       // p. 227: page number from page 2, half an inch from the top, flush right.
       context if counter(page).get().first() > 1 {
@@ -165,8 +178,8 @@
     let item-gap = stride + single-leading
     let subject-text = trim-inline(subject)
 
-    // p. 224: title centered, all capitals, one inch from the top; single-space
-    // a wrap, double-space between the title, ON, the subject, and the text.
+    // p. 227, ¶5.a: title centered, all capitals, one inch from the top;
+    // single-space a wrap, double-space between the title, ON, and the subject.
     align(center)[
       #set par(leading: single-leading, spacing: item-gap)
       #document-title
@@ -196,7 +209,7 @@
       // point-of-contact line is wider than the space beside that line, so the
       // two have to stack.
       let block-bottom = id-from-bottom + 2 * font-size
-      let overhang = bottom-margin - block-bottom
+      let overhang = spacing.margin - block-bottom
       let reserved = calc.max(0pt, block-height - overhang)
       place(
         bottom,
@@ -206,25 +219,20 @@
           place(bottom + right, dy: overhang, indicator)
         }),
       )
+    } else if id-clearance > 0pt {
+      place(bottom, float: true, clearance: 0pt, v(id-clearance))
     }
 
     set par(leading: single-leading, spacing: item-gap)
     set block(above: item-gap, below: item-gap, spacing: item-gap)
     set list(marker: dashes, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
-    // `full` hands the function every ancestor number. The prefix prints only
-    // this depth, and it already holds the gap after the designator. The body
-    // hangs beside that prefix, so a nested item starts at its parent's text.
-    set enum(
-      numbering: (..nums) => narrative-prefix(nums.pos().len() - 1, nums.pos().last()),
-      full: true,
-      indent: 0pt,
-      body-indent: 0pt,
-      spacing: item-gap,
-      tight: false,
-    )
+    show enum: it => narrative-list(it, 0, 0pt)
+    // pp. 222–224: one level of heading, in capitals, at the body's size and
+    // weight, flush left, unnumbered, set off like any other item.
     show heading: heading => {
       set text(size: font-size, weight: "regular")
-      block(heading.body)
+      set block(above: item-gap, below: item-gap)
+      block(upper(heading.body))
     }
     show quote.where(block: true): q => pad(left: 0.5in, q.body)
     it

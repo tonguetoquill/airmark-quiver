@@ -3,11 +3,12 @@
 ## Unreleased
 
 - **An Air Force paper quill is added.** `usaf_paper@0.1.0` typesets the
-  talking, bullet background, background and position papers (AFH 33-337,
-  27 May 2015, pp. 224–230). The title field prints the paper's name. A
-  bulleted list prints dashes, and a numbered list prints `1.`/`a.`/`(1)`/`(a)`.
-  Each paper has its own template. The formal trip report is a `usaf_memo`
-  template (p. 186).
+  point, talking, bullet background, background and position papers
+  (AFH 33-337, 27 May 2015, chapter 16). The title field prints the paper's
+  name. A heading prints in capitals, flush left. A bulleted list prints
+  dashes, and a numbered list prints `1.`/`a.`/`(1)`/`(a)` with each paragraph
+  wrapping to the left margin. Each paper has its own template. The formal
+  trip report is a `usaf_memo` template (p. 186).
 
 ## v0.40.0 - 2026-10-23
 

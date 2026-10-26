@@ -3,11 +3,11 @@ $quill: usaf_paper@0.1
 $kind: main
 title: Position Paper
 subject: Subject of the Paper
-originator: Rank First M. Last
+originator: Rank Last
 organization: ORG
-office_symbol: ORG/SYMBOL
+office_symbol: SYMBOL
 phone: DSN 555-0100
-typist: ABC
+typist: abc
 date: today
 $ext:
   editor:
