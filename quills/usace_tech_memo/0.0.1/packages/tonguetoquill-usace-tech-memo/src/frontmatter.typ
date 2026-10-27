@@ -1,13 +1,21 @@
 #import "config.typ": *
 #import "utils.typ": *
 
-#let fm-heading(title) = {
+#let fm-heading(title, above: 0pt) = {
   set align(center)
   block(
     width: 100%,
+    above: above,
     below: 14pt,
     text(size: HEADING_1_SIZE, weight: "bold")[#title],
   )
+}
+
+#let fm-section(title, body) = {
+  fm-heading(title, above: 22pt)
+  set text(size: SMALL_SIZE)
+  set align(left)
+  body
 }
 
 #let fm-page(title, body) = {
@@ -42,9 +50,9 @@
   }
 }
 
-#let list-page(title, target) = context {
+#let list-section(title, target) = context {
   if query(target).len() == 0 { none } else {
-    fm-page(title)[
+    fm-section(title)[
       #outline(title: none, target: target, indent: 1em)
     ]
   }
@@ -150,9 +158,9 @@
   set text(size: SMALL_SIZE)
   outline(title: none, indent: 1em, depth: 3)
 
-  list-page([TABLES], figure.where(kind: table))
-  list-page([FIGURES], figure.where(kind: image))
-  list-page([EQUATIONS], figure.where(kind: math.equation))
+  list-section([TABLES], figure.where(kind: table))
+  list-section([FIGURES], figure.where(kind: image))
+  list-section([EQUATIONS], figure.where(kind: math.equation))
   appendices-page(appendices)
   pertinent-page(pertinent-data)
   previous-memos-page(previous-memos)
