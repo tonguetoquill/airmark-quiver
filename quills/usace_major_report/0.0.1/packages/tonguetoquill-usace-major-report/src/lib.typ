@@ -40,16 +40,13 @@
 
   if cui-enabled {
     set page(
-      margin: COVER_MARGIN,
-      fill: SF901_PURPLE,
+      margin: 0pt,
       header: none,
       footer: none,
       numbering: none,
     )
     cover-sheet(
-      memo-number: report-number,
-      study-name: project-name,
-      date: date,
+      title: project-name,
       controlled-by-component: cui-controlled-by-component,
       controlled-by-office: cui-controlled-by-office,
       categories: join-inline(cui-categories),

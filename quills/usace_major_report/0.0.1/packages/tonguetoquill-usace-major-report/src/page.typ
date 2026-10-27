@@ -1,7 +1,7 @@
 #import "config.typ": *
 #import "utils.typ": *
 
-#let cui-banner() = text(size: BODY_SIZE, weight: "bold")[CUI]
+#let cui-banner() = text(size: BODY_SIZE)[CUI]
 
 // The SECTION heading in force at `loc`: the last numbered Heading 1 on or
 // before its page, so a section's first page counts as that section.
@@ -22,7 +22,8 @@
   let lines = ()
   if cui-enabled { lines.push(cui-banner()) }
   if title-line != none { lines.push(title-line) }
-  stack(spacing: 0.35em, ..lines.map(line => align(center, line)))
+  set text(top-edge: LINE_TOP, bottom-edge: LINE_BOTTOM)
+  stack(..lines.map(line => align(center, line)))
 }
 
 #let running-header(cui-enabled, title-line) = {
@@ -34,12 +35,11 @@
 #let running-footer(cui-enabled) = {
   context {
     let numbering = page.numbering
-    if numbering != none {
-      place(bottom + center, dy: -PAGE_NUMBER_FROM_EDGE, counter(page).display(numbering))
-    }
-    if cui-enabled {
-      place(bottom + center, dy: -BANNER_FROM_EDGE, cui-banner())
-    }
+    let lines = ()
+    if numbering != none { lines.push(counter(page).display(numbering)) }
+    if cui-enabled { lines.push(cui-banner()) }
+    set text(top-edge: LINE_TOP, bottom-edge: LINE_BOTTOM)
+    place(bottom + center, dy: -BANNER_FROM_EDGE, stack(..lines.map(line => align(center, line))))
   }
 }
 
