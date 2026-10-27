@@ -117,5 +117,19 @@
     "description": "Classic single-page resume",
     "file": "classic_resume.md",
     "tags": ["resume", "career"]
+  },
+  {
+    "id": "usace-major-maintenance-report",
+    "name": "USACE Major Maintenance Report",
+    "description": "USACE ENC major maintenance report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+    "file": "usace_major_maintenance_report.md",
+    "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-major-rehabilitation-report",
+    "name": "USACE Major Rehabilitation Report",
+    "description": "USACE ENC major rehabilitation report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+    "file": "usace_major_rehabilitation_report.md",
+    "tags": ["army", "usace", "report"]
   }
 ]

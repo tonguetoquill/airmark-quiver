@@ -186,6 +186,31 @@ sentence rather than a list, and a job at each of the four fills of its second
 line — both halves, each half alone, and neither, which is the fill that prints
 no second line at all.
 
+## usace_major_report
+
+Fixtures and a render helper for the `usace_major_report` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/usace_major_report/render_fixture.mjs design/usace_major_report/fixtures/maximal.md /tmp/max.png 2026-10-27
+
+# with no fixture, renders the blueprint the schema seeds
+node design/usace_major_report/render_fixture.mjs /tmp/seed.pdf
+```
+
+`minimal.md` is CUI off with every report field blank and no acronyms: the
+title page prints MAJOR MAINTENANCE REPORT and MMR alone, the front matter is
+CONTENTS on page i, and the running header is MMR. `maximal.md` is an MRR with
+every field filled, an Other distribution, all eight executive-summary
+headings, every appendix and front-matter table, headings 1 to 6, both list
+kinds six levels deep, tables and equations in several sections, and a block
+quote. `long_values.md` wraps the report number, the location lines, the
+project name, the design stage, a CUI POC, an appendix title, a previous
+report's number and title, an acronym's description, a SECTION heading and its
+CONTENTS line, and a table header; the running header wraps to three lines and
+pushes the text down.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same
