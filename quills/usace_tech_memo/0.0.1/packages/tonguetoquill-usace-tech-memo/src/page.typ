@@ -3,16 +3,6 @@
 
 #let cui-banner() = text(size: BODY_SIZE, weight: "bold")[CUI]
 
-#let body-numbering(..nums) = {
-  let n = nums.pos().at(0, default: 1)
-  context {
-    let h = counter(heading).get()
-    let sec = if h.len() == 0 { 1 } else { h.at(0) }
-    if sec < 1 { sec = 1 }
-    str(sec) + "-" + str(n)
-  }
-}
-
 #let running-header(cui-enabled) = {
   if cui-enabled {
     place(top + center, dy: BANNER_FROM_EDGE, cui-banner())

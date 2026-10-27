@@ -8,15 +8,15 @@
   matter (CONTENTS through ACRONYMS), and a body whose Heading 1s are
   Purpose, Summary, Discussion, Recommendation and References. Captions sit
   above tables, figures and equations and number straight through (Table 1,
-  Figure 1, Equation 1). CONTENTS, TABLES, FIGURES and EQUATIONS follow each
-  other on the same roman pages; APPENDICES through ACRONYMS each start a
-  page. Front matter uses roman page numbers; the body uses section-dash
-  numbers (1-1). CUI banners print at the top and bottom of every page when
-  CUI is on. Heading 5 and 6 run in: the bold heading, a period, then the
-  paragraph on the same line. The face is Liberation Sans,
-  an Arial metric-compatible, because Arial itself cannot ship in the
-  quiver. It is a `0.0.x` draft, packed only with `--drafts`. The USACE
-  Technical Memorandum template pins `@0.0`.
+  Figure 1, Equation 1). Front-matter lists follow each other on the same
+  roman pages. Heading 1s in the body do not start a page: Purpose through
+  References run as a paper. Front matter uses roman page numbers; the body
+  uses arabic numbers starting at 1. CUI banners print at the top and
+  bottom of every page when CUI is on. Heading 5 and 6 run in: the bold
+  heading, a period, then the paragraph on the same line. The face is
+  Liberation Sans, an Arial metric-compatible, because Arial itself cannot
+  ship in the quiver. It is a `0.0.x` draft, packed only with `--drafts`.
+  The USACE Technical Memorandum template pins `@0.0`.
 
 ## v0.41.0 - 2026-10-26
 

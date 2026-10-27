@@ -1,6 +1,5 @@
 #import "config.typ": *
 #import "utils.typ": *
-#import "page.typ": body-numbering
 
 #let numbered-list(it, level, indent) = {
   let fmt = ENUM_FORMATS.at(calc.min(level, ENUM_FORMATS.len() - 1))
@@ -36,7 +35,7 @@
 }
 
 #let mainmatter(include-summary: true, it) = {
-  set page(numbering: body-numbering)
+  set page(numbering: "1")
   counter(page).update(1)
   counter(heading).update(0)
   counter(figure.where(kind: table)).update(0)
@@ -62,6 +61,7 @@
   show heading.where(level: 4): set text(size: BODY_SIZE, weight: "bold")
   show heading.where(level: 5): set text(size: BODY_SIZE, weight: "bold")
   show heading.where(level: 6): set text(size: BODY_SIZE, weight: "bold")
+  show heading.where(level: 1): set block(above: 16pt, below: 8pt)
   show heading.where(level: 2): set block(above: 12pt, below: 6pt)
   show heading.where(level: 3): set block(above: 10pt, below: 4pt)
   show heading.where(level: 4): set block(above: 8pt, below: 4pt)
@@ -72,8 +72,6 @@
     if not include-summary and name == "summary" {
       none
     } else {
-      pagebreak(weak: true)
-      counter(page).update(1)
       it
     }
   }

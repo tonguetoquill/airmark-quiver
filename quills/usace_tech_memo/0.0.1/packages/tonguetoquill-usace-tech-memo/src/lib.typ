@@ -1,5 +1,5 @@
 // A USACE ENC technical memorandum: CUI cover, title page, roman front
-// matter, then a section-dash-numbered body.
+// matter, then a continuously numbered body.
 
 #import "config.typ": *
 #import "utils.typ": date-pattern, table-date-pattern, trim-inline, join-inline, blank, plain-text
