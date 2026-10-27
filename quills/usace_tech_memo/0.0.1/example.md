@@ -111,10 +111,6 @@ $$ p = 0.875 W a_c H y $$
 - $H$ = hydraulic depth, in feet
 - $y$ = energy slope, in feet per foot
 
-![Line graph of stage in feet versus hours, rising to a peak near hour 18 and then receding.](assets/example-figure.png)
-
-**Note.** The hydrograph is the 1-percent AEP event routed to Castle Rock; stages are in feet NAVD88.
-
 The results compare with the 2012 FEMA study to within 6 percent at the 1-percent AEP. The difference is the longer systematic record and the Bulletin 17C treatment of the 2008 peak.
 
 # Recommendation

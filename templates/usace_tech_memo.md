@@ -34,7 +34,7 @@ $ext:
     tips:
       - Heading 1s are Purpose, Summary, Discussion, Recommendation, and References. Headings 1 to 3 appear in CONTENTS.
       - Heading 5 and 6 run in: the bold heading, a period, then the paragraph on the same line.
-      - A markdown table, image, or display equation is numbered Table, Figure, or Equation, with the caption above it.
+      - A markdown table or display equation is numbered Table or Equation, with the caption above it.
       - Start a note with **Note.** Footnotes are not used.
       - Type `/` for bullets, tables, and more.
 ~~~

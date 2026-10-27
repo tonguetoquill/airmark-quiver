@@ -18,10 +18,36 @@
   body
 }
 
-#let list-page(title, target) = {
-  fm-page(title)[
-    #outline(title: none, target: target, indent: 1em)
-  ]
+#let section-dash-at(loc, heading-level: none) = {
+  let h = counter(heading).at(loc)
+  let sec = if h.len() == 0 { 1 } else { h.at(0) }
+  if sec < 1 { sec = 1 }
+  // A Heading 1 always starts a page, and `counter(page)` is reset to 1
+  // after the break. The heading's own location still sees the pre-reset
+  // value, so the outline cannot read that counter for level 1.
+  let p = if heading-level == 1 { 1 } else { counter(page).at(loc).first() }
+  str(sec) + "-" + str(p)
+}
+
+#let outline-entry(it) = {
+  let loc = it.element.location()
+  let el = it.element
+  let heading-level = if el.func() == heading { el.level } else { none }
+  context {
+    let num = section-dash-at(loc, heading-level: heading-level)
+    link(loc, it.indented(
+      it.prefix(),
+      [#it.body()#h(0.3em)#box(width: 1fr, repeat[.])#h(0.3em)#num],
+    ))
+  }
+}
+
+#let list-page(title, target) = context {
+  if query(target).len() == 0 { none } else {
+    fm-page(title)[
+      #outline(title: none, target: target, indent: 1em)
+    ]
+  }
 }
 
 #let appendices-page(items) = {
@@ -117,6 +143,8 @@
   pagebreak()
   set page(numbering: "i")
   counter(page).update(1)
+
+  show outline.entry: outline-entry
 
   fm-heading[CONTENTS]
   set text(size: SMALL_SIZE)
