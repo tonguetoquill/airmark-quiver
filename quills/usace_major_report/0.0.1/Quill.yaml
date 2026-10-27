@@ -120,6 +120,46 @@ main:
             type: text
             description: "A Limited Dissemination Control or distribution statement not listed above."
 
+    cui_distribution_reason:
+      title: Distribution reason
+      type: enum
+      default: CTI
+      ui:
+        group: cui
+      description: "The DoDI 5230.24 category behind Distribution Statement B to F, printed in the full statement under the designation block. Export Controlled also prints the export-control warning."
+      values:
+        - CTI
+        - Contractor Performance Evaluation
+        - Critical Technology
+        - Direct Military Support
+        - Export Controlled
+        - Foreign Government Information
+        - International Agreements
+        - Operations Security
+        - Patents and Inventions
+        - Proprietary Business Information
+        - Small Business Innovation Research
+        - Software Documentation
+        - Test and Evaluation
+        - Vulnerability Information
+
+    cui_distribution_date:
+      title: Date of determination
+      type: date
+      default: ""
+      ui:
+        group: cui
+        compact: true
+      description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
+
+    cui_distribution_office:
+      title: Refer requests to
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
+
     cui_poc:
       title: POC
       type: text

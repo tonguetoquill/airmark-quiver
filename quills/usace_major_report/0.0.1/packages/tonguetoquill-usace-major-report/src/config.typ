@@ -36,11 +36,3 @@
   "Major Rehabilitation Report": "MRR",
 )
 
-#let DISTRIBUTION_STATEMENTS = (
-  "Distribution Statement A": "DISTRIBUTION STATEMENT A. Approved for public release; distribution is unlimited.",
-  "Distribution Statement B": "DISTRIBUTION STATEMENT B. Distribution authorized to U.S. Government agencies only.",
-  "Distribution Statement C": "DISTRIBUTION STATEMENT C. Distribution authorized to U.S. Government agencies and their contractors.",
-  "Distribution Statement D": "DISTRIBUTION STATEMENT D. Distribution authorized to the Department of Defense and U.S. DoD contractors only.",
-  "Distribution Statement E": "DISTRIBUTION STATEMENT E. Distribution authorized to DoD Components only.",
-  "Distribution Statement F": "DISTRIBUTION STATEMENT F. Further dissemination only as directed by the controlling office or higher DoD authority.",
-)

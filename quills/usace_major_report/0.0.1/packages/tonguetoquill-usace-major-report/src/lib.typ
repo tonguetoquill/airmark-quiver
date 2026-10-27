@@ -3,7 +3,7 @@
 // matching the Portland District ENC MMR and MRR Word templates.
 
 #import "config.typ": *
-#import "utils.typ": date-pattern, table-date-pattern, trim-inline, join-inline, blank, plain-text, report-abbreviation, short-stage
+#import "utils.typ": date-pattern, table-date-pattern, trim-inline, join-inline, blank, plain-text, report-abbreviation, short-stage, statement-date-pattern
 #import "page.typ": document-setup, running-header, running-header-lines, running-footer
 #import "cover.typ": cover-sheet
 #import "title.typ": title-page
@@ -22,6 +22,9 @@
   cui-controlled-by-office: none,
   cui-categories: none,
   cui-distribution: none,
+  cui-distribution-reason: none,
+  cui-distribution-date: none,
+  cui-distribution-office: none,
   cui-poc: none,
   executive-summary: none,
   appendices: (),
@@ -52,6 +55,9 @@
       categories: join-inline(cui-categories),
       distribution: cui-distribution,
       poc: cui-poc,
+      distribution-reason: cui-distribution-reason,
+      distribution-date: cui-distribution-date,
+      distribution-office: if blank(cui-distribution-office) { cui-controlled-by-office } else { cui-distribution-office },
     )
     pagebreak()
   }

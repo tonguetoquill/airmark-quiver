@@ -3,24 +3,27 @@
 ## Unreleased
 
 - **A USACE major maintenance and major rehabilitation report quill is
-  added.** `usace_major_report@0.0.1` typesets the Portland District ENC
-  major maintenance report (MMR) and major rehabilitation report (MRR): a
-  purple Standard Form 901 (11-18) CUI cover sheet, a title page with the
-  report number, the stacked location block, the project name, the design
-  stage and the month and year, then roman front matter: the executive
-  summary, whose headings print as 1. INTRODUCTION, CONTENTS, TABLES,
-  FIGURES and EQUATIONS, APPENDICES, PERTINENT DATA, PREVIOUS AND PLANNED
-  REPORTS, and ACRONYMS AND ABBREVIATIONS. Each Heading 1 starts a page as
-  SECTION 1 - TITLE, its pages number 1-1, 1-2, and its tables and
-  equations number Table 1-1 and Equation 1-1, captioned above. Heading 2
-  prints as 1.1 in bold capitals; Heading 5 is bold underlined and Heading
-  6 is underlined; numbered lists are 1) a) i). The report type picks MAJOR
-  MAINTENANCE REPORT or MAJOR REHABILITATION REPORT on the title page and
-  MMR or MRR after the design stage and in the running header, which
-  carries the project name and the stage (PROJECT NAME 30% MMR) under the
-  CUI banner. The face is Liberation Sans, an Arial metric-compatible. It is
-  a `0.0.x` draft, packed only with `--drafts`. The USACE Major Maintenance
-  Report and USACE Major Rehabilitation Report templates pin `@0.0`.
+  added.** `usace_major_report@0.0.1` typesets the Portland District ENC major
+  maintenance report (MMR) and major rehabilitation report (MRR): a purple
+  Standard Form 901 (11-18) CUI cover sheet, a title page with the report
+  number, the stacked location block, the project name, the design stage and
+  the month and year, then roman front matter: the executive summary, whose
+  headings print as 1. INTRODUCTION, CONTENTS, TABLES, FIGURES and EQUATIONS,
+  APPENDICES, PERTINENT DATA, PREVIOUS AND PLANNED REPORTS, and ACRONYMS AND
+  ABBREVIATIONS. Each Heading 1 starts a page as SECTION 1 - TITLE, its pages
+  number 1-1, 1-2, and its tables and equations number Table 1-1 and Equation
+  1-1, captioned above. Heading 2 prints as 1.1 in bold capitals; Heading 5 is
+  bold underlined and Heading 6 is underlined; numbered lists are 1) a) i).
+  The report type picks MAJOR MAINTENANCE REPORT or MAJOR REHABILITATION
+  REPORT on the title page and MMR or MRR after the design stage and in the
+  running header, which carries the project name and the stage (PROJECT NAME
+  30% MMR) under the CUI banner. The face is Liberation Sans, an Arial
+  metric-compatible. Under the CUI designation block the cover prints the full
+  DoDI 5230.24 distribution statement (B to F) from the statement, reason,
+  date of determination, and referral office, and the export-control warning
+  when the reason is Export Controlled. It is a `0.0.x` draft, packed only
+  with `--drafts`. The USACE Major Maintenance Report and USACE Major
+  Rehabilitation Report templates pin `@0.0`.
 
 ## v0.41.0 - 2026-10-26
 

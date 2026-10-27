@@ -211,6 +211,10 @@ report's number and title, an acronym's description, a SECTION heading and its
 CONTENTS line, and a table header; the running header wraps to three lines and
 pushes the text down.
 
+`export_controlled.md` is the example with Distribution Statement D for
+Export Controlled: the cover prints the full statement and the
+export-control warning under the designation block.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same

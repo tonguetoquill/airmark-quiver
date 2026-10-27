@@ -43,6 +43,7 @@
 }
 
 #let date-pattern = "[month repr:long] [year]"
+#let statement-date-pattern = "[day padding:zero] [month repr:short] [year]"
 #let table-date-pattern = "[month repr:numerical padding:zero]/[day padding:zero]/[year]"
 
 #let format-date(d, pattern: date-pattern) = {
@@ -55,12 +56,6 @@
   }
 }
 
-#let distribution-text(value) = {
-  if blank(value) { return [] }
-  let key = if type(value) == str { value } else { plain-text(value).trim() }
-  let full = DISTRIBUTION_STATEMENTS.at(key, default: none)
-  if full != none { full } else { value }
-}
 
 #let report-abbreviation(report-type) = REPORT_ABBREVIATIONS.at(report-type, default: "MMR")
 
