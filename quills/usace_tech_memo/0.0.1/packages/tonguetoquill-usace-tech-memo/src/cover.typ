@@ -1,10 +1,10 @@
 #import "config.typ": *
 #import "utils.typ": *
 
-#let cover-mark() = text(
+#let cover-mark(weight: "regular") = text(
   size: 80pt,
   fill: white,
-  weight: "regular",
+  weight: weight,
   tracking: 0.02em,
 )[CUI]
 
@@ -50,8 +50,8 @@
   let printed-date = format-date(date, pattern: table-date-pattern)
   let ldc = trim-inline(distribution)
 
-  cover-mark()
-  v(0.04in)
+  cover-mark(weight: "bold")
+  v(0.22in)
   cover-attention-label()
   v(0.22in)
 
