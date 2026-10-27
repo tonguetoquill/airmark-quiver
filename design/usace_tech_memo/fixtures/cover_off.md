@@ -21,7 +21,7 @@ cui_distribution: Distribution Statement D
 cui_distribution_reason:
   - Controlled Technical Information
   - Export Controlled
-cui_distribution_date: 2026-10-27
+cui_distribution_date: 2022-04-19
 cui_distribution_office: "U.S. Army Corps of Engineers, Portland District, ATTN: CENWP-EC, 333 SW First Avenue, Portland, OR 97204"
 cui_poc: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
 ~~~

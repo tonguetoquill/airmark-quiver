@@ -91,7 +91,15 @@
     pagebreak()
   }
 
-  set page(margin: MARGIN, fill: white, header: none, footer: none, numbering: none)
+  // Title page carries the same CUI header/footer as every other page
+  // (DoDI 5230.24 para 3.4.d). Cover itself has none.
+  set page(
+    margin: MARGIN,
+    fill: white,
+    header: running-header(cui-enabled),
+    footer: running-footer(cui-enabled),
+    numbering: none,
+  )
   title-page(
     memo-number: memo-number,
     location-lines: location-lines,
@@ -103,10 +111,6 @@
     page-one-cui-args: if print-page-one-cui { cui-args } else { none },
   )
 
-  set page(
-    header: running-header(cui-enabled),
-    footer: running-footer(cui-enabled),
-  )
   front-matter(
     appendices: appendices,
     pertinent-data: pertinent-data,

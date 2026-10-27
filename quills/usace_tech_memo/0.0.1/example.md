@@ -21,6 +21,7 @@ cui_categories:
 cui_distribution: FED ONLY
 cui_distribution_reason:
   - Controlled Technical Information
+cui_distribution_date: 2022-04-19
 cui_poc: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
 appendices:
   - letter: A

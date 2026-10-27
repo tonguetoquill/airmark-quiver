@@ -178,7 +178,9 @@
   stroke: 0.6pt + black,
   inset: 6pt,
   {
-    set text(size: 9pt)
+    // Regular weight so a bold title page does not bleed into values; labels
+    // stay bold via `designation`'s emphasis.
+    set text(size: 9pt, weight: "regular")
     set par(leading: 0.35em, spacing: 0.35em)
     set align(left)
     designation([Controlled by:], controlled-by-component)
@@ -212,8 +214,9 @@
   let warn = export-controlled(distribution-reasons) and words(distribution) != "Distribution Statement A"
 
   // align(right) places the stack; align(left) inside keeps the text flush.
+  // Force regular weight: the title page sets bold for its own lines.
   align(right, {
-    set text(size: 9pt)
+    set text(size: 9pt, weight: "regular")
     set par(leading: 0.4em, spacing: 0.45em)
     designation-block(
       controlled-by-component: controlled-by-component,
@@ -225,7 +228,7 @@
     v(0.12in)
     block(width: 3.4in, {
       set align(left)
-      set text(size: 9pt)
+      set text(size: 9pt, weight: "regular")
       if check != none {
         check
         v(0.08in)

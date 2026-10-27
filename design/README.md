@@ -193,12 +193,13 @@ Fixtures and a render helper for the `usace_tech_memo` quill.
 ```sh
 # render a fixture (run from the repo root; .png writes one image per page,
 # anything else a PDF; the trailing date is the one `date: today` prints)
-node design/usace_tech_memo/render_fixture.mjs design/usace_tech_memo/fixtures/export_controlled.md /tmp/export.png 2026-10-27
+node design/usace_tech_memo/render_fixture.mjs design/usace_tech_memo/fixtures/export_controlled.md /tmp/export.png 2022-04-19
 ```
 
 `export_controlled.md` is Distribution Statement D with Controlled Technical
 Information and Export Controlled: the cover prints the full statement and
-the export-control warning under the designation block.
+the export-control warning under the designation block. The date of
+determination matches the memorandum date (19 APR 2022).
 
 `cover_off.md` turns the SF 901 cover off while leaving CUI on, so the
 designation block, distribution statement and export warning land at the
