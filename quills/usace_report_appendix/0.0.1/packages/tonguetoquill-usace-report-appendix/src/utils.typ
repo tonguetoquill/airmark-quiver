@@ -43,6 +43,7 @@
 }
 
 #let date-pattern = "[day padding:none] [month repr:long] [year]"
+#let statement-date-pattern = "[day padding:zero] [month repr:short] [year]"
 #let table-date-pattern = "[month repr:numerical padding:zero]/[day padding:zero]/[year]"
 
 #let format-date(d, pattern: date-pattern) = {

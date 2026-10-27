@@ -1,5 +1,5 @@
 #import "@local/quillmark-helper:0.2.0" as qm
-#import "@local/tonguetoquill-usace-report-appendix:0.0.1": appendix
+#import "@local/tonguetoquill-usace-report-appendix:0.0.1": appendix, statement-date-pattern
 
 #let dist = qm.data.cui_distribution
 #let dist-display = if dist.value == "Other" { dist.detail } else { dist.value }
@@ -13,6 +13,9 @@
   cui-controlled-by-office: qm.data.cui_controlled_by_office,
   cui-categories: qm.data.cui_categories,
   cui-distribution: dist-display,
+  cui-distribution-reason: qm.data.cui_distribution_reason,
+  cui-distribution-date: qm.ink(qm.data, "cui_distribution_date", statement-date-pattern),
+  cui-distribution-office: qm.data.cui_distribution_office,
   cui-poc: qm.data.cui_poc,
   body: {
     let b = qm.data.at("$body")

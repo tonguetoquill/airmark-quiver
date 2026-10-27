@@ -25,6 +25,35 @@
   (narrow[Prescribed], h(SPACE * 0.9 + -1 * TWIP), narrow[by], h(SPACE * 1 + -3 * TWIP), narrow[GSA/ISOO], h(SPACE * 1 + 21 * TWIP), narrow[|], h(SPACE * 0.9 + -1 * TWIP), narrow[32], h(SPACE * 1 + -2 * TWIP), narrow[CFR], h(SPACE * 0.9 + -1 * TWIP), narrow(text(tracking: -4 * TWIP, "2002"))).join(),
 )
 
+// DoDI 5230.24 (10 January 2023): the statements in paragraph 4.2, set out as
+// in Figure 2, and the export-control warning in Figure 3.
+#let AUDIENCES = (
+  "Distribution Statement B": "Distribution authorized to U.S. Government agencies",
+  "Distribution Statement C": "Distribution authorized to U.S. Government agencies and their contractors",
+  "Distribution Statement D": "Distribution authorized to the Department of Defense and U.S. DoD contractors only",
+  "Distribution Statement E": "Distribution authorized to DoD Components only",
+)
+
+#let EXPORT_CONTROL_WARNING = [WARNING - This document contains technical data whose export is restricted by the Arms Export Control Act (Section 2751 of Title 22, United States Code) or the Export Control Reform Act of 2018 (Chapter 58 Sections 4801-4852 of Title 50, United States Code). Violations of these export laws are subject to severe criminal penalties. Disseminate in accordance with provisions of DoD Directive 5230.25 and DoD Instruction 2040.02.]
+
+#let words(v) = if blank(v) { none } else { plain-text(v).trim() }
+
+#let distribution-statement(distribution, reason, date, office) = {
+  let statement = words(distribution)
+  let date = if words(date) == none { none } else { upper(words(date)) }
+  let office = words(office)
+  if statement == "Distribution Statement A" {
+    return [Distribution Statement A. Approved for public release: distribution is unlimited.]
+  }
+  if statement == "Distribution Statement F" {
+    let by = (office, date).filter(v => v != none).join(" ")
+    return [Distribution Statement F. Further distribution only as directed by #if by != none [#by ]or higher DoD authority.]
+  }
+  if statement not in AUDIENCES { return none }
+  let audience = (AUDIENCES.at(statement), words(reason), date).filter(v => v != none).join("; ")
+  [#statement. #audience.#if office != none [ Other requests for this document must be referred to #office.]]
+}
+
 #let centered-at(y, body) = place(top + left, dy: y, block(width: 612pt, {
   set text(top-edge: "baseline", bottom-edge: "baseline")
   align(center, body)
@@ -55,6 +84,9 @@
   categories: none,
   distribution: none,
   poc: none,
+  distribution-reason: none,
+  distribution-date: none,
+  distribution-office: none,
 ) = {
   // Word sets the templates without kerning.
   set text(fill: black, kerning: false)
@@ -74,6 +106,16 @@
     designation([CUI Category:], categories)
     designation([Distribution/Limited Dissemination Control:], distribution)
     designation([POC:], poc)
+    let statement = distribution-statement(distribution, distribution-reason, distribution-date, distribution-office)
+    if statement != none {
+      set text(size: 10pt)
+      blank-line
+      statement
+      if words(distribution-reason) == "Export Controlled" and words(distribution) != "Distribution Statement A" {
+        blank-line
+        EXPORT_CONTROL_WARNING
+      }
+    }
   }))
 
   centered-at(461.5pt, attention)

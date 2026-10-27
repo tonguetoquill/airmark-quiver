@@ -4,7 +4,7 @@
 // report appendix Word template.
 
 #import "config.typ": *
-#import "utils.typ": trim-inline, join-inline, blank, plain-text
+#import "utils.typ": trim-inline, join-inline, blank, plain-text, statement-date-pattern
 #import "page.typ": document-setup
 #import "cover.typ": cover-sheet
 #import "frontmatter.typ": front-matter
@@ -19,6 +19,9 @@
   cui-controlled-by-office: none,
   cui-categories: none,
   cui-distribution: none,
+  cui-distribution-reason: none,
+  cui-distribution-date: none,
+  cui-distribution-office: none,
   cui-poc: none,
   body: [],
 ) = {
@@ -48,6 +51,9 @@
       categories: join-inline(cui-categories),
       distribution: cui-distribution,
       poc: cui-poc,
+      distribution-reason: cui-distribution-reason,
+      distribution-date: cui-distribution-date,
+      distribution-office: if blank(cui-distribution-office) { cui-controlled-by-office } else { cui-distribution-office },
     )
   }
 

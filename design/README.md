@@ -201,6 +201,10 @@ the cover and banners drop. `maximal.md` fills every field, and
 `long_values.md` wraps the title, the project name in the running header, and
 a section heading and its CONTENTS line.
 
+`export_controlled.md` is the example with Distribution Statement D for
+Export Controlled: the cover prints the full statement and the
+export-control warning under the designation block.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same
