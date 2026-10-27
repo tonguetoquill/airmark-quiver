@@ -186,6 +186,21 @@ sentence rather than a list, and a job at each of the four fills of its second
 line — both halves, each half alone, and neither, which is the fill that prints
 no second line at all.
 
+## usace_report_appendix
+
+Fixtures and a render helper for the `usace_report_appendix` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/usace_report_appendix/render_fixture.mjs design/usace_report_appendix/fixtures/maximal.md /tmp/max.png 2026-10-27
+```
+
+`minimal.md` fills only the letter and title. `no_cui.md` turns CUI off, so
+the cover and banners drop. `maximal.md` fills every field, and
+`long_values.md` wraps the title, the project name in the running header, and
+a section heading and its CONTENTS line.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same

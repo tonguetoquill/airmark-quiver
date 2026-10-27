@@ -117,5 +117,12 @@
     "description": "Classic single-page resume",
     "file": "classic_resume.md",
     "tags": ["resume", "career"]
+  },
+  {
+    "id": "usace-report-appendix",
+    "name": "USACE Report Appendix",
+    "description": "USACE ENC standardized report appendix with a CUI cover, contents, and lettered sections (Portland District skeleton)",
+    "file": "usace_report_appendix.md",
+    "tags": ["army", "usace", "report"]
   }
 ]
