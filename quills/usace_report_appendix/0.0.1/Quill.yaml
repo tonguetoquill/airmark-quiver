@@ -1,0 +1,140 @@
+quill:
+  name: usace_report_appendix
+  version: 0.0.1
+  backend: typst
+  description: USACE Report Appendix
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The appendix heading, APPENDIX A - TITLE, prints from the letter and title fields. Heading 1s in the body are its sections, numbered A.1 in 12 pt bold capitals; Heading 2 is A.1.1 and Heading 3 is A.1.1.1 in bold italic. Headings 1 and 2 appear in CONTENTS. Heading 5 is bold underlined; Heading 6 is underlined. Pages number A-1, A-2. Caption a table or equation above it; captions number Table A-1, Equation A-1. Notes are paragraphs that start with Note., not footnotes."
+  ui:
+    groups:
+      appendix: {}
+      cui:
+        title: CUI
+  fields:
+    appendix_letter:
+      type: text
+      default: "A"
+      ui:
+        group: appendix
+        compact: true
+      description: "The appendix letter, for example A. It numbers the sections (A.1), the pages (A-1), and the captions (Table A-1)."
+
+    appendix_title:
+      type: text
+      ui:
+        group: appendix
+      description: "The appendix title, printed in capitals after APPENDIX A -, for example Calculations or Cost Engineering."
+
+    project_name:
+      type: text
+      default: ""
+      ui:
+        group: appendix
+      description: "The project name, printed in capitals at the top of every page, for example Cougar Dam Downstream Passage."
+
+    cui_enabled:
+      type: boolean
+      default: true
+      ui:
+        group: cui
+        compact: true
+      description: "Turns the purple Standard Form 901 cover sheet and the CUI banner at the top and bottom of every page on or off."
+
+    cui_controlled_by_component:
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The component that controls the CUI, for example USACE. Used when CUI is on."
+
+    cui_controlled_by_office:
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
+
+    cui_categories:
+      type: array
+      items:
+        type: text
+      default: []
+      ui:
+        group: cui
+      description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
+
+    cui_distribution:
+      type: enum
+      default: "FED ONLY"
+      ui:
+        group: cui
+      description: "A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on."
+      values:
+        - "Distribution Statement A"
+        - "Distribution Statement B"
+        - "Distribution Statement C"
+        - "Distribution Statement D"
+        - "Distribution Statement E"
+        - "Distribution Statement F"
+        - "FED ONLY"
+        - "FEDCON"
+        - "NOCON"
+        - "NOFORN"
+        - Other
+      variants:
+        Other:
+          detail:
+            type: text
+            description: "A Limited Dissemination Control or distribution statement not listed above."
+
+    cui_distribution_reason:
+      title: Distribution reason
+      type: enum
+      default: CTI
+      ui:
+        group: cui
+      description: "The DoDI 5230.24 category behind Distribution Statement B to F, printed in the full statement under the designation block. Export Controlled also prints the export-control warning."
+      values:
+        - CTI
+        - Contractor Performance Evaluation
+        - Critical Technology
+        - Direct Military Support
+        - Export Controlled
+        - Foreign Government Information
+        - International Agreements
+        - Operations Security
+        - Patents and Inventions
+        - Proprietary Business Information
+        - Small Business Innovation Research
+        - Software Documentation
+        - Test and Evaluation
+        - Vulnerability Information
+
+    cui_distribution_date:
+      title: Date of determination
+      type: date
+      default: ""
+      ui:
+        group: cui
+        compact: true
+      description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
+
+    cui_distribution_office:
+      title: Refer requests to
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
+
+    cui_poc:
+      title: POC
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."

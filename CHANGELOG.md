@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+- **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
+  typesets the Portland District ENC standardized report appendix: a purple
+  Standard Form 901 (11-18) CUI cover sheet, CONTENTS, TABLES, FIGURES and
+  EQUATIONS on roman pages, then APPENDIX A - TITLE from the letter and title
+  fields. Heading 1s are its sections, numbered A.1 in bold capitals, pages
+  number A-1, A-2, and tables and equations number Table A-1 and Equation A-1,
+  captioned above. The running header carries the project name under the CUI
+  banner. The face is Liberation Sans, an Arial metric-compatible. Under the
+  CUI designation block the cover prints the full DoDI 5230.24 distribution
+  statement (B to F) from the statement, reason, date of determination, and
+  referral office, and the export-control warning when the reason is Export
+  Controlled. It is a `0.0.x` draft, packed only with `--drafts`. The USACE
+  Report Appendix template pins `@0.0`.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
