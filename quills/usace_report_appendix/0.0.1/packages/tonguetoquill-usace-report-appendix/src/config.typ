@@ -2,8 +2,6 @@
 // Template-Appendix-ENC_StandardizedReportAppendix_20230206.
 
 #let MARGIN = 1in
-#let COVER_MARGIN = (x: 0.85in, top: 0.5in, bottom: 0.4in)
-#let SF901_PURPLE = rgb(80, 46, 133)
 #let HEADER_FROM_EDGE = 0.5in
 #let FOOTER_FROM_EDGE = 0.5in
 
@@ -37,16 +35,3 @@
 
 #let TABLE_STROKE = 0.5pt + black
 #let TABLE_HEADER_FILL = rgb("#d9d9d9")
-
-#let SF901_ATTENTION = [
-  All individuals handling this information are required to protect it from unauthorized disclosure.
-
-  Handling, storage, reproduction, and disposition of the attached document(s) must be in accordance with 32 CFR Part 2002 and applicable agency policy.
-
-  Access to and dissemination of Controlled Unclassified Information shall be allowed as necessary and permissible to any individual(s), organization(s), or grouping(s) of users, provided such access or dissemination is consistent with or in furtherance of a Lawful Government Purpose and in a manner consistent with applicable law, regulations, and Government-wide policies.
-]
-
-#let SF901_FOOTER = [
-  Standard Form 901 (11-18)\
-  Prescribed by GSA/ISOO | 32 CFR 2002
-]

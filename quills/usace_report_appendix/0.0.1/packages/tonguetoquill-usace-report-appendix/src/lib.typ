@@ -24,9 +24,10 @@
 ) = {
   let letter = if blank(letter) { "A" } else { upper(plain-text(letter).trim()) }
   let title = if blank(title) { [] } else { trim-inline(title) }
+  let document-title = "Appendix " + letter + if blank(title) { "" } else { " - " + plain-text(title).trim() }
 
   set document(
-    title: "Appendix " + letter + if blank(title) { "" } else { " - " + plain-text(title).trim() },
+    title: document-title,
     author: "U.S. Army Corps of Engineers",
   )
 
@@ -34,15 +35,14 @@
 
   if cui-enabled {
     set page(
-      margin: COVER_MARGIN,
-      fill: SF901_PURPLE,
+      margin: 0pt,
       header: none,
       footer: none,
       numbering: none,
     )
     set text(top-edge: "cap-height", bottom-edge: "baseline")
     cover-sheet(
-      study-name: project-name,
+      title: document-title,
       controlled-by-component: cui-controlled-by-component,
       controlled-by-office: cui-controlled-by-office,
       categories: join-inline(cui-categories),
