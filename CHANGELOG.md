@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+- **A USACE technical memorandum quill is added.** `usace_tech_memo@0.0.1`
+  typesets a Portland District ENC technical memorandum: an SF 901-style CUI
+  cover sheet, a title page with the stacked location block, roman front
+  matter (CONTENTS through ACRONYMS), and a body whose Heading 1s are
+  Purpose, Summary, Discussion, Recommendation and References. Captions sit
+  above tables, figures and equations and number straight through (Table 1,
+  Figure 1, Equation 1). Front matter uses roman page numbers; the body uses
+  section-dash numbers (1-1). CUI banners print at the top and bottom of
+  every page when CUI is on. The face is Liberation Sans, an Arial
+  metric-compatible, because Arial itself cannot ship in the quiver. It is
+  a `0.0.x` draft, packed only with `--drafts`. The USACE Technical
+  Memorandum template pins `@0.0`.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy

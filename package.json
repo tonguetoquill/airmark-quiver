@@ -1,7 +1,7 @@
 {
   "name": "@airmark/quiver",
   "version": "0.41.0",
-  "description": "Airmark Quiver — Air Force, DAF and Army document Quills for Quillmark.",
+  "description": "Airmark Quiver — Air Force, DAF, Army and USACE document Quills for Quillmark.",
   "type": "module",
   "exports": {
     "./Quiver.yaml": "./Quiver.yaml",
@@ -34,6 +34,7 @@
     "usaf",
     "daf",
     "army",
+    "usace",
     "airmark"
   ],
   "license": "Apache-2.0",

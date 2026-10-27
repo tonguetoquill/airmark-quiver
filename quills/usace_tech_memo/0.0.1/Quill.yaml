@@ -1,0 +1,207 @@
+quill:
+  name: usace_tech_memo
+  version: 0.0.1
+  backend: typst
+  description: USACE Technical Memorandum
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The four standard sections are Heading 1s: Purpose, Summary (optional), Discussion, Recommendation, then References. Headings 1 to 3 appear in CONTENTS. Heading 5 and 6 run in: a bold heading, a period, and the paragraph on the same line. Caption a table, figure, or equation above it. Notes are paragraphs that start with Note., not footnotes."
+  ui:
+    groups:
+      memo: {}
+      cui:
+        title: CUI
+      front_matter:
+        title: Front matter
+  fields:
+    memo_number:
+      type: text
+      ui:
+        group: memo
+        compact: true
+      description: "The number after TECHNICAL MEMORANDUM NO., for example ENC-22-001."
+
+    location_lines:
+      type: array
+      items:
+        type: text
+      default: []
+      ui:
+        group: memo
+      description: "Stacked location lines, printed in capitals, for example COWLITZ RIVER, COLUMBIA RIVER BASIN, WASHINGTON."
+
+    study_name:
+      type: text
+      ui:
+        group: memo
+      description: "The study this memorandum belongs to, for example Lower Columbia Stage Frequency Study."
+
+    subject:
+      type: text
+      ui:
+        group: memo
+      description: "The memorandum's topic line, under the study name on the title page."
+
+    prepared_for:
+      type: text
+      default: ""
+      ui:
+        group: memo
+      description: "Who the memorandum is prepared for, for example Federal Emergency Management Agency."
+
+    prepared_by:
+      type: text
+      default: "U.S. Army Corps of Engineers, Portland District"
+      ui:
+        group: memo
+      description: "The preparing office. Change this for a district other than Portland."
+
+    date:
+      type: date
+      default: ""
+      ui:
+        group: memo
+        compact: true
+      description: "The date on the title page, printed as day month year with the month spelled out, for example 19 April 2022."
+
+    include_summary:
+      type: boolean
+      default: true
+      ui:
+        group: memo
+        compact: true
+      description: "Whether this memorandum has a Summary section. Turn it off and delete the Summary heading from the body when there is none."
+
+    cui_enabled:
+      type: boolean
+      default: true
+      ui:
+        group: cui
+        compact: true
+      description: "Turns the CUI cover sheet and the CUI banner at the top and bottom of every page on or off."
+
+    cui_controlled_by_component:
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The component that controls the CUI, for example USACE. Used when CUI is on."
+
+    cui_controlled_by_office:
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
+
+    cui_categories:
+      type: array
+      items:
+        type: text
+      default: []
+      ui:
+        group: cui
+      description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
+
+    cui_distribution:
+      type: enum
+      default: "FED ONLY"
+      ui:
+        group: cui
+      description: "A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on."
+      values:
+        - "Distribution Statement A"
+        - "Distribution Statement B"
+        - "Distribution Statement C"
+        - "Distribution Statement D"
+        - "Distribution Statement E"
+        - "Distribution Statement F"
+        - "FED ONLY"
+        - "FEDCON"
+        - "NOCON"
+        - "NOFORN"
+        - Other
+      variants:
+        Other:
+          detail:
+            type: text
+            description: "A Limited Dissemination Control or distribution statement not listed above."
+
+    cui_poc:
+      title: POC
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."
+
+    appendices:
+      type: array
+      default: []
+      ui:
+        group: front_matter
+        layout: table
+      items:
+        type: object
+        properties:
+          letter:
+            type: text
+            description: "The appendix letter, for example A. Leave blank to letter from A in order."
+          title:
+            type: text
+            description: "The appendix title, for example PLATES."
+      description: "Appendices listed in the front matter. The page is omitted when this list is empty."
+
+    pertinent_data:
+      type: richtext
+      multiline: true
+      default: ""
+      ui:
+        group: front_matter
+      description: "Optional pertinent data. Leave blank to omit this page."
+
+    previous_memos:
+      title: Previous memorandums
+      type: array
+      default: []
+      ui:
+        group: front_matter
+        layout: table
+      items:
+        type: object
+        properties:
+          number:
+            type: text
+            description: "The previous memorandum's number."
+          title:
+            type: text
+            description: "The previous memorandum's title."
+          date:
+            type: date
+            default: ""
+            description: "Its date, printed in the table as MM/DD/YYYY."
+      description: "Earlier memorandums in this series. The page is omitted when this list is empty."
+
+    acronyms:
+      type: array
+      ui:
+        group: front_matter
+        layout: table
+      items:
+        type: object
+        properties:
+          acronym:
+            type: text
+            description: "The acronym, for example USACE."
+          description:
+            type: text
+            description: "What it stands for."
+      default:
+        - acronym: PDT
+          description: Project Delivery Team
+        - acronym: USACE
+          description: U.S. Army Corps of Engineers
+      description: "Acronyms used in the memorandum. They print alphabetically. The page is omitted when this list is empty."
