@@ -1,5 +1,6 @@
 #import "config.typ": *
 #import "utils.typ": *
+#import "cover.typ": page-one-cui
 
 #let title-page(
   memo-number: none,
@@ -9,6 +10,7 @@
   prepared-for: none,
   prepared-by: none,
   date: none,
+  page-one-cui-args: none,
 ) = {
   set par(leading: 0.45em, spacing: 0.45em)
 
@@ -57,4 +59,8 @@
   }
 
   v(1fr)
+
+  if page-one-cui-args != none {
+    page-one-cui(..page-one-cui-args)
+  }
 }

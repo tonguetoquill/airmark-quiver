@@ -6,19 +6,27 @@
   typesets a Portland District ENC technical memorandum: a purple Standard
   Form 901 (11-18) CUI cover sheet, a title page with the stacked location
   block, roman front matter (CONTENTS through ACRONYMS), and a body whose
-  Heading 1s are
-  Purpose, Summary, Discussion, Recommendation and References. Captions sit
-  above tables, figures and equations and number straight through (Table 1,
-  Figure 1, Equation 1). Typesetting follows the Portland District ENC
-  Word template: the title page puts the memorandum number and location
-  at the right and the study, subject, prepared-for/by and date in the
-  center; CONTENTS, TABLES, FIGURES and EQUATIONS share roman pages;
-  APPENDICES through ACRONYMS each start a page; Heading 1s are the
-  template's Heading 2 (12 pt bold capitals, 1.1 numbering, no page
-  break); Heading 5 is bold underlined and Heading 6 is underlined;
+  Heading 1s are Purpose, Summary, Discussion, Recommendation and
+  References. Captions sit above tables, figures and equations and number
+  straight through (Table 1, Figure 1, Equation 1). Typesetting follows the
+  Portland District ENC Word template: the title page puts the memorandum
+  number and location at the right and the study, subject, prepared-for/by
+  and date in the center; CONTENTS, TABLES, FIGURES and EQUATIONS share
+  roman pages; APPENDICES through ACRONYMS each start a page; Heading 1s
+  are the template's Heading 2 (12 pt bold capitals, 1.1 numbering, no
+  page break); Heading 5 is bold underlined and Heading 6 is underlined;
   numbered lists are 1) a) i). Front matter uses roman page numbers; the
   body uses 1-1. CUI banners print at the top and bottom of front-matter
-  and body pages when CUI is on. The face is Liberation Sans, an Arial
+  and body pages when CUI is on. Under the CUI designation block the cover
+  prints the full DoDI 5230.24 distribution statement (B to F) from the
+  statement, up to three reasons (full category headings), date of
+  determination, and referral office, and the export-control warning when
+  a reason is Export Controlled. `cui_enabled` turns banners and the
+  designation on; `cui_cover` turns the SF 901 cover on (needs CUI on).
+  When the cover is off, the designation block, statement and warning
+  print at the bottom right of the title page. Invalid letter/reason
+  combinations, Statement A with CUI, and Export Controlled outside B–E
+  print a red check note. The face is Liberation Sans, an Arial
   metric-compatible, because Arial itself cannot ship in the quiver. It
   is a `0.0.x` draft, packed only with `--drafts`. The USACE Technical
   Memorandum template pins `@0.0`.

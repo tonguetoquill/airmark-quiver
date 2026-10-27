@@ -12,12 +12,15 @@ prepared_by: U.S. Army Corps of Engineers, Portland District
 date: 2022-04-19
 include_summary: true
 cui_enabled: true
+cui_cover: true
 cui_controlled_by_component: USACE
 cui_controlled_by_office: CENWP-EC
 cui_categories:
   - CTI
   - CEII
 cui_distribution: FED ONLY
+cui_distribution_reason:
+  - Controlled Technical Information
 cui_poc: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
 appendices:
   - letter: A

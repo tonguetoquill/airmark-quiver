@@ -186,6 +186,24 @@ sentence rather than a list, and a job at each of the four fills of its second
 line — both halves, each half alone, and neither, which is the fill that prints
 no second line at all.
 
+## usace_tech_memo
+
+Fixtures and a render helper for the `usace_tech_memo` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/usace_tech_memo/render_fixture.mjs design/usace_tech_memo/fixtures/export_controlled.md /tmp/export.png 2026-10-27
+```
+
+`export_controlled.md` is Distribution Statement D with Controlled Technical
+Information and Export Controlled: the cover prints the full statement and
+the export-control warning under the designation block.
+
+`cover_off.md` turns the SF 901 cover off while leaving CUI on, so the
+designation block, distribution statement and export warning land at the
+bottom right of the title page.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same

@@ -1,7 +1,7 @@
 #import "config.typ": *
 #import "utils.typ": *
 
-#let cui-banner() = text(size: BODY_SIZE, weight: "bold")[CUI]
+#let cui-banner() = text(size: BODY_SIZE)[CUI]
 
 // The memo is chapter 1 of the ENC numbering scheme, so body pages are 1-1, 1-2.
 #let body-numbering(..nums) = {
