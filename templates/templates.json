@@ -117,5 +117,12 @@
     "description": "Classic single-page resume",
     "file": "classic_resume.md",
     "tags": ["resume", "career"]
+  },
+  {
+    "id": "usace-tech-memo",
+    "name": "USACE Technical Memorandum",
+    "description": "USACE ENC technical memorandum with a CUI cover, title page, and front matter (Portland District skeleton)",
+    "file": "usace_tech_memo.md",
+    "tags": ["army", "usace", "memo"]
   }
 ]

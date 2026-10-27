@@ -1,0 +1,19 @@
+[package]
+name = "tonguetoquill-usace-tech-memo"
+version = "0.0.1"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Typeset a USACE technical memorandum (Portland District ENC skeleton)."
+keywords = [
+    "USACE",
+    "Army Corps",
+    "technical memorandum",
+    "engineering",
+    "CUI",
+    "official",
+]
+categories = ["office", "report"]
+disciplines = ["engineering", "business"]
