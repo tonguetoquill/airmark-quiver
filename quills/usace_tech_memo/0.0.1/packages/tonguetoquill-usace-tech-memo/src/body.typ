@@ -18,6 +18,23 @@
   }
 }
 
+#let RUN_IN = state("usace-run-in", none)
+
+#let run-in-lead(body) = {
+  let last = plain-text(body).trim().clusters().at(-1, default: "")
+  text(weight: "bold", body)
+  if last not in (".", "?", "!", ":", ";", ",") [.]
+  h(0.4em)
+}
+
+#let flush-run-in() = context {
+  let pending = RUN_IN.get()
+  if pending != none {
+    RUN_IN.update(none)
+    block(width: 100%, { run-in-lead(pending) })
+  }
+}
+
 #let mainmatter(include-summary: true, it) = {
   set page(numbering: body-numbering)
   counter(page).update(1)
@@ -48,10 +65,9 @@
   show heading.where(level: 2): set block(above: 12pt, below: 6pt)
   show heading.where(level: 3): set block(above: 10pt, below: 4pt)
   show heading.where(level: 4): set block(above: 8pt, below: 4pt)
-  show heading.where(level: 5): set block(above: 0.8em, below: 0pt)
-  show heading.where(level: 6): set block(above: 0.6em, below: 0pt)
 
   show heading.where(level: 1): it => {
+    flush-run-in()
     let name = heading-name(it)
     if not include-summary and name == "summary" {
       none
@@ -61,34 +77,78 @@
       it
     }
   }
+  show heading.where(level: 2): it => {
+    flush-run-in()
+    it
+  }
+  show heading.where(level: 3): it => {
+    flush-run-in()
+    it
+  }
+  show heading.where(level: 4): it => {
+    flush-run-in()
+    it
+  }
+  // Heading 5 and 6 run in on the next paragraph. A block, not a paragraph,
+  // is what the absorber returns, so this show rule does not match itself.
+  show heading.where(level: 5): it => RUN_IN.update(it.body)
+  show heading.where(level: 6): it => RUN_IN.update(it.body)
+  show par: it => context {
+    let pending = RUN_IN.get()
+    if pending == none {
+      it
+    } else {
+      RUN_IN.update(none)
+      block(width: 100%, above: 0.8em, {
+        run-in-lead(pending)
+        it.body
+      })
+    }
+  }
 
-  show enum: it => numbered-list(it, 0, 0pt)
+  show enum: it => {
+    flush-run-in()
+    numbered-list(it, 0, 0pt)
+  }
   set list(marker: LIST_MARKERS, indent: 0.15in, body-indent: 0.35em)
+  show list: it => {
+    flush-run-in()
+    it
+  }
 
   set table(stroke: TABLE_STROKE, inset: (x: 6pt, y: 4.5pt), align: left)
   show table.cell.where(y: 0): set text(weight: "bold")
   show table: set text(size: TABLE_SIZE)
-  show table: it => figure(
-    {
-      show table: t => t
-      it
-    },
-    kind: table,
-    supplement: [Table],
-    caption: [],
-  )
+  show table: it => {
+    flush-run-in()
+    figure(
+      {
+        show table: t => t
+        it
+      },
+      kind: table,
+      supplement: [Table],
+      caption: [],
+    )
+  }
 
-  show math.equation.where(block: true): it => figure(
-    {
-      show math.equation.where(block: true): e => e
-      it
-    },
-    kind: math.equation,
-    supplement: [Equation],
-    caption: [],
-  )
+  show math.equation.where(block: true): it => {
+    flush-run-in()
+    figure(
+      {
+        show math.equation.where(block: true): e => e
+        it
+      },
+      kind: math.equation,
+      supplement: [Equation],
+      caption: [],
+    )
+  }
 
-  show quote.where(block: true): it => pad(left: 0.5in, it.body)
+  show quote.where(block: true): it => {
+    flush-run-in()
+    pad(left: 0.5in, it.body)
+  }
 
   it
 }
