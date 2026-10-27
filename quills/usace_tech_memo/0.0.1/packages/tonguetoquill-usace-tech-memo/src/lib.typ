@@ -48,11 +48,19 @@
   show: document-setup.with(cui-enabled: cui-enabled)
 
   if cui-enabled {
-    set page(margin: COVER_MARGIN, header: none, footer: none, numbering: none)
+    set page(
+      margin: COVER_MARGIN,
+      fill: SF901_PURPLE,
+      header: none,
+      footer: none,
+      numbering: none,
+    )
     cover-sheet(
       memo-number: memo-number,
       study-name: study-name,
       subject: subject,
+      prepared-for: prepared-for,
+      date: date,
       controlled-by-component: cui-controlled-by-component,
       controlled-by-office: cui-controlled-by-office,
       categories: join-inline(cui-categories),
@@ -62,7 +70,7 @@
     pagebreak()
   }
 
-  set page(margin: MARGIN, header: none, footer: none, numbering: none)
+  set page(margin: MARGIN, fill: white, header: none, footer: none, numbering: none)
   title-page(
     memo-number: memo-number,
     location-lines: location-lines,

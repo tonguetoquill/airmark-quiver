@@ -81,7 +81,7 @@ main:
       ui:
         group: cui
         compact: true
-      description: "Turns the CUI cover sheet and the CUI banner at the top and bottom of every page on or off."
+      description: "Turns the purple Standard Form 901 cover sheet and the CUI banner at the top and bottom of every page on or off."
 
     cui_controlled_by_component:
       type: text

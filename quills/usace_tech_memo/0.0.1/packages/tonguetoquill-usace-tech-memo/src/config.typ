@@ -2,7 +2,8 @@
 // matching Template-Memo-ENC_TechnicalMemorandum_20230206.
 
 #let MARGIN = 1in
-#let COVER_MARGIN = 0.6in
+#let COVER_MARGIN = (x: 0.85in, top: 0.5in, bottom: 0.4in)
+#let SF901_PURPLE = rgb(80, 46, 133)
 #let BANNER_FROM_EDGE = 0.5in
 #let PAGE_NUMBER_FROM_EDGE = 0.72in
 
@@ -39,9 +40,14 @@
 )
 
 #let SF901_ATTENTION = [
-  #text(weight: "bold")[ATTENTION:] The attached or enclosed contains Controlled Unclassified Information (CUI). All individuals handling CUI are required to protect it in accordance with the law and DoD Instruction 5200.48, Controlled Unclassified Information (CUI). Unauthorized disclosure of CUI may result in criminal, civil, or administrative penalties.
+  All individuals handling this information are required to protect it from unauthorized disclosure.
+
+  Handling, storage, reproduction, and disposition of the attached document(s) must be in accordance with 32 CFR Part 2002 and applicable agency policy.
+
+  Access to and dissemination of Controlled Unclassified Information shall be allowed as necessary and permissible to any individual(s), organization(s), or grouping(s) of users, provided such access or dissemination is consistent with or in furtherance of a Lawful Government Purpose and in a manner consistent with applicable law, regulations, and Government-wide policies.
 ]
 
 #let SF901_FOOTER = [
-  STANDARD FORM 901 (REV. 8/2021) #h(1fr) Prescribed by GSA / 32 CFR Part 2002
+  Standard Form 901 (11-18)\
+  Prescribed by GSA/ISOO | 32 CFR 2002
 ]

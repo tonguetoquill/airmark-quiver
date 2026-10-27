@@ -3,9 +3,10 @@
 ## Unreleased
 
 - **A USACE technical memorandum quill is added.** `usace_tech_memo@0.0.1`
-  typesets a Portland District ENC technical memorandum: an SF 901-style CUI
-  cover sheet, a title page with the stacked location block, roman front
-  matter (CONTENTS through ACRONYMS), and a body whose Heading 1s are
+  typesets a Portland District ENC technical memorandum: a purple Standard
+  Form 901 (11-18) CUI cover sheet, a title page with the stacked location
+  block, roman front matter (CONTENTS through ACRONYMS), and a body whose
+  Heading 1s are
   Purpose, Summary, Discussion, Recommendation and References. Captions sit
   above tables, figures and equations and number straight through (Table 1,
   Figure 1, Equation 1). Typesetting follows the Portland District ENC
