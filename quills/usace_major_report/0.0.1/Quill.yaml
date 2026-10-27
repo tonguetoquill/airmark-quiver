@@ -1,0 +1,246 @@
+quill:
+  name: usace_major_report
+  version: 0.0.1
+  backend: typst
+  description: USACE Major Maintenance or Major Rehabilitation Report
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "Each Heading 1 starts a page as SECTION 1 - TITLE, centered, and its pages number 1-1, 1-2. Heading 2 is 1.1 in bold capitals, Heading 3 is 1.1.1 bold, Heading 4 is 1.1.1.1 bold italic. Headings 1 to 3 appear in CONTENTS. Heading 5 is bold underlined; Heading 6 is underlined. Tables and display equations number by section above them (Table 1-1, Equation 1-1). Notes are paragraphs that start with Note., not footnotes."
+  ui:
+    groups:
+      report: {}
+      cui:
+        title: CUI
+      front_matter:
+        title: Front matter
+  fields:
+    report_type:
+      type: enum
+      default: "Major Maintenance Report"
+      ui:
+        group: report
+      description: "Prints on the title page, as MAJOR MAINTENANCE REPORT NO., and as MMR or MRR after the design stage and in the running header."
+      values:
+        - "Major Maintenance Report"
+        - "Major Rehabilitation Report"
+
+    report_number:
+      type: text
+      ui:
+        group: report
+        compact: true
+      description: "The number after MAJOR MAINTENANCE REPORT NO. or MAJOR REHABILITATION REPORT NO."
+
+    location_lines:
+      type: array
+      items:
+        type: text
+      default: []
+      ui:
+        group: report
+      description: "Stacked location lines, printed in capitals, for example DETROIT DAM AND RESERVOIR, WILLAMETTE RIVER BASIN, NORTH SANTIAM RIVER, OREGON."
+
+    project_name:
+      type: text
+      ui:
+        group: report
+      description: "The project title on the title page, for example Detroit Dam Temperature Control. The running header prints it in capitals."
+
+    design_stage:
+      type: text
+      default: ""
+      ui:
+        group: report
+        compact: true
+      description: "The design stage before MMR or MRR on the title page, for example 30 Percent. The running header prints Percent as %."
+
+    date:
+      type: date
+      default: ""
+      ui:
+        group: report
+        compact: true
+      description: "The date on the title page, printed as month and year, for example April 2022."
+
+    cui_enabled:
+      type: boolean
+      default: true
+      ui:
+        group: cui
+        compact: true
+      description: "Turns the purple Standard Form 901 cover sheet and the CUI banner at the top and bottom of every page on or off."
+
+    cui_controlled_by_component:
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The component that controls the CUI, for example USACE. Used when CUI is on."
+
+    cui_controlled_by_office:
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
+
+    cui_categories:
+      type: array
+      items:
+        type: text
+      default: []
+      ui:
+        group: cui
+      description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
+
+    cui_distribution:
+      type: enum
+      default: "FED ONLY"
+      ui:
+        group: cui
+      description: "A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on."
+      values:
+        - "Distribution Statement A"
+        - "Distribution Statement B"
+        - "Distribution Statement C"
+        - "Distribution Statement D"
+        - "Distribution Statement E"
+        - "Distribution Statement F"
+        - "FED ONLY"
+        - "FEDCON"
+        - "NOCON"
+        - "NOFORN"
+        - Other
+      variants:
+        Other:
+          detail:
+            type: text
+            description: "A Limited Dissemination Control or distribution statement not listed above."
+
+    cui_distribution_reason:
+      title: Distribution reason
+      type: enum
+      default: CTI
+      ui:
+        group: cui
+      description: "The DoDI 5230.24 category behind Distribution Statement B to F, printed in the full statement under the designation block. Export Controlled also prints the export-control warning."
+      values:
+        - CTI
+        - Contractor Performance Evaluation
+        - Critical Technology
+        - Direct Military Support
+        - Export Controlled
+        - Foreign Government Information
+        - International Agreements
+        - Operations Security
+        - Patents and Inventions
+        - Proprietary Business Information
+        - Small Business Innovation Research
+        - Software Documentation
+        - Test and Evaluation
+        - Vulnerability Information
+
+    cui_distribution_date:
+      title: Date of determination
+      type: date
+      default: ""
+      ui:
+        group: cui
+        compact: true
+      description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
+
+    cui_distribution_office:
+      title: Refer requests to
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
+
+    cui_poc:
+      title: POC
+      type: text
+      default: ""
+      ui:
+        group: cui
+      description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."
+
+    executive_summary:
+      type: richtext
+      multiline: true
+      default: ""
+      ui:
+        group: front_matter
+      description: "The executive summary on page i. Each heading prints numbered in bold capitals, for example 1. INTRODUCTION. Leave blank to omit this page."
+
+    appendices:
+      type: array
+      default: []
+      ui:
+        group: front_matter
+        layout: table
+      items:
+        type: object
+        properties:
+          letter:
+            type: text
+            description: "The appendix letter, for example A. Leave blank to letter from A in order."
+          title:
+            type: text
+            description: "The appendix title, for example PLATES."
+      description: "Appendices listed in the front matter. The page is omitted when this list is empty."
+
+    pertinent_data:
+      type: richtext
+      multiline: true
+      default: ""
+      ui:
+        group: front_matter
+      description: "Optional pertinent data. Leave blank to omit this page."
+
+
+    previous_reports:
+      title: Previous and planned reports
+      type: array
+      default: []
+      ui:
+        group: front_matter
+        layout: table
+      items:
+        type: object
+        properties:
+          number:
+            type: text
+            description: "The report's number."
+          title:
+            type: text
+            description: "The report's title."
+          date:
+            type: date
+            default: ""
+            description: "Its date, printed in the table as MM/DD/YYYY."
+      description: "Earlier and planned reports for this project. The page is omitted when this list is empty."
+
+    acronyms:
+      type: array
+      ui:
+        group: front_matter
+        layout: table
+      items:
+        type: object
+        properties:
+          acronym:
+            type: text
+            description: "The acronym, for example USACE."
+          description:
+            type: text
+            description: "What it stands for."
+      default:
+        - acronym: PDT
+          description: Product Development Team
+        - acronym: USACE
+          description: United States Army Corps of Engineers
+      description: "Acronyms and abbreviations used in the report. They print alphabetically. The page is omitted when this list is empty."
