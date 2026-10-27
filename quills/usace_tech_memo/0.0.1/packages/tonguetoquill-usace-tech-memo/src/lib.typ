@@ -1,5 +1,6 @@
 // A USACE ENC technical memorandum: CUI cover, title page, roman front
-// matter, then a continuously numbered body.
+// matter, then a chapter-dash-numbered body (1-1), matching the Portland
+// District ENC technical memorandum Word template.
 
 #import "config.typ": *
 #import "utils.typ": date-pattern, table-date-pattern, trim-inline, join-inline, blank, plain-text
@@ -61,13 +62,7 @@
     pagebreak()
   }
 
-  set page(
-    margin: MARGIN,
-    header: running-header(cui-enabled),
-    footer: running-footer(cui-enabled),
-    numbering: none,
-  )
-
+  set page(margin: MARGIN, header: none, footer: none, numbering: none)
   title-page(
     memo-number: memo-number,
     location-lines: location-lines,
@@ -78,6 +73,10 @@
     date: date,
   )
 
+  set page(
+    header: running-header(cui-enabled),
+    footer: running-footer(cui-enabled),
+  )
   front-matter(
     appendices: appendices,
     pertinent-data: pertinent-data,

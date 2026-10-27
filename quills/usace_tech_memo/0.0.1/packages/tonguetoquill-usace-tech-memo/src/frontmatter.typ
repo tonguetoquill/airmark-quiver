@@ -1,5 +1,6 @@
 #import "config.typ": *
 #import "utils.typ": *
+#import "page.typ": body-numbering
 
 #let fm-heading(title, above: 0pt) = {
   set align(center)
@@ -7,7 +8,7 @@
     width: 100%,
     above: above,
     below: 14pt,
-    text(size: HEADING_1_SIZE, weight: "bold")[#title],
+    text(size: HEADING_1_SIZE, weight: "bold")[#upper(title)],
   )
 }
 
@@ -18,14 +19,34 @@
   body
 }
 
+#let fm-page(title, body) = {
+  pagebreak()
+  fm-heading(title)
+  set text(size: SMALL_SIZE)
+  set align(left)
+  body
+}
+
 #let outline-entry(it) = {
   let loc = it.element.location()
+  let el = it.element
+  let body = it.body()
+  let is-heading = el.func() == heading
+  let h1 = is-heading and el.level == 1
+  if h1 { body = upper(body) }
   context {
-    let num = str(counter(page).at(loc).first())
-    link(loc, it.indented(
-      it.prefix(),
-      [#it.body()#h(0.3em)#box(width: 1fr, repeat[.])#h(0.3em)#num],
-    ))
+    let num = body-numbering(counter(page).at(loc).first())
+    let fill = [#h(0.3em)#box(width: 1fr, repeat[.])#h(0.3em)#num]
+    link(loc, {
+      set text(weight: if h1 { "bold" } else { "regular" })
+      if is-heading {
+        it.indented(it.prefix(), [#body#fill])
+      } else if blank(body) {
+        [#it.prefix()#fill]
+      } else {
+        [#it.prefix(). #body#fill]
+      }
+    })
   }
 }
 
@@ -55,19 +76,19 @@
     rows.push((letter, title))
   }
   if rows.len() == 0 { return }
-  fm-section[APPENDICES][
+  fm-page[APPENDICES][
     #grid(
-      columns: (1.1in, 1fr),
+      columns: (1.4in, 1fr),
       column-gutter: 12pt,
       row-gutter: 8pt,
-      ..rows.map(((letter, title)) => ([#letter], title)).flatten()
+      ..rows.map(((letter, title)) => ([APPENDIX #letter], title)).flatten()
     )
   ]
 }
 
 #let pertinent-page(body) = {
   if blank(body) { return }
-  fm-section[PERTINENT DATA][
+  fm-page[PERTINENT DATA][
     #set text(size: BODY_SIZE)
     #body
   ]
@@ -88,7 +109,7 @@
     ))
   }
   if rows.len() == 0 { return }
-  fm-section[PREVIOUS MEMORANDUMS][
+  fm-page[PREVIOUS MEMORANDUMS][
     #set table(stroke: TABLE_STROKE, inset: (x: 6pt, y: 5pt), align: left)
     #show table.cell.where(y: 0): set text(weight: "bold")
     #table(
@@ -110,7 +131,7 @@
   }
   if rows.len() == 0 { return }
   rows = rows.sorted(key: row => lower(plain-text(row.at(0)).trim()))
-  fm-section[ACRONYMS][
+  fm-page[ACRONYMS][
     #set table(stroke: TABLE_STROKE, inset: (x: 6pt, y: 5pt), align: left)
     #show table.cell.where(y: 0): set text(weight: "bold")
     #table(

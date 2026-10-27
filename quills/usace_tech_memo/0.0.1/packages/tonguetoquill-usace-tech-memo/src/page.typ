@@ -3,6 +3,12 @@
 
 #let cui-banner() = text(size: BODY_SIZE, weight: "bold")[CUI]
 
+// The memo is chapter 1 of the ENC numbering scheme, so body pages are 1-1, 1-2.
+#let body-numbering(..nums) = {
+  let n = nums.pos().at(0, default: 1)
+  "1-" + str(n)
+}
+
 #let running-header(cui-enabled) = {
   if cui-enabled {
     place(top + center, dy: BANNER_FROM_EDGE, cui-banner())

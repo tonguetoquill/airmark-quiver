@@ -10,17 +10,17 @@
   prepared-by: none,
   date: none,
 ) = {
-  set par(leading: 0.55em, spacing: 0.7em)
-  set align(center)
+  set par(leading: 0.45em, spacing: 0.45em)
 
-  v(0.6in)
-  text(size: 16pt, weight: "bold")[
-    #if blank(memo-number) [TECHNICAL MEMORANDUM] else [TECHNICAL MEMORANDUM NO. #trim-inline(memo-number)]
-  ]
-
-  v(0.7in)
   {
-    set text(size: 13pt, weight: "bold")
+    set align(right)
+    set text(size: TITLE_LINE_SIZE, weight: "bold")
+    if blank(memo-number) {
+      [TECHNICAL MEMORANDUM]
+    } else {
+      [TECHNICAL MEMORANDUM NO. #trim-inline(memo-number)]
+    }
+    v(0.28in)
     for line in ensure-array(location-lines) {
       if not blank(line) {
         par(upper(trim-inline(line)))
@@ -28,30 +28,29 @@
     }
   }
 
-  v(0.7in)
+  v(0.85in)
+  set align(center)
   if not blank(study-name) {
-    text(size: 13pt, weight: "bold")[#trim-inline(study-name)]
-    v(0.35in)
+    text(size: TITLE_STUDY_SIZE, weight: "bold")[#trim-inline(study-name)]
+    v(0.28in)
   }
   if not blank(subject) {
-    text(size: 12pt)[#trim-inline(subject)]
-    v(0.45in)
+    text(size: TITLE_SUBJECT_SIZE, weight: "bold")[#trim-inline(subject)]
+    v(0.55in)
   }
 
-  text(size: 12pt, weight: "bold")[Technical Memorandum]
+  text(size: TITLE_KIND_SIZE, weight: "bold")[Technical Memorandum]
+  v(0.45in)
 
-  v(0.9in)
+  set text(size: TITLE_LINE_SIZE, weight: "bold")
   if not blank(prepared-for) {
-    par(text(size: SMALL_SIZE)[Prepared for])
-    par(trim-inline(prepared-for))
-    v(0.45in)
+    par[Prepared for: #trim-inline(prepared-for)]
   }
   if not blank(prepared-by) {
-    par(text(size: SMALL_SIZE)[Prepared by])
-    par(trim-inline(prepared-by))
+    par[Prepared by: #trim-inline(prepared-by)]
   }
 
-  v(0.7in)
+  v(0.28in)
   let printed = format-date(date)
   if printed != none {
     par(printed)

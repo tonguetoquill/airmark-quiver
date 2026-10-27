@@ -8,7 +8,7 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "The four standard sections are Heading 1s: Purpose, Summary (optional), Discussion, Recommendation, then References. Headings 1 to 3 appear in CONTENTS. Heading 5 and 6 run in: a bold heading, a period, and the paragraph on the same line. Caption a table, figure, or equation above it. Notes are paragraphs that start with Note., not footnotes."
+  description: "The four standard sections are Heading 1s: Purpose, Summary (optional), Discussion, Recommendation, then References. They print like the ENC template's Heading 2: 12 pt bold capitals, numbered 1.1, no page break. Headings 1 to 3 appear in CONTENTS. Heading 5 is bold underlined; Heading 6 is underlined. Caption a table, figure, or equation above it. Notes are paragraphs that start with Note., not footnotes."
   ui:
     groups:
       memo: {}
