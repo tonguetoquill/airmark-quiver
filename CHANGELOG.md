@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- **Take `@quillmark/wasm` 0.133.0, which every consumer now needs.** Each
+  quill's example moves from its root `example.md` into `Quill.yaml`: each
+  field declares the `example:` the file gave it, and each kind with a body a
+  `body.example`. A build before 0.133 refuses `example:` on a field, so it
+  can no longer load these quills. The example holds one card per kind, so the
+  AF Form 4141 example shows its first experience row and the DAF Form 4392
+  example its first itinerary leg, and the `afmc_moa` example gains a
+  background paragraph. The `example.md` files are gone from the package.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy

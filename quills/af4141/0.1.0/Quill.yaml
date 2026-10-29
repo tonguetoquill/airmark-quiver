@@ -14,21 +14,25 @@ main:
     name:
       type: text
       default: ""
+      example: Doe, John A.
       description: Your name as Last, First, Middle Initial.
 
     unit:
       type: text
       default: ""
+      example: 1st Air Control Squadron
       description: Your unit of assignment.
 
     grade:
       type: text
       default: ""
+      example: SSgt
       description: Your current grade or CCC level.
 
     commanders_auth:
       type: text
       default: ""
+      example: R.T.K., Lt Col
       description: The commander's authentication on page 1.
 
 card_kinds:
@@ -46,6 +50,7 @@ card_kinds:
           group: record
         type: date
         default: ""
+        example: 2025-06-02
         description: The date of the action.
 
       action:
@@ -53,6 +58,7 @@ card_kinds:
           group: record
         type: text
         default: ""
+        example: Assigned to 1st Air Control Squadron
         description: The action taken. Use one row per type of action.
 
       written_grade:
@@ -92,4 +98,5 @@ card_kinds:
           group: record
         type: text
         default: ""
+        example: M.S.P.
         description: Authenticating initials, for example J.A.D., or remarks.

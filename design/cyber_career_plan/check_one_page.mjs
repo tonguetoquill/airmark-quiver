@@ -3,7 +3,7 @@
 // of the width, and a mark that wrapped as they narrowed would make the timeline
 // taller. And the typed notes, which the ruled notes area has to hold along with
 // the line they are signed on (`long_notes.md`).
-// `quillkit test` renders the blueprint's near-empty seed and never sees it, so
+// `quillkit test` renders the near-empty seed and never sees it, so
 // this sweeps every fixture across every window the schema recommends.
 //
 // Usage: node design/cyber_career_plan/check_one_page.mjs

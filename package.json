@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@quillmark/quiver": "0.38.1",
-    "@quillmark/wasm": "0.130.0",
+    "@quillmark/wasm": "0.133.0",
     "quillkit": "0.20.0"
   },
   "scripts": {
@@ -40,5 +40,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/tonguetoquill/airmark-quiver"
+  },
+  "overrides": {
+    "@quillmark/wasm": "$@quillmark/wasm"
   }
 }
