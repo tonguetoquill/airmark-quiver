@@ -33,7 +33,9 @@
   image is three times its former resolution, about 280 ppi at print size,
   with the compression noise gone, and sits on plain white: the speckled
   halos around the Commendation and Meritorious Service medals and the gray
-  blotches behind the Achievement Medal no longer print.
+  blotches behind the Achievement Medal no longer print. The Achievement
+  Medal's ribbon is silver gray with ultramarine blue stripes, as the medal's
+  description gives it, in place of a khaki gray with steel blue stripes.
 
 ## v0.41.0 - 2026-10-26
 
