@@ -25,6 +25,12 @@
   or heading, and the paragraph drew in the body font. In `usaf_memo`, a
   code span or a strikethrough across a whole paragraph is kept too.
 
+- **A single reference wraps with the subject in `usaf_memo@0.3.0`.** The
+  subject and its parenthesized reference fill the line and wrap at the word
+  that no longer fits. A reference too long for the rest of the line no longer
+  drops whole to the next one, and a wrapped subject no longer pushes the
+  reference onto a line of its own.
+
 - **Bold renders in the `usaf_memo@0.3.0` tag line.** The quill bundles
   Spectral SC Bold, so a bold run in the tag line no longer draws in the
   regular weight.
