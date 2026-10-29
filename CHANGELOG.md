@@ -23,7 +23,7 @@
   `usaf_memo@0.3.0` and `army_memo@0.1.0`.** The body's paragraph numbering
   dropped a family run spanning an entire paragraph, list item, continuation
   or heading, and the paragraph drew in the body font. In `usaf_memo`, a
-  strikethrough across a whole paragraph is kept too.
+  code span or a strikethrough across a whole paragraph is kept too.
 
 ## v0.41.0 - 2026-10-26
 
