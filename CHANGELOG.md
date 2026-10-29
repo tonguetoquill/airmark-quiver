@@ -29,6 +29,12 @@
   Spectral SC Bold, so a bold run in the tag line no longer draws in the
   regular weight.
 
+- **`medal_citation@0.1.0` draws its medals clean and sharp.** Each medal
+  image is three times its former resolution, about 280 ppi at print size,
+  with the compression noise gone, and sits on plain white: the speckled
+  halos around the Commendation and Meritorious Service medals and the gray
+  blotches behind the Achievement Medal no longer print.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
