@@ -15,6 +15,7 @@ main:
     medal:
       type: enum
       default: Air and Space Achievement Medal
+      example: Air and Space Achievement Medal
       values:
         - Air and Space Achievement Medal
         - Air and Space Commendation Medal
@@ -24,6 +25,7 @@ main:
     oak_leaf_cluster:
       type: integer
       default: 0
+      example: 0
       ui:
         compact: true
       description: "How many oak leaf clusters, for a later award of the same medal. 0 prints none; 3 prints THIRD OAK LEAF CLUSTER under the medal name."
@@ -31,21 +33,25 @@ main:
     recipient:
       type: text
       default: ""
+      example: Staff Sergeant Jane A. Doe
       description: "The recipient's grade and name, for example Staff Sergeant Jane A. Doe. It prints in capitals under the award line."
 
     reason:
       type: text
       default: ""
+      example: Meritorious Service
       description: "What the medal recognizes, for example Outstanding Achievement or Meritorious Service. It prints in capitals under FOR."
 
     period_from:
       type: date
       default: ""
+      example: 2024-10-11
       description: "The first day of the period. It prints as 11 OCTOBER 2024."
 
     period_to:
       type: date
       default: ""
+      example: 2026-10-12
       description: "The last day of the period. It prints as 12 OCTOBER 2026."
 
     accomplishments:
@@ -53,44 +59,53 @@ main:
       multiline: false
       max: 1350
       default: ""
+      example: Staff Sergeant Jane A. Doe distinguished herself by meritorious service as Noncommissioned Officer in Charge, Aircraft Maintenance Operations, 3d Maintenance Squadron, Joint Base Elmendorf-Richardson, Alaska. During this period, Sergeant Doe led fourteen technicians through 2,300 sorties, directed the recovery of three aircraft, and managed a 4.2 million dollar inventory with no loss. The distinctive accomplishments of Sergeant Doe reflect credit upon herself and the United States Air Force.
       description: "The citation paragraph. 1350 characters, including spaces."
 
     signed_on:
       type: date
       default: ""
+      example: 2026-10-13
       description: "The date the certificate is given. It prints as 13 OCTOBER 2026."
 
     signer_name:
       type: text
       default: ""
+      example: ANDREW P. GRIFFITH
       description: "The approving official's name, for example ANDREW P. GRIFFITH. It prints in bold under the signature."
 
     signer_grade:
       type: text
       default: ""
+      example: Colonel, USAF
       description: "The approving official's grade, for example Colonel, USAF. It prints under the name."
 
     signer_title:
       type: text
       default: ""
+      example: Commander, 3d Tactical Fighter Wing
       description: "The approving official's duty title, for example Commander, 3d Wing. It prints under the grade."
 
     special_order:
       type: text
       default: ""
+      example: G-12214
       description: "The special order number, for example G-12214. It prints at the foot of the certificate; blank prints nothing."
 
     condition:
       type: text
       default: ""
+      example: "4"
       description: "The decoration's condition code, for example 4. It prints at the foot of the certificate; blank prints nothing."
 
     pas:
       type: text
       default: ""
+      example: DM1LFHS2
       description: "The personnel accounting symbol of the recipient's unit, for example DM1LFHS2. It prints at the foot of the certificate; blank prints nothing."
 
     rdp:
       type: date
       default: ""
+      example: 2026-08-19
       description: "The date of the Recommendation for Decoration Printout. It prints at the foot of the certificate as 19 AUG 2025; blank prints nothing."

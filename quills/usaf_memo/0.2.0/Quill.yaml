@@ -15,6 +15,14 @@ main:
       letterhead: {}
       classification: {}
       additional: {}
+  body:
+    example: |-
+      Each group reviews every office of record it owns against references (a) and (b) by the suspense in the subject line. Group records custodians confirm two things for each office:
+
+      - The file plan lists every series the office keeps, with its disposition authority.
+      - Files past cutoff are staged for retirement or destruction.
+
+      Return the checklist at the attachment, signed by the group commander, to 123 CS/SCX. Direct questions to 123 CS/SCX at DSN 555-0142.
   fields:
     memo_for:
       type: array
@@ -24,12 +32,16 @@ main:
         group: addressing
         compact: true
       description: "Organization/office symbol in UPPERCASE. To address a specific person, add their rank and name in parentheses (e.g., 'ORG/SYMBOL (LT COL JANE DOE)'). For many recipients, enter 'SEE DISTRIBUTION' and list them in the Distribution field."
+      example:
+        - SEE DISTRIBUTION
 
     memo_from:
       type: array
       items:
         type: text
       default: []
+      example:
+        - 123 CS/SCX
       ui:
         group: addressing
         compact: true
@@ -40,6 +52,7 @@ main:
         group: addressing
       type: text
       description: Be brief and clear. Capitalize the first letter of each word except articles, prepositions, and conjunctions. Include suspense dates in parentheses if applicable.
+      example: "Annual Records Management Review (Suspense: 30 October 2026)"
 
     signature_block:
       type: array
@@ -49,6 +62,9 @@ main:
         group: addressing
         compact: true
       description: "Line 1: Name in UPPERCASE as signed, grade, and service, as in 'FIRST M. LAST, Capt, USAF'. Line 2: Duty title."
+      example:
+        - JOHN B. SMITH, Maj, USAF
+        - Director of Operations
     letterhead_title:
       ui:
         group: letterhead
@@ -63,6 +79,8 @@ main:
       items:
         type: text
       description: The full organization name of your unit, as in HEADQUARTERS 123D EXAMPLE WING.
+      example:
+        - 123D COMMUNICATIONS SQUADRON
 
     letterhead_seal:
       type: enum
@@ -152,6 +170,9 @@ main:
         type: richtext
         multiline: false
       default: []
+      example:
+        - "AFMAN 33-326, 25 November 2011, *Preparing Official Communications*"
+        - "AFI 33-360, *Publications and Forms Management*"
       description: "References, auto-lettered (a), (b), (c) per AFH 33-337. Cite each by organization, type, date, and title; italicize publication titles with *asterisks* (standard Markdown emphasis)."
 
     cc:
@@ -161,6 +182,8 @@ main:
       items:
         type: text
       default: []
+      example:
+        - 123 WG/CCE
       description: List office symbols of recipients to receive copies; for a person, 'Rank and Name, ORG/SYMBOL'.
 
     distribution:
@@ -170,6 +193,11 @@ main:
       items:
         type: text
       default: []
+      example:
+        - 123 OG/CC
+        - 123 MXG/CC
+        - 123 MSG/CC
+        - 123 MDG/CC
       description: Complete list of recipients if 'SEE DISTRIBUTION' is used in the 'Memo For' field.
 
     attachments:
@@ -179,6 +207,8 @@ main:
       items:
         type: text
       default: []
+      example:
+        - Records Management Self-Inspection Checklist, 1 September 2026
       description: List attachments in the order they are mentioned in the memo. Briefly describe each and give its date; do not use 'as stated' or abbreviations.
 
     memo_style:
@@ -203,6 +233,7 @@ main:
     date:
       type: date
       default: ""
+      example: today
       ui:
         group: additional
         compact: true
@@ -216,6 +247,9 @@ card_kinds:
       groups:
         addressing: {}
         additional: {}
+    body:
+      example: |-
+        The 123 OG completed its review on 21 October 2026. All four squadron file plans are current, and 123 OSS retires its two cutoff series by 15 November 2026.
     fields:
       from:
         type: text
@@ -223,12 +257,14 @@ card_kinds:
           group: addressing
           compact: true
         description: Office symbol or Rank Name of the endorsing official.
+        example: 123 OG/CC
       for:
         type: text
         ui:
           group: addressing
           compact: true
         description: Office symbol or organization receiving the endorsed memo.
+        example: 123 CS/SCX
       signature_block:
         type: array
         items:
@@ -237,6 +273,9 @@ card_kinds:
           group: addressing
           compact: true
         description: "Line 1: Name in UPPERCASE as signed, grade, and service, as in 'FIRST M. LAST, Capt, USAF'. Line 2: Duty title."
+        example:
+          - RICHARD C. ROE, Col, USAF
+          - Commander
       format:
         type: enum
         values:
@@ -265,6 +304,7 @@ card_kinds:
       date:
         type: date
         default: ""
+        example: today
         ui:
           group: additional
           compact: true

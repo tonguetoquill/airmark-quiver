@@ -26,6 +26,7 @@ main:
         group: identity
       type: text
       description: "Your name as you want it read. It also names the PDF."
+      example: Philip J. Fry
 
     contacts:
       ui:
@@ -34,12 +35,18 @@ main:
       items:
         type: text
       description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
+      example:
+        - fry@planetexpress.example
+        - (212) 555-0199
+        - github.com/borb-sh
+        - New New York
     paper:
       type: enum
       values:
         - us-letter
         - a4
       default: us-letter
+      example: us-letter
       ui:
         group: page
         compact: true
@@ -48,6 +55,7 @@ main:
     font_size:
       type: number
       default: 12
+      example: 11.5
       ui:
         group: page
         compact: true
@@ -56,11 +64,11 @@ main:
     margin:
       type: number
       default: 0.5
+      example: 0.5
       ui:
         group: page
         compact: true
       description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
-
 
 # Each kind opens with the heading it prints. Its `default:` is the usual one,
 # so a new card shows the heading it will print, and an authored "" prints
@@ -69,6 +77,9 @@ card_kinds:
   summary:
     title: Summary
     description: "A few lines on who you are and the work you want next. Rename it for any section that's just text, such as an objective."
+    body:
+      example: |-
+        Delivery boy with a thousand years of experience, most of it frozen. Brings 20th-century know-how to 31st-century problems and has saved Earth more than once. Wants to keep delivering anywhere, ideally with fewer space bees.
     seed:
       $body: An engineer. Likes climbing rocks and making useful things.
     fields:
@@ -92,6 +103,7 @@ card_kinds:
       title:
         type: text
         default: Work Experience
+        example: Experience
         description: &title_description "The section heading. Leave blank to omit it."
       jobs:
         type: array
@@ -119,6 +131,25 @@ card_kinds:
               default: ""
               description: "What you did, usually as short bullets with the strongest first."
         description: "One entry per job."
+        example:
+          - company: Planet Express
+            dates: December 2999 – Present
+            role: Delivery Boy
+            location: New New York
+            details: |-
+              - Deliver packages anywhere in the universe with Captain Turanga Leela and Bender Bending Rodríguez.
+
+              - Completed runs to robot-only Chapek 9 and a hive of giant space bees, and survived both.
+          - company: Earth Army
+            dates: November 3000
+            role: Private
+            location: Spheron 1
+            details: "- Enlisted for the military discount; deployed against the Spheroids under Zapp Brannigan."
+          - company: Panucci's Pizza
+            dates: June 1997 – December 1999
+            role: Delivery Boy
+            location: New York, NY
+            details: "- Delivered pizza across New York City until a prank order to Applied Cryogenics ran 1,000 years late."
 
   education:
     title: Education
@@ -152,6 +183,11 @@ card_kinds:
               <<: *details
               description: "Honors, activities, or coursework. Most entries need none."
         description: "One entry per school or degree."
+        example:
+          - school: Mars University
+            dates: September 3000
+            degree: Undeclared, no degree
+            location: Mars
 
   skills:
     title: Skills
@@ -179,9 +215,19 @@ card_kinds:
               type: text
               description: "The skills in this group, separated by commas."
         description: "One group per row."
-      columns: &columns
+        example:
+          - label: Logistics
+            items: Packages, pizza, interplanetary freight
+          - label: 20th-Century Culture
+            items: TV, arcade games, Star Trek trivia
+          - label: Music
+            items: Holophonor, opera composition
+          - label: Endurance
+            items: Cryogenic sleep, 100 cups of coffee
+      columns:
         type: integer
         default: 2
+        example: 2
         ui:
           compact: true
         description: "Number of columns. Two suit longer items; three suit single words."
@@ -199,6 +245,7 @@ card_kinds:
       title:
         type: text
         default: Projects
+        example: Projects
         description: *title_description
       projects:
         type: array
@@ -214,6 +261,12 @@ card_kinds:
               description: "Where to see it, for example github.com/you/project. It prints as written, so leave off https://."
             details: *details
         description: "One entry per project."
+        example:
+          - name: Quillmark
+            link: github.com/borb-sh/quillmark
+            details: "- Schema-driven document framework that delivers typeset documents from Markdown, this resume included."
+          - name: Holophonor Opera
+            details: "- Wrote and performed an opera about Leela on the holophonor, using the Robot Devil's hands."
 
   certifications:
     title: Certifications
@@ -225,6 +278,7 @@ card_kinds:
       title:
         type: text
         default: Certifications
+        example: Certifications
         description: *title_description
       items:
         type: array
@@ -232,7 +286,18 @@ card_kinds:
           type: richtext
           multiline: false
         description: "One per line, short enough to fit its column."
-      columns: *columns
+        example:
+          - "Career Chip: Delivery Boy"
+          - Earth Army Basic Training
+          - First Aid, taught by Dr. Zoidberg
+          - Food Handler's Permit, New York
+      columns:
+        type: integer
+        default: 2
+        example: 2
+        ui:
+          compact: true
+        description: "Number of columns. Two suit longer items; three suit single words."
 
   other:
     title: Other section
@@ -247,6 +312,7 @@ card_kinds:
       title:
         type: text
         description: "The section heading."
+        example: Planetary Defense
       entries:
         type: array
         items:
@@ -263,3 +329,13 @@ card_kinds:
             location: *location
             details: *details
         description: "One entry per item."
+        example:
+          - heading: Saved Earth from the Brainspawn
+            details: "- Held the line as the only human immune to the Brainspawn, thanks to a missing Delta brainwave."
+          - heading: Ended the Omicronian Invasion
+            details: |-
+              - Restaged the lost finale of *Single Female Lawyer* for Lrrr, ruler of the planet Omicron Persei 8.
+
+              - Caused the crisis in the first place by knocking the original broadcast off the air in 1999.
+          - heading: Deflected a Giant Ball of Garbage
+            details: "- Helped knock it off course with a second ball of garbage, built on 20th-century expertise."

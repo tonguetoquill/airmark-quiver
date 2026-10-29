@@ -13,13 +13,15 @@ main:
   fields:
     transportation_mode:
       type: enum
-      values: [pmv, airplane, bus, train, motorcycle, other]
+      values: [ pmv, airplane, bus, train, motorcycle, other ]
       default: pmv
+      example: airplane
       description: "How you're traveling."
 
     departure_date:
       type: date
       default: ""
+      example: 2026-06-01
       ui:
         compact: true
       description: "The day you leave."
@@ -27,6 +29,7 @@ main:
     final_destination:
       type: text
       default: ""
+      example: San Antonio, TX
       ui:
         compact: true
       description: "Where you're going, for example Denver, CO."
@@ -34,6 +37,7 @@ main:
     dept_flight_num:
       type: text
       default: ""
+      example: AA 1482
       ui:
         compact: true
       description: "Your departure flight number, if you're flying. A tentative number is fine."
@@ -41,6 +45,7 @@ main:
     arrival_flight_num:
       type: text
       default: ""
+      example: AA 2217
       ui:
         compact: true
       description: "Your arrival flight number, if you're flying. A tentative number is fine."
@@ -49,11 +54,13 @@ main:
       type: text
       multiline: true
       default: ""
+      example: Visiting family over leave; rental car for local travel.
       description: "Anything else about your trip."
 
     organization:
       type: text
       default: ""
+      example: 1st Air Control Squadron
       ui:
         compact: true
       description: "Your unit."
@@ -61,6 +68,7 @@ main:
     briefed_date:
       type: date
       default: ""
+      example: 2026-05-22
       ui:
         compact: true
       description: "The date of the briefing."
@@ -68,6 +76,7 @@ main:
     briefee_name:
       type: text
       default: ""
+      example: Doe, John
       ui:
         compact: true
       description: "Your name as Last, First."
@@ -75,6 +84,7 @@ main:
     briefee_grade:
       type: text
       default: ""
+      example: E-5
       ui:
         compact: true
       description: "Your grade."
@@ -82,6 +92,7 @@ main:
     briefer_name:
       type: text
       default: ""
+      example: Smith, Jane
       ui:
         compact: true
       description: "The briefer's name as Last, First."
@@ -89,6 +100,7 @@ main:
     briefer_grade:
       type: text
       default: ""
+      example: E-7
       ui:
         compact: true
       description: "The briefer's grade."
@@ -96,11 +108,13 @@ main:
     emergency_contact_name:
       type: text
       default: ""
+      example: Doe, Mary
       description: "Who to contact in an emergency."
 
     emergency_contact_phone:
       type: text
       default: ""
+      example: (555) 555-0142
       description: "Your emergency contact's phone number."
 
 card_kinds:
@@ -116,6 +130,7 @@ card_kinds:
       date:
         type: date
         default: ""
+        example: 2026-06-01
         ui:
           group: itinerary_entry
           compact: true
@@ -123,6 +138,7 @@ card_kinds:
       departure_point:
         type: text
         default: ""
+        example: Panama City, FL
         ui:
           group: itinerary_entry
           compact: true
@@ -130,6 +146,7 @@ card_kinds:
       arrival_point:
         type: text
         default: ""
+        example: San Antonio, TX
         ui:
           group: itinerary_entry
           compact: true
@@ -137,6 +154,7 @@ card_kinds:
       rest_length:
         type: text
         default: ""
+        example: 3 days
         ui:
           group: itinerary_entry
           compact: true

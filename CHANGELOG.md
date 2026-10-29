@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- **Take `@quillmark/wasm` 0.133.0: each quill's example lives in its
+  `Quill.yaml`.** Every field `example.md` filled now carries that value as
+  its `example:`, and every body it wrote is its kind's `body.example`, so the
+  authoring schema a model reads shows each field and body a sample. The
+  `example.md` files are gone. The derived example holds one card of each kind
+  in declaration order, so the `af4141` example keeps its first duty entry,
+  the `daf4392` example its first leg, the `classic_resume` example lists its
+  sections in declaration order, and the `afmc_moa` example gains the seeded
+  Background card. quillkit 0.20.0 still pins wasm 0.130.0, so `package.json`
+  overrides it with 0.133.0.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
