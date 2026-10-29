@@ -24,6 +24,7 @@
   cui-limited-dissemination: none,
   cui-poc: none,
   footer-tag-line: none,
+  footer-tag-line-size: 15pt,
   it,
 ) = {
   assert(letter-for != none, message: "letter-for is required")
@@ -83,7 +84,7 @@
   let tag-line = if falsey(footer-tag-line) {
     none
   } else {
-    align(center, text(fill: LETTERHEAD_COLOR, font: "Spectral SC", size: 15pt)[#footer-tag-line])
+    align(center, text(fill: LETTERHEAD_COLOR, font: "Spectral SC", size: footer-tag-line-size)[#footer-tag-line])
   }
 
   set par(leading: spacing.line, spacing: spacing.line, justify: false)

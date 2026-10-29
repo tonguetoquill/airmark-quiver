@@ -29,6 +29,10 @@
   Spectral SC Bold, so a bold run in the tag line no longer draws in the
   regular weight.
 
+- **The tag line's size is a field in `usaf_memo@0.3.0` and
+  `usaf_letter@0.1.0`.** Tag Line Size, under the letterhead, sets the tag
+  line in points. It defaults to 15, the size it printed at before.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy

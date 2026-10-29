@@ -79,6 +79,7 @@
   ..if qm.data.references.len() > 0 { (references: qm.data.references) },
 
   footer-tag-line: qm.data.tag_line,
+  footer-tag-line-size: qm.data.tag_line_size * 1pt,
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.

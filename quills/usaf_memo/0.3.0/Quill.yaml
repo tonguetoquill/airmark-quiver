@@ -131,6 +131,15 @@ main:
         group: letterhead
         compact: true
       description: "Your unit's motto, centered at the bottom of every page."
+
+    tag_line_size:
+      type: number
+      default: 15
+      ui:
+        group: letterhead
+        compact: true
+      description: "Tag line text size in points. The default is 15."
+
     classification:
       type: enum
       values:
