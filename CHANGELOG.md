@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.42.0 - 2026-10-29
+
+- Take quillkit 0.21.0 and @quillmark/wasm 0.133.0: move each quill's example into Quill.yaml (#304)
+- chore: add the quill-design skill (#300)
+- Pin every action by commit SHA and keep the pins current with Dependabot (#235)
+
+
 ## Unreleased
 
 - **Take quillkit 0.21.0, `@quillmark/quiver` 0.39.0 and `@quillmark/wasm`
