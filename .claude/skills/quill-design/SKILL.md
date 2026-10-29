@@ -24,7 +24,7 @@ Start from the model for the document's shape: `usaf_memo` (latest) for a flat f
 1. List what prints and which of it most writers fill. That is the first group; the rest follows or is left out.
 2. Type every field so the editor can enforce it, and give a `title:` to any field or group whose key does not read as a label (`pas`, `afsc`).
 3. Write defaults, seeds and descriptions under principle 1, then turn the body off (`body: { enabled: false }`) wherever it means nothing.
-4. Give each field the `example:` a filled-in page would hold, and each kind with a body a `body.example`, run `npm test`, then run the check below.
+4. Give each field the `example:` a filled-in page would hold.
 
 ## Reviewing a quill
 
