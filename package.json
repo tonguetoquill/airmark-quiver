@@ -20,7 +20,7 @@
   "devDependencies": {
     "@quillmark/quiver": "0.39.0",
     "@quillmark/wasm": "0.133.0",
-    "quillkit": "0.20.0"
+    "quillkit": "0.21.0"
   },
   "scripts": {
     "test": "quillkit check && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
@@ -40,8 +40,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/tonguetoquill/airmark-quiver"
-  },
-  "overrides": {
-    "@quillmark/wasm": "$@quillmark/wasm"
   }
 }

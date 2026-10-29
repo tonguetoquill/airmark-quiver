@@ -2,7 +2,8 @@
 
 ## Unreleased
 
-- **Take `@quillmark/wasm` 0.133.0, which every consumer now needs.** Each
+- **Take quillkit 0.21.0, `@quillmark/quiver` 0.39.0 and `@quillmark/wasm`
+  0.133.0, which every consumer now needs.** Each
   quill's example moves from its root `example.md` into `Quill.yaml`: each
   field declares the `example:` the file gave it, and each kind with a body a
   `body.example`. A build before 0.133 refuses `example:` on a field, so it
