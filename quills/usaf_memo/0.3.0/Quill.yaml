@@ -8,7 +8,6 @@ typst:
   plate_file: plate.typ
 
 main:
-  description: "Write the body as plain paragraphs. They're numbered for you, and bullets become lettered subparagraphs. Use a block quote for lines that shouldn't be numbered, like a list of names."
   ui:
     groups:
       addressing: {}
@@ -16,6 +15,7 @@ main:
       classification: {}
       additional: {}
   body:
+    description: "Write plain paragraphs and don't number them: each one is numbered for you. A bullet under a paragraph becomes a lettered subparagraph, and indenting it goes deeper. Use a block quote for lines that shouldn't be numbered, like a list of names."
     example: |-
       Each group reviews every office of record it owns against references (a) and (b) by the suspense in the subject line. Group records custodians confirm two things for each office:
 

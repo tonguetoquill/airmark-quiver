@@ -13,6 +13,12 @@
   Background card. quillkit 0.20.0 still pins wasm 0.130.0, so `package.json`
   overrides it with 0.133.0.
 
+- **A `usaf_memo` draft keeps its top-level paragraphs at the top level.**
+  The memo's body guidance moves onto the body as `body.description` and now
+  says not to number paragraphs, since a numbered list nests every item as a
+  lettered subparagraph. With the body's example beside it, a model writing
+  from the authoring schema sees both the rule and its shape.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
