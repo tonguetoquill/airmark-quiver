@@ -25,6 +25,10 @@
   or heading, and the paragraph drew in the body font. In `usaf_memo`, a
   code span or a strikethrough across a whole paragraph is kept too.
 
+- **Bold renders in the `usaf_memo@0.3.0` tag line.** The quill bundles
+  Spectral SC Bold, so a bold run in the tag line no longer draws in the
+  regular weight.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
