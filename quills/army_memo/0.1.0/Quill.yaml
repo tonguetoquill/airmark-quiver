@@ -9,6 +9,21 @@ typst:
 
 main:
   description: "Write the body as plain paragraphs, without typing their numbers or letters. They're numbered for you, and bullets become lettered subparagraphs. Use a block quote for lines that shouldn't be numbered. End with a paragraph naming the point of contact by grade or civilian prefix and name, with their position, office address, phone and email."
+  body:
+    example: |-
+      Under reference 1a, I delegate to the battalion executive officer and the battalion operations officer the authority to sign for me, with the authority line FOR THE COMMANDER:
+
+      - Correspondence that carries out approved battalion policy.
+
+      - Taskings to the companies within their assigned missions.
+
+      - Replies to inquiries from the division staff.
+
+      The signature matrix at the enclosure lists what each officer signs. Each signs with his or her own signature block and title. Correspondence that sets policy comes to me for signature.
+
+      I may cancel this delegation at any time, and a new commander reviews it on assuming command. The S-1 files it under record number 25-50a, as reference 1b requires.
+
+      The point of contact is CPT Maria L. Garcia, Battalion Adjutant, 1234 Example Avenue, Room 210, at 915-555-0123 or maria.l.garcia@example.com.
   fields:
     addressing:
       type: object
@@ -18,6 +33,9 @@ main:
           items:
             type: text
           default: []
+          example:
+            - Executive Officer, 123d Signal Battalion (AFZC-SC-XO)
+            - Operations Officer, 123d Signal Battalion (AFZC-SC-OP)
           max: 5
           description: "Each addressee's office and address, one per line. To send it to someone's attention, add their office symbol and name in parentheses after the office, for example 'Commander, U.S. Army Garrison Fort Bliss (IMBL-ZA/Ms. Jane Doe)'. For more than five, enter 'SEE DISTRIBUTION' and list them under Distribution. Addresses print in capitals. Leave this and Memo Thru blank for a memorandum for record."
 
@@ -32,12 +50,14 @@ main:
           type: text
           ui:
             compact: true
+          example: AFZC-SC
           description: "Your office symbol, for example 'AFZC-SC'. It also heads every continuation page."
 
         record_number:
           type: text
           ui:
             compact: true
+          example: 25-50a
           description: "The ARIMS record number of the file this memo goes in, for example '25-50a'. It prints in parentheses after your office symbol."
 
         office_symbol_info:
@@ -50,11 +70,13 @@ main:
         subject:
           type: richtext
           multiline: false
+          example: Delegation of Signature Authority
           description: "A subject of ten words or fewer, in title case and without abbreviations."
 
         date:
           type: date
           default: ""
+          example: today
           ui:
             compact: true
           description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
@@ -77,6 +99,10 @@ main:
           type: array
           items:
             type: text
+          example:
+            - ROBERT T. JONES
+            - LTC, SC
+            - Commanding
           description: "Your name in capitals on the first line, for example 'JOHN A. SMITH'. Your grade and branch on the second, for example 'COL, GS', and your title on the third, or 'Commanding' if you command. General officers spell out their grade, for example 'Major General, USA'. Civilians put their title on the second line. Type a long title as one line; it wraps a quarter inch in."
 
     letterhead:
@@ -88,6 +114,12 @@ main:
             type: text
           default:
             - DEPARTMENT OF THE ARMY
+          example:
+            - DEPARTMENT OF THE ARMY
+            - HEADQUARTERS, 123D SIGNAL BATTALION
+            - 1ST ARMORED DIVISION
+            - 1234 EXAMPLE AVENUE
+            - FORT BLISS, TX  79916-6812
           max: 5
           description: "The letterhead, in uppercase. Keep the first line, then add your organization's name and its full mailing address, ending with the city, the state abbreviation, two spaces, and the nine-digit ZIP code."
 
@@ -148,6 +180,9 @@ main:
             type: richtext
             multiline: false
           default: []
+          example:
+            - AR 25-50 (Preparing and Managing Correspondence)
+            - AR 25-400-2 (The Army Records Information Management System (ARIMS))
           description: "Cite a publication by number and title, for example 'AR 25-50 (Preparing and Managing Correspondence)', and correspondence by organization, office symbol, type, subject and date. List them in the order the memo mentions them. References the body doesn't mention go in order of precedence, oldest first. They print as the first paragraph."
 
         enclosures:
@@ -156,6 +191,8 @@ main:
             type: richtext
             multiline: false
           default: []
+          example:
+            - as
           description: "Each enclosure in the order the memo mentions it, described briefly with its date, for example 'Memorandum, OTJAG, 15 Feb 19'. Enter 'as' for one the body already describes."
 
         distribution:
@@ -171,6 +208,8 @@ main:
           items:
             type: text
           default: []
+          example:
+            - Company Commanders, 123d Signal Battalion
           description: "Offices that get a copy for their information, one per line. They print in capitals, as the addresses do."
 
         cf_without_enclosures:

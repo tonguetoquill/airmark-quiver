@@ -32,11 +32,11 @@ Fixtures, a render helper, and a layout check for the `army_memo` quill.
 # anything else a PDF; the trailing date is the one `date: today` prints)
 node design/army_memo/render_fixture.mjs design/army_memo/fixtures/basic.md /tmp/basic.pdf 2026-10-13
 
-# with no fixture, renders the blueprint the schema seeds
+# with no fixture, renders the document the schema seeds
 node design/army_memo/render_fixture.mjs /tmp/seed.pdf 2026-10-13
 
 # measure the rendered PDF against AR 25-50 (`seed` in place of a fixture
-# measures a blueprint render)
+# measures a seed render)
 python3 -I design/army_memo/validate_memo.py design/army_memo/fixtures/basic.md /tmp/basic.pdf
 ```
 
@@ -133,7 +133,7 @@ Fixtures, a render helper, and a check for the `cyber_career_plan` quill.
 # render a fixture (run from the repo root; .png renders an image, anything else a PDF)
 node design/cyber_career_plan/render_fixture.mjs design/cyber_career_plan/fixtures/maximal.md /tmp/max.pdf
 
-# with no fixture, renders the blueprint the schema seeds
+# with no fixture, renders the document the schema seeds
 node design/cyber_career_plan/render_fixture.mjs /tmp/seed.pdf
 ```
 
@@ -172,7 +172,7 @@ Fixtures and a render helper for the `classic_resume` quill.
 # render a fixture to PDF (run from the repo root)
 node design/classic_resume/render_fixture.mjs design/classic_resume/fixtures/maximal.md /tmp/max.pdf
 
-# with no fixture, renders the blueprint the schema seeds
+# with no fixture, renders the document the schema seeds
 node design/classic_resume/render_fixture.mjs /tmp/seed.pdf
 ```
 
@@ -238,7 +238,7 @@ Fixtures and a layout check for the `usaf_letter` quill.
 # render a fixture to PDF (run from the repo root)
 node design/usaf_letter/render_fixture.mjs design/usaf_letter/fixtures/maximal.md /tmp/max.pdf
 
-# with no fixture, renders the blueprint the schema seeds
+# with no fixture, renders the document the schema seeds
 node design/usaf_letter/render_fixture.mjs /tmp/seed.pdf
 
 # check the rendered PDF against AFH 33-337's line offsets
@@ -281,7 +281,7 @@ Fixtures and a render helper for the `usaf_paper` quill.
 # render a fixture to PDF (run from the repo root)
 node design/usaf_paper/render_fixture.mjs design/usaf_paper/fixtures/cui.md /tmp/cui.pdf
 
-# with no fixture, renders the blueprint the schema seeds
+# with no fixture, renders the document the schema seeds
 node design/usaf_paper/render_fixture.mjs /tmp/seed.pdf
 ```
 

@@ -15,6 +15,8 @@ main:
   # The chart's one piece of prose. It is set on the ruled notes area at the
   # foot of the page, and a rater goes on writing below it during the discussion.
   description: "What you want from this discussion: goals, preferences, assignments you'd turn down, questions for your rater. Put constraints that end in a known year under Constraints instead, so they show on the timeline."
+  body:
+    example: "What I want out of this discussion: the DO seat at the 333 TRS when my instructor tour ends, then IDE in residence. I'd rather not go to staff before I've had a DO job."
   ui:
     groups:
       officer: {}
@@ -27,6 +29,7 @@ main:
       ui:
         group: officer
       type: text
+      example: Capt John A. Snuffy
       description: "Your grade and name, for example 'Capt John A. Snuffy'. It also names the PDF."
 
     duty_title:
@@ -34,6 +37,7 @@ main:
         group: officer
       type: text
       default: ""
+      example: Instructor
       description: "Your current job, for example Instructor or Flight Commander."
 
     unit:
@@ -41,11 +45,13 @@ main:
         group: officer
       type: text
       default: ""
+      example: 333 TRS, Keesler AFB
       description: "Your unit and base, for example '333 TRS, Keesler AFB'."
 
     afsc:
       type: text
       default: ""
+      example: 17S3
       ui:
         group: officer
         compact: true
@@ -56,6 +62,7 @@ main:
       ui:
         group: officer
         compact: true
+      example: 2022
       description: "Your commissioning year group. Every milestone on the timeline is counted from it."
 
     adjusted_yg:
@@ -68,6 +75,7 @@ main:
     date_of_rank:
       type: date
       default: ""
+      example: 2026-05-01
       ui:
         group: officer
         compact: true
@@ -76,6 +84,7 @@ main:
     date_arrived_station:
       type: date
       default: ""
+      example: 2025-06-15
       ui:
         group: officer
         compact: true
@@ -86,6 +95,7 @@ main:
       ui:
         group: officer
         compact: true
+      example: 2026
       description: "The first year on the timeline, usually this year."
 
     advanced_degree:
@@ -93,6 +103,7 @@ main:
         group: officer
       type: text
       default: ""
+      example: MS Cyber Operations, AFIT
       description: "Your advanced degree, for example 'MS Cyber Operations, AFIT'. Add '(in progress)' if you're still working on it."
     timeline_years:
       type: integer
@@ -107,6 +118,7 @@ main:
       ui:
         group: plan
         compact: true
+      example: 2028
       description: "The year you expect to leave your current assignment. Every vector starts from this move. To stay longer on one vector, make the extension its first tour."
 
     move_cycle:
@@ -136,6 +148,9 @@ main:
             title: Through
             description: "The last year it applies."
       default: []
+      example:
+        - note: Join-spouse, no OCONUS
+          through: 2029
       description: "Anything that limits where or when you can move and ends in a known year, like a join-spouse assignment or a degree in progress. Each shows as a bar across the timeline."
 
     vectors:
@@ -175,6 +190,28 @@ main:
         - { track: "", tours: [] }
         - { track: "", tours: [] }
         - { track: "", tours: [] }
+      example:
+        - track: Command
+          tours:
+            - title: 333 TRS/DO
+              years: 2
+            - title: IDE in residence
+              years: 1
+              school: true
+            - title: Sq/CC, Scott AFB
+              years: 2
+        - track: Staff depth
+          tours:
+            - title: 17X CFM Staff
+              years: 2.5
+            - title: MAJCOM A3 Division Chief
+              years: 2
+        - track: Joint
+          tours:
+            - title: Joint Staff J6
+              years: 3
+            - title: USCYBERCOM JFHQ-C
+              years: 2.5
       description: "Up to three career paths after your current assignment: primary, alternate, and backup, in that order."
     stratifications:
       type: array
@@ -199,6 +236,15 @@ main:
             title: Higher Level Reviewer
             description: "Your higher level reviewer's stratification, for example '#1/45 CGOs'. Leave blank if you didn't get one."
       default: []
+      example:
+        - year: 2026
+          rater: "#1/14 Capts"
+          hlr: "#1/45 Capts"
+        - year: 2025
+          rater: "#2/12 Lts"
+          hlr: "#3/40 CGOs"
+        - year: 2024
+          rater: "#1/8 Lts, #2/40 Instructors"
       description: "Your stratifications from the last three years."
 
     awards:
@@ -208,6 +254,9 @@ main:
       items:
         type: text
       default: []
+      example:
+        - Wing CGOQ x2
+        - HAF A2/6 CGOY 2025
       description: "Major awards, one per line, strongest first. Wing level and above is worth the space."
 
     certifications:
@@ -217,6 +266,10 @@ main:
       items:
         type: text
       default: []
+      example:
+        - SANS FOR577 (GLIR)
+        - CISSP
+        - Security+
       description: "Certifications a board would recognize, one per line. Mark PME and the Cyber 200 and 300 courses under Qualifications instead."
 
     deployments:
@@ -226,6 +279,8 @@ main:
       items:
         type: text
       default: []
+      example:
+        - 1x short tour, returned Jan 2024
       description: "Deployments and short tours, one per line, with the month you returned."
     # The page prints every member in four rows and marks the held ones, so an
     # empty box is as much of the chart as a filled one. A row is a property
@@ -270,6 +325,11 @@ main:
             expeditionary_comms: Expeditionary Comms
             mission_cc: Mission CC
           properties: *detail
+          example:
+            dodin_ops: true
+            dco:
+              detail: 23 IOS
+            crew_cc: true
         staff:
           type: matrix
           title: Staff & functional
@@ -283,6 +343,9 @@ main:
             instructor: Instructor
             jqo: Joint Qualified Officer (JQO)
           properties: *detail
+          example:
+            instructor:
+              detail: 333 TRS
         # Completion and distinction are one tick and its detail, so SOS held
         # with detail DG reads as both. Candidate and graduate are two ticks:
         # they are different rungs, and a board reads them differently.
@@ -302,3 +365,8 @@ main:
             sde_graduate: SDE Graduate
             weapons_school: Weapons School / WIC DG
           properties: *detail
+          example:
+            sos:
+              detail: DG
+            cyber_200:
+              detail: "2025"

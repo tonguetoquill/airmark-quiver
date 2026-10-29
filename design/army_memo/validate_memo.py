@@ -6,7 +6,7 @@ behind each FAIL. Exits 1 when any item fails.
     python3 -I design/army_memo/validate_memo.py [-v] <fixture.md | seed> <rendered.pdf> [YYYY-MM-DD]
 
 `-v` lists every measurement. The fixture's YAML says which elements exist and what they read; `seed` reads
-the schema's blueprint instead. The date is the one the PDF was rendered with
+the document the schema seeds instead. The date is the one the PDF was rendered with
 (default 2026-10-13), which `date: today` prints. The script renders the
 fixture once more through render_fixture.mjs, beside the PDF, to read the
 quill, document and render warnings (C57, C58, C59).
@@ -178,11 +178,11 @@ def node(args):
     return subprocess.run(["node", *args], cwd=REPO, capture_output=True, text=True)
 
 
-def blueprint():
+def seed():
     script = (
         'import { init } from "@quillmark/wasm"; import { fromDir } from "@quillmark/quiver/node";'
         "await init(); const q = await (await fromDir(process.cwd())).getQuill('army_memo@0.1.0');"
-        "process.stdout.write(q.blueprint);"
+        "process.stdout.write(q.seedDocument().toMarkdown());"
     )
     out = node(["--input-type=module", "-e", script])
     if out.returncode:
@@ -191,7 +191,7 @@ def blueprint():
 
 
 def load_fixture(arg):
-    text = blueprint() if arg == "seed" else Path(arg).read_text(encoding="utf8")
+    text = seed() if arg == "seed" else Path(arg).read_text(encoding="utf8")
     m = re.match(r"~~~\n(.*?)\n~~~\n?(.*)", text, re.S)
     data = yaml.safe_load(m.group(1)) or {}
     return data, m.group(2), text

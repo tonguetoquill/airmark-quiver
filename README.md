@@ -97,7 +97,6 @@ quills/
   <name>/
     <x.y.z>/
       Quill.yaml
-      example.md
       plate.typ
       assets/
       packages/
@@ -131,13 +130,16 @@ Both verbs are [`quillkit`](https://www.npmjs.com/package/quillkit)'s, the quill
 author's toolchain. It carries `@quillmark/quiver` and `@quillmark/wasm` at exact
 versions, so upgrading quillkit upgrades the format the quiver is packed in and
 the wasm the gate renders through. This collection pins the same two versions
-for `scripts/check-templates.mjs`, which renders the templates through them.
+for `scripts/check-examples.mjs` and `scripts/check-templates.mjs`, which render
+through them.
 
 **Does it work?** `quillkit check` loads the collection with `fromDir`, compiles
 every quill, and renders each one's seed, every field absent but what a card
 kind's `seed:` writes and rendering its `default:` or its blank, and its
-`example.md`, one filled-in page of made-up values. `npm test` then fails a
-quill that ships no example or whose example warns, and a template that warns.
+example, one filled-in page of made-up values: the seed with each field's
+`example:` and each kind's `body.example` committed, one card per kind.
+`npm test` then fails a quill that declares no example or whose example warns,
+and a template that warns.
 It is the gate CI runs, so a validation failure surfaces here rather than on a
 consumer's build:
 
