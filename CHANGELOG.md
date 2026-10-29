@@ -19,6 +19,12 @@
   example its first itinerary leg, and the `afmc_moa` example gains a
   background paragraph. The `example.md` files are gone from the package.
 
+- **A font family that covers a whole body paragraph renders in
+  `usaf_memo@0.3.0` and `army_memo@0.1.0`.** The body's paragraph numbering
+  dropped a family run spanning an entire paragraph, list item, continuation
+  or heading, and the paragraph drew in the body font. In `usaf_memo`, a
+  strikethrough across a whole paragraph is kept too.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy

@@ -295,7 +295,7 @@
       let nest-level = nesting()
       let first = nest-level > 0 and ITEM_FIRST_PAR.get()
       let kind = if IS_HEADING.get() { "heading" } else if nest-level > 0 and not first { "continuation" } else { "par" }
-      buffer((content: text([#p.body]), nest-level: nest-level, kind: kind, first: first))
+      buffer((content: text(font: text.font, p.body), nest-level: nest-level, kind: kind, first: first))
       if first {
         ITEM_FIRST_PAR.update(false)
       }

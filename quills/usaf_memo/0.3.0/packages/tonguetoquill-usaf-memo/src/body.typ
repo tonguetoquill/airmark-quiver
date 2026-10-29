@@ -137,10 +137,11 @@
       // Determine if this is a continuation block within a multi-block list item.
       // A continuation is a non-first paragraph inside a list item (nest-level > 0).
       let is-continuation = nest-level > 0 and not is-first-par
+      let font = text.font
 
       PAR_BUFFER.update(pars => {
         pars.push((
-          content: text([#p.body]),
+          content: text(font: font, p.body),
           nest-level: nest-level,
           kind: if is-heading { "heading" } else if is-continuation { "continuation" } else { "par" },
         ))
@@ -247,6 +248,9 @@
           [#it#sym.zws]
         }
         show raw: it => {
+          [#it#sym.zws]
+        }
+        show strike: it => {
           [#it#sym.zws]
         }
         [#content#parbreak()]
