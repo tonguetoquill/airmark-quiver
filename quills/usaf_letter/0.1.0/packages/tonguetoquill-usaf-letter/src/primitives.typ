@@ -165,10 +165,7 @@
 #let render-subject-section(subject-text, inline-reference: none) = {
   blank-line()
   let content = if not blank-reference(inline-reference) {
-    // `subject-text` is a content field, so it is boxed for the same reason the
-    // inline reference is: a markup block's edge newlines would otherwise read
-    // as a space, doubling the one before the parenthesis.
-    [#box(subject-text) (#box(inline-reference))]
+    [#subject-text (#inline-reference)]
   } else {
     [#subject-text]
   }
