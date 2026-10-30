@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
   `usaf_memo@0.3.0` and `army_memo@0.1.0`.** The body's paragraph numbering
