@@ -1,23 +1,6 @@
 # Changelog
 
-## v0.42.0 - 2026-10-29
-
-- Take quillkit 0.21.0 and @quillmark/wasm 0.133.0: move each quill's example into Quill.yaml (#304)
-- chore: add the quill-design skill (#300)
-- Pin every action by commit SHA and keep the pins current with Dependabot (#235)
-
-
 ## Unreleased
-
-- **Take quillkit 0.21.0, `@quillmark/quiver` 0.39.0 and `@quillmark/wasm`
-  0.133.0, which every consumer now needs.** Each
-  quill's example moves from its root `example.md` into `Quill.yaml`: each
-  field declares the `example:` the file gave it, and each kind with a body a
-  `body.example`. A build before 0.133 refuses `example:` on a field, so it
-  can no longer load these quills. The example holds one card per kind, so the
-  AF Form 4141 example shows its first experience row and the DAF Form 4392
-  example its first itinerary leg, and the `afmc_moa` example gains a
-  background paragraph. The `example.md` files are gone from the package.
 
 - **A font family that covers a whole body paragraph renders in
   `usaf_memo@0.3.0` and `army_memo@0.1.0`.** The body's paragraph numbering
@@ -36,6 +19,18 @@
   blotches behind the Achievement Medal no longer print. The Achievement
   Medal's ribbon is silver gray with ultramarine blue stripes, as the medal's
   description gives it, in place of a khaki gray with steel blue stripes.
+
+## v0.42.0 - 2026-10-29
+
+- **Take quillkit 0.21.0, `@quillmark/quiver` 0.39.0 and `@quillmark/wasm`
+  0.133.0, which every consumer now needs.** Each
+  quill's example moves from its root `example.md` into `Quill.yaml`: each
+  field declares the `example:` the file gave it, and each kind with a body a
+  `body.example`. A build before 0.133 refuses `example:` on a field, so it
+  can no longer load these quills. The example holds one card per kind, so the
+  AF Form 4141 example shows its first experience row and the DAF Form 4392
+  example its first itinerary leg, and the `afmc_moa` example gains a
+  background paragraph. The `example.md` files are gone from the package.
 
 ## v0.41.0 - 2026-10-26
 
