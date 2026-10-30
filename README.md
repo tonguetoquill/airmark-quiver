@@ -124,6 +124,11 @@ fails here rather than on the app's build.
 
 ## Working on a quill
 
+How to shape a quill, its fields, groups, seeds, defaults and card kinds, is
+[`.claude/skills/quill-design/SKILL.md`](.claude/skills/quill-design/SKILL.md)'s:
+the principles a new or revised `Quill.yaml` is judged by, and the steps for
+designing or reviewing one. Claude Code loads it as the `quill-design` skill.
+
 Two verbs, and they answer different questions.
 
 Both verbs are [`quillkit`](https://www.npmjs.com/package/quillkit)'s, the quill
