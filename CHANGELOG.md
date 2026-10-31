@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+- **Draft `afto244@0.0.1` is the AFTO Form 244, the Industrial/Support
+  Equipment Record.** It is the fold-over booklet: sections III and IV print
+  on the left of sheet 1, sections I and II on the right, and section V on
+  sheet 2. The editor follows the sections in order, I through V. Block 7 is
+  the period the record covers, one date through the other, and blocks 8, 11
+  and 12 stay open fields titled with the block number alone. A date is a
+  date. The example is made up: an equipment name, a technical order, an NSN,
+  employee numbers and initials.
+
+- **The SYM-BOL column on `afto244@0.0.1` is a choice of X, /, or -.** The
+  mark prints in red across that row's symbol box: X from corner to corner,
+  / from the top right to the bottom left, and - straight across the middle.
+  A blank choice prints no mark.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
