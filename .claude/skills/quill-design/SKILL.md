@@ -34,7 +34,3 @@ Read it in the order a writer meets it, not the order of the file, and report fi
 - Fill it as a first-time writer with the help text closed, in the editor (`npm run dev`) or by reading the schema top to bottom. A field you could not find, or found in the wrong group, is a principle 2 finding.
 - Open the help text last. A fact you needed to avoid a wrong print that lived only there, or a hard limit stated only in prose, is a principle 3 finding.
 - Compare each concept with its sibling quills. A divergence the quill does not explain is a principle 4 finding.
-
-## The one firm check
-
-`npm test` proves a quill renders; only looking at the untouched page proves it prints what the writer meant. Run `node .claude/skills/quill-design/render-seed.mjs <name>@<major.minor>` from the repo root and open the `seed-<n>.png` it writes, or open the quill in studio with examples off. Do it before calling a design done and before closing a review.
