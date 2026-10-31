@@ -1,0 +1,2854 @@
+quill:
+  name: afto244
+  version: 0.0.1
+  backend: acroform
+  requires: ">=0.133"
+  description: "AFTO Form 244 — Industrial/Support Equipment Record (TO 00-20-1)"
+
+main:
+  body:
+    enabled: false
+  fields:
+    item_identification:
+      type: object
+      title: "I. ITEM IDENTIFICATION"
+      properties:
+        nomenclature:
+          type: text
+          title: "1. NOMENCLATURE/MODEL"
+          default: ""
+          multiline: true
+          example: "Hydraulic Test Stand"
+          description: "The equipment's name or model."
+        registration_serial_no:
+          type: text
+          title: "2. REGISTRATION/SERIAL NO."
+          default: ""
+          multiline: true
+          example: "HTS-2048"
+          description: "Its registration or serial number."
+        id_no:
+          type: text
+          title: "3. ID NO."
+          default: ""
+          example: "A-17"
+          ui:
+            compact: true
+          description: "Its identification number."
+        field_no:
+          type: text
+          title: "4. FIELD NO. (If applicable)"
+          default: ""
+          example: "2"
+          ui:
+            compact: true
+          description: "Its field number. Leave blank when the equipment has none."
+        work_unit_code:
+          type: text
+          title: "5. WORK UNIT CODE"
+          default: ""
+          example: "04"
+          ui:
+            compact: true
+          description: "The work unit code for this equipment."
+        orgn_wc_assigned:
+          type: text
+          title: "6. ORGN WC ASSIGNED"
+          default: ""
+          multiline: true
+          example: "523 MXS"
+          description: "The organization and work center this equipment is assigned to."
+        period_cover:
+          type: object
+          title: "7. PERIOD COVER"
+          description: "Two dates, the first through the last. The form prints TO between the boxes."
+          properties:
+            from:
+              type: date
+              title: "From"
+              default: ""
+              example: 2026-01-15
+              ui:
+                compact: true
+              description: "The first day of the period this record covers."
+            to:
+              type: date
+              title: "To"
+              default: ""
+              example: 2026-04-21
+              ui:
+                compact: true
+              description: "The last day of that period."
+        block_8:
+          type: text
+          title: "Block 8"
+          default: ""
+          multiline: true
+          description: "The form prints only the block number."
+    non_scheduled_inspection:
+      type: object
+      title: "II. NON-SCHEDULED INSPECTION"
+      properties:
+        row_1:
+          type: object
+          title: "Row 1"
+          properties:
+            time_1:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              example: "0830"
+              ui:
+                compact: true
+              description: "Column 1. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_1:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              example: "K.L."
+              ui:
+                compact: true
+              description: "Column 1. The inspector's initials."
+            time_2:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              example: "1415"
+              ui:
+                compact: true
+              description: "Column 2. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_2:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              example: "R.M."
+              ui:
+                compact: true
+              description: "Column 2. The inspector's initials."
+            time_3:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_3:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. The inspector's initials."
+            time_4:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_4:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. The inspector's initials."
+            time_5:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_5:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. The inspector's initials."
+            time_6:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_6:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. The inspector's initials."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              example: 2026-03-02
+              ui:
+                compact: true
+              description: "Column 1. The date of that inspection."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              example: 2026-03-02
+              ui:
+                compact: true
+              description: "Column 2. The date of that inspection."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 3. The date of that inspection."
+            date_4:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 4. The date of that inspection."
+            date_5:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 5. The date of that inspection."
+            date_6:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 6. The date of that inspection."
+        row_2:
+          type: object
+          title: "Row 2"
+          properties:
+            time_1:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_1:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. The inspector's initials."
+            time_2:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_2:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. The inspector's initials."
+            time_3:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_3:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. The inspector's initials."
+            time_4:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_4:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. The inspector's initials."
+            time_5:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_5:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. The inspector's initials."
+            time_6:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_6:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. The inspector's initials."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 1. The date of that inspection."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 2. The date of that inspection."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 3. The date of that inspection."
+            date_4:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 4. The date of that inspection."
+            date_5:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 5. The date of that inspection."
+            date_6:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 6. The date of that inspection."
+        row_3:
+          type: object
+          title: "Row 3"
+          properties:
+            time_1:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_1:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. The inspector's initials."
+            time_2:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_2:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. The inspector's initials."
+            time_3:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_3:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. The inspector's initials."
+            time_4:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_4:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. The inspector's initials."
+            time_5:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_5:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. The inspector's initials."
+            time_6:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_6:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. The inspector's initials."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 1. The date of that inspection."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 2. The date of that inspection."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 3. The date of that inspection."
+            date_4:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 4. The date of that inspection."
+            date_5:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 5. The date of that inspection."
+            date_6:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 6. The date of that inspection."
+        row_4:
+          type: object
+          title: "Row 4"
+          properties:
+            time_1:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_1:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. The inspector's initials."
+            time_2:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_2:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. The inspector's initials."
+            time_3:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_3:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. The inspector's initials."
+            time_4:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_4:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. The inspector's initials."
+            time_5:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_5:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. The inspector's initials."
+            time_6:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_6:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. The inspector's initials."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 1. The date of that inspection."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 2. The date of that inspection."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 3. The date of that inspection."
+            date_4:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 4. The date of that inspection."
+            date_5:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 5. The date of that inspection."
+            date_6:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 6. The date of that inspection."
+        row_5:
+          type: object
+          title: "Row 5"
+          properties:
+            time_1:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_1:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. The inspector's initials."
+            time_2:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_2:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. The inspector's initials."
+            time_3:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_3:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. The inspector's initials."
+            time_4:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_4:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. The inspector's initials."
+            time_5:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_5:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. The inspector's initials."
+            time_6:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_6:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. The inspector's initials."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 1. The date of that inspection."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 2. The date of that inspection."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 3. The date of that inspection."
+            date_4:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 4. The date of that inspection."
+            date_5:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 5. The date of that inspection."
+            date_6:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 6. The date of that inspection."
+        row_6:
+          type: object
+          title: "Row 6"
+          properties:
+            time_1:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_1:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. The inspector's initials."
+            time_2:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_2:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. The inspector's initials."
+            time_3:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_3:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. The inspector's initials."
+            time_4:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_4:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. The inspector's initials."
+            time_5:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_5:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. The inspector's initials."
+            time_6:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_6:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. The inspector's initials."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 1. The date of that inspection."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 2. The date of that inspection."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 3. The date of that inspection."
+            date_4:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 4. The date of that inspection."
+            date_5:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 5. The date of that inspection."
+            date_6:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 6. The date of that inspection."
+        row_7:
+          type: object
+          title: "Row 7"
+          properties:
+            time_1:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_1:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 1. The inspector's initials."
+            time_2:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_2:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 2. The inspector's initials."
+            time_3:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_3:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 3. The inspector's initials."
+            time_4:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_4:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 4. The inspector's initials."
+            time_5:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_5:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 5. The inspector's initials."
+            time_6:
+              type: text
+              title: "TIME"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. Hours and minutes as four digits, such as 0830. Leave blank when that inspection has no time."
+            insp_init_6:
+              type: text
+              title: "INSP INIT"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Column 6. The inspector's initials."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 1. The date of that inspection."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 2. The date of that inspection."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 3. The date of that inspection."
+            date_4:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 4. The date of that inspection."
+            date_5:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 5. The date of that inspection."
+            date_6:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "Column 6. The date of that inspection."
+    scheduled_inspection:
+      type: object
+      title: "III. SCHEDULED INSPECTION"
+      properties:
+        row_1:
+          type: object
+          title: "Row 1"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              example: "Lube"
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              example: "30"
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              example: 2026-03-01
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              example: 2026-02-28
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_2:
+          type: object
+          title: "Row 2"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_3:
+          type: object
+          title: "Row 3"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_4:
+          type: object
+          title: "Row 4"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_5:
+          type: object
+          title: "Row 5"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_6:
+          type: object
+          title: "Row 6"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_7:
+          type: object
+          title: "Row 7"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_8:
+          type: object
+          title: "Row 8"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_9:
+          type: object
+          title: "Row 9"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_10:
+          type: object
+          title: "Row 10"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_11:
+          type: object
+          title: "Row 11"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_12:
+          type: object
+          title: "Row 12"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_13:
+          type: object
+          title: "Row 13"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_14:
+          type: object
+          title: "Row 14"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_15:
+          type: object
+          title: "Row 15"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+        row_16:
+          type: object
+          title: "Row 16"
+          properties:
+            inspection_requirement:
+              type: text
+              title: "INSPECTION REQUIREMENT"
+              default: ""
+              multiline: true
+              description: "What this row inspects."
+            interval:
+              type: text
+              title: "INTERVAL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "How often that inspection comes due."
+            date_due:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-due column."
+            date_compl:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The first date-completed column."
+            date_due_2:
+              type: date
+              title: "DATE DUE"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-due column."
+            date_compl_2:
+              type: date
+              title: "DATE COMPL"
+              default: ""
+              ui:
+                compact: true
+              description: "The second date-completed column."
+    supervisory_review:
+      type: object
+      title: "IV. SUPERVISORY REVIEW"
+      properties:
+        row_1:
+          type: object
+          title: "Row 1"
+          properties:
+            employ_no_1:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              example: "E48291"
+              ui:
+                compact: true
+              description: "Employee-number column 1."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              example: 2026-02-11
+              ui:
+                compact: true
+              description: "The date beside employee-number column 1."
+            employ_no_2:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              example: "E71044"
+              ui:
+                compact: true
+              description: "Employee-number column 2."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              example: 2026-02-18
+              ui:
+                compact: true
+              description: "The date beside employee-number column 2."
+            employ_no_3:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Employee-number column 3."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "The date beside employee-number column 3."
+        row_2:
+          type: object
+          title: "Row 2"
+          properties:
+            employ_no_1:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Employee-number column 1."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "The date beside employee-number column 1."
+            employ_no_2:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Employee-number column 2."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "The date beside employee-number column 2."
+            employ_no_3:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Employee-number column 3."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "The date beside employee-number column 3."
+        row_3:
+          type: object
+          title: "Row 3"
+          properties:
+            employ_no_1:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Employee-number column 1."
+            date_1:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "The date beside employee-number column 1."
+            employ_no_2:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Employee-number column 2."
+            date_2:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "The date beside employee-number column 2."
+            employ_no_3:
+              type: text
+              title: "EMPLOY NO"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "Employee-number column 3."
+            date_3:
+              type: date
+              title: "DATE"
+              default: ""
+              ui:
+                compact: true
+              description: "The date beside employee-number column 3."
+    maintenance_delayed_discrepancy:
+      type: object
+      title: "V. MAINTENANCE/DELAYED DISCREPANCY"
+      properties:
+        technical_order:
+          type: text
+          title: "9. T.O."
+          default: ""
+          example: "33D-1-2"
+          ui:
+            compact: true
+          description: "The technical order this sheet follows."
+        nsn:
+          type: text
+          title: "10. NSN"
+          default: ""
+          example: "1730-01-234-5678"
+          ui:
+            compact: true
+          description: "The national stock number of the equipment."
+        block_11:
+          type: text
+          title: "Block 11"
+          default: ""
+          ui:
+            compact: true
+          description: "The form prints only the block number."
+        block_12:
+          type: text
+          title: "Block 12"
+          default: ""
+          ui:
+            compact: true
+          description: "The form prints only the block number."
+        row_1:
+          type: object
+          title: "Row 1"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              example: 2026-03-18
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              example: "Lee, K."
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              example: "AFTO 349"
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              example: "X"
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              example: "Leaking fitting"
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              example: "J482"
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              example: "Replaced seal"
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              example: 2026-03-19
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              example: "Poe, R."
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              example: "Nguyen, T."
+              description: "Who inspected it."
+        row_2:
+          type: object
+          title: "Row 2"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_3:
+          type: object
+          title: "Row 3"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_4:
+          type: object
+          title: "Row 4"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_5:
+          type: object
+          title: "Row 5"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_6:
+          type: object
+          title: "Row 6"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_7:
+          type: object
+          title: "Row 7"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_8:
+          type: object
+          title: "Row 8"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_9:
+          type: object
+          title: "Row 9"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
+        row_10:
+          type: object
+          title: "Row 10"
+          properties:
+            date_discovered:
+              type: date
+              title: "DATE DISCOVERED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the discrepancy was found."
+            discovered_by:
+              type: text
+              title: "DISCOVERED BY"
+              default: ""
+              multiline: true
+              description: "Who found it."
+            sup_doc_no:
+              type: text
+              title: "SUP DOC NO."
+              default: ""
+              multiline: true
+              description: "The supporting-document number. Leave blank when there is none."
+            symbol:
+              type: text
+              title: "SYMBOL"
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The symbol in the column headed SYM-BOL."
+            discrepancy:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The first line of what is wrong."
+            discrepancy_2:
+              type: text
+              title: "DISCREPANCY"
+              default: ""
+              multiline: true
+              description: "The second line of what is wrong. Leave blank when the first line holds it."
+            job_con_wo_no:
+              type: text
+              title: "JOB CON/W.O. NO."
+              default: ""
+              multiline: true
+              ui:
+                compact: true
+              description: "The job-control or work-order number."
+            corrective_action:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The first line of the work done."
+            corrective_action_2:
+              type: text
+              title: "CORRECTIVE ACTION"
+              default: ""
+              multiline: true
+              description: "The second line of the work done. Leave blank when the first line holds it."
+            date_corrected:
+              type: date
+              title: "DATE CORRECTED"
+              default: ""
+              ui:
+                compact: true
+              description: "When the work was finished."
+            corrected_by:
+              type: text
+              title: "CORRECTED BY"
+              default: ""
+              multiline: true
+              description: "Who did the work."
+            inspected_by:
+              type: text
+              title: "INSPECTED BY"
+              default: ""
+              multiline: true
+              description: "Who inspected it."
