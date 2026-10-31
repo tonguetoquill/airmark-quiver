@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- **A draft DAF Form 1800 quill is added.** `daf1800@0.0.1` fills the
+  Operator's Inspection Guide and Trouble Report (DAFI 24-302). The sheets
+  stay in the fold-over order: page 3 of 3 beside page 1 of 3, then page 2 of
+  3. The fields follow the way an operator fills the form: the header, the 39
+  items to be checked, the daily sign-offs for days 1 through 31, the monthly
+  checks, and the discrepancy and maintenance report. The monthly and
+  discrepancy dates are dates. The header date stays Month/Year, which is
+  what that box asks for. Each row's status code is one choice of CT, CP,
+  DP, DM, W or N. The signature line stays a signature field. The example
+  uses made-up names and a made-up registration number.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
