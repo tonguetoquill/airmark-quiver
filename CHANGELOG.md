@@ -11,7 +11,7 @@
   discrepancy dates are dates. The header date stays Month/Year, which is
   what that box asks for. Each row's status code is one choice of CT, CP,
   DP, DM, W or N. The signature line stays a signature field. The example
-  uses made-up names and a made-up registration number.
+  leaves every box blank.
 
 ## v0.42.1 - 2026-10-30
 

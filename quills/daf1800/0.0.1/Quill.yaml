@@ -32,7 +32,8 @@ main:
           type: text
           title: "REGISTRATION NO."
           default: ""
-          example: "06B-14827"
+          # Empty so the example document stays blank. The gate requires one.
+          example: ""
           description: "The vehicle's registration number."
         organization:
           type: text
@@ -55,7 +56,6 @@ main:
           type: text
           title: "VEHICLE CONTROL OFFICIAL"
           default: ""
-          example: "Jordan Hale"
           description: "The vehicle control official's name."
         official_phone:
           type: text
@@ -283,7 +283,6 @@ main:
               type: text
               title: "SHIFT/NAME"
               default: ""
-              example: "A. Rivera"
               description: "Line 1. First initial and last name."
             line_2:
               type: text
@@ -970,7 +969,6 @@ main:
           type: text
           title: "NAME (print legibly)"
           default: ""
-          example: "Alex Rivera"
           description: "The operator's name."
     report:
       type: object
@@ -1043,6 +1041,4 @@ main:
                 title: "ELMS ID"
                 default: ""
                 description: "The ELMS identifier."
-          example:
-            - name: "Alex Rivera"
           description: "One row. Leave a column blank when it does not apply."
