@@ -113,7 +113,7 @@
   let path = signer.at("$path", default: signatures.at("$path") + "signers." + str(i) + ".")
   let printed_date = qm.ink(signer, "date", date-pattern(memo-style: memo_style))
   (
-    lines: signer.signature_block,
+    lines: signer.at("signature_block", default: ()),
     signing-field: qm.signature-field(
       "Signer_" + str(i + 1) + "_Signature",
       field: path + "signature_block",
