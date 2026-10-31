@@ -11,7 +11,8 @@
   place of a fictional unit: parties, subject, the usual sections, a
   reference, and two signature blocks. A new document is blank. Signature
   blocks are added and removed in the form, and nothing prints until one
-  is added. Closes #311.
+  is added. A block added in the form starts with the name and duty-title
+  lines. Closes #311.
 
 ## v0.42.1 - 2026-10-30
 

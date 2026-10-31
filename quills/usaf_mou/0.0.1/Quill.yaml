@@ -74,7 +74,9 @@ main:
                 type: array
                 items:
                   type: text
-                default: []
+                default:
+                  - "[NAME, GRADE, SERVICE]"
+                  - "[Duty title]"
                 description: "The signer's name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Their duty title on the second, and their organization on a third line if the parties differ."
               date:
                 type: date
