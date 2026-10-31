@@ -1,0 +1,22 @@
+[package]
+name = "tonguetoquill-usaf-mou"
+version = "0.0.1"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/nibsbin/tonguetoquill-usaf-memo"
+authors = ["Nibs"]
+license = "Apache-2.0"
+description = "Typeset memorandums of understanding in AFH 33-337 memo format, with any number of signers."
+keywords = [
+    "USAF",
+    "Air Force",
+    "memorandum",
+    "memo",
+    "military",
+    "AFH 33-337",
+    "official",
+    "correspondence",
+    "formatting",
+]
+categories = ["office", "report"]
+disciplines = ["politics", "law", "business", "engineering", "education"]
