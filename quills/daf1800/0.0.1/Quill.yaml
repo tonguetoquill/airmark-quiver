@@ -1,0 +1,1044 @@
+quill:
+  name: daf1800
+  version: 0.0.1
+  backend: acroform
+  requires: ">=0.133"
+  description: "DAF Form 1800 — Operator's Inspection Guide and Trouble Report (DAFI 24-302)"
+
+main:
+  body:
+    enabled: false
+  fields:
+    header:
+      type: object
+      title: "Header"
+      description: "The month, the vehicle, and the office that controls it."
+      properties:
+        date:
+          type: text
+          title: "DATE (Month/Year)"
+          default: ""
+          ui:
+            compact: true
+          description: "The month and year of this guide, written Month/Year."
+        vehicle_type:
+          type: text
+          title: "VEHICLE TYPE"
+          default: ""
+          ui:
+            compact: true
+          description: "The kind of vehicle."
+        registration_no:
+          type: text
+          title: "REGISTRATION NO."
+          default: ""
+          # Empty so the example document stays blank. The gate requires one.
+          example: ""
+          description: "The vehicle's registration number."
+        organization:
+          type: text
+          title: "ORGANIZATION"
+          default: ""
+          description: "The organization the vehicle belongs to."
+        location_base:
+          type: text
+          title: "LOCATION/BASE"
+          default: ""
+          description: "Where the vehicle is."
+        phone:
+          type: text
+          title: "PHONE NO."
+          default: ""
+          ui:
+            compact: true
+          description: "The phone number for the location."
+        vehicle_control_official:
+          type: text
+          title: "VEHICLE CONTROL OFFICIAL"
+          default: ""
+          description: "The vehicle control official's name."
+        official_phone:
+          type: text
+          title: "PHONE NO."
+          default: ""
+          ui:
+            compact: true
+          description: "The vehicle control official's phone number."
+    items:
+      type: object
+      title: "Items To Be Checked"
+      description: "Mark each item this vehicle type requires the operator to inspect. Item 39 names anything the list leaves out."
+      properties:
+        item_1:
+          type: boolean
+          title: "1 CLEANLINESS/DAMAGE/MISSING ITEMS (Interior/Exterior)/UNUSUAL NOISE OR OCCURRENCE (During Operation)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_2:
+          type: boolean
+          title: "2 LEAKS/FLUID LEVELS (Visually check for any leaks/check oil/coolant/hydraulic/transmission/brake fluid)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_3:
+          type: boolean
+          title: "3 SAFETY DEVICES (Wiring/lights/horn/warning devices/sirens/reflectors/mirrors/seatbelts)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_4:
+          type: boolean
+          title: "4 BATTERIES (Fluid/damage/cleanliness/security)/INSTRUMENTS/GAUGES (Operation & readings)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_5:
+          type: boolean
+          title: "5 DRIVE BELTS (Fraying/cracking/tension)/PULLEY/MOTOR (Air/hydraulic/electrical)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_6:
+          type: boolean
+          title: "6 STEERING/SPRINGS/SHACKLES (Free play/excessive wear)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_7:
+          type: boolean
+          title: "7 EXHAUST SYSTEM/SPARK ARRESTORS (Damage/leaks)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_8:
+          type: boolean
+          title: "8 TIRES/WHEELS (Lug nuts/cracks) TRACKS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_9:
+          type: boolean
+          title: "9 HEATER/DEFROSTER/AIR-CONDITIONER/AUXILIARY GENERATORS/AUXILIARY HEATERS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_10:
+          type: boolean
+          title: "10 BRAKES (Servicing/Parking)/CLUTCHES (Operation)/ACCELERATOR PEDAL (Damage/worn)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_11:
+          type: boolean
+          title: "11 WINDSHIELD (Wipers/washer fluid/cracks)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_12:
+          type: boolean
+          title: "12 HYDRAULIC HOSES (Damage/frayed)/CYLINDERS/VALVES (Damage/leaks)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_13:
+          type: boolean
+          title: "13 COLD WEATHER AIDS (Ether/alcohol injector/battery heater/oil-engine heater/coolant heater, etc.)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_14:
+          type: boolean
+          title: "14 POWER TAKE-OFF (PTO)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_15:
+          type: boolean
+          title: "15 WINCH/TOW CONNECTIONS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_16:
+          type: boolean
+          title: "16 AIR TANKS (Drain daily or after operation)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_17:
+          type: boolean
+          title: "17 MAST TINES/ROLLERIZED TINES"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_18:
+          type: boolean
+          title: "18 ROLLERS/POWER CONVEYORS/RAILS/LADDERS/CATWALKS/CARGO BED"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_19:
+          type: boolean
+          title: "19 BED (K-LOAD)TOP/HALF/LOWEST/ROLL/SHIFT/YAW (check position)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_20:
+          type: boolean
+          title: "20 LOWER LOBE CAB SHIFT (Operation)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_21:
+          type: boolean
+          title: "21 EMERGENCY STAND-BY SYSTEM"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_22:
+          type: boolean
+          title: "22 MARKINGS-CHECK LEGIBILITY (\"WATCHSTEP\" stencil, etc. IAW 36-1-191)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_23:
+          type: boolean
+          title: "23 CHUTES/AUGERS/FAN BLADES/WEAR SHOES"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_24:
+          type: boolean
+          title: "24 DRUMS/CROWNS/FAIR LEADS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_25:
+          type: boolean
+          title: "25 BOOMS/OUTRIGGERS/BASKET/PLATFORM/TURNTABLE (Check for cracks & damage)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_26:
+          type: boolean
+          title: "26 BROOMS/SPROCKETS/CHAINS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_27:
+          type: boolean
+          title: "27 BLADES/REELS/SICKLE BARS/FLAILS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_28:
+          type: boolean
+          title: "28 KETTLE/HOISTING MECHANISM/AGITATORS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_29:
+          type: boolean
+          title: "29 SHEAVES/BLOCKS/CABLES"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_30:
+          type: boolean
+          title: "30 MOULD BOARDS/BOWLS/CUTTING EDGES/SKIDS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_31:
+          type: boolean
+          title: "31 PUMPS/PIPING/DISCHARGE VALVES FOR LEAKS, CORROSION/SPARE BARS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_32:
+          type: boolean
+          title: "32 FIREFIGHTING SPECIALIZED EQUIPMENT/SAFETY DEVICES (Axe, spanner wrench, power saw, ladder, pike trouble light, megaphone, generator, resuscitator, rescue tools, winch, buzzers, fire extinguishers, ropes, breathing apparatus, personal alert safety system, etc)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_33:
+          type: boolean
+          title: "33 FIREFIGHTING SYSTEM OPERATION & FOAM/WATER LEVELS"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_34:
+          type: boolean
+          title: "34 AUXILIARY FIREFIGHTING SYSTEM (Nitrogen tank pressure, agent levels, etc)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_35:
+          type: boolean
+          title: "35 HOSE/REELS/HANDLINES/TURRETS (Operation/all functions)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_36:
+          type: boolean
+          title: "36 NUCLEAR CERTIFIED EQUIPMENT: DATA PLATES/DECALS (Pintle hook lock pin label, data plate, information plate, appropriate markings etc. IAW DAFI 63-125/T.O.36-1-191)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_37:
+          type: boolean
+          title: "37 NUCLEAR CERTIFIED EQUIPMENT: TOWING ATTACHMENTS/PINTLE HOOK/FIFTH WHEEL/KING PIN (Check for damage, loose mountings, correct sized pins, proper locking etc. IAW T.O.36-1-191/63-1-121)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_38:
+          type: boolean
+          title: "38 NUCLEAR CERTIFIED EQUIPMENT: AUTHORIZED/UNAUTHORIZED ADD-ONS & MODIFICATIONS IAW DAFI 91-103"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        item_39:
+          type: boolean
+          title: "39 OTHER (Specify)"
+          default: false
+          description: "Mark when this vehicle type requires the operator to inspect this item."
+        other:
+          type: text
+          title: "OTHER (Specify)"
+          default: ""
+          description: "What item 39 is, when you mark it."
+    daily:
+      type: object
+      title: "Daily Operator Sign-offs"
+      description: "First initial and last name, one line per shift. Each day has three lines."
+      properties:
+        day_1:
+          type: object
+          title: "Day 1"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_2:
+          type: object
+          title: "Day 2"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_3:
+          type: object
+          title: "Day 3"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_4:
+          type: object
+          title: "Day 4"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_5:
+          type: object
+          title: "Day 5"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_6:
+          type: object
+          title: "Day 6"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_7:
+          type: object
+          title: "Day 7"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_8:
+          type: object
+          title: "Day 8"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_9:
+          type: object
+          title: "Day 9"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_10:
+          type: object
+          title: "Day 10"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_11:
+          type: object
+          title: "Day 11"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_12:
+          type: object
+          title: "Day 12"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_13:
+          type: object
+          title: "Day 13"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_14:
+          type: object
+          title: "Day 14"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_15:
+          type: object
+          title: "Day 15"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_16:
+          type: object
+          title: "Day 16"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_17:
+          type: object
+          title: "Day 17"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_18:
+          type: object
+          title: "Day 18"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_19:
+          type: object
+          title: "Day 19"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_20:
+          type: object
+          title: "Day 20"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_21:
+          type: object
+          title: "Day 21"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_22:
+          type: object
+          title: "Day 22"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_23:
+          type: object
+          title: "Day 23"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_24:
+          type: object
+          title: "Day 24"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_25:
+          type: object
+          title: "Day 25"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_26:
+          type: object
+          title: "Day 26"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_27:
+          type: object
+          title: "Day 27"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_28:
+          type: object
+          title: "Day 28"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_29:
+          type: object
+          title: "Day 29"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_30:
+          type: object
+          title: "Day 30"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+        day_31:
+          type: object
+          title: "Day 31"
+          description: "The shifts worked this day."
+          properties:
+            line_1:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 1. First initial and last name."
+            line_2:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 2. First initial and last name."
+            line_3:
+              type: text
+              title: "SHIFT/NAME"
+              default: ""
+              description: "Line 3. First initial and last name."
+    monthly:
+      type: object
+      title: "Monthly Checks"
+      description: "Miles, hours, and the date at the start and end of the month, the tire pressures, and the operator's name. Sign the signature line on the form."
+      properties:
+        beginning_miles:
+          type: text
+          title: "MILES:"
+          default: ""
+          ui:
+            compact: true
+          description: "Beginning of the month."
+        beginning_hours:
+          type: text
+          title: "HOURS:"
+          default: ""
+          ui:
+            compact: true
+          description: "Beginning of the month."
+        beginning_date:
+          type: date
+          title: "DATE (DD/MM/YYY)"
+          default: ""
+          description: "Beginning of the month."
+        end_miles:
+          type: text
+          title: "MILES:"
+          default: ""
+          ui:
+            compact: true
+          description: "End of the month."
+        end_hours:
+          type: text
+          title: "HOURS:"
+          default: ""
+          ui:
+            compact: true
+          description: "End of the month."
+        end_date:
+          type: date
+          title: "DATE (DD/MM/YYY)"
+          default: ""
+          description: "End of the month."
+        front_driver_psi:
+          type: text
+          title: "FRONT PSI DRIVER SIDE"
+          default: ""
+          ui:
+            compact: true
+          description: "The driver-side front tire pressure."
+        front_passenger_psi:
+          type: text
+          title: "FRONT PSI PASSENGER SIDE"
+          default: ""
+          ui:
+            compact: true
+          description: "The passenger-side front tire pressure."
+        rear_driver_psi:
+          type: text
+          title: "REAR PSI DRIVER SIDE"
+          default: ""
+          ui:
+            compact: true
+          description: "The driver-side rear tire pressure."
+        rear_passenger_psi:
+          type: text
+          title: "REAR PSI PASSENGER SIDE"
+          default: ""
+          ui:
+            compact: true
+          description: "The passenger-side rear tire pressure."
+        name:
+          type: text
+          title: "NAME (print legibly)"
+          default: ""
+          description: "The operator's name."
+    report:
+      type: object
+      title: "Discrepancy and Maintenance Report"
+      description: "What the operator found, and what maintenance did with it. The form holds 16 rows."
+      properties:
+        rows:
+          type: array
+          max: 16
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              item_no:
+                type: text
+                title: "ITEM NO."
+                default: ""
+                description: "The item number from the checklist."
+              discrepancy:
+                type: text
+                title: "DISCREPANCY"
+                default: ""
+                description: "What the operator found."
+              date_discovered:
+                type: date
+                title: "DATE DISC"
+                default: ""
+                description: "The day the operator found it."
+              reported_date:
+                type: date
+                title: "DATE"
+                default: ""
+                description: "The day it was turned in to maintenance."
+              miles_hours:
+                type: text
+                title: "MILES/HOURS"
+                default: ""
+                description: "The miles or hours when it was turned in."
+              name:
+                type: text
+                title: "NAME (print legibly)"
+                default: ""
+                description: "Who turned it in."
+              work_order:
+                type: text
+                title: "Work Order Number"
+                default: ""
+                description: "The maintenance work order."
+              maintenance_date:
+                type: date
+                title: "DATE"
+                default: ""
+                description: "The day maintenance recorded the status."
+              status_code:
+                type: enum
+                title: "STATUS CODE"
+                values:
+                  - CT
+                  - CP
+                  - DP
+                  - DM
+                  - W
+                  - N
+                default: ""
+                description: "CT corrected by a temporary fix, CP by a permanent fix, DP delayed for parts, DM delayed for maintenance, W a waiver for repair, N no repair required."
+              elms_id:
+                type: text
+                title: "ELMS ID"
+                default: ""
+                description: "The ELMS identifier."
+          description: "One row. Leave a column blank when it does not apply."

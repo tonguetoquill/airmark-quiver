@@ -18,6 +18,7 @@ and aligned to the current Quillmark spec.
 | `af4141`             | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment) |
 | `daf1206`            | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |
 | `daf4392`            | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |
+| `daf1800`            | 0.0.1   | DAF Form 1800 — Operator's Inspection Guide and Trouble Report (DAFI 24-302)     |
 | `afmc_moa`           | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                       |
 | `classic_resume`     | 0.1.0   | Classic single-page resume                                                       |
 | `cyber_career_plan`  | 0.1.0   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
