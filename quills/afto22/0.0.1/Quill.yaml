@@ -1,0 +1,676 @@
+quill:
+  name: afto22
+  version: 0.0.1
+  backend: acroform
+  requires: ">=0.133"
+  description: "AFTO Form 22 — Technical Manual Change Recommendation and Reply (TO 00-5-1)"
+
+main:
+  body:
+    enabled: false
+  fields:
+    lcn:
+      type: object
+      title: LCN
+      properties:
+        lcn:
+          type: text
+          title: LCN
+          default: ""
+          example: 2026-0142
+          description: "The local control number in the form header. The same number prints beside LCN on page 2."
+
+    block_1:
+      type: object
+      title: "1. PIM (or equivalent)"
+      properties:
+        organization:
+          type: text
+          title: Organization
+          default: ""
+          example: 99th Maintenance Squadron
+          description: "The PIM's organization, or the equivalent office's."
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Alex M. Rivera
+          description: "The PIM's name."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0101
+          ui:
+            compact: true
+          description: "The PIM's phone number."
+        initial_submit_date:
+          type: date
+          title: Initial Submit Date
+          default: ""
+          example: 2026-03-02
+          ui:
+            compact: true
+          description: "The day the PIM first sends the recommendation."
+        decision:
+          type: enum
+          title: Approved or Disapproved
+          values:
+            - Approved
+            - Disapproved
+          default: ""
+          example: Approved
+          ui:
+            compact: true
+          description: "Check one."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: alex.rivera@example.mil
+          description: "The PIM's email. An organizational address is preferred."
+
+    block_2:
+      type: object
+      title: "2. MAJCOM CCP (After Review, Return to PIM)"
+      properties:
+        organization:
+          type: text
+          title: Organization
+          default: ""
+          example: ACC/A4M
+          description: "The MAJCOM command control point's organization."
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Priya N. Shah
+          description: "The reviewer's name."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0144
+          ui:
+            compact: true
+          description: "The reviewer's phone number."
+        review_date:
+          type: date
+          title: Review Date
+          default: ""
+          example: 2026-03-06
+          ui:
+            compact: true
+          description: "The day the MAJCOM CCP reviews the recommendation."
+        decision:
+          type: enum
+          title: Approved or Disapproved
+          values:
+            - Approved
+            - Disapproved
+          default: ""
+          example: Approved
+          ui:
+            compact: true
+          description: "Check one."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: priya.shah@example.mil
+          description: "The reviewer's email."
+
+    block_3:
+      type: object
+      title: "3. Lead Command CCP (After Review, Return to PIM)"
+      properties:
+        organization:
+          type: text
+          title: Organization
+          default: ""
+          example: AFMC/A4
+          description: "The lead command control point's organization."
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Chris D. Nguyen
+          description: "The reviewer's name."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0160
+          ui:
+            compact: true
+          description: "The reviewer's phone number."
+        review_date:
+          type: date
+          title: Review Date
+          default: ""
+          example: 2026-03-09
+          ui:
+            compact: true
+          description: "The day the lead command CCP reviews the recommendation."
+        decision:
+          type: enum
+          title: Approved or Disapproved
+          values:
+            - Approved
+            - Disapproved
+          default: ""
+          example: Approved
+          ui:
+            compact: true
+          description: "Check one."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: chris.nguyen@example.mil
+          description: "The reviewer's email."
+
+    block_4:
+      type: object
+      title: "4. TO Management Activity (After Receipt, Forward to Evaluator)"
+      properties:
+        organization:
+          type: text
+          title: Organization
+          default: ""
+          example: AFLCMC/LZP
+          description: "The technical order management activity's organization."
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Morgan J. Hale
+          description: "The manager's name."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0177
+          ui:
+            compact: true
+          description: "The manager's phone number."
+        receipt_date:
+          type: date
+          title: Receipt Date
+          default: ""
+          example: 2026-03-11
+          ui:
+            compact: true
+          description: "The day the activity receives the recommendation."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: morgan.hale@example.mil
+          description: "The manager's email."
+
+    block_5:
+      type: object
+      title: "5. Local Control Number (LCN)"
+      properties:
+        local_control_number:
+          type: text
+          title: Local Control Number (LCN)
+          default: ""
+          example: 2026-0142
+          description: "The control number the PIM assigns. It is separate from the LCN in the header."
+
+    block_6:
+      type: object
+      title: "6. Priority (Check One)"
+      properties:
+        priority:
+          type: enum
+          title: Priority
+          values:
+            - Emergency
+            - Urgent
+            - Routine
+          default: ""
+          example: Routine
+          ui:
+            compact: true
+          description: "Check one."
+
+    block_7:
+      type: object
+      title: "7. Change Type (Check One)"
+      properties:
+        change_type:
+          type: enum
+          title: Change Type
+          values:
+            - Correction
+            - Improvement
+          default: ""
+          example: Correction
+          ui:
+            compact: true
+          description: "Check one."
+
+    block_8:
+      type: object
+      title: "8. Initiator"
+      properties:
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Jordan A. Cole
+          description: "The initiator's name."
+        rank:
+          type: text
+          title: Rank
+          default: ""
+          example: TSgt
+          ui:
+            compact: true
+          description: "The initiator's rank or grade."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0188
+          ui:
+            compact: true
+          description: "The initiator's phone number."
+        date:
+          type: date
+          title: Date
+          default: ""
+          example: 2026-02-26
+          ui:
+            compact: true
+          description: "The day the initiator signs."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: jordan.cole@example.mil
+          description: "The initiator's email."
+
+    block_9:
+      type: object
+      title: "9. Initiator Supervisor"
+      properties:
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Sam R. Ellis
+          description: "The supervisor's name."
+        rank:
+          type: text
+          title: Rank
+          default: ""
+          example: MSgt
+          ui:
+            compact: true
+          description: "The supervisor's rank or grade."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0190
+          ui:
+            compact: true
+          description: "The supervisor's phone number."
+        date:
+          type: date
+          title: Date
+          default: ""
+          example: 2026-02-27
+          ui:
+            compact: true
+          description: "The day the supervisor signs."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: sam.ellis@example.mil
+          description: "The supervisor's email."
+
+    block_10:
+      type: object
+      title: "10. Publication Number"
+      properties:
+        publication_number:
+          type: text
+          title: Publication Number
+          default: ""
+          example: 1F-99A-2-32JG-00-1
+          description: "The technical order number the recommendation changes."
+
+    block_11:
+      type: object
+      title: "11. Basic Date"
+      properties:
+        basic_date:
+          type: date
+          title: Basic Date
+          default: ""
+          example: 2024-11-15
+          ui:
+            compact: true
+          description: "The basic date of the publication."
+
+    block_12:
+      type: object
+      title: "12. Change Number"
+      properties:
+        change_number:
+          type: text
+          title: Change Number
+          default: ""
+          example: "3"
+          ui:
+            compact: true
+          description: "The change number the recommendation applies to, when there is one."
+
+    block_13:
+      type: object
+      title: "13. Change Date"
+      properties:
+        change_date:
+          type: date
+          title: Change Date
+          default: ""
+          example: 2026-01-20
+          ui:
+            compact: true
+          description: "The date of that change."
+
+    block_14:
+      type: object
+      title: "14. Work Package/Work Card ID"
+      properties:
+        work_package:
+          type: text
+          title: Work Package/Work Card ID
+          default: ""
+          example: WP 12 00
+          description: "The work package or work card, when the deficiency is in one."
+
+    block_15:
+      type: object
+      title: "15. Page Number"
+      properties:
+        page_number:
+          type: text
+          title: Page Number
+          default: ""
+          example: 3-14
+          ui:
+            compact: true
+          description: "The page the deficiency is on."
+
+    block_16:
+      type: object
+      title: "16. Paragraph Number"
+      properties:
+        paragraph_number:
+          type: text
+          title: Paragraph Number
+          default: ""
+          example: 3-2.4
+          ui:
+            compact: true
+          description: "The paragraph the deficiency is in."
+
+    block_17:
+      type: object
+      title: "17. Figure/Table Number"
+      properties:
+        figure_table_number:
+          type: text
+          title: Figure/Table Number
+          default: ""
+          example: 4-2
+          ui:
+            compact: true
+          description: "The figure or table, when the deficiency is in one."
+
+    block_18:
+      type: object
+      title: "18. Short Description of Deficiency"
+      properties:
+        short_description:
+          type: text
+          title: Short Description of Deficiency
+          default: ""
+          multiline: true
+          example: Step 4 omits the torque for the access panel.
+          description: "A short statement of what is wrong."
+
+    block_19:
+      type: object
+      title: "19. Deficiency"
+      properties:
+        deficiency:
+          type: text
+          title: Deficiency
+          default: ""
+          multiline: true
+          example: The procedure installs the panel and gives no torque.
+          description: "What the publication says, and why that is wrong."
+
+    block_20:
+      type: object
+      title: "20. Recommended TM Change"
+      properties:
+        recommended_change:
+          type: text
+          title: Recommended TM Change
+          default: ""
+          multiline: true
+          example: Add 30 inch-pounds to step 4.
+          description: "The change you recommend, written the way it should read."
+
+    block_21:
+      type: object
+      title: "21. Savings/Yr - Dollars"
+      properties:
+        dollars:
+          type: text
+          title: Savings/Yr - Dollars
+          default: ""
+          example: "2400"
+          ui:
+            compact: true
+          description: "Estimated dollars saved in a year, when you can give one."
+
+    block_22:
+      type: object
+      title: "22. Savings/Yr-Manhours"
+      properties:
+        manhours:
+          type: text
+          title: Savings/Yr-Manhours
+          default: ""
+          example: "40"
+          ui:
+            compact: true
+          description: "Estimated manhours saved in a year, when you can give one."
+
+    block_23:
+      type: object
+      title: "23. Evaluator (After evaluation, forward to supervisor)"
+      properties:
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Riley P. Okonkwo
+          description: "The evaluator's name."
+        rank:
+          type: text
+          title: Rank
+          default: ""
+          example: GS-12
+          ui:
+            compact: true
+          description: "The evaluator's rank or grade."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0133
+          ui:
+            compact: true
+          description: "The evaluator's phone number."
+        receipt_date:
+          type: date
+          title: Receipt Date
+          default: ""
+          example: 2026-03-12
+          ui:
+            compact: true
+          description: "The day the evaluator receives the recommendation."
+        evaluation_date:
+          type: date
+          title: Evaluation Date
+          default: ""
+          example: 2026-03-16
+          ui:
+            compact: true
+          description: "The day the evaluator finishes the evaluation."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: riley.okonkwo@example.mil
+          description: "The evaluator's email."
+
+    block_24:
+      type: object
+      title: "24. Evaluator/Supervisor (After review, return to TO Management Activity)"
+      properties:
+        name:
+          type: text
+          title: Name
+          default: ""
+          example: Dana S. Brooks
+          description: "The evaluator's supervisor's name."
+        rank:
+          type: text
+          title: Rank
+          default: ""
+          example: GS-13
+          ui:
+            compact: true
+          description: "The supervisor's rank or grade."
+        phone:
+          type: text
+          title: Phone
+          default: ""
+          example: 555-0138
+          ui:
+            compact: true
+          description: "The supervisor's phone number."
+        review_date:
+          type: date
+          title: Review Date
+          default: ""
+          example: 2026-03-18
+          ui:
+            compact: true
+          description: "The day the supervisor reviews the evaluation."
+        email:
+          type: text
+          title: E-Mail
+          default: ""
+          example: dana.brooks@example.mil
+          description: "The supervisor's email."
+
+    block_25:
+      type: object
+      title: "25. Disposition"
+      properties:
+        disposition:
+          type: enum
+          title: Disposition
+          values:
+            - Approved
+            - Deferred
+            - Abeyance
+            - Advisement
+            - Duplicate
+            - Disapproved
+            - Other
+          default: ""
+          example: Approved
+          description: "Check one."
+
+    block_26:
+      type: object
+      title: "26. Disposition/Remarks"
+      properties:
+        remarks:
+          type: text
+          title: Disposition/Remarks
+          default: ""
+          multiline: true
+          example: Verified on the panel drawing. Torque stands as recommended.
+          description: "The evaluator's explanation of the action. Not required when the recommendation is approved as written."
+        performance:
+          type: boolean
+          title: Performance
+          default: false
+          example: true
+          ui:
+            compact: true
+          description: "Verification required by performance."
+        desk_top_analysis:
+          type: boolean
+          title: Desk-Top Analysis
+          default: false
+          example: false
+          ui:
+            compact: true
+          description: "Verification required by desk-top analysis."
+
+    block_27:
+      type: object
+      title: "27. Idea Benefits Are"
+      properties:
+        intangible:
+          type: boolean
+          title: Intangible
+          default: false
+          example: false
+          ui:
+            compact: true
+          description: "Check when the monetary benefits cannot be determined."
+        tangible:
+          type: boolean
+          title: Tangible - Amount
+          default: false
+          example: true
+          ui:
+            compact: true
+          description: "Check when the monetary benefits can be determined."
+        amount:
+          type: text
+          title: Amount
+          default: ""
+          example: "2400"
+          ui:
+            compact: true
+          description: "The dollar amount of the tangible savings."
+
+    block_28:
+      type: object
+      title: "28. Continuation"
+      properties:
+        continuation:
+          type: text
+          title: Continuation
+          default: ""
+          multiline: true
+          example: No further remarks.
+          description: "Anything that did not fit in an earlier block."

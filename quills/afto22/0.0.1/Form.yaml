@@ -1,0 +1,1105 @@
+{
+  "schema": "quillmark/form@0.3.0",
+  "fields": [
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK1_mutexcl_grp[0].CHECK1[0]",
+      "schema_field": "block_1.decision",
+      "page": 0,
+      "rect": {
+        "x": 140.4,
+        "y": 158.584,
+        "w": 10.224999999999994,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Approved",
+      "option": "Approved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK1_mutexcl_grp[0].CHECK2[0]",
+      "schema_field": "block_1.decision",
+      "page": 0,
+      "rect": {
+        "x": 221.4,
+        "y": 158.584,
+        "w": 10.224999999999994,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Disapproved",
+      "option": "Disapproved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK3_mutexcl_grp[0].CHECK4[0]",
+      "schema_field": "block_2.decision",
+      "page": 0,
+      "rect": {
+        "x": 484.775,
+        "y": 154.409,
+        "w": 10.225000000000023,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Approved",
+      "option": "Approved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK3_mutexcl_grp[0].CHECK3[0]",
+      "schema_field": "block_2.decision",
+      "page": 0,
+      "rect": {
+        "x": 565.775,
+        "y": 154.409,
+        "w": 10.225000000000023,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Disapproved",
+      "option": "Disapproved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK5_mutexcl_grp[0].CHECK6[0]",
+      "schema_field": "block_3.decision",
+      "page": 0,
+      "rect": {
+        "x": 115.2,
+        "y": 269.609,
+        "w": 10.224999999999994,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Approved",
+      "option": "Approved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK5_mutexcl_grp[0].CHECK5[0]",
+      "schema_field": "block_3.decision",
+      "page": 0,
+      "rect": {
+        "x": 196.2,
+        "y": 269.609,
+        "w": 10.225000000000023,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Disapproved",
+      "option": "Disapproved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK9_mutexcl_grp[0].CHECK9[0]",
+      "schema_field": "block_6.priority",
+      "page": 0,
+      "rect": {
+        "x": 300.6,
+        "y": 330.809,
+        "w": 10.224999999999966,
+        "h": 10.224999999999966
+      },
+      "tooltip": "Emergency",
+      "option": "Emergency"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK9_mutexcl_grp[0].CHECK10[0]",
+      "schema_field": "block_6.priority",
+      "page": 0,
+      "rect": {
+        "x": 388.8,
+        "y": 330.809,
+        "w": 10.224999999999966,
+        "h": 10.224999999999966
+      },
+      "tooltip": "Urgent",
+      "option": "Urgent"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK9_mutexcl_grp[0].CHECK11[0]",
+      "schema_field": "block_6.priority",
+      "page": 0,
+      "rect": {
+        "x": 463.825,
+        "y": 330.809,
+        "w": 10.225000000000023,
+        "h": 10.224999999999966
+      },
+      "tooltip": "Routine",
+      "option": "Routine"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK12_mutexcl_grp[0].CHECK12[0]",
+      "schema_field": "block_7.change_type",
+      "page": 0,
+      "rect": {
+        "x": 541.8,
+        "y": 331.96,
+        "w": 10.225000000000023,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Correction",
+      "option": "Correction"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].CHECK12_mutexcl_grp[0].CHECK13[0]",
+      "schema_field": "block_7.change_type",
+      "page": 0,
+      "rect": {
+        "x": 661.175,
+        "y": 332.535,
+        "w": 10.225000000000023,
+        "h": 10.224999999999966
+      },
+      "tooltip": "Improvement",
+      "option": "Improvement"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD1[0]",
+      "schema_field": "block_1.organization",
+      "page": 0,
+      "rect": {
+        "x": 121.031,
+        "y": 109.48000000000002,
+        "w": 171,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Organization"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD5[0]",
+      "schema_field": "block_1.name",
+      "page": 0,
+      "rect": {
+        "x": 84.025,
+        "y": 124.024,
+        "w": 325.225,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD6[0]",
+      "schema_field": "block_1.phone",
+      "page": 0,
+      "rect": {
+        "x": 91.111,
+        "y": 138.767,
+        "w": 120.02499999999999,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD36[0]",
+      "schema_field": "block_1.initial_submit_date",
+      "page": 0,
+      "rect": {
+        "x": 314.597,
+        "y": 140.24099999999999,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Initial Submit Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD7[0]",
+      "schema_field": "block_1.email",
+      "page": 0,
+      "rect": {
+        "x": 88.2,
+        "y": 171.39999999999998,
+        "w": 319.175,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD2[0]",
+      "schema_field": "block_2.organization",
+      "page": 0,
+      "rect": {
+        "x": 481.031,
+        "y": 105.88,
+        "w": 109.80000000000001,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Organization"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD8[0]",
+      "schema_field": "block_2.name",
+      "page": 0,
+      "rect": {
+        "x": 446.995,
+        "y": 122.97799999999995,
+        "w": 324.629,
+        "h": 10.845000000000027
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD9[0]",
+      "schema_field": "block_2.phone",
+      "page": 0,
+      "rect": {
+        "x": 450.899,
+        "y": 137.361,
+        "w": 120.02499999999998,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD40[0]",
+      "schema_field": "block_2.review_date",
+      "page": 0,
+      "rect": {
+        "x": 633.6,
+        "y": 138.586,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Review Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD10[0]",
+      "schema_field": "block_2.email",
+      "page": 0,
+      "rect": {
+        "x": 449.425,
+        "y": 169.024,
+        "w": 321.62499999999994,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD3[0]",
+      "schema_field": "block_3.organization",
+      "page": 0,
+      "rect": {
+        "x": 123.154,
+        "y": 219.42399999999998,
+        "w": 110.375,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Organization"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD12[0]",
+      "schema_field": "block_3.name",
+      "page": 0,
+      "rect": {
+        "x": 83.375,
+        "y": 235.137,
+        "w": 328.825,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD13[0]",
+      "schema_field": "block_3.phone",
+      "page": 0,
+      "rect": {
+        "x": 88.775,
+        "y": 253.64100000000002,
+        "w": 120.025,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD41[0]",
+      "schema_field": "block_3.review_date",
+      "page": 0,
+      "rect": {
+        "x": 270.448,
+        "y": 253.72899999999998,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Review Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD14[0]",
+      "schema_field": "block_3.email",
+      "page": 0,
+      "rect": {
+        "x": 88.775,
+        "y": 284.063,
+        "w": 321.625,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD4[0]",
+      "schema_field": "block_4.organization",
+      "page": 0,
+      "rect": {
+        "x": 484.14,
+        "y": 231.53699999999998,
+        "w": 114.625,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Organization"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD11[0]",
+      "schema_field": "block_4.name",
+      "page": 0,
+      "rect": {
+        "x": 445.493,
+        "y": 248.961,
+        "w": 326.132,
+        "h": 10.861999999999966
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD15[0]",
+      "schema_field": "block_4.phone",
+      "page": 0,
+      "rect": {
+        "x": 450.899,
+        "y": 267.698,
+        "w": 120.02499999999998,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD42[0]",
+      "schema_field": "block_4.receipt_date",
+      "page": 0,
+      "rect": {
+        "x": 654.299,
+        "y": 267.86,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Receipt Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD16[0]",
+      "schema_field": "block_4.email",
+      "page": 0,
+      "rect": {
+        "x": 448.2,
+        "y": 283.323,
+        "w": 319.825,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD17[0]",
+      "schema_field": "block_5.local_control_number",
+      "page": 0,
+      "rect": {
+        "x": 57.311,
+        "y": 331.024,
+        "w": 234.28900000000002,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Local Control Number (LCN)"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD18[0]",
+      "schema_field": "block_8.name",
+      "page": 0,
+      "rect": {
+        "x": 85.825,
+        "y": 364,
+        "w": 321.625,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD19[0]",
+      "schema_field": "block_8.rank",
+      "page": 0,
+      "rect": {
+        "x": 89.425,
+        "y": 381.586,
+        "w": 59.97500000000001,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Rank"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD20[0]",
+      "schema_field": "block_8.phone",
+      "page": 0,
+      "rect": {
+        "x": 201.6,
+        "y": 381.586,
+        "w": 59.974999999999994,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD43[0]",
+      "schema_field": "block_8.date",
+      "page": 0,
+      "rect": {
+        "x": 315.737,
+        "y": 381.586,
+        "w": 59.974999999999966,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD21[0]",
+      "schema_field": "block_8.email",
+      "page": 0,
+      "rect": {
+        "x": 88.2,
+        "y": 397.137,
+        "w": 323.425,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD26[0]",
+      "schema_field": "block_9.name",
+      "page": 0,
+      "rect": {
+        "x": 445.175,
+        "y": 364,
+        "w": 321.62499999999994,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD27[0]",
+      "schema_field": "block_9.rank",
+      "page": 0,
+      "rect": {
+        "x": 448.775,
+        "y": 381.586,
+        "w": 59.97500000000002,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Rank"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD37[0]",
+      "schema_field": "block_9.phone",
+      "page": 0,
+      "rect": {
+        "x": 561.025,
+        "y": 381.586,
+        "w": 59.97500000000002,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD38[0]",
+      "schema_field": "block_9.date",
+      "page": 0,
+      "rect": {
+        "x": 674.425,
+        "y": 381.586,
+        "w": 59.97500000000002,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD25[0]",
+      "schema_field": "block_9.email",
+      "page": 0,
+      "rect": {
+        "x": 450,
+        "y": 397.298,
+        "w": 319.17499999999995,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD28[0]",
+      "schema_field": "block_10.publication_number",
+      "page": 0,
+      "rect": {
+        "x": 56.375,
+        "y": 444.424,
+        "w": 174.025,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Publication Number"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD29[0]",
+      "schema_field": "block_11.basic_date",
+      "page": 0,
+      "rect": {
+        "x": 235.225,
+        "y": 444.424,
+        "w": 169.20000000000002,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Basic Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD30[0]",
+      "schema_field": "block_12.change_number",
+      "page": 0,
+      "rect": {
+        "x": 418.535,
+        "y": 444.424,
+        "w": 170.99999999999994,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Change Number"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD31[0]",
+      "schema_field": "block_13.change_date",
+      "page": 0,
+      "rect": {
+        "x": 598.031,
+        "y": 444.424,
+        "w": 163.22500000000002,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Change Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD32[0]",
+      "schema_field": "block_14.work_package",
+      "page": 0,
+      "rect": {
+        "x": 56.375,
+        "y": 477.4,
+        "w": 174.025,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Work Package/Work Card ID"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD33[0]",
+      "schema_field": "block_15.page_number",
+      "page": 0,
+      "rect": {
+        "x": 235.225,
+        "y": 477.4,
+        "w": 169.20000000000002,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Page Number"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD34[0]",
+      "schema_field": "block_16.paragraph_number",
+      "page": 0,
+      "rect": {
+        "x": 418.535,
+        "y": 477.4,
+        "w": 170.99999999999994,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Paragraph Number"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD35[0]",
+      "schema_field": "block_17.figure_table_number",
+      "page": 0,
+      "rect": {
+        "x": 598.031,
+        "y": 477.4,
+        "w": 163.22500000000002,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Figure/Table Number"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD22[0]",
+      "schema_field": "block_18.short_description",
+      "page": 0,
+      "rect": {
+        "x": 57.169,
+        "y": 506.327,
+        "w": 713.88,
+        "h": 31.894999999999982
+      },
+      "tooltip": "Short Description of Deficiency"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD23[0]",
+      "schema_field": "block_19.deficiency",
+      "page": 0,
+      "rect": {
+        "x": 57.169,
+        "y": 558.34,
+        "w": 713.88,
+        "h": 22.30899999999997
+      },
+      "tooltip": "Deficiency"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].FIELD24[0]",
+      "schema_field": "lcn.lcn",
+      "page": 0,
+      "rect": {
+        "x": 588.025,
+        "y": 76.649,
+        "w": 99.57500000000005,
+        "h": 10.799999999999955
+      },
+      "tooltip": "LCN"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check12_mutexcl_2_grp[0].Check12_2[0]",
+      "schema_field": "block_25.disposition",
+      "page": 1,
+      "rect": {
+        "x": 50.975,
+        "y": 280.814,
+        "w": 10.225000000000001,
+        "h": 10.224999999999966
+      },
+      "tooltip": "Approved",
+      "option": "Approved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check12_mutexcl_2_grp[0].Check13_2[0]",
+      "schema_field": "block_25.disposition",
+      "page": 1,
+      "rect": {
+        "x": 50.975,
+        "y": 297.014,
+        "w": 10.225000000000001,
+        "h": 10.224999999999966
+      },
+      "tooltip": "Deferred",
+      "option": "Deferred"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check12_mutexcl_2_grp[0].Check14[0]",
+      "schema_field": "block_25.disposition",
+      "page": 1,
+      "rect": {
+        "x": 50.975,
+        "y": 313.789,
+        "w": 10.225000000000001,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Abeyance",
+      "option": "Abeyance"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check12_mutexcl_2_grp[0].Check15[0]",
+      "schema_field": "block_25.disposition",
+      "page": 1,
+      "rect": {
+        "x": 50.975,
+        "y": 330.639,
+        "w": 10.225000000000001,
+        "h": 10.224999999999966
+      },
+      "tooltip": "Advisement",
+      "option": "Advisement"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check12_mutexcl_2_grp[0].Check16[0]",
+      "schema_field": "block_25.disposition",
+      "page": 1,
+      "rect": {
+        "x": 50.975,
+        "y": 347.414,
+        "w": 10.225000000000001,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Duplicate",
+      "option": "Duplicate"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check12_mutexcl_2_grp[0].Check17[0]",
+      "schema_field": "block_25.disposition",
+      "page": 1,
+      "rect": {
+        "x": 50.975,
+        "y": 363.614,
+        "w": 10.225000000000001,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Disapproved",
+      "option": "Disapproved"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check12_mutexcl_2_grp[0].Check18[0]",
+      "schema_field": "block_25.disposition",
+      "page": 1,
+      "rect": {
+        "x": 50.975,
+        "y": 381.039,
+        "w": 10.225000000000001,
+        "h": 10.225000000000023
+      },
+      "tooltip": "Other",
+      "option": "Other"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check22[0]",
+      "schema_field": "block_27.tangible",
+      "page": 1,
+      "rect": {
+        "x": 391.175,
+        "y": 388.383,
+        "w": 10.510999999999967,
+        "h": 10.511000000000024
+      },
+      "tooltip": "Tangible - Amount"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check21[0]",
+      "schema_field": "block_27.intangible",
+      "page": 1,
+      "rect": {
+        "x": 300.6,
+        "y": 388.959,
+        "w": 10.510999999999967,
+        "h": 10.511000000000024
+      },
+      "tooltip": "Intangible"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check20[0]",
+      "schema_field": "block_26.desk_top_analysis",
+      "page": 1,
+      "rect": {
+        "x": 390.6,
+        "y": 369.734,
+        "w": 10.510999999999967,
+        "h": 10.511000000000024
+      },
+      "tooltip": "Desk-Top Analysis"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Check19[0]",
+      "schema_field": "block_26.performance",
+      "page": 1,
+      "rect": {
+        "x": 300.025,
+        "y": 369.734,
+        "w": 10.511000000000024,
+        "h": 10.511000000000024
+      },
+      "tooltip": "Performance"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD1_2[0]",
+      "schema_field": "block_23.name",
+      "page": 1,
+      "rect": {
+        "x": 77.975,
+        "y": 177.279,
+        "w": 326.375,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD2_2[0]",
+      "schema_field": "block_23.rank",
+      "page": 1,
+      "rect": {
+        "x": 77.975,
+        "y": 191.67899999999997,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Rank"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD3_2[0]",
+      "schema_field": "block_23.phone",
+      "page": 1,
+      "rect": {
+        "x": 242.512,
+        "y": 192.702,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD13_2[0]",
+      "schema_field": "block_23.receipt_date",
+      "page": 1,
+      "rect": {
+        "x": 115.2,
+        "y": 207.87900000000002,
+        "w": 89.99999999999999,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Receipt Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD11_2[0]",
+      "schema_field": "block_23.evaluation_date",
+      "page": 1,
+      "rect": {
+        "x": 286.809,
+        "y": 208.471,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Evaluation Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD5_2[0]",
+      "schema_field": "block_23.email",
+      "page": 1,
+      "rect": {
+        "x": 81.575,
+        "y": 222.85399999999998,
+        "w": 320.40000000000003,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD6_2[0]",
+      "schema_field": "block_24.name",
+      "page": 1,
+      "rect": {
+        "x": 439.2,
+        "y": 188.079,
+        "w": 334.8,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Name"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD7_2[0]",
+      "schema_field": "block_24.rank",
+      "page": 1,
+      "rect": {
+        "x": 437.975,
+        "y": 203.05399999999997,
+        "w": 72,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Rank"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD8_2[0]",
+      "schema_field": "block_24.phone",
+      "page": 1,
+      "rect": {
+        "x": 545.4,
+        "y": 203.05399999999997,
+        "w": 90,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Phone"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD12_2[0]",
+      "schema_field": "block_24.review_date",
+      "page": 1,
+      "rect": {
+        "x": 698.975,
+        "y": 203.05399999999997,
+        "w": 66.02499999999998,
+        "h": 10.800000000000011
+      },
+      "tooltip": "Review Date"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD9_2[0]",
+      "schema_field": "block_24.email",
+      "page": 1,
+      "rect": {
+        "x": 442.225,
+        "y": 218.67899999999997,
+        "w": 327.6,
+        "h": 10.800000000000011
+      },
+      "tooltip": "E-Mail"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Field31_2[0]",
+      "schema_field": "block_26.remarks",
+      "page": 1,
+      "rect": {
+        "x": 180,
+        "y": 269.87,
+        "w": 598.175,
+        "h": 95.54500000000002
+      },
+      "tooltip": "Disposition/Remarks"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Field32_2[0]",
+      "schema_field": "block_27.amount",
+      "page": 1,
+      "rect": {
+        "x": 490.825,
+        "y": 386.51,
+        "w": 97.19999999999999,
+        "h": 12.745000000000005
+      },
+      "tooltip": "Amount"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD10_2[0]",
+      "schema_field": "block_28.continuation",
+      "page": 1,
+      "rect": {
+        "x": 49.32,
+        "y": 418.195,
+        "w": 724.68,
+        "h": 162.76500000000004
+      },
+      "tooltip": "Continuation"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD39[0]",
+      "schema_field": "block_20.recommended_change",
+      "page": 1,
+      "rect": {
+        "x": 49.32,
+        "y": 90.519,
+        "w": 725.8309999999999,
+        "h": 31.894999999999982
+      },
+      "tooltip": "Recommended TM Change"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD26_2[0]",
+      "schema_field": "block_21.dollars",
+      "page": 1,
+      "rect": {
+        "x": 63,
+        "y": 144.23000000000002,
+        "w": 72,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Savings/Yr - Dollars"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD27_2[0]",
+      "schema_field": "block_22.manhours",
+      "page": 1,
+      "rect": {
+        "x": 414.575,
+        "y": 144.23000000000002,
+        "w": 72,
+        "h": 10.799999999999955
+      },
+      "tooltip": "Savings/Yr-Manhours"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].FIELD4_2[0]",
+      "schema_field": "lcn.lcn",
+      "page": 1,
+      "rect": {
+        "x": 647.425,
+        "y": 55.88499999999999,
+        "w": 126.57500000000005,
+        "h": 12.311000000000035
+      },
+      "tooltip": "LCN"
+    }
+  ],
+  "widgets": [
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].Sig1_Page1_Pim[0]",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 57.025,
+        "y": 185.00900000000001,
+        "w": 354.02500000000003,
+        "h": 13.175000000000011
+      },
+      "tooltip": "Click to sign"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].Sig2_Page1_Maj[0]",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 418.175,
+        "y": 183.784,
+        "w": 349.2,
+        "h": 13.175000000000011
+      },
+      "tooltip": "Click to sign"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].Sig3_Page1_Lead[0]",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 57.025,
+        "y": 297.76,
+        "w": 354.02500000000003,
+        "h": 13.175000000000011
+      },
+      "tooltip": "Click to sign"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].Sig4_Page1_Act[0]",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 418.175,
+        "y": 297.76,
+        "w": 350.425,
+        "h": 13.175000000000011
+      },
+      "tooltip": "Click to sign"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].Sig5_Page1_Init[0]",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 57.025,
+        "y": 412.384,
+        "w": 354.02500000000003,
+        "h": 13.174999999999955
+      },
+      "tooltip": "Click to sign"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page1[0].Sig6_Page1_Supv[0]",
+      "type": "signature",
+      "page": 0,
+      "rect": {
+        "x": 418.175,
+        "y": 411.15999999999997,
+        "w": 352.8,
+        "h": 13.175000000000068
+      },
+      "tooltip": "Click to sign"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Sig7_Page2_Eval[0]",
+      "type": "signature",
+      "page": 1,
+      "rect": {
+        "x": 49.175,
+        "y": 235.81400000000002,
+        "w": 352.8,
+        "h": 13.174999999999955
+      },
+      "tooltip": "Click to sign"
+    },
+    {
+      "name": "AFTO22_unlocked[0].Page2[0].Sig8_Page2_Supr[0]",
+      "type": "signature",
+      "page": 1,
+      "rect": {
+        "x": 411.911,
+        "y": 235.81400000000002,
+        "w": 365.40000000000003,
+        "h": 13.174999999999955
+      },
+      "tooltip": "Click to sign"
+    }
+  ]
+}

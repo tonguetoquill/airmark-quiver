@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- **An AFTO Form 22 quill is added.** `afto22@0.0.1` fills the Technical
+  Manual Change Recommendation and Reply (TO 00-5-1). The fields follow the
+  form's blocks 1 through 28, with the header LCN first; that LCN also prints
+  beside LCN on page 2. Priority, change type, disposition, and each approved
+  or disapproved pair are one choice. Dates are dates. The Click to sign
+  blocks stay signature fields, and the Freeze Data and ATTACH buttons do not
+  print.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
