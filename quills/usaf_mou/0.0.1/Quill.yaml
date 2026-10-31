@@ -1,0 +1,237 @@
+quill:
+  name: usaf_mou
+  version: 0.0.1
+  backend: typst
+  description: U.S. Air Force Memorandum of Understanding (memo format, any number of signers)
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "Write the MOU as plain paragraphs. They're numbered for you, and bullets become lettered subparagraphs. Start each paragraph with its heading in capitals, for example 'PURPOSE.', 'RESPONSIBILITIES.' or 'EFFECTIVE DATE.'"
+  body:
+    example: |-
+      PURPOSE. This memorandum establishes how the 123d Intelligence Squadron hosts one analyst from the Joint Analyst Program for a twelve-month developmental tour.
+
+      SCOPE. It covers the analyst's duty location, supervision, training and evaluation while assigned to the squadron. It does not transfer funds between the parties.
+
+      RESPONSIBILITIES.
+
+      - The 123d Intelligence Squadron provides a workstation, mission access and a flight-level supervisor, and includes the analyst in squadron training.
+
+      - The Joint Analyst Program pays the analyst's travel and per diem, and writes the analyst's evaluation with input from the flight chief.
+
+      - The participant follows squadron duty hours and the host unit's operating instructions.
+
+      EFFECTIVE DATE AND REVIEW. This memorandum takes effect on the date of the last signature and remains in effect for twelve months. Either party may end it with 30 days' written notice.
+
+      POINTS OF CONTACT. MSgt Jane A. Doe, 123 IS/DOF, DSN 555-0110, jane.doe@example.mil, and Mr. John Q. Public, JAP Program Office, 555-555-0123, john.public@example.mil.
+  fields:
+    addressing:
+      type: object
+      properties:
+        parties:
+          type: array
+          items:
+            type: text
+          default: []
+          example:
+            - 123d Intelligence Squadron
+            - Joint Analyst Program
+          description: "Each organization entering the MOU, one per line. Two print in capitals as 'A AND B' after 'MEMORANDUM OF UNDERSTANDING BETWEEN'; three or more as 'A, B, AND C'. Leave blank to print the heading without them."
+
+        memo_from:
+          title: From
+          type: array
+          items:
+            type: text
+          default: []
+          ui:
+            compact: true
+          description: "Usually blank. Enter the originating office symbol if your unit's agreements carry a FROM line."
+
+        subject:
+          type: richtext
+          multiline: false
+          example: Hosting of Joint Analyst Program Participants
+          description: "A brief subject in title case."
+
+        date:
+          type: date
+          default: ""
+          example: today
+          ui:
+            compact: true
+          description: "The memo's date. Leave blank to add a fillable date field to the PDF instead."
+
+    signatures:
+      type: object
+      properties:
+        signers:
+          type: array
+          items:
+            type: object
+            properties:
+              signature_block:
+                type: array
+                items:
+                  type: text
+                description: "The signer's name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Their duty title on the second, and their organization on a third line if the parties differ."
+              date:
+                type: date
+                default: ""
+                description: "The date this signer signs. Prints only when Date lines is on; leave blank for a fillable box."
+          default: []
+          example:
+            - signature_block:
+                - JORDAN T. LEE, SSgt, USAF
+                - Participant, Joint Analyst Program
+            - signature_block:
+                - JANE A. DOE, MSgt, USAF
+                - Flight Chief, 123d Intelligence Squadron
+            - signature_block:
+                - JOHN Q. PUBLIC, GS-14, DAF
+                - Program Executive, Joint Analyst Program
+            - signature_block:
+                - RICHARD C. ROE, Lt Col, USAF
+                - Commander, 123d Intelligence Squadron
+          description: "List signers from most junior to most senior. They print in pairs: the junior at the left margin and the senior at 4.5 inches, with each further pair on a new row. With an odd number, the last signer stands alone at 4.5 inches. Each signer gets their own digital signature field."
+
+        date_lines:
+          title: Date lines
+          type: boolean
+          default: false
+          ui:
+            compact: true
+          description: "Turn on to print a 'Date:' line under every signer. Use it when the MOU follows DoDI 4000.19, which has every signer date their signature. A signer's date prints there; a blank one becomes a fillable box."
+
+    letterhead:
+      type: object
+      properties:
+        letterhead_title:
+          type: array
+          items:
+            type: text
+          default:
+            - DEPARTMENT OF THE AIR FORCE
+          example:
+            - DEPARTMENT OF THE AIR FORCE
+            - 123D INTELLIGENCE SQUADRON
+          description: "The letterhead, in uppercase. Keep the first line unless you work for a joint command or a DoW agency, and add your unit's full name on the lines below it."
+
+        letterhead_seal:
+          type: enum
+          values:
+            - dow
+            - dod
+          default: dow
+          ui:
+            compact: true
+          description: "The seal at the top left of the letterhead: Department of War or Department of Defense."
+
+        letterhead_seal_subtitle:
+          type: text
+          default: ""
+          ui:
+            compact: true
+          description: "An optional line in bold capitals under the seal."
+
+        tag_line:
+          type: richtext
+          multiline: false
+          default: ""
+          ui:
+            compact: true
+          description: "Your unit's motto, centered at the bottom of every page."
+
+    classification:
+      type: object
+      properties:
+        level:
+          type: enum
+          values:
+            - UNCLASSIFIED
+            - CUI
+            - CONFIDENTIAL
+            - SECRET
+            - TOP SECRET
+          default: ""
+          description: "The classification banner at the top and bottom of every page. Leave blank for an unclassified document."
+          variants:
+            CUI:
+              controlled_by:
+                type: text
+                description: "The office that designated this information as CUI, for example 'SAF/AA'."
+              poc:
+                title: POC
+                type: text
+                description: "Who to contact with questions about this CUI, with phone and email, for example 'Capt J. Smith, DSN 555-1234, john.smith@us.af.mil'."
+              category:
+                type: text
+                default: ""
+                description: "The category from the DoD CUI Registry, for example 'CTI' or 'PRVCY'."
+              limited_dissemination:
+                type: text
+                default: ""
+                description: "A dissemination control for the CUI block, for example 'FEDONLY' or 'NOFORN'. To add one to the banner, use Dissemination."
+
+        dissemination:
+          type: text
+          default: ""
+          ui:
+            compact: true
+          description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
+
+    additional:
+      type: object
+      properties:
+        references:
+          type: array
+          items:
+            type: richtext
+            multiline: false
+          default: []
+          example:
+            - DoDI 4000.19, 16 December 2020, *Support Agreements*
+          description: "Cite each by organization, type, date, and title. One reference prints after the subject; two or more print as a lettered list."
+
+        attachments:
+          type: array
+          items:
+            type: richtext
+            multiline: false
+          default: []
+          description: "Attachments in the order the MOU mentions them. Describe each briefly and include its date. Don't write 'as stated'."
+
+        cc:
+          title: CC
+          type: array
+          items:
+            type: text
+          default: []
+          description: Offices or people receiving a courtesy copy, one per line.
+
+        distribution:
+          type: array
+          items:
+            type: text
+          default: []
+          description: "Everyone else who gets a copy, one per line."
+
+        memo_style:
+          title: Memo style
+          type: enum
+          values:
+            - usaf
+            - daf
+          default: usaf
+          ui:
+            compact: true
+          description: "USAF for most memos, DAF for headquarters memos. DAF style dates as 'September 15, 2026' and indents paragraphs instead of numbering them."
+
+        font_size:
+          type: number
+          default: 12
+          ui:
+            compact: true
+          description: "Body text size in points. The standard is 12."

@@ -11,6 +11,7 @@ and aligned to the current Quillmark spec.
 |----------------------|---------|----------------------------------------------------------------------------------|
 | `usaf_memo`          | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                      |
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
+| `usaf_mou`           | 0.0.1   | USAF Memorandum of Understanding (AFH 33-337 memo format, any number of signers) |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
 | `usaf_paper`         | 0.1.0   | Point, talking, bullet background, background, and position papers (AFH 33-337) |
 | `army_memo`          | 0.1.0   | U.S. Army Memorandum (AR 25-50)                                                  |

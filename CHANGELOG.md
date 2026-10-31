@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- **Draft `usaf_mou@0.0.1`: memorandums of understanding in AFH 33-337 memo
+  format.** The heading line reads MEMORANDUM OF UNDERSTANDING BETWEEN the
+  parties. Any number of signers print in AFH 33-337 dual-signature rows,
+  junior at the left margin and senior at 4.5 inches, each with its own
+  digital signature field and an optional date line for MOUs that follow
+  DoDI 4000.19. Closes #311.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
