@@ -11,6 +11,11 @@
   date. The example is made up: an equipment name, a technical order, an NSN,
   employee numbers and initials.
 
+- **The SYM-BOL column on `afto244@0.0.1` is a choice of X, /, or -.** The
+  mark prints in red across that row's symbol box: X from corner to corner,
+  / from the top right to the bottom left, and - straight across the middle.
+  A blank choice prints no mark.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in

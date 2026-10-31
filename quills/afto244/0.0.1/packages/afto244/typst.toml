@@ -1,0 +1,7 @@
+[package]
+name = "afto244"
+version = "0.0.1"
+entrypoint = "lib.typ"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "AFTO Form 244 background and field boxes."

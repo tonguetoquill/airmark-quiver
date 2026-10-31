@@ -1,9 +1,12 @@
 quill:
   name: afto244
   version: 0.0.1
-  backend: acroform
+  backend: typst
   requires: ">=0.133"
   description: "AFTO Form 244 — Industrial/Support Equipment Record (TO 00-20-1)"
+
+typst:
+  plate_file: plate.typ
 
 main:
   body:
@@ -2049,14 +2052,17 @@ main:
               example: "AFTO 349"
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
-              example: "X"
+              example: X
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2138,13 +2144,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2220,13 +2229,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2302,13 +2314,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2384,13 +2399,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2466,13 +2484,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2548,13 +2569,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2630,13 +2654,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2712,13 +2739,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
@@ -2794,13 +2824,16 @@ main:
               multiline: true
               description: "The supporting-document number. Leave blank when there is none."
             symbol:
-              type: text
+              type: enum
               title: "SYMBOL"
+              values:
+                - X
+                - /
+                - "-"
               default: ""
-              multiline: true
               ui:
                 compact: true
-              description: "The symbol in the column headed SYM-BOL."
+              description: "The red mark across this row's symbol box. X runs corner to corner, / from the top right to the bottom left, and - straight across the middle. Leave blank for no mark."
             discrepancy:
               type: text
               title: "DISCREPANCY"
