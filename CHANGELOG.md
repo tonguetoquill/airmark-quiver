@@ -7,9 +7,11 @@
   parties. Any number of signers print in AFH 33-337 dual-signature rows,
   junior at the left margin and senior at 4.5 inches, each with its own
   digital signature field and an optional date line for MOUs that follow
-  DoDI 4000.19. A new document is blank: no sample parties, body, or
-  signers. Signature blocks are added and removed in the form, and nothing
-  prints until one is added. Closes #311.
+  DoDI 4000.19. The sample is instructions for filling the memorandum, in
+  place of a fictional unit: parties, subject, the usual sections, a
+  reference, and two signature blocks. A new document is blank. Signature
+  blocks are added and removed in the form, and nothing prints until one
+  is added. Closes #311.
 
 ## v0.42.1 - 2026-10-30
 

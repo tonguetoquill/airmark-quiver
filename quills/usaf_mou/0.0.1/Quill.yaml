@@ -9,6 +9,21 @@ typst:
 
 main:
   description: "Write the MOU as plain paragraphs. They're numbered for you, and bullets become lettered subparagraphs. Start each paragraph with its heading in capitals, for example 'PURPOSE.', 'RESPONSIBILITIES.' or 'EFFECTIVE DATE.'"
+  body:
+    example: |-
+      PURPOSE. [State what the parties agree to. One or two sentences.]
+
+      SCOPE. [State what this understanding covers, and what it does not.]
+
+      RESPONSIBILITIES.
+
+      - The [first party] will— [what that party provides, supervises, or agrees to. Add a bullet for each party.]
+
+      - The [second party] will— [what that party provides, supervises, or agrees to.]
+
+      EFFECTIVE DATE AND REVIEW. [State when this understanding takes effect, how long it lasts, and how either party ends it.]
+
+      POINTS OF CONTACT. [For each party, give the name, grade, duty title, office symbol, phone number, and email.]
   fields:
     addressing:
       type: object
@@ -18,6 +33,9 @@ main:
           items:
             type: text
           default: []
+          example:
+            - "[First party]"
+            - "[Second party]"
           description: "Each organization entering the MOU, one per line. Two print in capitals as 'A AND B' after 'MEMORANDUM OF UNDERSTANDING BETWEEN'; three or more as 'A, B, AND C'. Leave blank to print the heading without them."
 
         memo_from:
@@ -33,6 +51,7 @@ main:
         subject:
           type: richtext
           multiline: false
+          example: "[A brief subject in title case]"
           description: "A brief subject in title case."
 
         date:
@@ -62,6 +81,13 @@ main:
                 default: ""
                 description: "The date this signer signs. Prints only when Date lines is on; leave blank for a fillable box."
           default: []
+          example:
+            - signature_block:
+                - "[NAME, GRADE, SERVICE]"
+                - "[Duty title, junior signer]"
+            - signature_block:
+                - "[NAME, GRADE, SERVICE]"
+                - "[Duty title, senior signer]"
           description: "Add a block for each signer, most junior first, and remove a block to leave that signer off the page. Nothing prints until you add one. They print in pairs: the junior at the left margin and the senior at 4.5 inches, with each further pair on a new row. With an odd number, the last signer stands alone at 4.5 inches. Each signer gets their own digital signature field."
 
         date_lines:
@@ -81,6 +107,9 @@ main:
             type: text
           default:
             - DEPARTMENT OF THE AIR FORCE
+          example:
+            - DEPARTMENT OF THE AIR FORCE
+            - "[YOUR UNIT'S FULL NAME]"
           description: "The letterhead, in uppercase. Keep the first line unless you work for a joint command or a DoW agency, and add your unit's full name on the lines below it."
 
         letterhead_seal:
@@ -155,6 +184,8 @@ main:
             type: richtext
             multiline: false
           default: []
+          example:
+            - "Organization, type, date, *title*"
           description: "Cite each by organization, type, date, and title. One reference prints after the subject; two or more print as a lettered list."
 
         attachments:
@@ -194,9 +225,6 @@ main:
         font_size:
           type: number
           default: 12
-          # The example document has to exist. 12 is already the default, so
-          # the example page stays blank.
-          example: 12
           ui:
             compact: true
           description: "Body text size in points. The standard is 12."
