@@ -8,7 +8,7 @@
   beside LCN on page 2. Priority, change type, disposition, and each approved
   or disapproved pair are one choice. Dates are dates. The Click to sign
   blocks stay signature fields, and the Freeze Data and ATTACH buttons do not
-  print.
+  print. The example leaves every box blank. The OMB number is the form's own.
 
 ## v0.42.1 - 2026-10-30
 

@@ -17,7 +17,8 @@ main:
           type: text
           title: LCN
           default: ""
-          example: 2026-0142
+          # Empty so the example document stays blank. The gate requires one.
+          example: ""
           description: "The local control number in the form header. The same number prints beside LCN on page 2."
 
     block_1:
@@ -28,19 +29,16 @@ main:
           type: text
           title: Organization
           default: ""
-          example: 99th Maintenance Squadron
           description: "The PIM's organization, or the equivalent office's."
         name:
           type: text
           title: Name
           default: ""
-          example: Alex M. Rivera
           description: "The PIM's name."
         phone:
           type: text
           title: Phone
           default: ""
-          example: 555-0101
           ui:
             compact: true
           description: "The PIM's phone number."
@@ -48,7 +46,6 @@ main:
           type: date
           title: Initial Submit Date
           default: ""
-          example: 2026-03-02
           ui:
             compact: true
           description: "The day the PIM first sends the recommendation."
@@ -59,7 +56,6 @@ main:
             - Approved
             - Disapproved
           default: ""
-          example: Approved
           ui:
             compact: true
           description: "Check one."
@@ -67,7 +63,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: alex.rivera@example.mil
           description: "The PIM's email. An organizational address is preferred."
 
     block_2:
@@ -78,19 +73,16 @@ main:
           type: text
           title: Organization
           default: ""
-          example: ACC/A4M
           description: "The MAJCOM command control point's organization."
         name:
           type: text
           title: Name
           default: ""
-          example: Priya N. Shah
           description: "The reviewer's name."
         phone:
           type: text
           title: Phone
           default: ""
-          example: 555-0144
           ui:
             compact: true
           description: "The reviewer's phone number."
@@ -98,7 +90,6 @@ main:
           type: date
           title: Review Date
           default: ""
-          example: 2026-03-06
           ui:
             compact: true
           description: "The day the MAJCOM CCP reviews the recommendation."
@@ -109,7 +100,6 @@ main:
             - Approved
             - Disapproved
           default: ""
-          example: Approved
           ui:
             compact: true
           description: "Check one."
@@ -117,7 +107,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: priya.shah@example.mil
           description: "The reviewer's email."
 
     block_3:
@@ -128,19 +117,16 @@ main:
           type: text
           title: Organization
           default: ""
-          example: AFMC/A4
           description: "The lead command control point's organization."
         name:
           type: text
           title: Name
           default: ""
-          example: Chris D. Nguyen
           description: "The reviewer's name."
         phone:
           type: text
           title: Phone
           default: ""
-          example: 555-0160
           ui:
             compact: true
           description: "The reviewer's phone number."
@@ -148,7 +134,6 @@ main:
           type: date
           title: Review Date
           default: ""
-          example: 2026-03-09
           ui:
             compact: true
           description: "The day the lead command CCP reviews the recommendation."
@@ -159,7 +144,6 @@ main:
             - Approved
             - Disapproved
           default: ""
-          example: Approved
           ui:
             compact: true
           description: "Check one."
@@ -167,7 +151,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: chris.nguyen@example.mil
           description: "The reviewer's email."
 
     block_4:
@@ -178,19 +161,16 @@ main:
           type: text
           title: Organization
           default: ""
-          example: AFLCMC/LZP
           description: "The technical order management activity's organization."
         name:
           type: text
           title: Name
           default: ""
-          example: Morgan J. Hale
           description: "The manager's name."
         phone:
           type: text
           title: Phone
           default: ""
-          example: 555-0177
           ui:
             compact: true
           description: "The manager's phone number."
@@ -198,7 +178,6 @@ main:
           type: date
           title: Receipt Date
           default: ""
-          example: 2026-03-11
           ui:
             compact: true
           description: "The day the activity receives the recommendation."
@@ -206,7 +185,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: morgan.hale@example.mil
           description: "The manager's email."
 
     block_5:
@@ -217,7 +195,6 @@ main:
           type: text
           title: Local Control Number (LCN)
           default: ""
-          example: 2026-0142
           description: "The control number the PIM assigns. It is separate from the LCN in the header."
 
     block_6:
@@ -232,7 +209,6 @@ main:
             - Urgent
             - Routine
           default: ""
-          example: Routine
           ui:
             compact: true
           description: "Check one."
@@ -248,7 +224,6 @@ main:
             - Correction
             - Improvement
           default: ""
-          example: Correction
           ui:
             compact: true
           description: "Check one."
@@ -261,13 +236,11 @@ main:
           type: text
           title: Name
           default: ""
-          example: Jordan A. Cole
           description: "The initiator's name."
         rank:
           type: text
           title: Rank
           default: ""
-          example: TSgt
           ui:
             compact: true
           description: "The initiator's rank or grade."
@@ -275,7 +248,6 @@ main:
           type: text
           title: Phone
           default: ""
-          example: 555-0188
           ui:
             compact: true
           description: "The initiator's phone number."
@@ -283,7 +255,6 @@ main:
           type: date
           title: Date
           default: ""
-          example: 2026-02-26
           ui:
             compact: true
           description: "The day the initiator signs."
@@ -291,7 +262,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: jordan.cole@example.mil
           description: "The initiator's email."
 
     block_9:
@@ -302,13 +272,11 @@ main:
           type: text
           title: Name
           default: ""
-          example: Sam R. Ellis
           description: "The supervisor's name."
         rank:
           type: text
           title: Rank
           default: ""
-          example: MSgt
           ui:
             compact: true
           description: "The supervisor's rank or grade."
@@ -316,7 +284,6 @@ main:
           type: text
           title: Phone
           default: ""
-          example: 555-0190
           ui:
             compact: true
           description: "The supervisor's phone number."
@@ -324,7 +291,6 @@ main:
           type: date
           title: Date
           default: ""
-          example: 2026-02-27
           ui:
             compact: true
           description: "The day the supervisor signs."
@@ -332,7 +298,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: sam.ellis@example.mil
           description: "The supervisor's email."
 
     block_10:
@@ -343,7 +308,6 @@ main:
           type: text
           title: Publication Number
           default: ""
-          example: 1F-99A-2-32JG-00-1
           description: "The technical order number the recommendation changes."
 
     block_11:
@@ -354,7 +318,6 @@ main:
           type: date
           title: Basic Date
           default: ""
-          example: 2024-11-15
           ui:
             compact: true
           description: "The basic date of the publication."
@@ -367,7 +330,6 @@ main:
           type: text
           title: Change Number
           default: ""
-          example: "3"
           ui:
             compact: true
           description: "The change number the recommendation applies to, when there is one."
@@ -380,7 +342,6 @@ main:
           type: date
           title: Change Date
           default: ""
-          example: 2026-01-20
           ui:
             compact: true
           description: "The date of that change."
@@ -393,7 +354,6 @@ main:
           type: text
           title: Work Package/Work Card ID
           default: ""
-          example: WP 12 00
           description: "The work package or work card, when the deficiency is in one."
 
     block_15:
@@ -404,7 +364,6 @@ main:
           type: text
           title: Page Number
           default: ""
-          example: 3-14
           ui:
             compact: true
           description: "The page the deficiency is on."
@@ -417,7 +376,6 @@ main:
           type: text
           title: Paragraph Number
           default: ""
-          example: 3-2.4
           ui:
             compact: true
           description: "The paragraph the deficiency is in."
@@ -430,7 +388,6 @@ main:
           type: text
           title: Figure/Table Number
           default: ""
-          example: 4-2
           ui:
             compact: true
           description: "The figure or table, when the deficiency is in one."
@@ -444,7 +401,6 @@ main:
           title: Short Description of Deficiency
           default: ""
           multiline: true
-          example: Step 4 omits the torque for the access panel.
           description: "A short statement of what is wrong."
 
     block_19:
@@ -456,7 +412,6 @@ main:
           title: Deficiency
           default: ""
           multiline: true
-          example: The procedure installs the panel and gives no torque.
           description: "What the publication says, and why that is wrong."
 
     block_20:
@@ -468,7 +423,6 @@ main:
           title: Recommended TM Change
           default: ""
           multiline: true
-          example: Add 30 inch-pounds to step 4.
           description: "The change you recommend, written the way it should read."
 
     block_21:
@@ -479,7 +433,6 @@ main:
           type: text
           title: Savings/Yr - Dollars
           default: ""
-          example: "2400"
           ui:
             compact: true
           description: "Estimated dollars saved in a year, when you can give one."
@@ -492,7 +445,6 @@ main:
           type: text
           title: Savings/Yr-Manhours
           default: ""
-          example: "40"
           ui:
             compact: true
           description: "Estimated manhours saved in a year, when you can give one."
@@ -505,13 +457,11 @@ main:
           type: text
           title: Name
           default: ""
-          example: Riley P. Okonkwo
           description: "The evaluator's name."
         rank:
           type: text
           title: Rank
           default: ""
-          example: GS-12
           ui:
             compact: true
           description: "The evaluator's rank or grade."
@@ -519,7 +469,6 @@ main:
           type: text
           title: Phone
           default: ""
-          example: 555-0133
           ui:
             compact: true
           description: "The evaluator's phone number."
@@ -527,7 +476,6 @@ main:
           type: date
           title: Receipt Date
           default: ""
-          example: 2026-03-12
           ui:
             compact: true
           description: "The day the evaluator receives the recommendation."
@@ -535,7 +483,6 @@ main:
           type: date
           title: Evaluation Date
           default: ""
-          example: 2026-03-16
           ui:
             compact: true
           description: "The day the evaluator finishes the evaluation."
@@ -543,7 +490,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: riley.okonkwo@example.mil
           description: "The evaluator's email."
 
     block_24:
@@ -554,13 +500,11 @@ main:
           type: text
           title: Name
           default: ""
-          example: Dana S. Brooks
           description: "The evaluator's supervisor's name."
         rank:
           type: text
           title: Rank
           default: ""
-          example: GS-13
           ui:
             compact: true
           description: "The supervisor's rank or grade."
@@ -568,7 +512,6 @@ main:
           type: text
           title: Phone
           default: ""
-          example: 555-0138
           ui:
             compact: true
           description: "The supervisor's phone number."
@@ -576,7 +519,6 @@ main:
           type: date
           title: Review Date
           default: ""
-          example: 2026-03-18
           ui:
             compact: true
           description: "The day the supervisor reviews the evaluation."
@@ -584,7 +526,6 @@ main:
           type: text
           title: E-Mail
           default: ""
-          example: dana.brooks@example.mil
           description: "The supervisor's email."
 
     block_25:
@@ -603,7 +544,6 @@ main:
             - Disapproved
             - Other
           default: ""
-          example: Approved
           description: "Check one."
 
     block_26:
@@ -615,13 +555,11 @@ main:
           title: Disposition/Remarks
           default: ""
           multiline: true
-          example: Verified on the panel drawing. Torque stands as recommended.
           description: "The evaluator's explanation of the action. Not required when the recommendation is approved as written."
         performance:
           type: boolean
           title: Performance
           default: false
-          example: true
           ui:
             compact: true
           description: "Verification required by performance."
@@ -629,7 +567,6 @@ main:
           type: boolean
           title: Desk-Top Analysis
           default: false
-          example: false
           ui:
             compact: true
           description: "Verification required by desk-top analysis."
@@ -642,7 +579,6 @@ main:
           type: boolean
           title: Intangible
           default: false
-          example: false
           ui:
             compact: true
           description: "Check when the monetary benefits cannot be determined."
@@ -650,7 +586,6 @@ main:
           type: boolean
           title: Tangible - Amount
           default: false
-          example: true
           ui:
             compact: true
           description: "Check when the monetary benefits can be determined."
@@ -658,7 +593,6 @@ main:
           type: text
           title: Amount
           default: ""
-          example: "2400"
           ui:
             compact: true
           description: "The dollar amount of the tangible savings."
@@ -672,5 +606,4 @@ main:
           title: Continuation
           default: ""
           multiline: true
-          example: No further remarks.
           description: "Anything that did not fit in an earlier block."
