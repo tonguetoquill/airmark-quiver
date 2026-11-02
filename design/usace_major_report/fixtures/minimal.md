@@ -1,7 +1,9 @@
 ~~~
 $quill: usace_major_report@0.0.1
-cui_enabled: false
-acronyms: []
+cui:
+  cui_enabled: false
+front_matter:
+  acronyms: []
 ~~~
 
 # Project Authorization and History

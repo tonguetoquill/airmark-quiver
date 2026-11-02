@@ -1,109 +1,112 @@
 ~~~
 $quill: usace_major_report@0.0.1
-report_type: Major Rehabilitation Report
-report_number: ENC-25-007
-location_lines:
-  - LOOKOUT POINT DAM AND RESERVOIR
-  - WILLAMETTE RIVER BASIN
-  - MIDDLE FORK WILLAMETTE RIVER, OREGON
-project_name: Lookout Point Spillway Gate Rehabilitation
-design_stage: 60 Percent
-date: 2025-09-17
-cui_enabled: true
-cui_controlled_by_component: USACE
-cui_controlled_by_office: CENWP-EC
-cui_categories:
-  - CTI
-  - CEII
-  - CRIT
-cui_distribution: { value: Other, detail: "FED ONLY/DL ONLY" }
-cui_poc: John R. Engineer, CENWP-EC-DS, 503-555-0177
-executive_summary: |
-  # Introduction
+report:
+  report_type: Major Rehabilitation Report
+  report_number: ENC-25-007
+  location_lines:
+    - LOOKOUT POINT DAM AND RESERVOIR
+    - WILLAMETTE RIVER BASIN
+    - MIDDLE FORK WILLAMETTE RIVER, OREGON
+  project_name: Lookout Point Spillway Gate Rehabilitation
+  design_stage: 60 Percent
+  date: 2025-09-17
+cui:
+  cui_enabled: true
+  cui_controlled_by_component: USACE
+  cui_controlled_by_office: CENWP-EC
+  cui_categories:
+    - CTI
+    - CEII
+    - CRIT
+  cui_distribution: { value: Other, detail: "FED ONLY/DL ONLY" }
+  cui_poc: John R. Engineer, CENWP-EC-DS, 503-555-0177
+front_matter:
+  executive_summary: |
+    # Introduction
 
-  This report presents the 60 percent design for rehabilitating the five spillway tainter gates at Lookout Point Dam.
+    This report presents the 60 percent design for rehabilitating the five spillway tainter gates at Lookout Point Dam.
 
-  # Purpose
+    # Purpose
 
-  The rehabilitation restores the gates' reliability so the project can pass the inflow design flood.
+    The rehabilitation restores the gates' reliability so the project can pass the inflow design flood.
 
-  # Project Location
+    # Project Location
 
-  Lookout Point Dam is on the Middle Fork Willamette River, 22 miles southeast of Eugene, Oregon.
+    Lookout Point Dam is on the Middle Fork Willamette River, 22 miles southeast of Eugene, Oregon.
 
-  # Description of Facility
+    # Description of Facility
 
-  The spillway has five 50-foot by 49-foot tainter gates on an ogee crest.
+    The spillway has five 50-foot by 49-foot tainter gates on an ogee crest.
 
-  # Construction Access
+    # Construction Access
 
-  Access is from Highway 58 over the dam crest road.
+    Access is from Highway 58 over the dam crest road.
 
-  # Construction Schedule
+    # Construction Schedule
 
-  Work runs from July 2027 through October 2029, one gate per in-water work window.
+    Work runs from July 2027 through October 2029, one gate per in-water work window.
 
-  # Operations During Construction
+    # Operations During Construction
 
-  Four gates stay operable while the fifth is out of service.
+    Four gates stay operable while the fifth is out of service.
 
-  # Cost
+    # Cost
 
-  The fully funded cost is $96.4 million.
-appendices:
-  - letter: A
-    title: PLATES
-  - letter: B
-    title: STRUCTURAL CALCULATIONS
-  - letter: C
-    title: HYDRAULIC CALCULATIONS
-  - letter: D
-    title: MECHANICAL CALCULATIONS
-  - letter: E
-    title: GEOTECHNICAL EXPLORATIONS
-  - letter: F
-    title: ELECTRICAL CALCULATIONS
-  - letter: G
-    title: VALUE ENGINEERING (VE) REPORT
-  - letter: H
-    title: COST ESTIMATE AND SCHEDULE
-pertinent_data: |
-  **Dam**
+    The fully funded cost is $96.4 million.
+  appendices:
+    - letter: A
+      title: PLATES
+    - letter: B
+      title: STRUCTURAL CALCULATIONS
+    - letter: C
+      title: HYDRAULIC CALCULATIONS
+    - letter: D
+      title: MECHANICAL CALCULATIONS
+    - letter: E
+      title: GEOTECHNICAL EXPLORATIONS
+    - letter: F
+      title: ELECTRICAL CALCULATIONS
+    - letter: G
+      title: VALUE ENGINEERING (VE) REPORT
+    - letter: H
+      title: COST ESTIMATE AND SCHEDULE
+  pertinent_data: |
+    **Dam**
 
-  Type: earthfill with concrete gravity spillway
+    Type: earthfill with concrete gravity spillway
 
-  Crest elevation: 934 feet NGVD29
+    Crest elevation: 934 feet NGVD29
 
-  **Spillway**
+    **Spillway**
 
-  Gates: five tainter gates, 50 feet wide by 49 feet high
+    Gates: five tainter gates, 50 feet wide by 49 feet high
 
-  Capacity at maximum pool: 275,000 cubic feet per second
-previous_reports:
-  - number: ENC-22-011
-    title: Lookout Point spillway gate condition assessment
-    date: 2022-08-15
-  - number: ENC-24-003
-    title: Lookout Point Spillway Gate Rehabilitation, 30 Percent MRR
-    date: 2024-05-30
-  - number: ENC-26-001
-    title: Lookout Point Spillway Gate Rehabilitation, 90 Percent MRR
-    date: 2026-06-30
-acronyms:
-  - acronym: USACE
-    description: United States Army Corps of Engineers
-  - acronym: cfs
-    description: cubic feet per second
-  - acronym: HSS
-    description: Hydraulic Steel Structure
-  - acronym: IDF
-    description: Inflow Design Flood
-  - acronym: OBE
-    description: Operational Basis Earthquake
-  - acronym: PDT
-    description: Product Development Team
-  - acronym: VE
-    description: Value Engineering
+    Capacity at maximum pool: 275,000 cubic feet per second
+  previous_reports:
+    - number: ENC-22-011
+      title: Lookout Point spillway gate condition assessment
+      date: 2022-08-15
+    - number: ENC-24-003
+      title: Lookout Point Spillway Gate Rehabilitation, 30 Percent MRR
+      date: 2024-05-30
+    - number: ENC-26-001
+      title: Lookout Point Spillway Gate Rehabilitation, 90 Percent MRR
+      date: 2026-06-30
+  acronyms:
+    - acronym: USACE
+      description: United States Army Corps of Engineers
+    - acronym: cfs
+      description: cubic feet per second
+    - acronym: HSS
+      description: Hydraulic Steel Structure
+    - acronym: IDF
+      description: Inflow Design Flood
+    - acronym: OBE
+      description: Operational Basis Earthquake
+    - acronym: PDT
+      description: Product Development Team
+    - acronym: VE
+      description: Value Engineering
 ~~~
 
 # Project Authorization and History

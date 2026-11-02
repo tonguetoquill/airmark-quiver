@@ -1,48 +1,6 @@
 ~~~
 $quill: usace_major_report@0.0
 $kind: main
-report_type: Major Maintenance Report
-report_number: XXX
-location_lines:
-  - PROJECT
-  - RIVER BASIN
-  - RIVER, STATE
-project_name: Project Name
-design_stage: 30 Percent
-date: today
-cui_enabled: true
-cui_controlled_by_component: USACE
-cui_controlled_by_office: OFFICE-SYMBOL
-cui_categories:
-  - CTI
-cui_distribution: FED ONLY
-cui_poc: Name, office, phone
-executive_summary: |
-  # Introduction
-
-  # Purpose
-
-  # Project Location
-
-  # Description of Facility
-
-  # Construction Access
-
-  # Construction Schedule
-
-  # Operations During Construction
-
-  # Cost
-appendices:
-  - letter: A
-    title: PLATES
-pertinent_data: ""
-previous_reports: []
-acronyms:
-  - acronym: PDT
-    description: Product Development Team
-  - acronym: USACE
-    description: United States Army Corps of Engineers
 $ext:
   editor:
     tips:
@@ -52,6 +10,51 @@ $ext:
       - A markdown table or display equation is numbered by section, Table 1-1 or Equation 1-1, above it.
       - Start a note with **Note.** Footnotes are not used.
       - Type `/` for bullets, tables, and more.
+report:
+  report_type: Major Maintenance Report
+  report_number: XXX
+  location_lines:
+    - PROJECT
+    - RIVER BASIN
+    - RIVER, STATE
+  project_name: Project Name
+  design_stage: 30 Percent
+  date: today
+cui:
+  cui_enabled: true
+  cui_controlled_by_component: USACE
+  cui_controlled_by_office: OFFICE-SYMBOL
+  cui_categories:
+    - CTI
+  cui_distribution: FED ONLY
+  cui_poc: Name, office, phone
+front_matter:
+  executive_summary: |
+    # Introduction
+
+    # Purpose
+
+    # Project Location
+
+    # Description of Facility
+
+    # Construction Access
+
+    # Construction Schedule
+
+    # Operations During Construction
+
+    # Cost
+  appendices:
+    - letter: A
+      title: PLATES
+  pertinent_data: ""
+  previous_reports: []
+  acronyms:
+    - acronym: PDT
+      description: Product Development Team
+    - acronym: USACE
+      description: United States Army Corps of Engineers
 ~~~
 # Project Authorization and History
 

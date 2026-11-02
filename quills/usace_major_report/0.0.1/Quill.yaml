@@ -77,307 +77,279 @@ main:
       # References
 
       USACE. 2014b. ER 1110-2-1156. Safety of Dams - Policy and Procedures.
-  ui:
-    groups:
-      report: {}
-      cui:
-        title: CUI
-      front_matter:
-        title: Front matter
-      additional:
-        title: Additional
   fields:
-    report_type:
-      type: enum
-      default: "Major Maintenance Report"
-      ui:
-        group: report
-      description: "Prints on the title page, as MAJOR MAINTENANCE REPORT NO., and as MMR or MRR after the design stage and in the running header."
-      values:
-        - "Major Maintenance Report"
-        - "Major Rehabilitation Report"
+    report:
+      type: object
+      properties:
+        report_type:
+          type: enum
+          default: "Major Maintenance Report"
+          description: "Prints on the title page, as MAJOR MAINTENANCE REPORT NO., and as MMR or MRR after the design stage and in the running header."
+          values:
+            - "Major Maintenance Report"
+            - "Major Rehabilitation Report"
 
-    report_number:
-      type: text
-      ui:
-        group: report
-        compact: true
-      example: ENC-22-014
-      description: "The number after MAJOR MAINTENANCE REPORT NO. or MAJOR REHABILITATION REPORT NO."
+        report_number:
+          type: text
+          ui:
+            compact: true
+          example: ENC-22-014
+          description: "The number after MAJOR MAINTENANCE REPORT NO. or MAJOR REHABILITATION REPORT NO."
 
-    location_lines:
-      type: array
-      items:
-        type: text
-      default: []
-      ui:
-        group: report
-      example:
-        - DETROIT DAM AND RESERVOIR
-        - WILLAMETTE RIVER BASIN
-        - NORTH SANTIAM RIVER, OREGON
-      description: "Stacked location lines, printed in capitals, for example DETROIT DAM AND RESERVOIR, WILLAMETTE RIVER BASIN, NORTH SANTIAM RIVER, OREGON."
-
-    project_name:
-      type: text
-      ui:
-        group: report
-      example: Detroit Dam Temperature Control
-      description: "The project title on the title page, for example Detroit Dam Temperature Control. The running header prints it in capitals."
-
-    design_stage:
-      type: text
-      default: ""
-      ui:
-        group: report
-        compact: true
-      example: 30 Percent
-      description: "The design stage before MMR or MRR on the title page, for example 30 Percent. The running header prints Percent as %."
-
-    date:
-      type: date
-      default: ""
-      ui:
-        group: report
-        compact: true
-      example: 2022-04-19
-      description: "The date on the title page, printed as month and year, for example April 2022."
-
-    cui_enabled:
-      type: boolean
-      default: true
-      ui:
-        group: cui
-        compact: true
-      description: "Turns the CUI designation block and the CUI banner at the top and bottom of every page on or off. The Standard Form 901 cover needs this on."
-
-    cui_controlled_by_component:
-      type: text
-      default: ""
-      ui:
-        group: cui
-      example: USACE
-      description: "The component that controls the CUI, for example USACE. Used when CUI is on."
-
-    cui_controlled_by_office:
-      type: text
-      default: ""
-      ui:
-        group: cui
-      example: CENWP-EC
-      description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
-
-    cui_categories:
-      type: array
-      items:
-        type: text
-      default: []
-      ui:
-        group: cui
-      example:
-        - CTI
-        - CEII
-      description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
-
-    cui_distribution:
-      type: enum
-      default: "FED ONLY"
-      ui:
-        group: cui
-      description: "Distribution/Limited Dissemination Control. A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on. Statement A cannot be used with CUI."
-      values:
-        - "Distribution Statement A"
-        - "Distribution Statement B"
-        - "Distribution Statement C"
-        - "Distribution Statement D"
-        - "Distribution Statement E"
-        - "Distribution Statement F"
-        - "FED ONLY"
-        - "FEDCON"
-        - "NOCON"
-        - "NOFORN"
-        - Other
-      variants:
-        Other:
-          detail:
+        location_lines:
+          type: array
+          items:
             type: text
-            description: "A Limited Dissemination Control or distribution statement not listed above."
+          default: []
+          example:
+            - DETROIT DAM AND RESERVOIR
+            - WILLAMETTE RIVER BASIN
+            - NORTH SANTIAM RIVER, OREGON
+          description: "Stacked location lines, printed in capitals, for example DETROIT DAM AND RESERVOIR, WILLAMETTE RIVER BASIN, NORTH SANTIAM RIVER, OREGON."
 
-    cui_distribution_reason:
-      title: Distribution reason
-      type: array
-      max: 3
-      default:
-        - Controlled Technical Information
-      ui:
-        group: cui
-      description: "Up to three DoDI 5230.24 defense categories behind Distribution Statement B to F, printed by their full category headings under the designation block. Export Controlled also prints the export-control warning and requires statement B, C, D, or E."
-      items:
-        type: enum
-        values:
-          - Controlled Technical Information
-          - Contractor Performance Evaluation
-          - Critical Technology
-          - Direct Military Support
-          - Export Controlled
-          - Foreign Government Information
-          - International Agreements
-          - Operations Security
-          - Patents and Inventions
-          - Proprietary Business Information
-          - Small Business Innovation Research
-          - Software Documentation
-          - Test and Evaluation
-          - Vulnerability Information
+        project_name:
+          type: text
+          example: Detroit Dam Temperature Control
+          description: "The project title on the title page, for example Detroit Dam Temperature Control. The running header prints it in capitals."
 
-    cui_distribution_date:
-      title: Date of determination
-      type: date
-      default: ""
-      ui:
-        group: cui
-        compact: true
-      description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
+        design_stage:
+          type: text
+          default: ""
+          ui:
+            compact: true
+          example: 30 Percent
+          description: "The design stage before MMR or MRR on the title page, for example 30 Percent. The running header prints Percent as %."
 
-    cui_distribution_office:
-      title: Refer requests to
-      type: text
-      default: ""
-      ui:
-        group: cui
-      description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
+        date:
+          type: date
+          default: ""
+          ui:
+            compact: true
+          example: 2022-04-19
+          description: "The date on the title page, printed as month and year, for example April 2022."
 
-    cui_poc:
-      title: POC
-      type: text
-      default: ""
-      ui:
-        group: cui
-      example: Jane Q. Engineer, CENWP-EC-D, 503-555-0142
-      description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."
+    cui:
+      type: object
+      title: CUI
+      properties:
+        cui_enabled:
+          type: boolean
+          default: true
+          ui:
+            compact: true
+          description: "Turns the CUI designation block and the CUI banner at the top and bottom of every page on or off. The Standard Form 901 cover needs this on."
 
-    cui_cover:
-      type: boolean
-      default: true
-      ui:
-        group: additional
-        compact: true
-      description: "Prints the purple Standard Form 901 cover sheet. Needs CUI on. When off, the designation block, distribution statement and export warning print at the bottom right of the title page."
+        cui_controlled_by_component:
+          type: text
+          default: ""
+          example: USACE
+          description: "The component that controls the CUI, for example USACE. Used when CUI is on."
 
-    executive_summary:
-      type: richtext
-      multiline: true
-      default: ""
-      ui:
-        group: front_matter
-      example: |-
-        # Introduction
+        cui_controlled_by_office:
+          type: text
+          default: ""
+          example: CENWP-EC
+          description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
 
-        This report presents the 30 percent design of the temperature control structure at Detroit Dam.
-
-        # Purpose
-
-        The work restores the regulating outlet gates so the project can meet downstream temperature targets.
-
-        # Cost
-
-        The fully funded cost is $48.2 million.
-      description: "The executive summary on page i. Each heading prints numbered in bold capitals, for example 1. INTRODUCTION. Leave blank to omit this page."
-
-    appendices:
-      type: array
-      default: []
-      ui:
-        group: front_matter
-        layout: table
-      items:
-        type: object
-        properties:
-          letter:
+        cui_categories:
+          type: array
+          items:
             type: text
-            description: "The appendix letter, for example A. Leave blank to letter from A in order."
-          title:
-            type: text
-            description: "The appendix title, for example PLATES."
-      example:
-        - letter: A
-          title: PLATES
-        - letter: B
-          title: STRUCTURAL CALCULATIONS
-        - letter: C
-          title: COST ESTIMATE AND SCHEDULE
-      description: "Appendices listed in the front matter. The page is omitted when this list is empty."
+          default: []
+          example:
+            - CTI
+            - CEII
+          description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
 
-    pertinent_data:
-      type: richtext
-      multiline: true
-      default: ""
-      ui:
-        group: front_matter
-      example: |-
-        Dam type: concrete gravity
+        cui_distribution:
+          type: enum
+          default: "FED ONLY"
+          description: "Distribution/Limited Dissemination Control. A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on. Statement A cannot be used with CUI."
+          values:
+            - "Distribution Statement A"
+            - "Distribution Statement B"
+            - "Distribution Statement C"
+            - "Distribution Statement D"
+            - "Distribution Statement E"
+            - "Distribution Statement F"
+            - "FED ONLY"
+            - "FEDCON"
+            - "NOCON"
+            - "NOFORN"
+            - Other
+          variants:
+            Other:
+              detail:
+                type: text
+                description: "A Limited Dissemination Control or distribution statement not listed above."
 
-        Crest elevation: 1,580 feet NGVD29
+        cui_distribution_reason:
+          title: Distribution reason
+          type: array
+          max: 3
+          default:
+            - Controlled Technical Information
+          description: "Up to three DoDI 5230.24 defense categories behind Distribution Statement B to F, printed by their full category headings under the designation block. Export Controlled also prints the export-control warning and requires statement B, C, D, or E."
+          items:
+            type: enum
+            values:
+              - Controlled Technical Information
+              - Contractor Performance Evaluation
+              - Critical Technology
+              - Direct Military Support
+              - Export Controlled
+              - Foreign Government Information
+              - International Agreements
+              - Operations Security
+              - Patents and Inventions
+              - Proprietary Business Information
+              - Small Business Innovation Research
+              - Software Documentation
+              - Test and Evaluation
+              - Vulnerability Information
 
-        Regulating outlets: four 5-foot by 6-foot slide gates
-      description: "Optional pertinent data. Leave blank to omit this page."
+        cui_distribution_date:
+          title: Date of determination
+          type: date
+          default: ""
+          ui:
+            compact: true
+          description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
 
+        cui_distribution_office:
+          title: Refer requests to
+          type: text
+          default: ""
+          description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
 
-    previous_reports:
-      title: Previous and planned reports
-      type: array
-      default: []
-      ui:
-        group: front_matter
-        layout: table
-      items:
-        type: object
-        properties:
-          number:
-            type: text
-            description: "The report's number."
-          title:
-            type: text
-            description: "The report's title."
-          date:
-            type: date
-            default: ""
-            description: "Its date, printed in the table as MM/DD/YYYY."
-      example:
-        - number: ENC-20-003
-          title: Detroit Dam regulating outlet condition assessment
-          date: 2020-09-30
-        - number: ENC-23-002
-          title: Detroit Dam Temperature Control, 60 Percent MMR
-          date: 2023-03-01
-      description: "Earlier and planned reports for this project. The page is omitted when this list is empty."
+        cui_poc:
+          title: POC
+          type: text
+          default: ""
+          example: Jane Q. Engineer, CENWP-EC-D, 503-555-0142
+          description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."
 
-    acronyms:
-      type: array
-      ui:
-        group: front_matter
-        layout: table
-      items:
-        type: object
-        properties:
-          acronym:
-            type: text
-            description: "The acronym, for example USACE."
-          description:
-            type: text
-            description: "What it stands for."
-      default:
-        - acronym: PDT
-          description: Product Development Team
-        - acronym: USACE
-          description: United States Army Corps of Engineers
-      example:
-        - acronym: OBE
-          description: Operational Basis Earthquake
-        - acronym: PDT
-          description: Product Development Team
-        - acronym: RO
-          description: Regulating Outlet
-        - acronym: USACE
-          description: United States Army Corps of Engineers
-      description: "Acronyms and abbreviations used in the report. They print alphabetically. The page is omitted when this list is empty."
+    front_matter:
+      type: object
+      title: Front matter
+      properties:
+        executive_summary:
+          type: richtext
+          multiline: true
+          default: ""
+          example: |-
+            # Introduction
+
+            This report presents the 30 percent design of the temperature control structure at Detroit Dam.
+
+            # Purpose
+
+            The work restores the regulating outlet gates so the project can meet downstream temperature targets.
+
+            # Cost
+
+            The fully funded cost is $48.2 million.
+          description: "The executive summary on page i. Each heading prints numbered in bold capitals, for example 1. INTRODUCTION. Leave blank to omit this page."
+
+        appendices:
+          type: array
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              letter:
+                type: text
+                description: "The appendix letter, for example A. Leave blank to letter from A in order."
+              title:
+                type: text
+                description: "The appendix title, for example PLATES."
+          example:
+            - letter: A
+              title: PLATES
+            - letter: B
+              title: STRUCTURAL CALCULATIONS
+            - letter: C
+              title: COST ESTIMATE AND SCHEDULE
+          description: "Appendices listed in the front matter. The page is omitted when this list is empty."
+
+        pertinent_data:
+          type: richtext
+          multiline: true
+          default: ""
+          example: |-
+            Dam type: concrete gravity
+
+            Crest elevation: 1,580 feet NGVD29
+
+            Regulating outlets: four 5-foot by 6-foot slide gates
+          description: "Optional pertinent data. Leave blank to omit this page."
+
+        previous_reports:
+          title: Previous and planned reports
+          type: array
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              number:
+                type: text
+                description: "The report's number."
+              title:
+                type: text
+                description: "The report's title."
+              date:
+                type: date
+                default: ""
+                description: "Its date, printed in the table as MM/DD/YYYY."
+          example:
+            - number: ENC-20-003
+              title: Detroit Dam regulating outlet condition assessment
+              date: 2020-09-30
+            - number: ENC-23-002
+              title: Detroit Dam Temperature Control, 60 Percent MMR
+              date: 2023-03-01
+          description: "Earlier and planned reports for this project. The page is omitted when this list is empty."
+
+        acronyms:
+          type: array
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              acronym:
+                type: text
+                description: "The acronym, for example USACE."
+              description:
+                type: text
+                description: "What it stands for."
+          default:
+            - acronym: PDT
+              description: Product Development Team
+            - acronym: USACE
+              description: United States Army Corps of Engineers
+          example:
+            - acronym: OBE
+              description: Operational Basis Earthquake
+            - acronym: PDT
+              description: Product Development Team
+            - acronym: RO
+              description: Regulating Outlet
+            - acronym: USACE
+              description: United States Army Corps of Engineers
+          description: "Acronyms and abbreviations used in the report. They print alphabetically. The page is omitted when this list is empty."
+
+    printing:
+      type: object
+      title: Printing
+      properties:
+        cui_cover:
+          type: boolean
+          default: true
+          ui:
+            compact: true
+          description: "Prints the purple Standard Form 901 cover sheet. Needs CUI on. When off, the designation block, distribution statement and export warning print at the bottom right of the title page."
