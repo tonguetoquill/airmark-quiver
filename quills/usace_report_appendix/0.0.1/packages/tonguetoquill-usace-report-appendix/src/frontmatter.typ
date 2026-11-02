@@ -1,6 +1,7 @@
 #import "config.typ": *
 #import "utils.typ": *
 #import "page.typ": body-numbering
+#import "cover.typ": page-one-cui
 
 #let fm-heading(title, above: 0pt, below: 16pt) = block(
   width: 100%,
@@ -40,10 +41,17 @@
   }
 }
 
-#let front-matter(letter: "A") = {
+#let front-matter(letter: "A", page-one-cui-args: none) = {
   pagebreak(weak: true)
   set page(numbering: "i")
   counter(page).update(1)
+
+  if page-one-cui-args != none {
+    place(bottom + right, float: true, {
+      set text(top-edge: "cap-height", bottom-edge: "baseline")
+      page-one-cui(..page-one-cui-args)
+    })
+  }
 
   show outline.entry: outline-entry.with(letter)
 

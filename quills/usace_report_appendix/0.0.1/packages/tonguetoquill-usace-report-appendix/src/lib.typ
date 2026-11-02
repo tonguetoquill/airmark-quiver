@@ -15,11 +15,12 @@
   title: none,
   project-name: none,
   cui-enabled: true,
+  cui-cover: true,
   cui-controlled-by-component: none,
   cui-controlled-by-office: none,
   cui-categories: none,
   cui-distribution: none,
-  cui-distribution-reason: none,
+  cui-distribution-reason: (),
   cui-distribution-date: none,
   cui-distribution-office: none,
   cui-poc: none,
@@ -36,7 +37,25 @@
 
   show: document-setup.with(cui-enabled: cui-enabled, project-name: project-name)
 
-  if cui-enabled {
+  let referral-office = if blank(cui-distribution-office) {
+    cui-controlled-by-office
+  } else {
+    cui-distribution-office
+  }
+
+  let cui-args = (
+    controlled-by-component: cui-controlled-by-component,
+    controlled-by-office: cui-controlled-by-office,
+    categories: join-inline(cui-categories),
+    distribution: cui-distribution,
+    poc: cui-poc,
+    distribution-reasons: cui-distribution-reason,
+    distribution-date: cui-distribution-date,
+    distribution-office: referral-office,
+    cui-enabled: cui-enabled,
+  )
+
+  if cui-enabled and cui-cover {
     set page(
       margin: 0pt,
       header: none,
@@ -44,20 +63,13 @@
       numbering: none,
     )
     set text(top-edge: "cap-height", bottom-edge: "baseline")
-    cover-sheet(
-      title: document-title,
-      controlled-by-component: cui-controlled-by-component,
-      controlled-by-office: cui-controlled-by-office,
-      categories: join-inline(cui-categories),
-      distribution: cui-distribution,
-      poc: cui-poc,
-      distribution-reason: cui-distribution-reason,
-      distribution-date: cui-distribution-date,
-      distribution-office: if blank(cui-distribution-office) { cui-controlled-by-office } else { cui-distribution-office },
-    )
+    cover-sheet(title: document-title, ..cui-args)
   }
 
-  front-matter(letter: letter)
+  front-matter(
+    letter: letter,
+    page-one-cui-args: if cui-enabled and not cui-cover { cui-args } else { none },
+  )
 
   pagebreak()
   mainmatter(letter: letter, title: title, body)

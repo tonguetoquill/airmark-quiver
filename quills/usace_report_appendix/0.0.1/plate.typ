@@ -9,6 +9,7 @@
   title: qm.data.appendix_title,
   project-name: qm.data.project_name,
   cui-enabled: qm.data.cui_enabled,
+  cui-cover: qm.data.cui_cover,
   cui-controlled-by-component: qm.data.cui_controlled_by_component,
   cui-controlled-by-office: qm.data.cui_controlled_by_office,
   cui-categories: qm.data.cui_categories,
