@@ -19,11 +19,15 @@
   running header, which carries the project name and the stage (PROJECT NAME
   30% MMR) under the CUI banner. The face is Liberation Sans, an Arial
   metric-compatible. Under the CUI designation block the cover prints the full
-  DoDI 5230.24 distribution statement (B to F) from the statement, reason,
-  date of determination, and referral office, and the export-control warning
-  when the reason is Export Controlled. It is a `0.0.x` draft, packed only
-  with `--drafts`. The USACE Major Maintenance Report and USACE Major
-  Rehabilitation Report templates pin `@0.0`.
+  DoDI 5230.24 distribution statement (B to F) from the statement, up to three
+  reasons, the date of determination, and the referral office, and the
+  export-control warning when a reason is Export Controlled. A statement and
+  reasons that DoDI 5230.24 Table 1 does not allow print a red CHECK
+  DISTRIBUTION STATEMENT note. `cui_cover` turns the cover off; the
+  designation block, statement and warning then print at the bottom right of
+  the title page. It is a `0.0.x` draft, packed only with `--drafts`. The
+  USACE Major Maintenance Report and USACE Major Rehabilitation Report
+  templates pin `@0.0`.
 
 ## v0.41.0 - 2026-10-26
 

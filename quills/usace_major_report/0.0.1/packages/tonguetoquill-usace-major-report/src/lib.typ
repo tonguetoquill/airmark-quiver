@@ -18,11 +18,12 @@
   design-stage: none,
   date: none,
   cui-enabled: true,
+  cui-cover: true,
   cui-controlled-by-component: none,
   cui-controlled-by-office: none,
   cui-categories: none,
   cui-distribution: none,
-  cui-distribution-reason: none,
+  cui-distribution-reason: (),
   cui-distribution-date: none,
   cui-distribution-office: none,
   cui-poc: none,
@@ -41,24 +42,37 @@
 
   show: document-setup.with(cui-enabled: cui-enabled)
 
-  if cui-enabled {
+  let referral-office = if blank(cui-distribution-office) {
+    cui-controlled-by-office
+  } else {
+    cui-distribution-office
+  }
+
+  let cui-args = (
+    controlled-by-component: cui-controlled-by-component,
+    controlled-by-office: cui-controlled-by-office,
+    categories: join-inline(cui-categories),
+    distribution: cui-distribution,
+    poc: cui-poc,
+    distribution-reasons: cui-distribution-reason,
+    distribution-date: cui-distribution-date,
+    distribution-office: referral-office,
+    cui-enabled: cui-enabled,
+  )
+
+  // Cover needs CUI on; when the cover is off the designation block,
+  // statement and export warning move to the title page (para 3.1.j).
+  let print-cover = cui-enabled and cui-cover
+  let print-page-one-cui = cui-enabled and not cui-cover
+
+  if print-cover {
     set page(
       margin: 0pt,
       header: none,
       footer: none,
       numbering: none,
     )
-    cover-sheet(
-      title: project-name,
-      controlled-by-component: cui-controlled-by-component,
-      controlled-by-office: cui-controlled-by-office,
-      categories: join-inline(cui-categories),
-      distribution: cui-distribution,
-      poc: cui-poc,
-      distribution-reason: cui-distribution-reason,
-      distribution-date: cui-distribution-date,
-      distribution-office: if blank(cui-distribution-office) { cui-controlled-by-office } else { cui-distribution-office },
-    )
+    cover-sheet(title: project-name, ..cui-args)
     pagebreak()
   }
 
@@ -70,6 +84,7 @@
     project-name: project-name,
     design-stage: design-stage,
     date: date,
+    page-one-cui-args: if print-page-one-cui { cui-args } else { none },
   )
 
   let title-line = (

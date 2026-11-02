@@ -18,6 +18,7 @@
   design-stage: qm.data.design_stage,
   date: qm.ink(qm.data, "date", date-pattern),
   cui-enabled: qm.data.cui_enabled,
+  cui-cover: qm.data.cui_cover,
   cui-controlled-by-component: qm.data.cui_controlled_by_component,
   cui-controlled-by-office: qm.data.cui_controlled_by_office,
   cui-categories: qm.data.cui_categories,
