@@ -1,7 +1,7 @@
 # @airmark/quiver
 
-A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force
-and DAF official-document quills, sourced from
+A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force,
+DAF and Army official-document quills, sourced from
 [tonguetoquill-collection](https://github.com/nibsbin/tonguetoquill-collection)
 and aligned to the current Quillmark spec.
 
@@ -12,6 +12,8 @@ and aligned to the current Quillmark spec.
 | `usaf_memo`          | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                      |
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
+| `usaf_paper`         | 0.1.0   | Point, talking, bullet background, background, and position papers (AFH 33-337) |
+| `army_memo`          | 0.1.0   | U.S. Army Memorandum (AR 25-50)                                                  |
 | `medal_citation`     | 0.1.0   | Achievement, Meritorious Service, and Commendation Medal citations               |
 | `af4141`             | 0.1.0   | AF Form 4141 — Individual's Record of Duties and Experience (Ground Environment) |
 | `daf1206`            | 0.2.0   | DAF Form 1206 — Nomination for Award                                             |
@@ -96,7 +98,6 @@ quills/
   <name>/
     <x.y.z>/
       Quill.yaml
-      example.md
       plate.typ
       assets/
       packages/
@@ -118,24 +119,33 @@ its shareable short code from it, so renaming one retires the old template (its
 stars and its short code with it) and publishes a new one. Removing an entry
 retires it the same way.
 
-`npm test` renders every template against this quiver after `quillkit test`, and
+`npm test` renders every template against this quiver after `quillkit check`, and
 a warning fails it as an error does, so a quill change that breaks a template
 fails here rather than on the app's build.
 
 ## Working on a quill
 
+How to shape a quill, its fields, groups, seeds, defaults and card kinds, is
+[`.claude/skills/quill-design/SKILL.md`](.claude/skills/quill-design/SKILL.md)'s:
+the principles a new or revised `Quill.yaml` is judged by, and the steps for
+designing or reviewing one. Claude Code loads it as the `quill-design` skill.
+
 Two verbs, and they answer different questions.
 
 Both verbs are [`quillkit`](https://www.npmjs.com/package/quillkit)'s, the quill
-author's toolchain. It resolves `@quillmark/quiver` and `@quillmark/wasm` out of
-this collection's own `node_modules`, so the versions pinned here are the format
-the quiver is packed in and the wasm the gate renders through.
+author's toolchain. It carries `@quillmark/quiver` and `@quillmark/wasm` at exact
+versions, so upgrading quillkit upgrades the format the quiver is packed in and
+the wasm the gate renders through. This collection pins the same two versions
+for `scripts/check-examples.mjs` and `scripts/check-templates.mjs`, which render
+through them.
 
-**Does it work?** `quillkit test` loads the collection with `fromDir`, compiles
+**Does it work?** `quillkit check` loads the collection with `fromDir`, compiles
 every quill, and renders each one's seed, every field absent but what a card
 kind's `seed:` writes and rendering its `default:` or its blank, and its
-`example.md`, one filled-in page of made-up values. `npm test` then fails a
-quill that ships no example or whose example warns, and a template that warns.
+example, one filled-in page of made-up values: the seed with each field's
+`example:` and each kind's `body.example` committed, one card per kind.
+`npm test` then fails a quill that declares no example or whose example warns,
+and a template that warns.
 It is the gate CI runs, so a validation failure surfaces here rather than on a
 consumer's build:
 
@@ -147,29 +157,26 @@ npm test
 The gate renders one answer per quill, so a page with a long list or a
 wrapping value in it is a design fixture's to exercise (`design/`).
 
-**What is it like to use?** `npm run dev` is `quillkit studio`: it packs this
-quiver, serves the studio client over it, and repacks on every save — pick a
-quill, edit its example (or, with **Examples** off, its seed), or open one
-of the official templates from **Templates…**, watch it paint, read the
-diagnostics. The client is quillkit's own, so there is nothing to install for it
-and nothing to keep in step.
+**What is it like to use?** `npm run dev` is `quillkit serve`: it packs this
+quiver, drafts included, serves the studio client over it, and repacks on every
+save — pick a quill, edit its example (or, with **Examples** off, its seed),
+watch it paint, read the diagnostics. The client is quillkit's own, so there is
+nothing to install for it and nothing to keep in step.
 
 Reload to pick up a repack. Editing a quill into an invalid state is not a
 failure of the loop: it packs, and the client says what is wrong with that quill
 and where, while the others stay usable.
 
-The two verbs answer to different authorities. `quillkit test` renders through
-the wasm pinned here and is what CI blocks on; the client renders through the
-wasm it was built against, and nothing at runtime reconciles the two. The gate
-is authoritative, studio is advisory.
+`quillkit check` is what CI blocks on, so the gate is authoritative and studio
+is advisory, though both render through the wasm quillkit carries.
 
-`npm run site` writes the arrangement a deploy serves into `site/` — the client
+`npm run build` writes the arrangement a deploy serves into `dist/` — the client
 at the root, a built quiver at `quiver/` beneath it — without serving it. It
 passes `--drafts`, so the `0.0.x` prototypes are packed beside the releases, and
-`--templates`, so every deploy previews them and the templates as `npm run dev`
-does. CI
-uploads that on every run, so a pull request — a fork's included — is reviewed
-by downloading the artifact and serving the directory.
+`npx quillkit preview` serves it as a static host will. CI uploads that on every
+run, so a pull request — a fork's included — is reviewed by downloading the
+artifact and serving the directory. Studio does not open the templates; `npm test`
+is what gates them.
 
 `main` is deployed to GitHub Pages by `.github/workflows/studio.yml`, which runs
 that same command and keeps the deploy here: nothing outside this repository

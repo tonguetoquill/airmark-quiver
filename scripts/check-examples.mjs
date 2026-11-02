@@ -1,5 +1,6 @@
-// Every quill version ships a root `example.md`, and it renders against its quill
-// with no warning. `quillkit test` renders the example but passes one that warns.
+// Every quill version declares an example, its fields' `example:` and its kinds'
+// `body.example`, and the example document renders against its quill with no
+// warning. `quillkit test` renders the example but passes one that warns.
 
 import { Engine, init } from "@quillmark/wasm";
 import { fromDir } from "@quillmark/quiver/node";
@@ -20,7 +21,7 @@ for (const name of quiver.quillNames()) {
     try {
       doc = quill.exampleDocument();
       if (!doc) {
-        failures.push(`${ref}: ships no example.md`);
+        failures.push(`${ref}: declares no example`);
         continue;
       }
       count++;

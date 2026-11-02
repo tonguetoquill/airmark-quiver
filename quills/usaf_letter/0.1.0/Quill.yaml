@@ -9,6 +9,16 @@ typst:
 
 main:
   description: "Write the letter as plain paragraphs; they aren't numbered. Use a block quote for lines that should stay as written, like an address. You can close with your phone number and email."
+  body:
+    example: |-
+      Welcome to the 123d Example Squadron. We are glad you will join us as Director of Operations in November.
+
+      The newcomer guide at the attachment covers housing, in-processing, and your first week. Your sponsor and our director of staff can answer anything it leaves open:
+
+      > Maj Mary E. Brown, Sponsor, DSN 555-0131\
+      > Capt Robert L. Jones, Director of Staff, DSN 555-0135
+
+      Reach me at DSN 555-0100, commercial (555) 555-0100, or jane.doe@us.af.mil.
   ui:
     groups:
       addressing: {}
@@ -23,6 +33,12 @@ main:
       ui:
         group: addressing
         compact: true
+      example:
+        - Colonel Jane A. Doe
+        - Commander
+        - 123d Example Squadron
+        - 1 Example Way
+        - Example AFB ST 12345-6789
       description: "Your rank and full name, then your duty title and mailing address, one per line. Don't put a comma between city and state."
 
     letter_for:
@@ -32,6 +48,12 @@ main:
       ui:
         group: addressing
         compact: true
+      example:
+        - Major John B. Smith
+        - Chief, Plans and Programs
+        - 456th Example Group
+        - 2 Sample Boulevard
+        - Sample AFB ST 98765-4321
       description: "The recipient's rank and full name, then their duty title and mailing address, one per line. Don't put a comma between city and state."
 
     salutation:
@@ -39,11 +61,13 @@ main:
       ui:
         group: addressing
         compact: true
+      example: Dear Major Smith
       description: "The greeting, for example 'Dear Major Smith', with no punctuation after the name."
 
     date:
       type: date
       default: ""
+      example: today
       ui:
         group: addressing
         compact: true
@@ -64,6 +88,8 @@ main:
       ui:
         group: addressing
         compact: true
+      example:
+        - JANE A. DOE, Col, USAF
       description: "Your name in uppercase, grade, and service, for example 'FIRST M. LAST, Col, USAF'. A personal letter leaves out the duty title."
     letterhead_title:
       ui:
@@ -73,6 +99,9 @@ main:
         type: text
       default:
         - DEPARTMENT OF THE AIR FORCE
+      example:
+        - DEPARTMENT OF THE AIR FORCE
+        - 123D EXAMPLE SQUADRON
       description: "The letterhead, in uppercase. Keep the first line unless you work for a joint command or a DoW agency, and add your unit's full name on the lines below it."
 
     letterhead_seal:
@@ -146,6 +175,8 @@ main:
       items:
         type: text
       default: []
+      example:
+        - 456 EXG/CC
       description: Offices or people receiving a courtesy copy, one per line.
 
     attachments:
@@ -156,6 +187,8 @@ main:
         type: richtext
         multiline: false
       default: []
+      example:
+        - Squadron Newcomer Guide, 1 September 2026
       description: "Attachments in the order the letter mentions them. Describe each briefly and include its date. Don't write 'as stated'."
 
     font_size:

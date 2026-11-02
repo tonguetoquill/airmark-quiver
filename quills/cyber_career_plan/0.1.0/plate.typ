@@ -125,7 +125,7 @@
 #let gates = (
   (yg: 3, name: "Cyber 200", board: false, by: ("cyber_200",)),
   (yg: 4, name: "SOS window", board: false, by: ("sos",)),
-  (yg: 8, name: "Maj board", board: true, by: ()),
+  (yg: 9, name: "Maj board", board: true, by: ()),
   (yg: 9, name: "Cyber 300", board: false, by: ("cyber_300",)),
   (yg: 12, name: "Lt Col board", board: true, by: ()),
 ).map(g => (..g, year: board-yg + g.yg, done: held(g.by)))
