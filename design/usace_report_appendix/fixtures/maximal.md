@@ -1,20 +1,22 @@
 ~~~
 $quill: usace_report_appendix@0.0
 $kind: main
-appendix_letter: B
-appendix_title: Cost Engineering
-project_name: Cougar Dam Downstream Passage
-cui_enabled: true
-cui_controlled_by_component: USACE
-cui_controlled_by_office: CENWP-EC
-cui_categories:
-  - CTI
-  - CEII
-  - PROPIN
-cui_distribution:
-  value: Other
-  detail: DL ONLY
-cui_poc: Jane Q. Engineer, CENWP-EC-C, 503-555-0142
+appendix:
+  appendix_letter: B
+  appendix_title: Cost Engineering
+  project_name: Cougar Dam Downstream Passage
+cui:
+  cui_enabled: true
+  cui_controlled_by_component: USACE
+  cui_controlled_by_office: CENWP-EC
+  cui_categories:
+    - CTI
+    - CEII
+    - PROPIN
+  cui_distribution:
+    value: Other
+    detail: DL ONLY
+  cui_poc: Jane Q. Engineer, CENWP-EC-C, 503-555-0142
 ~~~
 This appendix presents the cost estimate for the recommended plan.
 

@@ -65,154 +65,136 @@ main:
          1. Measure the seal compression.
             1. Record the reading at each bolt.
       2. Inspect the bottom seal.
-  ui:
-    groups:
-      appendix: {}
-      cui:
-        title: CUI
-      additional:
-        title: Additional
   fields:
-    appendix_letter:
-      type: text
-      default: "A"
-      ui:
-        group: appendix
-        compact: true
-      description: "The appendix letter, for example A. It numbers the sections (A.1), the pages (A-1), and the captions (Table A-1)."
+    appendix:
+      type: object
+      properties:
+        appendix_letter:
+          type: text
+          default: "A"
+          ui:
+            compact: true
+          description: "The appendix letter, for example A. It numbers the sections (A.1), the pages (A-1), and the captions (Table A-1)."
 
-    appendix_title:
-      type: text
-      ui:
-        group: appendix
-      example: Calculations
-      description: "The appendix title, printed in capitals after APPENDIX A -, for example Calculations or Cost Engineering."
+        appendix_title:
+          type: text
+          example: Calculations
+          description: "The appendix title, printed in capitals after APPENDIX A -, for example Calculations or Cost Engineering."
 
-    project_name:
-      type: text
-      default: ""
-      ui:
-        group: appendix
-      example: Cougar Dam Downstream Passage
-      description: "The project name, printed in capitals at the top of every page, for example Cougar Dam Downstream Passage."
+        project_name:
+          type: text
+          default: ""
+          example: Cougar Dam Downstream Passage
+          description: "The project name, printed in capitals at the top of every page, for example Cougar Dam Downstream Passage."
 
-    cui_enabled:
-      type: boolean
-      default: true
-      ui:
-        group: cui
-        compact: true
-      description: "Turns the CUI designation block and the CUI banner at the top and bottom of every page on or off. The Standard Form 901 cover needs this on."
+    cui:
+      type: object
+      title: CUI
+      properties:
+        cui_enabled:
+          type: boolean
+          default: true
+          ui:
+            compact: true
+          description: "Turns the CUI designation block and the CUI banner at the top and bottom of every page on or off. The Standard Form 901 cover needs this on."
 
-    cui_controlled_by_component:
-      type: text
-      default: ""
-      ui:
-        group: cui
-      example: USACE
-      description: "The component that controls the CUI, for example USACE. Used when CUI is on."
+        cui_controlled_by_component:
+          type: text
+          default: ""
+          example: USACE
+          description: "The component that controls the CUI, for example USACE. Used when CUI is on."
 
-    cui_controlled_by_office:
-      type: text
-      default: ""
-      ui:
-        group: cui
-      example: CENWP-EC
-      description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
+        cui_controlled_by_office:
+          type: text
+          default: ""
+          example: CENWP-EC
+          description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
 
-    cui_categories:
-      type: array
-      items:
-        type: text
-      default: []
-      ui:
-        group: cui
-      example:
-        - CTI
-        - CEII
-      description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
-
-    cui_distribution:
-      type: enum
-      default: "FED ONLY"
-      ui:
-        group: cui
-      description: "Distribution/Limited Dissemination Control. A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on. Statement A cannot be used with CUI."
-      values:
-        - "Distribution Statement A"
-        - "Distribution Statement B"
-        - "Distribution Statement C"
-        - "Distribution Statement D"
-        - "Distribution Statement E"
-        - "Distribution Statement F"
-        - "FED ONLY"
-        - "FEDCON"
-        - "NOCON"
-        - "NOFORN"
-        - Other
-      variants:
-        Other:
-          detail:
+        cui_categories:
+          type: array
+          items:
             type: text
-            description: "A Limited Dissemination Control or distribution statement not listed above."
+          default: []
+          example:
+            - CTI
+            - CEII
+          description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
 
-    cui_distribution_reason:
-      title: Distribution reason
-      type: array
-      max: 3
-      default:
-        - Controlled Technical Information
-      ui:
-        group: cui
-      description: "Up to three DoDI 5230.24 defense categories behind Distribution Statement B to F, printed by their full category headings under the designation block. Export Controlled also prints the export-control warning and requires statement B, C, D, or E."
-      items:
-        type: enum
-        values:
-          - Controlled Technical Information
-          - Contractor Performance Evaluation
-          - Critical Technology
-          - Direct Military Support
-          - Export Controlled
-          - Foreign Government Information
-          - International Agreements
-          - Operations Security
-          - Patents and Inventions
-          - Proprietary Business Information
-          - Small Business Innovation Research
-          - Software Documentation
-          - Test and Evaluation
-          - Vulnerability Information
+        cui_distribution:
+          type: enum
+          default: "FED ONLY"
+          description: "Distribution/Limited Dissemination Control. A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on. Statement A cannot be used with CUI."
+          values:
+            - "Distribution Statement A"
+            - "Distribution Statement B"
+            - "Distribution Statement C"
+            - "Distribution Statement D"
+            - "Distribution Statement E"
+            - "Distribution Statement F"
+            - "FED ONLY"
+            - "FEDCON"
+            - "NOCON"
+            - "NOFORN"
+            - Other
+          variants:
+            Other:
+              detail:
+                type: text
+                description: "A Limited Dissemination Control or distribution statement not listed above."
 
-    cui_distribution_date:
-      title: Date of determination
-      type: date
-      default: ""
-      ui:
-        group: cui
-        compact: true
-      description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
+        cui_distribution_reason:
+          title: Distribution reason
+          type: array
+          max: 3
+          default:
+            - Controlled Technical Information
+          description: "Up to three DoDI 5230.24 defense categories behind Distribution Statement B to F, printed by their full category headings under the designation block. Export Controlled also prints the export-control warning and requires statement B, C, D, or E."
+          items:
+            type: enum
+            values:
+              - Controlled Technical Information
+              - Contractor Performance Evaluation
+              - Critical Technology
+              - Direct Military Support
+              - Export Controlled
+              - Foreign Government Information
+              - International Agreements
+              - Operations Security
+              - Patents and Inventions
+              - Proprietary Business Information
+              - Small Business Innovation Research
+              - Software Documentation
+              - Test and Evaluation
+              - Vulnerability Information
 
-    cui_distribution_office:
-      title: Refer requests to
-      type: text
-      default: ""
-      ui:
-        group: cui
-      description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
+        cui_distribution_date:
+          title: Date of determination
+          type: date
+          default: ""
+          ui:
+            compact: true
+          description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
 
-    cui_poc:
-      title: POC
-      type: text
-      default: ""
-      ui:
-        group: cui
-      example: Jane Q. Engineer, CENWP-EC-D, 503-555-0142
-      description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."
+        cui_distribution_office:
+          title: Refer requests to
+          type: text
+          default: ""
+          description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
 
-    cui_cover:
-      type: boolean
-      default: true
-      ui:
-        group: additional
-        compact: true
-      description: "Prints the purple Standard Form 901 cover sheet. Needs CUI on. When off, the designation block, distribution statement and export warning print at the bottom right of the first page."
+        cui_poc:
+          title: POC
+          type: text
+          default: ""
+          example: Jane Q. Engineer, CENWP-EC-D, 503-555-0142
+          description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."
+
+    printing:
+      type: object
+      title: Printing
+      properties:
+        cui_cover:
+          type: boolean
+          default: true
+          ui:
+            compact: true
+          description: "Prints the purple Standard Form 901 cover sheet. Needs CUI on. When off, the designation block, distribution statement and export warning print at the bottom right of the first page."

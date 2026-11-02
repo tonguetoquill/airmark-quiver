@@ -1,10 +1,12 @@
 ~~~
 $quill: usace_report_appendix@0.0
 $kind: main
-appendix_letter: C
-appendix_title: Environmental
-project_name: Lower Columbia River Ecosystem Restoration
-cui_enabled: false
+appendix:
+  appendix_letter: C
+  appendix_title: Environmental
+  project_name: Lower Columbia River Ecosystem Restoration
+cui:
+  cui_enabled: false
 ~~~
 This appendix summarizes the environmental compliance record.
 

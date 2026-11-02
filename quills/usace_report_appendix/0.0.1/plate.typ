@@ -1,23 +1,23 @@
 #import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/tonguetoquill-usace-report-appendix:0.0.1": appendix, statement-date-pattern
 
-#let dist = qm.data.cui_distribution
+#let dist = qm.data.cui.cui_distribution
 #let dist-display = if dist.value == "Other" { dist.detail } else { dist.value }
 
 #appendix(
-  letter: qm.data.appendix_letter,
-  title: qm.data.appendix_title,
-  project-name: qm.data.project_name,
-  cui-enabled: qm.data.cui_enabled,
-  cui-cover: qm.data.cui_cover,
-  cui-controlled-by-component: qm.data.cui_controlled_by_component,
-  cui-controlled-by-office: qm.data.cui_controlled_by_office,
-  cui-categories: qm.data.cui_categories,
+  letter: qm.data.appendix.appendix_letter,
+  title: qm.data.appendix.appendix_title,
+  project-name: qm.data.appendix.project_name,
+  cui-enabled: qm.data.cui.cui_enabled,
+  cui-cover: qm.data.printing.cui_cover,
+  cui-controlled-by-component: qm.data.cui.cui_controlled_by_component,
+  cui-controlled-by-office: qm.data.cui.cui_controlled_by_office,
+  cui-categories: qm.data.cui.cui_categories,
   cui-distribution: dist-display,
-  cui-distribution-reason: qm.data.cui_distribution_reason,
-  cui-distribution-date: qm.ink(qm.data, "cui_distribution_date", statement-date-pattern),
-  cui-distribution-office: qm.data.cui_distribution_office,
-  cui-poc: qm.data.cui_poc,
+  cui-distribution-reason: qm.data.cui.cui_distribution_reason,
+  cui-distribution-date: qm.ink(qm.data.cui, "cui_distribution_date", statement-date-pattern),
+  cui-distribution-office: qm.data.cui.cui_distribution_office,
+  cui-poc: qm.data.cui.cui_poc,
   body: {
     let b = qm.data.at("$body")
     if type(b) == str { [] } else { b }
