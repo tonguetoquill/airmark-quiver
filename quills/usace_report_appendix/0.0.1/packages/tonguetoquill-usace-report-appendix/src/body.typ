@@ -125,6 +125,6 @@
   show quote.where(block: true): it => pad(left: 0.5in, it.body)
 
   v(PAR_SPACING, weak: false)
-  heading(level: 1, offset: 0, numbering: none)[APPENDIX #letter - #title]
+  heading(level: 1, offset: 0, numbering: none)[APPENDIX #letter#if not blank(title) [ \- #title]]
   it
 }
