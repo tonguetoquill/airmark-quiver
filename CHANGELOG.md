@@ -10,6 +10,102 @@
   and bottom of pages 1 and 2, and block 20 repeats block 1's name. It needs
   Quillmark 0.127.
 
+## v0.42.1 - 2026-10-30
+
+- **A font family that covers a whole body paragraph renders in
+  `usaf_memo@0.3.0` and `army_memo@0.1.0`.** The body's paragraph numbering
+  dropped a family run spanning an entire paragraph, list item, continuation
+  or heading, and the paragraph drew in the body font. In `usaf_memo`, a
+  code span or a strikethrough across a whole paragraph is kept too.
+
+- **Bold renders in the `usaf_memo@0.3.0` tag line.** The quill bundles
+  Spectral SC Bold, so a bold run in the tag line no longer draws in the
+  regular weight.
+
+- **`medal_citation@0.1.0` draws its medals clean and sharp.** Each medal
+  image is three times its former resolution, about 280 ppi at print size,
+  with the compression noise gone, and sits on plain white: the speckled
+  halos around the Commendation and Meritorious Service medals and the gray
+  blotches behind the Achievement Medal no longer print. The Achievement
+  Medal's ribbon is silver gray with ultramarine blue stripes, as the medal's
+  description gives it, in place of a khaki gray with steel blue stripes.
+
+## v0.42.0 - 2026-10-29
+
+- **Take quillkit 0.21.0, `@quillmark/quiver` 0.39.0 and `@quillmark/wasm`
+  0.133.0, which every consumer now needs.** Each
+  quill's example moves from its root `example.md` into `Quill.yaml`: each
+  field declares the `example:` the file gave it, and each kind with a body a
+  `body.example`. A build before 0.133 refuses `example:` on a field, so it
+  can no longer load these quills. The example holds one card per kind, so the
+  AF Form 4141 example shows its first experience row and the DAF Form 4392
+  example its first itinerary leg, and the `afmc_moa` example gains a
+  background paragraph. The `example.md` files are gone from the package.
+
+## v0.41.0 - 2026-10-26
+
+- **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
+  no longer offers the templates: quillkit 0.20 drops studio's template picker,
+  so the Pages and Vercel deploys open quills only. `npm test` still renders
+  every template, and the package still ships `templates/`. `npm run site` is
+  `npm run build`, writing `dist/`, and `npm run dev` is `quillkit serve`.
+
+- **Template tags follow one taxonomy.** Each template is tagged on service,
+  document type and purpose. Templates built on DAF guidance carry both
+  `air-force` and `space-force`, memo-based templates carry `memo`, forms carry
+  `form`, and the point, talking and background papers carry `briefing`.
+  `memorandum` becomes `memo`, and DAF Form 1206 trades `promotion` for
+  `nomination`.
+
+- **An Air Force paper quill is added.** `usaf_paper@0.1.0` typesets the
+  point, talking, bullet background, background and position papers
+  (AFH 33-337, 27 May 2015, chapter 16). The title field prints the paper's
+  name. A heading prints in capitals, flush left. A bulleted list prints
+  dashes, and a numbered list prints `1.`/`a.`/`(1)`/`(a)` with each paragraph
+  wrapping to the left margin. The identification line at the foot of the
+  first page prints the point of contact, office symbol, phone, typist's
+  initials and date, and a blank subject leaves off ON as well. Each paper
+  has its own template, which walks through that paper's flow, and the
+  template picker says when to use each. The formal trip report is a
+  `usaf_memo` template (p. 186).
+
+## v0.40.0 - 2026-10-23
+
+- **An Army memorandum quill is added.** `army_memo@0.1.0` typesets a U.S.
+  Army memorandum to AR 25-50: the DA letterhead and seal in black ink, the
+  office symbol with its ARIMS record number and any other information, such
+  as a contract number, the date or a fillable `Date` field on the second line
+  below the seal, a bold suspense date above it, and MEMORANDUM FOR one to
+  five addresses, SEE DISTRIBUTION or RECORD. MEMORANDUM THRU gives each
+  routing office a signature and a comment field beside its address. The body
+  numbers `1.`, `a.`, `(1)`, `(a)`, a quarter inch in per level to `(1)`,
+  with `(a)` under `(1)`, two spaces after each designator and sentence, and
+  at least two of a sentence's words on each side of a page break, and prints
+  the references as its first paragraph and a code block as unnumbered lines.
+  The closing carries the authority line, the signature block at the center of
+  the page beside the enclosure listing in AR 25-50's forms, and the DISTRIBUTION and CF lists in capitals, as the
+  addresses are; a distribution list that starts the next page is marked
+  `(see next page)` on this one. The closing never starts a page without the
+  last two lines of the text, or the last two rows of a table the text ends
+  in. Continuation pages repeat the office symbol and subject and are numbered
+  at the foot. Classification banners and the CUI block are `usaf_memo`'s, in
+  black, set from a `classification` section holding the `level` and the
+  banner's `dissemination` control, which a blank or UNCLASSIFIED banner
+  drops. It is released at `0.1.0`, past the `0.0.x` draft tier, so a
+  deployment without `--drafts` serves it. The Army Memo template pins
+  `@0.1` and carries a record number placeholder, since AR 25-50 2-4a(2)
+  requires one on every memorandum.
+
+- **`cyber_career_plan@0.1.0` moves the Maj board to YG+9.** A 2018 year
+  group meets its board in 2027. The board shares its column with Cyber 300,
+  printed above it, and no longer with IDE 1st look.
+
+- **A reference that wraps sets its second line under its own letter** in
+  `usaf_memo@0.3.0` and `usaf_letter@0.1.0`.
+
+- **The Cyber Career Plan template is removed.** `cyber_career_plan@0.1.0`
+  stays in the quiver; only its starter leaves `templates.json`.
+
 ## v0.39.0 - 2026-10-19
 
 - **Take quillkit 0.18.1 and `@quillmark/quiver` 0.38.1.** Studio carries

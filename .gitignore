@@ -1,5 +1,5 @@
 node_modules/
-site/
 dist/
 *.log
 .DS_Store
+seed-*.png

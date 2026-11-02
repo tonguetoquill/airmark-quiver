@@ -1,6 +1,6 @@
 // render_fixture.mjs — render a usaf_letter fixture to PDF through the real
 // `Engine` (@quillmark/wasm) and @quillmark/quiver, the pipeline `quillkit test`
-// uses. With no fixture, renders the blueprint the schema seeds.
+// uses. With no fixture, renders the document the schema seeds.
 //
 // Usage: node design/usaf_letter/render_fixture.mjs [fixture.md] <output.pdf>
 //
@@ -31,7 +31,7 @@ const quill = await quiver.getQuill("usaf_letter@0.1.0");
 
 const doc = fixturePath
   ? Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"))
-  : Document.fromMarkdown(quill.blueprint);
+  : quill.seedDocument();
 
 let result;
 try {

@@ -1,0 +1,14 @@
+# Keeps the SHA-pinned actions current. The npm dependencies are first-party
+# exact pins bumped by hand; security updates for their transitive packages
+# come from the repository's Dependabot security settings, not this file.
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      actions:
+        patterns: ['*']
