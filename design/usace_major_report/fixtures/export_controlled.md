@@ -1,5 +1,5 @@
 ~~~
-$quill: usace_major_report
+$quill: usace_major_report@0.0.1
 report:
   report_type: Major Maintenance Report
   report_number: ENC-22-014
