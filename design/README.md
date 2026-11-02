@@ -195,7 +195,7 @@ Fixtures and a render helper for the `usace_major_report` quill.
 # anything else a PDF; the trailing date is the one `date: today` prints)
 node design/usace_major_report/render_fixture.mjs design/usace_major_report/fixtures/maximal.md /tmp/max.png 2026-10-27
 
-# with no fixture, renders the blueprint the schema seeds
+# with no fixture, renders the document the schema seeds
 node design/usace_major_report/render_fixture.mjs /tmp/seed.pdf
 ```
 

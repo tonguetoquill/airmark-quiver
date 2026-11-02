@@ -1,6 +1,6 @@
 // Renders a usace_major_report fixture through the real Engine
 // (@quillmark/wasm) and @quillmark/quiver, the pipeline `quillkit test` uses.
-// With no fixture, renders the blueprint the schema seeds. A `.png` output
+// With no fixture, renders the document the schema seeds. A `.png` output
 // writes one image per page, `<name>-<n>.png`; anything else writes a PDF. A
 // trailing YYYY-MM-DD pins the render date, so `date: today` prints the same
 // day every run.
@@ -31,7 +31,9 @@ const { Document } = await init();
 const quill = await (await fromDir(repoRoot)).getQuill("usace_major_report@0.0.1");
 for (const w of quill.warnings ?? []) console.warn(`quill warning: ${w.code}: ${w.message}`);
 
-const doc = Document.fromMarkdown(fixturePath ? readFileSync(resolve(fixturePath), "utf8") : quill.blueprint);
+const doc = fixturePath
+  ? Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"))
+  : quill.seedDocument();
 const png = extname(outputPath) === ".png";
 let result;
 try {
