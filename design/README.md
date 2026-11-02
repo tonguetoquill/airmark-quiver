@@ -303,3 +303,10 @@ reaches that the others do not:
   Chapter 16 sample's.
 - `secret.md`: SECRET banners, which move the identification line up to one
   inch from the bottom.
+
+## dd2875
+
+`naming.json` gives each field of the published DD Form 2875 its name, title,
+description and example, and `source.json` records the file quillify read.
+quillify 0.8.0 built `quills/dd2875/0.1.0/` from the two, and a later
+quillify can build it again from them.

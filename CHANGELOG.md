@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- **`dd2875` 0.1.0 is the published DD Form 2875, System Authorization
+  Access Request (May 2022, updated 20250718), filled where the form puts its
+  fields.** quillify 0.8.0 built it: an AcroForm quill whose three
+  pages are the form's own, redrawn, with 78 boxes stamped from 74 fields and
+  its seven signature boxes left to sign. The classification prints at the top
+  and bottom of pages 1 and 2, and block 20 repeats block 1's name. It needs
+  Quillmark 0.133.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
