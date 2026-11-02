@@ -27,6 +27,7 @@
 
 #let mainmatter(it) = {
   set page(numbering: body-numbering)
+  counter(page).update(1)
   counter(heading).update(0)
 
   set figure.caption(position: top, separator: [. ])
