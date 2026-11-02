@@ -16,6 +16,7 @@ main:
         - "UNCLASSIFIED"
         - "CUI"
       default: ""
+      example: UNCLASSIFIED
       description: "The classification the filled form is marked with. The form marks it at the top and bottom of pages 1 and 2, and this quill prints it in all four places."
     "type_of_request":
       title: "Type of request"
@@ -25,67 +26,82 @@ main:
         - "MODIFICATION"
         - "DEACTIVATE"
       default: ""
+      example: INITIAL
       description: "Whether the request opens an account, changes one, or closes one."
     "user_id":
       title: "User ID"
       type: text
       default: ""
+      example: EXAMPLE.USER01
       description: "The user ID the account has, or is to have. Leave it blank on an initial request when the system assigns one."
     "request_date":
       title: "Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260105"
       description: "The date of the request, as YYYYMMDD."
     "system_name":
       title: "System name (platform or applications)"
       type: text
       default: ""
+      example: Notional Training Portal
       description: "The system, platform or application the request is for."
     "location":
       title: "Location (physical location of system)"
       type: text
       default: ""
+      example: Notional AFB, CO
       description: "Where the system is physically located."
     "name":
       title: "1. Name (last, first, middle initial)"
       type: text
       default: ""
+      example: Example, Jordan A.
       description: "The user's last name, first name and middle initial. The form repeats it in block 20 at the top of page 2, and this quill prints it in both."
     "organization":
       title: "2. Organization"
       type: text
       default: ""
+      example: 123rd Example Squadron
       description: "The user's current organization (e.g. DISA, another DoD or government agency, or a commercial firm)."
     "office_symbol_department":
       title: "3. Office symbol/department"
       type: text
       default: ""
+      example: 123 XS/SCX
       description: "The office symbol within the user's current organization."
     "phone":
       title: "4. Phone (DSN or commercial)"
       type: text
       default: ""
+      example: DSN 555-0123
       description: "The user's DSN number, or a commercial number when the user has no DSN."
     "official_email_address":
       title: "5. Official e-mail address"
       type: text
       default: ""
+      example: jordan.example@example.com
       description: "The user's official e-mail address."
     "job_title_and_grade_rank":
       title: "6. Job title and grade/rank"
       type: text
       default: ""
+      example: Cyber Systems Operations Journeyman, SSgt
       description: "The user's job title and civilian grade or military rank, or \"CTR\" for a contractor."
     "official_mailing_address":
       title: "7. Official mailing address"
       type: text
       default: ""
+      example: |-
+        123 XS/SCX, 100 Example Ave
+        Notional AFB, CO 80000
       multiline: true
       description: "The user's official mailing address, one line per line of the address."
     "citizenship_us":
       title: "8. Citizenship: US"
       type: boolean
       default: false
+      example: true
       description: "Checked when the user is a US citizen."
     "citizenship_foreign_national":
       title: "8. Citizenship: FN"
@@ -101,6 +117,7 @@ main:
       title: "9. Designation of person: Military"
       type: boolean
       default: false
+      example: true
       description: "Checked when the user is a service member."
     "designation_of_person_civilian":
       title: "9. Designation of person: Civilian"
@@ -116,27 +133,32 @@ main:
       title: "10. I have completed the Annual Cyber Awareness Training"
       type: boolean
       default: false
+      example: true
       description: "Checked when the user has completed the Annual Cyber Awareness Training."
     "cyber_awareness_training_date":
       title: "10. Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20251201"
       description: "The date the user completed the Annual Cyber Awareness Training, as YYYYMMDD."
     "user_signature_date":
       title: "12. Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260105"
       description: "The date the user signs the form, as YYYYMMDD."
     "justification_for_access":
       title: "13. Justification for access"
       type: text
       default: ""
+      example: Needs access to the Notional Training Portal to schedule and record unit training.
       multiline: true
       description: "A brief statement of why the user needs the user ID, or the change to it."
     "type_of_access_authorized":
       title: "14. Type of access requested: Authorized"
       type: boolean
       default: false
+      example: true
       description: "Checked for normal access."
     "type_of_access_privileged":
       title: "14. Type of access requested: Privileged"
@@ -152,258 +174,306 @@ main:
       title: "15. User requires access to: Classified"
       type: boolean
       default: false
+      example: true
       description: "Checked when the user needs access to classified information. Name the category beside it."
     "classified_category":
       title: "15. Classified (specify category)"
       type: text
       default: ""
+      example: Secret
       description: "The classified category the user needs access to."
     "access_to_other":
       title: "15. User requires access to: Other"
       type: boolean
       default: false
+      example: true
       description: "Checked when the user needs access to something other than unclassified or classified information. Say what beside it."
     "access_to_other_details":
       title: "15. Other"
       type: text
       default: ""
+      example: Notional training records only
       description: "What the user needs access to, when it is neither unclassified nor classified information."
     "verification_of_need_to_know":
       title: "16. Verification of need to know: I certify that this user requires access as requested"
       type: boolean
       default: false
+      example: true
       description: "Checked when the supervisor or sponsor certifies the user requires the access requested."
     "access_expiration_date":
       title: "16a. Access expiration date"
       type: text
       default: ""
+      example: "20261231"
       description: "The date the access expires, when it is less than a year away. A contractor gives the company name, contract number and the contract's expiration date, continuing in block 21 if needed."
     "supervisor_name":
       title: "17. Supervisor's name (print name)"
       type: text
       default: ""
+      example: Sample, Casey B.
       description: "The printed name of the supervisor or representative who verifies the information above."
     "supervisor_email_address":
       title: "17a. Supervisor's email address"
       type: text
       default: ""
+      example: casey.sample@example.com
       description: "The supervisor's e-mail address."
     "supervisor_phone_number":
       title: "17b. Phone number"
       type: text
       default: ""
+      example: DSN 555-0100
       description: "The supervisor's phone number."
     "supervisor_organization_department":
       title: "17c. Supervisor's organization/department"
       type: text
       default: ""
+      example: 123 XS/CC
       description: "The supervisor's organization and department."
     "supervisor_signature_date":
       title: "17e. Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260106"
       description: "The date the supervisor signs the form, as YYYYMMDD."
     "information_owner_opr_phone_number":
       title: "18. Information owner/OPR phone number"
       type: text
       default: ""
+      example: DSN 555-0110
       description: "The functional appointee's phone number."
     "information_owner_opr_signature_date":
       title: "18b. Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260107"
       description: "The date the functional appointee signs the form, as YYYYMMDD."
     "isso_organization_department":
       title: "19. ISSO organization/department"
       type: text
       default: ""
+      example: 123 XS/SCXS
       description: "The ISSO's organization and department."
     "isso_phone_number":
       title: "19a. Phone number"
       type: text
       default: ""
+      example: DSN 555-0120
       description: "The ISSO's phone number."
     "isso_signature_date":
       title: "19c. Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260108"
       description: "The date the ISSO or appointee signs the form, as YYYYMMDD."
     "optional_information":
       title: "21. Optional information"
       type: text
       default: ""
+      example: Requested for the user's appointment as unit training manager.
       multiline: true
       description: "Anything more the request needs, such as a contractor's details continued from block 16a."
     "type_of_investigation":
       title: "22. Type of investigation"
       type: text
       default: ""
+      example: Tier 5
       description: "The user's last type of background investigation (e.g. Tier 3, Tier 5)."
     "investigation_date":
       title: "22a. Investigation date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20240301"
       description: "The date of the user's last investigation, as YYYYMMDD."
     "continuous_vetting_enrollment_date":
       title: "22b. Continuous vetting (CV) enrollment date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20240415"
       description: "The date the user enrolled in continuous vetting, as YYYYMMDD. Leave it blank when the user is not enrolled."
     "access_level":
       title: "22c. Access level"
       type: text
       default: ""
+      example: Secret
       description: "The access level the sponsoring agency or service grants the user (e.g. Secret, Top Secret)."
     "verified_by":
       title: "23. Verified by (printed name)"
       type: text
       default: ""
+      example: Notional, Riley C.
       description: "The printed name of the security manager or representative who verifies the clearance and investigation."
     "security_manager_phone_number":
       title: "24. Phone number"
       type: text
       default: ""
+      example: DSN 555-0130
       description: "The security manager's phone number."
     "verification_date":
       title: "26. Verification date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260109"
       description: "The date the security manager verified the background investigation and clearance, as YYYYMMDD."
     "system_title":
       title: "Title (system line)"
       type: text
       default: ""
+      example: Training Scheduler
       multiline: true
       description: "The title of the system account, on Part IV's system line."
     "system":
       title: "System"
       type: text
       default: ""
+      example: Notional Training Portal
       multiline: true
       description: "The system the user is given access to."
     "system_account_code":
       title: "Account code (system line)"
       type: text
       default: ""
+      example: EXAMPLE-SYS-0001
       multiline: true
       description: "The account code for the system line."
     "domain_title":
       title: "Title (domain line)"
       type: text
       default: ""
+      example: Standard User
       multiline: true
       description: "The title of the domain account, on Part IV's domain line."
     "domain":
       title: "Domain"
       type: text
       default: ""
+      example: EXAMPLE.LOCAL
       multiline: true
       description: "The domain the user is given access to."
     "domain_account_code":
       title: "Account code (domain line)"
       type: text
       default: ""
+      example: EXAMPLE-DOM-0002
       multiline: true
       description: "The account code for the domain line."
     "server_title":
       title: "Title (server line)"
       type: text
       default: ""
+      example: Read Only
       multiline: true
       description: "The title of the server account, on Part IV's server line."
     "server":
       title: "Server"
       type: text
       default: ""
+      example: EXAMPLE-SRV-01
       multiline: true
       description: "The server the user is given access to."
     "server_account_code":
       title: "Account code (server line)"
       type: text
       default: ""
+      example: EXAMPLE-SRV-0003
       multiline: true
       description: "The account code for the server line."
     "application_title":
       title: "Title (application line)"
       type: text
       default: ""
+      example: Records Viewer
       multiline: true
       description: "The title of the application account, on Part IV's application line."
     "application":
       title: "Application"
       type: text
       default: ""
+      example: Notional Records App
       multiline: true
       description: "The application the user is given access to."
     "application_account_code":
       title: "Account code (application line)"
       type: text
       default: ""
+      example: EXAMPLE-APP-0004
       multiline: true
       description: "The account code for the application line."
     "files_title":
       title: "Title (files line)"
       type: text
       default: ""
+      example: Unit Share
       multiline: true
       description: "The title of the files account, on Part IV's files line."
     "files":
       title: "Files"
       type: text
       default: ""
+      example: Notional Unit Training Share
       multiline: true
       description: "The files the user is given access to."
     "files_account_code":
       title: "Account code (files line)"
       type: text
       default: ""
+      example: EXAMPLE-FIL-0005
       multiline: true
       description: "The account code for the files line."
     "datasets_title":
       title: "Title (datasets line)"
       type: text
       default: ""
+      example: Read Only
       multiline: true
       description: "The title of the datasets account, on Part IV's datasets line."
     "datasets":
       title: "Datasets"
       type: text
       default: ""
+      example: Notional Training Records
       multiline: true
       description: "The datasets the user is given access to."
     "datasets_account_code":
       title: "Account code (datasets line)"
       type: text
       default: ""
+      example: EXAMPLE-DAT-0006
       multiline: true
       description: "The account code for the datasets line."
     "date_processed":
       title: "Date processed (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260112"
       description: "The date the account information was processed, as YYYYMMDD."
     "processed_by":
       title: "Processed by (print name and sign)"
       type: text
       default: ""
+      example: Placeholder, Morgan D.
       description: "The printed name of whoever processed the account information."
     "processed_by_signature_date":
       title: "Processed by: Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20260112"
       description: "The date whoever processed the account information signs, as YYYYMMDD."
     "date_revalidated":
       title: "Date revalidated (YYYYMMDD)"
       type: text
       default: ""
+      example: "20270111"
       description: "The date the account information was revalidated, as YYYYMMDD."
     "revalidated_by":
       title: "Revalidated by (print name and sign)"
       type: text
       default: ""
+      example: Placeholder, Morgan D.
       description: "The printed name of whoever revalidated the account information."
     "revalidated_by_signature_date":
       title: "Revalidated by: Date (YYYYMMDD)"
       type: text
       default: ""
+      example: "20270111"
       description: "The date whoever revalidated the account information signs, as YYYYMMDD."
