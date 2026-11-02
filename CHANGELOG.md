@@ -6,7 +6,7 @@
   the form puts its fields.** quillify 0.8.0 built it: an AcroForm quill whose
   two pages are the form's own, redrawn, with eleven fields stamped in twelve
   boxes (the nominee's rank and name prints at the top of both pages). It
-  needs Quillmark 0.127. The nine fields 0.1.0 has keep their names, and the
+  needs Quillmark 0.133. The nine fields 0.1.0 has keep their names, and the
   accomplishments are two fields of lines, `accomplishments` and
   `accomplishments_continued`, where 0.1.0 takes them in the body and an
   `accomplishments_continued` card; a line of its own heads a category.
