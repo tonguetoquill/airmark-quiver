@@ -1,38 +1,42 @@
 #import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/tonguetoquill-usace-tech-memo:0.0.1": date-pattern, memo, statement-date-pattern, table-date-pattern
 
-#let dist = qm.data.cui_distribution
+#let memo-fields = qm.data.memo
+#let cui = qm.data.cui
+#let front = qm.data.front_matter
+
+#let dist = cui.cui_distribution
 #let dist-display = if dist.value == "Other" { dist.detail } else { dist.value }
 
-#let previous-memos = qm.data.previous_memos.map(item => (
+#let previous-memos = front.previous_memos.map(item => (
   number: item.number,
   title: item.title,
   date: qm.ink(item, "date", table-date-pattern),
 ))
 
 #memo(
-  memo-number: qm.data.memo_number,
-  location-lines: qm.data.location_lines,
-  study-name: qm.data.study_name,
-  subject: qm.data.subject,
-  prepared-for: qm.data.prepared_for,
-  prepared-by: qm.data.prepared_by,
-  date: qm.ink(qm.data, "date", date-pattern),
-  cui-enabled: qm.data.cui_enabled,
-  cui-cover: qm.data.cui_cover,
-  cui-controlled-by-component: qm.data.cui_controlled_by_component,
-  cui-controlled-by-office: qm.data.cui_controlled_by_office,
-  cui-categories: qm.data.cui_categories,
+  memo-number: memo-fields.memo_number,
+  location-lines: memo-fields.location_lines,
+  study-name: memo-fields.study_name,
+  subject: memo-fields.subject,
+  prepared-for: memo-fields.prepared_for,
+  prepared-by: memo-fields.prepared_by,
+  date: qm.ink(memo-fields, "date", date-pattern),
+  cui-enabled: cui.cui_enabled,
+  cui-cover: qm.data.printing.cui_cover,
+  cui-controlled-by-component: cui.cui_controlled_by_component,
+  cui-controlled-by-office: cui.cui_controlled_by_office,
+  cui-categories: cui.cui_categories,
   cui-distribution: dist-display,
-  cui-distribution-reason: qm.data.cui_distribution_reason,
-  cui-distribution-date: qm.ink(qm.data, "cui_distribution_date", statement-date-pattern),
-  cui-distribution-office: qm.data.cui_distribution_office,
-  cui-poc: qm.data.cui_poc,
-  appendices: qm.data.appendices,
-  pertinent-data: qm.data.pertinent_data,
+  cui-distribution-reason: cui.cui_distribution_reason,
+  cui-distribution-date: qm.ink(cui, "cui_distribution_date", statement-date-pattern),
+  cui-distribution-office: cui.cui_distribution_office,
+  cui-poc: cui.cui_poc,
+  appendices: front.appendices,
+  pertinent-data: front.pertinent_data,
   previous-memos: previous-memos,
-  acronyms: qm.data.acronyms,
-  include-summary: qm.data.include_summary,
+  acronyms: front.acronyms,
+  include-summary: memo-fields.include_summary,
   body: {
     let b = qm.data.at("$body")
     if type(b) == str { [] } else { b }

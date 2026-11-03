@@ -1,30 +1,34 @@
 ~~~
-$quill: usace_tech_memo
-memo_number: ENC-22-001
-location_lines:
-  - COWLITZ RIVER
-  - COLUMBIA RIVER BASIN
-  - WASHINGTON
-study_name: Lower Columbia Stage Frequency Study
-subject: Peak flow frequency at Castle Rock, Washington
-prepared_for: Federal Emergency Management Agency
-prepared_by: U.S. Army Corps of Engineers, Portland District
-date: 2022-04-19
-include_summary: true
-cui_enabled: true
-cui_cover: true
-cui_controlled_by_component: USACE
-cui_controlled_by_office: CENWP-EC
-cui_categories:
-  - CTI
-  - CEII
-cui_distribution: Distribution Statement D
-cui_distribution_reason:
-  - Controlled Technical Information
-  - Export Controlled
-cui_distribution_date: 2022-04-19
-cui_distribution_office: "U.S. Army Corps of Engineers, Portland District, ATTN: CENWP-EC, 333 SW First Avenue, Portland, OR 97204"
-cui_poc: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
+$quill: usace_tech_memo@0.0
+$kind: main
+memo:
+  memo_number: ENC-22-001
+  location_lines:
+    - COWLITZ RIVER
+    - COLUMBIA RIVER BASIN
+    - WASHINGTON
+  study_name: Lower Columbia Stage Frequency Study
+  subject: Peak flow frequency at Castle Rock, Washington
+  prepared_for: Federal Emergency Management Agency
+  prepared_by: U.S. Army Corps of Engineers, Portland District
+  date: 2022-04-19
+  include_summary: true
+cui:
+  cui_enabled: true
+  cui_controlled_by_component: USACE
+  cui_controlled_by_office: CENWP-EC
+  cui_categories:
+    - CTI
+    - CEII
+  cui_distribution: Distribution Statement D
+  cui_distribution_reason:
+    - Controlled Technical Information
+    - Export Controlled
+  cui_distribution_date: 2022-04-19
+  cui_distribution_office: "U.S. Army Corps of Engineers, Portland District, ATTN: CENWP-EC, 333 SW First Avenue, Portland, OR 97204"
+  cui_poc: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
+printing:
+  cui_cover: true
 ~~~
 
 # Purpose

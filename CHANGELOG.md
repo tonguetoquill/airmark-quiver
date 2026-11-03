@@ -21,12 +21,18 @@
   prints the full DoDI 5230.24 distribution statement (B to F) from the
   statement, up to three reasons (full category headings), date of
   determination, and referral office, and the export-control warning when
-  a reason is Export Controlled. `cui_enabled` turns banners and the
-  designation on; `cui_cover` turns the SF 901 cover on (needs CUI on).
-  When the cover is off, the designation block, statement and warning
-  print at the bottom right of the title page. Invalid letter/reason
-  combinations, Statement A with CUI, and Export Controlled outside B–E
-  print a red check note. The face is Liberation Sans, an Arial
+  a reason is Export Controlled. Fields are grouped as the memorandum,
+  CUI, front matter, and printing, and the example lives on the fields.
+  `cui_enabled` turns banners and the designation on; `printing.cui_cover`
+  turns the SF 901 cover on (needs CUI on). When the cover is off, the
+  designation block, statement and warning print at the bottom right of
+  the title page. Prepared by and the acronym list default to blank, so a
+  new document omits that title-page line and the ACRONYMS page. Invalid
+  letter/reason combinations and Statement A with CUI print a red check
+  note. Export Controlled outside statements B–E prints one note.
+  Statement F with no referral office and no controlling office prints a
+  note telling the writer to fill in the office, and does not print the
+  statement sentence. The face is Liberation Sans, an Arial
   metric-compatible, because Arial itself cannot ship in the quiver. It
   is a `0.0.x` draft, packed only with `--drafts`. The USACE Technical
   Memorandum template pins `@0.0`.
