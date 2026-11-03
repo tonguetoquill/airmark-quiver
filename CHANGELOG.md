@@ -17,16 +17,17 @@
   page break); Heading 5 is bold underlined and Heading 6 is underlined;
   numbered lists are 1) a) i). Front matter uses roman page numbers; the
   body uses 1-1. CUI banners print at the top and bottom of front-matter
-  and body pages when CUI is on. Under the CUI designation block the cover
-  prints the full DoDI 5230.24 distribution statement (B to F) from the
-  statement, up to three reasons (full category headings), date of
+  and body pages when markings are on. Under the CUI designation block the
+  cover prints the full DoDI 5230.24 distribution statement (B to F) from
+  the statement, up to three reasons (full category headings), date of
   determination, and referral office, and the export-control warning when
   a reason is Export Controlled. Fields are grouped as the memorandum,
-  CUI, front matter, and printing, and the example lives on the fields.
-  `cui_enabled` turns banners and the designation on; `printing.cui_cover`
-  turns the SF 901 cover on (needs CUI on). When the cover is off, the
-  designation block, statement and warning print at the bottom right of
-  the title page. Prepared by and the acronym list default to blank, so a
+  CUI, and front matter, and the example lives on the fields. `cui.marking`
+  is `off`, `banners`, or `banners_and_cover`. Off, the default, prints no
+  banners and no cover. Banners prints the banners and puts the designation
+  block, statement and warning at the bottom right of the title page.
+  Banners and cover prints the banners and the SF 901 cover. Prepared by
+  and the acronym list default to blank, so a
   new document omits that title-page line and the ACRONYMS page. Invalid
   letter/reason combinations and Statement A with CUI print a red check
   note. Export Controlled outside statements B–E prints one note.
@@ -36,6 +37,16 @@
   metric-compatible, because Arial itself cannot ship in the quiver. It
   is a `0.0.x` draft, packed only with `--drafts`. The USACE Technical
   Memorandum template pins `@0.0`.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the report appendix and the major report as-is.
 
 ## v0.42.1 - 2026-10-30
 

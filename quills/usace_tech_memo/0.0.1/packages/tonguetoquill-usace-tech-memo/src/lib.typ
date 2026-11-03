@@ -18,8 +18,7 @@
   prepared-for: none,
   prepared-by: none,
   date: none,
-  cui-enabled: true,
-  cui-cover: true,
+  marking: "off",
   cui-controlled-by-component: none,
   cui-controlled-by-office: none,
   cui-categories: none,
@@ -55,7 +54,12 @@
     },
   )
 
-  show: document-setup.with(cui-enabled: cui-enabled)
+  // off prints nothing. The cover is banners_and_cover only, so it
+  // never prints without the banners.
+  let print-banners = marking == "banners" or marking == "banners_and_cover"
+  let print-cover = marking == "banners_and_cover"
+
+  show: document-setup.with(cui-enabled: print-banners)
 
   let referral-office = if blank(cui-distribution-office) {
     cui-controlled-by-office
@@ -72,13 +76,11 @@
     distribution-reasons: cui-distribution-reason,
     distribution-date: cui-distribution-date,
     distribution-office: referral-office,
-    cui-enabled: cui-enabled,
+    cui-enabled: print-banners,
   )
 
-  // Cover needs CUI on; when the cover is off the designation block,
-  // statement and export warning move to the title page (para 3.1.j).
-  let print-cover = cui-enabled and cui-cover
-  let print-page-one-cui = cui-enabled and not cui-cover
+  // banners puts the designation block on the title page (para 3.1.j).
+  let print-page-one-cui = marking == "banners"
 
   if print-cover {
     set page(
@@ -96,8 +98,8 @@
   set page(
     margin: MARGIN,
     fill: white,
-    header: running-header(cui-enabled),
-    footer: running-footer(cui-enabled),
+    header: running-header(print-banners),
+    footer: running-footer(print-banners),
     numbering: none,
   )
   title-page(

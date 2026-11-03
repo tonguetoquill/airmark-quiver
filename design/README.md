@@ -201,9 +201,9 @@ Information and Export Controlled: the cover prints the full statement and
 the export-control warning under the designation block. The date of
 determination matches the memorandum date (19 APR 2022).
 
-`cover_off.md` turns the SF 901 cover off while leaving CUI on, so the
-designation block, distribution statement and export warning land at the
-bottom right of the title page.
+`cover_off.md` sets `marking` to `banners`, so the designation block,
+distribution statement and export warning land at the bottom right of the
+title page and the Standard Form 901 cover does not print.
 
 ## usaf_memo
 

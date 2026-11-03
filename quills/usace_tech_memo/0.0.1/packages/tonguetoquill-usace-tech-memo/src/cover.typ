@@ -88,6 +88,11 @@
   let letter = statement-letter(distribution)
   let named = reason-list(reasons)
 
+  // Banners with no distribution must not invent one. There is no default.
+  if cui-enabled and statement == none {
+    errors.push("Choose a distribution.")
+  }
+
   if cui-enabled and statement == "Distribution Statement A" {
     errors.push("Distribution Statement A means public release and cannot be used when CUI is on (DoDI 5230.24 para 4.2.a).")
   }
@@ -144,6 +149,8 @@
     let by = (office, date).filter(v => v != none).join(" ")
     return [Distribution Statement F. Further distribution only as directed by #by or higher DoD authority.]
   }
+  // A blank distribution has no statement. `not in` on a dictionary rejects none.
+  if statement == none { return none }
   if statement not in AUDIENCES { return none }
   let audience = (AUDIENCES.at(statement), reason-text, date).filter(v => v != none).join("; ")
   [#statement. #audience.#if office != none [ Other requests for this document must be referred to #office.]]

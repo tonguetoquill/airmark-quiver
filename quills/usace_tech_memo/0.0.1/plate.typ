@@ -5,7 +5,7 @@
 #let cui = qm.data.cui
 #let front = qm.data.front_matter
 
-#let dist = cui.cui_distribution
+#let dist = cui.distribution
 #let dist-display = if dist.value == "Other" { dist.detail } else { dist.value }
 
 #let previous-memos = front.previous_memos.map(item => (
@@ -22,16 +22,15 @@
   prepared-for: memo-fields.prepared_for,
   prepared-by: memo-fields.prepared_by,
   date: qm.ink(memo-fields, "date", date-pattern),
-  cui-enabled: cui.cui_enabled,
-  cui-cover: qm.data.printing.cui_cover,
-  cui-controlled-by-component: cui.cui_controlled_by_component,
-  cui-controlled-by-office: cui.cui_controlled_by_office,
-  cui-categories: cui.cui_categories,
+  marking: cui.marking,
+  cui-controlled-by-component: cui.controlled_by_component,
+  cui-controlled-by-office: cui.controlled_by_office,
+  cui-categories: cui.categories,
   cui-distribution: dist-display,
-  cui-distribution-reason: cui.cui_distribution_reason,
-  cui-distribution-date: qm.ink(cui, "cui_distribution_date", statement-date-pattern),
-  cui-distribution-office: cui.cui_distribution_office,
-  cui-poc: cui.cui_poc,
+  cui-distribution-reason: cui.distribution_reason,
+  cui-distribution-date: qm.ink(cui, "distribution_date", statement-date-pattern),
+  cui-distribution-office: cui.distribution_office,
+  cui-poc: cui.poc,
   appendices: front.appendices,
   pertinent-data: front.pertinent_data,
   previous-memos: previous-memos,
