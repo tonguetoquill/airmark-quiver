@@ -31,6 +31,38 @@
   is a `0.0.x` draft, packed only with `--drafts`. The USACE Technical
   Memorandum template pins `@0.0`.
 
+## v0.42.1 - 2026-10-30
+
+- **A font family that covers a whole body paragraph renders in
+  `usaf_memo@0.3.0` and `army_memo@0.1.0`.** The body's paragraph numbering
+  dropped a family run spanning an entire paragraph, list item, continuation
+  or heading, and the paragraph drew in the body font. In `usaf_memo`, a
+  code span or a strikethrough across a whole paragraph is kept too.
+
+- **Bold renders in the `usaf_memo@0.3.0` tag line.** The quill bundles
+  Spectral SC Bold, so a bold run in the tag line no longer draws in the
+  regular weight.
+
+- **`medal_citation@0.1.0` draws its medals clean and sharp.** Each medal
+  image is three times its former resolution, about 280 ppi at print size,
+  with the compression noise gone, and sits on plain white: the speckled
+  halos around the Commendation and Meritorious Service medals and the gray
+  blotches behind the Achievement Medal no longer print. The Achievement
+  Medal's ribbon is silver gray with ultramarine blue stripes, as the medal's
+  description gives it, in place of a khaki gray with steel blue stripes.
+
+## v0.42.0 - 2026-10-29
+
+- **Take quillkit 0.21.0, `@quillmark/quiver` 0.39.0 and `@quillmark/wasm`
+  0.133.0, which every consumer now needs.** Each
+  quill's example moves from its root `example.md` into `Quill.yaml`: each
+  field declares the `example:` the file gave it, and each kind with a body a
+  `body.example`. A build before 0.133 refuses `example:` on a field, so it
+  can no longer load these quills. The example holds one card per kind, so the
+  AF Form 4141 example shows its first experience row and the DAF Form 4392
+  example its first itinerary leg, and the `afmc_moa` example gains a
+  background paragraph. The `example.md` files are gone from the package.
+
 ## v0.41.0 - 2026-10-26
 
 - **Take quillkit 0.20.0 and `@quillmark/wasm` 0.130.0.** The studio deploy
