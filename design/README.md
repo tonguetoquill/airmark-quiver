@@ -199,7 +199,7 @@ node design/usace_major_report/render_fixture.mjs design/usace_major_report/fixt
 node design/usace_major_report/render_fixture.mjs /tmp/seed.pdf
 ```
 
-`minimal.md` is CUI off with every report field blank and no acronyms: the
+`minimal.md` sets `marking` to `off` with every report field blank and no acronyms: the
 title page prints MAJOR MAINTENANCE REPORT and MMR alone, the front matter is
 CONTENTS on page i, and the running header is MMR. `maximal.md` is an MRR with
 every field filled, an Other distribution, all eight executive-summary
@@ -214,8 +214,8 @@ pushes the text down.
 `export_controlled.md` is Distribution Statement D for Controlled Technical
 Information and Export Controlled: the cover prints the full statement and the
 export-control warning under the designation block. `cover_off.md` is the same
-statement with `cui_cover` off, so the designation block, statement and warning
-print at the bottom right of the title page.
+statement with `marking` set to `banners`, so the designation block, statement
+and warning print at the bottom right of the title page.
 
 ## usaf_memo
 

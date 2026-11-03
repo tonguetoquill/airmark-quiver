@@ -1,7 +1,7 @@
 ~~~
 $quill: usace_major_report@0.0.1
 cui:
-  cui_enabled: false
+  marking: "off"
 front_matter:
   acronyms: []
 ~~~

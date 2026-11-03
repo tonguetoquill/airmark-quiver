@@ -23,11 +23,27 @@
   reasons, the date of determination, and the referral office, and the
   export-control warning when a reason is Export Controlled. A statement and
   reasons that DoDI 5230.24 Table 1 does not allow print a red CHECK
-  DISTRIBUTION STATEMENT note. `cui_cover` turns the cover off; the
-  designation block, statement and warning then print at the bottom right of
-  the title page. It is a `0.0.x` draft, packed only with `--drafts`. The
-  USACE Major Maintenance Report and USACE Major Rehabilitation Report
-  templates pin `@0.0`.
+  DISTRIBUTION STATEMENT note. Export Controlled outside statements B–E
+  prints that note once. Statement F with no referral office and no
+  controlling office prints a note telling the writer to fill in the office,
+  and does not print the statement sentence. `cui.marking` is `off`,
+  `banners`, or `banners_and_cover`. Off, the default, prints no banners and
+  no cover. Banners puts the designation block, statement and warning at the
+  bottom right of the title page. It is a `0.0.x` draft, packed only with
+  `--drafts`. The USACE Major Maintenance Report and USACE Major
+  Rehabilitation Report templates pin `@0.0`.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the technical memorandum and the report appendix as-is.
+  `cover.typ` matches the technical memorandum, including the Statement F
+  fix and the single Export Controlled error.
 
 ## v0.42.1 - 2026-10-30
 

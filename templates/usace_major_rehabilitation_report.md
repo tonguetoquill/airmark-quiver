@@ -21,13 +21,13 @@ report:
   design_stage: 30 Percent
   date: today
 cui:
-  cui_enabled: true
-  cui_controlled_by_component: USACE
-  cui_controlled_by_office: OFFICE-SYMBOL
-  cui_categories:
+  marking: banners_and_cover
+  controlled_by_component: USACE
+  controlled_by_office: OFFICE-SYMBOL
+  categories:
     - CTI
-  cui_distribution: FED ONLY
-  cui_poc: Name, office, phone
+  distribution: FED ONLY
+  poc: Name, office, phone
 front_matter:
   executive_summary: |
     # Introduction

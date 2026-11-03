@@ -132,26 +132,31 @@ main:
       type: object
       title: CUI
       properties:
-        cui_enabled:
-          type: boolean
-          default: true
+        marking:
+          type: enum
+          default: "off"
           ui:
             compact: true
-          description: "Turns the CUI designation block and the CUI banner at the top and bottom of every page on or off. The Standard Form 901 cover needs this on."
+          example: banners_and_cover
+          description: "Which CUI markings print. off prints no banners and no Standard Form 901 cover, and is what a new document does. banners prints the CUI banner at the top and bottom of every page, with the designation block, distribution statement and export warning at the bottom right of the first page. banners_and_cover prints those banners and the purple cover, and the designation block prints on the cover instead. The cover never prints without the banners."
+          values:
+            - "off"
+            - banners
+            - banners_and_cover
 
-        cui_controlled_by_component:
+        controlled_by_component:
           type: text
           default: ""
           example: USACE
-          description: "The component that controls the CUI, for example USACE. Used when CUI is on."
+          description: "The component that controls the CUI, for example USACE. Used when banners are on."
 
-        cui_controlled_by_office:
+        controlled_by_office:
           type: text
           default: ""
           example: CENWP-EC
-          description: "The office that controls the CUI, for example CENWP-EC. Used when CUI is on."
+          description: "The office that controls the CUI, for example CENWP-EC. Used when banners are on."
 
-        cui_categories:
+        categories:
           type: array
           items:
             type: text
@@ -159,12 +164,13 @@ main:
           example:
             - CTI
             - CEII
-          description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when CUI is on."
+          description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when banners are on."
 
-        cui_distribution:
+        distribution:
           type: enum
-          default: "FED ONLY"
-          description: "Distribution/Limited Dissemination Control. A Distribution Statement A to F, or a Limited Dissemination Control. Used when CUI is on. Statement A cannot be used with CUI."
+          default: ""
+          example: FED ONLY
+          description: "Statement A cannot be used when banners are on. Distribution/Limited Dissemination Control: a Distribution Statement A to F, or a Limited Dissemination Control, for example FED ONLY. Leave blank when markings are off. When banners are on, a blank prints a note telling you to choose a distribution and does not fill one in."
           values:
             - "Distribution Statement A"
             - "Distribution Statement B"
@@ -183,11 +189,13 @@ main:
                 type: text
                 description: "A Limited Dissemination Control or distribution statement not listed above."
 
-        cui_distribution_reason:
+        distribution_reason:
           title: Distribution reason
           type: array
           max: 3
           default:
+            - Controlled Technical Information
+          example:
             - Controlled Technical Information
           description: "Up to three DoDI 5230.24 defense categories behind Distribution Statement B to F, printed by their full category headings under the designation block. Export Controlled also prints the export-control warning and requires statement B, C, D, or E."
           items:
@@ -208,26 +216,27 @@ main:
               - Test and Evaluation
               - Vulnerability Information
 
-        cui_distribution_date:
+        distribution_date:
           title: Date of determination
           type: date
           default: ""
           ui:
             compact: true
+          example: 2022-04-19
           description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
 
-        cui_distribution_office:
+        distribution_office:
           title: Refer requests to
           type: text
           default: ""
-          description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above."
+          description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above. Statement F does not print until this office or the controlling office is filled in."
 
-        cui_poc:
+        poc:
           title: POC
           type: text
           default: ""
-          example: Jane Q. Engineer, CENWP-EC-D, 503-555-0142
-          description: "Who to contact about this CUI, with a phone or office mailbox. Used when CUI is on."
+          example: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
+          description: "Who to contact about this CUI, with a phone or office mailbox. Used when banners are on."
 
     front_matter:
       type: object
@@ -343,13 +352,3 @@ main:
               description: United States Army Corps of Engineers
           description: "Acronyms and abbreviations used in the report. They print alphabetically. The page is omitted when this list is empty."
 
-    printing:
-      type: object
-      title: Printing
-      properties:
-        cui_cover:
-          type: boolean
-          default: true
-          ui:
-            compact: true
-          description: "Prints the purple Standard Form 901 cover sheet. Needs CUI on. When off, the designation block, distribution statement and export warning print at the bottom right of the title page."

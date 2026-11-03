@@ -11,17 +11,17 @@ report:
   design_stage: 95 Percent Biddability, Constructability, Operability, Environmental and Sustainability Review
   date: 2026-12-04
 cui:
-  cui_enabled: true
-  cui_controlled_by_component: U.S. Army Corps of Engineers, Northwestern Division
-  cui_controlled_by_office: CENWP-EC-DS, Engineering and Construction Division, Design Branch, Structural Section
-  cui_categories:
+  marking: banners_and_cover
+  controlled_by_component: U.S. Army Corps of Engineers, Northwestern Division
+  controlled_by_office: CENWP-EC-DS, Engineering and Construction Division, Design Branch, Structural Section
+  categories:
     - CTI
     - CEII
     - CRIT
     - EGMT
     - PHYS
-  cui_distribution: Distribution Statement F
-  cui_poc: Jane Q. Engineer, Structural Section, Design Branch, Engineering and Construction Division, CENWP-EC-DS, 503-555-0142, cenwp-ec-ds-mailbox@usace.army.mil
+  distribution: Distribution Statement F
+  poc: Jane Q. Engineer, Structural Section, Design Branch, Engineering and Construction Division, CENWP-EC-DS, 503-555-0142, cenwp-ec-ds-mailbox@usace.army.mil
 front_matter:
   executive_summary: |
     # Operations, Maintenance, Repair, Rehabilitation and Replacement Considerations During Construction and Afterward

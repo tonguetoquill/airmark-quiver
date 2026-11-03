@@ -11,15 +11,15 @@ report:
   design_stage: 60 Percent
   date: 2025-09-17
 cui:
-  cui_enabled: true
-  cui_controlled_by_component: USACE
-  cui_controlled_by_office: CENWP-EC
-  cui_categories:
+  marking: banners_and_cover
+  controlled_by_component: USACE
+  controlled_by_office: CENWP-EC
+  categories:
     - CTI
     - CEII
     - CRIT
-  cui_distribution: { value: Other, detail: "FED ONLY/DL ONLY" }
-  cui_poc: John R. Engineer, CENWP-EC-DS, 503-555-0177
+  distribution: { value: Other, detail: "FED ONLY/DL ONLY" }
+  poc: John R. Engineer, CENWP-EC-DS, 503-555-0177
 front_matter:
   executive_summary: |
     # Introduction
