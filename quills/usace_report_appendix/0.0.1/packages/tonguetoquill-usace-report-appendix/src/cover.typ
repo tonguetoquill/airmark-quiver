@@ -82,14 +82,23 @@
   if letter.len() == 1 { letter } else { none }
 }
 
-#let distribution-errors(distribution, reasons, cui-enabled: true) = {
+#let distribution-errors(distribution, reasons, cui-enabled: true, office: none) = {
   let errors = ()
   let statement = words(distribution)
   let letter = statement-letter(distribution)
   let named = reason-list(reasons)
 
+  // Banners with no distribution must not invent one. There is no default.
+  if cui-enabled and statement == none {
+    errors.push("Choose a distribution.")
+  }
+
   if cui-enabled and statement == "Distribution Statement A" {
     errors.push("Distribution Statement A means public release and cannot be used when CUI is on (DoDI 5230.24 para 4.2.a).")
+  }
+
+  if letter == "F" and words(office) == none {
+    errors.push("Distribution Statement F needs the office that directs further distribution. Fill in Refer requests to, or the controlling office.")
   }
 
   if named.contains("Export Controlled") and letter not in ("B", "C", "D", "E") {
@@ -101,7 +110,8 @@
       let allowed = REASON_LETTERS.at(reason, default: none)
       if allowed == none {
         errors.push(reason + " is not a DoDI 5230.24 Table 1 defense category.")
-      } else if letter not in allowed {
+      } else if letter not in allowed and reason != "Export Controlled" {
+        // Export Controlled outside B–E is already the para 3.4.i error.
         errors.push(reason + " is not authorized with Distribution Statement " + letter + " (DoDI 5230.24 Table 1).")
       }
     }
@@ -114,8 +124,8 @@
   errors
 }
 
-#let distribution-check(distribution, reasons, cui-enabled: true) = {
-  let errors = distribution-errors(distribution, reasons, cui-enabled: cui-enabled)
+#let distribution-check(distribution, reasons, cui-enabled: true, office: none) = {
+  let errors = distribution-errors(distribution, reasons, cui-enabled: cui-enabled, office: office)
   if errors.len() == 0 { none } else {
     text(fill: rgb("#b00000"), weight: "bold", size: 10pt)[
       CHECK DISTRIBUTION STATEMENT: #errors.join(" ")
@@ -134,10 +144,13 @@
     return [Distribution Statement A. Approved for public release: distribution is unlimited.]
   }
   if statement == "Distribution Statement F" {
+    // No office leaves "directed by or higher", so the check note stands in.
+    if office == none { return none }
     let by = (office, date).filter(v => v != none).join(" ")
-    return [Distribution Statement F. Further distribution only as directed by #if by != none [#by ]or higher DoD authority.]
+    return [Distribution Statement F. Further distribution only as directed by #by or higher DoD authority.]
   }
-  if statement not in AUDIENCES { return none }
+  // `none not in` a dictionary errors, and a blank distribution has no statement.
+  if statement == none or statement not in AUDIENCES { return none }
   let audience = (AUDIENCES.at(statement), reason-text, date).filter(v => v != none).join("; ")
   [#statement. #audience.#if office != none [ Other requests for this document must be referred to #office.]]
 }
@@ -204,7 +217,7 @@
   distribution-office: none,
   cui-enabled: true,
 ) = {
-  let check = distribution-check(distribution, distribution-reasons, cui-enabled: cui-enabled)
+  let check = distribution-check(distribution, distribution-reasons, cui-enabled: cui-enabled, office: distribution-office)
   let statement = distribution-statement(
     distribution,
     distribution-reasons,
@@ -274,7 +287,7 @@
     designation([CUI Category:], categories)
     designation([Distribution/Limited Dissemination Control:], distribution)
     designation([POC:], poc)
-    let check = distribution-check(distribution, distribution-reasons, cui-enabled: cui-enabled)
+    let check = distribution-check(distribution, distribution-reasons, cui-enabled: cui-enabled, office: distribution-office)
     let statement = distribution-statement(
       distribution,
       distribution-reasons,

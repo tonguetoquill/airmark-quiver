@@ -6,21 +6,19 @@ appendix:
   appendix_title: Calculations
   project_name: Cougar Dam Downstream Passage
 cui:
-  cui_enabled: true
-  cui_controlled_by_component: USACE
-  cui_controlled_by_office: CENWP-EC
-  cui_categories:
+  marking: banners_and_cover
+  controlled_by_component: USACE
+  controlled_by_office: CENWP-EC
+  categories:
     - CTI
     - CEII
-  cui_distribution: Distribution Statement D
-  cui_distribution_reason:
+  distribution: Distribution Statement D
+  distribution_reason:
     - Controlled Technical Information
     - Export Controlled
-  cui_distribution_date: 2022-04-19
-  cui_distribution_office: "U.S. Army Corps of Engineers, Portland District, ATTN: CENWP-EC, 333 SW First Avenue, Portland, OR 97204"
-  cui_poc: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
-printing:
-  cui_cover: true
+  distribution_date: 2022-04-19
+  distribution_office: "U.S. Army Corps of Engineers, Portland District, ATTN: CENWP-EC, 333 SW First Avenue, Portland, OR 97204"
+  poc: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
 ~~~
 
 This appendix documents the structural calculations for the regulating outlet gates at Cougar Dam.

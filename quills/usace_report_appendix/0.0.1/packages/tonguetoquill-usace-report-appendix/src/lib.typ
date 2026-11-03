@@ -14,8 +14,7 @@
   letter: none,
   title: none,
   project-name: none,
-  cui-enabled: true,
-  cui-cover: true,
+  marking: "off",
   cui-controlled-by-component: none,
   cui-controlled-by-office: none,
   cui-categories: none,
@@ -35,7 +34,12 @@
     author: "U.S. Army Corps of Engineers",
   )
 
-  show: document-setup.with(cui-enabled: cui-enabled, project-name: project-name)
+  // off prints nothing. The cover is banners_and_cover only, so it
+  // never prints without the banners.
+  let print-banners = marking == "banners" or marking == "banners_and_cover"
+  let print-cover = marking == "banners_and_cover"
+
+  show: document-setup.with(cui-enabled: print-banners, project-name: project-name)
 
   let referral-office = if blank(cui-distribution-office) {
     cui-controlled-by-office
@@ -52,10 +56,10 @@
     distribution-reasons: cui-distribution-reason,
     distribution-date: cui-distribution-date,
     distribution-office: referral-office,
-    cui-enabled: cui-enabled,
+    cui-enabled: print-banners,
   )
 
-  if cui-enabled and cui-cover {
+  if print-cover {
     set page(
       margin: 0pt,
       header: none,
@@ -68,7 +72,7 @@
 
   front-matter(
     letter: letter,
-    page-one-cui-args: if cui-enabled and not cui-cover { cui-args } else { none },
+    page-one-cui-args: if marking == "banners" { cui-args } else { none },
   )
 
   pagebreak()

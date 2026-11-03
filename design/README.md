@@ -196,16 +196,16 @@ Fixtures and a render helper for the `usace_report_appendix` quill.
 node design/usace_report_appendix/render_fixture.mjs design/usace_report_appendix/fixtures/maximal.md /tmp/max.png 2026-10-27
 ```
 
-`minimal.md` fills only the letter and title. `no_cui.md` turns CUI off, so
-the cover and banners drop. `maximal.md` fills every field, and
+`minimal.md` fills only the letter and title. `no_cui.md` sets `marking` to
+`off`, so the cover and banners drop. `maximal.md` fills every field, and
 `long_values.md` wraps the title, the project name in the running header, and
 a section heading and its CONTENTS line.
 
 `export_controlled.md` is Distribution Statement D for Controlled Technical
 Information and Export Controlled: the cover prints the full statement and the
 export-control warning under the designation block. `cover_off.md` is the same
-statement with `cui_cover` off, so the designation block, statement and warning
-print at the bottom right of the CONTENTS page.
+statement with `marking` set to `banners`, so the designation block, statement
+and warning print at the bottom right of the CONTENTS page.
 
 ## usaf_memo
 

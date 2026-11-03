@@ -6,17 +6,17 @@ appendix:
   appendix_title: Cost Engineering
   project_name: Cougar Dam Downstream Passage
 cui:
-  cui_enabled: true
-  cui_controlled_by_component: USACE
-  cui_controlled_by_office: CENWP-EC
-  cui_categories:
+  marking: banners_and_cover
+  controlled_by_component: USACE
+  controlled_by_office: CENWP-EC
+  categories:
     - CTI
     - CEII
     - PROPIN
-  cui_distribution:
+  distribution:
     value: Other
     detail: DL ONLY
-  cui_poc: Jane Q. Engineer, CENWP-EC-C, 503-555-0142
+  poc: Jane Q. Engineer, CENWP-EC-C, 503-555-0142
 ~~~
 This appendix presents the cost estimate for the recommended plan.
 

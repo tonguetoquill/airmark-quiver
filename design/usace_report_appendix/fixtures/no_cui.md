@@ -6,7 +6,7 @@ appendix:
   appendix_title: Environmental
   project_name: Lower Columbia River Ecosystem Restoration
 cui:
-  cui_enabled: false
+  marking: "off"
 ~~~
 This appendix summarizes the environmental compliance record.
 

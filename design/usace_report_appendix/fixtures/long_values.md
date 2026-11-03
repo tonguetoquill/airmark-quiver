@@ -6,16 +6,16 @@ appendix:
   appendix_title: Economic and Social Considerations for the Lower Columbia River Navigation Channel Deepening and Maintenance Program
   project_name: Lower Columbia River and Willamette River Federal Navigation Channel Deepening, Maintenance, and Ecosystem Restoration Feasibility Study
 cui:
-  cui_enabled: true
-  cui_controlled_by_component: U.S. Army Corps of Engineers, Northwestern Division
-  cui_controlled_by_office: CENWP-PME-E, Planning, Programs and Project Management Division, Economics Section
-  cui_categories:
+  marking: banners_and_cover
+  controlled_by_component: U.S. Army Corps of Engineers, Northwestern Division
+  controlled_by_office: CENWP-PME-E, Planning, Programs and Project Management Division, Economics Section
+  categories:
     - Critical Infrastructure Information
     - Critical Energy Infrastructure Information
     - Proprietary Business Information
     - General Privacy
-  cui_distribution: Distribution Statement F
-  cui_poc: Jane Q. Engineer-Hydrologist, Economics Section, CENWP-PME-E, 503-555-0142, cenwp-economics-section-mailbox@usace.army.mil
+  distribution: Distribution Statement F
+  poc: Jane Q. Engineer-Hydrologist, Economics Section, CENWP-PME-E, 503-555-0142, cenwp-economics-section-mailbox@usace.army.mil
 ~~~
 # National Economic Development Benefits of Deepening the Channel From 43 Feet to 48 Feet Below Columbia River Datum
 
