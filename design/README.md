@@ -217,6 +217,10 @@ export-control warning under the designation block. `cover_off.md` is the same
 statement with `marking` set to `banners`, so the designation block, statement
 and warning print at the bottom right of the title page.
 
+`executive_summary_levels.md` puts Heading 2s and a Heading 3 in the executive
+summary: under 2. RECOMMENDED PLAN they print 2.1, 2.1.1 and 2.2 in bold as
+typed, and the next Heading 1 prints 3.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same

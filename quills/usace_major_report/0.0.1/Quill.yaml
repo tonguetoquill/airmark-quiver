@@ -258,7 +258,7 @@ main:
             # Cost
 
             The fully funded cost is $48.2 million.
-          description: "The executive summary on page i. Each heading prints numbered in bold capitals, for example 1. INTRODUCTION. Leave blank to omit this page."
+          description: "The executive summary on page i. Each Heading 1 prints numbered in bold capitals, for example 4. RECOMMENDED PLAN, and a Heading 2 under it prints numbered in bold as typed, for example 4.1 Plan Components. Leave blank to omit this page."
 
         appendices:
           type: array
