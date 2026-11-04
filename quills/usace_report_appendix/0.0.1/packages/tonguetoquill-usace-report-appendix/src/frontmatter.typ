@@ -88,5 +88,6 @@
   outline(title: none, depth: 3)
 
   list-section([TABLES], figure.where(kind: table))
+  list-section([FIGURES], figure.where(kind: image))
   list-section([EQUATIONS], figure.where(kind: math.equation))
 }
