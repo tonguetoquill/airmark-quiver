@@ -26,7 +26,10 @@
   the default, prints no banners and no cover. Banners puts the designation
   block, statement and warning at the bottom right of the first page. It is
   a `0.0.x` draft, packed only with `--drafts`. The USACE Report Appendix
-  template pins `@0.0`.
+  template pins `@0.0`, as do seven USACE Feasibility Study Appendix
+  templates, A Engineering to G Public Involvement. Each carries its Word
+  template's executive summary guidance and page count (Cost Engineering's
+  template has none) and the template's skeleton sections.
 
 - **CUI markings are one choice and default to off.** `cui.marking` replaces
   `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
