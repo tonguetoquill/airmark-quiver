@@ -2,7 +2,7 @@ quill:
   name: usace_major_report
   version: 0.0.1
   backend: typst
-  description: USACE Major Maintenance or Major Rehabilitation Report
+  description: USACE Portland District ENC report (MMR, MRR, EDR, DDR, Feasibility Study)
 
 typst:
   plate_file: plate.typ
@@ -84,17 +84,20 @@ main:
         report_type:
           type: enum
           default: "Major Maintenance Report"
-          description: "Prints on the title page, as MAJOR MAINTENANCE REPORT NO., and as MMR or MRR after the design stage and in the running header."
+          description: "Prints on the title page as MAJOR MAINTENANCE REPORT NO., and after the design stage and in the running header as MMR, MRR, EDR, DDR or Feasibility Study."
           values:
             - "Major Maintenance Report"
             - "Major Rehabilitation Report"
+            - "Engineering Documentation Report"
+            - "Design Documentation Report"
+            - "Feasibility Study"
 
         report_number:
           type: text
           ui:
             compact: true
           example: ENC-22-014
-          description: "The number after MAJOR MAINTENANCE REPORT NO. or MAJOR REHABILITATION REPORT NO."
+          description: "The number after the report type on the title page, for example MAJOR MAINTENANCE REPORT NO. ENC-22-014."
 
         location_lines:
           type: array
@@ -118,7 +121,7 @@ main:
           ui:
             compact: true
           example: 30 Percent
-          description: "The design stage before MMR or MRR on the title page, for example 30 Percent. The running header prints Percent as %."
+          description: "The design stage before the report's abbreviation on the title page, for example 30 Percent MMR. A Feasibility Study prints its full name after it, 30 Percent Feasibility Study. The running header prints Percent as %."
 
         date:
           type: date

@@ -217,6 +217,12 @@ export-control warning under the designation block. `cover_off.md` is the same
 statement with `marking` set to `banners`, so the designation block, statement
 and warning print at the bottom right of the title page.
 
+`edr.md`, `ddr.md` and `feasibility_study.md` are the same report as each
+type with `marking` set to `banners`: the title page prints ENGINEERING
+DOCUMENTATION REPORT NO., DESIGN DOCUMENTATION REPORT NO. or FEASIBILITY STUDY
+NO., then 30 Percent EDR, 30 Percent DDR or 30 Percent Feasibility Study, and
+the running header ends 30% EDR, 30% DDR or 30% FEASIBILITY STUDY.
+
 `executive_summary_levels.md` puts Heading 2s and a Heading 3 in the executive
 summary: under 2. RECOMMENDED PLAN they print 2.1, 2.1.1 and 2.2 in bold as
 typed, and the next Heading 1 prints 3.

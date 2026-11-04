@@ -1,6 +1,9 @@
-// Geometry and type of a USACE ENC major maintenance or major rehabilitation
-// report on US Letter, matching Template-MMR-ENC_MajorMaintenanceReport_20250828
-// and Template-MRR-ENC_MajorRehabilitationReport_20250917.
+// Geometry and type of a USACE Portland District ENC report on US Letter,
+// matching Template-MMR-ENC_MajorMaintenanceReport_20250828,
+// Template-MRR-ENC_MajorRehabilitationReport_20250917,
+// Template-EDR-ENC_EngineeringDocumentationReport_20250930,
+// Template-DDR-ENC_DesignDocumentationReport_20250701 and
+// Template-Study-EC_FeasibilityStudy_20250923.
 
 #let MARGIN = 1in
 #let BANNER_FROM_EDGE = 0.5in
@@ -34,5 +37,8 @@
 #let REPORT_ABBREVIATIONS = (
   "Major Maintenance Report": "MMR",
   "Major Rehabilitation Report": "MRR",
+  "Engineering Documentation Report": "EDR",
+  "Design Documentation Report": "DDR",
+  "Feasibility Study": "Feasibility Study",
 )
 
