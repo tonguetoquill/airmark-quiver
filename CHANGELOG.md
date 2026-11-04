@@ -7,7 +7,10 @@
   Standard Form 901 (11-18) CUI cover sheet, CONTENTS, TABLES, FIGURES and
   EQUATIONS on roman pages, then APPENDIX A - TITLE from the letter and title
   fields. CONTENTS lists those front headings, indented with roman page
-  numbers, ahead of the appendix sections. Heading 1s are its sections, numbered A.1 in bold capitals, pages
+  numbers, ahead of the appendix sections. `appendix.executive_summary`,
+  when filled, prints on page i before CONTENTS under a centered EXECUTIVE
+  SUMMARY, its headings numbered in bold capitals (1. INTRODUCTION), as in
+  the Feasibility Study appendix templates. Left blank, the page is omitted. Heading 1s are its sections, numbered A.1 in bold capitals, pages
   number A-1, A-2, and tables and equations number Table A-1 and Equation A-1,
   captioned above. The running header carries the project name under the CUI
   banner. The face is Liberation Sans, an Arial metric-compatible. Under the

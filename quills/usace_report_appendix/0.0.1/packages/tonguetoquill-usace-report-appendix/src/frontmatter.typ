@@ -50,7 +50,22 @@
   }
 }
 
-#let front-matter(letter: "A", page-one-cui-args: none) = {
+#let executive-summary-page(body) = {
+  if blank(body) { return }
+  fm-heading(below: 12pt)[Executive Summary]
+  let es = counter("executive-summary")
+  es.update(0)
+  set heading(numbering: none, outlined: false)
+  show heading: it => block(above: PAR_SPACING, below: PAR_SPACING, sticky: true, {
+    es.step()
+    set text(size: BODY_SIZE, weight: "bold")
+    context [#es.display(). #upper(it.body)]
+  })
+  body
+  pagebreak()
+}
+
+#let front-matter(letter: "A", executive-summary: none, page-one-cui-args: none) = {
   pagebreak(weak: true)
   set page(numbering: "i")
   counter(page).update(1)
@@ -65,6 +80,7 @@
   show heading.where(level: 2, numbering: none): fm-heading-style
   show outline.entry: outline-entry.with(letter)
 
+  executive-summary-page(executive-summary)
   fm-heading(below: 20pt)[CONTENTS]
   set text(size: SMALL_SIZE)
   set par(spacing: 0pt)

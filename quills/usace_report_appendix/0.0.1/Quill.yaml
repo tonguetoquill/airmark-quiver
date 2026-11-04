@@ -87,6 +87,20 @@ main:
           example: Cougar Dam Downstream Passage
           description: "The project name, printed in capitals at the top of every page, for example Cougar Dam Downstream Passage."
 
+        executive_summary:
+          type: richtext
+          multiline: true
+          default: ""
+          example: |-
+            # Introduction
+
+            This appendix documents the structural calculations for the regulating outlet gates at Cougar Dam.
+
+            # Purpose
+
+            The calculations check the gates against the usual, unusual, and extreme load cases.
+          description: "The executive summary on page i, before CONTENTS, under a centered EXECUTIVE SUMMARY. Each heading prints numbered in bold capitals, for example 1. INTRODUCTION. Leave blank to omit this page."
+
     cui:
       type: object
       title: CUI

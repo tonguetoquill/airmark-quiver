@@ -17,6 +17,7 @@
   cui-distribution-date: qm.ink(qm.data.cui, "distribution_date", statement-date-pattern),
   cui-distribution-office: qm.data.cui.distribution_office,
   cui-poc: qm.data.cui.poc,
+  executive-summary: qm.data.appendix.executive_summary,
   body: {
     let b = qm.data.at("$body")
     if type(b) == str { [] } else { b }

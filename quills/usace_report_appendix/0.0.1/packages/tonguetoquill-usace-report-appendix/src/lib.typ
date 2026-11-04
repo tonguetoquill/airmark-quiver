@@ -23,6 +23,7 @@
   cui-distribution-date: none,
   cui-distribution-office: none,
   cui-poc: none,
+  executive-summary: none,
   body: [],
 ) = {
   let letter = if blank(letter) { "A" } else { upper(plain-text(letter).trim()) }
@@ -72,6 +73,7 @@
 
   front-matter(
     letter: letter,
+    executive-summary: executive-summary,
     page-one-cui-args: if marking == "banners" { cui-args } else { none },
   )
 
