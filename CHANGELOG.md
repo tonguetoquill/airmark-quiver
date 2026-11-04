@@ -6,7 +6,8 @@
   typesets the Portland District ENC standardized report appendix: a purple
   Standard Form 901 (11-18) CUI cover sheet, CONTENTS, TABLES, FIGURES and
   EQUATIONS on roman pages, then APPENDIX A - TITLE from the letter and title
-  fields. Heading 1s are its sections, numbered A.1 in bold capitals, pages
+  fields. CONTENTS lists those front headings, indented with roman page
+  numbers, ahead of the appendix sections. Heading 1s are its sections, numbered A.1 in bold capitals, pages
   number A-1, A-2, and tables and equations number Table A-1 and Equation A-1,
   captioned above. The running header carries the project name under the CUI
   banner. The face is Liberation Sans, an Arial metric-compatible. Under the
