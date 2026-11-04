@@ -91,7 +91,7 @@
 
   let title-line = (
     if blank(project-name) { none } else { upper(plain-text(project-name).trim()) },
-    if blank(design-stage) { none } else { short-stage(design-stage) },
+    if blank(design-stage) or report-type == "Phase 1A Report" { none } else { short-stage(design-stage) },
     upper(abbreviation),
   ).filter(v => v != none).join(" ")
   // A running header that wraps pushes the text down, as Word's header does.

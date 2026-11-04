@@ -2,8 +2,9 @@
 // matching Template-MMR-ENC_MajorMaintenanceReport_20250828,
 // Template-MRR-ENC_MajorRehabilitationReport_20250917,
 // Template-EDR-ENC_EngineeringDocumentationReport_20250930,
-// Template-DDR-ENC_DesignDocumentationReport_20250701 and
-// Template-Study-EC_FeasibilityStudy_20250923.
+// Template-DDR-ENC_DesignDocumentationReport_20250701,
+// Template-Study-EC_FeasibilityStudy_20250923 and
+// Template-Phase1a-ENC_Phase1aReport_20251022.
 
 #let MARGIN = 1in
 #let BANNER_FROM_EDGE = 0.5in
@@ -12,6 +13,8 @@
 #let HEADING_1_SIZE = 14pt
 #let TITLE_PROJECT_SIZE = 20pt
 #let TITLE_STAGE_SIZE = 16pt
+#let PHASE_1A_LOCATION_SIZE = 14pt
+#let PHASE_1A_AGENCY_SIZE = 18pt
 #let SMALL_SIZE = 10pt
 #let TABLE_SIZE = 10pt
 
@@ -40,5 +43,6 @@
   "Engineering Documentation Report": "EDR",
   "Design Documentation Report": "DDR",
   "Feasibility Study": "Feasibility Study",
+  "Phase 1A Report": "Phase 1A",
 )
 

@@ -223,6 +223,12 @@ DOCUMENTATION REPORT NO., DESIGN DOCUMENTATION REPORT NO. or FEASIBILITY STUDY
 NO., then 30 Percent EDR, 30 Percent DDR or 30 Percent Feasibility Study, and
 the running header ends 30% EDR, 30% DDR or 30% FEASIBILITY STUDY.
 
+`phase_1a.md` is a Phase 1A report with a report number and a design stage
+filled in, neither of which prints: the location lines stand alone at the top
+right, Phase 1A Report prints under the project name, Prepared By: US Army
+Corps of Engineers, Portland District prints above the date, and the running
+header ends PHASE 1A.
+
 `executive_summary_levels.md` puts Heading 2s and a Heading 3 in the executive
 summary: under 2. RECOMMENDED PLAN they print 2.1, 2.1.1 and 2.2 in bold as
 typed, and the next Heading 1 prints 3.
