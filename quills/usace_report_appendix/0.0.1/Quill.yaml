@@ -99,7 +99,7 @@ main:
             # Purpose
 
             The calculations check the gates against the usual, unusual, and extreme load cases.
-          description: "The executive summary on page i, before CONTENTS, under a centered EXECUTIVE SUMMARY. Each heading prints numbered in bold capitals, for example 1. INTRODUCTION. Leave blank to omit this page."
+          description: "The executive summary on page i, before CONTENTS, under a centered EXECUTIVE SUMMARY. A Heading 1 prints numbered in bold capitals, for example 1. INTRODUCTION, and a Heading 2 under it prints 1.1 in bold as typed. Leave blank to omit this page."
 
     cui:
       type: object

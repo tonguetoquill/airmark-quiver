@@ -209,7 +209,7 @@ and warning print at the bottom right of the CONTENTS page.
 
 `executive_summary.md` fills `executive_summary` with a lead paragraph and two
 headings, so page i is the EXECUTIVE SUMMARY with 1. INTRODUCTION and
-2. PURPOSE, CONTENTS moves to page ii and lists EXECUTIVE SUMMARY on page I,
+2. PURPOSE, CONTENTS moves to page ii and lists EXECUTIVE SUMMARY on page i,
 and with `marking` set to `banners` the designation block prints on page i.
 
 ## usaf_memo

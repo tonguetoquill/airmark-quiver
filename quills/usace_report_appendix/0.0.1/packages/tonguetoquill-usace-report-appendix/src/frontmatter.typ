@@ -22,7 +22,7 @@
   context {
     let front = is-heading and it.element.numbering == none and level == 2
     let n = counter(page).at(loc).first()
-    let page-number = if front { upper(numbering("i", n)) } else { body-numbering(letter)(n) }
+    let page-number = if front { numbering("i", n) } else { body-numbering(letter)(n) }
     let fill = [#h(0.3em)#box(width: 1fr, repeat[.])#h(0.3em)#page-number]
     link(loc, if front {
       pad(left: TOC_INDENT, [#it.body()#fill])
@@ -57,9 +57,13 @@
   es.update(0)
   set heading(numbering: none, outlined: false)
   show heading: it => block(above: PAR_SPACING, below: PAR_SPACING, sticky: true, {
-    es.step()
+    es.step(level: it.level)
     set text(size: BODY_SIZE, weight: "bold")
-    context [#es.display(). #upper(it.body)]
+    context if it.level == 1 {
+      [#es.display("1"). #upper(it.body)]
+    } else {
+      [#es.display("1.1") #it.body]
+    }
   })
   body
   pagebreak()
