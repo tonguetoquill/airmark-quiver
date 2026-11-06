@@ -32,7 +32,7 @@ const quill = await (await fromDir(repoRoot)).getQuill("usace_report_appendix@0.
 for (const w of quill.warnings ?? []) console.warn(`quill warning: ${w.code}: ${w.message}`);
 
 const doc = fixturePath
-  ? Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"))
+  ? Document.parse(readFileSync(resolve(fixturePath), "utf8"))
   : quill.seedDocument();
 const png = extname(outputPath) === ".png";
 let result;

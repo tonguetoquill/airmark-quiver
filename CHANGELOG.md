@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
 - **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
   typesets the Portland District ENC standardized report appendix: a purple
   Standard Form 901 (11-18) CUI cover sheet, CONTENTS, TABLES, FIGURES and

@@ -31,7 +31,7 @@ const { Document } = await init();
 const quill = await (await fromDir(repoRoot)).getQuill("usace_tech_memo@0.0.1");
 for (const w of quill.warnings ?? []) console.warn(`quill warning: ${w.code}: ${w.message}`);
 
-const doc = fixturePath ? Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8")) : quill.seedDocument();
+const doc = fixturePath ? Document.parse(readFileSync(resolve(fixturePath), "utf8")) : quill.seedDocument();
 const png = extname(outputPath) === ".png";
 let result;
 try {
