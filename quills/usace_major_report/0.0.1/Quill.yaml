@@ -62,17 +62,7 @@ main:
 
       ## Hydrodynamic Loads
 
-      The hydrodynamic pressure on the gates under the Operational Basis Earthquake (OBE) follows the Westergaard equation:
-
-      $$ p = 0.875 W a_c \sqrt{H y} $$
-
-      **Where:**
-
-      - $p$ = hydrodynamic pressure
-      - $W$ = unit weight of water
-      - $a_c$ = maximum base acceleration of the dam
-      - $H$ = reservoir height
-      - $y$ = depth below the pool surface
+      The hydrodynamic pressure on the gates under the Operational Basis Earthquake (OBE) follows the Westergaard equation.
 
       # References
 

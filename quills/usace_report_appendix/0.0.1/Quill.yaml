@@ -39,15 +39,6 @@ main:
 
       Earthquake loads are based on an Operational Base Earthquake (OBE) with a 144-year mean recurrence interval. The Westergaard equation gives the pressure against the regulating outlet gates from earthquake forces.
 
-      $$ p = 0.875 \, W a_c \sqrt{H y} $$
-
-      **Where:**
-
-      - $p$ = hydrodynamic pressure
-      - $W$ = unit weight of water
-      - $a_c$ = the maximum base acceleration of the dam, as a fraction of gravitational acceleration
-      - $H$ = the reservoir height, to the bottom of the dam
-      - $y$ = the depth below the pool surface
 
       ## Fish presence
 
