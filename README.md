@@ -110,8 +110,11 @@ templates/
 `templates/` holds the official starter documents Tongue to Quill offers in its
 template library. They sit beside the quiver rather than inside it: the quiver
 loaders never read them, and a consumer reaches them as files, through
-`@airmark/quiver/templates/templates.json` and the Markdown it names. Each entry
-is `{ id, name, description, file, tags }`, and every listed template is live.
+`@airmark/quiver/templates/templates.json` and the Markdown it names. The
+manifest is `{ publisher, templates }`: `publisher` is the name the templates
+are published under, `Airmark`, which Tongue to Quill's template library shows
+as their author, and each `templates` entry is
+`{ id, name, description, file, tags }`. Every listed template is live.
 
 An entry's `id` is permanent. Tongue to Quill derives the template's row id and
 its shareable short code from it, so renaming one retires the old template (its

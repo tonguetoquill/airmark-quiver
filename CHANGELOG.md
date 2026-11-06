@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- **The templates are published under Airmark.** `templates/templates.json`
+  is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
+  the bare array of entries: `publisher` names the author a template library
+  shows on each template, and `templates` holds the entries unchanged. A
+  consumer that reads the manifest reads its entries from `templates`.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
