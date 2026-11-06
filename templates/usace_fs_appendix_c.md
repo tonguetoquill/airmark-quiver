@@ -2,8 +2,7 @@
 $quill: usace_report_appendix@0.0
 $kind: main
 appendix:
-  appendix_letter: C
-  appendix_title: Environmental
+  appendix_type: "FS Appendix C: Environmental"
   project_name: Project Name
   executive_summary: |-
     (375-450 pages)

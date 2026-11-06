@@ -2,8 +2,7 @@
 $quill: usace_report_appendix@0.0
 $kind: main
 appendix:
-  appendix_letter: E
-  appendix_title: Economic and Social Considerations
+  appendix_type: "FS Appendix E: Economic and Social Considerations"
   project_name: Project Name
   executive_summary: |-
     (30 - 50 pages)

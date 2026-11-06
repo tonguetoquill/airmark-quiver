@@ -69,17 +69,31 @@ main:
     appendix:
       type: object
       properties:
+        appendix_type:
+          type: enum
+          default: "Standardized Report Appendix"
+          description: "Which Word template this appendix follows. A Feasibility Study appendix sets its own letter and title, for example B and Cost Engineering, and the letter and title fields are not used. Feasibility Study Appendix B prints no executive summary. A Standardized Report Appendix uses the letter and title you type."
+          values:
+            - "Standardized Report Appendix"
+            - "FS Appendix A: Engineering"
+            - "FS Appendix B: Cost Engineering"
+            - "FS Appendix C: Environmental"
+            - "FS Appendix D: Real Estate"
+            - "FS Appendix E: Economic and Social Considerations"
+            - "FS Appendix F: Recreation"
+            - "FS Appendix G: Public Involvement"
+
         appendix_letter:
           type: text
           default: "A"
           ui:
             compact: true
-          description: "The appendix letter, for example A. It numbers the sections (A.1), the pages (A-1), and the captions (Table A-1)."
+          description: "The appendix letter, for example A. It numbers the sections (A.1), the pages (A-1), and the captions (Table A-1). Used for a Standardized Report Appendix only."
 
         appendix_title:
           type: text
           example: Calculations
-          description: "The appendix title, printed in capitals after APPENDIX A -, for example Calculations or Cost Engineering."
+          description: "The appendix title, printed in capitals after APPENDIX A -, for example Calculations. Used for a Standardized Report Appendix only."
 
         project_name:
           type: text
@@ -99,7 +113,7 @@ main:
             # Purpose
 
             The calculations check the gates against the usual, unusual, and extreme load cases.
-          description: "The executive summary on page i, before CONTENTS, under a centered EXECUTIVE SUMMARY. A Heading 1 prints numbered in bold capitals, for example 1. INTRODUCTION, and a Heading 2 under it prints 1.1 in bold as typed. Leave blank to omit this page."
+          description: "The executive summary on page i, before CONTENTS, under a centered EXECUTIVE SUMMARY. A Heading 1 prints numbered in bold capitals, for example 1. INTRODUCTION, and a Heading 2 under it prints 1.1 in bold as typed. Leave blank to omit this page. Feasibility Study Appendix B never prints it."
 
     cui:
       type: object

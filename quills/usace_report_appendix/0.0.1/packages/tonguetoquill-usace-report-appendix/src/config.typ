@@ -35,3 +35,15 @@
 
 #let TABLE_STROKE = 0.5pt + black
 #let TABLE_HEADER_FILL = rgb("#d9d9d9")
+
+// The Feasibility Study appendix templates (23 Sep 2025): letter, title, and
+// whether the template has an executive summary page.
+#let FS_APPENDICES = (
+  "FS Appendix A: Engineering": ("A", "Engineering", true),
+  "FS Appendix B: Cost Engineering": ("B", "Cost Engineering", false),
+  "FS Appendix C: Environmental": ("C", "Environmental", true),
+  "FS Appendix D: Real Estate": ("D", "Real Estate", true),
+  "FS Appendix E: Economic and Social Considerations": ("E", "Economic and Social Considerations", true),
+  "FS Appendix F: Recreation": ("F", "Recreation", true),
+  "FS Appendix G: Public Involvement": ("G", "Public Involvement", true),
+)

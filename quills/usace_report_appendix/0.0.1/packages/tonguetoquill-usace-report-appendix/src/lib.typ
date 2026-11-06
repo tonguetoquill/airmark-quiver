@@ -11,6 +11,7 @@
 #import "body.typ": mainmatter
 
 #let appendix(
+  appendix-type: "Standardized Report Appendix",
   letter: none,
   title: none,
   project-name: none,
@@ -26,8 +27,16 @@
   executive-summary: none,
   body: [],
 ) = {
-  let letter = if blank(letter) { "A" } else { upper(plain-text(letter).trim()) }
-  let title = if blank(title) { [] } else { trim-inline(title) }
+  let fs = FS_APPENDICES.at(appendix-type, default: none)
+  let (letter, title, executive-summary) = if fs == none {
+    (
+      if blank(letter) { "A" } else { upper(plain-text(letter).trim()) },
+      if blank(title) { [] } else { trim-inline(title) },
+      executive-summary,
+    )
+  } else {
+    (fs.at(0), fs.at(1), if fs.at(2) { executive-summary } else { none })
+  }
   let document-title = "Appendix " + letter + if blank(title) { "" } else { " - " + plain-text(title).trim() }
 
   set document(

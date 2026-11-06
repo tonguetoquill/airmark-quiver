@@ -2,8 +2,7 @@
 $quill: usace_report_appendix@0.0
 $kind: main
 appendix:
-  appendix_letter: A
-  appendix_title: Engineering
+  appendix_type: "FS Appendix A: Engineering"
   project_name: Project Name
   executive_summary: |-
     (200 pages)

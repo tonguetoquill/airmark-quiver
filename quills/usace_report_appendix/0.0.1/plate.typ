@@ -5,6 +5,7 @@
 #let dist-display = if dist.value == "Other" { dist.detail } else { dist.value }
 
 #appendix(
+  appendix-type: qm.data.appendix.appendix_type,
   letter: qm.data.appendix.appendix_letter,
   title: qm.data.appendix.appendix_title,
   project-name: qm.data.appendix.project_name,

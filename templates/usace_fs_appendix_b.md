@@ -2,8 +2,7 @@
 $quill: usace_report_appendix@0.0
 $kind: main
 appendix:
-  appendix_letter: B
-  appendix_title: Cost Engineering
+  appendix_type: "FS Appendix B: Cost Engineering"
   project_name: Project Name
 cui:
   marking: banners_and_cover

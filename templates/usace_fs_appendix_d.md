@@ -2,8 +2,7 @@
 $quill: usace_report_appendix@0.0
 $kind: main
 appendix:
-  appendix_letter: D
-  appendix_title: Real Estate
+  appendix_type: "FS Appendix D: Real Estate"
   project_name: Project Name
   executive_summary: |-
     (30 pages)

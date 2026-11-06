@@ -6,7 +6,10 @@
   typesets the Portland District ENC standardized report appendix: a purple
   Standard Form 901 (11-18) CUI cover sheet, CONTENTS, TABLES, FIGURES and
   EQUATIONS on roman pages, then APPENDIX A - TITLE from the letter and title
-  fields. CONTENTS lists those front headings, indented with roman page
+  fields. `appendix.appendix_type` picks the Word template: a Standardized
+  Report Appendix uses the letter and title typed in, and each Feasibility
+  Study appendix (A Engineering to G Public Involvement) sets its own letter
+  and title, with FS Appendix B printing no executive summary. CONTENTS lists those front headings, indented with roman page
   numbers, ahead of the appendix sections. `appendix.executive_summary`,
   when filled, prints on page i before CONTENTS under a centered EXECUTIVE
   SUMMARY, its headings numbered in bold capitals (1. INTRODUCTION) and

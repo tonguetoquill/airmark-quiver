@@ -2,8 +2,7 @@
 $quill: usace_report_appendix@0.0
 $kind: main
 appendix:
-  appendix_letter: F
-  appendix_title: Recreation
+  appendix_type: "FS Appendix F: Recreation"
   project_name: Project Name
   executive_summary: |-
     (20 pages)
