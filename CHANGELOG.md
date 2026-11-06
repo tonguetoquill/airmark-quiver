@@ -2,6 +2,52 @@
 
 ## Unreleased
 
+- **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
+  typesets the Portland District ENC standardized report appendix: a purple
+  Standard Form 901 (11-18) CUI cover sheet, CONTENTS, TABLES, FIGURES and
+  EQUATIONS on roman pages, then APPENDIX A - TITLE from the letter and title
+  fields. `appendix.appendix_type` picks the Word template: a Standardized
+  Report Appendix uses the letter and title typed in, and each Feasibility
+  Study appendix (A Engineering to G Public Involvement) sets its own letter
+  and title, with FS Appendix B printing no executive summary. CONTENTS lists those front headings, indented with roman page
+  numbers, ahead of the appendix sections. `appendix.executive_summary`,
+  when filled, prints on page i before CONTENTS under a centered EXECUTIVE
+  SUMMARY, its headings numbered in bold capitals (1. INTRODUCTION) and
+  its subheadings numbered 1.1, as in the Feasibility Study appendix
+  templates. Left blank, the page is omitted. Heading 1s are its sections,
+  numbered A.1 in bold capitals, pages
+  number A-1, A-2, and tables and equations number Table A-1 and Equation A-1,
+  captioned above. The running header carries the project name under the CUI
+  banner. The face is Liberation Sans, an Arial metric-compatible. Under the
+  CUI designation block the cover prints the full DoDI 5230.24 distribution
+  statement (B to F) from the statement, up to three reasons, the date of
+  determination, and the referral office, and the export-control warning when
+  a reason is Export Controlled. A statement and reasons that DoDI 5230.24
+  Table 1 does not allow print a red CHECK DISTRIBUTION STATEMENT note.
+  Export Controlled outside statements B–E prints that note once. Statement
+  F with no referral office and no controlling office prints a note telling
+  the writer to fill in the office, and does not print the statement
+  sentence. `cui.marking` is `off`, `banners`, or `banners_and_cover`. Off,
+  the default, prints no banners and no cover. Banners puts the designation
+  block, statement and warning at the bottom right of the first page. It is
+  a `0.0.x` draft, packed only with `--drafts`. The USACE Report Appendix
+  template pins `@0.0`, as do seven USACE Feasibility Study Appendix
+  templates, A Engineering to G Public Involvement. Each carries its Word
+  template's executive summary guidance and page count (Cost Engineering's
+  template has none) and the template's skeleton sections.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the technical memorandum and the major report as-is.
+  `cover.typ` matches the technical memorandum, including the Statement F
+  fix and the single Export Controlled error.
+
 - **A USACE technical memorandum quill is added.** `usace_tech_memo@0.0.1`
   typesets a Portland District ENC technical memorandum: a purple Standard
   Form 901 (11-18) CUI cover sheet, a title page with the stacked location
@@ -47,7 +93,6 @@
   a note telling the writer to choose a distribution and does not print one
   for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
   block copies onto the report appendix and the major report as-is.
-||||||| 8d582ff
 
 - **The templates are published under Airmark.** `templates/templates.json`
   is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was

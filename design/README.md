@@ -205,6 +205,32 @@ determination matches the memorandum date (19 APR 2022).
 distribution statement and export warning land at the bottom right of the
 title page and the Standard Form 901 cover does not print.
 
+## usace_report_appendix
+
+Fixtures and a render helper for the `usace_report_appendix` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/usace_report_appendix/render_fixture.mjs design/usace_report_appendix/fixtures/maximal.md /tmp/max.png 2026-10-27
+```
+
+`minimal.md` fills only the letter and title. `no_cui.md` sets `marking` to
+`off`, so the cover and banners drop. `maximal.md` fills every field, and
+`long_values.md` wraps the title, the project name in the running header, and
+a section heading and its CONTENTS line.
+
+`export_controlled.md` is Distribution Statement D for Controlled Technical
+Information and Export Controlled: the cover prints the full statement and the
+export-control warning under the designation block. `cover_off.md` is the same
+statement with `marking` set to `banners`, so the designation block, statement
+and warning print at the bottom right of the CONTENTS page.
+
+`executive_summary.md` fills `executive_summary` with a lead paragraph and two
+headings, so page i is the EXECUTIVE SUMMARY with 1. INTRODUCTION and
+2. PURPOSE, CONTENTS moves to page ii and lists EXECUTIVE SUMMARY on page i,
+and with `marking` set to `banners` the designation block prints on page i.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same

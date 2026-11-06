@@ -1,0 +1,226 @@
+quill:
+  name: usace_report_appendix
+  version: 0.0.1
+  backend: typst
+  description: USACE Report Appendix
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The appendix heading, APPENDIX A - TITLE, prints from the letter and title fields. Heading 1s in the body are its sections, numbered A.1 in 12 pt bold capitals; Heading 2 is A.1.1 and Heading 3 is A.1.1.1 in bold italic. Headings 1 and 2 appear in CONTENTS. Heading 5 is bold underlined; Heading 6 is underlined. Pages number A-1, A-2. Caption a table or equation above it; captions number Table A-1, Equation A-1. Notes are paragraphs that start with Note., not footnotes."
+  body:
+    example: |-
+      This appendix documents the structural calculations for the regulating outlet gates at Cougar Dam.
+
+      # Design Criteria
+
+      The gates are checked for the usual, unusual, and extreme load cases in EM 1110-2-2105.
+
+      ## Load cases
+
+      The usual case is the maximum regulated pool. The unusual case adds the Operational Base Earthquake.
+
+      ### Pool elevations
+
+      The maximum regulated pool is elevation 1,699.0 feet NAVD88.
+
+      ##### Record period.
+
+      Pool records start in 1964, the year the dam was closed.
+
+      ###### Gauge datum.
+
+      The pool gauge reads NAVD88 since 2014.
+
+      # Hydrodynamic Loads
+
+      ## Westergaard equation
+
+      Earthquake loads are based on an Operational Base Earthquake (OBE) with a 144-year mean recurrence interval. The Westergaard equation gives the pressure against the regulating outlet gates from earthquake forces.
+
+      $$ p = 0.875 \, W a_c \sqrt{H y} $$
+
+      **Where:**
+
+      - $p$ = hydrodynamic pressure
+      - $W$ = unit weight of water
+      - $a_c$ = the maximum base acceleration of the dam, as a fraction of gravitational acceleration
+      - $H$ = the reservoir height, to the bottom of the dam
+      - $y$ = the depth below the pool surface
+
+      ## Fish presence
+
+      | Location | Upper Willamette River Chinook | Bull Trout |
+      | --- | :---: | :---: |
+      | South Fork McKenzie River upstream of Cougar Dam | Present | Present |
+      | Cougar Reservoir | Present | Present |
+      | Mainstem McKenzie River | Present | Present |
+
+      **Note.** Presence is from the 2022 ODFW survey.
+
+      Check the gate seals in this order:
+
+      1. Inspect the side seals.
+         1. Measure the seal compression.
+            1. Record the reading at each bolt.
+      2. Inspect the bottom seal.
+  fields:
+    appendix:
+      type: object
+      properties:
+        appendix_type:
+          type: enum
+          default: "Standardized Report Appendix"
+          description: "Which Word template this appendix follows. A Feasibility Study appendix sets its own letter and title, for example B and Cost Engineering, and the letter and title fields are not used. Feasibility Study Appendix B prints no executive summary. A Standardized Report Appendix uses the letter and title you type."
+          values:
+            - "Standardized Report Appendix"
+            - "FS Appendix A: Engineering"
+            - "FS Appendix B: Cost Engineering"
+            - "FS Appendix C: Environmental"
+            - "FS Appendix D: Real Estate"
+            - "FS Appendix E: Economic and Social Considerations"
+            - "FS Appendix F: Recreation"
+            - "FS Appendix G: Public Involvement"
+
+        appendix_letter:
+          type: text
+          default: "A"
+          ui:
+            compact: true
+          description: "The appendix letter, for example A. It numbers the sections (A.1), the pages (A-1), and the captions (Table A-1). Used for a Standardized Report Appendix only."
+
+        appendix_title:
+          type: text
+          example: Calculations
+          description: "The appendix title, printed in capitals after APPENDIX A -, for example Calculations. Used for a Standardized Report Appendix only."
+
+        project_name:
+          type: text
+          default: ""
+          example: Cougar Dam Downstream Passage
+          description: "The project name, printed in capitals at the top of every page, for example Cougar Dam Downstream Passage."
+
+        executive_summary:
+          type: richtext
+          multiline: true
+          default: ""
+          example: |-
+            # Introduction
+
+            This appendix documents the structural calculations for the regulating outlet gates at Cougar Dam.
+
+            # Purpose
+
+            The calculations check the gates against the usual, unusual, and extreme load cases.
+          description: "The executive summary on page i, before CONTENTS, under a centered EXECUTIVE SUMMARY. A Heading 1 prints numbered in bold capitals, for example 1. INTRODUCTION, and a Heading 2 under it prints 1.1 in bold as typed. Leave blank to omit this page. Feasibility Study Appendix B never prints it."
+
+    cui:
+      type: object
+      title: CUI
+      properties:
+        marking:
+          type: enum
+          default: "off"
+          ui:
+            compact: true
+          example: banners_and_cover
+          description: "Which CUI markings print. off prints no banners and no Standard Form 901 cover, and is what a new document does. banners prints the CUI banner at the top and bottom of every page, with the designation block, distribution statement and export warning at the bottom right of the first page. banners_and_cover prints those banners and the purple cover, and the designation block prints on the cover instead. The cover never prints without the banners."
+          values:
+            - "off"
+            - banners
+            - banners_and_cover
+
+        controlled_by_component:
+          type: text
+          default: ""
+          example: USACE
+          description: "The component that controls the CUI, for example USACE. Used when banners are on."
+
+        controlled_by_office:
+          type: text
+          default: ""
+          example: CENWP-EC
+          description: "The office that controls the CUI, for example CENWP-EC. Used when banners are on."
+
+        categories:
+          type: array
+          items:
+            type: text
+          default: []
+          example:
+            - CTI
+            - CEII
+          description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when banners are on."
+
+        distribution:
+          type: enum
+          default: ""
+          example: FED ONLY
+          description: "Statement A cannot be used when banners are on. Distribution/Limited Dissemination Control: a Distribution Statement A to F, or a Limited Dissemination Control, for example FED ONLY. Leave blank when markings are off. When banners are on, a blank prints a note telling you to choose a distribution and does not fill one in."
+          values:
+            - "Distribution Statement A"
+            - "Distribution Statement B"
+            - "Distribution Statement C"
+            - "Distribution Statement D"
+            - "Distribution Statement E"
+            - "Distribution Statement F"
+            - "FED ONLY"
+            - "FEDCON"
+            - "NOCON"
+            - "NOFORN"
+            - Other
+          variants:
+            Other:
+              detail:
+                type: text
+                description: "A Limited Dissemination Control or distribution statement not listed above."
+
+        distribution_reason:
+          title: Distribution reason
+          type: array
+          max: 3
+          default:
+            - Controlled Technical Information
+          example:
+            - Controlled Technical Information
+          description: "Up to three DoDI 5230.24 defense categories behind Distribution Statement B to F, printed by their full category headings under the designation block. Export Controlled also prints the export-control warning and requires statement B, C, D, or E."
+          items:
+            type: enum
+            values:
+              - Controlled Technical Information
+              - Contractor Performance Evaluation
+              - Critical Technology
+              - Direct Military Support
+              - Export Controlled
+              - Foreign Government Information
+              - International Agreements
+              - Operations Security
+              - Patents and Inventions
+              - Proprietary Business Information
+              - Small Business Innovation Research
+              - Software Documentation
+              - Test and Evaluation
+              - Vulnerability Information
+
+        distribution_date:
+          title: Date of determination
+          type: date
+          default: ""
+          ui:
+            compact: true
+          example: 2022-04-19
+          description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
+
+        distribution_office:
+          title: Refer requests to
+          type: text
+          default: ""
+          description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above. Statement F does not print until this office or the controlling office is filled in."
+
+        poc:
+          title: POC
+          type: text
+          default: ""
+          example: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
+          description: "Who to contact about this CUI, with a phone or office mailbox. Used when banners are on."

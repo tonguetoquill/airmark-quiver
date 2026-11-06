@@ -22,6 +22,7 @@ and aligned to the current Quillmark spec.
 | `classic_resume`     | 0.1.0   | Classic single-page resume                                                       |
 | `cyber_career_plan`  | 0.1.0   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
 | `usace_tech_memo`    | 0.0.1   | USACE technical memorandum (Portland District ENC skeleton; draft)               |
+| `usace_report_appendix` | 0.0.1 | USACE report appendix (Portland District ENC; draft)                            |
 
 ## Install
 
