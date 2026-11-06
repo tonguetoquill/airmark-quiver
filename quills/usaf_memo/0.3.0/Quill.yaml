@@ -182,6 +182,7 @@ main:
       description: "Cite each by organization, type, date, and title. One reference prints after the subject; two or more print as a lettered list."
 
     cc:
+      title: Courtesy copies
       ui:
         group: additional
       type: array
