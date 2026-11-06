@@ -51,6 +51,53 @@
   block copies onto the technical memorandum and the report appendix as-is.
   `cover.typ` matches the technical memorandum, including the Statement F
   fix and the single Export Controlled error.
+||||||| 2af8a9a
+
+- **A USACE technical memorandum quill is added.** `usace_tech_memo@0.0.1`
+  typesets a Portland District ENC technical memorandum: a purple Standard
+  Form 901 (11-18) CUI cover sheet, a title page with the stacked location
+  block, roman front matter (CONTENTS through ACRONYMS), and a body whose
+  Heading 1s are Purpose, Summary, Discussion, Recommendation and
+  References. Captions sit above tables, figures and equations and number
+  straight through (Table 1, Figure 1, Equation 1). Typesetting follows the
+  Portland District ENC Word template: the title page puts the memorandum
+  number and location at the right and the study, subject, prepared-for/by
+  and date in the center; CONTENTS, TABLES, FIGURES and EQUATIONS share
+  roman pages; APPENDICES through ACRONYMS each start a page; Heading 1s
+  are the template's Heading 2 (12 pt bold capitals, 1.1 numbering, no
+  page break); Heading 5 is bold underlined and Heading 6 is underlined;
+  numbered lists are 1) a) i). Front matter uses roman page numbers; the
+  body uses 1-1. CUI banners print at the top and bottom of front-matter
+  and body pages when markings are on. Under the CUI designation block the
+  cover prints the full DoDI 5230.24 distribution statement (B to F) from
+  the statement, up to three reasons (full category headings), date of
+  determination, and referral office, and the export-control warning when
+  a reason is Export Controlled. Fields are grouped as the memorandum,
+  CUI, and front matter, and the example lives on the fields. `cui.marking`
+  is `off`, `banners`, or `banners_and_cover`. Off, the default, prints no
+  banners and no cover. Banners prints the banners and puts the designation
+  block, statement and warning at the bottom right of the title page.
+  Banners and cover prints the banners and the SF 901 cover. Prepared by
+  and the acronym list default to blank, so a
+  new document omits that title-page line and the ACRONYMS page. Invalid
+  letter/reason combinations and Statement A with CUI print a red check
+  note. Export Controlled outside statements B–E prints one note.
+  Statement F with no referral office and no controlling office prints a
+  note telling the writer to fill in the office, and does not print the
+  statement sentence. The face is Liberation Sans, an Arial
+  metric-compatible, because Arial itself cannot ship in the quiver. It
+  is a `0.0.x` draft, packed only with `--drafts`. The USACE Technical
+  Memorandum template pins `@0.0`.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the report appendix and the major report as-is.
 ||||||| 8d582ff
 
 - **The templates are published under Airmark.** `templates/templates.json`

@@ -121,6 +121,13 @@
       "tags": ["resume", "career"]
     },
     {
+      "id": "usace-tech-memo",
+      "name": "USACE Technical Memorandum",
+      "description": "USACE ENC technical memorandum with a CUI cover, title page, and front matter (Portland District skeleton)",
+      "file": "usace_tech_memo.md",
+      "tags": ["army", "usace", "memo"]
+    },
+    {
       "id": "usace-major-maintenance-report",
       "name": "USACE Major Maintenance Report",
       "description": "USACE ENC major maintenance report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
