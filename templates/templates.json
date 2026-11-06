@@ -182,6 +182,48 @@
       "description": "USACE feasibility study Public Involvement appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
       "file": "usace_fs_appendix_g.md",
       "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-major-maintenance-report",
+      "name": "USACE Major Maintenance Report",
+      "description": "USACE ENC major maintenance report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_major_maintenance_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-major-rehabilitation-report",
+      "name": "USACE Major Rehabilitation Report",
+      "description": "USACE ENC major rehabilitation report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_major_rehabilitation_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-engineering-documentation-report",
+      "name": "USACE Engineering Documentation Report",
+      "description": "USACE ENC engineering documentation report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_engineering_documentation_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-design-documentation-report",
+      "name": "USACE Design Documentation Report",
+      "description": "USACE ENC design documentation report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_design_documentation_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-feasibility-study",
+      "name": "USACE Feasibility Study",
+      "description": "USACE feasibility study with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_feasibility_study.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-phase-1a-report",
+      "name": "USACE Phase 1A Report",
+      "description": "USACE ENC Phase 1A report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_phase_1a_report.md",
+      "tags": ["army", "usace", "report"]
     }
   ]
 }

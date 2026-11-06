@@ -231,6 +231,53 @@ headings, so page i is the EXECUTIVE SUMMARY with 1. INTRODUCTION and
 2. PURPOSE, CONTENTS moves to page ii and lists EXECUTIVE SUMMARY on page i,
 and with `marking` set to `banners` the designation block prints on page i.
 
+## usace_major_report
+
+Fixtures and a render helper for the `usace_major_report` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/usace_major_report/render_fixture.mjs design/usace_major_report/fixtures/maximal.md /tmp/max.png 2026-10-27
+
+# with no fixture, renders the document the schema seeds
+node design/usace_major_report/render_fixture.mjs /tmp/seed.pdf
+```
+
+`minimal.md` sets `marking` to `off` with every report field blank and no acronyms: the
+title page prints MAJOR MAINTENANCE REPORT and MMR alone, the front matter is
+CONTENTS on page i, and the running header is MMR. `maximal.md` is an MRR with
+every field filled, an Other distribution, all eight executive-summary
+headings, every appendix and front-matter table, headings 1 to 6, both list
+kinds six levels deep, tables and equations in several sections, and a block
+quote. `long_values.md` wraps the report number, the location lines, the
+project name, the design stage, a CUI POC, an appendix title, a previous
+report's number and title, an acronym's description, a SECTION heading and its
+CONTENTS line, and a table header; the running header wraps to three lines and
+pushes the text down.
+
+`export_controlled.md` is Distribution Statement D for Controlled Technical
+Information and Export Controlled: the cover prints the full statement and the
+export-control warning under the designation block. `cover_off.md` is the same
+statement with `marking` set to `banners`, so the designation block, statement
+and warning print at the bottom right of the title page.
+
+`edr.md`, `ddr.md` and `feasibility_study.md` are the same report as each
+type with `marking` set to `banners`: the title page prints ENGINEERING
+DOCUMENTATION REPORT NO., DESIGN DOCUMENTATION REPORT NO. or FEASIBILITY STUDY
+NO., then 30 Percent EDR, 30 Percent DDR or 30 Percent Feasibility Study, and
+the running header ends 30% EDR, 30% DDR or 30% FEASIBILITY STUDY.
+
+`phase_1a.md` is a Phase 1A report with a report number and a design stage
+filled in, neither of which prints: the location lines stand alone at the top
+right, Phase 1A Report prints under the project name, Prepared By: US Army
+Corps of Engineers, Portland District prints above the date, and the running
+header ends PHASE 1A.
+
+`executive_summary_levels.md` puts Heading 2s and a Heading 3 in the executive
+summary: under 2. RECOMMENDED PLAN they print 2.1, 2.1.1 and 2.2 in bold as
+typed, and the next Heading 1 prints 3.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same

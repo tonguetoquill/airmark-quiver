@@ -1,0 +1,116 @@
+// A USACE Portland District ENC report: CUI cover, title page, roman front
+// matter, then SECTION-numbered body pages (1-1), matching the ENC Word
+// templates named in config.typ.
+
+#import "config.typ": *
+#import "utils.typ": date-pattern, table-date-pattern, trim-inline, join-inline, blank, plain-text, report-abbreviation, short-stage, statement-date-pattern
+#import "page.typ": document-setup, running-header, running-header-lines, running-footer
+#import "cover.typ": cover-sheet
+#import "title.typ": title-page
+#import "frontmatter.typ": front-matter
+#import "body.typ": mainmatter
+
+#let report(
+  report-type: "Major Maintenance Report",
+  report-number: none,
+  location-lines: (),
+  project-name: none,
+  design-stage: none,
+  date: none,
+  marking: "off",
+  cui-controlled-by-component: none,
+  cui-controlled-by-office: none,
+  cui-categories: none,
+  cui-distribution: none,
+  cui-distribution-reason: (),
+  cui-distribution-date: none,
+  cui-distribution-office: none,
+  cui-poc: none,
+  executive-summary: none,
+  appendices: (),
+  pertinent-data: none,
+  previous-reports: (),
+  acronyms: (),
+  body: [],
+) = {
+  let abbreviation = report-abbreviation(report-type)
+  set document(
+    title: if blank(project-name) { report-type } else { plain-text(project-name).trim() + " " + abbreviation },
+    author: "U.S. Army Corps of Engineers",
+  )
+
+  // off prints nothing. The cover is banners_and_cover only, so it
+  // never prints without the banners.
+  let print-banners = marking == "banners" or marking == "banners_and_cover"
+  let print-cover = marking == "banners_and_cover"
+
+  show: document-setup.with(cui-enabled: print-banners)
+
+  let referral-office = if blank(cui-distribution-office) {
+    cui-controlled-by-office
+  } else {
+    cui-distribution-office
+  }
+
+  let cui-args = (
+    controlled-by-component: cui-controlled-by-component,
+    controlled-by-office: cui-controlled-by-office,
+    categories: join-inline(cui-categories),
+    distribution: cui-distribution,
+    poc: cui-poc,
+    distribution-reasons: cui-distribution-reason,
+    distribution-date: cui-distribution-date,
+    distribution-office: referral-office,
+    cui-enabled: print-banners,
+  )
+
+  // banners puts the designation block on the title page (para 3.1.j).
+  let print-page-one-cui = marking == "banners"
+
+  if print-cover {
+    set page(
+      margin: 0pt,
+      header: none,
+      footer: none,
+      numbering: none,
+    )
+    cover-sheet(title: project-name, ..cui-args)
+    pagebreak()
+  }
+
+  set page(margin: MARGIN, fill: white, numbering: none)
+  title-page(
+    report-type: report-type,
+    report-number: report-number,
+    location-lines: location-lines,
+    project-name: project-name,
+    design-stage: design-stage,
+    date: date,
+    page-one-cui-args: if print-page-one-cui { cui-args } else { none },
+  )
+
+  let title-line = (
+    if blank(project-name) { none } else { upper(plain-text(project-name).trim()) },
+    if blank(design-stage) or report-type == "Phase 1A Report" { none } else { short-stage(design-stage) },
+    upper(abbreviation),
+  ).filter(v => v != none).join(" ")
+  // A running header that wraps pushes the text down, as Word's header does.
+  context {
+    let header = running-header-lines(print-banners, title-line)
+    let height = measure(block(width: page.width - 2 * MARGIN, header)).height
+    set page(
+      header: running-header(print-banners, title-line),
+      margin: (x: MARGIN, bottom: MARGIN, top: calc.max(MARGIN, BANNER_FROM_EDGE + height + 0.15in)),
+    )
+    front-matter(
+      executive-summary: executive-summary,
+      appendices: appendices,
+      pertinent-data: pertinent-data,
+      previous-reports: previous-reports,
+      acronyms: acronyms,
+    )
+
+    pagebreak()
+    mainmatter(body)
+  }
+}

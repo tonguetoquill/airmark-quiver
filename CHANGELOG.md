@@ -45,6 +45,54 @@
   a note telling the writer to choose a distribution and does not print one
   for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
   block copies onto the technical memorandum and the major report as-is.
+
+- **A USACE Portland District ENC report quill is added.**
+  `usace_major_report@0.0.1` typesets the major maintenance report (MMR),
+  major rehabilitation report (MRR), engineering documentation report (EDR),
+  design documentation report (DDR), feasibility study and Phase 1A report: a
+  purple Standard Form 901 (11-18) CUI cover sheet, a title page with the
+  report number, the stacked location block, the project name, the design
+  stage and the month and year, then roman front matter: the executive
+  summary, whose headings print as 1. INTRODUCTION and 4.1 Plan Components,
+  CONTENTS, TABLES, FIGURES and EQUATIONS, APPENDICES, PERTINENT DATA,
+  PREVIOUS AND PLANNED REPORTS, and ACRONYMS AND ABBREVIATIONS. Each Heading 1
+  starts a page as SECTION 1 - TITLE, its pages number 1-1, 1-2, and its
+  tables and equations number Table 1-1 and Equation 1-1, captioned above.
+  Heading 2 prints as 1.1 in bold capitals; Heading 5 is bold underlined and
+  Heading 6 is underlined; numbered lists are 1) a) i). The report type prints
+  on the title page (MAJOR MAINTENANCE REPORT NO.) and, abbreviated, after the
+  design stage (30 Percent MMR, 30 Percent Feasibility Study) and in the
+  running header, which carries the project name and the stage in capitals
+  (PROJECT NAME 30% FEASIBILITY STUDY) under the CUI banner. A Phase 1A report
+  prints no number and no design stage: its title page prints Phase 1A Report
+  under the project name and Prepared By: US Army Corps of Engineers, Portland
+  District above the date, and its running header ends PHASE 1A. The face is
+  Liberation Sans, an Arial metric-compatible. Under the CUI designation block
+  the cover prints the full DoDI 5230.24 distribution statement (B to F) from
+  the statement, up to three reasons, the date of determination, and the
+  referral office, and the export-control warning when a reason is Export
+  Controlled. A statement and reasons that DoDI 5230.24 Table 1 does not allow
+  print a red CHECK DISTRIBUTION STATEMENT note. Export Controlled outside
+  statements B–E prints that note once. Statement F with no referral office
+  and no controlling office prints a note telling the writer to fill in the
+  office, and does not print the statement sentence. `cui.marking` is `off`,
+  `banners`, or `banners_and_cover`. Off, the default, prints no banners and
+  no cover. Banners puts the designation block, statement and warning at the
+  bottom right of the title page. It is a `0.0.x` draft, packed only with
+  `--drafts`. The USACE Major Maintenance Report, Major Rehabilitation Report,
+  Engineering Documentation Report, Design Documentation Report, Feasibility
+  Study and Phase 1A Report templates pin `@0.0`, each with its Word
+  template's executive summary headings, sections and appendices.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the technical memorandum and the report appendix as-is.
   `cover.typ` matches the technical memorandum, including the Statement F
   fix and the single Export Controlled error.
 
