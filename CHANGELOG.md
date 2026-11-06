@@ -18,6 +18,11 @@
   `additional`, where `usaf_memo@0.3.0` took them flat. `classification` is
   `classification.level`, beside `classification.dissemination`.
 
+- **The `usaf_memo` templates use `usaf_memo@0.4`.** `usaf-default`,
+  `ussf-default`, `trip-report`, `rebuttal` and `appointment-letter` write
+  their fields under the 0.4 groups and their signer under `signers`. Each
+  renders as it did on `usaf_memo@0.3`.
+
 - **The templates are published under Airmark.** `templates/templates.json`
   is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
   the bare array of entries: `publisher` names the author a template library
