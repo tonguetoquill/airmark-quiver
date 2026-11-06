@@ -97,12 +97,14 @@ main:
       description: "The decoration's condition code, for example 4. It prints at the foot of the certificate; blank prints nothing."
 
     pas:
+      title: PAS code
       type: text
       default: ""
       example: DM1LFHS2
       description: "The personnel accounting symbol of the recipient's unit, for example DM1LFHS2. It prints at the foot of the certificate; blank prints nothing."
 
     rdp:
+      title: RDP date
       type: date
       default: ""
       example: 2026-08-19

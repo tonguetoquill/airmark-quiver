@@ -35,6 +35,7 @@ main:
       description: "Where you're going, for example Denver, CO."
 
     dept_flight_num:
+      title: Departure flight number
       type: text
       default: ""
       example: AA 1482
@@ -43,6 +44,7 @@ main:
       description: "Your departure flight number, if you're flying. A tentative number is fine."
 
     arrival_flight_num:
+      title: Arrival flight number
       type: text
       default: ""
       example: AA 2217

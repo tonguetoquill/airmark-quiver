@@ -169,6 +169,7 @@ main:
         compact: true
       description: "A control added to the end of the banner. For example, 'NF' prints as CUI//NF."
     cc:
+      title: Courtesy copies
       ui:
         group: additional
       type: array
