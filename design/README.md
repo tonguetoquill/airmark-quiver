@@ -186,7 +186,25 @@ sentence rather than a list, and a job at each of the four fills of its second
 line — both halves, each half alone, and neither, which is the fill that prints
 no second line at all.
 
-<<<<<<< HEAD
+## usace_tech_memo
+
+Fixtures and a render helper for the `usace_tech_memo` quill.
+
+```sh
+# render a fixture (run from the repo root; .png writes one image per page,
+# anything else a PDF; the trailing date is the one `date: today` prints)
+node design/usace_tech_memo/render_fixture.mjs design/usace_tech_memo/fixtures/export_controlled.md /tmp/export.png 2022-04-19
+```
+
+`export_controlled.md` is Distribution Statement D with Controlled Technical
+Information and Export Controlled: the cover prints the full statement and
+the export-control warning under the designation block. The date of
+determination matches the memorandum date (19 APR 2022).
+
+`cover_off.md` sets `marking` to `banners`, so the designation block,
+distribution statement and export warning land at the bottom right of the
+title page and the Standard Form 901 cover does not print.
+
 ## usace_major_report
 
 Fixtures and a render helper for the `usace_major_report` quill.
@@ -233,27 +251,6 @@ header ends PHASE 1A.
 `executive_summary_levels.md` puts Heading 2s and a Heading 3 in the executive
 summary: under 2. RECOMMENDED PLAN they print 2.1, 2.1.1 and 2.2 in bold as
 typed, and the next Heading 1 prints 3.
-||||||| 2af8a9a
-=======
-## usace_tech_memo
-
-Fixtures and a render helper for the `usace_tech_memo` quill.
-
-```sh
-# render a fixture (run from the repo root; .png writes one image per page,
-# anything else a PDF; the trailing date is the one `date: today` prints)
-node design/usace_tech_memo/render_fixture.mjs design/usace_tech_memo/fixtures/export_controlled.md /tmp/export.png 2022-04-19
-```
-
-`export_controlled.md` is Distribution Statement D with Controlled Technical
-Information and Export Controlled: the cover prints the full statement and
-the export-control warning under the designation block. The date of
-determination matches the memorandum date (19 APR 2022).
-
-`cover_off.md` sets `marking` to `banners`, so the designation block,
-distribution statement and export warning land at the bottom right of the
-title page and the Standard Form 901 cover does not print.
->>>>>>> origin/main
 
 ## usaf_memo
 

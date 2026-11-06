@@ -51,7 +51,6 @@
   block copies onto the technical memorandum and the report appendix as-is.
   `cover.typ` matches the technical memorandum, including the Statement F
   fix and the single Export Controlled error.
-||||||| 2af8a9a
 
 - **A USACE technical memorandum quill is added.** `usace_tech_memo@0.0.1`
   typesets a Portland District ENC technical memorandum: a purple Standard
@@ -98,7 +97,6 @@
   a note telling the writer to choose a distribution and does not print one
   for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
   block copies onto the report appendix and the major report as-is.
-||||||| 8d582ff
 
 - **The templates are published under Airmark.** `templates/templates.json`
   is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
