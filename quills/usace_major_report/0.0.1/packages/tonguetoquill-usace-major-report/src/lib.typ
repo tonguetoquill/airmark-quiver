@@ -1,6 +1,6 @@
-// A USACE ENC major maintenance or major rehabilitation report: CUI cover,
-// title page, roman front matter, then SECTION-numbered body pages (1-1),
-// matching the Portland District ENC MMR and MRR Word templates.
+// A USACE Portland District ENC report: CUI cover, title page, roman front
+// matter, then SECTION-numbered body pages (1-1), matching the ENC Word
+// templates named in config.typ.
 
 #import "config.typ": *
 #import "utils.typ": date-pattern, table-date-pattern, trim-inline, join-inline, blank, plain-text, report-abbreviation, short-stage, statement-date-pattern
@@ -91,8 +91,8 @@
 
   let title-line = (
     if blank(project-name) { none } else { upper(plain-text(project-name).trim()) },
-    if blank(design-stage) { none } else { short-stage(design-stage) },
-    abbreviation,
+    if blank(design-stage) or report-type == "Phase 1A Report" { none } else { short-stage(design-stage) },
+    upper(abbreviation),
   ).filter(v => v != none).join(" ")
   // A running header that wraps pushes the text down, as Word's header does.
   context {

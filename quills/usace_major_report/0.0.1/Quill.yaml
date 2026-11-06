@@ -2,7 +2,7 @@ quill:
   name: usace_major_report
   version: 0.0.1
   backend: typst
-  description: USACE Major Maintenance or Major Rehabilitation Report
+  description: USACE Portland District ENC report (MMR, MRR, EDR, DDR, Feasibility Study, Phase 1A)
 
 typst:
   plate_file: plate.typ
@@ -84,17 +84,21 @@ main:
         report_type:
           type: enum
           default: "Major Maintenance Report"
-          description: "Prints on the title page, as MAJOR MAINTENANCE REPORT NO., and as MMR or MRR after the design stage and in the running header."
+          description: "Prints on the title page as MAJOR MAINTENANCE REPORT NO., and after the design stage and in the running header as MMR, MRR, EDR, DDR or Feasibility Study. A Phase 1A Report prints no number and no design stage: its title page prints Phase 1A Report under the project name and Prepared By: US Army Corps of Engineers, Portland District, and its running header ends PHASE 1A."
           values:
             - "Major Maintenance Report"
             - "Major Rehabilitation Report"
+            - "Engineering Documentation Report"
+            - "Design Documentation Report"
+            - "Feasibility Study"
+            - "Phase 1A Report"
 
         report_number:
           type: text
           ui:
             compact: true
           example: ENC-22-014
-          description: "The number after MAJOR MAINTENANCE REPORT NO. or MAJOR REHABILITATION REPORT NO."
+          description: "The number after the report type on the title page, for example MAJOR MAINTENANCE REPORT NO. ENC-22-014. A Phase 1A Report does not print it."
 
         location_lines:
           type: array
@@ -118,7 +122,7 @@ main:
           ui:
             compact: true
           example: 30 Percent
-          description: "The design stage before MMR or MRR on the title page, for example 30 Percent. The running header prints Percent as %."
+          description: "The design stage before the report's abbreviation on the title page, for example 30 Percent MMR. A Feasibility Study prints its full name after it, 30 Percent Feasibility Study. The running header prints Percent as %. A Phase 1A Report does not print it."
 
         date:
           type: date
@@ -258,7 +262,7 @@ main:
             # Cost
 
             The fully funded cost is $48.2 million.
-          description: "The executive summary on page i. Each heading prints numbered in bold capitals, for example 1. INTRODUCTION. Leave blank to omit this page."
+          description: "The executive summary on page i. Each Heading 1 prints numbered in bold capitals, for example 4. RECOMMENDED PLAN, and a Heading 2 under it prints numbered in bold as typed, for example 4.1 Plan Components. Leave blank to omit this page."
 
         appendices:
           type: array
