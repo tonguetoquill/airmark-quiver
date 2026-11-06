@@ -1,7 +1,7 @@
 # @airmark/quiver
 
 A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force,
-DAF and Army official-document quills, sourced from
+DAF, Army and USACE official-document quills, sourced from
 [tonguetoquill-collection](https://github.com/nibsbin/tonguetoquill-collection)
 and aligned to the current Quillmark spec.
 
@@ -21,6 +21,7 @@ and aligned to the current Quillmark spec.
 | `afmc_moa`           | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                       |
 | `classic_resume`     | 0.1.0   | Classic single-page resume                                                       |
 | `cyber_career_plan`  | 0.1.0   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
+| `usace_tech_memo`    | 0.0.1   | USACE technical memorandum (Portland District ENC skeleton; draft)               |
 
 ## Install
 
