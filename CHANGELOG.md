@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.4.0` takes up to four signers.** `signers` replaces
+  `signature_block` and `authority_line`: each signer has their own
+  `signature_block` and an optional `authority_line`. One signer prints as
+  `usaf_memo@0.3.0` printed its signature block. Two or more print in pairs,
+  most junior first: the junior at the left margin and the senior at 4.5
+  inches, with a second pair on a new row and, with three, the most senior
+  alone on the last row. Each signer gets their own digital signature field,
+  `Signature` for the first and `Signature_2` through `Signature_4` after it.
+  Documents pinned to `usaf_memo@0.3` render as before.
+
+- **`usaf_memo@0.4.0` nests its fields under their groups.** A document
+  writes the memo's fields under `addressing`, `letterhead`, `classification`
+  and `additional`, and an indorsement's under `addressing` and
+  `additional`, where `usaf_memo@0.3.0` took them flat. `classification` is
+  `classification.level`, beside `classification.dissemination`.
+
+- **The `usaf_memo` templates use `usaf_memo@0.4`.** `usaf-default`,
+  `ussf-default`, `trip-report`, `rebuttal` and `appointment-letter` write
+  their fields under the 0.4 groups and their signer under `signers`. Each
+  renders as it did on `usaf_memo@0.3`.
+
 - **The templates are published under Airmark.** `templates/templates.json`
   is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
   the bare array of entries: `publisher` names the author a template library
