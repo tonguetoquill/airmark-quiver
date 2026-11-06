@@ -3,19 +3,25 @@
   backmatter, date-pattern, frontmatter, indorsement, mainmatter,
 )
 
+#let addressing = qm.data.addressing
+#let letterhead = qm.data.letterhead
+#let classification = qm.data.classification
+#let level = classification.level
+#let additional = qm.data.additional
+
 // A memo has no "no style" state, so the blank takes the package's default.
 // Resolved once here: `frontmatter` and the date's pattern must agree.
-#let memo_style = if qm.data.memo_style != "" { qm.data.memo_style } else { "usaf" }
+#let memo_style = if additional.memo_style != "" { additional.memo_style } else { "usaf" }
 
 // The letterhead arrives as one ordered array of lines. Element 0 is the title,
 // set larger; the rest are caption lines beneath it. A single element renders
 // the title alone — the package skips a falsey caption. An empty array renders
 // no letterhead text at all, silently: the block is `place`d, so an empty title
 // leaves no glyphs and takes no space from the flow, and the seal stands alone.
-#let letterhead_lines = qm.data.letterhead_title
+#let letterhead_lines = letterhead.letterhead_title
 
 // Body text size, in points. Also the height of a blank date's fill-in widget.
-#let body_font_size = qm.data.font_size * 1pt
+#let body_font_size = additional.font_size * 1pt
 
 // A blank date's fill-in slot: an empty AcroForm text box the signer types the
 // date into, set in the body face, the value flush right in the date line's
@@ -47,10 +53,10 @@
 #show: frontmatter.with(
   letterhead-title: letterhead_lines.at(0, default: ""),
   letterhead-caption: if letterhead_lines.len() > 1 { letterhead_lines.slice(1) } else { () },
-  letterhead-seal-subtitle: qm.data.letterhead_seal_subtitle,
+  letterhead-seal-subtitle: letterhead.letterhead_seal_subtitle,
   // A memo has no seal-less state, so the blank takes the default, DoW.
   letterhead-seal: image(
-    if qm.data.letterhead_seal == "dod" {
+    if letterhead.letterhead_seal == "dod" {
       "assets/dod_seal.png"
     } else {
       "assets/dow_seal.png"
@@ -66,37 +72,37 @@
   // A blank date is left for the signer: a memo is dated when it is signed,
   // which is generally not when it is rendered, so the slot is fillable rather
   // than stamped with the compile date.
-  date: qm.ink(qm.data, "date", date-pattern(memo-style: memo_style)),
-  date-field: date_slot("Date", "date"),
+  date: qm.ink(addressing, "date", date-pattern(memo-style: memo_style)),
+  date-field: date_slot("Date", addressing.at("$path") + "date"),
 
-  memo-for: qm.data.memo_for,
+  memo-for: addressing.memo_for,
 
   // A memo with no FROM line is a Memorandum for Record.
-  ..if qm.data.memo_from.len() > 0 { (memo-from: qm.data.memo_from) },
+  ..if addressing.memo_from.len() > 0 { (memo-from: addressing.memo_from) },
 
-  subject: qm.data.subject,
+  subject: addressing.subject,
 
-  ..if qm.data.references.len() > 0 { (references: qm.data.references) },
+  ..if additional.references.len() > 0 { (references: additional.references) },
 
-  footer-tag-line: qm.data.tag_line,
+  footer-tag-line: letterhead.tag_line,
 
   // The blank reads as no banner, which is what the package's own
   // `classification-level: none` default means.
-  classification-level: qm.data.classification.value,
+  classification-level: level.value,
 
-  dissemination: qm.data.dissemination,
+  dissemination: classification.dissemination,
 
-  // CUI designation indicator block fields (DoDM 5200.48). `classification`
+  // CUI designation indicator block fields (DoDM 5200.48). `classification.level`
   // declares a `CUI` variant, so these four exist only where the discriminant
   // reads CUI, and the branch is what makes reading them total: inside it every
   // declared field of that world is present, outside it none is. The package's
   // own `cui_*: none` defaults cover the worlds that omit them.
-  ..if qm.data.classification.value == "CUI" {
+  ..if level.value == "CUI" {
     (
-      cui-controlled-by: qm.data.classification.controlled_by,
-      cui-category: qm.data.classification.category,
-      cui-limited-dissemination: qm.data.classification.limited_dissemination,
-      cui-poc: qm.data.classification.poc,
+      cui-controlled-by: level.controlled_by,
+      cui-category: level.category,
+      cui-limited-dissemination: level.limited_dissemination,
+      cui-poc: level.poc,
     )
   },
 
@@ -118,8 +124,8 @@
 
 // The first signer keeps the widget name "Signature" a single-signer memo has
 // always had; each further one is numbered by its place in the list.
-#let signers = qm.data.signers.enumerate().map(((i, signer)) => {
-  let path = signer.at("$path", default: "signers." + str(i) + ".")
+#let signers = addressing.signers.enumerate().map(((i, signer)) => {
+  let path = signer.at("$path", default: addressing.at("$path") + "signers." + str(i) + ".")
   (
     lines: signer.signature_block,
     closing-line: signer.authority_line,
@@ -137,11 +143,11 @@
 #backmatter(
   signers: signers,
 
-  ..if qm.data.cc.len() > 0 { (cc: qm.data.cc) },
+  ..if additional.cc.len() > 0 { (cc: additional.cc) },
 
-  ..if qm.data.distribution.len() > 0 { (distribution: qm.data.distribution) },
+  ..if additional.distribution.len() > 0 { (distribution: additional.distribution) },
 
-  ..if qm.data.attachments.len() > 0 { (attachments: qm.data.attachments) },
+  ..if additional.attachments.len() > 0 { (attachments: additional.attachments) },
 )
 
 // The action line's wording follows the indorsement's place in the chain, not
@@ -180,7 +186,7 @@
     // even though every iteration shares one `card` loop variable, and it
     // returns `none` for a blank date — the fill-in case below.
     let resolved_date = qm.ink(
-      card,
+      card.addressing,
       "date",
       date-pattern(memo-style: memo_style),
     )
@@ -191,25 +197,25 @@
     // spans through the package rebuild, per-card because each card's body
     // has its own backend-generated eval site.
     indorsement(
-      from: card.at("from", default: ""),
-      to: card.at("for", default: ""),
-      authority-line: card.authority_line,
-      signature-block: card.signature_block,
+      from: card.addressing.at("from", default: ""),
+      to: card.addressing.at("for", default: ""),
+      authority-line: card.addressing.authority_line,
+      signature-block: card.addressing.signature_block,
       signing-field: qm.signature-field(
         "Ind_" + str(i) + "_Signature",
-        field: card.at("$path") + "signature_block",
+        field: card.addressing.at("$path") + "signature_block",
         height: body_font_size * 2.5,
       ),
-      ..if card.format != "" { (format: card.format) },
+      ..if card.additional.format != "" { (format: card.additional.format) },
       // An omitted date becomes a fill-in slot for the signing date. Built only
       // when there is no date to print: a widget over a printed date would offer
       // an edit that the rendered document does not carry back.
       date: if resolved_date != none {
         resolved_date
       } else {
-        date_slot("Ind_" + str(i) + "_Date", card.at("$path") + "date")
+        date_slot("Ind_" + str(i) + "_Date", card.addressing.at("$path") + "date")
       },
-      ..if card.action != "" { (action: card.action) },
+      ..if card.additional.action != "" { (action: card.additional.action) },
       approval-authority: i == last_indorsement_index,
       body_content,
     )

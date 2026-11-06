@@ -12,6 +12,12 @@
   `Signature` for the first and `Signature_2` through `Signature_4` after it.
   Documents pinned to `usaf_memo@0.3` render as before.
 
+- **`usaf_memo@0.4.0` nests its fields under their groups.** A document
+  writes the memo's fields under `addressing`, `letterhead`, `classification`
+  and `additional`, and an indorsement's under `addressing` and
+  `additional`, where `usaf_memo@0.3.0` took them flat. `classification` is
+  `classification.level`, beside `classification.dissemination`.
+
 - **The templates are published under Airmark.** `templates/templates.json`
   is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
   the bare array of entries: `publisher` names the author a template library
