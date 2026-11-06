@@ -47,6 +47,13 @@
   block copies onto the technical memorandum and the major report as-is.
   `cover.typ` matches the technical memorandum, including the Statement F
   fix and the single Export Controlled error.
+||||||| 8d582ff
+
+- **The templates are published under Airmark.** `templates/templates.json`
+  is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
+  the bare array of entries: `publisher` names the author a template library
+  shows on each template, and `templates` holds the entries unchanged. A
+  consumer that reads the manifest reads its entries from `templates`.
 
 ## v0.42.1 - 2026-10-30
 
@@ -55,6 +62,12 @@
   dropped a family run spanning an entire paragraph, list item, continuation
   or heading, and the paragraph drew in the body font. In `usaf_memo`, a
   code span or a strikethrough across a whole paragraph is kept too.
+
+- **A single reference wraps with the subject in `usaf_memo@0.3.0`.** The
+  subject and its parenthesized reference fill the line and wrap at the word
+  that no longer fits. A reference too long for the rest of the line no longer
+  drops whole to the next one, and a wrapped subject no longer pushes the
+  reference onto a line of its own.
 
 - **Bold renders in the `usaf_memo@0.3.0` tag line.** The quill bundles
   Spectral SC Bold, so a bold run in the tag line no longer draws in the
