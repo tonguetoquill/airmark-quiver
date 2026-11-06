@@ -121,6 +121,13 @@
       "tags": ["resume", "career"]
     },
     {
+      "id": "usace-tech-memo",
+      "name": "USACE Technical Memorandum",
+      "description": "USACE ENC technical memorandum with a CUI cover, title page, and front matter (Portland District skeleton)",
+      "file": "usace_tech_memo.md",
+      "tags": ["army", "usace", "memo"]
+    },
+    {
       "id": "usace-report-appendix",
       "name": "USACE Report Appendix",
       "description": "USACE ENC standardized report appendix with a CUI cover, contents, and lettered sections (Portland District skeleton)",

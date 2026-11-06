@@ -1,0 +1,62 @@
+~~~
+$quill: usace_tech_memo@0.0
+$kind: main
+$ext:
+  editor:
+    tips:
+      - Heading 1s are Purpose, Summary, Discussion, Recommendation, and References. They print in 12 pt bold capitals as 1.1, 1.2. Headings 1 to 3 appear in CONTENTS.
+      - Heading 5 is bold underlined. Heading 6 is underlined.
+      - A markdown table or display equation is numbered Table or Equation, with the caption above it.
+      - Start a note with **Note.** Footnotes are not used.
+      - Type `/` for bullets, tables, and more.
+memo:
+  memo_number: ENC-YY-XXX
+  location_lines:
+    - RIVER
+    - BASIN
+    - STATE
+  study_name: Study Name
+  subject: Memorandum subject
+  prepared_for: Sponsoring agency
+  prepared_by: U.S. Army Corps of Engineers, Portland District
+  date: today
+  include_summary: true
+cui:
+  marking: banners_and_cover
+  controlled_by_component: USACE
+  controlled_by_office: OFFICE-SYMBOL
+  categories:
+    - CTI
+  distribution: FED ONLY
+  poc: Name, office, phone
+front_matter:
+  appendices:
+    - letter: A
+      title: PLATES
+  pertinent_data: ""
+  previous_memos: []
+  acronyms:
+    - acronym: PDT
+      description: Project Delivery Team
+    - acronym: USACE
+      description: U.S. Army Corps of Engineers
+~~~
+# Purpose
+
+State why this memorandum exists and what it decides or documents.
+
+# Summary
+
+Give the finding in a few sentences. Delete this heading if Summary is off.
+
+# Discussion
+
+Develop the analysis. Use Heading 2 and 3 for subsections. Caption tables, figures, and equations above them.
+
+# Recommendation
+
+State the action the PDT should take.
+
+# References
+
+List sources in Chicago author-date order, alphabetically.
