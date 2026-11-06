@@ -58,17 +58,8 @@ main:
 
       **Note.** Peak flows are unregulated. Stages are read from the ENC-21-009 rating.
 
-      The 1-percent AEP unit discharge used in the channel-forming check is
+      The channel-forming check uses the 1-percent AEP unit discharge.
 
-      $$ p = 0.875 W a_c H y $$
-
-      **Where:**
-
-      - $p$ = unit discharge, in cubic feet per second per foot
-      - $W$ = water-surface width, in feet
-      - $a_c$ = conveyance coefficient
-      - $H$ = hydraulic depth, in feet
-      - $y$ = energy slope, in feet per foot
 
       The results compare with the 2012 FEMA study to within 6 percent at the 1-percent AEP. The difference is the longer systematic record and the Bulletin 17C treatment of the 2008 peak.
 
