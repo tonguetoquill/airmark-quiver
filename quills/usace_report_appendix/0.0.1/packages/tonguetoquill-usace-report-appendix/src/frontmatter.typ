@@ -3,11 +3,16 @@
 #import "page.typ": body-numbering
 #import "cover.typ": page-one-cui
 
-#let fm-heading(title, above: 0pt, below: 16pt) = block(
+// Front headings are unnumbered Heading 2s, Word's TOC 2 level, so CONTENTS
+// lists them indented with the A.1 sections.
+#let fm-heading(title, above: 0pt, below: 16pt) = {
+  show heading: set block(above: above, below: below)
+  heading(level: 2, numbering: none, outlined: true, upper(title))
+}
+
+#let fm-heading-style(it) = block(
   width: 100%,
-  above: above,
-  below: below,
-  align(center, text(size: HEADING_1_SIZE, weight: "bold", upper(title))),
+  align(center, text(size: HEADING_1_SIZE, weight: "bold", it.body)),
 )
 
 #let outline-entry(letter, it) = {
@@ -15,9 +20,13 @@
   let is-heading = it.element.func() == heading
   let level = if is-heading { it.element.level } else { 0 }
   context {
-    let page-number = body-numbering(letter)(counter(page).at(loc).first())
+    let front = is-heading and it.element.numbering == none and level == 2
+    let n = counter(page).at(loc).first()
+    let page-number = if front { numbering("i", n) } else { body-numbering(letter)(n) }
     let fill = [#h(0.3em)#box(width: 1fr, repeat[.])#h(0.3em)#page-number]
-    link(loc, if level == 1 {
+    link(loc, if front {
+      pad(left: TOC_INDENT, [#it.body()#fill])
+    } else if level == 1 {
       block(above: 4pt, below: 4pt, text(weight: "bold", [#upper(it.body())#fill]))
     } else if is-heading {
       let tab = TOC_TABS.at(level - 2)
@@ -41,7 +50,26 @@
   }
 }
 
-#let front-matter(letter: "A", page-one-cui-args: none) = {
+#let executive-summary-page(body) = {
+  if blank(body) { return }
+  fm-heading(below: 12pt)[Executive Summary]
+  let es = counter("executive-summary")
+  es.update(0)
+  set heading(numbering: none, outlined: false)
+  show heading: it => block(above: PAR_SPACING, below: PAR_SPACING, sticky: true, {
+    es.step(level: it.level)
+    set text(size: BODY_SIZE, weight: "bold")
+    context if it.level == 1 {
+      [#es.display("1"). #upper(it.body)]
+    } else {
+      [#es.display("1.1") #it.body]
+    }
+  })
+  body
+  pagebreak()
+}
+
+#let front-matter(letter: "A", executive-summary: none, page-one-cui-args: none) = {
   pagebreak(weak: true)
   set page(numbering: "i")
   counter(page).update(1)
@@ -53,8 +81,10 @@
     })
   }
 
+  show heading.where(level: 2, numbering: none): fm-heading-style
   show outline.entry: outline-entry.with(letter)
 
+  executive-summary-page(executive-summary)
   fm-heading(below: 20pt)[CONTENTS]
   set text(size: SMALL_SIZE)
   set par(spacing: 0pt)
@@ -62,5 +92,6 @@
   outline(title: none, depth: 3)
 
   list-section([TABLES], figure.where(kind: table))
+  list-section([FIGURES], figure.where(kind: image))
   list-section([EQUATIONS], figure.where(kind: math.equation))
 }

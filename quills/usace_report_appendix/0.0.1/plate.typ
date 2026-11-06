@@ -5,6 +5,7 @@
 #let dist-display = if dist.value == "Other" { dist.detail } else { dist.value }
 
 #appendix(
+  appendix-type: qm.data.appendix.appendix_type,
   letter: qm.data.appendix.appendix_letter,
   title: qm.data.appendix.appendix_title,
   project-name: qm.data.appendix.project_name,
@@ -17,6 +18,7 @@
   cui-distribution-date: qm.ink(qm.data.cui, "distribution_date", statement-date-pattern),
   cui-distribution-office: qm.data.cui.distribution_office,
   cui-poc: qm.data.cui.poc,
+  executive-summary: qm.data.appendix.executive_summary,
   body: {
     let b = qm.data.at("$body")
     if type(b) == str { [] } else { b }

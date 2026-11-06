@@ -124,5 +124,54 @@
     "description": "USACE ENC standardized report appendix with a CUI cover, contents, and lettered sections (Portland District skeleton)",
     "file": "usace_report_appendix.md",
     "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-fs-appendix-a",
+    "name": "USACE Feasibility Study Appendix A - Engineering",
+    "description": "USACE feasibility study Engineering appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+    "file": "usace_fs_appendix_a.md",
+    "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-fs-appendix-b",
+    "name": "USACE Feasibility Study Appendix B - Cost Engineering",
+    "description": "USACE feasibility study Cost Engineering appendix with a CUI cover, contents, and lettered sections",
+    "file": "usace_fs_appendix_b.md",
+    "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-fs-appendix-c",
+    "name": "USACE Feasibility Study Appendix C - Environmental",
+    "description": "USACE feasibility study Environmental appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+    "file": "usace_fs_appendix_c.md",
+    "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-fs-appendix-d",
+    "name": "USACE Feasibility Study Appendix D - Real Estate",
+    "description": "USACE feasibility study Real Estate appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+    "file": "usace_fs_appendix_d.md",
+    "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-fs-appendix-e",
+    "name": "USACE Feasibility Study Appendix E - Economic and Social Considerations",
+    "description": "USACE feasibility study Economic and Social Considerations appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+    "file": "usace_fs_appendix_e.md",
+    "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-fs-appendix-f",
+    "name": "USACE Feasibility Study Appendix F - Recreation",
+    "description": "USACE feasibility study Recreation appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+    "file": "usace_fs_appendix_f.md",
+    "tags": ["army", "usace", "report"]
+  },
+  {
+    "id": "usace-fs-appendix-g",
+    "name": "USACE Feasibility Study Appendix G - Public Involvement",
+    "description": "USACE feasibility study Public Involvement appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+    "file": "usace_fs_appendix_g.md",
+    "tags": ["army", "usace", "report"]
   }
 ]

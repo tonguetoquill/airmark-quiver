@@ -35,6 +35,7 @@
   counter(page).update(1)
   counter(heading).update(0)
   counter(figure.where(kind: table)).update(0)
+  counter(figure.where(kind: image)).update(0)
   counter(figure.where(kind: math.equation)).update(0)
 
   set figure(numbering: n => letter + "-" + str(n))
