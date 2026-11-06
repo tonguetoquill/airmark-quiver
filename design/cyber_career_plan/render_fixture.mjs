@@ -30,7 +30,7 @@ const engine = new Engine();
 const quill = await quiver.getQuill("cyber_career_plan@0.1.0");
 
 const doc = fixturePath
-  ? Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"))
+  ? Document.parse(readFileSync(resolve(fixturePath), "utf8"))
   : quill.seedDocument();
 
 const format = extname(outputPath) === ".png" ? "png" : "pdf";

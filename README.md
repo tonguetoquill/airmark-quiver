@@ -56,7 +56,7 @@ const root = dirname(createRequire(import.meta.url).resolve('@airmark/quiver/Qui
 const quiver = await fromDir(root);
 const engine = new Engine();
 
-const doc = Document.fromMarkdown(`~~~
+const doc = Document.parse(`~~~
 $quill: usaf_memo@0.3
 $kind: main
 memo_for: ["ORG/SYMBOL"]
