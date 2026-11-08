@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.43.0 - 2026-11-08
+
+- Port the quiver to @quillmark/wasm 0.135 (#328)
+- Make the USACE example bodies editable in Studio (#327)
+- Add usace_major_report 0.0.1: MMR, MRR, EDR, DDR, Feasibility Study, Phase 1A (#299)
+- Add usace_report_appendix 0.0.1 with FS Appendices A-G (#298)
+- Add usace_tech_memo 0.0.1 (#297)
+- Publish the templates under Airmark: templates.json names its publisher (#323)
+- Update SKILL.md to streamline quill design checks (#316)
+- docs: point the README at the quill-design skill (#315)
+- Remove stray render output
+- Wrap a single reference with the subject in usaf_memo
+
+
 ## Unreleased
 
 - **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
