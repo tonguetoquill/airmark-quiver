@@ -16,6 +16,7 @@
 
 ## Unreleased
 
+- **An Air Force envelope quill is added.** `usaf_envelope@0.0.1` typesets the face of an official envelope from AFH 33-337 chapter 22. The return address prints in capitals in the upper left, and OFFICIAL BUSINESS two lines below it unless the writer turns that off. The delivery address prints in 12-point Courier, blocked left near the middle of the barcode reader's area: an optional account or mail stop, an optional attention line, the office symbol or the recipient, the street or post office box, and the city, state, and ZIP+4, with the country alone on the last line of a foreign address. The upper right stays clear for postage and the lower right stays clear for the barcode. `envelope.size` is a number-10, a monarch, a 6x9, a 9x12, or a 10x13, long edge across, and a number-10 is what a new document prints. Non-machineable prints NON-MACHINEABLE above the address when the sealed envelope is thicker than 1/4 inch. It is a `0.0.x` draft, packed only with `--drafts`. The USAF Envelope template pins `@0.0`.
 - **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
 - **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
   typesets the Portland District ENC standardized report appendix: a purple

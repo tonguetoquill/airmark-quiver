@@ -322,6 +322,38 @@ python3 design/usaf_memo/check_table_signature.py
 TYPST=/path/to/typst python3 design/usaf_memo/check_table_signature.py
 ```
 
+## usaf_envelope
+
+Fixtures, a render helper, and a layout check for the `usaf_envelope` quill.
+
+```sh
+# render a fixture to PDF (run from the repo root)
+node design/usaf_envelope/render_fixture.mjs design/usaf_envelope/fixtures/example.md /tmp/envelope.pdf
+
+# with no fixture, renders the document the schema seeds
+node design/usaf_envelope/render_fixture.mjs /tmp/seed.pdf
+
+# measure the rendered PDF against AFH 33-337 chapter 22 (`seed` in place of a fixture)
+python3 design/usaf_envelope/validate_envelope.py design/usaf_envelope/fixtures/example.md /tmp/envelope.pdf
+```
+
+`validate_envelope.py` needs `pymupdf` and `pyyaml`.
+
+`quillkit test` renders the seed and the example and never reads where a line
+sits. The check reads the OCR read area, the barcode clear area, the two-line
+gap under the return address, and that a line does not land on another.
+
+- `example.md`: the filled number-10, attention line over an office symbol.
+- `five-line.md`: all five delivery lines, with NON-MACHINEABLE above them.
+- `international.md`: a country on its own last line, and no OFFICIAL BUSINESS.
+- `long-line.md`: a return line long enough to reach the postage corner, which
+  stays one line, and a delivery line long enough that the block shifts left
+  to keep the half-inch right margin.
+- `flat.md`: a 9x12, with the address still in the bottom 2 3/4 inches.
+- `booklet.md`: a 6x9. `catalog.md`: a 10x13. The address stays in that same band.
+- `monarch.md`: four return lines and NON-MACHINEABLE on the short envelope.
+- `lowercase.md`: mixed-case typing, which prints in capitals.
+
 ## usaf_letter
 
 Fixtures and a layout check for the `usaf_letter` quill.
