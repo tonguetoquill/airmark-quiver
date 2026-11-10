@@ -79,6 +79,13 @@
       "tags": ["air-force", "space-force", "award", "citation"]
     },
     {
+      "id": "usaf-biography",
+      "name": "USAF Official Biography",
+      "description": "Official U.S. Air Force biography (AFH 33-337)",
+      "file": "usaf_biography.md",
+      "tags": ["air-force", "biography", "personnel"]
+    },
+    {
       "id": "rebuttal",
       "name": "Rebuttal",
       "description": "Rebuttal template for an LOC or LOR",

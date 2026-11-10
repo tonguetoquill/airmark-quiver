@@ -1,0 +1,360 @@
+quill:
+  name: usaf_biography
+  version: 0.1.0
+  backend: typst
+  description: "Official U.S. Air Force biography (AFH 33-337)"
+
+typst:
+  plate_file: plate.typ
+
+# The page is the Air Force Production biography: one identification line, a
+# narrative with a photograph frame, then fixed sections. A section with
+# nothing filled in does not print, which is how the template says to delete it.
+main:
+  description: "Do not name family members anywhere, and leave a forward operating base off the page: name a main operating base, or a general area such as Southwest Asia. Sections follow the official biography, and a section with nothing in it does not print. A finished biography runs no more than two pages."
+  body:
+    enabled: false
+  fields:
+    identification:
+      type: object
+      title: Identification
+      description: "Who the biography is about. The identification line prints in bold capitals, centered."
+      properties:
+        status:
+          type: enum
+          values:
+            - officer
+            - enlisted
+            - civilian
+          ui:
+            blank_title: "Choose officer, enlisted, or civilian"
+          example: officer
+          description: "Leave this unset and the page prints the officer headings and no rank, which is wrong for a civilian. Officer and enlisted print a rank and the heading ASSIGNMENTS. A civilian biography prints no rank and the heading CAREER CHRONOLOGY. Joint assignments print only for an officer. Effective dates of promotion print only for an officer or an enlisted member."
+          variants:
+            officer:
+              full_rank: &full_rank
+                type: text
+                title: Full rank
+                default: ""
+                example: Captain
+                description: "The full rank, spelled out, for example Captain or Technical Sergeant. It prints in capitals at the start of the identification line. Abbreviate nothing."
+            enlisted:
+              full_rank: *full_rank
+
+        name:
+          type: text
+          default: ""
+          example: John A. "Hammer" Doe
+          description: "The signature-block name: first name, middle initial, and last name. A nickname goes in quotes between the middle initial and the last name, for example John A. \"Hammer\" Doe. It prints in capitals. Do not put a rank or a civilian title here."
+
+    narrative:
+      type: object
+      title: Narrative
+      description: "The opening paragraphs, in order. A paragraph left blank does not print."
+      properties:
+        photograph:
+          type: boolean
+          default: false
+          example: true
+          description: "The page holds a blank frame and does not print the picture. The frame is 3.2 inches wide by 4 inches high, flush with the right margin and level with the first line of the narrative, and the text wraps beside it. Public affairs places the service-dress photograph in the frame. Leave off until that frame should print, and the text runs the full width."
+
+        current_duty:
+          type: richtext
+          multiline: false
+          default: ""
+          example: Capt. John A. Doe is the Production Chief, 123rd Intelligence Squadron, Example Air Force Base, California. He leads a flight of editors, image designers, and data architects in editing, finalizing, and disseminating all-source intelligence products. He also chairs the 123rd Intelligence, Surveillance, and Reconnaissance Group Data Integration Working Group.
+          description: "The first paragraph. An officer or enlisted biography opens with the abbreviated rank and full name, then the official duty title, organization, base, and location, then a brief account of the duties, for example Capt. John A. Doe is the Production Chief, 123rd Intelligence Squadron, Example Air Force Base, California. A civilian biography opens with the full name and no rank. One paragraph. Leave blank to omit it."
+
+        career:
+          type: richtext
+          multiline: false
+          default: ""
+          example: Captain Doe entered the Air Force in May 2013 through ROTC from Auburn University. He completed intelligence officer training in April 2014 and has since held intelligence positions in production and target development at Example Air Force Base, California, and Osan Air Base, Korea. Prior to his current position, the captain was the Targeting Cell Chief, 607th Air Operations Center, Osan Air Base, Korea.
+          description: "The second paragraph. For an officer or enlisted member, say when they entered the Air Force, the training that followed, the component, and the significant assignments, not every assignment. End with Prior to his or her current position, the rank was the duty title, organization, base, and location. A civilian biography names the position held just before this one. One paragraph. Leave blank to omit it."
+
+        further:
+          type: richtext
+          multiline: false
+          default: ""
+          title: Third paragraph
+          example: The captain deployed to Al Udeid Air Base, Qatar, as senior intelligence officer for the 609th Air Operations Center.
+          description: "Optional. Other noteworthy assignments, contingency experience, deployments, or flight experience. For guard and reserve, a civilian job may be mentioned only in general terms, with no company name. A civilian biography uses this paragraph for professional work before public service, where a company name belongs. Leave blank to omit it."
+
+        earlier:
+          type: array
+          max: 3
+          default: []
+          items:
+            type: richtext
+            multiline: false
+          description: "Prints only on a civilian biography, after the third paragraph. Up to three more paragraphs, tracing earlier public and private work back to the completion of formal education. An officer or enlisted biography leaves these paragraphs off the page even when they are filled. Leave the list empty to omit them."
+
+    education:
+      type: object
+      title: Education
+      description: "Completed education, earliest year first. The heading EDUCATION prints only when a row is filled in."
+      properties:
+        entries:
+          type: array
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              year:
+                type: integer?
+                description: "The year completed, for example 2013."
+              entry:
+                type: text
+                default: ""
+                description: "The rest of the line: type of degree, title, institution, city, and state, for example Bachelor of Science, Aeronautical Engineering, Auburn University, Auburn, Ala. When the type and the title are one phrase, such as Master of Business Administration, write it once. When the institution's name includes the state, stop at the city. For a course that is not a degree, write the course, the school, and the location, and add ', by correspondence' on a PME course taken that way. Alaska, Hawaii, Idaho, Iowa, Maine, Ohio, Texas, and Utah are never abbreviated."
+          example:
+            - year: 2013
+              entry: Bachelor of Science, Aeronautical Engineering, Auburn University, Auburn, Ala.
+            - year: 2014
+              entry: Intelligence Officer Course, Goodfellow Air Force Base, Texas
+            - year: 2018
+              entry: Squadron Officer School, Maxwell AFB, Ala.
+          description: "One row per degree or course, earliest first. Include academic degrees, professional military education, developmental and continuing education, and executive courses."
+
+    assignments:
+      type: object
+      title: Assignments
+      description: "Work history, earliest first. Officer, enlisted, and an unset status print the heading ASSIGNMENTS. A civilian biography prints CAREER CHRONOLOGY. The heading prints only when a row is filled in."
+      properties:
+        entries:
+          type: array
+          default: []
+          items:
+            type: object
+            properties:
+              duty_title:
+                type: text
+                title: Duty title
+                default: ""
+                description: "The official duty title, capitalized, for example Targeting Cell Chief."
+              from:
+                type: text
+                title: From
+                default: ""
+                description: "The month and year the assignment started, with the month spelled out, for example March 2005."
+              to:
+                type: text
+                title: To
+                default: ""
+                description: "The month and year it ended, with the month spelled out, for example February 2008. For the assignment held now, write Present."
+              organization:
+                type: text
+                default: ""
+                description: "The unit or company, for example 607th Air Operations Center. Leave blank in a student status, or when the duty title and the base already identify the assignment. For a civilian's earlier military service, include the year they left and the reason, such as retired."
+              installation:
+                type: text
+                default: ""
+                description: "The installation and state, for example Osan Air Base, Korea, or Maxwell Air Force Base, Ala. Spell out Air Force Base, Air Base, and Joint Base on the first use in the biography, then AFB, AB, and JB. Do not end the line with a period unless a state abbreviation or Washington, D.C. needs one. Alaska, Hawaii, Idaho, Iowa, Maine, Ohio, Texas, and Utah are never abbreviated."
+              deployment:
+                type: text
+                default: ""
+                description: "What prints inside the parentheses: a deployment or contingency during this assignment, for example August 2008 – January 2009, Senior Intelligence Officer, 609th Air Operations Center, Al Udeid Air Base, Qatar. Do not type the parentheses. Name a main operating base, and use a general area such as Southwest Asia for a forward operating base. Leave blank when there was none."
+          example:
+            - duty_title: Intelligence Officer
+              from: May 2014
+              to: June 2017
+              organization: 123rd Intelligence Squadron
+              installation: Example Air Force Base, Calif.
+            - duty_title: Targeting Cell Chief
+              from: June 2017
+              to: March 2020
+              organization: 607th Air Operations Center
+              installation: Osan Air Base, Korea
+            - duty_title: Production Chief
+              from: March 2020
+              to: Present
+              organization: 123rd Intelligence Squadron
+              installation: Example AFB, Calif.
+              deployment: August 2021 – January 2022, Senior Intelligence Officer, 609th Air Operations Center, Al Udeid Air Base, Qatar
+          description: "One row per assignment, earliest first. Spell out every month, and capitalize every duty title."
+
+    joint_assignments:
+      type: object
+      title: Joint assignments
+      description: "Officer only. Prints under SUMMARY OF JOINT ASSIGNMENTS when a row is filled in, and is left off every other biography."
+      properties:
+        entries:
+          type: array
+          default: []
+          items:
+            type: object
+            properties:
+              duty_title:
+                type: text
+                title: Duty title
+                default: ""
+                description: "The official duty title, capitalized, for example Assistant Deputy Directorate for Special Operations."
+              from:
+                type: text
+                title: From
+                default: ""
+                description: "The month and year the joint assignment started, with the month spelled out, for example June 2006."
+              to:
+                type: text
+                title: To
+                default: ""
+                description: "The month and year it ended, with the month spelled out, for example June 2008."
+              organization:
+                type: text
+                default: ""
+                description: "The joint organization, for example Operations Directorate, the Joint Staff."
+              installation:
+                type: text
+                default: ""
+                description: "The installation and state, for example Washington, D.C. The same installation and state rules as Assignments."
+              deployment:
+                type: text
+                default: ""
+                description: "A deployment during this assignment, written as it prints inside the parentheses. Leave blank when there was none."
+              rank_held:
+                type: text
+                title: Rank held
+                default: ""
+                description: "The rank held on that tour, for example colonel. It prints at the end of the line as ', as a colonel'."
+          description: "One row per joint assignment, earliest first. Leave the list empty to omit the section."
+
+    flight:
+      type: object
+      title: Flight information
+      description: "Rated officers and enlisted only. The heading FLIGHT INFORMATION prints when any line below is filled in."
+      properties:
+        rating:
+          type: text
+          default: ""
+          description: "The level and the type, in lower case, for example command pilot. Level is none, senior, master, or command, and the type is pilot, navigator, air battle manager, flight surgeon, flight nurse, astronaut, or aircrew member. It prints after Rating: with two spaces."
+        flight_hours:
+          type: text
+          title: Flight hours
+          default: ""
+          description: "The approximate total, slightly under the real hours, for example more than 2,900. Write 'more than', not 'over'. Combat time may follow in the same line, for example including more than 60 combat hours. It prints after Flight hours: with two spaces."
+        aircraft:
+          type: text
+          title: Aircraft flown
+          default: ""
+          description: "The aircraft, earliest first and the most recent last, for example T-37, T-38, OV-10, B-52G, B-1B and B-2. It prints after Aircraft flown: with two spaces."
+
+    awards:
+      type: object
+      title: Major awards and decorations
+      description: "The heading prints only when a line is filled in."
+      properties:
+        entries:
+          type: array
+          default: []
+          items:
+            type: text
+          example:
+            - Meritorious Service Medal
+            - Air Force Commendation Medal with oak leaf cluster
+            - Air Force Achievement Medal
+          description: "One decoration per line, highest precedence first. Use title case for the medal and lower case for a device, for example Legion of Merit with two oak leaf clusters. Never write 'one' for a single award. Officers and senior enlisted usually stop at the Achievement Medal, and list a lower award only when it is significant, such as the Prisoner of War Medal. Civilians list awards of state, regional, or national interest, and former military list the military awards first."
+
+    achievements:
+      type: object
+      title: Other achievements
+      description: "Optional. The heading OTHER ACHIEVEMENTS prints only when a row is filled in."
+      properties:
+        entries:
+          type: array
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              year:
+                type: integer?
+                description: "The year, for example 2000."
+              entry:
+                type: text
+                default: ""
+                description: "The achievement, for example Distinguished Graduate, Undergraduate Pilot Training."
+          description: "One row per achievement, earliest first."
+
+    badges:
+      type: object
+      title: Occupational badges
+      description: "Optional. The heading OCCUPATIONAL BADGES prints only when a line is filled in."
+      properties:
+        entries:
+          type: array
+          default: []
+          items:
+            type: text
+          description: "One badge per line, for example Senior Pilot Badge."
+
+    publications:
+      type: object
+      title: Publications
+      description: "Optional. The heading PUBLICATIONS prints only when a line is filled in."
+      properties:
+        entries:
+          type: array
+          default: []
+          items:
+            type: text
+          description: "One publication per line, earliest first. Write the title in quotes, then the publisher or journal, then the month and year, for example \"Sharing Success, Owning Failure: Preparing to Command in the Twenty-First Century Air Force,\" Air University Press, October 2001."
+
+    memberships:
+      type: object
+      title: Professional memberships
+      description: "Optional. The heading PROFESSIONAL MEMBERSHIPS AND ASSOCIATIONS prints only when a line is filled in."
+      properties:
+        entries:
+          type: array
+          default: []
+          items:
+            type: text
+          description: "The name only, one per line, for example Permanent member, Air Force Association."
+
+    promotions:
+      type: object
+      title: Effective dates of promotion
+      description: "Officer and enlisted only. Left off a civilian biography, and left off when status is unset, even if rows are filled in."
+      properties:
+        singular_heading:
+          type: boolean
+          title: Singular heading
+          default: false
+          description: "Turn on only for the Chief Master Sergeant of the Air Force, who lists that promotion alone. The heading prints as EFFECTIVE DATE OF PROMOTION. Leave off for every other biography."
+        entries:
+          type: array
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              rank:
+                type: text
+                default: ""
+                description: "The full rank, for example Second Lieutenant. For a frocked rank, write Frocked."
+              date:
+                type: date?
+                description: "The effective date. It prints in Associated Press style, for example June 1, 2000, or Sept. 28, 2006. March, April, May, June, and July stay spelled out; the other months abbreviate when a day is given. Leave blank for a frocked rank, which prints no date."
+          example:
+            - rank: Second Lieutenant
+              date: 2013-05-15
+            - rank: First Lieutenant
+              date: 2015-05-15
+            - rank: Captain
+              date: 2017-05-15
+          description: "Every rank from commissioning or enlistment through the rank held now, earliest first."
+
+    as_of:
+      type: object
+      title: Current as of
+      description: "One line under the last section. It prints only when a date is set."
+      properties:
+        date:
+          type: date?
+          title: Date
+          example: 2024-08-01
+          description: "Any day in the month the biography was last checked. The day is not printed: 2024-08-01 prints as (Current as of August 2024). Leave blank to omit the line."

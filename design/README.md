@@ -278,6 +278,29 @@ header ends PHASE 1A.
 summary: under 2. RECOMMENDED PLAN they print 2.1, 2.1.1 and 2.2 in bold as
 typed, and the next Heading 1 prints 3.
 
+## usaf_biography
+
+Fixtures and a render helper for the `usaf_biography` quill.
+
+```sh
+# render a fixture to PDF (run from the repo root)
+node design/usaf_biography/render_fixture.mjs design/usaf_biography/fixtures/wrapping.md /tmp/bio.pdf
+
+# with no fixture, renders the document the schema seeds
+node design/usaf_biography/render_fixture.mjs /tmp/seed.pdf
+```
+
+`minimal.md` is a civilian name and nothing else, so the page is the
+identification line alone. `civilian.md` fills joint assignments and
+promotions that must stay off the page, and prints CAREER CHRONOLOGY, the
+earlier paragraphs, and a deployment. `enlisted.md` is the promotion dates
+in Associated Press style, including a frocked rank with no date, a flight
+block, and a joint assignment that must stay off the page. `cmsaf.md` prints
+the singular heading EFFECTIVE DATE OF PROMOTION. `wrapping.md` is a general
+officer with every section filled, a deployment note that holds two
+parentheticals, and enough sections that the text continues at full width
+under the photograph frame.
+
 ## usaf_memo
 
 A check that `#show: mainmatter` and `#mainmatter[…]` typeset the same
