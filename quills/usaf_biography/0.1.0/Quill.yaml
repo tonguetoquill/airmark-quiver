@@ -18,7 +18,7 @@ main:
     identification:
       type: object
       title: Identification
-      description: "Who the biography is about. The identification line prints in bold capitals, centered."
+      description: "Who the biography is about. The identification line prints in bold blue capitals at the left margin."
       properties:
         status:
           type: enum
@@ -56,7 +56,7 @@ main:
           type: boolean
           default: false
           example: true
-          description: "The page holds a blank frame and does not print the picture. The frame is 3.2 inches wide by 4 inches high, flush with the right margin and level with the first line of the narrative, and the text wraps beside it. Public affairs places the service-dress photograph in the frame. Leave off until that frame should print, and the text runs the full width."
+          description: "The page holds a blank frame and does not print the picture. The frame is 3.2 inches wide by 4 inches high, with a hairline border, flush with the right margin and level with the first line of the narrative, and the text wraps beside it and continues at full width underneath. Public affairs places the service-dress photograph in the frame. Leave off until that frame should print, and the text runs the full width."
 
         current_duty:
           type: richtext

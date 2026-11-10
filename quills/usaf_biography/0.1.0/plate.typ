@@ -1,10 +1,32 @@
 #import "@local/quillmark-helper:0.2.0" as qm
 
-// Liberation Sans is the Arial-metric face. AFH 33-337 sets the biography in
-// Arial 9-point with 1.15 line spacing, and the identification line at 13.5.
-#set page(paper: "us-letter", margin: 0.5in)
+// Liberation Sans is the Arial-metric face. The official template sets the
+// page in 9-point type on a 12.6-point line, section headings at 11 points,
+// and the identification line at 13 points in the template blue. The banner
+// and the footer rule are the template's artwork, repeated on every page.
+// Text sits on a one-inch margin. The banner and the rule sit a quarter inch
+// from the page edge, outside that margin.
+#set page(
+  paper: "us-letter",
+  margin: (top: 108pt, bottom: 54pt, left: 72pt, right: 72pt),
+  background: {
+    place(
+      top + left,
+      dx: 18pt,
+      dy: 17.52pt,
+      image("assets/biography_header.png", width: 576.48pt, height: 66.72pt, fit: "stretch"),
+    )
+    place(
+      top + left,
+      dx: 18.72pt,
+      dy: 755.04pt,
+      image("assets/biography_footer.png", width: 575.04pt, height: 23.52pt, fit: "stretch"),
+    )
+  },
+)
 #set text(font: "Liberation Sans", size: 9pt, lang: "en", hyphenate: false)
-#set par(leading: 0.45em, justify: false, spacing: 0.65em)
+#set par(leading: 6.45pt, justify: true, spacing: 12.6pt)
+#set block(spacing: 0pt)
 
 #let idn = qm.data.identification
 #let narrative = qm.data.narrative
@@ -90,30 +112,32 @@
   with-deployment(line, row)
 }
 
-#let numbered(n, body) = block(
-  inset: (bottom: 1.5pt),
-  grid(
-    columns: (auto, 1fr),
-    column-gutter: 0.45em,
-    align: top,
-    [#n.],
-    body,
-  ),
-)
+// One line's glyph box is shorter than the 12.6-point line, so each line block
+// carries the rest of that line as inset. A blank line is a whole extra line.
+#let line-gap = 6.4pt
+#let blank-line = block(height: 12.6pt)
 
-#let tight(body) = block(inset: (bottom: 1.5pt), body)
+// A wrapped assignment hangs under the text, level with the template's
+// continuation at 13.6 points past the left margin.
+#let numbered(n, body) = block(inset: (bottom: line-gap), grid(
+  columns: (13.6pt, 1fr),
+  column-gutter: 0pt,
+  align: top,
+  [#n.],
+  body,
+))
+
+#let tight(body) = block(inset: (bottom: line-gap), body)
 
 #let year-line(row) = {
   let year = if row.year != none { qm.ink(row, "year") } else { none }
   let entry = ink(row, "entry")
   if year == none and entry == none { return none }
-  block(inset: (bottom: 1.5pt), grid(
-    columns: (auto, 1fr),
-    column-gutter: 0.55em,
-    align: top,
-    if year != none { year } else { [] },
-    if entry != none { entry } else { [] },
-  ))
+  block(inset: (bottom: line-gap), {
+    if year != none { year }
+    if year != none and entry != none { " " }
+    if entry != none { entry }
+  })
 }
 
 #let numbered-entries(rows, joint: false) = {
@@ -134,11 +158,14 @@
 }
 
 // Text wraps in the column beside the frame and continues at full width once
-// the frame's 4 inches are used. The frame is empty: the biography's
-// photograph is placed there by public affairs.
+// the frame's 4 inches are used. The frame is empty: public affairs places
+// the service-dress photograph. A justified line's ink runs past the column
+// edge, so the gutter is 17 points and about 12 points of white remain
+// between that ink and the frame, as on the template.
+
 #let beside-photo(blocks) = layout(size => {
   let photo-w = 3.2in
-  let gap = 0.15in
+  let gap = 17pt
   let text-w = size.width - photo-w - gap
   let limit = 4in
   let beside = ()
@@ -146,12 +173,13 @@
   let used = 0pt
   let open = true
   for block in blocks {
-    if open {
-      let height = measure(width: text-w, block).height
+    let height = measure(width: if open { text-w } else { size.width }, block).height
+    if open and (beside.len() == 0 or used + height <= limit) {
       beside.push(block)
       used += height
       if used >= limit { open = false }
     } else {
+      open = false
       below.push(block)
     }
   }
@@ -160,7 +188,9 @@
     column-gutter: gap,
     align: top,
     stack(spacing: 0pt, ..beside),
-    box(width: photo-w, height: 4in),
+    // The stroke is centered on the frame edge. This shift puts the top of
+    // the frame on the first line of the narrative.
+    move(dy: -0.6pt, rect(width: photo-w, height: 4in, stroke: 0.5pt + black)),
   )
   stack(spacing: 0pt, ..below)
 })
@@ -168,29 +198,48 @@
 #let rank-ink = if military { ink(idn.status, "full_rank") } else { none }
 #let name-ink = ink(idn, "name")
 #if rank-ink != none or name-ink != none {
-  align(center, text(size: 13.5pt, weight: "bold", {
+  block(inset: (top: 13pt, bottom: 8.9pt), text(size: 13pt, weight: "bold", fill: rgb("#4472c4"), {
+    set par(justify: false)
     if rank-ink != none { upper(rank-ink) }
     if rank-ink != none and name-ink != none { " " }
     if name-ink != none { upper(name-ink) }
   }))
-  v(10pt)
 }
 
+// The blank line before a heading is its own block, so a heading that breaks
+// onto the next page does not carry that space with it. The heading stays
+// with its first entry, 15.5 points from the heading top to that entry.
 #let section(title, entries) = {
   if entries.len() == 0 { return () }
-  (block(inset: (top: 9pt, bottom: 2pt), strong(title)), ..entries)
+  (
+    blank-line,
+    block(breakable: false, {
+      set par(justify: false)
+      text(size: 11pt, weight: "bold", title)
+      block(height: 7.8pt)
+      entries.first()
+    }),
+    ..entries.slice(1),
+  )
 }
 
+#let para(body) = block(inset: (bottom: line-gap), body)
+
 #let paragraphs = {
-  let out = ()
+  let bodies = ()
   for key in ("current_duty", "career", "further") {
     let shown = ink(narrative, key)
-    if shown != none { out.push(block(inset: (bottom: 10pt), shown)) }
+    if shown != none { bodies.push(shown) }
   }
   if status == "civilian" {
-    for para in narrative.earlier {
-      if not blank(para) { out.push(block(inset: (bottom: 10pt), para)) }
+    for item in narrative.earlier {
+      if not blank(item) { bodies.push(item) }
     }
+  }
+  let out = ()
+  for (i, body) in bodies.enumerate() {
+    if i > 0 { out.push(blank-line) }
+    out.push(para(body))
   }
   out
 }
@@ -217,19 +266,11 @@
     } else {
       "EFFECTIVE DATES OF PROMOTION"
     }
-    section(heading, (
-      table(
-        columns: (auto, auto),
-        stroke: none,
-        inset: (x: 0pt, y: 0.5pt),
-        column-gutter: 1.25em,
-        align: (left, left),
-        ..rows.map(row => (
-          if blank(row.rank) { [] } else { qm.ink(row, "rank") },
-          if row.date == none { [] } else { ap-day(row.date) },
-        )).flatten(),
-      ),
-    ))
+    section(heading, rows.map(row => tight({
+      if not blank(row.rank) { qm.ink(row, "rank") }
+      if not blank(row.rank) and row.date != none { " " }
+      if row.date != none { ap-day(row.date) }
+    })))
   }
 }
 
@@ -254,14 +295,14 @@
   ..section("PROFESSIONAL MEMBERSHIPS AND ASSOCIATIONS", lines-of(qm.data.memberships.entries)),
   ..promotion-block,
   ..if qm.data.as_of.date != none {
-    (block(inset: (top: 10pt))[(Current as of #ap-month(qm.data.as_of.date))],)
+    (block(inset: (top: 12.6pt))[(Current as of #ap-month(qm.data.as_of.date))],)
   } else { () },
 )
 
 #if narrative.photograph and blocks.len() > 0 {
   beside-photo(blocks)
 } else if narrative.photograph {
-  align(right, box(width: 3.2in, height: 4in))
+  align(right, rect(width: 3.2in, height: 4in, stroke: 0.5pt + black))
 } else {
   for block in blocks { block }
 }

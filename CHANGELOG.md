@@ -18,18 +18,21 @@
 
 - **An official Air Force biography quill is added.** `usaf_biography@0.1.0`
   typesets the AFH 33-337 official biography in Liberation Sans, the
-  Arial-metric face, at 9 points with the identification line in bold
-  capitals at 13.5. Status chooses the page: an officer or enlisted
-  biography prints a rank and ASSIGNMENTS, and a civilian biography prints
-  no rank and CAREER CHRONOLOGY. Joint assignments print only for an
-  officer. Effective dates of promotion print only for an officer or an
-  enlisted member, in Associated Press style, and the Chief Master Sergeant
-  of the Air Force uses the singular heading. A section with nothing filled
-  in does not print. The official photograph is a blank frame 3.2 inches by
-  4 inches, flush right and level with the first paragraph, because the
-  page cannot hold the picture itself; public affairs places the
-  service-dress photo in the frame. The USAF Official Biography template
-  pins `@0.1`.
+  Arial-metric face. Every page carries the official biography banner and
+  footer rule. The identification line prints in bold blue capitals at 13
+  points on the left margin, section headings are 11 points, and the body
+  is 9 points on a 12.6-point line, all inside a one-inch margin. Status
+  chooses the page: an officer or enlisted biography prints a rank and
+  ASSIGNMENTS, and a civilian biography prints no rank and CAREER
+  CHRONOLOGY. Joint assignments print only for an officer. Effective dates
+  of promotion print only for an officer or an enlisted member, in
+  Associated Press style, and the Chief Master Sergeant of the Air Force
+  uses the singular heading. A section with nothing filled in does not
+  print. The official photograph is a blank hairline frame 3.2 inches by 4
+  inches, flush with the right margin and level with the first line of the
+  narrative, because the page cannot hold the picture itself; public
+  affairs places the service-dress photo in the frame. The USAF Official
+  Biography template pins `@0.1`.
 
 - **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
 - **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
