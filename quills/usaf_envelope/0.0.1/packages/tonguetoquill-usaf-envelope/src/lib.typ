@@ -40,14 +40,20 @@
 // `str.len` counts bytes. A codepoint is one Courier cell.
 #let cells(line) = chars(line).codepoints().len()
 
+// Room above the em square. The capitals draw about a point above the line
+// box, and a clip that starts on the line box slices their tops off.
+#let clip-rise = 3pt
+
 // One line, cut off at `max-width`. The inner box is wider than the text, so
 // a space or a hyphen is not a place to break: a second line would print on
-// top of the line below.
+// top of the line below. The outer box is taller than the line and the text
+// sits below its top edge, so the clip takes the end of the line and leaves
+// the tops of the letters.
 #let clip-line(line, max-width) = box(
   width: max-width,
-  height: stride,
+  height: stride + clip-rise,
   clip: true,
-  box(width: cells(line) * advance + 4pt, line),
+  pad(top: clip-rise, box(width: cells(line) * advance + 4pt, line)),
 )
 
 #let envelope(
@@ -76,7 +82,7 @@
     let return-width = width - return-inset - postage-width
     let y = return-inset
     for line in return-lines {
-      place(top + left, dx: return-inset, dy: y, clip-line(line, return-width))
+      place(top + left, dx: return-inset, dy: y - clip-rise, clip-line(line, return-width))
       y += stride
     }
     if official-business != none {
@@ -109,7 +115,7 @@
       place(top + left, dx: x, dy: mark-y, marking)
     }
     for (i, line) in delivery-lines.enumerate() {
-      place(top + left, dx: x, dy: first-top + i * stride, clip-line(line, line-width))
+      place(top + left, dx: x, dy: first-top + i * stride - clip-rise, clip-line(line, line-width))
     }
   }
 }
