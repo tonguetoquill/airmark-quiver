@@ -20,9 +20,35 @@
 #let type-size = 12pt
 // AFH 33-337's 1/8 inch corner sits inside a printer's unprintable edge.
 #let return-inset = 0.25in
+// The stamp or meter occupies the upper right. A return line stops short of it.
+#let postage-width = 1.75in
 #let ocr-side = 0.5in
 #let ocr-bottom = 0.625in
 #let ocr-top = 2.75in
+#let advance = 7.2pt
+
+#let chars(it) = {
+  if type(it) == str { return it }
+  if type(it) != content { return "" }
+  if it.has("text") { return chars(it.text) }
+  if it.has("children") { return it.children.map(chars).join() }
+  if it.has("body") { return chars(it.body) }
+  if it.has("child") { return chars(it.child) }
+  ""
+}
+
+// `str.len` counts bytes. A codepoint is one Courier cell.
+#let cells(line) = chars(line).codepoints().len()
+
+// One line, cut off at `max-width`. The inner box is wider than the text, so
+// a space or a hyphen is not a place to break: a second line would print on
+// top of the line below.
+#let clip-line(line, max-width) = box(
+  width: max-width,
+  height: stride,
+  clip: true,
+  box(width: cells(line) * advance + 4pt, line),
+)
 
 #let envelope(
   size: "number-10",
@@ -45,12 +71,12 @@
   hide[#box()]
 
   context {
-    // Each return line takes the same 14pt step as the delivery address, and
-    // does not wrap: a wrapped line would stack on the line under it.
+    // Each return line takes the same 14pt step as the delivery address.
     // OFFICIAL BUSINESS is two steps below the last line, one blank line between.
+    let return-width = width - return-inset - postage-width
     let y = return-inset
     for line in return-lines {
-      place(top + left, dx: return-inset, dy: y, line)
+      place(top + left, dx: return-inset, dy: y, clip-line(line, return-width))
       y += stride
     }
     if official-business != none {
@@ -59,15 +85,17 @@
     }
 
     let n = delivery-lines.len()
+    let available = width - 2 * ocr-side
     let widest = 0pt
     for line in delivery-lines {
-      let w = measure(line).width
+      let w = calc.min(cells(line) * advance, available)
       if w > widest { widest = w }
     }
     let right-limit = width - ocr-side
     let x = width / 2
     if x + widest > right-limit { x = right-limit - widest }
     if x < ocr-side { x = ocr-side }
+    let line-width = right-limit - x
 
     let block-h = if n == 0 { 0pt } else { type-size + (n - 1) * stride }
     let band-center = (ocr-bottom + ocr-top) / 2
@@ -81,7 +109,7 @@
       place(top + left, dx: x, dy: mark-y, marking)
     }
     for (i, line) in delivery-lines.enumerate() {
-      place(top + left, dx: x, dy: first-top + i * stride, line)
+      place(top + left, dx: x, dy: first-top + i * stride, clip-line(line, line-width))
     }
   }
 }

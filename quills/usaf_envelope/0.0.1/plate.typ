@@ -22,14 +22,24 @@
 #let ret = qm.data.return
 #let spec = qm.data.envelope
 
-#let delivery-lines = (
+// Chapter 22 limits the address to five lines. The country is the last of
+// those five. When it is filled and the five lines above it are filled too,
+// the account or mail stop, the first and the optional one, is the line that
+// does not print.
+#let parts = (
   shown(delivery, "non_address"),
   shown(delivery, "attention"),
   shown(delivery, "recipient"),
   shown(delivery, "street"),
   shown(delivery, "city"),
-  shown(delivery, "country"),
 ).filter(line => line != none)
+#let country = shown(delivery, "country")
+#let delivery-lines = if country == none {
+  parts
+} else {
+  let kept = if parts.len() > 4 { parts.slice(parts.len() - 4) } else { parts }
+  kept + (country,)
+}
 
 #let who = plain(delivery.recipient)
 #let size = {

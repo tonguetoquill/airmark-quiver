@@ -346,9 +346,15 @@ gap under the return address, and that a line does not land on another.
 - `example.md`: the filled number-10, attention line over an office symbol.
 - `five-line.md`: all five delivery lines, with NON-MACHINEABLE above them.
 - `international.md`: a country on its own last line, and no OFFICIAL BUSINESS.
-- `long-line.md`: a return line long enough to reach the postage corner, which
-  stays one line, and a delivery line long enough that the block shifts left
-  to keep the half-inch right margin.
+- `long-line.md`: a return line cut off before the postage, and a delivery
+  line long enough that the block shifts left and stops half an inch from the
+  right edge.
+- `overflow-return.md`, `overflow-delivery.md`: the lines from the review that
+  wrapped onto the line below. Each stays one line and is cut off at its margin.
+- `hyphenated.md`: the same cutoff where the line is full of hyphens, which is
+  where a line breaker would otherwise split it.
+- `six-lines.md`: all six delivery fields filled. Five lines print, and the
+  country is the last. The account line is the one that does not print.
 - `flat.md`: a 9x12, with the address still in the bottom 2 3/4 inches.
 - `booklet.md`: a 6x9. `catalog.md`: a 10x13. The address stays in that same band.
 - `monarch.md`: four return lines and NON-MACHINEABLE on the short envelope.

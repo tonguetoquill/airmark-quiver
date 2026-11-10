@@ -31,6 +31,7 @@ OCR_BOTTOM = 0.625 * 72
 OCR_TOP = 2.75 * 72
 BARCODE_WIDTH = 4.75 * 72
 RETURN_INSET = 0.25 * 72
+POSTAGE = 1.75 * 72
 
 
 def load_fields(spec):
@@ -49,11 +50,18 @@ def load_fields(spec):
     delivery = data.get("delivery") or {}
     envelope = data.get("envelope") or {}
     lines = [str(line) for line in (ret.get("lines") or [])]
+    # The plate prints at most five delivery lines. A country is the last of
+    # them, and the account line is the one that yields when all six are filled.
     ordered = []
-    for key in ("non_address", "attention", "recipient", "street", "city", "country"):
+    for key in ("non_address", "attention", "recipient", "street", "city"):
         value = delivery.get(key)
         if value:
             ordered.append(str(value))
+    country = delivery.get("country")
+    if country:
+        if len(ordered) > 4:
+            ordered = ordered[-4:]
+        ordered.append(str(country))
     return {
         "lines": lines,
         "official": ret.get("official_business", True),
@@ -116,18 +124,25 @@ def check(spec, pdf_path):
     if abs(width - expect_w) > 1 or abs(height - expect_h) > 1:
         fail(f"page {width:.1f}x{height:.1f}, expected {expect_w:.1f}x{expect_h:.1f}")
 
-    expected = [line.upper() for line in fields["lines"]]
+    # role is where a too-long line is cut off: the postage corner, or the
+    # delivery address's half-inch right margin. None is a line that is never cut.
+    expected = [(line.upper(), "return") for line in fields["lines"]]
     if fields["official"]:
-        expected.append("OFFICIAL BUSINESS")
+        expected.append(("OFFICIAL BUSINESS", None))
     if fields["marking"]:
-        expected.append("NON-MACHINEABLE")
-    expected.extend(line.upper() for line in fields["delivery"])
+        expected.append(("NON-MACHINEABLE", None))
+    expected.extend((line.upper(), "delivery") for line in fields["delivery"])
 
     spans = spans_of(page)
     lines = joined_lines(spans)
-    printed = [line["text"] for line in lines]
-    if sorted(printed) != sorted(expected):
-        fail(f"printed {printed}, expected {expected}")
+    if len(lines) != len(expected):
+        fail(
+            "printed "
+            + repr([line["text"] for line in lines])
+            + ", expected "
+            + repr([text for text, _role in expected])
+        )
+    limit_of = {"return": width - POSTAGE, "delivery": width - OCR_SIDE}
 
     for line in lines:
         letters = [ch for ch in line["text"] if ch.isalpha()]
@@ -148,19 +163,29 @@ def check(spec, pdf_path):
         if pymupdf.Rect(line["bbox"]).intersects(barcode):
             fail(f"barcode clear area holds {line['text']!r}")
 
-    by_text = {line["text"]: line for line in lines}
+    paired = list(zip(lines, expected))
+    for got, (want, role) in paired:
+        if got["text"] == want:
+            continue
+        limit = limit_of.get(role)
+        cut_at_margin = limit is not None and abs(got["bbox"][2] - limit) <= 3
+        if cut_at_margin and want.startswith(got["text"]) and got["text"]:
+            continue
+        fail(f"printed {got['text']!r}, expected {want!r}")
 
-    return_lines = [by_text[line.upper()] for line in fields["lines"] if line.upper() in by_text]
+    return_lines = [got for got, (_want, role) in paired if role == "return"]
     for line in return_lines:
         if abs(line["bbox"][0] - RETURN_INSET) > 3:
             fail(f"return line {line['text']!r} starts at {line['bbox'][0]:.1f}, not {RETURN_INSET:.1f}")
+        if line["bbox"][2] > width - POSTAGE + 3:
+            fail(f"return line {line['text']!r} runs into the postage corner")
     for above, below in zip(return_lines, return_lines[1:]):
         gap = below["bbox"][1] - above["bbox"][1]
         if abs(gap - STRIDE) > 1.5:
             fail(f"return stride {gap:.1f} between {above['text']!r} and {below['text']!r}")
 
-    if fields["official"] and "OFFICIAL BUSINESS" in by_text:
-        official = by_text["OFFICIAL BUSINESS"]
+    official = next((got for got, (want, _role) in paired if want == "OFFICIAL BUSINESS"), None)
+    if official is not None:
         if abs(official["bbox"][0] - RETURN_INSET) > 3:
             fail("OFFICIAL BUSINESS is not at the return address's left edge")
         if return_lines:
@@ -170,7 +195,7 @@ def check(spec, pdf_path):
         elif official["bbox"][1] > RETURN_INSET + 4:
             fail("OFFICIAL BUSINESS is not in the upper left")
 
-    delivery = [by_text[line.upper()] for line in fields["delivery"] if line.upper() in by_text]
+    delivery = [got for got, (_want, role) in paired if role == "delivery"]
     if delivery:
         left = delivery[0]["bbox"][0]
         for line in delivery:
@@ -196,8 +221,8 @@ def check(spec, pdf_path):
         if widest <= width / 2 - OCR_SIDE and abs(left - width / 2) > 2:
             fail(f"address starts at {left:.1f}, not the middle {width / 2:.1f}")
 
-    if fields["marking"] and "NON-MACHINEABLE" in by_text and delivery:
-        mark = by_text["NON-MACHINEABLE"]
+    mark = next((got for got, (want, _role) in paired if want == "NON-MACHINEABLE"), None)
+    if mark is not None and delivery:
         if mark["bbox"][3] >= delivery[0]["bbox"][1]:
             fail("NON-MACHINEABLE is not above the address")
         if abs(mark["bbox"][0] - delivery[0]["bbox"][0]) > 1:

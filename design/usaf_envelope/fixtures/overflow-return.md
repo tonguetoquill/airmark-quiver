@@ -1,0 +1,13 @@
+~~~
+$quill: usaf_envelope@0.0.1
+$kind: main
+return:
+  lines:
+    - DEPARTMENT OF THE AIR FORCE 123D EXAMPLE SQUADRON DIRECTORATE OF COMMUNICATIONS AND INFORMATION
+    - 1 EXAMPLE WAY
+    - EXAMPLE AFB ST 12345-6789
+delivery:
+  recipient: 456 EXG/CC
+  street: 2 SAMPLE BOULEVARD
+  city: SAMPLE AFB ST 98765-4321
+~~~
