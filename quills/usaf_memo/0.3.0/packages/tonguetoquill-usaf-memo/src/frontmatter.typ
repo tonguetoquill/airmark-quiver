@@ -102,6 +102,7 @@
   set block(above: spacing.line, below: 0em, spacing: 0em)
   set text(font: body-font, size: font-size, fallback: true)
   show raw: set text(font: DEFAULT_MONO_FONTS)
+  show link: it => underline(text(fill: LINK_COLOR, it))
 
   set page(
     paper: "us-letter",

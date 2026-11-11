@@ -41,6 +41,7 @@
 
 - **Every classic_resume text field takes Markdown, so any of them can hold a link.** `classic_resume@0.2.0` makes each field that was `text` a one-line `richtext`: the name, contacts, section titles, and every entry, project and skill field. `[Acme](https://acme.example)` prints as a live link and `*…*` or `**…**` style it; links print like the text around them. The PDF's title and author take the name's text without its formatting, and contacts and project links still become links on their own. Documents pinned to `@0.1` keep rendering on 0.1.0; the Classic Resume template now pins `@0.2`. A value written for 0.1 that holds `*`, `_`, `[` or a `<…>` tag reads as Markdown under 0.2.
 
+- **`usaf_memo@0.2.0` and `usaf_memo@0.3.0` show links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF, where it printed as plain text.
 - **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
 - **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
   typesets the Portland District ENC standardized report appendix: a purple
