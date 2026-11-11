@@ -16,6 +16,7 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.2.0` and `usaf_memo@0.3.0` show links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF, where it printed as plain text.
 - **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
 - **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
   typesets the Portland District ENC standardized report appendix: a purple
