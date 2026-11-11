@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.44.0 - 2026-11-11
+
+- Show links in usaf_memo 0.2.0 and 0.3.0 underlined in hyperlink blue (#332)
+- Release usaf_memo 0.4.0 with up to four signers and move templates to it (#325)
+- Make every classic_resume 0.2.0 text field richtext
+- Let classic_resume entry fields hold Markdown links in 0.2.0
+
+
 ## v0.43.0 - 2026-11-08
 
 - Port the quiver to @quillmark/wasm 0.135 (#328)
