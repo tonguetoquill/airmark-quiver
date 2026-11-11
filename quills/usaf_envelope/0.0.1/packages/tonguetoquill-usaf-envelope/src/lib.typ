@@ -25,35 +25,28 @@
 #let ocr-side = 0.5in
 #let ocr-bottom = 0.625in
 #let ocr-top = 2.75in
-#let advance = 7.2pt
 
-#let chars(it) = {
-  if type(it) == str { return it }
-  if type(it) != content { return "" }
-  if it.has("text") { return chars(it.text) }
-  if it.has("children") { return it.children.map(chars).join() }
-  if it.has("body") { return chars(it.body) }
-  if it.has("child") { return chars(it.child) }
-  ""
-}
-
-// `str.len` counts bytes. A codepoint is one Courier cell.
-#let cells(line) = chars(line).codepoints().len()
+// How wide the line's ink is. `measure` reads what prints, so it still
+// reports the line when the helper packs a field differently. The width it
+// is given is wider than any line. Measured in the page width, a hyphen is a
+// break, the result is only the first piece, and the line is set in a box
+// that narrow, each word on top of the next.
+#let line-span(line) = measure(line, width: 100in).width
 
 // Room above the em square. The capitals draw about a point above the line
 // box, and a clip that starts on the line box slices their tops off.
 #let clip-rise = 3pt
 
-// One line, cut off at `max-width`. The inner box is wider than the text, so
-// a space or a hyphen is not a place to break: a second line would print on
-// top of the line below. The outer box is taller than the line and the text
-// sits below its top edge, so the clip takes the end of the line and leaves
-// the tops of the letters.
+// One line, cut off at `max-width`. The inner box is the ink plus a little
+// room, so a space or a hyphen is not a place to break: a second line would
+// print on top of the line below. The outer box is taller than the line and
+// the text sits below its top edge, so the clip takes the end of the line
+// and leaves the tops of the letters.
 #let clip-line(line, max-width) = box(
   width: max-width,
   height: stride + clip-rise,
   clip: true,
-  pad(top: clip-rise, box(width: cells(line) * advance + 4pt, line)),
+  pad(top: clip-rise, box(width: line-span(line) + 4pt, line)),
 )
 
 #let envelope(
@@ -94,7 +87,7 @@
     let available = width - 2 * ocr-side
     let widest = 0pt
     for line in delivery-lines {
-      let w = calc.min(cells(line) * advance, available)
+      let w = calc.min(line-span(line), available)
       if w > widest { widest = w }
     }
     let right-limit = width - ocr-side
