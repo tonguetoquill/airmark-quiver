@@ -32,7 +32,7 @@
   `additional`, where `usaf_memo@0.3.0` took them flat. `classification` is
   `classification.level`, beside `classification.dissemination`.
 
-- **`usaf_memo@0.4.0` shows links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF, where `usaf_memo@0.3.0` printed it as plain text.
+- **`usaf_memo@0.4.0` shows links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF.
 
 - **The `usaf_memo` templates use `usaf_memo@0.4`.** `usaf-default`,
   `ussf-default`, `trip-report`, `rebuttal` and `appointment-letter` write
