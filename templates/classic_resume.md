@@ -1,5 +1,5 @@
 ~~~
-$quill: classic_resume@0.1
+$quill: classic_resume@0.2
 $kind: main
 name: Philip J. Fry
 contacts:
