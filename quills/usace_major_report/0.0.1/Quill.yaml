@@ -1,0 +1,348 @@
+quill:
+  name: usace_major_report
+  version: 0.0.1
+  backend: typst
+  description: USACE Portland District ENC report (MMR, MRR, EDR, DDR, Feasibility Study, Phase 1A)
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "Each Heading 1 starts a page as SECTION 1 - TITLE, centered, and its pages number 1-1, 1-2. Heading 2 is 1.1 in bold capitals, Heading 3 is 1.1.1 bold, Heading 4 is 1.1.1.1 bold italic. Headings 1 to 3 appear in CONTENTS. Heading 5 is bold underlined; Heading 6 is underlined. Tables and display equations number by section above them (Table 1-1, Equation 1-1). Notes are paragraphs that start with Note., not footnotes."
+  body:
+    example: |-
+      # Project Authorization and History
+
+      ## Project Authorization
+
+      The Flood Control Act of 1938 authorizes Detroit Dam, as modified by the Flood Control Act of 1950.
+
+      ## Project History
+
+      Detroit Dam has regulated the North Santiam River since 1953. It provides flood risk management, hydropower, irrigation, and fish and wildlife benefits to the Willamette Valley.
+
+      ### Regulating outlets
+
+      The four regulating outlet (RO) gates pass flow when the turbines are offline.
+
+      #### Gate condition
+
+      The 2020 condition assessment rates the RO gate seals as unsatisfactory.
+
+      ##### Seal wear.
+
+      Seal leakage exceeds the manufacturer's limit at gates 2 and 3.
+
+      ###### Embedded metals.
+
+      The embedded guides show pitting below the 1,450-foot elevation.
+
+      # Proposed Scope of Work
+
+      The work replaces the RO gate seals and rehabilitates the embedded metals.
+
+      1. Dewater the RO conduits behind the emergency gates.
+         1. Install the bulkheads.
+         2. Pump the conduits dry.
+      2. Replace the gate seals.
+      3. Return the gates to service.
+
+      | Gate | Seal condition | Action |
+      | --- | --- | --- |
+      | RO 1 | Satisfactory | Inspect |
+      | RO 2 | Unsatisfactory | Replace |
+      | RO 3 | Unsatisfactory | Replace |
+      | RO 4 | Satisfactory | Inspect |
+
+      **Note.** Gate numbers run from the left abutment.
+
+      # Justification for Maintenance
+
+      Seal leakage limits the gates' ability to hold the pool for temperature operations.
+
+      ## Hydrodynamic Loads
+
+      The hydrodynamic pressure on the gates under the Operational Basis Earthquake (OBE) follows the Westergaard equation.
+
+      # References
+
+      USACE. 2014b. ER 1110-2-1156. Safety of Dams - Policy and Procedures.
+  fields:
+    report:
+      type: object
+      properties:
+        report_type:
+          type: enum
+          default: "Major Maintenance Report"
+          description: "Prints on the title page as MAJOR MAINTENANCE REPORT NO., and after the design stage and in the running header as MMR, MRR, EDR, DDR or Feasibility Study. A Phase 1A Report prints no number and no design stage: its title page prints Phase 1A Report under the project name and Prepared By: US Army Corps of Engineers, Portland District, and its running header ends PHASE 1A."
+          values:
+            - "Major Maintenance Report"
+            - "Major Rehabilitation Report"
+            - "Engineering Documentation Report"
+            - "Design Documentation Report"
+            - "Feasibility Study"
+            - "Phase 1A Report"
+
+        report_number:
+          type: text
+          ui:
+            compact: true
+          example: ENC-22-014
+          description: "The number after the report type on the title page, for example MAJOR MAINTENANCE REPORT NO. ENC-22-014. A Phase 1A Report does not print it."
+
+        location_lines:
+          type: array
+          items:
+            type: text
+          default: []
+          example:
+            - DETROIT DAM AND RESERVOIR
+            - WILLAMETTE RIVER BASIN
+            - NORTH SANTIAM RIVER, OREGON
+          description: "Stacked location lines, printed in capitals, for example DETROIT DAM AND RESERVOIR, WILLAMETTE RIVER BASIN, NORTH SANTIAM RIVER, OREGON."
+
+        project_name:
+          type: text
+          example: Detroit Dam Temperature Control
+          description: "The project title on the title page, for example Detroit Dam Temperature Control. The running header prints it in capitals."
+
+        design_stage:
+          type: text
+          default: ""
+          ui:
+            compact: true
+          example: 30 Percent
+          description: "The design stage before the report's abbreviation on the title page, for example 30 Percent MMR. A Feasibility Study prints its full name after it, 30 Percent Feasibility Study. The running header prints Percent as %. A Phase 1A Report does not print it."
+
+        date:
+          type: date
+          default: ""
+          ui:
+            compact: true
+          example: 2022-04-19
+          description: "The date on the title page, printed as month and year, for example April 2022."
+
+    cui:
+      type: object
+      title: CUI
+      properties:
+        marking:
+          type: enum
+          default: "off"
+          ui:
+            compact: true
+          example: banners_and_cover
+          description: "Which CUI markings print. off prints no banners and no Standard Form 901 cover, and is what a new document does. banners prints the CUI banner at the top and bottom of every page, with the designation block, distribution statement and export warning at the bottom right of the first page. banners_and_cover prints those banners and the purple cover, and the designation block prints on the cover instead. The cover never prints without the banners."
+          values:
+            - "off"
+            - banners
+            - banners_and_cover
+
+        controlled_by_component:
+          type: text
+          default: ""
+          example: USACE
+          description: "The component that controls the CUI, for example USACE. Used when banners are on."
+
+        controlled_by_office:
+          type: text
+          default: ""
+          example: CENWP-EC
+          description: "The office that controls the CUI, for example CENWP-EC. Used when banners are on."
+
+        categories:
+          type: array
+          items:
+            type: text
+          default: []
+          example:
+            - CTI
+            - CEII
+          description: "CUI categories from the DoD CUI Registry, for example CTI or CEII. Used when banners are on."
+
+        distribution:
+          type: enum
+          default: ""
+          example: FED ONLY
+          description: "Statement A cannot be used when banners are on. Distribution/Limited Dissemination Control: a Distribution Statement A to F, or a Limited Dissemination Control, for example FED ONLY. Leave blank when markings are off. When banners are on, a blank prints a note telling you to choose a distribution and does not fill one in."
+          values:
+            - "Distribution Statement A"
+            - "Distribution Statement B"
+            - "Distribution Statement C"
+            - "Distribution Statement D"
+            - "Distribution Statement E"
+            - "Distribution Statement F"
+            - "FED ONLY"
+            - "FEDCON"
+            - "NOCON"
+            - "NOFORN"
+            - Other
+          variants:
+            Other:
+              detail:
+                type: text
+                description: "A Limited Dissemination Control or distribution statement not listed above."
+
+        distribution_reason:
+          title: Distribution reason
+          type: array
+          max: 3
+          default:
+            - Controlled Technical Information
+          example:
+            - Controlled Technical Information
+          description: "Up to three DoDI 5230.24 defense categories behind Distribution Statement B to F, printed by their full category headings under the designation block. Export Controlled also prints the export-control warning and requires statement B, C, D, or E."
+          items:
+            type: enum
+            values:
+              - Controlled Technical Information
+              - Contractor Performance Evaluation
+              - Critical Technology
+              - Direct Military Support
+              - Export Controlled
+              - Foreign Government Information
+              - International Agreements
+              - Operations Security
+              - Patents and Inventions
+              - Proprietary Business Information
+              - Small Business Innovation Research
+              - Software Documentation
+              - Test and Evaluation
+              - Vulnerability Information
+
+        distribution_date:
+          title: Date of determination
+          type: date
+          default: ""
+          ui:
+            compact: true
+          example: 2022-04-19
+          description: "When the controlling office assigned the distribution statement, printed as 18 OCT 2008. Used with Distribution Statement B to F."
+
+        distribution_office:
+          title: Refer requests to
+          type: text
+          default: ""
+          description: "The controlling DoD office, with its address, that the distribution statement refers other requests to. Leave blank to use the controlling office above. Statement F does not print until this office or the controlling office is filled in."
+
+        poc:
+          title: POC
+          type: text
+          default: ""
+          example: Jane Q. Engineer, CENWP-EC-H, 503-555-0142
+          description: "Who to contact about this CUI, with a phone or office mailbox. Used when banners are on."
+
+    front_matter:
+      type: object
+      title: Front matter
+      properties:
+        executive_summary:
+          type: richtext
+          multiline: true
+          default: ""
+          example: |-
+            # Introduction
+
+            This report presents the 30 percent design of the temperature control structure at Detroit Dam.
+
+            # Purpose
+
+            The work restores the regulating outlet gates so the project can meet downstream temperature targets.
+
+            # Cost
+
+            The fully funded cost is $48.2 million.
+          description: "The executive summary on page i. Each Heading 1 prints numbered in bold capitals, for example 4. RECOMMENDED PLAN, and a Heading 2 under it prints numbered in bold as typed, for example 4.1 Plan Components. Leave blank to omit this page."
+
+        appendices:
+          type: array
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              letter:
+                type: text
+                description: "The appendix letter, for example A. Leave blank to letter from A in order."
+              title:
+                type: text
+                description: "The appendix title, for example PLATES."
+          example:
+            - letter: A
+              title: PLATES
+            - letter: B
+              title: STRUCTURAL CALCULATIONS
+            - letter: C
+              title: COST ESTIMATE AND SCHEDULE
+          description: "Appendices listed in the front matter. The page is omitted when this list is empty."
+
+        pertinent_data:
+          type: richtext
+          multiline: true
+          default: ""
+          example: |-
+            Dam type: concrete gravity
+
+            Crest elevation: 1,580 feet NGVD29
+
+            Regulating outlets: four 5-foot by 6-foot slide gates
+          description: "Optional pertinent data. Leave blank to omit this page."
+
+        previous_reports:
+          title: Previous and planned reports
+          type: array
+          default: []
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              number:
+                type: text
+                description: "The report's number."
+              title:
+                type: text
+                description: "The report's title."
+              date:
+                type: date
+                default: ""
+                description: "Its date, printed in the table as MM/DD/YYYY."
+          example:
+            - number: ENC-20-003
+              title: Detroit Dam regulating outlet condition assessment
+              date: 2020-09-30
+            - number: ENC-23-002
+              title: Detroit Dam Temperature Control, 60 Percent MMR
+              date: 2023-03-01
+          description: "Earlier and planned reports for this project. The page is omitted when this list is empty."
+
+        acronyms:
+          type: array
+          ui:
+            layout: table
+          items:
+            type: object
+            properties:
+              acronym:
+                type: text
+                description: "The acronym, for example USACE."
+              description:
+                type: text
+                description: "What it stands for."
+          default:
+            - acronym: PDT
+              description: Product Development Team
+            - acronym: USACE
+              description: United States Army Corps of Engineers
+          example:
+            - acronym: OBE
+              description: Operational Basis Earthquake
+            - acronym: PDT
+              description: Product Development Team
+            - acronym: RO
+              description: Regulating Outlet
+            - acronym: USACE
+              description: United States Army Corps of Engineers
+          description: "Acronyms and abbreviations used in the report. They print alphabetically. The page is omitted when this list is empty."
+

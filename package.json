@@ -1,7 +1,7 @@
 {
   "name": "@airmark/quiver",
-  "version": "0.42.1",
-  "description": "Airmark Quiver — Air Force, DAF and Army document Quills for Quillmark.",
+  "version": "0.43.0",
+  "description": "Airmark Quiver — Air Force, DAF, Army and USACE document Quills for Quillmark.",
   "type": "module",
   "exports": {
     "./Quiver.yaml": "./Quiver.yaml",
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@quillmark/quiver": "0.39.0",
-    "@quillmark/wasm": "0.133.0",
-    "quillkit": "0.21.0"
+    "@quillmark/wasm": "0.135.0",
+    "quillkit": "0.23.0"
   },
   "scripts": {
     "test": "quillkit check && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
@@ -34,6 +34,7 @@
     "usaf",
     "daf",
     "army",
+    "usace",
     "airmark"
   ],
   "license": "Apache-2.0",

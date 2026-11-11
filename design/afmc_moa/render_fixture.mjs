@@ -29,7 +29,7 @@ const quiver = await fromDir(repoRoot);
 const engine = new Engine();
 const quill = await quiver.getQuill("afmc_moa@0.0.1");
 
-const doc = Document.fromMarkdown(readFileSync(resolve(fixturePath), "utf8"));
+const doc = Document.parse(readFileSync(resolve(fixturePath), "utf8"));
 let result;
 try {
   result = await engine.render(quill, doc);

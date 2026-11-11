@@ -52,7 +52,7 @@ const engine = new Engine();
 for (const entry of manifest) {
   let doc;
   try {
-    doc = Document.fromMarkdown(readFileSync(join(templatesDir, entry.file), "utf8"));
+    doc = Document.parse(readFileSync(join(templatesDir, entry.file), "utf8"));
     if (!doc.quillRef) {
       fail(entry.id, "names no `$quill`");
       continue;

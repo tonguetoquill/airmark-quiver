@@ -1,0 +1,19 @@
+[package]
+name = "tonguetoquill-usace-report-appendix"
+version = "0.0.1"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Typeset a USACE report appendix (Portland District ENC standardized appendix)."
+keywords = [
+    "USACE",
+    "Army Corps",
+    "report appendix",
+    "engineering",
+    "CUI",
+    "official",
+]
+categories = ["office", "report"]
+disciplines = ["engineering", "business"]
