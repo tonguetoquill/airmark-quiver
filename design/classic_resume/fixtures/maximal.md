@@ -133,7 +133,7 @@ projects:
   details: |
     - An asynchronous scraping and enrichment library to automate cybersecurity research.
 - name: ADSBLookup
-  link: <closed source>
+  link: (closed source)
   details: |
     - Reversed the internal API of a popular ADSB web service to pull comprehensive live ADSB datasets; ported and exposed attributes in a user-friendly, Pandas-compatible Python library for data scientists.
 ~~~
