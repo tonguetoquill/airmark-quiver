@@ -2,28 +2,6 @@
 
 ## v0.44.0 - 2026-11-11
 
-- Show links in usaf_memo 0.2.0 and 0.3.0 underlined in hyperlink blue (#332)
-- Release usaf_memo 0.4.0 with up to four signers and move templates to it (#325)
-- Make every classic_resume 0.2.0 text field richtext
-- Let classic_resume entry fields hold Markdown links in 0.2.0
-
-
-## v0.43.0 - 2026-11-08
-
-- Port the quiver to @quillmark/wasm 0.135 (#328)
-- Make the USACE example bodies editable in Studio (#327)
-- Add usace_major_report 0.0.1: MMR, MRR, EDR, DDR, Feasibility Study, Phase 1A (#299)
-- Add usace_report_appendix 0.0.1 with FS Appendices A-G (#298)
-- Add usace_tech_memo 0.0.1 (#297)
-- Publish the templates under Airmark: templates.json names its publisher (#323)
-- Update SKILL.md to streamline quill design checks (#316)
-- docs: point the README at the quill-design skill (#315)
-- Remove stray render output
-- Wrap a single reference with the subject in usaf_memo
-
-
-## Unreleased
-
 - **`usaf_memo@0.4.0` takes up to four signers.** `signers` replaces
   `signature_block` and `authority_line`: each signer has their own
   `signature_block` and an optional `authority_line`. One signer prints as
@@ -42,6 +20,8 @@
 
 - **`usaf_memo@0.4.0` shows links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF.
 
+- **`usaf_memo@0.2.0` and `usaf_memo@0.3.0` show links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF, where it printed as plain text.
+
 - **The `usaf_memo` templates use `usaf_memo@0.4`.** `usaf-default`,
   `ussf-default`, `trip-report`, `rebuttal` and `appointment-letter` write
   their fields under the 0.4 groups and their signer under `signers`. Each
@@ -49,7 +29,8 @@
 
 - **Every classic_resume text field takes Markdown, so any of them can hold a link.** `classic_resume@0.2.0` makes each field that was `text` a one-line `richtext`: the name, contacts, section titles, and every entry, project and skill field. `[Acme](https://acme.example)` prints as a live link and `*…*` or `**…**` style it; links print like the text around them. The PDF's title and author take the name's text without its formatting, and contacts and project links still become links on their own. Documents pinned to `@0.1` keep rendering on 0.1.0; the Classic Resume template now pins `@0.2`. A value written for 0.1 that holds `*`, `_`, `[` or a `<…>` tag reads as Markdown under 0.2.
 
-- **`usaf_memo@0.2.0` and `usaf_memo@0.3.0` show links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF, where it printed as plain text.
+## v0.43.0 - 2026-11-08
+
 - **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
 - **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
   typesets the Portland District ENC standardized report appendix: a purple
