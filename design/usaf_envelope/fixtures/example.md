@@ -8,7 +8,7 @@ return:
     - EXAMPLE AFB ST 12345-6789
   official_business: true
 delivery:
-  attention: MAJOR JOHN B. SMITH
+  attention: MAJOR JOHN B SMITH
   recipient: 456 EXG/CC
   street: 2 SAMPLE BOULEVARD
   city: SAMPLE AFB ST 98765-4321

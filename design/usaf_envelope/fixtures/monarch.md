@@ -8,7 +8,7 @@ return:
     - 1 EXAMPLE WAY STE 100
     - EXAMPLE AFB ST 12345-6789
 delivery:
-  recipient: MAJOR JOHN B. SMITH
+  recipient: MAJOR JOHN B SMITH
   street: 2 SAMPLE BOULEVARD
   city: SAMPLE AFB ST 98765-4321
 envelope:

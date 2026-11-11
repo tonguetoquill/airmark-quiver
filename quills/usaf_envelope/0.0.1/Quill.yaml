@@ -49,8 +49,8 @@ main:
         attention:
           type: text
           default: ""
-          example: MAJOR JOHN B. SMITH
-          description: "A person in the office on the recipient line, not the office itself. MAJOR JOHN B. SMITH, or PERSONAL FOR MS JANE DOE when only that person should open it. No punctuation. It prints in capitals. Leave blank when the recipient line names the person."
+          example: MAJOR JOHN B SMITH
+          description: "A person in the office on the recipient line, not the office itself. MAJOR JOHN B SMITH, or PERSONAL FOR MS JANE DOE when only that person should open it. No punctuation. It prints in capitals. Leave blank when the recipient line names the person."
 
         recipient:
           type: text
