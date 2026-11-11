@@ -16,6 +16,8 @@
 
 ## Unreleased
 
+- **Resume entries take Markdown, so they can hold links.** `classic_resume@0.2.0` makes the company, role, school, degree, dates, location, entry heading and subtitle, project name, and skill label and items `richtext` on one line, so `[Acme](https://acme.example)` prints as a live link and `*…*` or `**…**` style it. Links print like the text around them. Documents pinned to `@0.1` keep rendering on 0.1.0; the Classic Resume template now pins `@0.2`. A value written for 0.1 that holds `*`, `_` or `[` reads as Markdown under 0.2.
+
 - **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
 - **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
   typesets the Portland District ENC standardized report appendix: a purple
