@@ -24,7 +24,8 @@ main:
     name:
       ui:
         group: identity
-      type: text
+      type: richtext
+      multiline: false
       example: Philip J. Fry
       description: "Your name as you want it read. It also names the PDF."
 
@@ -33,7 +34,8 @@ main:
         group: identity
       type: array
       items:
-        type: text
+        type: richtext
+        multiline: false
       example:
         - fry@planetexpress.example
         - (212) 555-0199
@@ -82,7 +84,8 @@ card_kinds:
       example: Delivery boy with a thousand years of experience, most of it frozen. Brings 20th-century know-how to 31st-century problems and has saved Earth more than once. Wants to keep delivering anywhere, ideally with fewer space bees.
     fields:
       title:
-        type: text
+        type: richtext
+        multiline: false
         default: Summary
         description: "The section heading. Leave blank to omit it; a summary at the top then sits right under your name."
 
@@ -99,7 +102,8 @@ card_kinds:
             - What you did, and what it changed.
     fields:
       title:
-        type: text
+        type: richtext
+        multiline: false
         default: Work Experience
         example: Experience
         description: &title_description "The section heading. Leave blank to omit it."
@@ -164,7 +168,8 @@ card_kinds:
           location: City, ST
     fields:
       title:
-        type: text
+        type: richtext
+        multiline: false
         default: Education
         description: *title_description
       schools:
@@ -202,7 +207,8 @@ card_kinds:
           items: Skill, Skill, Skill
     fields:
       title:
-        type: text
+        type: richtext
+        multiline: false
         default: Skills
         description: *title_description
       skills:
@@ -248,7 +254,8 @@ card_kinds:
             - What it does, and your part in it.
     fields:
       title:
-        type: text
+        type: richtext
+        multiline: false
         default: Projects
         description: *title_description
       projects:
@@ -261,7 +268,8 @@ card_kinds:
               multiline: false
               description: "The project's name."
             link:
-              type: text
+              type: richtext
+              multiline: false
               default: ""
               description: "Where to see it, for example github.com/you/project. It prints as written, so leave off https://."
             details: *details
@@ -281,7 +289,8 @@ card_kinds:
         - Certification (ABBREVIATION)
     fields:
       title:
-        type: text
+        type: richtext
+        multiline: false
         default: Certifications
         description: *title_description
       items:
@@ -308,7 +317,8 @@ card_kinds:
             - What it was, and what came of it.
     fields:
       title:
-        type: text
+        type: richtext
+        multiline: false
         example: Planetary Defense
         description: "The section heading."
       entries:
