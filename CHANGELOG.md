@@ -172,6 +172,16 @@
   for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
   block copies onto the report appendix and the major report as-is.
 
+- **Fields named by abbreviations or run-together keys carry their own
+  titles.** An editor that labels a field by its key showed `Afsc`,
+  `Majcom fldcom foa or dru` and `Dept flight num`; each now has a `title`
+  it shows instead: `AFSC` and the commissioning and adjusted year groups in
+  `cyber_career_plan@0.1.0`, the nominee, unit and commander fields in
+  `daf1206@0.1.0`, the flight numbers in `daf4392@0.1.0`, the commander's
+  authentication and the remarks column in `af4141@0.1.0`, `PAS code` and
+  `RDP date` in `medal_citation@0.1.0`, and `Courtesy copies` in
+  `usaf_memo@0.3.0` and `usaf_letter@0.1.0`. Nothing prints differently.
+
 - **The templates are published under Airmark.** `templates/templates.json`
   is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
   the bare array of entries: `publisher` names the author a template library

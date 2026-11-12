@@ -30,6 +30,7 @@ main:
       description: Your current grade or CCC level.
 
     commanders_auth:
+      title: "Commander's authentication"
       type: text
       default: ""
       example: R.T.K., Lt Col
@@ -94,6 +95,7 @@ card_kinds:
         description: The date of the positional grade.
 
       auth_or_remarks:
+        title: Authentication or remarks
         ui:
           group: record
         type: text

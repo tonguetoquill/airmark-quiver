@@ -72,6 +72,7 @@ main:
       default: ""
       example: Outstanding Performer of the Quarter
     category_if_applicable:
+      title: "Category (if applicable)"
       type: text
       default: ""
       example: NCO
@@ -85,6 +86,7 @@ main:
       ui:
         compact: true
     rankname_of_nominee:
+      title: Rank and name of nominee
       type: text
       default: ""
       example: SSgt John A. Doe
@@ -92,6 +94,7 @@ main:
       ui:
         compact: true
     majcom_fldcom_foa_or_dru:
+      title: "MAJCOM, FLDCOM, FOA or DRU"
       type: text
       default: ""
       example: ACC
@@ -99,21 +102,25 @@ main:
       ui:
         compact: true
     dafsc_duty_title:
+      title: DAFSC and duty title
       type: text
       default: ""
       example: 1C571, NCOIC, Standardization and Evaluation
       description: The nominee's DAFSC and duty title.
     nominees_telephone_dsn_commercial:
+      title: "Nominee's telephone (DSN and commercial)"
       type: text
       default: ""
       example: DSN 555-1234 / (555) 555-1234
       description: DSN and commercial numbers, for example DSN 555-1234 / (555) 555-1234.
     unit_office_symbol_street_address_base_state_zip:
+      title: "Unit, office symbol and address"
       type: text
       default: ""
       example: 1 ACS/DOV, 123 Main St, Example AFB FL 32403
       description: Unit, office symbol, and full address on one line.
     unit_commander_rank_name_and_telephone:
+      title: "Unit commander's rank, name and telephone"
       type: text
       default: ""
       example: Lt Col Jane B. Smith, (555) 555-5678
