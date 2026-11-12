@@ -25,6 +25,8 @@
 // Courier New; only the regular weight is bundled (no bold or italic variants).
 #let DEFAULT_MONO_FONTS = ("Liberation Mono",)
 #let LETTERHEAD_COLOR = rgb("#355e93")  // Faded USAF blue for letterhead
+// Word's hyperlink blue, the color a memo drafted from the AF template shows.
+#let LINK_COLOR = rgb("#0563c1")
 
 // =============================================================================
 // PARAGRAPH CONFIGURATION

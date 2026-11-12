@@ -1,23 +1,26 @@
 ~~~card-yaml
-$quill: usaf_memo@0.3
+$quill: usaf_memo@0.4
 $kind: main
-letterhead_title:
-  - DEPARTMENT OF THE AIR FORCE
-  - United States Space Force
-  - Space Delta [X]
-memo_for:
-  - ORG/SYMBOL
-  # - 2nd ORG/SYMBOL
-memo_from:
-  - ORG/SYMBOL
-  - ORGANIZATION
-  - Street Address
-  - City St 12345-6789
-subject: Your Subject Here
-date: today
-signature_block:
-  - FIRST M. LAST, Rank, USSF
-tag_line: Semper Supra
+addressing:
+  memo_for:
+    - ORG/SYMBOL
+    # - 2nd ORG/SYMBOL
+  memo_from:
+    - ORG/SYMBOL
+    - ORGANIZATION
+    - Street Address
+    - City St 12345-6789
+  subject: Your Subject Here
+  date: today
+  signers:
+    - signature_block:
+        - FIRST M. LAST, Rank, USSF
+letterhead:
+  letterhead_title:
+    - DEPARTMENT OF THE AIR FORCE
+    - United States Space Force
+    - Space Delta [X]
+  tag_line: Semper Supra
 ~~~
 
 Write your paragraphs here.

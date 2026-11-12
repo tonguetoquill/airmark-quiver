@@ -345,6 +345,17 @@ python3 design/usaf_memo/check_table_signature.py
 TYPST=/path/to/typst python3 design/usaf_memo/check_table_signature.py
 ```
 
+A render helper and fixtures for `usaf_memo@0.4.0`'s signers. `signers_1.md`
+through `signers_4.md` hold the same memorandum signed by one to four people,
+the second carrying an authority line, so a row whose name lines must stay level
+across a closing line is in every fixture past the first. `signers_1.md` renders
+identically to the same memorandum on `usaf_memo@0.3.0`.
+
+```sh
+# run from the repo root; .png writes one image per page, anything else a PDF
+node design/usaf_memo/render_fixture.mjs design/usaf_memo/fixtures/signers_4.md /tmp/s4.png 2026-10-15
+```
+
 ## usaf_letter
 
 Fixtures and a layout check for the `usaf_letter` quill.
