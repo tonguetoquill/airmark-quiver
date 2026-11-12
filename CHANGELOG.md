@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **`usaf_memo@0.4.0` keeps the signature block off a page of its own after a long last paragraph or table.** When the body's last paragraph or table runs longer than a third of a page and ends at the foot of a page, its last two lines, or a table's last row, now move to the next page with the signature block, as AFH 33-337 requires. Before, the signature block started the next page alone.
+
 ## v0.44.0 - 2026-11-11
 
 - **`usaf_memo@0.4.0` takes up to four signers.** `signers` replaces

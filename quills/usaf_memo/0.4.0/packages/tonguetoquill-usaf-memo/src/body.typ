@@ -103,6 +103,26 @@
   }
 }
 
+// AFH 33-337 "Do not place the signature element on a continuation page by
+// itself." When the last element ends on a page with no room left for the
+// signature block, a bottom float takes the room below the element's last two
+// lines, so they start the next page above the signature. Measured from where
+// the element begins, which the float cannot move, so the signature block
+// stays on the later page and the float stays.
+#let keep-tail-with-signature(height) = context {
+  let start = here().position()
+  let signature = query(selector(<usaf-memo-flow-anchor>).after(here()))
+  if signature.len() == 0 or signature.first().location().page() == start.page { return }
+  let reserve = if start.page == 1 {
+    query(<usaf-memo-page-one-reserve>).map(m => m.value).sum(default: 0pt)
+  } else { 0pt }
+  let limit = page.height - spacing.margin - reserve
+  if start.y + height <= limit {
+    let tail = 2 * line-stride() - spacing.line.to-absolute()
+    place(bottom, float: true, clearance: 0pt, block(height: limit - start.y - height + tail))
+  }
+}
+
 // AFH 33-337 "The Text of the Official Memorandum" §1-12: number and letter
 // each paragraph and subparagraph as 1. / a. / (1) / (a); leave a top-level
 // paragraph flush left and a lone paragraph unnumbered (§2); indent each
@@ -421,9 +441,8 @@
         // it relocates whole; applied to a half-page block that turns an
         // ordinary mid-paragraph break into a wholesale jump. A third of the
         // text block covers what a memorandum actually ends on — a closing
-        // paragraph, a short table — while leaving the long block to be divided
-        // by the break, which leaves its own tail on the continuation page for
-        // the signature to sit under.
+        // paragraph, a short table. A longer block stays in place, and
+        // `keep-tail-with-signature` moves only its last two lines.
         //
         // The budget is a fixed fraction rather than the space actually left
         // below this element, which is the question one would rather ask. A
@@ -435,7 +454,12 @@
         let available-width = page.width - spacing.margin * 2
         let relocation-budget = (page.height - spacing.margin * 2) / 3
         let element-height = measure(final-par, width: available-width).height
-        block(sticky: element-height <= relocation-budget)[#final-par]
+        if element-height <= relocation-budget {
+          block(sticky: true)[#final-par]
+        } else {
+          keep-tail-with-signature(element-height)
+          block[#final-par]
+        }
       } else {
         // A plain block, so that the document-wide `set block(above:
         // spacing.line)` contributes the same 0.5em above every paragraph as it

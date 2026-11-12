@@ -326,7 +326,9 @@ A render helper and fixtures for `usaf_memo@0.4.0`'s signers. `signers_1.md`
 through `signers_4.md` hold the same memorandum signed by one to four people,
 the second carrying an authority line, so a row whose name lines must stay level
 across a closing line is in every fixture past the first. `signers_1.md` renders
-identically to the same memorandum on `usaf_memo@0.3.0`.
+identically to the same memorandum on `usaf_memo@0.3.0`. `signature_tail.md`
+ends on an 18-line paragraph that fills page 1 to its last line: its last two
+lines start page 2 above the signature block.
 
 ```sh
 # run from the repo root; .png writes one image per page, anything else a PDF
