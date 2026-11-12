@@ -9,7 +9,8 @@ and aligned to the current Quillmark spec.
 
 | Quill                | Version | Description                                                                      |
 |----------------------|---------|----------------------------------------------------------------------------------|
-| `usaf_memo`          | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                      |
+| `usaf_memo`          | 0.4.0   | USAF / DAF Official Memorandum (AFH 33-337), with up to four signers             |
+| `usaf_memo`          | 0.3.0   | Previous release, retained so documents pinned to `@0.3` keep resolving          |
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
 | `usaf_envelope`      | 0.0.1   | USAF / DAF envelope (AFH 33-337, chapter 22; draft)                              |
@@ -20,7 +21,8 @@ and aligned to the current Quillmark spec.
 | `daf1206`            | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |
 | `daf4392`            | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |
 | `afmc_moa`           | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                       |
-| `classic_resume`     | 0.1.0   | Classic single-page resume                                                       |
+| `classic_resume`     | 0.2.0   | Classic single-page resume                                                       |
+| `classic_resume`     | 0.1.0   | Previous release, retained so documents pinned to `@0.1` keep resolving          |
 | `cyber_career_plan`  | 0.1.0   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
 | `usace_tech_memo`    | 0.0.1   | USACE technical memorandum (Portland District ENC skeleton; draft)               |
 | `usace_report_appendix` | 0.0.1 | USACE report appendix (Portland District ENC; draft)                            |
@@ -58,12 +60,14 @@ const quiver = await fromDir(root);
 const engine = new Engine();
 
 const doc = Document.parse(`~~~
-$quill: usaf_memo@0.3
+$quill: usaf_memo@0.4
 $kind: main
-memo_for: ["ORG/SYMBOL"]
-memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
-subject: Hello Quillmark
-signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
+addressing:
+  memo_for: ["ORG/SYMBOL"]
+  memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
+  subject: Hello Quillmark
+  signers:
+    - signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
 ~~~
 
 Body of the memo.`);
