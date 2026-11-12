@@ -1,121 +1,229 @@
-[
-  {
-    "id": "usaf-default",
-    "name": "USAF Memo",
-    "description": "Official U.S. Air Force memorandum template",
-    "file": "usaf_template.md",
-    "tags": ["air-force", "memo"]
-  },
-  {
-    "id": "ussf-default",
-    "name": "USSF Memo",
-    "description": "Official U.S. Space Force memorandum template",
-    "file": "ussf_template.md",
-    "tags": ["space-force", "memo"]
-  },
-  {
-    "id": "army-default",
-    "name": "Army Memo",
-    "description": "Official U.S. Army memorandum template",
-    "file": "army_memo.md",
-    "tags": ["army", "memo"]
-  },
-  {
-    "id": "usaf-letter",
-    "name": "USAF Personal Letter",
-    "description": "Official U.S. Air Force personal letter template",
-    "file": "usaf_letter.md",
-    "tags": ["air-force", "space-force", "letter"]
-  },
-  {
-    "id": "point-paper",
-    "name": "Point Paper",
-    "description": "Brief one issue quickly, on no notice, from a single page of bullets (AFH 33-337)",
-    "file": "point_paper.md",
-    "tags": ["air-force", "space-force", "staff-paper", "briefing"]
-  },
-  {
-    "id": "talking-paper",
-    "name": "Talking Paper",
-    "description": "Speak to one issue at a scheduled briefing, with notes that also stand alone (AFH 33-337)",
-    "file": "talking_paper.md",
-    "tags": ["air-force", "space-force", "staff-paper", "briefing"]
-  },
-  {
-    "id": "bullet-background-paper",
-    "name": "Bullet Background Paper",
-    "description": "Give the background of a program, policy, or problem in concise bullets (AFH 33-337)",
-    "file": "bullet_background_paper.md",
-    "tags": ["air-force", "space-force", "staff-paper"]
-  },
-  {
-    "id": "background-paper",
-    "name": "Background Paper",
-    "description": "Condense a complex issue in numbered paragraphs for a briefing or decision maker (AFH 33-337)",
-    "file": "background_paper.md",
-    "tags": ["air-force", "space-force", "staff-paper", "briefing"]
-  },
-  {
-    "id": "position-paper",
-    "name": "Position Paper",
-    "description": "Circulate, evaluate, or advocate a proposal for a new program or policy (AFH 33-337)",
-    "file": "position_paper.md",
-    "tags": ["air-force", "space-force", "staff-paper"]
-  },
-  {
-    "id": "trip-report",
-    "name": "Formal Trip Report",
-    "description": "Formal trip report as an official memorandum (AFH 33-337)",
-    "file": "trip_report.md",
-    "tags": ["air-force", "space-force", "memo", "travel"]
-  },
-  {
-    "id": "medal-citation",
-    "name": "Medal Citation",
-    "description": "Air and Space Achievement Medal, Meritorious Service Medal, or Air and Space Commendation Medal",
-    "file": "medal_citation.md",
-    "tags": ["air-force", "space-force", "award", "citation"]
-  },
-  {
-    "id": "rebuttal",
-    "name": "Rebuttal",
-    "description": "Rebuttal template for an LOC or LOR",
-    "file": "rebuttal.md",
-    "tags": ["air-force", "space-force", "memo", "discipline", "loc", "lor"]
-  },
-  {
-    "id": "af-form-4141",
-    "name": "AF Form 4141",
-    "description": "Individual's Record of Duties and Experience, Ground Environment Personnel",
-    "file": "af4141.md",
-    "tags": ["air-force", "space-force", "form", "training", "records"]
-  },
-  {
-    "id": "daf-form-4392",
-    "name": "DAF Form 4392",
-    "description": "Pre-Departure Safety Briefing (Page 2)",
-    "file": "daf4392.md",
-    "tags": ["air-force", "space-force", "form", "leave", "travel", "safety"]
-  },
-  {
-    "id": "daf-form-1206",
-    "name": "DAF Form 1206",
-    "description": "Nomination for Award",
-    "file": "daf1206.md",
-    "tags": ["air-force", "space-force", "form", "award", "nomination"]
-  },
-  {
-    "id": "appointment-letter",
-    "name": "Appointment Letter",
-    "description": "Appoint primary and alternate program managers with an appointee table",
-    "file": "appointment_letter.md",
-    "tags": ["air-force", "space-force", "memo", "appointment", "additional-duty"]
-  },
-  {
-    "id": "classic-resume",
-    "name": "Classic Resume",
-    "description": "Classic single-page resume",
-    "file": "classic_resume.md",
-    "tags": ["resume", "career"]
-  }
-]
+{
+  "publisher": "Airmark",
+  "templates": [
+    {
+      "id": "usaf-default",
+      "name": "USAF Memo",
+      "description": "Official U.S. Air Force memorandum template",
+      "file": "usaf_template.md",
+      "tags": ["air-force", "memo"]
+    },
+    {
+      "id": "ussf-default",
+      "name": "USSF Memo",
+      "description": "Official U.S. Space Force memorandum template",
+      "file": "ussf_template.md",
+      "tags": ["space-force", "memo"]
+    },
+    {
+      "id": "army-default",
+      "name": "Army Memo",
+      "description": "Official U.S. Army memorandum template",
+      "file": "army_memo.md",
+      "tags": ["army", "memo"]
+    },
+    {
+      "id": "usaf-letter",
+      "name": "USAF Personal Letter",
+      "description": "Official U.S. Air Force personal letter template",
+      "file": "usaf_letter.md",
+      "tags": ["air-force", "space-force", "letter"]
+    },
+    {
+      "id": "point-paper",
+      "name": "Point Paper",
+      "description": "Brief one issue quickly, on no notice, from a single page of bullets (AFH 33-337)",
+      "file": "point_paper.md",
+      "tags": ["air-force", "space-force", "staff-paper", "briefing"]
+    },
+    {
+      "id": "talking-paper",
+      "name": "Talking Paper",
+      "description": "Speak to one issue at a scheduled briefing, with notes that also stand alone (AFH 33-337)",
+      "file": "talking_paper.md",
+      "tags": ["air-force", "space-force", "staff-paper", "briefing"]
+    },
+    {
+      "id": "bullet-background-paper",
+      "name": "Bullet Background Paper",
+      "description": "Give the background of a program, policy, or problem in concise bullets (AFH 33-337)",
+      "file": "bullet_background_paper.md",
+      "tags": ["air-force", "space-force", "staff-paper"]
+    },
+    {
+      "id": "background-paper",
+      "name": "Background Paper",
+      "description": "Condense a complex issue in numbered paragraphs for a briefing or decision maker (AFH 33-337)",
+      "file": "background_paper.md",
+      "tags": ["air-force", "space-force", "staff-paper", "briefing"]
+    },
+    {
+      "id": "position-paper",
+      "name": "Position Paper",
+      "description": "Circulate, evaluate, or advocate a proposal for a new program or policy (AFH 33-337)",
+      "file": "position_paper.md",
+      "tags": ["air-force", "space-force", "staff-paper"]
+    },
+    {
+      "id": "trip-report",
+      "name": "Formal Trip Report",
+      "description": "Formal trip report as an official memorandum (AFH 33-337)",
+      "file": "trip_report.md",
+      "tags": ["air-force", "space-force", "memo", "travel"]
+    },
+    {
+      "id": "medal-citation",
+      "name": "Medal Citation",
+      "description": "Air and Space Achievement Medal, Meritorious Service Medal, or Air and Space Commendation Medal",
+      "file": "medal_citation.md",
+      "tags": ["air-force", "space-force", "award", "citation"]
+    },
+    {
+      "id": "rebuttal",
+      "name": "Rebuttal",
+      "description": "Rebuttal template for an LOC or LOR",
+      "file": "rebuttal.md",
+      "tags": ["air-force", "space-force", "memo", "discipline", "loc", "lor"]
+    },
+    {
+      "id": "af-form-4141",
+      "name": "AF Form 4141",
+      "description": "Individual's Record of Duties and Experience, Ground Environment Personnel",
+      "file": "af4141.md",
+      "tags": ["air-force", "space-force", "form", "training", "records"]
+    },
+    {
+      "id": "daf-form-4392",
+      "name": "DAF Form 4392",
+      "description": "Pre-Departure Safety Briefing (Page 2)",
+      "file": "daf4392.md",
+      "tags": ["air-force", "space-force", "form", "leave", "travel", "safety"]
+    },
+    {
+      "id": "daf-form-1206",
+      "name": "DAF Form 1206",
+      "description": "Nomination for Award",
+      "file": "daf1206.md",
+      "tags": ["air-force", "space-force", "form", "award", "nomination"]
+    },
+    {
+      "id": "appointment-letter",
+      "name": "Appointment Letter",
+      "description": "Appoint primary and alternate program managers with an appointee table",
+      "file": "appointment_letter.md",
+      "tags": ["air-force", "space-force", "memo", "appointment", "additional-duty"]
+    },
+    {
+      "id": "classic-resume",
+      "name": "Classic Resume",
+      "description": "Classic single-page resume",
+      "file": "classic_resume.md",
+      "tags": ["resume", "career"]
+    },
+    {
+      "id": "usace-tech-memo",
+      "name": "USACE Technical Memorandum",
+      "description": "USACE ENC technical memorandum with a CUI cover, title page, and front matter (Portland District skeleton)",
+      "file": "usace_tech_memo.md",
+      "tags": ["army", "usace", "memo"]
+    },
+    {
+      "id": "usace-report-appendix",
+      "name": "USACE Report Appendix",
+      "description": "USACE ENC standardized report appendix with a CUI cover, contents, and lettered sections (Portland District skeleton)",
+      "file": "usace_report_appendix.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-fs-appendix-a",
+      "name": "USACE Feasibility Study Appendix A - Engineering",
+      "description": "USACE feasibility study Engineering appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+      "file": "usace_fs_appendix_a.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-fs-appendix-b",
+      "name": "USACE Feasibility Study Appendix B - Cost Engineering",
+      "description": "USACE feasibility study Cost Engineering appendix with a CUI cover, contents, and lettered sections",
+      "file": "usace_fs_appendix_b.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-fs-appendix-c",
+      "name": "USACE Feasibility Study Appendix C - Environmental",
+      "description": "USACE feasibility study Environmental appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+      "file": "usace_fs_appendix_c.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-fs-appendix-d",
+      "name": "USACE Feasibility Study Appendix D - Real Estate",
+      "description": "USACE feasibility study Real Estate appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+      "file": "usace_fs_appendix_d.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-fs-appendix-e",
+      "name": "USACE Feasibility Study Appendix E - Economic and Social Considerations",
+      "description": "USACE feasibility study Economic and Social Considerations appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+      "file": "usace_fs_appendix_e.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-fs-appendix-f",
+      "name": "USACE Feasibility Study Appendix F - Recreation",
+      "description": "USACE feasibility study Recreation appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+      "file": "usace_fs_appendix_f.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-fs-appendix-g",
+      "name": "USACE Feasibility Study Appendix G - Public Involvement",
+      "description": "USACE feasibility study Public Involvement appendix with the executive summary guidance, a CUI cover, contents, and lettered sections",
+      "file": "usace_fs_appendix_g.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-major-maintenance-report",
+      "name": "USACE Major Maintenance Report",
+      "description": "USACE ENC major maintenance report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_major_maintenance_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-major-rehabilitation-report",
+      "name": "USACE Major Rehabilitation Report",
+      "description": "USACE ENC major rehabilitation report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_major_rehabilitation_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-engineering-documentation-report",
+      "name": "USACE Engineering Documentation Report",
+      "description": "USACE ENC engineering documentation report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_engineering_documentation_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-design-documentation-report",
+      "name": "USACE Design Documentation Report",
+      "description": "USACE ENC design documentation report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_design_documentation_report.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-feasibility-study",
+      "name": "USACE Feasibility Study",
+      "description": "USACE feasibility study with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_feasibility_study.md",
+      "tags": ["army", "usace", "report"]
+    },
+    {
+      "id": "usace-phase-1a-report",
+      "name": "USACE Phase 1A Report",
+      "description": "USACE ENC Phase 1A report with a CUI cover, title page, executive summary, and front matter (Portland District skeleton)",
+      "file": "usace_phase_1a_report.md",
+      "tags": ["army", "usace", "report"]
+    }
+  ]
+}

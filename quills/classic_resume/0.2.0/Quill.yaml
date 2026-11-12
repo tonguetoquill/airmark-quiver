@@ -1,0 +1,351 @@
+quill:
+  name: classic_resume
+  version: 0.2.0
+  backend: typst
+  description: Classic single-page resume
+
+typst:
+  plate_file: plate.typ
+
+# A resume is a stack of sections, and each kind of section is a card kind: a
+# heading, optional prose under it, and the rows that section holds. The rows
+# are the section's own, so an entry cannot land under the wrong heading.
+main:
+  description: "Your name and contact details go at the top. Add a card for each section, in the order you want them."
+  # Everything prints under a section heading, so main carries no body: a
+  # summary is a Summary card.
+  body:
+    enabled: false
+  ui:
+    groups:
+      identity: {}
+      page: {}
+  fields:
+    name:
+      ui:
+        group: identity
+      type: richtext
+      multiline: false
+      example: Philip J. Fry
+      description: "Your name as you want it read. It also names the PDF."
+
+    contacts:
+      ui:
+        group: identity
+      type: array
+      items:
+        type: richtext
+        multiline: false
+      example:
+        - fry@planetexpress.example
+        - (212) 555-0199
+        - github.com/borb-sh
+        - New New York
+      description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
+    paper:
+      type: enum
+      values:
+        - us-letter
+        - a4
+      default: us-letter
+      ui:
+        group: page
+        compact: true
+      description: "Page size."
+
+    font_size:
+      type: number
+      default: 12
+      example: 11.5
+      ui:
+        group: page
+        compact: true
+      description: "Body text size in points. To fit one page, try a half point smaller before cutting content."
+
+    margin:
+      type: number
+      default: 0.5
+      ui:
+        group: page
+        compact: true
+      description: "Margin in inches on all sides. Below about 0.4, printers may clip the edges."
+
+
+# Each kind opens with the heading it prints. Its `default:` is the usual one,
+# so a new card shows the heading it will print, and an authored "" prints
+# none.
+card_kinds:
+  summary:
+    title: Summary
+    description: "A few lines on who you are and the work you want next. Rename it for any section that's just text, such as an objective."
+    seed:
+      $body: An engineer. Likes climbing rocks and making useful things.
+    body:
+      example: Delivery boy with a thousand years of experience, most of it frozen. Brings 20th-century know-how to 31st-century problems and has saved Earth more than once. Wants to keep delivering anywhere, ideally with fewer space bees.
+    fields:
+      title:
+        type: richtext
+        multiline: false
+        default: Summary
+        description: "The section heading. Leave blank to omit it; a summary at the top then sits right under your name."
+
+  experience:
+    title: Experience
+    description: "Your jobs, most recent first."
+    seed:
+      jobs:
+        - company: Employer
+          dates: Month YYYY – Present
+          role: Job Title
+          location: City, ST
+          details: |
+            - What you did, and what it changed.
+    fields:
+      title:
+        type: richtext
+        multiline: false
+        default: Work Experience
+        example: Experience
+        description: &title_description "The section heading. Leave blank to omit it."
+      jobs:
+        type: array
+        items:
+          type: object
+          properties:
+            company:
+              type: richtext
+              multiline: false
+              description: "The employer's name."
+            dates: &dates
+              type: richtext
+              multiline: false
+              default: ""
+              description: "Written as you want it to read, for example 'August 2024 – Present'. Use the same style throughout."
+            role:
+              type: richtext
+              multiline: false
+              default: ""
+              description: "Your job title."
+            location: &location
+              type: richtext
+              multiline: false
+              default: ""
+              description: "Where it was, for example 'Pittsburgh, PA' or 'Remote'."
+            details: &details
+              type: richtext
+              multiline: true
+              default: ""
+              description: "What you did, usually as short bullets with the strongest first."
+        example:
+          - company: Planet Express
+            dates: December 2999 – Present
+            role: Delivery Boy
+            location: New New York
+            details: |-
+              - Deliver packages anywhere in the universe with Captain Turanga Leela and Bender Bending Rodríguez.
+
+              - Completed runs to robot-only Chapek 9 and a hive of giant space bees, and survived both.
+          - company: Earth Army
+            dates: November 3000
+            role: Private
+            location: Spheron 1
+            details: "- Enlisted for the military discount; deployed against the Spheroids under Zapp Brannigan."
+          - company: Panucci's Pizza
+            dates: June 1997 – December 1999
+            role: Delivery Boy
+            location: New York, NY
+            details: "- Delivered pizza across New York City until a prank order to Applied Cryogenics ran 1,000 years late."
+        description: "One entry per job."
+
+  education:
+    title: Education
+    description: "Your schools, most recent first."
+    seed:
+      schools:
+        - school: School
+          dates: Month YYYY
+          degree: Degree
+          location: City, ST
+    fields:
+      title:
+        type: richtext
+        multiline: false
+        default: Education
+        description: *title_description
+      schools:
+        type: array
+        items:
+          type: object
+          properties:
+            school:
+              type: richtext
+              multiline: false
+              description: "The school's name."
+            dates: *dates
+            degree:
+              type: richtext
+              multiline: false
+              default: ""
+              description: "Degree and field of study."
+            location: *location
+            details:
+              <<: *details
+              description: "Honors, activities, or coursework. Most entries need none."
+        example:
+          - school: Mars University
+            dates: September 3000
+            degree: Undeclared, no degree
+            location: Mars
+        description: "One entry per school or degree."
+
+  skills:
+    title: Skills
+    description: "Your skills, in labeled groups."
+    seed:
+      skills:
+        - label: Category
+          items: Skill, Skill, Skill
+    fields:
+      title:
+        type: richtext
+        multiline: false
+        default: Skills
+        description: *title_description
+      skills:
+        type: array
+        ui:
+          layout: table
+        items:
+          type: object
+          properties:
+            label:
+              type: richtext
+              multiline: false
+              description: "The group's name, for example 'Languages'. Leave blank to list the skills alone."
+            items:
+              type: richtext
+              multiline: false
+              description: "The skills in this group, separated by commas."
+        example:
+          - label: Logistics
+            items: Packages, pizza, interplanetary freight
+          - label: 20th-Century Culture
+            items: TV, arcade games, Star Trek trivia
+          - label: Music
+            items: Holophonor, opera composition
+          - label: Endurance
+            items: Cryogenic sleep, 100 cups of coffee
+        description: "One group per row."
+      columns: &columns
+        type: integer
+        default: 2
+        ui:
+          compact: true
+        description: "Number of columns. Two suit longer items; three suit single words."
+
+  projects:
+    title: Projects
+    description: "Your projects, each with an optional link."
+    seed:
+      projects:
+        - name: Project
+          link: github.com/you/project
+          details: |
+            - What it does, and your part in it.
+    fields:
+      title:
+        type: richtext
+        multiline: false
+        default: Projects
+        description: *title_description
+      projects:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: richtext
+              multiline: false
+              description: "The project's name."
+            link:
+              type: richtext
+              multiline: false
+              default: ""
+              description: "Where to see it, for example github.com/you/project. It prints as written, so leave off https://."
+            details: *details
+        example:
+          - name: Quillmark
+            link: github.com/borb-sh/quillmark
+            details: "- Schema-driven document framework that delivers typeset documents from Markdown, this resume included."
+          - name: Holophonor Opera
+            details: "- Wrote and performed an opera about Leela on the holophonor, using the Robot Devil's hands."
+        description: "One entry per project."
+
+  certifications:
+    title: Certifications
+    description: "A short list in columns. Rename it for awards, languages, clearances, or similar."
+    seed:
+      items:
+        - Certification (ABBREVIATION)
+    fields:
+      title:
+        type: richtext
+        multiline: false
+        default: Certifications
+        description: *title_description
+      items:
+        type: array
+        items:
+          type: richtext
+          multiline: false
+        example:
+          - "Career Chip: Delivery Boy"
+          - Earth Army Basic Training
+          - First Aid, taught by Dr. Zoidberg
+          - Food Handler's Permit, New York
+        description: "One per line, short enough to fit its column."
+      columns: *columns
+
+  other:
+    title: Other section
+    description: "Any other section, such as volunteer work, military service, or publications."
+    seed:
+      title: Section Title
+      entries:
+        - heading: Entry
+          details: |
+            - What it was, and what came of it.
+    fields:
+      title:
+        type: richtext
+        multiline: false
+        example: Planetary Defense
+        description: "The section heading."
+      entries:
+        type: array
+        items:
+          type: object
+          properties:
+            heading:
+              type: richtext
+              multiline: false
+              description: "The entry's name, such as an organization or publication."
+            dates: *dates
+            subtitle:
+              type: richtext
+              multiline: false
+              default: ""
+              description: "A second line, such as your role."
+            location: *location
+            details: *details
+        example:
+          - heading: Saved Earth from the Brainspawn
+            details: "- Held the line as the only human immune to the Brainspawn, thanks to a missing Delta brainwave."
+          - heading: Ended the Omicronian Invasion
+            details: |-
+              - Restaged the lost finale of *Single Female Lawyer* for Lrrr, ruler of the planet Omicron Persei 8.
+
+              - Caused the crisis in the first place by knocking the original broadcast off the air in 1999.
+          - heading: Deflected a Giant Ball of Garbage
+            details: "- Helped knock it off course with a second ball of garbage, built on 20th-century expertise."
+        description: "One entry per item."

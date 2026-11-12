@@ -39,7 +39,7 @@ for (const fixture of ["maximal.md", "minimal.md", "current.md", "long_notes.md"
   console.log(fixture);
   for (const years of windows) {
     const md = source.replace(windowLine, `timeline_years: ${years}`);
-    const doc = Document.fromMarkdown(md);
+    const doc = Document.parse(md);
     let result;
     try {
       // PNG, not PDF: a PDF is one artifact however many pages it holds, so

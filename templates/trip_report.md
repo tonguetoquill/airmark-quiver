@@ -1,20 +1,24 @@
 ~~~card-yaml
-$quill: usaf_memo@0.3
+$quill: usaf_memo@0.4
 $kind: main
-letterhead_title:
-  - DEPARTMENT OF THE AIR FORCE
-  - YOUR SQUADRON HERE
-memo_for:
-  - ORG/SYM
-memo_from:
-  - ORG/SYMBOL
-subject: Trip Report, Destination, 4-6 November 2026
-date: today
-signature_block:
-  - FIRST M. LAST, Rank, USAF
-  - Duty Title
-attachments:
-  - Meeting minutes, 6 November 2026
+addressing:
+  memo_for:
+    - ORG/SYM
+  memo_from:
+    - ORG/SYMBOL
+  subject: Trip Report, Destination, 4-6 November 2026
+  date: today
+  signers:
+    - signature_block:
+        - FIRST M. LAST, Rank, USAF
+        - Duty Title
+letterhead:
+  letterhead_title:
+    - DEPARTMENT OF THE AIR FORCE
+    - YOUR SQUADRON HERE
+additional:
+  attachments:
+    - Meeting minutes, 6 November 2026
 ~~~
 
 <!-----------------------------------------------------

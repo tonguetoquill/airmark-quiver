@@ -1,7 +1,7 @@
 # @airmark/quiver
 
 A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force,
-DAF and Army official-document quills, sourced from
+DAF, Army and USACE official-document quills, sourced from
 [tonguetoquill-collection](https://github.com/nibsbin/tonguetoquill-collection)
 and aligned to the current Quillmark spec.
 
@@ -9,7 +9,8 @@ and aligned to the current Quillmark spec.
 
 | Quill                | Version | Description                                                                      |
 |----------------------|---------|----------------------------------------------------------------------------------|
-| `usaf_memo`          | 0.3.0   | USAF / DAF Official Memorandum (AFH 33-337)                                      |
+| `usaf_memo`          | 0.4.0   | USAF / DAF Official Memorandum (AFH 33-337), with up to four signers             |
+| `usaf_memo`          | 0.3.0   | Previous release, retained so documents pinned to `@0.3` keep resolving          |
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
 | `usaf_paper`         | 0.1.0   | Point, talking, bullet background, background, and position papers (AFH 33-337) |
@@ -20,8 +21,12 @@ and aligned to the current Quillmark spec.
 | `daf1206`            | 0.1.0   | Previous release, retained so documents pinned to `@0.1` keep resolving          |
 | `daf4392`            | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |
 | `afmc_moa`           | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                       |
-| `classic_resume`     | 0.1.0   | Classic single-page resume                                                       |
+| `classic_resume`     | 0.2.0   | Classic single-page resume                                                       |
+| `classic_resume`     | 0.1.0   | Previous release, retained so documents pinned to `@0.1` keep resolving          |
 | `cyber_career_plan`  | 0.1.0   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
+| `usace_tech_memo`    | 0.0.1   | USACE technical memorandum (Portland District ENC skeleton; draft)               |
+| `usace_report_appendix` | 0.0.1 | USACE report appendix (Portland District ENC; draft)                            |
+| `usace_major_report` | 0.0.1   | USACE MMR, MRR, EDR, DDR, Feasibility Study or Phase 1A report (Portland District ENC; draft) |
 
 ## Install
 
@@ -54,13 +59,15 @@ const root = dirname(createRequire(import.meta.url).resolve('@airmark/quiver/Qui
 const quiver = await fromDir(root);
 const engine = new Engine();
 
-const doc = Document.fromMarkdown(`~~~
-$quill: usaf_memo@0.3
+const doc = Document.parse(`~~~
+$quill: usaf_memo@0.4
 $kind: main
-memo_for: ["ORG/SYMBOL"]
-memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
-subject: Hello Quillmark
-signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
+addressing:
+  memo_for: ["ORG/SYMBOL"]
+  memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
+  subject: Hello Quillmark
+  signers:
+    - signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
 ~~~
 
 Body of the memo.`);
@@ -111,8 +118,11 @@ templates/
 `templates/` holds the official starter documents Tongue to Quill offers in its
 template library. They sit beside the quiver rather than inside it: the quiver
 loaders never read them, and a consumer reaches them as files, through
-`@airmark/quiver/templates/templates.json` and the Markdown it names. Each entry
-is `{ id, name, description, file, tags }`, and every listed template is live.
+`@airmark/quiver/templates/templates.json` and the Markdown it names. The
+manifest is `{ publisher, templates }`: `publisher` is the name the templates
+are published under, `Airmark`, which Tongue to Quill's template library shows
+as their author, and each `templates` entry is
+`{ id, name, description, file, tags }`. Every listed template is live.
 
 An entry's `id` is permanent. Tongue to Quill derives the template's row id and
 its shareable short code from it, so renaming one retires the old template (its

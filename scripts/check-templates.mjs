@@ -1,5 +1,6 @@
-// Every template in templates/templates.json names a file that exists, every
-// file is named once, and each renders against this quiver with no warning.
+// templates/templates.json names its publisher, every template in it names a
+// file that exists, every file is named once, and each renders against this
+// quiver with no warning.
 
 import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -10,10 +11,20 @@ import { fromDir } from "@quillmark/quiver/node";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const templatesDir = join(repoRoot, "templates");
-const manifest = JSON.parse(readFileSync(join(templatesDir, "templates.json"), "utf8"));
+const { publisher, templates: manifest } = JSON.parse(
+  readFileSync(join(templatesDir, "templates.json"), "utf8"),
+);
 
 const failures = [];
 const fail = (id, message) => failures.push(`${id}: ${message}`);
+
+if (typeof publisher !== "string" || publisher.trim() === "") {
+  fail("templates.json", "`publisher` is not a non-empty string");
+}
+if (!Array.isArray(manifest)) {
+  console.error("✗ templates.json: `templates` is not an array");
+  process.exit(1);
+}
 
 const ids = new Set();
 const files = new Set();
@@ -41,7 +52,7 @@ const engine = new Engine();
 for (const entry of manifest) {
   let doc;
   try {
-    doc = Document.fromMarkdown(readFileSync(join(templatesDir, entry.file), "utf8"));
+    doc = Document.parse(readFileSync(join(templatesDir, entry.file), "utf8"));
     if (!doc.quillRef) {
       fail(entry.id, "names no `$quill`");
       continue;

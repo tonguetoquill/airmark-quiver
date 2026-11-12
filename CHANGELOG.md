@@ -15,6 +15,184 @@
   stays on `@0.1`. A document that names `daf1206` with no version now gets
   0.2.0.
 
+## v0.44.0 - 2026-11-11
+
+- **`usaf_memo@0.4.0` takes up to four signers.** `signers` replaces
+  `signature_block` and `authority_line`: each signer has their own
+  `signature_block` and an optional `authority_line`. One signer prints as
+  `usaf_memo@0.3.0` printed its signature block. Two or more print in pairs,
+  most junior first: the junior at the left margin and the senior at 4.5
+  inches, with a second pair on a new row and, with three, the most senior
+  alone on the last row. Each signer gets their own digital signature field,
+  `Signature` for the first and `Signature_2` through `Signature_4` after it.
+  Documents pinned to `usaf_memo@0.3` render as before.
+
+- **`usaf_memo@0.4.0` nests its fields under their groups.** A document
+  writes the memo's fields under `addressing`, `letterhead`, `classification`
+  and `additional`, and an indorsement's under `addressing` and
+  `additional`, where `usaf_memo@0.3.0` took them flat. `classification` is
+  `classification.level`, beside `classification.dissemination`.
+
+- **`usaf_memo@0.4.0` shows links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF.
+
+- **`usaf_memo@0.2.0` and `usaf_memo@0.3.0` show links as links.** A Markdown link prints underlined in Word's hyperlink blue and stays clickable in the PDF, where it printed as plain text.
+
+- **The `usaf_memo` templates use `usaf_memo@0.4`.** `usaf-default`,
+  `ussf-default`, `trip-report`, `rebuttal` and `appointment-letter` write
+  their fields under the 0.4 groups and their signer under `signers`. Each
+  renders as it did on `usaf_memo@0.3`.
+
+- **Every classic_resume text field takes Markdown, so any of them can hold a link.** `classic_resume@0.2.0` makes each field that was `text` a one-line `richtext`: the name, contacts, section titles, and every entry, project and skill field. `[Acme](https://acme.example)` prints as a live link and `*…*` or `**…**` style it; links print like the text around them. The PDF's title and author take the name's text without its formatting, and contacts and project links still become links on their own. Documents pinned to `@0.1` keep rendering on 0.1.0; the Classic Resume template now pins `@0.2`. A value written for 0.1 that holds `*`, `_`, `[` or a `<…>` tag reads as Markdown under 0.2.
+
+## v0.43.0 - 2026-11-08
+
+- **The quiver builds and checks against `@quillmark/wasm` 0.135.** Every quill, example and template renders unchanged under it with no warning. The README's Node example parses with `Document.parse`, the 0.135 name for `Document.fromMarkdown`.
+- **A USACE report appendix quill is added.** `usace_report_appendix@0.0.1`
+  typesets the Portland District ENC standardized report appendix: a purple
+  Standard Form 901 (11-18) CUI cover sheet, CONTENTS, TABLES, FIGURES and
+  EQUATIONS on roman pages, then APPENDIX A - TITLE from the letter and title
+  fields. `appendix.appendix_type` picks the Word template: a Standardized
+  Report Appendix uses the letter and title typed in, and each Feasibility
+  Study appendix (A Engineering to G Public Involvement) sets its own letter
+  and title, with FS Appendix B printing no executive summary. CONTENTS lists those front headings, indented with roman page
+  numbers, ahead of the appendix sections. `appendix.executive_summary`,
+  when filled, prints on page i before CONTENTS under a centered EXECUTIVE
+  SUMMARY, its headings numbered in bold capitals (1. INTRODUCTION) and
+  its subheadings numbered 1.1, as in the Feasibility Study appendix
+  templates. Left blank, the page is omitted. Heading 1s are its sections,
+  numbered A.1 in bold capitals, pages
+  number A-1, A-2, and tables and equations number Table A-1 and Equation A-1,
+  captioned above. The running header carries the project name under the CUI
+  banner. The face is Liberation Sans, an Arial metric-compatible. Under the
+  CUI designation block the cover prints the full DoDI 5230.24 distribution
+  statement (B to F) from the statement, up to three reasons, the date of
+  determination, and the referral office, and the export-control warning when
+  a reason is Export Controlled. A statement and reasons that DoDI 5230.24
+  Table 1 does not allow print a red CHECK DISTRIBUTION STATEMENT note.
+  Export Controlled outside statements B–E prints that note once. Statement
+  F with no referral office and no controlling office prints a note telling
+  the writer to fill in the office, and does not print the statement
+  sentence. `cui.marking` is `off`, `banners`, or `banners_and_cover`. Off,
+  the default, prints no banners and no cover. Banners puts the designation
+  block, statement and warning at the bottom right of the first page. It is
+  a `0.0.x` draft, packed only with `--drafts`. The USACE Report Appendix
+  template pins `@0.0`, as do seven USACE Feasibility Study Appendix
+  templates, A Engineering to G Public Involvement. Each carries its Word
+  template's executive summary guidance and page count (Cost Engineering's
+  template has none) and the template's skeleton sections.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the technical memorandum and the major report as-is.
+
+- **A USACE Portland District ENC report quill is added.**
+  `usace_major_report@0.0.1` typesets the major maintenance report (MMR),
+  major rehabilitation report (MRR), engineering documentation report (EDR),
+  design documentation report (DDR), feasibility study and Phase 1A report: a
+  purple Standard Form 901 (11-18) CUI cover sheet, a title page with the
+  report number, the stacked location block, the project name, the design
+  stage and the month and year, then roman front matter: the executive
+  summary, whose headings print as 1. INTRODUCTION and 4.1 Plan Components,
+  CONTENTS, TABLES, FIGURES and EQUATIONS, APPENDICES, PERTINENT DATA,
+  PREVIOUS AND PLANNED REPORTS, and ACRONYMS AND ABBREVIATIONS. Each Heading 1
+  starts a page as SECTION 1 - TITLE, its pages number 1-1, 1-2, and its
+  tables and equations number Table 1-1 and Equation 1-1, captioned above.
+  Heading 2 prints as 1.1 in bold capitals; Heading 5 is bold underlined and
+  Heading 6 is underlined; numbered lists are 1) a) i). The report type prints
+  on the title page (MAJOR MAINTENANCE REPORT NO.) and, abbreviated, after the
+  design stage (30 Percent MMR, 30 Percent Feasibility Study) and in the
+  running header, which carries the project name and the stage in capitals
+  (PROJECT NAME 30% FEASIBILITY STUDY) under the CUI banner. A Phase 1A report
+  prints no number and no design stage: its title page prints Phase 1A Report
+  under the project name and Prepared By: US Army Corps of Engineers, Portland
+  District above the date, and its running header ends PHASE 1A. The face is
+  Liberation Sans, an Arial metric-compatible. Under the CUI designation block
+  the cover prints the full DoDI 5230.24 distribution statement (B to F) from
+  the statement, up to three reasons, the date of determination, and the
+  referral office, and the export-control warning when a reason is Export
+  Controlled. A statement and reasons that DoDI 5230.24 Table 1 does not allow
+  print a red CHECK DISTRIBUTION STATEMENT note. Export Controlled outside
+  statements B–E prints that note once. Statement F with no referral office
+  and no controlling office prints a note telling the writer to fill in the
+  office, and does not print the statement sentence. `cui.marking` is `off`,
+  `banners`, or `banners_and_cover`. Off, the default, prints no banners and
+  no cover. Banners puts the designation block, statement and warning at the
+  bottom right of the title page. It is a `0.0.x` draft, packed only with
+  `--drafts`. The USACE Major Maintenance Report, Major Rehabilitation Report,
+  Engineering Documentation Report, Design Documentation Report, Feasibility
+  Study and Phase 1A Report templates pin `@0.0`, each with its Word
+  template's executive summary headings, sections and appendices.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the technical memorandum and the report appendix as-is.
+  `cover.typ` matches the technical memorandum, including the Statement F
+  fix and the single Export Controlled error.
+
+- **A USACE technical memorandum quill is added.** `usace_tech_memo@0.0.1`
+  typesets a Portland District ENC technical memorandum: a purple Standard
+  Form 901 (11-18) CUI cover sheet, a title page with the stacked location
+  block, roman front matter (CONTENTS through ACRONYMS), and a body whose
+  Heading 1s are Purpose, Summary, Discussion, Recommendation and
+  References. Captions sit above tables, figures and equations and number
+  straight through (Table 1, Figure 1, Equation 1). Typesetting follows the
+  Portland District ENC Word template: the title page puts the memorandum
+  number and location at the right and the study, subject, prepared-for/by
+  and date in the center; CONTENTS, TABLES, FIGURES and EQUATIONS share
+  roman pages; APPENDICES through ACRONYMS each start a page; Heading 1s
+  are the template's Heading 2 (12 pt bold capitals, 1.1 numbering, no
+  page break); Heading 5 is bold underlined and Heading 6 is underlined;
+  numbered lists are 1) a) i). Front matter uses roman page numbers; the
+  body uses 1-1. CUI banners print at the top and bottom of front-matter
+  and body pages when markings are on. Under the CUI designation block the
+  cover prints the full DoDI 5230.24 distribution statement (B to F) from
+  the statement, up to three reasons (full category headings), date of
+  determination, and referral office, and the export-control warning when
+  a reason is Export Controlled. Fields are grouped as the memorandum,
+  CUI, and front matter, and the example lives on the fields. `cui.marking`
+  is `off`, `banners`, or `banners_and_cover`. Off, the default, prints no
+  banners and no cover. Banners prints the banners and puts the designation
+  block, statement and warning at the bottom right of the title page.
+  Banners and cover prints the banners and the SF 901 cover. Prepared by
+  and the acronym list default to blank, so a
+  new document omits that title-page line and the ACRONYMS page. Invalid
+  letter/reason combinations and Statement A with CUI print a red check
+  note. Export Controlled outside statements B–E prints one note.
+  Statement F with no referral office and no controlling office prints a
+  note telling the writer to fill in the office, and does not print the
+  statement sentence. The face is Liberation Sans, an Arial
+  metric-compatible, because Arial itself cannot ship in the quiver. It
+  is a `0.0.x` draft, packed only with `--drafts`. The USACE Technical
+  Memorandum template pins `@0.0`.
+
+- **CUI markings are one choice and default to off.** `cui.marking` replaces
+  `cui_enabled` and `printing.cui_cover`. `off` prints no banners and no
+  Standard Form 901 cover, which is what a new document does. `banners`
+  prints the banners only. `banners_and_cover` prints the banners and the
+  cover, and the cover cannot print without the banners. `cui.distribution`
+  defaults to blank. When markings are on and it is blank, the page prints
+  a note telling the writer to choose a distribution and does not print one
+  for them. Fields in the CUI group drop the `cui_` prefix, so a `cui:`
+  block copies onto the report appendix and the major report as-is.
+
+- **The templates are published under Airmark.** `templates/templates.json`
+  is an object, `{ "publisher": "Airmark", "templates": [...] }`, where it was
+  the bare array of entries: `publisher` names the author a template library
+  shows on each template, and `templates` holds the entries unchanged. A
+  consumer that reads the manifest reads its entries from `templates`.
+
 ## v0.42.1 - 2026-10-30
 
 - **A font family that covers a whole body paragraph renders in
@@ -22,6 +200,12 @@
   dropped a family run spanning an entire paragraph, list item, continuation
   or heading, and the paragraph drew in the body font. In `usaf_memo`, a
   code span or a strikethrough across a whole paragraph is kept too.
+
+- **A single reference wraps with the subject in `usaf_memo@0.3.0`.** The
+  subject and its parenthesized reference fill the line and wrap at the word
+  that no longer fits. A reference too long for the rest of the line no longer
+  drops whole to the next one, and a wrapped subject no longer pushes the
+  reference onto a line of its own.
 
 - **Bold renders in the `usaf_memo@0.3.0` tag line.** The quill bundles
   Spectral SC Bold, so a bold run in the tag line no longer draws in the

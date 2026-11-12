@@ -13,6 +13,8 @@
 #let DEFAULT_BODY_FONTS = ("TeX Gyre Termes",)
 #let DEFAULT_MONO_FONTS = ("Liberation Mono",)
 #let LETTERHEAD_COLOR = rgb("#355e93")  // Faded USAF blue
+// Word's hyperlink blue, the color a memo drafted from the AF template shows.
+#let LINK_COLOR = rgb("#0563c1")
 
 // AFH 33-337 "The Text of the Official Memorandum" §2: "Number and letter each
 // paragraph and subparagraph". The spec gives four levels; deeper nesting falls
