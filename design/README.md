@@ -333,6 +333,44 @@ identically to the same memorandum on `usaf_memo@0.3.0`.
 node design/usaf_memo/render_fixture.mjs design/usaf_memo/fixtures/signers_4.md /tmp/s4.png 2026-10-15
 ```
 
+## usaf_envelope
+
+Fixtures, a render helper, and a layout check for the `usaf_envelope` quill.
+
+```sh
+# render a fixture to PDF (run from the repo root)
+node design/usaf_envelope/render_fixture.mjs design/usaf_envelope/fixtures/example.md /tmp/envelope.pdf
+
+# with no fixture, renders the document the schema seeds
+node design/usaf_envelope/render_fixture.mjs /tmp/seed.pdf
+
+# measure the rendered PDF against AFH 33-337 chapter 22 (`seed` in place of a fixture)
+python3 design/usaf_envelope/validate_envelope.py design/usaf_envelope/fixtures/example.md /tmp/envelope.pdf
+```
+
+`validate_envelope.py` needs `pymupdf` and `pyyaml`.
+
+`quillkit test` renders the seed and the example and never reads where a line
+sits. The check reads the OCR read area, the barcode clear area, the two-line
+gap under the return address, and that a line does not land on another.
+
+- `example.md`: the filled number-10, attention line over an office symbol.
+- `five-line.md`: all five delivery lines, with NON-MACHINEABLE above them.
+- `international.md`: a country on its own last line, and no OFFICIAL BUSINESS.
+- `long-line.md`: a return line cut off before the postage, and a delivery
+  line long enough that the block shifts left and stops half an inch from the
+  right edge.
+- `overflow-return.md`, `overflow-delivery.md`: the lines from the review that
+  wrapped onto the line below. Each stays one line and is cut off at its margin.
+- `hyphenated.md`: the same cutoff where the line is full of hyphens, which is
+  where a line breaker would otherwise split it.
+- `six-lines.md`: all six delivery fields filled. Five lines print, and the
+  country is the last. The account line is the one that does not print.
+- `flat.md`: a 9x12, with the address still in the bottom 2 3/4 inches.
+- `booklet.md`: a 6x9. `catalog.md`: a 10x13. The address stays in that same band.
+- `monarch.md`: four return lines and NON-MACHINEABLE on the short envelope.
+- `lowercase.md`: mixed-case typing, which prints in capitals.
+
 ## usaf_letter
 
 Fixtures and a layout check for the `usaf_letter` quill.

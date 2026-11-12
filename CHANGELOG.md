@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **An Air Force envelope quill is added.** `usaf_envelope@0.0.1` typesets the face of an official envelope from AFH 33-337 chapter 22. The return address prints in capitals in the upper left, and OFFICIAL BUSINESS two lines below it unless the writer turns that off. The delivery address prints in 12-point Courier, blocked left near the middle of the barcode reader's area, and it is at most five lines: an optional account or mail stop, an optional attention line, the office symbol or the recipient, the street or post office box, and the city, state, and ZIP+4. A country prints alone as the last of those five; when every line above it is filled too, the account or mail stop does not print. A line longer than its area is cut off at the margin instead of wrapping onto the line below. The upper right stays clear for postage and the lower right stays clear for the barcode. `envelope.size` is a number-10, a monarch, a 6x9, a 9x12, or a 10x13, long edge across, and a number-10 is what a new document prints. Non-machineable prints NON-MACHINEABLE above the address when the sealed envelope is thicker than 1/4 inch. It is a `0.0.x` draft, packed only with `--drafts`. The USAF Envelope template pins `@0.0`.
+
 ## v0.44.0 - 2026-11-11
 
 - **`usaf_memo@0.4.0` takes up to four signers.** `signers` replaces

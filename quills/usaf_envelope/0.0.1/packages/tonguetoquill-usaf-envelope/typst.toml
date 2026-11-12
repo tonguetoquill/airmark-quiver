@@ -1,0 +1,12 @@
+[package]
+name = "tonguetoquill-usaf-envelope"
+version = "0.0.1"
+compiler = "0.15.1"
+entrypoint = "src/lib.typ"
+repository = "https://github.com/tonguetoquill/airmark-quiver"
+authors = ["tonguetoquill"]
+license = "Apache-2.0"
+description = "Typeset a USAF envelope face per AFH 33-337 chapter 22."
+keywords = ["USAF", "Air Force", "envelope", "mail", "AFH 33-337"]
+categories = ["office"]
+disciplines = ["politics", "business", "education"]
