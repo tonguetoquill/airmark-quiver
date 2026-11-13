@@ -185,6 +185,8 @@
       // tall and the block's bottom lands 0.5in from the page edge.
       let overhang = spacing.margin - 0.5in
       let reserved = stack-height - overhang
+      // The flow room the float takes from page 1, for `keep-tail-with-signature`.
+      [#metadata(reserved + spacing.line.to-absolute())<usaf-memo-page-one-reserve>]
       place(
         bottom,
         float: true,

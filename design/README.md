@@ -326,11 +326,20 @@ A render helper and fixtures for `usaf_memo@0.4.0`'s signers. `signers_1.md`
 through `signers_4.md` hold the same memorandum signed by one to four people,
 the second carrying an authority line, so a row whose name lines must stay level
 across a closing line is in every fixture past the first. `signers_1.md` renders
-identically to the same memorandum on `usaf_memo@0.3.0`.
+identically to the same memorandum on `usaf_memo@0.3.0`. `signature_tail.md`
+ends on an 18-line paragraph that fills page 1 to its last line: its last two
+lines start page 2 above the signature block.
 
 ```sh
 # run from the repo root; .png writes one image per page, anything else a PDF
 node design/usaf_memo/render_fixture.mjs design/usaf_memo/fixtures/signers_4.md /tmp/s4.png 2026-10-15
+```
+
+`check_signature_company.mjs` sweeps `usaf_memo@0.4.0` bodies across two pages of lengths, ending on paragraphs, tables, bullets and a block quote, with one and four signers and with an indorsement. It fails when a signature block is alone on its page or a render does not converge.
+
+```sh
+# run from the repo root; needs pdftotext
+node design/usaf_memo/check_signature_company.mjs
 ```
 
 ## usaf_envelope
