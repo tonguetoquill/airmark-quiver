@@ -2,24 +2,23 @@
 $quill: usaf_memo@0.4
 $kind: main
 addressing:
-  memo_for:
-    - ORG/SYMBOL
-  memo_from:
-    - YOUR ORG/CC
+  memo_for: ORG/SYMBOL
+  memo_from: YOUR ORG/CC
   subject: Appointment of Primary and Alternate Program Managers
   date: today
-  signature_block:
-    - FIRST M. LAST, Lt Col, USAF
-    - Commander
+  signature_block: |-
+    FIRST M. LAST, Lt Col, USAF
+
+    Commander
 letterhead:
-  letterhead_title:
-    - DEPARTMENT OF THE AIR FORCE
-    - YOUR SQUADRON HERE
+  letterhead_title: |-
+    DEPARTMENT OF THE AIR FORCE
+
+    YOUR SQUADRON HERE
 additional:
   references:
     - "DAFI XX-XXXX, DD Month YYYY, *Title of the Governing Publication*"
-  cc:
-    - YOUR ORG/CSS
+  cc: YOUR ORG/CSS
 $ext:
   editor:
     tips:

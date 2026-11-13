@@ -26,27 +26,23 @@ main:
       type: object
       properties:
         memo_for:
-          type: array
-          items:
-            type: text
-          ui:
-            compact: true
-          example:
-            - 123 OG/CC
-            - 123 MXG/CC
-            - 123 MSG/CC
-            - 123 MDG/CC
+          type: richtext
+          multiline: true
+          example: |-
+            123 OG/CC
+
+            123 MXG/CC
+
+            123 MSG/CC
+
+            123 MDG/CC
           description: "Each recipient's office symbol, one per line. To address a person, add their rank and name in parentheses, for example 'ORG/SYMBOL (LT COL JANE DOE)'. For a long list, enter 'SEE DISTRIBUTION' and list everyone under Distribution."
 
         memo_from:
-          type: array
-          items:
-            type: text
-          default: []
-          example:
-            - 123 CS/SCX
-          ui:
-            compact: true
+          type: richtext
+          multiline: true
+          default: ""
+          example: 123 CS/SCX
           description: "Your office symbol. If any recipient is off your installation, add your full mailing address below it. Leave blank for a memorandum for record."
 
         subject:
@@ -64,14 +60,12 @@ main:
           description: "The date you sign. Leave blank to add a fillable date field to the PDF instead."
 
         signature_block:
-          type: array
-          items:
-            type: text
-          ui:
-            compact: true
-          example:
-            - JOHN B. SMITH, Maj, USAF
-            - Director of Operations
+          type: richtext
+          multiline: true
+          example: |-
+            JOHN B. SMITH, Maj, USAF
+
+            Director of Operations
           description: "Your name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Your duty title on the second."
 
         authority_line:
@@ -86,14 +80,13 @@ main:
       type: object
       properties:
         letterhead_title:
-          type: array
-          items:
-            type: text
-          default:
-            - DEPARTMENT OF THE AIR FORCE
-          example:
-            - DEPARTMENT OF THE AIR FORCE
-            - 123D COMMUNICATIONS SQUADRON
+          type: richtext
+          multiline: true
+          default: DEPARTMENT OF THE AIR FORCE
+          example: |-
+            DEPARTMENT OF THE AIR FORCE
+
+            123D COMMUNICATIONS SQUADRON
           description: "The letterhead, in uppercase. Keep the first line unless you work for a joint command or a DoW agency, and add your unit's full name on the lines below it."
 
         letterhead_seal:
@@ -175,20 +168,17 @@ main:
           description: "Cite each by organization, type, date, and title. One reference prints after the subject; two or more print as a lettered list."
 
         cc:
-          type: array
-          items:
-            type: text
-          default: []
-          example:
-            - 123 WG/CCE
+          type: richtext
+          multiline: true
+          default: ""
+          example: 123 WG/CCE
           description: Offices or people receiving a courtesy copy, one per line.
 
         distribution:
-          type: array
-          items:
-            type: text
-          default: []
-          description: "Everyone the memo goes to, when Memo For says 'SEE DISTRIBUTION'."
+          type: richtext
+          multiline: true
+          default: ""
+          description: "Everyone the memo goes to, one per line, when Memo For says 'SEE DISTRIBUTION'."
 
         attachments:
           type: array
@@ -208,9 +198,8 @@ main:
             type: object
             properties:
               signature_block:
-                type: array
-                items:
-                  type: text
+                type: richtext
+                multiline: true
                 description: "The signer's name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Their duty title on the second."
               authority_line:
                 type: text
@@ -243,9 +232,10 @@ card_kinds:
       addressing:
         from: ORG/SYMBOL
         for: ORG/SYMBOL
-        signature_block:
-          - FIRST M. LAST, Rank, USAF
-          - Duty Title
+        signature_block: |-
+          FIRST M. LAST, Rank, USAF
+
+          Duty Title
     body:
       example: The 123 OG completed its review on 21 October 2026. All four squadron file plans are current, and 123 OSS retires its two cutoff series by 15 November 2026.
     fields:
@@ -282,14 +272,12 @@ card_kinds:
             description: "Usually blank. When the endorser signs on the commander's behalf, enter 'FOR THE COMMANDER'."
 
           signature_block:
-            type: array
-            items:
-              type: text
-            ui:
-              compact: true
-            example:
-              - RICHARD C. ROE, Col, USAF
-              - Commander
+            type: richtext
+            multiline: true
+            example: |-
+              RICHARD C. ROE, Col, USAF
+
+              Commander
             description: "The endorser's name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Their duty title on the second."
 
       additional:

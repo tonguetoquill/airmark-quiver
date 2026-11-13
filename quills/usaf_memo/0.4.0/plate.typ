@@ -9,16 +9,41 @@
 #let level = classification.level
 #let additional = qm.data.additional
 
+// The lines of a multiline value, for the package's fields that take one entry
+// per line. Enter (a paragraph) and Shift+Enter (a line break) each end a line,
+// and a blank line is dropped. A line is the value's own children, so its
+// glyphs keep their spans and stay click-to-edit. A blank value is `""`.
+#let lines(value) = {
+  if type(value) == str { return if value.trim() == "" { () } else { (value,) } }
+  let children = if value.func() == [].func() { value.children } else { (value,) }
+  let out = ()
+  let line = ()
+  for child in children + (parbreak(),) {
+    if child.func() in (linebreak, parbreak) {
+      while line.len() > 0 and line.first().func() == [ ].func() { line = line.slice(1) }
+      while line.len() > 0 and line.last().func() == [ ].func() { line = line.slice(0, -1) }
+      if line.len() > 0 { out.push(line.join()) }
+      line = ()
+    } else {
+      line.push(child)
+    }
+  }
+  out
+}
+
 // A memo has no "no style" state, so the blank takes the package's default.
 // Resolved once here: `frontmatter` and the date's pattern must agree.
 #let memo_style = if additional.memo_style != "" { additional.memo_style } else { "usaf" }
 
-// The letterhead arrives as one ordered array of lines. Element 0 is the title,
-// set larger; the rest are caption lines beneath it. A single element renders
-// the title alone — the package skips a falsey caption. An empty array renders
-// no letterhead text at all, silently: the block is `place`d, so an empty title
-// leaves no glyphs and takes no space from the flow, and the seal stands alone.
-#let letterhead_lines = letterhead.letterhead_title
+// The letterhead's first line is the title, set larger; the rest are caption
+// lines beneath it. A single line renders the title alone — the package skips
+// a falsey caption. A blank value renders no letterhead text at all, silently:
+// the block is `place`d, so an empty title leaves no glyphs and takes no space
+// from the flow, and the seal stands alone.
+#let letterhead_lines = lines(letterhead.letterhead_title)
+#let memo_from = lines(addressing.memo_from)
+#let cc = lines(additional.cc)
+#let distribution = lines(additional.distribution)
 
 // Body text size, in points. Also the height of a blank date's fill-in widget.
 #let body_font_size = additional.font_size * 1pt
@@ -75,10 +100,10 @@
   date: qm.ink(addressing, "date", date-pattern(memo-style: memo_style)),
   date-field: date_slot("Date", addressing.at("$path") + "date"),
 
-  memo-for: addressing.memo_for,
+  memo-for: lines(addressing.memo_for),
 
   // A memo with no FROM line is a Memorandum for Record.
-  ..if addressing.memo_from.len() > 0 { (memo-from: addressing.memo_from) },
+  ..if memo_from.len() > 0 { (memo-from: memo_from) },
 
   subject: addressing.subject,
 
@@ -127,12 +152,12 @@
 // single-signer memo has always had; each further one is numbered by its place.
 #let signers = (
   (
-    lines: addressing.signature_block,
+    lines: lines(addressing.signature_block),
     closing-line: addressing.authority_line,
     path: addressing.at("$path"),
   ),
   ..additional.additional_signers.enumerate().map(((i, signer)) => (
-    lines: signer.signature_block,
+    lines: lines(signer.signature_block),
     closing-line: signer.authority_line,
     path: signer.at("$path", default: additional.at("$path") + "additional_signers." + str(i) + "."),
   )),
@@ -152,9 +177,9 @@
 #backmatter(
   signers: signers,
 
-  ..if additional.cc.len() > 0 { (cc: additional.cc) },
+  ..if cc.len() > 0 { (cc: cc) },
 
-  ..if additional.distribution.len() > 0 { (distribution: additional.distribution) },
+  ..if distribution.len() > 0 { (distribution: distribution) },
 
   ..if additional.attachments.len() > 0 { (attachments: additional.attachments) },
 )
@@ -209,7 +234,7 @@
       from: card.addressing.at("from", default: ""),
       to: card.addressing.at("for", default: ""),
       authority-line: card.addressing.authority_line,
-      signature-block: card.addressing.signature_block,
+      signature-block: lines(card.addressing.signature_block),
       signing-field: qm.signature-field(
         "Ind_" + str(i) + "_Signature",
         field: card.addressing.at("$path") + "signature_block",

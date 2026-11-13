@@ -63,10 +63,20 @@ const doc = Document.parse(`~~~
 $quill: usaf_memo@0.4
 $kind: main
 addressing:
-  memo_for: ["ORG/SYMBOL"]
-  memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
+  memo_for: ORG/SYMBOL
+  memo_from: |-
+    ORG/SYMBOL
+
+    Organization Name
+
+    123 Street Ave
+
+    City ST 12345-6789
   subject: Hello Quillmark
-  signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
+  signature_block: |-
+    FIRST M. LAST, Rank, USAF
+
+    Duty Title
 ~~~
 
 Body of the memo.`);
