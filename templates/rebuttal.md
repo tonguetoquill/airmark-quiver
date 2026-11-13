@@ -2,21 +2,21 @@
 $quill: usaf_memo@0.4
 $kind: main
 addressing:
-  memo_for:
-    - Issuer's Rank FIRST M. LAST, USAF
-  memo_from:
-    - Subject's ORG/SYMBOL
+  memo_for: Issuer's Rank FIRST M. LAST, USAF
+  memo_from: Subject's ORG/SYMBOL
   subject: Response to Letter of Counseling, Late Arrival to Formation, dated 10 March 2026
   date: today
-  signers:
-    - signature_block:
-        - Subject's FIRST M. LAST, Rank, USAF
-        - Duty Title
+  signature_block: |-
+    Subject's FIRST M. LAST, Rank, USAF
+
+    Duty Title
 letterhead:
-  letterhead_title:
-    - DEPARTMENT OF THE AIR FORCE
-    - YOUR SQUADRON HERE
-    - USAF BASE, STATE
+  letterhead_title: |-
+    DEPARTMENT OF THE AIR FORCE
+
+    YOUR SQUADRON HERE
+
+    USAF BASE, STATE
 ~~~
 
 <!-----------------------------------------------------
