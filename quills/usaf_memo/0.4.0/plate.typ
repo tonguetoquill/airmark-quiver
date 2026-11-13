@@ -127,14 +127,14 @@
 #let signers = addressing.signers.enumerate().map(((i, signer)) => {
   let path = signer.at("$path", default: addressing.at("$path") + "signers." + str(i) + ".")
   (
-    lines: signer.signature_block,
+    lines: (signer.name, signer.duty_title).filter(line => line != ""),
     closing-line: signer.authority_line,
     // The widget sits at the bottom of AFH 33-337's four blank lines and is
     // sized to two and a half of them, so the line and a half above it stays
     // clear of the body text without moving the block off the fifth line.
     signing-field: qm.signature-field(
       if i == 0 { "Signature" } else { "Signature_" + str(i + 1) },
-      field: path + "signature_block",
+      field: path + "name",
       height: body_font_size * 2.5,
     ),
   )

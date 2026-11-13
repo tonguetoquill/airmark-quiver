@@ -9,9 +9,8 @@ addressing:
   subject: Trip Report, Destination, 4-6 November 2026
   date: today
   signers:
-    - signature_block:
-        - FIRST M. LAST, Rank, USAF
-        - Duty Title
+    - name: FIRST M. LAST, Rank, USAF
+      duty_title: Duty Title
 letterhead:
   letterhead_title:
     - DEPARTMENT OF THE AIR FORCE
