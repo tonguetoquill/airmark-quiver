@@ -490,10 +490,7 @@
     show table.cell.where(y: 0): set text(weight: "bold")
     t
   } else { t }
-  set table(
-    stroke: 0.5pt + black,
-    inset: (x: 0.5em, y: 0.4em),
-  )
+  set table(stroke: 1pt + black, inset: 5pt)
   it
 }
 

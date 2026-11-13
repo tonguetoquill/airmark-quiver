@@ -335,6 +335,13 @@ lines start page 2 above the signature block.
 node design/usaf_memo/render_fixture.mjs design/usaf_memo/fixtures/signers_4.md /tmp/s4.png 2026-10-15
 ```
 
+`check_signature_company.mjs` sweeps `usaf_memo@0.4.0` bodies across two pages of lengths, ending on paragraphs, tables, bullets and a block quote, with one and four signers and with an indorsement. It fails when a signature block is alone on its page or a render does not converge.
+
+```sh
+# run from the repo root; needs pdftotext
+node design/usaf_memo/check_signature_company.mjs
+```
+
 ## usaf_envelope
 
 Fixtures, a render helper, and a layout check for the `usaf_envelope` quill.

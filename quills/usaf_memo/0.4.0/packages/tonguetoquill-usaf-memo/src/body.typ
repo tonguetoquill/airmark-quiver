@@ -123,175 +123,98 @@
   }
 }
 
+// The elements of a body that `render-body` numbers, letters, or sets apart,
+// in reading order. An item is `(content, nest-level, kind)`:
+//
+//   content    — the paragraph's inline content, the heading's or block
+//                quote's body, or the table element
+//   nest-level — list nesting depth, 0 at the top level
+//   kind       — "par", "continuation", "heading", "table", or "quote"
+//
+// Read off the content tree rather than collected by show rules during a
+// layout pass: state and counters set in one layout pass are read in the next,
+// so a collected body only takes its final shape a few passes in, and every
+// position-dependent decision after it (an indorsement's header, the tail kept
+// with the signature) then needs more passes than Typst runs. Walking the tree
+// gives the same items on the first pass.
+//
+// A paragraph is a run of inline content between block-level elements and
+// paragraph breaks. Inside a list or enum item, the first paragraph is the item
+// itself and each later one a continuation of it. A block quote's content stays
+// verbatim, taking no number, letter, or bullet: it is where an author says a
+// roster of names, a quoted passage, or an address is neither paragraph nor
+// subparagraph. A `qm-table` wrapper's `align` places its table from outside
+// it, so it is taken with the table. A `styled` wrapper — a `set` or `show`
+// rule inside the body — is walked through, and its styles are reapplied to
+// each item inside it.
+#let body-items(body, nest-level: 0) = {
+  if type(body) == str { body = [#body] }
+  let items = ()
+  let run = ()
+  let first = nest-level > 0
+  // A nested sequence is the same stream, not a container.
+  let flatten(c) = if c.func() == [].func() { c.children.map(flatten).flatten() } else { (c,) }
+  let children = flatten(body)
+  for child in children + (parbreak(),) {
+    let f = child.func()
+    let is-table = f == table or (f == align and child.body.func() == table)
+    let is-quote = f == quote and child.block
+    let is-styled = child.has("child") and child.has("styles")
+    let is-block = (
+      f in (parbreak, heading, list.item, enum.item) or is-table or is-quote or is-styled
+    )
+    if not is-block {
+      run.push(child)
+      continue
+    }
+    // Typst drops the spaces at a paragraph's edges; a run keeps them.
+    while run.len() > 0 and run.first().func() == [ ].func() { run = run.slice(1) }
+    while run.len() > 0 and run.last().func() == [ ].func() { run = run.slice(0, -1) }
+    if run.len() > 0 {
+      items.push((
+        content: run.join(),
+        nest-level: nest-level,
+        kind: if nest-level > 0 and not first { "continuation" } else { "par" },
+      ))
+      first = false
+      run = ()
+    }
+    if f == heading {
+      items.push((content: child.body, nest-level: nest-level, kind: "heading"))
+      first = false
+    } else if f in (list.item, enum.item) {
+      items += body-items(child.body, nest-level: nest-level + 1)
+      first = false
+    } else if is-table {
+      items.push((content: child, nest-level: nest-level, kind: "table"))
+    } else if is-quote {
+      items.push((content: child.body, nest-level: nest-level, kind: "quote"))
+    } else if is-styled {
+      let restyle = part => (child.func())(part, child.styles)
+      for item in body-items(child.child, nest-level: nest-level) {
+        items.push(item + (content: restyle(item.content)))
+      }
+    }
+  }
+  items
+}
+
 // AFH 33-337 "The Text of the Official Memorandum" §1-12: number and letter
 // each paragraph and subparagraph as 1. / a. / (1) / (a); leave a top-level
 // paragraph flush left and a lone paragraph unnumbered (§2); indent each
 // subparagraph to align with the first character of its parent's text.
 //
-// Rendering takes two passes. The first lays the content out hidden, so that
-// Typst's own show rules resolve, and buffers each paragraph, table, and block
-// quote with the nesting level it was found at. The second emits the buffer,
-// where those show rules are out of scope and numbering can be assigned in
-// document order.
+// The body is read into items (`body-items`) and each item is emitted in
+// document order, numbered for its kind and nesting level.
 #let render-body(content, memo-style: "usaf") = {
-  let PAR_BUFFER = state("PAR_BUFFER")
-  PAR_BUFFER.update(())
-  let NEST_DOWN = counter("NEST_DOWN")
-  NEST_DOWN.update(0)
-  let NEST_UP = counter("NEST_UP")
-  NEST_UP.update(0)
-  let IS_HEADING = state("IS_HEADING")
-  IS_HEADING.update(false)
-  // Tracks whether the next paragraph is the first block in a list item.
-  // When true, the next `show par` captures a numbered item; subsequent
-  // paragraphs within the same item are continuations (no new number).
-  let ITEM_FIRST_PAR = state("ITEM_FIRST_PAR")
-  ITEM_FIRST_PAR.update(false)
+  let all-items = body-items(content)
 
-  let first-pass = {
-    show par: p => context {
-      let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
-      let is-heading = IS_HEADING.get()
-      let is-first-par = ITEM_FIRST_PAR.get()
-
-      // Determine if this is a continuation block within a multi-block list item.
-      // A continuation is a non-first paragraph inside a list item (nest-level > 0).
-      let is-continuation = nest-level > 0 and not is-first-par
-      let font = text.font
-
-      PAR_BUFFER.update(pars => {
-        pars.push((
-          content: text(font: font, p.body),
-          nest-level: nest-level,
-          kind: if is-heading { "heading" } else if is-continuation { "continuation" } else { "par" },
-        ))
-        pars
-      })
-
-      // After the first paragraph of a list item, mark subsequent ones as continuations
-      if nest-level > 0 and is-first-par {
-        ITEM_FIRST_PAR.update(false)
-      }
-
-      p
-    }
-    // Tables are buffered whole; nothing inside one takes a paragraph number.
-    // The nesting level rides along, as a block quote's does, so a table
-    // inside a list item lines up with that item's text.
-    show table: t => context {
-      let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
-      PAR_BUFFER.update(pars => {
-        pars.push((
-          content: t,
-          nest-level: nest-level,
-          kind: "table",
-        ))
-        pars
-      })
-      t
-    }
-    // A `qm-table` wrapper's `align` places its table from outside it, so the
-    // placement is buffered with the table, and the emission spans the width
-    // left beside its indent for it to place the table across.
-    show align: a => if a.body.func() == table {
-      context {
-        let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
-        PAR_BUFFER.update(pars => {
-          pars.push((
-            content: a,
-            nest-level: nest-level,
-            kind: "table",
-          ))
-          pars
-        })
-      }
-    } else { a }
-    // AFH 33-337 numbers paragraphs and letters subparagraphs, and a body
-    // sometimes has to hold lines that are neither: a roster of names, a quoted
-    // passage, an address. The block quote is where an author says so — its
-    // content reaches the page verbatim, taking no number, letter, or bullet.
-    //
-    // Returning `none` rather than the quote is what makes that true: the
-    // quote's own paragraphs are never laid out here, so the `show par` above
-    // never sees them and cannot number them. The buffered body is emitted in
-    // the second pass, where these show rules are out of scope. Typst's own
-    // block-quote framing (padding, attribution) is dropped with the element.
-    //
-    // The nesting level rides along so a quote inside a list item lines up with
-    // that item's text (see the emission below).
-    show quote.where(block: true): q => context {
-      let nest-level = NEST_DOWN.get().at(0) - NEST_UP.get().at(0)
-      PAR_BUFFER.update(pars => {
-        pars.push((
-          content: q.body,
-          nest-level: nest-level,
-          kind: "quote",
-        ))
-        pars
-      })
-      none
-    }
-    {
-      show heading: h => {
-        IS_HEADING.update(true)
-        [#parbreak()#h.body#parbreak()]
-        IS_HEADING.update(false)
-      }
-
-      // List and enum items become paragraphs carrying a nesting level. No
-      // `context` wrapper: state updates do not need one, and one here fails
-      // to converge on a body with many list items.
-      show enum.item: it => {
-        NEST_DOWN.step()
-        ITEM_FIRST_PAR.update(true)
-        [#parbreak()#it.body#parbreak()]
-        NEST_UP.step()
-      }
-      show list.item: it => {
-        NEST_DOWN.step()
-        ITEM_FIRST_PAR.update(true)
-        [#parbreak()#it.body#parbreak()]
-        NEST_UP.step()
-      }
-
-      {
-        // `show par` does not capture an element that fills its paragraph
-        // whole, so a zero-width space follows each wrapper to keep some
-        // content outside it.
-        show strong: it => {
-          [#it#sym.zws]
-        }
-        show emph: it => {
-          [#it#sym.zws]
-        }
-        show underline: it => {
-          [#it#sym.zws]
-        }
-        show raw: it => {
-          [#it#sym.zws]
-        }
-        show strike: it => {
-          [#it#sym.zws]
-        }
-        [#content#parbreak()]
-      }
-    }
-  }
-  // Use place() to prevent hidden content from affecting layout flow
-  place(hide(first-pass))
-
-  // Second pass: consume par buffer
-  //
-  // PAR_BUFFER item dictionary layout:
-  //   item.content    — the paragraph body, table element, or block-quote body
-  //   item.nest-level — nesting depth (0-based)
-  //   item.kind       — "par", "heading", "table", "continuation", or "quote"
   context {
     let heading-buffer = none
     let heading-level = 0
     // Zero-width paragraphs are dropped, so an empty body emits nothing and
     // collapses to zero vertical space. A table is kept whatever it measures.
-    let items = PAR_BUFFER.get().filter(item =>
+    let items = all-items.filter(item =>
       item.kind == "table" or measure(item.content).width > 0pt
     )
     if items.len() == 0 { return }
