@@ -80,7 +80,7 @@ main:
           default: ""
           ui:
             compact: true
-          description: "Usually blank. When the signer signs on the commander's behalf or states the headquarters' position, enter 'FOR THE COMMANDER'. It prints above the signature block, and with several signers above the last one listed."
+          description: "Usually blank. When the signer signs on the commander's behalf or states the headquarters' position, enter 'FOR THE COMMANDER'. It prints under the text at 4.5 inches, above the signature block there: the only signer's, or with several the second one listed."
 
     letterhead:
       type: object

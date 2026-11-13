@@ -127,10 +127,11 @@
 //
 // The first signer keeps the widget name "Signature" a single-signer memo has
 // always had; each further one is numbered by its place in the list. The
-// authority line stands over the last signer, the most senior.
+// authority line stands where it does over one signer: at 4.5 inches under the
+// text, which with several signers is over the second, the first row's senior.
 #let signers = addressing.signers.enumerate().map(((i, signer)) => (
   lines: qm.str(signer).split("\n").map(line => line.trim()).filter(line => line != ""),
-  closing-line: if i == addressing.signers.len() - 1 { addressing.authority_line } else { none },
+  closing-line: if i == calc.min(1, addressing.signers.len() - 1) { addressing.authority_line } else { none },
   // The widget sits at the bottom of AFH 33-337's four blank lines and is
   // sized to two and a half of them, so the line and a half above it stays
   // clear of the body text without moving the block off the fifth line.
