@@ -2,19 +2,16 @@
 $quill: usaf_memo@0.4
 $kind: main
 addressing:
-  memo_for:
-    - ORG/SYM
-    # - 2nd ORG/SYM
-  memo_from:
-    - ORG/SYMBOL
+  memo_for: ORG/SYM
+  memo_from: ORG/SYMBOL
   subject: Your Subject Here
   date: today
-  signature_block:
-    - FIRST M. LAST, Rank, USAF
+  signature_block: FIRST M. LAST, Rank, USAF
 letterhead:
-  letterhead_title:
-    - DEPARTMENT OF THE AIR FORCE
-    - YOUR SQUADRON HERE
+  letterhead_title: |-
+    DEPARTMENT OF THE AIR FORCE
+
+    YOUR SQUADRON HERE
   tag_line: Aim High
 $ext:
   editor:
