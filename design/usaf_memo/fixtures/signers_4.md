@@ -7,15 +7,11 @@ addressing:
   subject: Joint Records Management Review
   date: 2026-10-15
   signers:
-    - name: "MARY E. BROWN, Maj, USAF"
-      duty_title: "Commander, 123d Communications Squadron"
-    - authority_line: FOR THE COMMANDER
-      name: "ROBERT L. JONES, Lt Col, USAF"
-      duty_title: "Commander, 123d Operations Support Squadron"
-    - name: "JANE A. DOE, Col, USAF"
-      duty_title: "Commander, 123d Mission Support Group"
-    - name: "RICHARD C. ROE, Col, USAF"
-      duty_title: "Commander, 123d Wing"
+    - "MARY E. BROWN, Maj, USAF\nCommander, 123d Communications Squadron"
+    - "ROBERT L. JONES, Lt Col, USAF\nCommander, 123d Operations Support Squadron"
+    - "JANE A. DOE, Col, USAF\nCommander, 123d Mission Support Group"
+    - "RICHARD C. ROE, Col, USAF\nCommander, 123d Wing"
+  authority_line: FOR THE COMMANDER
 additional:
   attachments: ["Records Management Self-Inspection Checklist, 1 September 2026"]
 ~~~

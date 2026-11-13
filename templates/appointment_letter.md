@@ -9,8 +9,9 @@ addressing:
   subject: Appointment of Primary and Alternate Program Managers
   date: today
   signers:
-    - name: FIRST M. LAST, Lt Col, USAF
-      duty_title: Commander
+    - |-
+      FIRST M. LAST, Lt Col, USAF
+      Commander
 letterhead:
   letterhead_title:
     - DEPARTMENT OF THE AIR FORCE

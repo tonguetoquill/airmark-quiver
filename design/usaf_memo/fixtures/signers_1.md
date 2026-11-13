@@ -7,8 +7,7 @@ addressing:
   subject: Joint Records Management Review
   date: 2026-10-15
   signers:
-    - name: "MARY E. BROWN, Maj, USAF"
-      duty_title: "Commander, 123d Communications Squadron"
+    - "MARY E. BROWN, Maj, USAF\nCommander, 123d Communications Squadron"
 additional:
   attachments: ["Records Management Self-Inspection Checklist, 1 September 2026"]
 ~~~

@@ -66,28 +66,21 @@ main:
         signers:
           type: array
           max: 4
-          ui:
-            layout: table
           items:
-            type: object
-            properties:
-              name:
-                type: text
-                default: ""
-                description: "The signer's name in uppercase, grade, and service, for example 'FIRST M. LAST, Capt, USAF'."
-              duty_title:
-                type: text
-                default: ""
-                description: "The signer's duty title. It prints on the line under their name."
-              authority_line:
-                type: text
-                default: ""
-                description: "Usually blank. When this signer signs on the commander's behalf or states the headquarters' position, enter 'FOR THE COMMANDER'. It prints above their signature block."
+            type: text
+            multiline: true
           example:
-            - name: JOHN B. SMITH, Maj, USAF
-              duty_title: Director of Operations
-              authority_line: FOR THE COMMANDER
-          description: "Who signs the memo, up to four, one per row. One signer prints at 4.5 inches as usual. For more, list them most junior first: they print in pairs, the junior at the left margin and the senior at 4.5 inches, with a second pair on a new row. With three, the most senior stands alone on the last row. Each signer gets their own digital signature field."
+            - |-
+              JOHN B. SMITH, Maj, USAF
+              Director of Operations
+          description: "Who signs the memo, up to four. Type each signature block as it prints: the signer's name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF', and their duty title on the second. One signer prints at 4.5 inches as usual. For more, list them most junior first: they print in pairs, the junior at the left margin and the senior at 4.5 inches, with a second pair on a new row. With three, the most senior stands alone on the last row. Each signer gets their own digital signature field."
+
+        authority_line:
+          type: text
+          default: ""
+          ui:
+            compact: true
+          description: "Usually blank. When the signer signs on the commander's behalf or states the headquarters' position, enter 'FOR THE COMMANDER'. It prints above the signature block, and with several signers above the last one listed."
 
     letterhead:
       type: object

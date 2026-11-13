@@ -67,8 +67,9 @@ addressing:
   memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
   subject: Hello Quillmark
   signers:
-    - name: "FIRST M. LAST, Rank, USAF"
-      duty_title: "Duty Title"
+    - |-
+      FIRST M. LAST, Rank, USAF
+      Duty Title
 ~~~
 
 Body of the memo.`);

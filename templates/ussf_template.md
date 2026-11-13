@@ -13,7 +13,7 @@ addressing:
   subject: Your Subject Here
   date: today
   signers:
-    - name: FIRST M. LAST, Rank, USSF
+    - FIRST M. LAST, Rank, USSF
 letterhead:
   letterhead_title:
     - DEPARTMENT OF THE AIR FORCE

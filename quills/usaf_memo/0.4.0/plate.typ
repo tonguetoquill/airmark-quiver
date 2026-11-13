@@ -122,23 +122,24 @@
   #qm.data.at("$body")
 ]
 
+// A signer is the lines of their signature block as typed. A blank line between
+// two of them prints as no line.
+//
 // The first signer keeps the widget name "Signature" a single-signer memo has
-// always had; each further one is numbered by its place in the list.
-#let signers = addressing.signers.enumerate().map(((i, signer)) => {
-  let path = signer.at("$path", default: addressing.at("$path") + "signers." + str(i) + ".")
-  (
-    lines: (signer.name, signer.duty_title).filter(line => line != ""),
-    closing-line: signer.authority_line,
-    // The widget sits at the bottom of AFH 33-337's four blank lines and is
-    // sized to two and a half of them, so the line and a half above it stays
-    // clear of the body text without moving the block off the fifth line.
-    signing-field: qm.signature-field(
-      if i == 0 { "Signature" } else { "Signature_" + str(i + 1) },
-      field: path + "name",
-      height: body_font_size * 2.5,
-    ),
-  )
-})
+// always had; each further one is numbered by its place in the list. The
+// authority line stands over the last signer, the most senior.
+#let signers = addressing.signers.enumerate().map(((i, signer)) => (
+  lines: qm.str(signer).split("\n").map(line => line.trim()).filter(line => line != ""),
+  closing-line: if i == addressing.signers.len() - 1 { addressing.authority_line } else { none },
+  // The widget sits at the bottom of AFH 33-337's four blank lines and is
+  // sized to two and a half of them, so the line and a half above it stays
+  // clear of the body text without moving the block off the fifth line.
+  signing-field: qm.signature-field(
+    if i == 0 { "Signature" } else { "Signature_" + str(i + 1) },
+    field: addressing.at("$path") + "signers." + str(i),
+    height: body_font_size * 2.5,
+  ),
+))
 
 #backmatter(
   signers: signers,

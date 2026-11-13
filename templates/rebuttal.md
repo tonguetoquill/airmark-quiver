@@ -9,8 +9,9 @@ addressing:
   subject: Response to Letter of Counseling, Late Arrival to Formation, dated 10 March 2026
   date: today
   signers:
-    - name: Subject's FIRST M. LAST, Rank, USAF
-      duty_title: Duty Title
+    - |-
+      Subject's FIRST M. LAST, Rank, USAF
+      Duty Title
 letterhead:
   letterhead_title:
     - DEPARTMENT OF THE AIR FORCE
