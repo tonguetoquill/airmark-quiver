@@ -30,6 +30,13 @@
       "tags": ["air-force", "space-force", "letter"]
     },
     {
+      "id": "usaf-envelope",
+      "name": "USAF Envelope",
+      "description": "Official envelope for Air Force and Space Force correspondence (AFH 33-337, chapter 22)",
+      "file": "usaf_envelope.md",
+      "tags": ["air-force", "space-force", "envelope"]
+    },
+    {
       "id": "point-paper",
       "name": "Point Paper",
       "description": "Brief one issue quickly, on no notice, from a single page of bullets (AFH 33-337)",

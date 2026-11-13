@@ -2,24 +2,25 @@
 $quill: usaf_memo@0.4
 $kind: main
 addressing:
-  memo_for:
-    - ORG/SYMBOL
-    # - 2nd ORG/SYMBOL
-  memo_from:
-    - ORG/SYMBOL
-    - ORGANIZATION
-    - Street Address
-    - City St 12345-6789
+  memo_for: ORG/SYMBOL
+  memo_from: |-
+    ORG/SYMBOL
+
+    ORGANIZATION
+
+    Street Address
+
+    City St 12345-6789
   subject: Your Subject Here
   date: today
-  signers:
-    - signature_block:
-        - FIRST M. LAST, Rank, USSF
+  signature_block: FIRST M. LAST, Rank, USSF
 letterhead:
-  letterhead_title:
-    - DEPARTMENT OF THE AIR FORCE
-    - United States Space Force
-    - Space Delta [X]
+  letterhead_title: |-
+    DEPARTMENT OF THE AIR FORCE
+
+    United States Space Force
+
+    Space Delta [X]
   tag_line: Semper Supra
 ~~~
 

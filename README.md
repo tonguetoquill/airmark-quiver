@@ -13,6 +13,7 @@ and aligned to the current Quillmark spec.
 | `usaf_memo`          | 0.3.0   | Previous release, retained so documents pinned to `@0.3` keep resolving          |
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
+| `usaf_envelope`      | 0.0.1   | USAF / DAF envelope (AFH 33-337, chapter 22; draft)                              |
 | `usaf_paper`         | 0.1.0   | Point, talking, bullet background, background, and position papers (AFH 33-337) |
 | `army_memo`          | 0.1.0   | U.S. Army Memorandum (AR 25-50)                                                  |
 | `medal_citation`     | 0.1.0   | Achievement, Meritorious Service, and Commendation Medal citations               |
@@ -62,11 +63,20 @@ const doc = Document.parse(`~~~
 $quill: usaf_memo@0.4
 $kind: main
 addressing:
-  memo_for: ["ORG/SYMBOL"]
-  memo_from: ["ORG/SYMBOL", "Organization Name", "123 Street Ave", "City ST 12345-6789"]
+  memo_for: ORG/SYMBOL
+  memo_from: |-
+    ORG/SYMBOL
+
+    Organization Name
+
+    123 Street Ave
+
+    City ST 12345-6789
   subject: Hello Quillmark
-  signers:
-    - signature_block: ["FIRST M. LAST, Rank, USAF", "Duty Title"]
+  signature_block: |-
+    FIRST M. LAST, Rank, USAF
+
+    Duty Title
 ~~~
 
 Body of the memo.`);

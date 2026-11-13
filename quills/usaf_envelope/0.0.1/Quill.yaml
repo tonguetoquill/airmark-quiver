@@ -1,0 +1,103 @@
+quill:
+  name: usaf_envelope
+  version: 0.0.1
+  backend: typst
+  description: "U.S. Air Force and Space Force envelope (AFH 33-337, chapter 22)"
+
+typst:
+  plate_file: plate.typ
+
+main:
+  description: "The face of an official envelope, from AFH 33-337 chapter 22. Fill the return address, then the delivery address in the order it prints. Both print in capitals, in Courier at 12 point. The upper right stays clear for postage, and the lower right stays clear for the barcode."
+  body:
+    enabled: false
+  fields:
+    return:
+      type: object
+      title: Return address
+      properties:
+        lines:
+          type: array
+          items:
+            type: text
+          default: []
+          title: Mailing address
+          example:
+            - 123 EXS/CC
+            - 1 EXAMPLE WAY
+            - EXAMPLE AFB ST 12345-6789
+          description: "No person's name, and no punctuation except the dash in the ZIP code. The sender's mailing address, one line each: the office symbol, the street, then the city or base, the two-letter state, and the ZIP+4, for example 123 EXS/CC, 1 EXAMPLE WAY, EXAMPLE AFB ST 12345-6789. It prints in capitals in the upper left, one line each. A line longer than that corner is cut off before the postage."
+
+        official_business:
+          type: boolean
+          default: true
+          example: true
+          ui:
+            compact: true
+          description: "Prints OFFICIAL BUSINESS two lines below the return address. An official envelope carries it. Turn it off for mail that is not official, and nothing prints in its place."
+
+    delivery:
+      type: object
+      title: Delivery address
+      properties:
+        non_address:
+          type: text
+          default: ""
+          title: Account or mail stop
+          description: "Not the recipient. An account number, a presort code, or a mail stop, for example CPRS 03672, with no punctuation. It prints in capitals as the first line of the address. Leave blank when there is none. It is the line that does not print when a country would make the address six lines."
+
+        attention:
+          type: text
+          default: ""
+          example: MAJOR JOHN B SMITH
+          description: "A person in the office on the recipient line, not the office itself. MAJOR JOHN B SMITH, or PERSONAL FOR MS JANE DOE when only that person should open it. No punctuation. It prints in capitals. Leave blank when the recipient line names the person."
+
+        recipient:
+          type: text
+          default: ""
+          example: 456 EXG/CC
+          description: "The organization and its office symbol, separated by a slash, for example 456 EXG/CC. The slash stays; other punctuation does not. A person with no office symbol goes on this line instead, for example MR JAMES F JONES, and Attention stays blank. It prints in capitals."
+
+        street:
+          type: text
+          default: ""
+          title: Street or PO box
+          example: 2 SAMPLE BOULEVARD
+          description: "The street or the post office box, never both, plus the room or suite. 2 SAMPLE BOULEVARD, PO BOX 345, or UNIT 2050 BOX 4190. Spell the designator or use its abbreviation, such as ST or STREET, with no punctuation. It prints in capitals. A line that does not fit is cut off half an inch from the right edge, on this same line."
+
+        city:
+          type: text
+          default: ""
+          title: City, state, ZIP
+          example: SAMPLE AFB ST 98765-4321
+          description: "The city or base, a two-letter state, and the ZIP+4, for example SAMPLE AFB ST 98765-4321. The dash in the ZIP+4 is the only punctuation on this line. An APO or FPO address is just the APO or FPO, the two-letter code, and the ZIP, for example APO AE 09622-1215, with no city beside it. It prints in capitals."
+
+        country:
+          type: text
+          default: ""
+          description: "The country alone on the last line, for example CANADA. Leave blank for a U.S. address, including APO and FPO. The address is five lines. When this is filled and every line above it is filled too, the account or mail stop does not print, so the country stays the fifth line."
+
+    envelope:
+      type: object
+      title: Envelope
+      properties:
+        size:
+          type: enum
+          default: number-10
+          ui:
+            compact: true
+          values:
+            - number-10
+            - monarch
+            - 6x9
+            - 9x12
+            - 10x13
+          description: "Which envelope this prints on, long edge across. number-10 is 9.5 by 4.125 inches, the usual letter size, and what a new document prints. monarch is 7.5 by 3.875. 6x9 is 9 by 6. 9x12 is 12 by 9 and 10x13 is 13 by 10, for correspondence that cannot be folded. A letter envelope is normally no larger than 6.125 by 11.5 inches; 9x12 and 10x13 are past that."
+
+        non_machineable:
+          type: boolean
+          default: false
+          title: Non-machineable
+          ui:
+            compact: true
+          description: "Prints NON-MACHINEABLE above the address. Turn it on when the sealed envelope is thicker than 1/4 inch. Thicker envelopes jam sorting equipment. Leave it off otherwise."
