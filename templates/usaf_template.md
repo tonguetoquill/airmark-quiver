@@ -9,7 +9,7 @@ addressing:
     - ORG/SYMBOL
   subject: Your Subject Here
   date: today
-  signers:
+  signature_block:
     - FIRST M. LAST, Rank, USAF
 letterhead:
   letterhead_title:

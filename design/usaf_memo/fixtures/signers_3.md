@@ -6,12 +6,12 @@ addressing:
   memo_from: [123 CS/SCX]
   subject: Joint Records Management Review
   date: 2026-10-15
-  signers:
-    - "MARY E. BROWN, Maj, USAF\nCommander, 123d Communications Squadron"
-    - "ROBERT L. JONES, Lt Col, USAF\nCommander, 123d Operations Support Squadron"
-    - "JANE A. DOE, Col, USAF\nCommander, 123d Mission Support Group"
-  authority_line: FOR THE COMMANDER
+  signature_block: ["MARY E. BROWN, Maj, USAF", "Commander, 123d Communications Squadron"]
 additional:
+  additional_signers:
+    - authority_line: FOR THE COMMANDER
+      signature_block: ["ROBERT L. JONES, Lt Col, USAF", "Commander, 123d Operations Support Squadron"]
+    - signature_block: ["JANE A. DOE, Col, USAF", "Commander, 123d Mission Support Group"]
   attachments: ["Records Management Self-Inspection Checklist, 1 September 2026"]
 ~~~
 

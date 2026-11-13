@@ -12,7 +12,7 @@ addressing:
     - City St 12345-6789
   subject: Your Subject Here
   date: today
-  signers:
+  signature_block:
     - FIRST M. LAST, Rank, USSF
 letterhead:
   letterhead_title:
