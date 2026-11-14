@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **The USSF template's letterhead reads `Space Delta X`.** It read `Space Delta [X]`, and a bracket in a field is respelled `\[X\]` the first time the document is saved.
+
 ## v0.45.0 - 2026-11-14
 
 - **Every quill declares `shape` where it declared `multiline`, and needs Quillmark 0.138.** A `text` field of several lines is `shape: lines` and a `richtext` field that holds lists or headings is `shape: blocks`; nothing a document holds changes. Quillmark 0.138 prints a newline inside a paragraph as a line break, so a paragraph wrapped across source lines in a document prints its wraps until the lines are joined.
