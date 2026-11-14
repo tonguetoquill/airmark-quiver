@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.45.0 - 2026-11-14
+
+- Declare shape on every quill and move to Quillmark 0.138 (#338)
+- Never leave a usaf_memo 0.4.0 signature block alone on a page (#335)
+- Give usaf_memo 0.4.0 its own signature block and multiline rich text for its lists of lines (#336)
+- Add usaf_envelope 0.0.1, the AFH 33-337 envelope face (#330)
+
+
 ## Unreleased
 
 - **Every quill declares `shape` where it declared `multiline`, and needs Quillmark 0.138.** A `text` field of several lines is `shape: lines` and a `richtext` field that holds lists or headings is `shape: blocks`; nothing a document holds changes. Quillmark 0.138 prints a newline inside a paragraph as a line break, so a paragraph wrapped across source lines in a document prints its wraps until the lines are joined.
