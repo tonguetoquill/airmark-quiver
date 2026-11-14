@@ -1,6 +1,7 @@
 // templates/templates.json names its publisher, every template in it names a
 // file that exists, every file is named once, and each renders against this
-// quiver with no warning.
+// quiver with no warning. A `typst::pdf_ua` warning does not fail: the render
+// exports a tagged PDF that makes no PDF/UA-1 claim.
 
 import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -59,8 +60,9 @@ for (const entry of manifest) {
     }
     const quill = await quiver.getQuill(doc.quillRef);
     const result = await engine.render(quill, doc, { format: "pdf" });
-    for (const w of result.warnings ?? []) fail(entry.id, `${w.code}: ${w.message}`);
-    if (!result.warnings?.length) console.log(`✓ ${entry.id} (${doc.quillRef})`);
+    const warnings = (result.warnings ?? []).filter((w) => w.code !== "typst::pdf_ua");
+    for (const w of warnings) fail(entry.id, `${w.code}: ${w.message}`);
+    if (!warnings.length) console.log(`✓ ${entry.id} (${doc.quillRef})`);
   } catch (error) {
     fail(entry.id, error?.message ?? String(error));
   } finally {

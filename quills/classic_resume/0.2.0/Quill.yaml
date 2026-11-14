@@ -25,7 +25,6 @@ main:
       ui:
         group: identity
       type: richtext
-      multiline: false
       example: Philip J. Fry
       description: "Your name as you want it read. It also names the PDF."
 
@@ -35,7 +34,6 @@ main:
       type: array
       items:
         type: richtext
-        multiline: false
       example:
         - fry@planetexpress.example
         - (212) 555-0199
@@ -85,7 +83,6 @@ card_kinds:
     fields:
       title:
         type: richtext
-        multiline: false
         default: Summary
         description: "The section heading. Leave blank to omit it; a summary at the top then sits right under your name."
 
@@ -103,7 +100,6 @@ card_kinds:
     fields:
       title:
         type: richtext
-        multiline: false
         default: Work Experience
         example: Experience
         description: &title_description "The section heading. Leave blank to omit it."
@@ -114,26 +110,22 @@ card_kinds:
           properties:
             company:
               type: richtext
-              multiline: false
               description: "The employer's name."
             dates: &dates
               type: richtext
-              multiline: false
               default: ""
               description: "Written as you want it to read, for example 'August 2024 – Present'. Use the same style throughout."
             role:
               type: richtext
-              multiline: false
               default: ""
               description: "Your job title."
             location: &location
               type: richtext
-              multiline: false
               default: ""
               description: "Where it was, for example 'Pittsburgh, PA' or 'Remote'."
             details: &details
               type: richtext
-              multiline: true
+              shape: blocks
               default: ""
               description: "What you did, usually as short bullets with the strongest first."
         example:
@@ -169,7 +161,6 @@ card_kinds:
     fields:
       title:
         type: richtext
-        multiline: false
         default: Education
         description: *title_description
       schools:
@@ -179,12 +170,10 @@ card_kinds:
           properties:
             school:
               type: richtext
-              multiline: false
               description: "The school's name."
             dates: *dates
             degree:
               type: richtext
-              multiline: false
               default: ""
               description: "Degree and field of study."
             location: *location
@@ -208,7 +197,6 @@ card_kinds:
     fields:
       title:
         type: richtext
-        multiline: false
         default: Skills
         description: *title_description
       skills:
@@ -220,11 +208,9 @@ card_kinds:
           properties:
             label:
               type: richtext
-              multiline: false
               description: "The group's name, for example 'Languages'. Leave blank to list the skills alone."
             items:
               type: richtext
-              multiline: false
               description: "The skills in this group, separated by commas."
         example:
           - label: Logistics
@@ -255,7 +241,6 @@ card_kinds:
     fields:
       title:
         type: richtext
-        multiline: false
         default: Projects
         description: *title_description
       projects:
@@ -265,11 +250,9 @@ card_kinds:
           properties:
             name:
               type: richtext
-              multiline: false
               description: "The project's name."
             link:
               type: richtext
-              multiline: false
               default: ""
               description: "Where to see it, for example github.com/you/project. It prints as written, so leave off https://."
             details: *details
@@ -290,14 +273,12 @@ card_kinds:
     fields:
       title:
         type: richtext
-        multiline: false
         default: Certifications
         description: *title_description
       items:
         type: array
         items:
           type: richtext
-          multiline: false
         example:
           - "Career Chip: Delivery Boy"
           - Earth Army Basic Training
@@ -318,7 +299,6 @@ card_kinds:
     fields:
       title:
         type: richtext
-        multiline: false
         example: Planetary Defense
         description: "The section heading."
       entries:
@@ -328,12 +308,10 @@ card_kinds:
           properties:
             heading:
               type: richtext
-              multiline: false
               description: "The entry's name, such as an organization or publication."
             dates: *dates
             subtitle:
               type: richtext
-              multiline: false
               default: ""
               description: "A second line, such as your role."
             location: *location

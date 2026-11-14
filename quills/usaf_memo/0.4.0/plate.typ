@@ -9,7 +9,7 @@
 #let level = classification.level
 #let additional = qm.data.additional
 
-// The lines of a multiline value, for the package's fields that take one entry
+// The lines of a `shape: lines` value, for the package's fields that take one entry
 // per line. Enter (a paragraph) and Shift+Enter (a line break) each end a line,
 // and a blank line is dropped. A line is the value's own children, so its
 // glyphs keep their spans and stay click-to-edit. A blank value is `""`.

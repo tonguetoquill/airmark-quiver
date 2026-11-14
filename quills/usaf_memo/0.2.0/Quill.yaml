@@ -104,7 +104,6 @@ main:
 
     tag_line:
       type: richtext
-      multiline: false
       default: ""
       ui:
         group: letterhead
@@ -169,7 +168,6 @@ main:
       type: array
       items:
         type: richtext
-        multiline: false
       default: []
       example:
         - AFMAN 33-326, 25 November 2011, *Preparing Official Communications*

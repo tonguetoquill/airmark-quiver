@@ -94,7 +94,7 @@ main:
 
         executive_summary:
           type: richtext
-          multiline: true
+          shape: blocks
           default: ""
           example: |-
             # Introduction

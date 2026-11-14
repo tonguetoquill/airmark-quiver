@@ -125,7 +125,6 @@ main:
 
     tag_line:
       type: richtext
-      multiline: false
       default: ""
       ui:
         group: letterhead
@@ -185,7 +184,6 @@ main:
       type: array
       items:
         type: richtext
-        multiline: false
       default: []
       example:
         - Squadron Newcomer Guide, 1 September 2026

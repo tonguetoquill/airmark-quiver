@@ -271,7 +271,7 @@ main:
 
         pertinent_data:
           type: richtext
-          multiline: true
+          shape: blocks
           default: ""
           example: |-
             Drainage area at Castle Rock: 2,240 square miles

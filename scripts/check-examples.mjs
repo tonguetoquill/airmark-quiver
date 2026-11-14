@@ -1,6 +1,8 @@
 // Every quill version declares an example, its fields' `example:` and its kinds'
 // `body.example`, and the example document renders against its quill with no
 // warning. `quillkit test` renders the example but passes one that warns.
+// A `typst::pdf_ua` warning does not fail: the render exports a tagged PDF that
+// makes no PDF/UA-1 claim.
 
 import { Engine, init } from "@quillmark/wasm";
 import { fromDir } from "@quillmark/quiver/node";
@@ -26,7 +28,9 @@ for (const name of quiver.quillNames()) {
       }
       count++;
       const result = await engine.render(quill, doc, { format: "pdf" });
-      const warnings = [...(doc.warnings ?? []), ...(result.warnings ?? [])];
+      const warnings = [...(doc.warnings ?? []), ...(result.warnings ?? [])].filter(
+        (w) => w.code !== "typst::pdf_ua",
+      );
       for (const w of warnings) {
         failures.push(`${ref}: ${w.code}${w.path ? ` at ${w.path}` : ""}: ${w.message}`);
       }

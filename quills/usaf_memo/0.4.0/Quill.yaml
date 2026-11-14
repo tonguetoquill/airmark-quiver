@@ -27,7 +27,7 @@ main:
       properties:
         memo_for:
           type: richtext
-          multiline: true
+          shape: lines
           example: |-
             123 OG/CC
 
@@ -40,14 +40,13 @@ main:
 
         memo_from:
           type: richtext
-          multiline: true
+          shape: lines
           default: ""
           example: 123 CS/SCX
           description: "Your office symbol. If any recipient is off your installation, add your full mailing address below it. Leave blank for a memorandum for record."
 
         subject:
           type: richtext
-          multiline: false
           example: "Annual Records Management Review (Suspense: 30 October 2026)"
           description: "A brief subject in title case. Put any suspense date in parentheses at the end."
 
@@ -61,7 +60,7 @@ main:
 
         signature_block:
           type: richtext
-          multiline: true
+          shape: lines
           example: |-
             JOHN B. SMITH, Maj, USAF
 
@@ -81,7 +80,7 @@ main:
       properties:
         letterhead_title:
           type: richtext
-          multiline: true
+          shape: lines
           default: DEPARTMENT OF THE AIR FORCE
           example: |-
             DEPARTMENT OF THE AIR FORCE
@@ -108,7 +107,6 @@ main:
 
         tag_line:
           type: richtext
-          multiline: false
           default: ""
           ui:
             compact: true
@@ -160,7 +158,6 @@ main:
           type: array
           items:
             type: richtext
-            multiline: false
           default: []
           example:
             - AFMAN 33-326, 25 November 2011, *Preparing Official Communications*
@@ -169,14 +166,14 @@ main:
 
         cc:
           type: richtext
-          multiline: true
+          shape: lines
           default: ""
           example: 123 WG/CCE
           description: Offices or people receiving a courtesy copy, one per line.
 
         distribution:
           type: richtext
-          multiline: true
+          shape: lines
           default: ""
           description: "Everyone the memo goes to, one per line, when Memo For says 'SEE DISTRIBUTION'."
 
@@ -184,7 +181,6 @@ main:
           type: array
           items:
             type: richtext
-            multiline: false
           default: []
           example:
             - Records Management Self-Inspection Checklist, 1 September 2026
@@ -199,7 +195,7 @@ main:
             properties:
               signature_block:
                 type: richtext
-                multiline: true
+                shape: lines
                 description: "The signer's name in uppercase, grade, and service on the first line, for example 'FIRST M. LAST, Capt, USAF'. Their duty title on the second."
               authority_line:
                 type: text
@@ -273,7 +269,7 @@ card_kinds:
 
           signature_block:
             type: richtext
-            multiline: true
+            shape: lines
             example: |-
               RICHARD C. ROE, Col, USAF
 
