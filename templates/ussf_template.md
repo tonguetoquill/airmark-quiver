@@ -20,7 +20,7 @@ letterhead:
 
     United States Space Force
 
-    Space Delta [X]
+    Space Delta X
   tag_line: Semper Supra
 ~~~
 
