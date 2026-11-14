@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.45.1 - 2026-11-14
+
 - **The USSF template's letterhead reads `Space Delta X`.** It read `Space Delta [X]`, and a bracket in a field is respelled `\[X\]` the first time the document is saved.
 
 ## v0.45.0 - 2026-11-14
