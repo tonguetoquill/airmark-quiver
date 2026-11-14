@@ -238,7 +238,7 @@ main:
       properties:
         executive_summary:
           type: richtext
-          multiline: true
+          shape: blocks
           default: ""
           example: |-
             # Introduction
@@ -279,7 +279,7 @@ main:
 
         pertinent_data:
           type: richtext
-          multiline: true
+          shape: blocks
           default: ""
           example: |-
             Dam type: concrete gravity

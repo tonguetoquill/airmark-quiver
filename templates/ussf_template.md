@@ -29,7 +29,6 @@ Write your paragraphs here.
 - Use bullets to nest paragraphs.
   - Indent to go deeper.
 
-You can also **bold**, _italicize_, `code`, ~~strikethrough~~,
-and [link](https://example.com/) your text.
+You can also **bold**, _italicize_, `code`, ~~strikethrough~~, and [link](https://example.com/) your text.
 
 Top-level paragraphs are numbered automatically; do not number them yourself.

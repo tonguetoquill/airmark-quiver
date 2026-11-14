@@ -125,7 +125,7 @@ card_kinds:
               description: "Where it was, for example 'Pittsburgh, PA' or 'Remote'."
             details: &details
               type: richtext
-              multiline: true
+              shape: blocks
               default: ""
               description: "What you did, usually as short bullets with the strongest first."
         example:
@@ -279,7 +279,6 @@ card_kinds:
         type: array
         items:
           type: richtext
-          multiline: false
         example:
           - "Career Chip: Delivery Boy"
           - Earth Army Basic Training

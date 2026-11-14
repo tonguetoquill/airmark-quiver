@@ -52,7 +52,7 @@ main:
 
     notes:
       type: text
-      multiline: true
+      shape: lines
       default: ""
       example: Visiting family over leave; rental car for local travel.
       description: "Anything else about your trip."

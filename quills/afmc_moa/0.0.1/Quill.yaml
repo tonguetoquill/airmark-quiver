@@ -60,7 +60,7 @@ main:
       type: array
       items:
         type: text
-        multiline: true
+        shape: lines
       default: []
       example:
         - NEWL/CD
@@ -79,7 +79,6 @@ main:
       ui:
         group: financial_details
       type: richtext
-      multiline: false
       default: ""
       example: Scheduled use of the AFETC thermal-vacuum chamber, with operator and instrumentation technician support, for NEWL sensor qualification tests.
       description: "The support being reimbursed."
@@ -140,7 +139,6 @@ main:
       ui:
         group: financial_details
       type: richtext
-      multiline: false
       default: ""
       example: Funds are provided by Military Interdepartmental Purchase Request (MIPR) on a reimbursable basis. No advance payment is authorized.
       description: "Any other financial terms the agreement needs."

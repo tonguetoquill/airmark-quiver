@@ -58,7 +58,6 @@ main:
       ui:
         group: addressing
       type: richtext
-      multiline: false
       example: "Annual Records Management Review (Suspense: 30 October 2026)"
       description: "A brief subject in title case. Put any suspense date in parentheses at the end."
 
@@ -125,7 +124,6 @@ main:
 
     tag_line:
       type: richtext
-      multiline: false
       default: ""
       ui:
         group: letterhead
@@ -174,7 +172,6 @@ main:
       type: array
       items:
         type: richtext
-        multiline: false
       default: []
       example:
         - AFMAN 33-326, 25 November 2011, *Preparing Official Communications*
@@ -207,7 +204,6 @@ main:
       type: array
       items:
         type: richtext
-        multiline: false
       default: []
       example:
         - Records Management Self-Inspection Checklist, 1 September 2026

@@ -69,7 +69,6 @@ main:
 
         subject:
           type: richtext
-          multiline: false
           example: Delegation of Signature Authority
           description: "A subject of ten words or fewer, in title case and without abbreviations."
 
@@ -178,7 +177,6 @@ main:
           type: array
           items:
             type: richtext
-            multiline: false
           default: []
           example:
             - AR 25-50 (Preparing and Managing Correspondence)
@@ -189,7 +187,6 @@ main:
           type: array
           items:
             type: richtext
-            multiline: false
           default: []
           example:
             - as

@@ -140,7 +140,8 @@ retires it the same way.
 
 `npm test` renders every template against this quiver after `quillkit check`, and
 a warning fails it as an error does, so a quill change that breaks a template
-fails here rather than on the app's build.
+fails here rather than on the app's build. A `typst::pdf_ua` warning is the
+exception: the render exports a tagged PDF that makes no PDF/UA-1 claim.
 
 ## Working on a quill
 
