@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.45.0 - 2026-11-14
+
 - **Every quill declares `shape` where it declared `multiline`, and needs Quillmark 0.138.** A `text` field of several lines is `shape: lines` and a `richtext` field that holds lists or headings is `shape: blocks`; nothing a document holds changes. Quillmark 0.138 prints a newline inside a paragraph as a line break, so a paragraph wrapped across source lines in a document prints its wraps until the lines are joined.
 
 - **`usaf_memo@0.4.0` takes its lists of lines as rich text lines.** Memo For, From, the letterhead, cc, Distribution and every signature block, the memo's own, each additional signer's and each indorsement's, are one `richtext` field of `shape: lines`, where each was a list of lines. Each line of the field prints as one line: Enter and Shift+Enter both start a new one, and a blank line prints nothing. A line that opens like a list item or a heading, such as `1. Alpha`, prints as typed. A document that writes one of these as a list needs it written as text, one line each. References and attachments stay lists, one entry each. The `usaf_memo` templates write the new shape and render as before.
