@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.45.1 - 2026-11-14
+
+- Spell the USSF template's delta placeholder without brackets (#340)
+
+
 ## Unreleased
 
 - **The USSF template's letterhead reads `Space Delta X`.** It read `Space Delta [X]`, and a bracket in a field is respelled `\[X\]` the first time the document is saved.
