@@ -5,6 +5,8 @@ DAF, Army and USACE official-document quills, sourced from
 [tonguetoquill-collection](https://github.com/nibsbin/tonguetoquill-collection)
 and aligned to the current Quillmark spec.
 
+Quillmark is pre-1.0. Its [stability statement](https://github.com/borb-sh/quillmark#status) says what any release can change and what every release keeps.
+
 ## Contents
 
 | Quill                | Version | Description                                                                      |
