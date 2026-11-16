@@ -1,6 +1,6 @@
 # @airmark/quiver
 
-A [Quillmark](https://github.com/nibsbin/quillmark) source quiver of Air Force,
+A [Quillmark](https://github.com/borb-sh/quillmark) source quiver of Air Force,
 DAF, Army and USACE official-document quills, sourced from
 [tonguetoquill-collection](https://github.com/nibsbin/tonguetoquill-collection)
 and aligned to the current Quillmark spec.
