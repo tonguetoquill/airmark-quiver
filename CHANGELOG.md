@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **`cyber_career_plan@0.1.0` lists CCMD under Staff & functional.** An officer who served at a Combatant Command ticks CCMD, after Joint Staff, and names the command in its detail, for example USCYBERCOM or USSTRATCOM. A chart that doesn't tick it prints CCMD as an open box beside the other staff tours; every document saved against the quill opens and renders as before.
+
 ## v0.45.1 - 2026-11-14
 
 - **The USSF template's letterhead reads `Space Delta X`.** It read `Space Delta [X]`, and a bracket in a field is respelled `\[X\]` the first time the document is saved.
