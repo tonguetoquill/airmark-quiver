@@ -62,6 +62,7 @@ qualifications:
   staff:
     exec_aide_cag: { detail: Wing Exec }
     majcom_naf_staff: { detail: 16 AF }
+    ccmd: { detail: USCYBERCOM }
     instructor: { detail: 333 TRS }
   education:
     commissioning_dg: { detail: OTS DG }

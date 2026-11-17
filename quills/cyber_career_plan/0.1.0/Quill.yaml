@@ -340,6 +340,7 @@ main:
             haf_staff: HAF Staff
             majcom_naf_staff: MAJCOM / NAF Staff
             joint_staff: Joint Staff
+            ccmd: CCMD
             instructor: Instructor
             jqo: Joint Qualified Officer (JQO)
           properties: *detail
