@@ -52,7 +52,7 @@ for (const [tn, tail] of Object.entries(tails)) for (const [sn, sg] of Object.en
     const f = `${out}/${tn}-${sn}-${ind?"ind":"memo"}-${k}.pdf`;
     writeFileSync(f, Buffer.from(r.artifacts[0].bytes)); n++;
     const pages = execFileSync("pdftotext", ["-layout", f, "-"]).toString().split("\f");
-    for (const name of ["MARY E. BROWN", "INDO R. SER"]) {
+    for (const name of ["MARY E. BROWN", "JOHN Q. PUBLIC", "JANE A. DOE", "RICHARD C. ROE", "INDO R. SER"]) {
       const i = pages.findIndex(p => p.includes(name));
       if (i < 0) continue;
       const before = pages[i].split(name)[0];

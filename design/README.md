@@ -342,6 +342,13 @@ node design/usaf_memo/render_fixture.mjs design/usaf_memo/fixtures/signers_4.md 
 node design/usaf_memo/check_signature_company.mjs
 ```
 
+`check_signer_rows.mjs` sweeps a `usaf_memo@0.4.0` body with three and four signers across the first page break. It fails when the signers' two rows land on different pages or a render does not converge.
+
+```sh
+# run from the repo root; needs pdftotext
+node design/usaf_memo/check_signer_rows.mjs
+```
+
 ## usaf_envelope
 
 Fixtures, a render helper, and a layout check for the `usaf_envelope` quill.
