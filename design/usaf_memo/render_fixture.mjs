@@ -27,7 +27,7 @@ if (args.length === 0 || args.length > 2) {
 const [fixturePath, outputPath] = args.length === 1 ? [null, args[0]] : args;
 
 const { Document } = await init();
-const quill = await (await fromDir(repoRoot)).getQuill("usaf_memo@0.4.0");
+const quill = await (await fromDir(repoRoot)).getQuill("usaf_memo@0.4.1");
 for (const w of quill.warnings ?? []) console.warn(`quill warning: ${w.code}: ${w.message}`);
 
 const doc = fixturePath ? Document.parse(readFileSync(resolve(fixturePath), "utf8")) : quill.seedDocument();

@@ -11,7 +11,8 @@ Quillmark is pre-1.0. Its [stability statement](https://github.com/borb-sh/quill
 
 | Quill                | Version | Description                                                                      |
 |----------------------|---------|----------------------------------------------------------------------------------|
-| `usaf_memo`          | 0.4.0   | USAF / DAF Official Memorandum (AFH 33-337), with up to four signers             |
+| `usaf_memo`          | 0.4.1   | USAF / DAF Official Memorandum (AFH 33-337), with up to four signers             |
+| `usaf_memo`          | 0.4.0   | Previous release, retained so documents pinned to `@0.4.0` keep resolving        |
 | `usaf_memo`          | 0.3.0   | Previous release, retained so documents pinned to `@0.3` keep resolving          |
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |

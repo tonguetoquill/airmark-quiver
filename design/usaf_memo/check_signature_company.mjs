@@ -20,7 +20,7 @@ import { execFileSync } from "node:child_process";
 import { Engine, init } from "@quillmark/wasm";
 import { fromDir } from "@quillmark/quiver/node";
 const { Document } = await init();
-const quill = await (await fromDir(process.cwd())).getQuill("usaf_memo@0.4.0");
+const quill = await (await fromDir(process.cwd())).getQuill("usaf_memo@0.4.1");
 const engine = new Engine();
 const out = mkdtempSync(join(tmpdir(), "signature-company-"));
 const lead = k => Array(k).fill("Lead filler words fill the page.").join(" ");
@@ -44,7 +44,7 @@ let bad = [], warn = [], n = 0;
 for (const [tn, tail] of Object.entries(tails)) for (const [sn, sg] of Object.entries(signers)) for (const ind of [false, true]) {
   if (ind && sn === "four") continue;
   for (let k = 0; k <= 150; k += 2) {
-    let md = `~~~\n$quill: usaf_memo@0.4.0\n$kind: main\naddressing:\n  memo_for: 123 OG/CC\n  memo_from: 123 CS/SCX\n  subject: Sweep\n  date: 2026-11-12\n  signature_block: "MARY E. BROWN, Maj, USAF\\\\\\nCommander"\n${sg}\n~~~\n\n${lead(k)}\n\n${tail}\n`;
+    let md = `~~~\n$quill: usaf_memo@0.4.1\n$kind: main\naddressing:\n  memo_for: 123 OG/CC\n  memo_from: 123 CS/SCX\n  subject: Sweep\n  date: 2026-11-12\n  signature_block: "MARY E. BROWN, Maj, USAF\\\\\\nCommander"\n${sg}\n~~~\n\n${lead(k)}\n\n${tail}\n`;
     if (ind) md += `\n~~~\n$kind: indorsement\naddressing:\n  from: 123 OG/CC\n  for: 123 CS/SCX\n  signature_block: "INDO R. SER, Col, USAF\\\\\\nCommander"\n~~~\n\n${lead(k)}\n\n${tail}\n`;
     const doc = Document.parse(md);
     const r = await engine.render(quill, doc, { format: "pdf" }, "2026-11-13");
@@ -52,7 +52,7 @@ for (const [tn, tail] of Object.entries(tails)) for (const [sn, sg] of Object.en
     const f = `${out}/${tn}-${sn}-${ind?"ind":"memo"}-${k}.pdf`;
     writeFileSync(f, Buffer.from(r.artifacts[0].bytes)); n++;
     const pages = execFileSync("pdftotext", ["-layout", f, "-"]).toString().split("\f");
-    for (const name of ["MARY E. BROWN", "INDO R. SER"]) {
+    for (const name of ["MARY E. BROWN", "JOHN Q. PUBLIC", "JANE A. DOE", "RICHARD C. ROE", "INDO R. SER"]) {
       const i = pages.findIndex(p => p.includes(name));
       if (i < 0) continue;
       const before = pages[i].split(name)[0];
