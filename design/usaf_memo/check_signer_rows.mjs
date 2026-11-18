@@ -14,7 +14,7 @@ import { execFileSync } from "node:child_process";
 import { Engine, init } from "@quillmark/wasm";
 import { fromDir } from "@quillmark/quiver/node";
 
-const ref = "usaf_memo@0.4.1";
+const ref = "usaf_memo@0.4.0";
 const { Document } = await init();
 const quill = await (await fromDir(process.cwd())).getQuill(ref);
 const engine = new Engine();

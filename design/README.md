@@ -322,7 +322,7 @@ python3 design/usaf_memo/check_table_signature.py
 TYPST=/path/to/typst python3 design/usaf_memo/check_table_signature.py
 ```
 
-A render helper and fixtures for `usaf_memo@0.4.1`'s signers. `signers_1.md`
+A render helper and fixtures for `usaf_memo@0.4.0`'s signers. `signers_1.md`
 through `signers_4.md` hold the same memorandum signed by one to four people,
 the second carrying an authority line, so a row whose name lines must stay level
 across a closing line is in every fixture past the first. `signers_1.md` renders
@@ -335,14 +335,14 @@ lines start page 2 above the signature block.
 node design/usaf_memo/render_fixture.mjs design/usaf_memo/fixtures/signers_4.md /tmp/s4.png 2026-10-15
 ```
 
-`check_signature_company.mjs` sweeps `usaf_memo@0.4.1` bodies across two pages of lengths, ending on paragraphs, tables, bullets and a block quote, with one and four signers and with an indorsement. It fails when a signature block is alone on its page or a render does not converge.
+`check_signature_company.mjs` sweeps `usaf_memo@0.4.0` bodies across two pages of lengths, ending on paragraphs, tables, bullets and a block quote, with one and four signers and with an indorsement. It fails when a signature block is alone on its page or a render does not converge.
 
 ```sh
 # run from the repo root; needs pdftotext
 node design/usaf_memo/check_signature_company.mjs
 ```
 
-`check_signer_rows.mjs` sweeps a `usaf_memo@0.4.1` body with three and four signers across the first page break. It fails when the signers' two rows land on different pages or a render does not converge.
+`check_signer_rows.mjs` sweeps a `usaf_memo@0.4.0` body with three and four signers across the first page break. It fails when the signers' two rows land on different pages or a render does not converge.
 
 ```sh
 # run from the repo root; needs pdftotext

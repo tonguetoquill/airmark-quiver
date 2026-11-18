@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- **`usaf_memo@0.4.1` keeps every signer on one page.** With three or four signers the block prints in two rows, and the first row now moves to the next page with the second when the second does not fit, so the most senior signer never starts a page alone, as AFH 33-337 requires. Documents pinned to `@0.4` get the fix; a memo whose signers already shared a page prints as before.
+- **`usaf_memo@0.4.0` keeps every signer on one page.** With three or four signers the block prints in two rows, and the first row now moves to the next page with the second when the second does not fit, so the most senior signer never starts a page alone, as AFH 33-337 requires. A memo whose signers already shared a page prints as before.
 
 - **`cyber_career_plan@0.1.0` lists CCMD under Staff & functional.** An officer who served at a Combatant Command ticks CCMD, after Joint Staff, and names the command in its detail, for example USCYBERCOM or USSTRATCOM. A chart that doesn't tick it prints CCMD as an open box beside the other staff tours; every document saved against the quill opens and renders as before.
 

@@ -399,7 +399,8 @@
       let reserved = if r == rows.len() - 1 { reserved-lines } else { 0 }
       let (junior, senior) = if row.len() == 2 { (row.at(0), row.at(1)) } else { (none, row.at(0)) }
       let closing-row = row.any(signer => signer.closing-line != none)
-      block(breakable: false)[
+      // Sticky ties each row to the one below, so no row stands alone on a page.
+      block(breakable: false, sticky: r < rows.len() - 1)[
         #grid(
           columns: (senior-pad, senior-width),
           if junior != none {
@@ -494,11 +495,23 @@
   it
 }
 
+// Attachments pass continuation-label ("… (listed on next page):" per AFH 33-337).
+// cc: and DISTRIBUTION: use a neutral default — "listed" applies to attachment lists only.
+#let backmatter-continuation-text(section-label, continuation-label) = {
+  if continuation-label != none {
+    text()[#continuation-label]
+  } else {
+    text()[#(section-label + " (continued on next page)")]
+  }
+}
+
 #let render-backmatter-section(
   content,
   section-label,
   numbering-style: none,
   continuation-label: none,
+  // False when the caller has already printed the note and broken the page.
+  observe-break: true,
   // Lines of breaking height reserved below this section for the lead-in and
   // continuation note of the section that follows it. Reclaimed immediately
   // after, so it moves where a break may fall and nothing else.
@@ -516,13 +529,7 @@
     }
   }
 
-  // Attachments pass continuation-label ("… (listed on next page):" per AFH 33-337).
-  // cc: and DISTRIBUTION: use a neutral default — "listed" applies to attachment lists only.
-  let continuation-text = if continuation-label != none {
-    text()[#continuation-label]
-  } else {
-    text()[#(section-label + " (continued on next page)")]
-  }
+  let continuation-text = backmatter-continuation-text(section-label, continuation-label)
 
   context {
     // `breakable: false` lets Typst's own breaker move the section to the next
@@ -541,7 +548,7 @@
     // decision can never move its own input.
     let above = query(selector(<usaf-memo-flow-anchor>).before(here()))
     let below = query(selector(<usaf-memo-flow-anchor>).after(here()))
-    if above.len() > 0 and below.len() > 0 {
+    if observe-break and above.len() > 0 and below.len() > 0 {
       if below.first().location().page() > above.last().location().page() {
         continuation-text
       }
@@ -582,16 +589,6 @@
   distribution: none,
   leading-pagebreak: false,
 ) = {
-  let has-backmatter = (
-    (attachments != none and attachments.len() > 0)
-      or (cc != none and cc.len() > 0)
-      or (distribution != none and distribution.len() > 0)
-  )
-
-  if leading-pagebreak and has-backmatter {
-    pagebreak(weak: true)
-  }
-
   // Collected first because a section's reservation depends on whether another
   // follows it: with nothing below, no note can be owed.
   let sections = ()
@@ -622,6 +619,14 @@
 
   for (index, section) in sections.enumerate() {
     calculate-backmatter-spacing(index == 0)
+    // A forced break prints what the breaker prints when the first section does
+    // not fit: the note on the third line below the signature, the section at
+    // the top of the next page.
+    let forced-break = leading-pagebreak and index == 0
+    if forced-break {
+      backmatter-continuation-text(section.label, section.continuation-label)
+      pagebreak(weak: true)
+    }
     // The next section's one blank line of lead-in, plus one for its note. The
     // signature block reserves 3: the first section's lead-in is two lines.
     let reserved-lines = if index + 1 < sections.len() { 2 } else { 0 }
@@ -631,6 +636,7 @@
       numbering-style: section.numbering-style,
       continuation-label: section.continuation-label,
       reserved-lines: reserved-lines,
+      observe-break: not forced-break,
     )
   }
 }

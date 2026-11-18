@@ -1,5 +1,5 @@
 ~~~
-$quill: usaf_memo@0.4.1
+$quill: usaf_memo@0.4.0
 $kind: main
 addressing:
   memo_for: |-
