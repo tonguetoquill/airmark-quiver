@@ -26,8 +26,7 @@ Quillmark is pre-1.0. Its [stability statement](https://github.com/borb-sh/quill
 | `daf1206`            | 0.1.0   | DAF Form 1206 — Nomination for Award                                             |
 | `daf4392`            | 0.1.0   | DAF Form 4392 — Pre-Departure Safety Briefing (Page 2)                           |
 | `afmc_moa`           | 0.0.1   | DoD Memorandum of Agreement (DoDI 4000.19)                                       |
-| `classic_resume`     | 0.2.1   | Classic single-page resume                                                       |
-| `classic_resume`     | 0.2.0   | Previous release, retained so documents pinned to `@0.2.0` keep resolving        |
+| `classic_resume`     | 0.2.0   | Classic single-page resume                                                       |
 | `classic_resume`     | 0.1.0   | Previous release, retained so documents pinned to `@0.1` keep resolving          |
 | `cyber_career_plan`  | 0.1.0   | 17X Cyber Operations Officer career plan: current assignment, vectors and record |
 | `usace_tech_memo`    | 0.0.1   | USACE technical memorandum (Portland District ENC skeleton; draft)               |

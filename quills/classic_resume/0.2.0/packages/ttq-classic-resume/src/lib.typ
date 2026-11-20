@@ -3,5 +3,5 @@
 
 #import "config.typ": default-config
 #import "layout.typ": resume
-#import "components.typ": entry, item-grid, resume-header, section-header
+#import "components.typ": entry, item-grid, list-marker, resume-header, section-header
 #import "util.typ": auto-link

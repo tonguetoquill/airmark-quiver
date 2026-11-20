@@ -1,5 +1,5 @@
 ~~~
-$quill: classic_resume@0.2
+$quill: classic_resume@0.2.0
 $kind: main
 name: Jane Q. Roe
 contacts:
