@@ -36,6 +36,10 @@
   [#marks#h(0.33em)]
 }
 
+// One marker per level as content, so Word reads each as text. Quillmark nests
+// content at most 12 deep, so the array never cycles.
+#let dash-markers = range(12).map(dashes)
+
 #let line-stride() = {
   let one = measure(par(spacing: 0pt)[x]).height
   measure(par(spacing: 0pt)[x#linebreak()x]).height - one
@@ -260,7 +264,7 @@
 
     set par(leading: single-leading, spacing: item-gap)
     set block(above: item-gap, below: item-gap, spacing: item-gap)
-    set list(marker: dashes, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
+    set list(marker: dash-markers, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
     show enum: narrative-list
     // pp. 222–224: one level of heading, in capitals, at the body's size and
     // weight, flush left, unnumbered, set off like any other item.
