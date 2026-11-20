@@ -17,7 +17,8 @@ Quillmark is pre-1.0. Its [stability statement](https://github.com/borb-sh/quill
 | `usaf_memo`          | 0.2.0   | Previous release, retained so documents pinned to `@0.2` keep resolving          |
 | `usaf_letter`        | 0.1.0   | USAF / DAF Personal Letter (AFH 33-337)                                          |
 | `usaf_envelope`      | 0.0.1   | USAF / DAF envelope (AFH 33-337, chapter 22; draft)                              |
-| `usaf_paper`         | 0.1.0   | Point, talking, bullet background, background, and position papers (AFH 33-337) |
+| `usaf_paper`         | 0.1.1   | Point, talking, bullet background, background, and position papers (AFH 33-337) |
+| `usaf_paper`         | 0.1.0   | Previous release, retained so documents pinned to `@0.1.0` keep resolving        |
 | `army_memo`          | 0.1.1   | U.S. Army Memorandum (AR 25-50)                                                  |
 | `army_memo`          | 0.1.0   | Previous release, retained so documents pinned to `@0.1.0` keep resolving        |
 | `medal_citation`     | 0.1.0   | Achievement, Meritorious Service, and Commendation Medal citations               |
