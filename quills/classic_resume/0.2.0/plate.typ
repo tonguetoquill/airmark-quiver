@@ -1,6 +1,6 @@
 #import "@local/quillmark-helper:0.2.0" as qm
 #import "@local/ttq-classic-resume:0.1.0": (
-  auto-link, default-config, entry, item-grid, resume, resume-header, section-header,
+  auto-link, default-config, entry, item-grid, list-marker, resume, resume-header, section-header,
 )
 
 // `text`/`richtext` fields lower to content carrying a space element on
@@ -63,12 +63,7 @@
 // section body is the other place a resume holds one, and a list that changed
 // marker with its surroundings would read as two templates.
 #show list: set list(
-  marker: box(
-    fill: black,
-    width: default-config.marker-size,
-    height: default-config.marker-size,
-    baseline: default-config.marker-baseline,
-  ),
+  marker: list-marker(default-config),
   body-indent: default-config.marker-indent,
   indent: 0em,
 )

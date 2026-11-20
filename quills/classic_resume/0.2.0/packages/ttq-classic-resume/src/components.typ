@@ -4,17 +4,22 @@
 #import "config.typ": with-config
 #import "util.typ": auto-link
 
+// The square bullet of the template. Word takes a list's marker from its text,
+// so the marker is the character ■, which EB Garamond carries, and a show rule
+// draws it as the square.
+#let list-marker(cfg) = [#show "■": box(
+  fill: black,
+  width: cfg.marker-size,
+  height: cfg.marker-size,
+  baseline: cfg.marker-baseline,
+); ■]
+
 // Restyles native `- item` lists to the square bullet of the template. It is a
 // show rule rather than a custom list component so that the body of an entry
 // stays ordinary Typst markup.
 #let _bulleted(cfg, body) = {
   show list: set list(
-    marker: box(
-      fill: black,
-      width: cfg.marker-size,
-      height: cfg.marker-size,
-      baseline: cfg.marker-baseline,
-    ),
+    marker: list-marker(cfg),
     body-indent: cfg.marker-indent,
     indent: 0em,
   )
