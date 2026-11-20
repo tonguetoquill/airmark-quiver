@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **`usaf_memo@0.4.1` and `army_memo@0.1.1` number their paragraphs live in Word.** A memo exported to Word numbers its paragraphs and subparagraphs with Word's own multilevel list, one paragraph style per level named Memo Paragraph 1 to 9, where the numbers were typed text. Tab and Shift+Tab move a paragraph between levels, and the numbers follow an added, removed or moved paragraph. Each indorsement's paragraphs restart at 1. In the DAF style, a top-level paragraph is a level that counts but prints no number. The PDF prints as before. Documents pinned to `usaf_memo@0.4` or `army_memo@0.1` take the new version.
+
+- **`usaf_memo@0.4.1` names Copperplate Gothic Bold for its letterhead in Word.** A memo exported to Word sets the letterhead in Copperplate Gothic Bold, which Office ships, and keeps Copperplate CC as the font's alternate name, with Quillmark versions that read the quill's font hint. The PDF prints as before.
+
 - **`usaf_memo@0.4.0` keeps every signer on one page.** With three or four signers the block prints in two rows, and the first row now moves to the next page with the second when the second does not fit, so the most senior signer never starts a page alone, as AFH 33-337 requires. A memo whose signers already shared a page prints as before.
 
 - **`cyber_career_plan@0.1.0` lists CCMD under Staff & functional.** An officer who served at a Combatant Command ticks CCMD, after Joint Staff, and names the command in its detail, for example USCYBERCOM or USSTRATCOM. A chart that doesn't tick it prints CCMD as an open box beside the other staff tours; every document saved against the quill opens and renders as before.
