@@ -7,164 +7,164 @@ quill:
 typst:
   plate_file: plate.typ
 
-main:
-  description: "Add a card for each section of the agreement. Sections print in DoDI 4000.19 order, whatever order you add them in."
-  body:
-    enabled: false
-  ui:
-    groups:
-      parties: {}
-      correspondence: {}
-      terms: {}
-      financial_details: {}
-      signatures: {}
-  fields:
-    first_party_name:
-      ui:
-        group: parties
-      type: text
-      example: Air Force Example Test Center (AFETC)
-      description: "Full name and acronym of the organization proposing the agreement."
-
-    second_party_name:
-      ui:
-        group: parties
-      type: text
-      example: Navy Example Warfare Laboratory (NEWL)
-      description: "Full name and acronym of the other organization."
-
-    second_party_is_non_government:
-      type: boolean
-      default: false
-      ui:
-        group: parties
-        compact: true
-      description: "Whether the second party is outside the government. If so, its mailing address appears in the opening paragraph."
-
-    subject:
-      ui:
-        group: parties
-      type: text
-      example: Thermal-Vacuum Chamber Test Support
-      description: "What the agreement covers. It follows 'FOR' in the title."
-
-    agreement_number:
-      ui:
-        group: parties
-      type: text
-      example: FA1234-26-M-0017
-      description: The agreement's identification number.
-    second_party_mailing_address:
-      ui:
-        group: correspondence
-      type: array
-      items:
+schema:
+  main:
+    description: "Add a card for each section of the agreement. Sections print in DoDI 4000.19 order, whatever order you add them in."
+    body:
+      enabled: false
+    ui:
+      groups:
+        parties: {}
+        correspondence: {}
+        terms: {}
+        financial_details: {}
+        signatures: {}
+    fields:
+      first_party_name:
+        ui:
+          group: parties
         type: text
-        shape: lines
-      default: []
-      example:
-        - NEWL/CD
-        - 200 Sample Road, Building 12
-        - Example NAS ST 23456-7890
-      description: "The second party's mailing address for correspondence."
-    reimbursable:
-      type: boolean
-      default: false
-      example: true
-      ui:
-        group: terms
-        compact: true
-      description: "Whether the parties reimburse each other. If so, fill in Financial Details, which prints as Attachment A."
-    reimbursable_support:
-      ui:
-        group: financial_details
-      type: richtext
-      default: ""
-      example: Scheduled use of the AFETC thermal-vacuum chamber, with operator and instrumentation technician support, for NEWL sensor qualification tests.
-      description: "The support being reimbursed."
+        example: Air Force Example Test Center (AFETC)
+        description: "Full name and acronym of the organization proposing the agreement."
 
-    estimated_amount:
-      type: text
-      default: ""
-      example: $184,500
-      ui:
-        group: financial_details
-        compact: true
-      description: "Estimated amount to be reimbursed, for example $50,000."
+      second_party_name:
+        ui:
+          group: parties
+        type: text
+        example: Navy Example Warfare Laboratory (NEWL)
+        description: "Full name and acronym of the other organization."
 
-    appropriation_fy:
-      type: text
-      default: ""
-      example: "2027"
-      ui:
-        group: financial_details
-        compact: true
-      description: "Fiscal year of the appropriation, for example 2027."
+      second_party_is_non_government:
+        type: boolean
+        default: false
+        ui:
+          group: parties
+          compact: true
+        description: "Whether the second party is outside the government. If so, its mailing address appears in the opening paragraph."
 
-    cost_center_provider:
-      type: text
-      default: ""
-      example: AFETC-7730
-      ui:
-        group: financial_details
-        compact: true
-      description: "The provider's cost center number, if required."
+      subject:
+        ui:
+          group: parties
+        type: text
+        example: Thermal-Vacuum Chamber Test Support
+        description: "What the agreement covers. It follows 'FOR' in the title."
 
-    cost_center_receiver:
-      type: text
-      default: ""
-      example: NEWL-4102
-      ui:
-        group: financial_details
-        compact: true
-      description: "The receiver's cost center number, if required."
+      agreement_number:
+        ui:
+          group: parties
+        type: text
+        example: FA1234-26-M-0017
+        description: The agreement's identification number.
+      second_party_mailing_address:
+        ui:
+          group: correspondence
+        type: array
+        items:
+          type: text
+          shape: lines
+        default: []
+        example:
+          - NEWL/CD
+          - 200 Sample Road, Building 12
+          - Example NAS ST 23456-7890
+        description: "The second party's mailing address for correspondence."
+      reimbursable:
+        type: boolean
+        default: false
+        example: true
+        ui:
+          group: terms
+          compact: true
+        description: "Whether the parties reimburse each other. If so, fill in Financial Details, which prints as Attachment A."
+      reimbursable_support:
+        ui:
+          group: financial_details
+        type: richtext
+        default: ""
+        example: Scheduled use of the AFETC thermal-vacuum chamber, with operator and instrumentation technician support, for NEWL sensor qualification tests.
+        description: "The support being reimbursed."
 
-    financial_poc_provider:
-      ui:
-        group: financial_details
-      type: text
-      default: ""
-      example: Ms. Dana R. Whitfield, AFETC/FM, DSN 555-0140, dana.whitfield@example.mil
-      description: "The provider's financial point of contact."
+      estimated_amount:
+        type: text
+        default: ""
+        example: $184,500
+        ui:
+          group: financial_details
+          compact: true
+        description: "Estimated amount to be reimbursed, for example $50,000."
 
-    financial_poc_receiver:
-      ui:
-        group: financial_details
-      type: text
-      default: ""
-      example: Mr. Luis M. Ortega, NEWL/FM, DSN 555-0240, luis.ortega@example.mil
-      description: "The receiver's financial point of contact."
+      appropriation_fy:
+        type: text
+        default: ""
+        example: "2027"
+        ui:
+          group: financial_details
+          compact: true
+        description: "Fiscal year of the appropriation, for example 2027."
 
-    financial_additional_info:
-      ui:
-        group: financial_details
-      type: richtext
-      default: ""
-      example: Funds are provided by Military Interdepartmental Purchase Request (MIPR) on a reimbursable basis. No advance payment is authorized.
-      description: "Any other financial terms the agreement needs."
-    first_party_signatory:
-      ui:
-        group: signatures
-      type: text
-      example: HAROLD J. KESSLER, Commander
-      description: "Name and title of the first party's approving official."
+      cost_center_provider:
+        type: text
+        default: ""
+        example: AFETC-7730
+        ui:
+          group: financial_details
+          compact: true
+        description: "The provider's cost center number, if required."
 
-    second_party_signatory:
-      ui:
-        group: signatures
-      type: text
-      example: MEREDITH A. CALLOWAY, Director
-      description: "Name and title of the second party's approving official."
+      cost_center_receiver:
+        type: text
+        default: ""
+        example: NEWL-4102
+        ui:
+          group: financial_details
+          compact: true
+        description: "The receiver's cost center number, if required."
 
-    mid_point_review_due_date:
-      type: date
-      ui:
-        group: signatures
-        compact: true
-      example: 2029-04-01
-      description: "When the mid-point review of the agreement is due."
+      financial_poc_provider:
+        ui:
+          group: financial_details
+        type: text
+        default: ""
+        example: Ms. Dana R. Whitfield, AFETC/FM, DSN 555-0140, dana.whitfield@example.mil
+        description: "The provider's financial point of contact."
 
-card_kinds:
+      financial_poc_receiver:
+        ui:
+          group: financial_details
+        type: text
+        default: ""
+        example: Mr. Luis M. Ortega, NEWL/FM, DSN 555-0240, luis.ortega@example.mil
+        description: "The receiver's financial point of contact."
+
+      financial_additional_info:
+        ui:
+          group: financial_details
+        type: richtext
+        default: ""
+        example: Funds are provided by Military Interdepartmental Purchase Request (MIPR) on a reimbursable basis. No advance payment is authorized.
+        description: "Any other financial terms the agreement needs."
+      first_party_signatory:
+        ui:
+          group: signatures
+        type: text
+        example: HAROLD J. KESSLER, Commander
+        description: "Name and title of the first party's approving official."
+
+      second_party_signatory:
+        ui:
+          group: signatures
+        type: text
+        example: MEREDITH A. CALLOWAY, Director
+        description: "Name and title of the second party's approving official."
+
+      mid_point_review_due_date:
+        type: date
+        ui:
+          group: signatures
+          compact: true
+        example: 2029-04-01
+        description: "When the mid-point review of the agreement is due."
+
   background:
     title: Background
     description: "Why the agreement is needed, when its purpose doesn't make that clear. Usually left out between DoD organizations. Start with 'BACKGROUND:'."
