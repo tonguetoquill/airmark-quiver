@@ -1,5 +1,5 @@
 ~~~
-$quill: classic_resume@0.2.0
+$quill: classic_resume@0.2
 $kind: main
 name: John Doe
 contacts:

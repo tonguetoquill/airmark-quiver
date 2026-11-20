@@ -6,6 +6,8 @@
 
 - **`usaf_paper@0.1.1` keeps its dashes in Word.** A bulleted list in a paper exported to Word prints -, --, and so on, one more per level, as in the PDF, where each item carried a bullet. The PDF prints as before.
 
+- **`classic_resume@0.2.1` keeps its square bullets in Word.** A list in a resume exported to Word prints ■ as its bullet, the square the PDF draws, where each item carried a round bullet. The PDF prints as before. Documents pinned to `classic_resume@0.2` take the new version.
+
 - **`usaf_memo@0.4.1` and `army_memo@0.1.1` number their paragraphs live in Word.** A memo exported to Word numbers its paragraphs and subparagraphs with Word's own multilevel list, one paragraph style per level named Memo Paragraph 1 to 9, where the numbers were typed text. Tab and Shift+Tab move a paragraph between levels, and the numbers follow an added, removed or moved paragraph. Each indorsement's paragraphs restart at 1. In the DAF style, a top-level paragraph is a level that counts but prints no number. The PDF prints as before. Documents pinned to `usaf_memo@0.4` or `army_memo@0.1` take the new version.
 
 - **`usaf_memo@0.4.1` names Copperplate Gothic Bold for its letterhead in Word.** A memo exported to Word sets the letterhead in Copperplate Gothic Bold, which Office ships, and keeps Copperplate CC as the font's alternate name, with Quillmark versions that read the quill's font hint. The PDF prints as before.
