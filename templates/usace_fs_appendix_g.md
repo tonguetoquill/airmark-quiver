@@ -1,19 +1,21 @@
 ~~~
-$quill: usace_report_appendix@0.0
+$quill: usace_report@0.0
 $kind: main
-appendix:
-  appendix_type: "FS Appendix G: Public Involvement"
-  project_name: Project Name
-  executive_summary: |-
-    In a USACE study, the public involvement strategy, communications plan, and documentation of these engagements are critical for not only understanding the problems, but also for creating collaborative solutions and garnering public support for the recommendations. Comment letters, received from scoping and the public review of the draft report, or a comment matrix, with the comments and responses summarized, are included in this appendix. Cooperating agency request letters and their response letters are also included. (Reference 40 CFR 1506.6; Engineering Pamphlet 1105-2-57, Stakeholder Engagement, Collaboration, and Coordination, formerly Appendix B of ER 1105-2-100)
+document:
+  value: Report Appendix
+  appendix:
+    appendix_type: "FS Appendix G: Public Involvement"
+    project_name: Project Name
+    executive_summary: |-
+      In a USACE study, the public involvement strategy, communications plan, and documentation of these engagements are critical for not only understanding the problems, but also for creating collaborative solutions and garnering public support for the recommendations. Comment letters, received from scoping and the public review of the draft report, or a comment matrix, with the comments and responses summarized, are included in this appendix. Cooperating agency request letters and their response letters are also included. (Reference 40 CFR 1506.6; Engineering Pamphlet 1105-2-57, Stakeholder Engagement, Collaboration, and Coordination, formerly Appendix B of ER 1105-2-100)
 
-    # Introduction
+      # Introduction
 
-    Body text.
+      Body text.
 
-    # Purpose
+      # Purpose
 
-    Body text.
+      Body text.
 cui:
   marking: banners_and_cover
   controlled_by_component: USACE

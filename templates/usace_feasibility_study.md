@@ -1,5 +1,5 @@
 ~~~
-$quill: usace_major_report@0.0
+$quill: usace_report@0.0
 $kind: main
 $ext:
   editor:
@@ -10,16 +10,79 @@ $ext:
       - A markdown table or display equation is numbered by section, Table 1-1 or Equation 1-1, above it.
       - Start a note with **Note.** Footnotes are not used.
       - Type `/` for bullets, tables, and more.
-report:
-  report_type: Feasibility Study
-  report_number: XXX
-  location_lines:
-    - PROJECT
-    - RIVER BASIN
-    - RIVER, STATE
-  project_name: Project Name
-  design_stage: 30 Percent
-  date: today
+document:
+  value: Report
+  report:
+    report_type: Feasibility Study
+    report_number: XXX
+    location_lines:
+      - PROJECT
+      - RIVER BASIN
+      - RIVER, STATE
+    project_name: Project Name
+    design_stage: 30 Percent
+    date: today
+  report_front_matter:
+    executive_summary: |
+      # Introduction
+
+      Briefly discuss the basic project background and provide a succinct description of the report.
+
+      # Purpose and Need
+
+      Provide a brief discussion of why the project is needed and what it will do.
+
+      # Plan Formulation
+
+      This section should provide general detail on the planning framework, the focused array of alternatives, and a summary of the approach used to evaluate and compare plans.
+
+      # Recommended Plan
+
+      Describe the recommended plan’s features/components, benefits, impacts/adverse effects, cost estimate, and cost-sharing/apportionment.
+
+      ## Example of Recommended Plan description in Executive Summary
+
+      # Significant Resources / Environmental Considerations
+
+      Provide a concise description of significant resources in the area and any significant adverse effects that may occur.
+
+      # Plan Implementation
+
+      If there is an implementation plan, briefly describe it here.
+
+      # Views of the Public, Agencies, Stakeholders, and Tribes
+
+      This should typically be no more than a single paragraph that summarizes main points, similar to what is included in the Report Summary.
+
+      # Reviews
+
+      Briefly note which technical reviews, Independent External Peer Review (IEPR) if applicable, legal and policy reviews, and other external reviews, such as by academia, have been performed on the report and when they were closed.
+
+      # Unresolved Issues / Areas of Controversy
+
+      Most issues are resolved for a final report and this section can typically be deleted.
+    appendices:
+      - letter: A
+        title: ENGINEERING
+      - letter: B
+        title: COST ENGINEERING
+      - letter: C
+        title: ENVIRONMENTAL
+      - letter: D
+        title: REAL ESTATE
+      - letter: E
+        title: ECONOMIC AND SOCIAL CONSIDERATIONS
+      - letter: F
+        title: RECREATION
+      - letter: G
+        title: PUBLIC INVOLVEMENT
+    pertinent_data: ""
+    previous_reports: []
+    acronyms:
+      - acronym: PDT
+        description: Product Development Team
+      - acronym: USACE
+        description: United States Army Corps of Engineers
 cui:
   marking: banners_and_cover
   controlled_by_component: USACE
@@ -28,67 +91,6 @@ cui:
     - CTI
   distribution: FED ONLY
   poc: Name, office, phone
-front_matter:
-  executive_summary: |
-    # Introduction
-
-    Briefly discuss the basic project background and provide a succinct description of the report.
-
-    # Purpose and Need
-
-    Provide a brief discussion of why the project is needed and what it will do.
-
-    # Plan Formulation
-
-    This section should provide general detail on the planning framework, the focused array of alternatives, and a summary of the approach used to evaluate and compare plans.
-
-    # Recommended Plan
-
-    Describe the recommended plan’s features/components, benefits, impacts/adverse effects, cost estimate, and cost-sharing/apportionment.
-
-    ## Example of Recommended Plan description in Executive Summary
-
-    # Significant Resources / Environmental Considerations
-
-    Provide a concise description of significant resources in the area and any significant adverse effects that may occur.
-
-    # Plan Implementation
-
-    If there is an implementation plan, briefly describe it here.
-
-    # Views of the Public, Agencies, Stakeholders, and Tribes
-
-    This should typically be no more than a single paragraph that summarizes main points, similar to what is included in the Report Summary.
-
-    # Reviews
-
-    Briefly note which technical reviews, Independent External Peer Review (IEPR) if applicable, legal and policy reviews, and other external reviews, such as by academia, have been performed on the report and when they were closed.
-
-    # Unresolved Issues / Areas of Controversy
-
-    Most issues are resolved for a final report and this section can typically be deleted.
-  appendices:
-    - letter: A
-      title: ENGINEERING
-    - letter: B
-      title: COST ENGINEERING
-    - letter: C
-      title: ENVIRONMENTAL
-    - letter: D
-      title: REAL ESTATE
-    - letter: E
-      title: ECONOMIC AND SOCIAL CONSIDERATIONS
-    - letter: F
-      title: RECREATION
-    - letter: G
-      title: PUBLIC INVOLVEMENT
-  pertinent_data: ""
-  previous_reports: []
-  acronyms:
-    - acronym: PDT
-      description: Product Development Team
-    - acronym: USACE
-      description: United States Army Corps of Engineers
 ~~~
 # Introduction
 

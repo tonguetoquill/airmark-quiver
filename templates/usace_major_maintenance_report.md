@@ -1,5 +1,5 @@
 ~~~
-$quill: usace_major_report@0.0
+$quill: usace_report@0.0
 $kind: main
 $ext:
   editor:
@@ -10,16 +10,45 @@ $ext:
       - A markdown table or display equation is numbered by section, Table 1-1 or Equation 1-1, above it.
       - Start a note with **Note.** Footnotes are not used.
       - Type `/` for bullets, tables, and more.
-report:
-  report_type: Major Maintenance Report
-  report_number: XXX
-  location_lines:
-    - PROJECT
-    - RIVER BASIN
-    - RIVER, STATE
-  project_name: Project Name
-  design_stage: 30 Percent
-  date: today
+document:
+  value: Report
+  report:
+    report_type: Major Maintenance Report
+    report_number: XXX
+    location_lines:
+      - PROJECT
+      - RIVER BASIN
+      - RIVER, STATE
+    project_name: Project Name
+    design_stage: 30 Percent
+    date: today
+  report_front_matter:
+    executive_summary: |
+      # Introduction
+
+      # Purpose
+
+      # Project Location
+
+      # Description of Facility
+
+      # Construction Access
+
+      # Construction Schedule
+
+      # Operations During Construction
+
+      # Cost
+    appendices:
+      - letter: A
+        title: PLATES
+    pertinent_data: ""
+    previous_reports: []
+    acronyms:
+      - acronym: PDT
+        description: Product Development Team
+      - acronym: USACE
+        description: United States Army Corps of Engineers
 cui:
   marking: banners_and_cover
   controlled_by_component: USACE
@@ -28,33 +57,6 @@ cui:
     - CTI
   distribution: FED ONLY
   poc: Name, office, phone
-front_matter:
-  executive_summary: |
-    # Introduction
-
-    # Purpose
-
-    # Project Location
-
-    # Description of Facility
-
-    # Construction Access
-
-    # Construction Schedule
-
-    # Operations During Construction
-
-    # Cost
-  appendices:
-    - letter: A
-      title: PLATES
-  pertinent_data: ""
-  previous_reports: []
-  acronyms:
-    - acronym: PDT
-      description: Product Development Team
-    - acronym: USACE
-      description: United States Army Corps of Engineers
 ~~~
 # Project Authorization and History
 

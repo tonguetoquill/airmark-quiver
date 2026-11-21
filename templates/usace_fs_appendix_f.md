@@ -1,21 +1,23 @@
 ~~~
-$quill: usace_report_appendix@0.0
+$quill: usace_report@0.0
 $kind: main
-appendix:
-  appendix_type: "FS Appendix F: Recreation"
-  project_name: Project Name
-  executive_summary: |-
-    (20 pages)
+document:
+  value: Report Appendix
+  appendix:
+    appendix_type: "FS Appendix F: Recreation"
+    project_name: Project Name
+    executive_summary: |-
+      (20 pages)
 
-    In general, using methodologies outside of Unit Day Value (UDV) can be complex and require additional explanation in the Recreation Appendix. Summarized information gathered and synthesized from survey results and other available statistics can help supplement added benefits to the Recommended Plan.
+      In general, using methodologies outside of Unit Day Value (UDV) can be complex and require additional explanation in the Recreation Appendix. Summarized information gathered and synthesized from survey results and other available statistics can help supplement added benefits to the Recommended Plan.
 
-    # Introduction
+      # Introduction
 
-    Body text.
+      Body text.
 
-    # Purpose
+      # Purpose
 
-    Body text.
+      Body text.
 cui:
   marking: banners_and_cover
   controlled_by_component: USACE

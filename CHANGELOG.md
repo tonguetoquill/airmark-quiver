@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **The three USACE drafts are one quill, `usace_report@0.0.1`.** Its Document field chooses a Technical Memorandum, a Report or a Report Appendix, and each prints as `usace_tech_memo@0.0.1`, `usace_major_report@0.0.1` and `usace_report_appendix@0.0.1` printed it: a Report is an MMR, MRR, EDR, DDR, Feasibility Study or Phase 1A report by its report type, and a Report Appendix is a standardized or Feasibility Study appendix by its appendix type. A new document is a Report. Those three quills are gone, and a document that names one needs `$quill: usace_report@0.0` and its fields moved under `document`: `value` names the document, and the memo's `memo` and `front_matter` become `memo` and `memo_front_matter`, the report's `report` and `front_matter` become `report` and `report_front_matter`, and the appendix's `appendix` stays `appendix`. `cui` stays where it was. The USACE templates write the new shape and render as before.
+
 ## v0.46.0 - 2026-11-21
 
 - **`usaf_memo@0.4.1`, `army_memo@0.1.1` and `usaf_paper@0.1.1` take Quillmark's Word hints from the plate.** Each package has a `hints` argument (`frontmatter` in the Air Force memo, `mainmatter` in the Army memo, `paper` in the paper) that the plate sets to `qm.hints`, where each package carried its own copy of Quillmark's `hints.typ`. A package used without Quillmark leaves it out and marks nothing. The PDF and the Word file come out as before.
