@@ -2,7 +2,6 @@
 // document inherits: AFH 33-337 Chapter 14 "The Heading Section".
 
 #import "primitives.typ": *
-#import "hints.typ": hint-point
 
 #let frontmatter(
   subject: none,
@@ -32,6 +31,7 @@
   cui-poc: none,
   footer-tag-line: none,
   memo-style: "usaf",
+  hints: none, // Quillmark's `qm.hints`, for a Word export; `none` marks nothing
   it,
 ) = {
   assert(subject != none, message: "subject is required")
@@ -207,7 +207,7 @@
   }
 
   // Word names Office's Copperplate Gothic Bold for the letterhead face.
-  hint-point("font", family: "Copperplate CC", alt: "Copperplate Gothic Bold")
+  if hints != none { hints.font("Copperplate CC", alt: "Copperplate Gothic Bold") }
   render-letterhead(
     letterhead-title,
     letterhead-caption,
@@ -236,6 +236,7 @@
     body-font: body-font,
     font-size: font-size,
     memo-style: memo-style,
+    hints: hints,
   )) <usaf-memo-config>]
 
   render-date-section(actual-date, memo-style: memo-style)

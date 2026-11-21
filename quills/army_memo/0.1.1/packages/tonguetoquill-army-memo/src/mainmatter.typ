@@ -37,10 +37,11 @@
 /// first paragraph.
 ///
 /// - references (array): Citations, in the order the body cites them
+/// - hints (module, none): Quillmark's `qm.hints`, for a Word export; `none` marks nothing
 /// - it (content): Body content
 /// -> content
-#let mainmatter(references: (), it) = {
+#let mainmatter(references: (), hints: none, it) = {
   let (body, closing) = split-closing(it)
-  render-body(body, references: references)
+  render-body(body, references: references, hints: hints)
   closing
 }

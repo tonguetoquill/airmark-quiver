@@ -50,6 +50,7 @@
   font-size: body-font-size,
   classification-level: qm.data.classification.value,
   dissemination: qm.data.dissemination,
+  hints: qm.hints,
   ..if qm.data.classification.value == "CUI" {
     (
       cui-controlled-by: qm.data.classification.controlled_by,

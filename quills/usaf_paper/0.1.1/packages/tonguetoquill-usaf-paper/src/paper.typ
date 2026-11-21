@@ -3,7 +3,6 @@
 // A numbered list prints 1. / a. / (1) / (a). A plain paragraph is not numbered.
 
 #import "config.typ": *
-#import "hints.typ": hint
 
 // The identification line in the sample reads "20 Jun 14".
 #let date-pattern = "[day padding:none] [month repr:short] [year repr:last_two]"
@@ -106,16 +105,16 @@
 
 // p. 227, ¶5.c: a numbered paragraph wraps flush with the left margin. A
 // subparagraph's number sits under its parent's text, as in the memorandum.
-#let narrative-items(it, level, indent) = {
+#let narrative-items(hints, it, level, indent) = {
   let n = if type(it.start) == int { it.start } else { 1 }
   for item in it.children {
     let given = item.at("number", default: none)
     if type(given) == int { n = given }
     let label = narrative-label(level, n)
-    let marked = if level < word-depth { hint("label", label, level: level + 1, value: n) } else { label }
+    let marked = if hints != none and level < word-depth { hints.label(level + 1, label) } else { label }
     block(context {
       let offset = indent + measure(label).width
-      show enum: inner => narrative-items(inner, level + 1, offset)
+      show enum: inner => narrative-items(hints, inner, level + 1, offset)
       [#h(indent)#marked#item.body]
     })
     n += 1
@@ -124,13 +123,10 @@
 
 // A top-level list and the lists nested in it are one Word list, so Word
 // numbers each item where the PDF prints its number.
-#let narrative-list(it) = context hint(
-  "list",
-  v: 1,
-  name: "Paper Paragraph",
-  levels: word-levels(),
-  narrative-items(it, 0, 0pt),
-)
+#let narrative-list(hints, it) = {
+  let items = narrative-items(hints, it, 0, 0pt)
+  if hints == none { items } else { context hints.list(word-levels(), name: "Paper Paragraph", items) }
+}
 
 #let paper(
   document-title: [BULLET BACKGROUND PAPER],
@@ -147,6 +143,7 @@
   cui-category: none,
   cui-limited-dissemination: none,
   cui-poc: none,
+  hints: none, // Quillmark's `qm.hints`, for a Word export; `none` marks nothing
   it,
 ) = {
   let marking = classification-marking(classification-level, dissemination)
@@ -265,7 +262,7 @@
     set par(leading: single-leading, spacing: item-gap)
     set block(above: item-gap, below: item-gap, spacing: item-gap)
     set list(marker: dash-markers, indent: 0pt, body-indent: 0pt, spacing: item-gap, tight: false)
-    show enum: narrative-list
+    show enum: narrative-list.with(hints)
     // pp. 222–224: one level of heading, in capitals, at the body's size and
     // weight, flush left, unnumbered, set off like any other item.
     show heading: heading => {
