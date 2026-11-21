@@ -80,7 +80,7 @@ jobs:
   publish-npm:
     needs: [prepare]
     runs-on: ubuntu-latest
-    environment: release
+    environment: Publish
     permissions:
       id-token: write
       contents: read
