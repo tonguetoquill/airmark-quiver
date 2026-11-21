@@ -7,117 +7,117 @@ quill:
 typst:
   plate_file: plate.typ
 
-main:
-  body:
-    enabled: false
-  fields:
-    transportation_mode:
-      type: enum
-      values: [pmv, airplane, bus, train, motorcycle, other]
-      default: pmv
-      example: airplane
-      description: "How you're traveling."
+schema:
+  main:
+    body:
+      enabled: false
+    fields:
+      transportation_mode:
+        type: enum
+        values: [pmv, airplane, bus, train, motorcycle, other]
+        default: pmv
+        example: airplane
+        description: "How you're traveling."
 
-    departure_date:
-      type: date
-      default: ""
-      example: 2026-06-01
-      ui:
-        compact: true
-      description: "The day you leave."
+      departure_date:
+        type: date
+        default: ""
+        example: 2026-06-01
+        ui:
+          compact: true
+        description: "The day you leave."
 
-    final_destination:
-      type: text
-      default: ""
-      example: San Antonio, TX
-      ui:
-        compact: true
-      description: "Where you're going, for example Denver, CO."
+      final_destination:
+        type: text
+        default: ""
+        example: San Antonio, TX
+        ui:
+          compact: true
+        description: "Where you're going, for example Denver, CO."
 
-    dept_flight_num:
-      type: text
-      default: ""
-      example: AA 1482
-      ui:
-        compact: true
-      description: "Your departure flight number, if you're flying. A tentative number is fine."
+      dept_flight_num:
+        type: text
+        default: ""
+        example: AA 1482
+        ui:
+          compact: true
+        description: "Your departure flight number, if you're flying. A tentative number is fine."
 
-    arrival_flight_num:
-      type: text
-      default: ""
-      example: AA 2217
-      ui:
-        compact: true
-      description: "Your arrival flight number, if you're flying. A tentative number is fine."
+      arrival_flight_num:
+        type: text
+        default: ""
+        example: AA 2217
+        ui:
+          compact: true
+        description: "Your arrival flight number, if you're flying. A tentative number is fine."
 
-    notes:
-      type: text
-      shape: lines
-      default: ""
-      example: Visiting family over leave; rental car for local travel.
-      description: "Anything else about your trip."
+      notes:
+        type: text
+        shape: lines
+        default: ""
+        example: Visiting family over leave; rental car for local travel.
+        description: "Anything else about your trip."
 
-    organization:
-      type: text
-      default: ""
-      example: 1st Air Control Squadron
-      ui:
-        compact: true
-      description: "Your unit."
+      organization:
+        type: text
+        default: ""
+        example: 1st Air Control Squadron
+        ui:
+          compact: true
+        description: "Your unit."
 
-    briefed_date:
-      type: date
-      default: ""
-      example: 2026-05-22
-      ui:
-        compact: true
-      description: "The date of the briefing."
+      briefed_date:
+        type: date
+        default: ""
+        example: 2026-05-22
+        ui:
+          compact: true
+        description: "The date of the briefing."
 
-    briefee_name:
-      type: text
-      default: ""
-      example: Doe, John
-      ui:
-        compact: true
-      description: "Your name as Last, First."
+      briefee_name:
+        type: text
+        default: ""
+        example: Doe, John
+        ui:
+          compact: true
+        description: "Your name as Last, First."
 
-    briefee_grade:
-      type: text
-      default: ""
-      example: E-5
-      ui:
-        compact: true
-      description: "Your grade."
+      briefee_grade:
+        type: text
+        default: ""
+        example: E-5
+        ui:
+          compact: true
+        description: "Your grade."
 
-    briefer_name:
-      type: text
-      default: ""
-      example: Smith, Jane
-      ui:
-        compact: true
-      description: "The briefer's name as Last, First."
+      briefer_name:
+        type: text
+        default: ""
+        example: Smith, Jane
+        ui:
+          compact: true
+        description: "The briefer's name as Last, First."
 
-    briefer_grade:
-      type: text
-      default: ""
-      example: E-7
-      ui:
-        compact: true
-      description: "The briefer's grade."
+      briefer_grade:
+        type: text
+        default: ""
+        example: E-7
+        ui:
+          compact: true
+        description: "The briefer's grade."
 
-    emergency_contact_name:
-      type: text
-      default: ""
-      example: Doe, Mary
-      description: "Who to contact in an emergency."
+      emergency_contact_name:
+        type: text
+        default: ""
+        example: Doe, Mary
+        description: "Who to contact in an emergency."
 
-    emergency_contact_phone:
-      type: text
-      default: ""
-      example: (555) 555-0142
-      description: "Your emergency contact's phone number."
+      emergency_contact_phone:
+        type: text
+        default: ""
+        example: (555) 555-0142
+        description: "Your emergency contact's phone number."
 
-card_kinds:
   itinerary:
     title: Proposed Travel Itinerary
     description: "One leg of your trip. The form holds up to 10."
