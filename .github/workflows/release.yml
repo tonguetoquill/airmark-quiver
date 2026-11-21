@@ -11,7 +11,11 @@ concurrency:
 
 jobs:
   prepare:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/v')
+    if: >-
+      github.event.pull_request.merged == true
+      && startsWith(github.event.pull_request.head.ref, 'release/v')
+      && github.event.pull_request.head.repo.full_name == github.repository
+      && github.event.pull_request.user.login == 'github-actions[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -21,7 +25,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-          ref: main
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
 
       - name: Setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -32,20 +36,26 @@ jobs:
         id: version
         run: |
           NEXT=$(node -p "require('./package.json').version")
+          if [[ ! "$NEXT" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?$ ]]; then
+            echo "package.json version '$NEXT' is not x.y.z or x.y.z-rc.n" >&2
+            exit 1
+          fi
           echo "next=$NEXT" >> "$GITHUB_OUTPUT"
           echo "Releasing v${NEXT}"
 
       - name: Tag and push
+        env:
+          VERSION: ${{ steps.version.outputs.next }}
         run: |
-          VERSION="${{ steps.version.outputs.next }}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag -a "v${VERSION}" -m "Release v${VERSION}"
           git push origin "v${VERSION}"
 
       - name: Extract release notes
+        env:
+          VERSION: ${{ steps.version.outputs.next }}
         run: |
-          VERSION="${{ steps.version.outputs.next }}"
           awk -v v="## v${VERSION}" \
             '$0 ~ "^"v {f=1; next} /^## / && f {exit} f {print}' \
             CHANGELOG.md > notes.md || true
@@ -54,8 +64,8 @@ jobs:
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.next }}
         run: |
-          VERSION="${{ steps.version.outputs.next }}"
           if [[ "$VERSION" == *-* ]]; then
             gh release create "v${VERSION}" \
               --title "v${VERSION}" \
@@ -79,6 +89,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -93,11 +104,12 @@ jobs:
         run: npm test
 
       - name: Upgrade npm for Trusted Publishers
-        run: npm install -g npm@latest
+        run: npm install -g npm@12.2.2
 
       - name: Publish @airmark/quiver (trusted publisher, with provenance)
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
         run: |
-          VERSION="${{ needs.prepare.outputs.version }}"
           if [[ "$VERSION" == *-* ]]; then
             npm publish --access public --provenance --tag next
           else
