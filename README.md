@@ -161,8 +161,7 @@ Both verbs are [`quillkit`](https://www.npmjs.com/package/quillkit)'s, the quill
 author's toolchain. It carries `@quillmark/quiver` and `@quillmark/wasm` at exact
 versions, so upgrading quillkit upgrades the format the quiver is packed in and
 the wasm the gate renders through. This collection pins the same two versions
-for `scripts/check-examples.mjs` and `scripts/check-templates.mjs`, which render
-through them.
+for `scripts/check.mjs`, which renders through them.
 
 **Does it work?** `quillkit check` loads the collection with `fromDir`, compiles
 every quill, and renders each one's seed, every field absent but what a card

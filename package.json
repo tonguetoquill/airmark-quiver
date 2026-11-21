@@ -23,7 +23,7 @@
     "quillkit": "0.26.0"
   },
   "scripts": {
-    "test": "quillkit check && node scripts/check-examples.mjs && node scripts/check-templates.mjs",
+    "test": "quillkit check && node scripts/check.mjs",
     "build": "quillkit build --drafts",
     "dev": "quillkit serve"
   },
