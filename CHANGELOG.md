@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **Every quill declares its cards in one `schema:` block, and needs Quillmark 0.140.** `main` and each card kind sit side by side under `schema:`, where `main:` and `card_kinds:` were top-level sections. Released versions change in place, with no new version: documents name their kinds as before and every quill renders as before.
+
 - **`usaf_paper@0.1.1` numbers its paragraphs live in Word.** A background or position paper exported to Word numbers its paragraphs and subparagraphs with Word's own multilevel list, one paragraph style per level named Paper Paragraph 1 to 9, where each paragraph showed its number twice, once from Word and once as typed text ("1. 1. State the purpose"). The levels print 1., a., (1) and (a), as in the PDF, and Tab and Shift+Tab move a paragraph between them. A numbered list that starts past 1 after other text keeps its numbers as typed text. The PDF prints as before. Documents pinned to `usaf_paper@0.1` take the new version.
 
 - **`usaf_paper@0.1.1` keeps its dashes in Word.** A bulleted list in a paper exported to Word prints -, --, and so on, one more per level, as in the PDF, where each item carried a bullet. The PDF prints as before.
