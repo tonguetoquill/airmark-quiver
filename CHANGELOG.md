@@ -1,23 +1,8 @@
 # Changelog
 
-## v0.46.0 - 2026-11-21
-
-- Take Word hints from the plate in usaf_memo, army_memo and usaf_paper
-- Bump quillkit to 0.26.0 for Quillmark 0.140
-- Declare every quill's cards under schema: for Quillmark 0.140
-- Keep classic_resume 0.2.0 square bullets in Word in place
-- Keep classic_resume 0.2.1 square bullets in Word
-- Keep usaf_paper 0.1.1 dash markers in Word
-- Number usaf_paper 0.1.1 paragraphs live in Word
-- Number usaf_memo 0.4.1 and army_memo 0.1.1 paragraphs live in Word
-- Fix usaf_memo 0.4.0 in place instead of releasing 0.4.1
-- Keep every usaf_memo 0.4.1 signer on one page
-- feat(cyber_career_plan): add CCMD to the staff qualifications
-- Point the README's Quillmark link at borb-sh/quillmark (#342)
-- docs: link the README to Quillmark's stability statement
-
-
 ## Unreleased
+
+## v0.46.0 - 2026-11-21
 
 - **`usaf_memo@0.4.1`, `army_memo@0.1.1` and `usaf_paper@0.1.1` take Quillmark's Word hints from the plate.** Each package has a `hints` argument (`frontmatter` in the Air Force memo, `mainmatter` in the Army memo, `paper` in the paper) that the plate sets to `qm.hints`, where each package carried its own copy of Quillmark's `hints.typ`. A package used without Quillmark leaves it out and marks nothing. The PDF and the Word file come out as before.
 
