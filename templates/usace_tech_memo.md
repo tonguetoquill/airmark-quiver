@@ -1,5 +1,5 @@
 ~~~
-$quill: usace_tech_memo@0.0
+$quill: usace_report@0.0
 $kind: main
 $ext:
   editor:
@@ -9,18 +9,31 @@ $ext:
       - A markdown table or display equation is numbered Table or Equation, with the caption above it.
       - Start a note with **Note.** Footnotes are not used.
       - Type `/` for bullets, tables, and more.
-memo:
-  memo_number: ENC-YY-XXX
-  location_lines:
-    - RIVER
-    - BASIN
-    - STATE
-  study_name: Study Name
-  subject: Memorandum subject
-  prepared_for: Sponsoring agency
-  prepared_by: U.S. Army Corps of Engineers, Portland District
-  date: today
-  include_summary: true
+document:
+  value: Technical Memorandum
+  memo:
+    memo_number: ENC-YY-XXX
+    location_lines:
+      - RIVER
+      - BASIN
+      - STATE
+    study_name: Study Name
+    subject: Memorandum subject
+    prepared_for: Sponsoring agency
+    prepared_by: U.S. Army Corps of Engineers, Portland District
+    date: today
+    include_summary: true
+  memo_front_matter:
+    appendices:
+      - letter: A
+        title: PLATES
+    pertinent_data: ""
+    previous_memos: []
+    acronyms:
+      - acronym: PDT
+        description: Project Delivery Team
+      - acronym: USACE
+        description: U.S. Army Corps of Engineers
 cui:
   marking: banners_and_cover
   controlled_by_component: USACE
@@ -29,17 +42,6 @@ cui:
     - CTI
   distribution: FED ONLY
   poc: Name, office, phone
-front_matter:
-  appendices:
-    - letter: A
-      title: PLATES
-  pertinent_data: ""
-  previous_memos: []
-  acronyms:
-    - acronym: PDT
-      description: Project Delivery Team
-    - acronym: USACE
-      description: U.S. Army Corps of Engineers
 ~~~
 # Purpose
 

@@ -1,21 +1,23 @@
 ~~~
-$quill: usace_report_appendix@0.0
+$quill: usace_report@0.0
 $kind: main
-appendix:
-  appendix_type: "FS Appendix D: Real Estate"
-  project_name: Project Name
-  executive_summary: |-
-    (30 pages)
+document:
+  value: Report Appendix
+  appendix:
+    appendix_type: "FS Appendix D: Real Estate"
+    project_name: Project Name
+    executive_summary: |-
+      (30 pages)
 
-    The Real Estate Appendix should include an analytic summary of crediting considerations, flooding analysis, estate analysis, tables, and graphics necessary to support analyses and the recommended plan. (Reference ER 405-1-12, Real Estate Handbook
+      The Real Estate Appendix should include an analytic summary of crediting considerations, flooding analysis, estate analysis, tables, and graphics necessary to support analyses and the recommended plan. (Reference ER 405-1-12, Real Estate Handbook
 
-    # Introduction
+      # Introduction
 
-    Body text.
+      Body text.
 
-    # Purpose
+      # Purpose
 
-    Body text.
+      Body text.
 cui:
   marking: banners_and_cover
   controlled_by_component: USACE

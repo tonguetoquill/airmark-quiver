@@ -1,10 +1,12 @@
 ~~~
-$quill: usace_report_appendix@0.0
+$quill: usace_report@0.0
 $kind: main
-appendix:
-  appendix_letter: A
-  appendix_title: Calculations
-  project_name: Project Name
+document:
+  value: Report Appendix
+  appendix:
+    appendix_letter: A
+    appendix_title: Calculations
+    project_name: Project Name
 cui:
   marking: banners_and_cover
   controlled_by_component: USACE
