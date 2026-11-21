@@ -15,7 +15,6 @@ jobs:
       github.event.pull_request.merged == true
       && startsWith(github.event.pull_request.head.ref, 'release/v')
       && github.event.pull_request.head.repo.full_name == github.repository
-      && github.event.pull_request.user.login == 'github-actions[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -104,7 +103,7 @@ jobs:
         run: npm test
 
       - name: Upgrade npm for Trusted Publishers
-        run: npm install -g npm@12.2.2
+        run: npm install -g npm@12.2.3
 
       - name: Publish @airmark/quiver (trusted publisher, with provenance)
         env:
