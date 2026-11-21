@@ -30,7 +30,7 @@ Start from the model for the document's shape: `usaf_memo` (latest) for a flat f
 
 Read it in the order a writer meets it, not the order of the file, and report findings by principle with what prints or what the writer sees as the evidence. A preference with no such evidence is not a finding.
 
-- Render the untouched document (the check below). Anything on the page the writer did not type is a principle 1 finding.
+- Render the untouched document: `npx quillkit render <name>@<major.minor> --seed --png` run from the repository root, writes one PNG per page into the working directory, or into `-o <dir>`. Anything on the page the writer did not type is a principle 1 finding.
 - Fill it as a first-time writer with the help text closed, in the editor (`npm run dev`) or by reading the schema top to bottom. A field you could not find, or found in the wrong group, is a principle 2 finding.
 - Open the help text last. A fact you needed to avoid a wrong print that lived only there, or a hard limit stated only in prose, is a principle 3 finding.
 - Compare each concept with its sibling quills. A divergence the quill does not explain is a principle 4 finding.
