@@ -96,7 +96,7 @@
   font-size: body_font_size,
 )
 
-#mainmatter(references: additional.references)[
+#mainmatter(references: additional.references, hints: qm.hints)[
   #qm.data.at("$body")
 ]
 

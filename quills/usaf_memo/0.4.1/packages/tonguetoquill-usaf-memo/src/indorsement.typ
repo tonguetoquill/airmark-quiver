@@ -159,8 +159,8 @@
 
   if not body-empty {
     context {
-      let memo-style = query(<usaf-memo-config>).first().value.at("memo-style", default: "usaf")
-      render-body(content, memo-style: memo-style)
+      let config = query(<usaf-memo-config>).first().value
+      render-body(content, memo-style: config.at("memo-style", default: "usaf"), hints: config.hints)
     }
   }
 

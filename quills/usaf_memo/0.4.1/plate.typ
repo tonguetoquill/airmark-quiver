@@ -133,6 +133,8 @@
 
   memo-style: memo_style,
 
+  hints: qm.hints,
+
   font-size: body_font_size,
 
   // One recipient per line; the package's own default is three columns.

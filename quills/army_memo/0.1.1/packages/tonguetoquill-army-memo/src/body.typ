@@ -5,7 +5,6 @@
 #import "utils.typ": *
 #import "primitives.typ": memo-table-style, render-memo-table
 #import "spacing.typ": *
-#import "hints.typ": hint
 
 /// Content cut at its `n`th breakable gap, a space between words: the part
 /// before the gap and the part after it, or `tail: none` and the gaps still
@@ -178,9 +177,9 @@
 ).enumerate().map(((level, spec)) => spec + (indent: designator-indent(level)))
 
 // A designator, marked as the number Word counts at `level`.
-#let word-designator(level, number) = {
+#let word-designator(hints, level, number) = {
   let it = designator(level, number)
-  if level < word-levels.len() { hint("label", it, level: level + 1, value: number) } else { it }
+  if hints != none and level < word-levels.len() { hints.label(level + 1, it) } else { it }
 }
 
 #let reset-levels-from(level-counts, start) = {
@@ -290,7 +289,7 @@
 // Typst's own show rules resolve, and buffers each paragraph, table, block
 // quote, code block, display equation and rule with its nesting level. The
 // second emits the buffer in document order, numbering as it goes.
-#let render-body(content, references: ()) = {
+#let render-body(content, references: (), hints: none) = {
   let PAR_BUFFER = state("PAR_BUFFER")
   PAR_BUFFER.update(())
   let NEST_DOWN = counter("NEST_DOWN")
@@ -455,7 +454,8 @@
     if items.len() == 0 { return }
 
     // Each body is one Word list, its own instance.
-    hint("list", v: 1, name: "Memo Paragraph", levels: word-levels, {
+    let as-list = if hints == none { it => it } else { hints.list.with(word-levels, name: "Memo Paragraph") }
+    as-list({
       // AR 25-50 2-4b(4): a lone paragraph is not numbered; its subparagraphs
       // are still lettered.
       let numbered = items.filter(item => item.kind == "par" and item.nest-level == 0).len() > 1
@@ -482,7 +482,7 @@
           let number = level-counts.at(str(level), default: 1)
           level-counts.insert(str(level), number + 1)
           level-counts = reset-levels-from(level-counts, level + 1)
-          [#h(designator-indent(level))#word-designator(level, number)#spaced]
+          [#h(designator-indent(level))#word-designator(hints, level, number)#spaced]
         } else { spaced }
         let offset = text-offset(level, level-counts)
         let indent(body) = {

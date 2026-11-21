@@ -49,7 +49,7 @@
   let (body, closing) = split-closing(it)
   context {
     let config = query(<usaf-memo-config>).first().value
-    render-body(body, memo-style: config.at("memo-style", default: "usaf"))
+    render-body(body, memo-style: config.at("memo-style", default: "usaf"), hints: config.hints)
   }
   closing
 }

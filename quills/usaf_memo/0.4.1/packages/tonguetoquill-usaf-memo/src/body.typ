@@ -3,7 +3,6 @@
 #import "config.typ": *
 #import "utils.typ": *
 #import "primitives.typ": render-memo-table
-#import "hints.typ": hint
 
 /// Gets the numbering format for a specific paragraph level.
 ///
@@ -114,12 +113,12 @@
 
 /// A paragraph's printed label, marked as the number Word counts at `level`.
 ///
+/// - hints (module, none): Quillmark's `qm.hints`; `none` marks nothing
 /// - label (content): The label's ink, its number and the two spaces after it
 /// - level (int): Nesting level (0-based)
-/// - value (int): The number the label prints
 /// -> content
-#let word-label(label, level, value) = {
-  if level < word-levels.len() { hint("label", label, level: level + 1, value: value) } else { label }
+#let word-label(hints, label, level) = {
+  if hints != none and level < word-levels.len() { hints.label(level + 1, label) } else { label }
 }
 
 /// Formats a paragraph (or continuation) with a given indent strategy.
@@ -130,7 +129,7 @@
 /// - indent-fn (function): `(level, level-counts) -> length`
 /// - continuation (bool): If true, adds number-label width to alignment
 /// -> content
-#let format-par(body, level, level-counts, indent-fn, continuation: false) = {
+#let format-par(body, level, level-counts, indent-fn, continuation: false, hints: none) = {
   if continuation {
     // Offset the first line only, which is how the numbered paragraph this
     // block continues is set: its own wrapped lines return to the left margin
@@ -140,7 +139,7 @@
     let indent-width = indent-fn(level, level-counts)
     let current-value = level-counts.at(str(level), default: 1)
     let number-text = numbering(get-paragraph-numbering-format(level), current-value)
-    [#h(indent-width)#word-label([#number-text#"  "], level, current-value)#body]
+    [#h(indent-width)#word-label(hints, [#number-text#"  "], level)#body]
   }
 }
 
@@ -247,7 +246,7 @@
 //
 // The body is read into items (`body-items`) and each item is emitted in
 // document order, numbered for its kind and nesting level.
-#let render-body(content, memo-style: "usaf") = {
+#let render-body(content, memo-style: "usaf", hints: none) = {
   let all-items = body-items(content)
 
   context {
@@ -261,7 +260,10 @@
     if items.len() == 0 { return }
     // Each body is one Word list, its own instance, so an indorsement's
     // paragraphs restart at 1.
-    hint("list", v: 1, name: "Memo Paragraph", levels: paragraph-levels(memo-style), {
+    let as-list = if hints == none { it => it } else {
+      hints.list.with(paragraph-levels(memo-style), name: "Memo Paragraph")
+    }
+    as-list({
       // Only top-level paragraphs count for AFH 33-337 §2 numbering purposes
       let par-count = items.filter(item => item.kind == "par").len()
       let total-count = items.len()
@@ -365,11 +367,11 @@
             if memo-style == "daf" and nest-level == 0 {
               item-content
             } else {
-              format-par(item-content, nest-level, level-counts, indent-fn, continuation: true)
+              format-par(item-content, nest-level, level-counts, indent-fn, continuation: true, hints: hints)
             }
           } else if memo-style == "daf" {
             if nest-level > 0 {
-              let par = format-par(item-content, nest-level, level-counts, indent-fn)
+              let par = format-par(item-content, nest-level, level-counts, indent-fn, hints: hints)
               level-counts.insert(str(nest-level), level-counts.at(str(nest-level), default: 1) + 1)
               level-counts = reset-levels-from(level-counts, nest-level + 1, max-levels)
               par
@@ -378,10 +380,10 @@
               // Reset nested counters so each new top-level paragraph restarts children.
               level-counts = reset-levels-from(level-counts, 0, max-levels)
               daf-top += 1
-              [#h(daf-paragraph.top-first-line-indent)#word-label([], 0, daf-top)#item-content]
+              [#h(daf-paragraph.top-first-line-indent)#word-label(hints, [], 0)#item-content]
             }
           } else if par-count > 1 {
-            let par = format-par(item-content, nest-level, level-counts, indent-fn)
+            let par = format-par(item-content, nest-level, level-counts, indent-fn, hints: hints)
             level-counts.insert(str(nest-level), level-counts.at(str(nest-level)) + 1)
             level-counts = reset-levels-from(level-counts, nest-level + 1, max-levels)
             par
