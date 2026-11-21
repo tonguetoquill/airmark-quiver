@@ -7,35 +7,35 @@ quill:
 typst:
   plate_file: plate.typ
 
-main:
-  body:
-    enabled: false
-  fields:
-    name:
-      type: text
-      default: ""
-      example: Doe, John A.
-      description: Your name as Last, First, Middle Initial.
+schema:
+  main:
+    body:
+      enabled: false
+    fields:
+      name:
+        type: text
+        default: ""
+        example: Doe, John A.
+        description: Your name as Last, First, Middle Initial.
 
-    unit:
-      type: text
-      default: ""
-      example: 1st Air Control Squadron
-      description: Your unit of assignment.
+      unit:
+        type: text
+        default: ""
+        example: 1st Air Control Squadron
+        description: Your unit of assignment.
 
-    grade:
-      type: text
-      default: ""
-      example: SSgt
-      description: Your current grade or CCC level.
+      grade:
+        type: text
+        default: ""
+        example: SSgt
+        description: Your current grade or CCC level.
 
-    commanders_auth:
-      type: text
-      default: ""
-      example: R.T.K., Lt Col
-      description: The commander's authentication on page 1.
+      commanders_auth:
+        type: text
+        default: ""
+        example: R.T.K., Lt Col
+        description: The commander's authentication on page 1.
 
-card_kinds:
   experience:
     title: Record of Experience
     description: One row of the Record of Experience. The form holds up to 37 rows across two pages.
