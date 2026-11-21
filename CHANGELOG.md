@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.46.0 - 2026-11-21
+
 - **`usaf_memo@0.4.1`, `army_memo@0.1.1` and `usaf_paper@0.1.1` take Quillmark's Word hints from the plate.** Each package has a `hints` argument (`frontmatter` in the Air Force memo, `mainmatter` in the Army memo, `paper` in the paper) that the plate sets to `qm.hints`, where each package carried its own copy of Quillmark's `hints.typ`. A package used without Quillmark leaves it out and marks nothing. The PDF and the Word file come out as before.
 
 - **Every quill declares its cards in one `schema:` block, and needs Quillmark 0.140.** `main` and each card kind sit side by side under `schema:`, where `main:` and `card_kinds:` were top-level sections. Released versions change in place, with no new version: documents name their kinds as before and every quill renders as before.
