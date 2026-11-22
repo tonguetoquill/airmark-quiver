@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **The package carries its license.** `LICENSE` holds the Apache License 2.0 text the package declares, and the repository's `CONTRIBUTING.md` says how a contribution is licensed. The quills print as before.
+
 - **The three USACE drafts are one quill, `usace_report@0.0.1`.** Its Document field chooses a Technical Memorandum, a Report or a Report Appendix, and each prints as `usace_tech_memo@0.0.1`, `usace_major_report@0.0.1` and `usace_report_appendix@0.0.1` printed it: a Report is an MMR, MRR, EDR, DDR, Feasibility Study or Phase 1A report by its report type, and a Report Appendix is a standardized or Feasibility Study appendix by its appendix type. A new document is a Report. Those three quills are gone, and a document that names one needs `$quill: usace_report@0.0` and its fields moved under `document`: `value` names the document, and the memo's `memo` and `front_matter` become `memo` and `memo_front_matter`, the report's `report` and `front_matter` become `report` and `report_front_matter`, and the appendix's `appendix` stays `appendix`. `cui` stays where it was. The USACE templates write the new shape and render as before.
 
 ## v0.46.0 - 2026-11-21
