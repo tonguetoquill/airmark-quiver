@@ -8,10 +8,9 @@
 
 ## Pull requests
 
-[README § Working on a quill](README.md#working-on-a-quill) covers designing a quill, the gate and the studio loop. A pull request keeps the rules in [`CLAUDE.md`](CLAUDE.md), which bind human contributors as they bind the agents that write most of this repository:
+[README § Working on a quill](README.md#working-on-a-quill) covers designing a quill, the gate and the studio loop. `npm test` is the gate CI runs. A pull request keeps the rules in [`CLAUDE.md`](CLAUDE.md), which bind human contributors and AI agents alike, among them:
 
-- `npm test` passes, with no warnings.
-- A quill release is a new `quills/<name>/<x.y.z>/` directory, and released versions stay as they are.
+- A quill release is a new `quills/<name>/<x.y.z>/` directory, and a released version's directory stays, so documents pinned to it keep resolving.
 - A user-facing change adds an entry under `## Unreleased` in `CHANGELOG.md`.
 
 ## License
