@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **The resume template's sample links point at `github.com/birdorbs`.** The `classic_resume` example values and `templates/classic_resume.md` name the Quillmark repository at its new GitHub organization, where they named `borb-sh`. The resumes print as before but for that link.
+
 - **The package carries its license.** `LICENSE` holds the Apache License 2.0 text the package declares, and the repository's `CONTRIBUTING.md` says how a contribution is licensed. The quills print as before.
 
 - **The three USACE drafts are one quill, `usace_report@0.0.1`.** Its Document field chooses a Technical Memorandum, a Report or a Report Appendix, and each prints as `usace_tech_memo@0.0.1`, `usace_major_report@0.0.1` and `usace_report_appendix@0.0.1` printed it: a Report is an MMR, MRR, EDR, DDR, Feasibility Study or Phase 1A report by its report type, and a Report Appendix is a standardized or Feasibility Study appendix by its appendix type. A new document is a Report. Those three quills are gone, and a document that names one needs `$quill: usace_report@0.0` and its fields moved under `document`: `value` names the document, and the memo's `memo` and `front_matter` become `memo` and `memo_front_matter`, the report's `report` and `front_matter` become `report` and `report_front_matter`, and the appendix's `appendix` stays `appendix`. `cui` stays where it was. The USACE templates write the new shape and render as before.
@@ -1237,7 +1239,7 @@ for the signer instead of the compile date.
   `quillkit test` renders agree. Nothing in a quill moves for either.
 
 - **`usaf_memo@0.3.0` drops the `box` around its date claim.**
-  [borb-sh/quillmark#1375](https://github.com/borb-sh/quillmark/pull/1375)
+  [birdorbs/quillmark#1375](https://github.com/birdorbs/quillmark/pull/1375)
   makes a `field-region` claim around inline content layout-neutral: each of the
   helper's two markers had trailed a space into the inline flow, 5.43pt across
   the pair at 12pt. `usaf_memo@0.3.0`'s date claim needed a `box` to absorb that,

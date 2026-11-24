@@ -38,7 +38,7 @@ schema:
         example:
           - fry@planetexpress.example
           - (212) 555-0199
-          - github.com/borb-sh
+          - github.com/birdorbs
           - New New York
         description: "How to reach you, one per line, most preferred first: email, phone, a profile such as linkedin.com/in/you, your city. Email addresses, web addresses, and phone numbers become links."
       paper:
@@ -258,7 +258,7 @@ schema:
             details: *details
         example:
           - name: Quillmark
-            link: github.com/borb-sh/quillmark
+            link: github.com/birdorbs/quillmark
             details: "- Schema-driven document framework that delivers typeset documents from Markdown, this resume included."
           - name: Holophonor Opera
             details: "- Wrote and performed an opera about Leela on the holophonor, using the Robot Devil's hands."

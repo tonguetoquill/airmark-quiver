@@ -5,7 +5,7 @@ name: Philip J. Fry
 contacts:
   - fry@planetexpress.example
   - (212) 555-0199
-  - github.com/borb-sh
+  - github.com/birdorbs
   - New New York
 paper: us-letter
 font_size: 11.5
@@ -96,7 +96,7 @@ $kind: projects
 title: Projects
 projects:
   - name: Quillmark
-    link: github.com/borb-sh/quillmark
+    link: github.com/birdorbs/quillmark
     details: "- Document framework that delivers typeset documents, this resume included."
   - name: Holophonor Opera
     details: "- Wrote and performed an opera about Leela on the holophonor, using the Robot Devil's hands."
