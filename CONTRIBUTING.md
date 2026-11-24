@@ -4,7 +4,7 @@
 
 - A quill that prints a document wrong: an issue naming the quill and its version, with the document and the page that came out wrong.
 - A new quill or a change to one larger than a fix: open an issue before the pull request, so the form is agreed before it is built.
-- A gap in Quillmark itself, something a `Quill.yaml` cannot say: an issue on [borb-sh/quillmark](https://github.com/borb-sh/quillmark/issues/new/choose).
+- A gap in Quillmark itself, something a `Quill.yaml` cannot say: an issue on [birdorbs/quillmark](https://github.com/birdorbs/quillmark/issues/new/choose).
 
 ## Pull requests
 
