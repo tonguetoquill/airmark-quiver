@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **`cyber_career_plan@0.1.0` names each IDE and SDE look in full.** The eligibility windows read IDE 1st Look, IDE 2nd Look, IDE 3rd Look and IDE Last Look, and the same for SDE, where they read IDE 1st, 2nd, 3rd and final. On a wide timeline each name breaks after IDE or SDE to fit its year. Every document saved against the quill opens as before.
+
+- **`cyber_career_plan@0.1.0` puts Cyber 200 at 6 to 8 years of service.** The chart marks Cyber 200 at YG+6, where it marked YG+3, and a chart whose timeline starts past YG+6 with Cyber 200 unticked lists it before the window as due at YG+8. A chart that ticks Cyber 200 prints it struck at YG+6. Every document saved against the quill opens as before.
+
 - **The resume template's sample links point at `github.com/birdorbs`.** The `classic_resume` example values and `templates/classic_resume.md` name the Quillmark repository at its new GitHub organization, where they named `borb-sh`. The resumes print as before but for that link.
 
 - **The package carries its license.** `LICENSE` holds the Apache License 2.0 text the package declares, and the repository's `CONTRIBUTING.md` says how a contribution is licensed. The quills print as before.

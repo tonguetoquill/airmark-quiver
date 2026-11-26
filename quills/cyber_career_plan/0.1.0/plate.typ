@@ -117,25 +117,26 @@
 // ─── the ladder ──────────────────────────────────────────────────────────────
 // Every 17X board and school gate, as an offset from the year group, counted
 // from the adjusted year group where one is set because that is the year a
-// board counts from. A board or a course falls in one year; IDE and SDE are
-// each a window of four yearly looks, drawn as one span. A gate is done once
-// any qualification it names is ticked (an IDE candidate has no looks left)
-// and prints struck rather than as something still ahead.
+// board counts from. A board falls in one year; a course is marked in the year
+// it opens and is due by its `through`, or that same year without one. IDE and
+// SDE are each a window of four yearly looks, drawn as one span. A gate is done
+// once any qualification it names is ticked (an IDE candidate has no looks
+// left) and prints struck rather than as something still ahead.
 #let held(keys) = keys.any(k => k in quals.education)
 #let gates = (
-  (yg: 3, name: "Cyber 200", board: false, by: ("cyber_200",)),
+  (yg: 6, through: 8, name: "Cyber 200", board: false, by: ("cyber_200",)),
   (yg: 4, name: "SOS window", board: false, by: ("sos",)),
   (yg: 9, name: "Maj board", board: true, by: ()),
   (yg: 9, name: "Cyber 300", board: false, by: ("cyber_300",)),
   (yg: 12, name: "Lt Col board", board: true, by: ()),
-).map(g => (..g, year: board-yg + g.yg, done: held(g.by)))
+).map(g => (..g, year: board-yg + g.yg, due: board-yg + g.at("through", default: g.yg), done: held(g.by)))
 // A course whose year has passed unticked is what a rater most needs to see, so
-// it stands before the window, in the rail, saying when it was due. A passed
+// it stands before the window, in the rail, saying when it is due. A passed
 // board is history.
 #let gates = if laddered {
   gates.map(g => (..g, overdue: not g.board and not g.done and g.year < start-year))
 } else { () }
-#let looks = ("1st", "2nd", "3rd", "final")
+#let looks = ("1st\u{a0}Look", "2nd\u{a0}Look", "3rd\u{a0}Look", "Last\u{a0}Look")
 #let windows = if laddered {
   (
     (yg: 8, name: "IDE", by: ("ide_candidate", "ide_graduate")),
@@ -157,7 +158,7 @@
   let claim(body) = qm.region(gate-field(g.by), body)
   let plain-mark(body, ..style) = box(inset: (x: 0.5pt, y: 2pt), text(size: mark-size, ..style, claim(body)))
   if g.overdue {
-    plain-mark([#g.name, due #g.year], weight: 600, style: "italic")
+    plain-mark([#g.name, due #g.due], weight: 600, style: "italic")
   } else if g.done {
     plain-mark(strike(stroke: 0.5pt + mute, g.name), fill: mute)
   } else if g.board {
@@ -167,9 +168,9 @@
   }
 }
 
-// A window is one span over its looks in the chart, split by year and named
-// once. Looks already past are history and the span opens at the left edge;
-// looks past the window run it open into the right.
+// A window is one span over its looks in the chart, split by year, each look
+// named in full. Looks already past are history and the span opens at the left
+// edge; looks past the window run it open into the right.
 #let window-mark(w, shown) = qm.region(gate-field(w.by), {
   let paint = if w.done { mute } else { ink }
   let edge = 0.5pt + paint
@@ -185,8 +186,8 @@
       columns: (1fr,) * shown.len(),
       inset: (x: mark-inset, y: 2pt),
       stroke: (x, _) => (left: if x > 0 { 0.4pt + hair }),
-      ..shown.enumerate().map(((n, k)) => {
-        let name = [#if n == 0 [#w.name~]#looks.at(k)]
+      ..shown.map(k => {
+        let name = [#w.name #looks.at(k)]
         text(size: mark-size, weight: 600, fill: paint, if w.done { strike(stroke: 0.5pt + mute, name) } else { name })
       }),
     ),
