@@ -178,7 +178,9 @@ schema:
               description: "Degree and field of study."
             location: *location
             details:
-              <<: *details
+              type: richtext
+              shape: blocks
+              default: ""
               description: "Honors, activities, or coursework. Most entries need none."
         example:
           - school: Mars University
