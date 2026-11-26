@@ -9,22 +9,27 @@ concurrency:
   group: release
   cancel-in-progress: false
 
+# The jobs split by the right each holds. `build` installs, gates and packs with
+# read access alone, so no dependency's code runs where a tag push or a publish
+# token can be made. `publish` checks out nothing and installs nothing from the
+# lockfile: it uploads the tarball `build` packed.
 jobs:
-  prepare:
+  build:
     if: >-
       github.event.pull_request.merged == true
       && startsWith(github.event.pull_request.head.ref, 'release/v')
       && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     outputs:
       version: ${{ steps.version.outputs.next }}
+      tgz: ${{ steps.pack.outputs.tgz }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0
           ref: ${{ github.event.pull_request.merge_commit_sha }}
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -42,18 +47,98 @@ jobs:
           echo "next=$NEXT" >> "$GITHUB_OUTPUT"
           echo "Releasing v${NEXT}"
 
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Pack
+        id: pack
+        run: |
+          mkdir -p "$RUNNER_TEMP/pack"
+          npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP/pack" >/dev/null
+          echo "tgz=$(basename "$RUNNER_TEMP"/pack/*.tgz)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release
+          path: ${{ runner.temp }}/pack/
+          if-no-files-found: error
+
+  # Before `publish`, so a failed publish leaves a tag that is deleted, where a
+  # published version with no tag could not be taken back.
+  tag:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
       - name: Tag and push
         env:
-          VERSION: ${{ steps.version.outputs.next }}
+          VERSION: ${{ needs.build.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag -a "v${VERSION}" -m "Release v${VERSION}"
           git push origin "v${VERSION}"
 
+  publish-npm:
+    needs: [build, tag]
+    runs-on: ubuntu-latest
+    environment: publish
+    permissions:
+      id-token: write
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Upgrade npm for Trusted Publishers
+        run: npm install -g npm@12.2.3
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release
+          path: ${{ runner.temp }}/pack
+
+      # A version already on the registry is skipped, so the job is safe to re-run.
+      - name: Publish @airmark/quiver (trusted publisher, with provenance)
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+          TGZ: ${{ needs.build.outputs.tgz }}
+        run: |
+          if [ "$(npm view "@airmark/quiver@${VERSION}" version 2>/dev/null)" = "$VERSION" ]; then
+            echo "@airmark/quiver@${VERSION} is already on the registry; nothing to publish."
+            exit 0
+          fi
+          if [[ "$VERSION" == *-* ]]; then
+            npm publish "$RUNNER_TEMP/pack/$TGZ" --access public --provenance --tag next
+          else
+            npm publish "$RUNNER_TEMP/pack/$TGZ" --access public --provenance
+          fi
+
+  release:
+    needs: [build, publish-npm]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          persist-credentials: false
+
       - name: Extract release notes
         env:
-          VERSION: ${{ steps.version.outputs.next }}
+          VERSION: ${{ needs.build.outputs.version }}
         run: |
           awk -v v="## v${VERSION}" \
             '$0 ~ "^"v {f=1; next} /^## / && f {exit} f {print}' \
@@ -63,54 +148,18 @@ jobs:
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ steps.version.outputs.next }}
+          VERSION: ${{ needs.build.outputs.version }}
         run: |
           if [[ "$VERSION" == *-* ]]; then
             gh release create "v${VERSION}" \
+              --repo "$GITHUB_REPOSITORY" \
               --title "v${VERSION}" \
               --notes-file notes.md \
               --prerelease
           else
             gh release create "v${VERSION}" \
+              --repo "$GITHUB_REPOSITORY" \
               --title "v${VERSION}" \
               --notes-file notes.md \
               --latest
-          fi
-
-  publish-npm:
-    needs: [prepare]
-    runs-on: ubuntu-latest
-    environment: publish
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: v${{ needs.prepare.outputs.version }}
-          persist-credentials: false
-
-      - name: Setup Node
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: 24
-          registry-url: https://registry.npmjs.org
-
-      - name: Install
-        run: npm ci
-
-      - name: Test
-        run: npm test
-
-      - name: Upgrade npm for Trusted Publishers
-        run: npm install -g npm@12.2.3
-
-      - name: Publish @airmark/quiver (trusted publisher, with provenance)
-        env:
-          VERSION: ${{ needs.prepare.outputs.version }}
-        run: |
-          if [[ "$VERSION" == *-* ]]; then
-            npm publish --access public --provenance --tag next
-          else
-            npm publish --access public --provenance
           fi
